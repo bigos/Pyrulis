@@ -1,1 +1,1 @@
-This repo is for playing with programming languages.
+This is a repo for playing with programming languages.
