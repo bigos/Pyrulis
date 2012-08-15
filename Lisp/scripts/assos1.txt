@@ -1,0 +1,182 @@
++++ class Backup < ActiveRecord::Base
+  belongs_to :backup_schedule
+  has_many :backup_disks
+  has_many :disks, :through => :backup_disks
++++ class BackupDisk < ActiveRecord::Base
+  belongs_to :backup
+  belongs_to :disk
++++ class BackupSchedule < ActiveRecord::Base
+  belongs_to :virtual_machine
+  belongs_to :storage_group
+  has_many :backups
++++ class Cluster < ActiveRecord::Base
+  has_many :hypervisor_groups
+  has_many :hypervisor_zones, :through => :hypervisor_groups
+  has_many :storage_groups
+  has_many :hypervisor_nodes, :through => :hypervisor_zones
+  has_many :storage_nodes, :through => :storage_groups
+  has_many :virtual_machines, :through => :hypervisor_nodes
+  has_many :queue_items
++++ class Disk < ActiveRecord::Base
+  has_one :virtual_machine_disk
+  has_one :virtual_machine, :through => :virtual_machine_disk
+  has_one :backup_disk
+  has_one :backup, :through => :backup_disk
+  belongs_to :storage_node
+  belongs_to :owner
++++ class Firewall < ActiveRecord::Base
+  has_many :virtual_network_interface_firewalls
+  has_many :virtual_network_interfaces, :through => :virtual_network_interface_firewalls
+  belongs_to :owner
+  has_many :firewall_rules
++++ class FirewallRule < ActiveRecord::Base
+  belongs_to :firewall
++++ class HypervisorClass < ActiveRecord::Base
+  has_many :hypervisor_groups
+  has_many :hypervisor_class_allowances
++++ class HypervisorClassAllowance < ActiveRecord::Base
+  belongs_to :hypervisor_class
+  belongs_to :owner
+  has_many :hypervisor_groups, :through => :hypervisor_class
+  has_many :hypervisor_zones, :through => :hypervisor_groups
+  has_many :ip_pools, :through => :hypervisor_zones
+  has_many :ip_addresses, :through => :ip_pools
+  has_many :virtual_machines, :through => :hypervisor_zones
++++ class HypervisorGroup < ActiveRecord::Base
+  belongs_to :cluster
+  belongs_to :hypervisor_class
+  has_many :hypervisor_zones
+  has_many :hypervisor_nodes, :through => :hypervisor_zones
++++ class HypervisorNode < ActiveRecord::Base
+  belongs_to :hypervisor_zone
+  has_many :queue_items
+  has_many :virtual_machines
++++ class HypervisorZone < ActiveRecord::Base
+  has_many :virtual_machines
+  has_many :hypervisor_nodes
+  has_many :ip_pools
+  has_many :ip_addresses, :through => :ip_pools
+  has_many :storage_class_permissions
+  has_many :storage_classes, :through => :storage_class_permissions
+  has_many :os_templates, :through => :storage_classes
+  has_many :storage_groups, :through => :storage_classes 
+  has_many :private_networks
+  has_many :ipv6_pools
+  belongs_to :hypervisor_group
++++ class IpAddress < ActiveRecord::Base
+  belongs_to :ip_pool
+  has_many :ip_address_assignments
+  has_many :virtual_network_interfaces, :through => :ip_address_assignments
+  has_many :virtual_machines, :through => :virtual_network_interfaces
+  belongs_to :owner
++++ class IpAddressAssignment < ActiveRecord::Base
+  belongs_to :ip_address
+  belongs_to :virtual_network_interface
++++ class IpPool < ActiveRecord::Base
+  has_many :ip_addresses
+  belongs_to :hypervisor_zone
++++ class Ipv6Pool < ActiveRecord::Base
+  belongs_to :owner
+  belongs_to :hypervisor_zone
++++ class License < ActiveRecord::Base
+  has_many :os_template_licenses
+  has_many :license_allowances
++++ class LicenseAllowance < ActiveRecord::Base
+  belongs_to :owner
+  belongs_to :license
++++ class Message < ActiveRecord::Base
+  belongs_to :subject, :polymorphic => true
++++ class OsTemplate < ActiveRecord::Base
+  has_many :virtual_machines
+  belongs_to :storage_class
+  has_many :os_template_licenses
+  has_many :licenses, :through => :os_template_licenses
++++ class OsTemplateLicense < ActiveRecord::Base
+  belongs_to :os_template
+  belongs_to :license
++++ class Owner < ActiveRecord::Base
+  has_many :virtual_machines
+  has_many :backup_schedules, :through => :virtual_machines
+  has_many :backups, :through => :backup_schedules
+  has_many :ip_addresses
+  has_many :private_networks
+  has_many :firewalls
+  has_many :hypervisor_class_allowances
+  has_many :hypervisor_classes, :through => :hypervisor_class_allowances
+  has_many :hypervisor_groups, :through => :hypervisor_classes
+  has_many :hypervisor_zones, :through => :hypervisor_groups
+  has_many :storage_class_allowances
+  has_many :storage_classes, :through => :storage_class_allowances
+  has_many :storage_groups, :through => :storage_classes
+  has_many :storage_nodes, :through => :storage_groups
+  has_many :license_allowances
+  has_many :disks
+  has_many :ipv6_pools
++++ class PrivateNetwork < ActiveRecord::Base
+  belongs_to :hypervisor_zone
+  belongs_to :owner
+  has_many :virtual_network_interfaces
+  has_many :virtual_machines, :through => :virtual_network_interfaces
++++ class Product < ActiveRecord::Base
++++ class Purchase < ActiveRecord::Base
++++ class QueueItem < ActiveRecord::Base
+  belongs_to :subject, :polymorphic => true
+  belongs_to :cluster
++++ class StorageClass < ActiveRecord::Base
+  has_many :storage_groups
+  has_many :storage_nodes, :through => :storage_groups
+  has_many :disks, :through => :storage_nodes
+  has_many :os_templates
+  has_many :storage_class_allowances
+  has_many :storage_class_permissions
+  has_many :hypervisor_zones, :through => :storage_class_permissions
+  has_many :hypervisor_nodes, :through => :hypervisor_zones
++++ class StorageClassAllowance < ActiveRecord::Base
+  belongs_to :owner
+  belongs_to :storage_class
+  has_many :storage_groups, :through => :storage_class
+  has_many :storage_nodes, :through => :storage_groups
+  has_many :disks, :through => :storage_nodes
++++ class StorageClassPermission < ActiveRecord::Base
+  belongs_to :hypervisor_zone
+  belongs_to :storage_class
++++ class StorageGroup < ActiveRecord::Base
+  has_many :storage_nodes
+  has_many :disks, :through => :storage_nodes
+  has_many :storage_class_permissions
+  belongs_to :cluster
+  belongs_to :storage_class
++++ class StorageNode < ActiveRecord::Base
+  belongs_to :storage_group
+  has_many :storage_permissions
+  has_many :disks
++++ class UserAccount < ActiveRecord::Base
+  has_many :virtual_machines
+  has_many :ip_addresses
++++ class VirtualMachine < ActiveRecord::Base
+  belongs_to :hypervisor_node
+  belongs_to :os_template
+  belongs_to :owner
+  belongs_to :hypervisor_zone
+  has_many :virtual_machine_disks
+  has_many :disks, :through => :virtual_machine_disks
+  has_many :virtual_network_interfaces
+  has_many :ip_address_assignments, :through => :virtual_network_interfaces
+  has_many :ip_addresses, :through => :ip_address_assignments
+  has_many :queue_items
+  has_many :messages
+  has_many :backup_schedules
+  has_many :backups, :through => :backup_schedules
++++ class VirtualMachineDisk < ActiveRecord::Base
+  belongs_to :virtual_machine
+  belongs_to :disk
++++ class VirtualNetworkInterface < ActiveRecord::Base
+  belongs_to :virtual_machine
+  belongs_to :private_network
+  has_many :virtual_network_interface_firewalls
+  has_many :firewalls, :through => :virtual_network_interface_firewalls
+  has_many :ip_address_assignments
+  has_many :ip_addresses, :through => :ip_address_assignments
++++ class VirtualNetworkInterfaceFirewall < ActiveRecord::Base
+  belongs_to :virtual_network_interface
+  belongs_to :firewall
