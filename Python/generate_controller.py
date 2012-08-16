@@ -19,5 +19,24 @@ def guess_singular(plural):
     else:
         return entered
 
-def to_underscored=s(camel_string):
-    ### to be continued...
+def to_underscores(camel_string):
+    cap_str='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    capitals = []
+    result = ''
+    for x in cap_str:
+        capitals.append(x)
+    for letter in camel_string:
+        if letter.isupper():
+            result += ('_' + letter.lower())
+        else:
+            result += letter
+
+    result.strip('_')
+    print result
+
+
+            
+        
+    
+
+to_underscores('DailyStruggleReport')
