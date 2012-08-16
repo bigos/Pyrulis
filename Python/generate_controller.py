@@ -19,3 +19,5 @@ def guess_singular(plural):
     else:
         return entered
 
+def to_underscored=s(camel_string):
+    ### to be continued...
