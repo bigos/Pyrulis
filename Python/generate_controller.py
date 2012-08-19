@@ -30,13 +30,7 @@ def to_underscores(camel_string):
             result += ('_' + letter.lower())
         else:
             result += letter
-
-    result.strip('_')
-    print result
-
-
-            
-        
+    return result.strip('_')
     
 
-to_underscores('DailyStruggleReport')
+print to_underscores('DailyStruggleReport')
