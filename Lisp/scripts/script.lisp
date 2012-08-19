@@ -19,16 +19,6 @@
 
 
 
-(list '(index  (plu_under) all)
-      '(show () find (params id))
-      '(new () new)
-      '(edit () find (params ))
-      '(create ()  new (params sing-under)
-	(if sing-under save))
-      '(update () find (params id)
-	(if sing-under update_attrinutes (params sing-under)))
-      '(destroy () find (params id)
-	(sing-under destroy)))
 
 (defun generate (sing_camel sing_under plu_camel plu_under)  
   (let* ((methods `(("index" "all" )
