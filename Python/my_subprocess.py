@@ -44,3 +44,11 @@ def prettify(elem):
     return reparsed.toprettyxml(indent="  ")
 
 print(prettify (top))
+
+
+def recursive_files(psth, level = 0)
+
+
+# http://docs.python.org/library/os.html?highlight=listdir#os.listdir
+path = "/home/jack/Programming/Pyrulis"
+recursive_files (path)
