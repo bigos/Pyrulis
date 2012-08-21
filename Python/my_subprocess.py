@@ -3,8 +3,10 @@
 
 import subprocess, os, tempfile
 
-a = subprocess.call('ls -l /'.split(' '))
 
-output = subprocess.Popen('ls -l /'.split(' '), stdout=subprocess.PIPE).communicate()[0]
-print("\n\nresult of runing above command\n\n")
-print (output)
+
+output = subprocess.Popen('df -h'.split(' '), stdout=subprocess.PIPE).communicate()[0]
+
+print ('your root partition usage:')
+print (output.split("\n"))[1]
+print
