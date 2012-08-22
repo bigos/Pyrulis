@@ -56,11 +56,12 @@ def each_file(path,top):
             tagname = 'File'                   
         fchild = ElementTree.Element(tagname)
         top.append(fchild)
-        fchild.text = file
+ 
         if os.path.isdir(fullPath) == True:
             fchild.attrib['directory_name'] = file
         else:
             print ("{0}  {1} {2}".format(type(fchild), str(fchild), dir(fchild)))
+            fchild.text = file
             fchild.attrib['size'] = "{0}".format(size)
         print('{0} {1} {2}'.format(fullPath, size, sizeCount))
         if os.path.isdir(fullPath) == True:
