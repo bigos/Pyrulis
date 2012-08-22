@@ -19,36 +19,54 @@ output = subprocess.Popen(('du -ab '+path).split(' '), stdout=subprocess.PIPE).c
 
 #lines = output.split("\n")
 
+from xml.etree import ElementTree
+from xml.dom import minidom
+def prettify(elem):
+    """Return a pretty-printed XML string for the Element.
+    """
+    rough_string = ElementTree.tostring(elem, 'utf-8')
+    reparsed = minidom.parseString(rough_string)
+    return reparsed.toprettyxml(indent="  ")
 
-rootdir = '/home/jack/Programming/Pyrulis/'
+
+rootdir = '/home/jack/Programming/Pyrulis/Lisp'
 fileList = []
 fileSize = 0
 folderCount = 0
-# sizeCount = 0 won't work - why?
+# sizeCount = 0 #won't work - why?
 sizeCount = os.lstat(rootdir).st_size
 
 
+top = ElementTree.Element('xyz')
+
 print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
 
-def each_file(path):
+def each_file(path,top):
+    global sizeCount
+    fname = path.split('/')[-1]
+    par = ElementTree.SubElement(top,fname)
+    par.text = fname
     files = os.listdir(path)
-    #print(files)
     for file in files:
         fullPath = os.path.join(path,file)
-        size = os.lstat(fullPath).st_size
-        global sizeCount
+        size = os.lstat(fullPath).st_size        
         sizeCount += size
+        fchild = ElementTree.SubElement(par,file)
+        fchild.text = file
         print('{0} {1} {2}'.format(fullPath, size, sizeCount))
         if os.path.isdir(fullPath) == True:
-            each_file(fullPath)
+            print('^ dir')
+            each_file(fullPath,top)
+    print('descending V V V V V '+ path)
+    return top
 
-each_file(rootdir)
+
+each_file(rootdir,top)
 print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ {0}'.format(sizeCount))
+print ElementTree.tostring(top)
+print(prettify (top))
 
-
-##############################################
-from xml.etree import ElementTree
-from xml.dom import minidom
+print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ')
 
 top = ElementTree.Element('top')
 
@@ -67,12 +85,6 @@ child_with_entity_ref.text = 'This & that'
 
 print ElementTree.tostring(top)
 
-def prettify(elem):
-    """Return a pretty-printed XML string for the Element.
-    """
-    rough_string = ElementTree.tostring(elem, 'utf-8')
-    reparsed = minidom.parseString(rough_string)
-    return reparsed.toprettyxml(indent="  ")
 
 print(prettify (top))
 
