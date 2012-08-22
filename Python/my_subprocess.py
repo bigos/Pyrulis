@@ -14,6 +14,9 @@ path = '/home/jack/Programming/Pyrulis'
 output = subprocess.Popen(('du -sb '+path).split(' '), stdout=subprocess.PIPE).communicate()[0]
 print( "disk usage: {0} bytes".format(output.split("\t")[0]))
 
+output = subprocess.Popen(('du -ab '+path).split(' '), stdout=subprocess.PIPE).communicate()[0]
+print ('all files: '+output)
+
 
 
 from xml.etree import ElementTree
@@ -46,9 +49,7 @@ def prettify(elem):
 print(prettify (top))
 
 
-def recursive_files(psth, level = 0)
+
 
 
 # http://docs.python.org/library/os.html?highlight=listdir#os.listdir
-path = "/home/jack/Programming/Pyrulis"
-recursive_files (path)
