@@ -20,33 +20,30 @@ output = subprocess.Popen(('du -ab '+path).split(' '), stdout=subprocess.PIPE).c
 #lines = output.split("\n")
 
 
-
+rootdir = '/home/jack/Programming/Pyrulis/'
 fileList = []
 fileSize = 0
 folderCount = 0
-sizeCount = 0
-rootdir = '/home/jack/Programming/Pyrulis/Lisp'
+# sizeCount = 0 won't work - why?
+sizeCount = os.lstat(rootdir).st_size
+
 
 print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-# als = 0 this won't work
-als = os.lstat(rootdir).st_size
+
 def each_file(path):
     files = os.listdir(path)
     #print(files)
     for file in files:
-        ppp = os.path.join(path,file)
-        ss = os.lstat(ppp).st_size
-        global als
-        als += ss
-        print('{0} {1} {2}'.format(ppp, ss, als))
-        if os.path.isdir(ppp) == True:
-            try:
-                each_file(ppp)
-            except:
-                print('-------------')
+        fullPath = os.path.join(path,file)
+        size = os.lstat(fullPath).st_size
+        global sizeCount
+        sizeCount += size
+        print('{0} {1} {2}'.format(fullPath, size, sizeCount))
+        if os.path.isdir(fullPath) == True:
+            each_file(fullPath)
 
 each_file(rootdir)
-print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ {0}'.format(als))
+print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ {0}'.format(sizeCount))
 
 
 ##############################################
