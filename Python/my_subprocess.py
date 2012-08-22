@@ -1,6 +1,6 @@
 #! /usr/bin/python
     
-import subprocess, os, tempfile
+import subprocess, os, tempfile, sys
 
 # disk usage on mounted filesystems
 output = subprocess.Popen('df -h'.split(' '), stdout=subprocess.PIPE).communicate()[0]
@@ -19,14 +19,26 @@ print (output)
 
 lines = output.split("\n")
 
-for v in iter(lines):
-    try:
-        print(">> "+v.split("\t")[1]+"\n")
-    except:
-        print 'ooooooooops'
 
 
+fileList = []
+fileSize = 0
+folderCount = 0
+sizeCount = 0
+rootdir = '/home/jack/Programming/Pyrulis'
 
+
+for root, subFolders, files in os.walk(rootdir):
+    folderCount += len(subFolders)
+    for file in files:
+        #2/0
+        fullPath = os.path.join(root,file)
+        fileSize = os.lstat(fullPath).st_size 
+        sizeCount += fileSize
+        print("{0} \t size: {1} bytes   {2}".format( fullPath, fileSize, folderCount ))
+
+
+print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> {0}".format(sizeCount))
 
 ##############################################
 from xml.etree import ElementTree
