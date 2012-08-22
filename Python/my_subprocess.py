@@ -12,12 +12,12 @@ print
 # disk usage in a directory
 path = '/home/jack/Programming/Pyrulis'
 output = subprocess.Popen(('du -sb '+path).split(' '), stdout=subprocess.PIPE).communicate()[0]
-print( "disk usage: {0} bytes".format(output.split("\t")[0]))
+#print( "disk usage: {0} bytes".format(output.split("\t")[0]))
 
 output = subprocess.Popen(('du -ab '+path).split(' '), stdout=subprocess.PIPE).communicate()[0]
-print (output)
+#print (output)
 
-lines = output.split("\n")
+#lines = output.split("\n")
 
 
 
@@ -25,20 +25,29 @@ fileList = []
 fileSize = 0
 folderCount = 0
 sizeCount = 0
-rootdir = '/home/jack/Programming/Pyrulis'
+rootdir = '/home/jack/Programming/Pyrulis/Lisp'
 
-
-for root, subFolders, files in os.walk(rootdir):
-    folderCount += len(subFolders)
+print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+# als = 0 this won't work
+als = os.lstat(rootdir).st_size
+def each_file(path):
+    files = os.listdir(path)
+    #print(files)
     for file in files:
-        #2/0
-        fullPath = os.path.join(root,file)
-        fileSize = os.lstat(fullPath).st_size 
-        sizeCount += fileSize
-        print("{0} \t size: {1} bytes   {2}".format( fullPath, fileSize, folderCount ))
+        ppp = os.path.join(path,file)
+        ss = os.lstat(ppp).st_size
+        global als
+        als += ss
+        print('{0} {1} {2}'.format(ppp, ss, als))
+        if os.path.isdir(ppp) == True:
+            try:
+                each_file(ppp)
+            except:
+                print('-------------')
 
+each_file(rootdir)
+print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ {0}'.format(als))
 
-print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> {0}".format(sizeCount))
 
 ##############################################
 from xml.etree import ElementTree
