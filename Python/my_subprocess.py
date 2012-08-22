@@ -54,7 +54,8 @@ def each_file(path,top):
             tagname = 'Directory'
         else:
             tagname = 'File'                   
-        fchild = ElementTree.SubElement(top,tagname)
+        fchild = ElementTree.Element(tagname)
+        top.append(fchild)
         fchild.text = file
         if os.path.isdir(fullPath) == True:
             fchild.attrib['directory_name'] = file
