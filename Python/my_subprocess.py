@@ -29,7 +29,7 @@ def prettify(elem):
     return reparsed.toprettyxml(indent="  ")
 
 
-rootdir = '/home/jack/Programming/Pyrulis/Lisp'
+rootdir = '/home/jack/Documents/Design'
 fileList = []
 fileSize = 0
 folderCount = 0
@@ -37,27 +37,25 @@ folderCount = 0
 sizeCount = os.lstat(rootdir).st_size
 
 
-top = ElementTree.Element('xyz')
+top = ElementTree.Element('FilesForWarren')
 
 print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
 
 def each_file(path,top):
     global sizeCount
-    fname = path.split('/')[-1]
-    par = ElementTree.SubElement(top,fname)
-    par.text = fname
     files = os.listdir(path)
     for file in files:
         fullPath = os.path.join(path,file)
         size = os.lstat(fullPath).st_size        
         sizeCount += size
-        fchild = ElementTree.SubElement(par,file)
+        fchild = ElementTree.SubElement(top,file.split('.')[0])
         fchild.text = file
         print('{0} {1} {2}'.format(fullPath, size, sizeCount))
         if os.path.isdir(fullPath) == True:
+            fname = path.split('/')[-1]
+
             print('^ dir')
-            each_file(fullPath,top)
-    print('descending V V V V V '+ path)
+            each_file(fullPath,fchild)
     return top
 
 
