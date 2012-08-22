@@ -15,10 +15,20 @@ output = subprocess.Popen(('du -sb '+path).split(' '), stdout=subprocess.PIPE).c
 print( "disk usage: {0} bytes".format(output.split("\t")[0]))
 
 output = subprocess.Popen(('du -ab '+path).split(' '), stdout=subprocess.PIPE).communicate()[0]
-print ('all files: '+output)
+print (output)
+
+lines = output.split("\n")
+
+for v in iter(lines):
+    try:
+        print(">> "+v.split("\t")[1]+"\n")
+    except:
+        print 'ooooooooops'
 
 
 
+
+##############################################
 from xml.etree import ElementTree
 from xml.dom import minidom
 
