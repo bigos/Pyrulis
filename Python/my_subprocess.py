@@ -21,6 +21,8 @@ output = subprocess.Popen(('du -ab '+path).split(' '), stdout=subprocess.PIPE).c
 
 from xml.etree import ElementTree
 from xml.dom import minidom
+import xml.dom 
+
 def prettify(elem):
     """Return a pretty-printed XML string for the Element.
     """
@@ -48,8 +50,17 @@ def each_file(path,top):
         fullPath = os.path.join(path,file)
         size = os.lstat(fullPath).st_size        
         sizeCount += size
-        fchild = ElementTree.SubElement(top,file.split('.')[0])
+        if os.path.isdir(fullPath) == True:
+            tagname = 'Directory'
+        else:
+            tagname = 'File'                   
+        fchild = ElementTree.SubElement(top,tagname)
         fchild.text = file
+        if os.path.isdir(fullPath) == True:
+            fchild.attrib['directory_name'] = file
+        else:
+            print ("{0}  {1} {2}".format(type(fchild), str(fchild), dir(fchild)))
+            fchild.attrib['size'] = "{0}".format(size)
         print('{0} {1} {2}'.format(fullPath, size, sizeCount))
         if os.path.isdir(fullPath) == True:
             fname = path.split('/')[-1]
