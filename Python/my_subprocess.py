@@ -43,64 +43,34 @@ top = ElementTree.Element('FilesForWarren')
 
 print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
 
-def each_file(path,top):
+def each_file(path, parent):
     global sizeCount
     files = os.listdir(path)
     for file in files:
         fullPath = os.path.join(path,file)
         size = os.lstat(fullPath).st_size        
         sizeCount += size
-        if os.path.isdir(fullPath) == True:
+        # xml stuff
+        if os.path.isdir(fullPath):
             tagname = 'Directory'
         else:
             tagname = 'File'                   
-        fchild = ElementTree.Element(tagname)
-        top.append(fchild)
+        child = ElementTree.SubElement(parent, tagname)
  
-        if os.path.isdir(fullPath) == True:
-            fchild.attrib['directory_name'] = file
+        if os.path.isdir(fullPath):
+            child.attrib['directory_name'] = file
         else:
-            print ("{0}  {1} {2}".format(type(fchild), str(fchild), dir(fchild)))
-            fchild.text = file
-            fchild.attrib['size'] = "{0}".format(size)
-        print('{0} {1} {2}'.format(fullPath, size, sizeCount))
-        if os.path.isdir(fullPath) == True:
-            fname = path.split('/')[-1]
-
-            print('^ dir')
-            each_file(fullPath,fchild)
-    return top
+            child.text = file
+            child.attrib['size'] = "{0}".format(size)
+        
+        #print('{0} {1} {2}'.format(fullPath, size, sizeCount))
+        if os.path.isdir(fullPath):
+            each_file(fullPath, child)
+    
 
 
 each_file(rootdir,top)
-print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ {0}'.format(sizeCount))
-print ElementTree.tostring(top)
+print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ {0}\n\n".format(sizeCount))
+#print ElementTree.tostring(top)
 print(prettify (top))
 
-print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ')
-
-top = ElementTree.Element('top')
-
-comment = ElementTree.Comment('Generated for PyMOTW')
-top.append(comment)
-
-child = ElementTree.SubElement(top, 'child')
-child.text = 'This child contains text.'
-
-child_with_tail = ElementTree.SubElement(top, 'child_with_tail')
-child_with_tail.text = 'This child has regular text.'
-child_with_tail.tail = 'And "tail" text.'
-
-child_with_entity_ref = ElementTree.SubElement(top, 'child_with_entity_ref')
-child_with_entity_ref.text = 'This & that'
-
-print ElementTree.tostring(top)
-
-
-print(prettify (top))
-
-
-
-
-
-# http://docs.python.org/library/os.html?highlight=listdir#os.listdir
