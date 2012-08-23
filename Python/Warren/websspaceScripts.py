@@ -59,6 +59,7 @@ def each_file(argpath,parent):
 rootdir = '/home/jack/Documents/Design'
 sizeCount = 0
 top = ElementTree.Element('MoreFilesForWarren')
+top.attrib['path'] = rootdir
 # with this function I can start with sizeCount 0
 each_file(rootdir,top)
 print("disk usage for {0} {1} bytes\n".format(rootdir,sizeCount))
