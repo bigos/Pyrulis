@@ -19,6 +19,7 @@ output = subprocess.Popen(('du -ab '+path).split(' '), stdout=subprocess.PIPE).c
 
 #lines = output.split("\n")
 
+########################################
 from xml.etree import ElementTree
 from xml.dom import minidom
 import xml.dom 
@@ -31,63 +32,34 @@ def prettify(elem):
     return reparsed.toprettyxml(indent="  ")
 
 
-rootdir = '/home/jack/Documents/Design'
-fileList = []
-fileSize = 0
-folderCount = 0
-# sizeCount = 0 #won't work - why?
-sizeCount = os.lstat(rootdir).st_size
-
-
-top = ElementTree.Element('FilesForWarren')
-
-print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-
-def each_file(path, parent):
+def each_file(argpath,parent):
     global sizeCount
-    files = os.listdir(path)
-    for file in files:
-        fullPath = os.path.join(path,file)
-        size = os.lstat(fullPath).st_size        
-        sizeCount += size
-        # xml stuff
-        if os.path.isdir(fullPath):
-            tagname = 'Directory'
-        else:
-            tagname = 'File'                   
-        child = ElementTree.SubElement(parent, tagname)
- 
-        if os.path.isdir(fullPath):
-            child.attrib['directory_name'] = file
-        else:
-            child.text = file
-            child.attrib['size'] = "{0}".format(size)
-        
-        #print('{0} {1} {2}'.format(fullPath, size, sizeCount))
-        if os.path.isdir(fullPath):
-            each_file(fullPath, child)
-    
+    size = os.lstat(argpath).st_size   
+    argfile =  argpath.split('/')[-1]
+    sizeCount += size
+    #print(">>> "+argpath)
+    if os.path.isdir(argpath):
+        tagname = 'Directory'
+    else:
+        tagname = 'File'                   
+    child = ElementTree.SubElement(parent, tagname)
+    if os.path.isdir(argpath):
+        child.attrib['name'] = argfile
+    else:
+        child.text = argfile
+        child.attrib['size'] = "{0}".format(size)
 
-each_file(rootdir,top)
-print("disk usage of {0} {1} bytes\n\n".format(rootdir, sizeCount))
-#print ElementTree.tostring(top)
-print(prettify (top))
-########################################
-
-
-def new_rec(argpath,top):
-    print(">>> "+argpath)
     if os.path.isdir(argpath):
         files = os.listdir(argpath)
         for file in files:
             path = os.path.join(argpath,file)
-            new_rec(path,top)
+            each_file(path,child)
 
 
-
-
-
+rootdir = '/home/jack/Documents/Design'
+sizeCount = 0
 top = ElementTree.Element('MoreFilesForWarren')
-new_rec(rootdir,top)
-
-
+# with this function I can start with sizeCount 0
+each_file(rootdir,top)
+print("disk usage for {0} {1} bytes\n".format(rootdir,sizeCount))
+print(prettify (top))
