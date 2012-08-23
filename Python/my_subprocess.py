@@ -68,9 +68,26 @@ def each_file(path, parent):
             each_file(fullPath, child)
     
 
-
 each_file(rootdir,top)
 print("disk usage of {0} {1} bytes\n\n".format(rootdir, sizeCount))
 #print ElementTree.tostring(top)
 print(prettify (top))
+########################################
+
+
+def new_rec(argpath,top):
+    print(">>> "+argpath)
+    if os.path.isdir(argpath):
+        files = os.listdir(argpath)
+        for file in files:
+            path = os.path.join(argpath,file)
+            new_rec(path,top)
+
+
+
+
+
+top = ElementTree.Element('MoreFilesForWarren')
+new_rec(rootdir,top)
+
 
