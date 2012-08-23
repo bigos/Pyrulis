@@ -63,3 +63,8 @@ top = ElementTree.Element('MoreFilesForWarren')
 each_file(rootdir,top)
 print("disk usage for {0} {1} bytes\n".format(rootdir,sizeCount))
 print(prettify (top))
+
+
+### zip command ################
+#  zip -r  myzipfile.zip ./    #
+################################
