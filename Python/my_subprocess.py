@@ -12,10 +12,10 @@ print
 # disk usage in a directory
 path = '/home/jack/Programming/Pyrulis'
 output = subprocess.Popen(('du -sb '+path).split(' '), stdout=subprocess.PIPE).communicate()[0]
-#print( "disk usage: {0} bytes".format(output.split("\t")[0]))
+print( "disk usage: for{0} {1} bytes".format(path, output.split("\t")[0]))
 
 output = subprocess.Popen(('du -ab '+path).split(' '), stdout=subprocess.PIPE).communicate()[0]
-#print (output)
+#print ("files and sizes: {0}".format(output))
 
 #lines = output.split("\n")
 
@@ -70,7 +70,7 @@ def each_file(path, parent):
 
 
 each_file(rootdir,top)
-print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ {0}\n\n".format(sizeCount))
+print("disk usage of {0} {1} bytes\n\n".format(rootdir, sizeCount))
 #print ElementTree.tostring(top)
 print(prettify (top))
 
