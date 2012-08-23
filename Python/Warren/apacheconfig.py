@@ -77,6 +77,19 @@ class ApacheConfig(object):
             if indent >= 0:
                 print "    " * indent + self.name + " " + " ".join(self.values)
 
+    
+    def each_node(self):
+        """Recursively traverse nodes.
+        """
+        if self.section:
+            print self.name+' ###  '+str(self.values)
+            for child in self.children:
+                child.each_node()
+        else:
+            if self.name == 'AddType':
+                self.values[-1] = 'rb'
+            else:
+                print self.name+'  '+str(self.values)
 
     @classmethod
     def parse_file(cls, file):
