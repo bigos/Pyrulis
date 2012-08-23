@@ -78,18 +78,34 @@ class ApacheConfig(object):
                 print "    " * indent + self.name + " " + " ".join(self.values)
 
     
-    def each_node(self):
-        """Recursively traverse nodes.
+    def change_values(self,element_name,val):
+        """my code for recursive changing of config values
         """
         if self.section:
             print self.name+' ###  '+str(self.values)
             for child in self.children:
-                child.each_node()
+                child.change_values(element_name,val)
         else:
-            if self.name == 'AddType':
-                self.values[-1] = 'rb'
+            if self.name == element_name:
+                self.values[-1] = val
             else:
                 print self.name+'  '+str(self.values)
+
+  
+    def get_values(self,element_name, l = 0):
+        """trying to get config values
+        """
+        global nv
+        print(">>>> {0} <<<<<>>> {1} <<<<<<<<{2}   {3}\n".format(element_name,self.name, type(self.name), l ))
+        if self.section:
+            for child in self.children:
+                child.get_values(element_name, l + 1)
+        else:
+            print(">>>> {0} <<<<<>>> {1} <<<<<<<<{2}   {3}\n".format(element_name,self.name, type(self.name), l ))
+            if self.name == element_name:
+                print('@@@@@@@@@@@@@@@@@@@@ {0} == {1} {2}'.format(self.name, element_name, str(self.values)))
+                  
+
 
     @classmethod
     def parse_file(cls, file):
