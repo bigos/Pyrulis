@@ -41,7 +41,6 @@ def day_log()
     `sudo cp /var/log/apache2/sample_file.txt   /var/log/apache2/my_access.log`
   end
   touch_log_files()
-
 end
 
 day_log()
