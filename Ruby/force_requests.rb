@@ -12,34 +12,40 @@ def get_web_page(address, page, user_agent = 'logrotation_tester' )
   return  response.body
 end
 
-# request many pages
-many = 50
-many.times do |x|
-  get_web_page('127.0.0.1', '/index.html', "logrotation_tester-#{x}" )
-end
+def touch_log_files()
+  # get logrotated files
+  logdir = '/var/log/apache2'
+  dir = Dir.new logdir
+  files = []
+  dir.each do |fn|
+    files << fn if fn =~ /\A.+\.log\.\d+/
+  end
 
-many.times do |x|
-  get_web_page('127.0.0.1', '/wrong-index.html', "logrotation_tester-#{x}" )
-end
-
-# get logrotated files
-logdir = '/var/log/apache2'
-dir = Dir.new logdir
-files = []
-dir.each do |fn|
-  if fn =~ /\A.+\.log\.\d+/
-    files << fn
+  now = Date.today
+  files.each do |f|
+    md = /log\.\d+/.match f
+    lognum = (/\d+/.match md.to_s).to_s
+    #puts "#{f}   #{lognum}"
+    date = (now - lognum.to_i)
+    command = "sudo touch -d #{date} #{logdir}/#{f}"
+    #p command
+    `#{command}`
   end
 end
-#p files
 
-now = Date.today
-files.each do |f|
-  md = /log\.\d+/.match f
-  lognum = (/\d+/.match md.to_s).to_s
-  #puts "#{f}   #{lognum}"
-  date = (now - lognum.to_i)
-  command = "sudo touch -d #{date} #{logdir}/#{f}"
-  p command
-  `#{command}`
+def day_log()
+  many = 200
+  many.times do |y|
+    get_web_page('127.0.0.1', '/index.html', "logrotation_tester-#{y}" )
+    get_web_page('127.0.0.1', '/wrong-index.html', "logrotation_tester-#{y}" )
+  end
+  touch_log_files()
 end
+
+40.times do |x|
+  day_log()
+  puts "\n\n#{x}: *****************************************\n\n"
+  #`sudo logrotate -v -f ./logrotate_apache2.txt `
+  `sudo logrotate -v -f /etc/logrotate.d/apache2` 
+end
+`sudo logrotate -v -f /etc/logrotate.d/apache2` 
