@@ -34,20 +34,15 @@ def touch_log_files()
 end
 
 def day_log()
-  many = 0
+  many = 20
   many.times do |y|
-    get_web_page('127.0.0.1', '/index.html', "logrotation_tester-#{y}" )
-    get_web_page('127.0.0.1', '/wrong-index.html', "logrotation_tester-#{y}" )
+    #get_web_page('127.0.0.1', '/index.html', "logrotation_tester-#{y}" )
+    #get_web_page('127.0.0.1', '/wrong-index.html', "logrotation_tester-#{y}" )
+    `sudo cp /var/log/apache2/sample_file.txt   /var/log/apache2/my_access.log`
   end
-  `sudo cp /var/log/apache2/sample_file.txt   /var/log/apache2/my_access.log`
   touch_log_files()
+
 end
 
-8.times do |x|
-  day_log()
-  puts "\n\n#{x}: *****************************************\n\n"
-   `sudo logrotate -v -f ./logrotate_apache2.txt ` 
-end
-# `sudo logrotate -v -f /etc/logrotate.d/apache2` 
-# `sudo logrotate -v -f ./logrotate_apache3.txt ` 
-
+day_log()
+  `sudo logrotate -v -f ./logrotate_apache2.txt `
