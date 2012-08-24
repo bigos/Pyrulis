@@ -3,17 +3,9 @@
 
 from apacheconfig import ApacheConfig 
 
-config = ApacheConfig.parse_file('vserver.conf')
+dt = ApacheConfig.parse_file('vserver.conf')
+config = dt[0]
 config.print_r()
+for el in dt[1]:
+    print(  el.name + str(el.values) )
 
-config.change_values('AddType','rb')
-
-print('_______________________________________')
-
-config.print_r()
-
-
-print('~~~~~~~~~~~')
-w = config.get_values('ErrorLog')
-
-print("{0}         {1}".format(type(w), str(w) ))

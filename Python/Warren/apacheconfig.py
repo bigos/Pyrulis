@@ -12,6 +12,7 @@ class ApacheConfig(object):
         self.children = []
         self.values = values
         self.section = section
+        
 
 
     def add_child(self, child):
@@ -95,16 +96,16 @@ class ApacheConfig(object):
     def get_values(self,element_name, l = 0):
         """trying to get config values
         """
-        global nv
-        print(">>>> {0} <<<<<>>> {1} <<<<<<<<{2}   {3}\n".format(element_name,self.name, type(self.name), l ))
+        res = False
+        if self.name == element_name:
+            print(">>>> {0} <<<<<>>> {1} <<<<<<<<{2} -------  {3} {4}\n".format(element_name,self.name, type(self.name), l, str(self.values) ))
+            return self
         if self.section:
             for child in self.children:
-                child.get_values(element_name, l + 1)
-        else:
-            print(">>>> {0} <<<<<>>> {1} <<<<<<<<{2}   {3}\n".format(element_name,self.name, type(self.name), l ))
-            if self.name == element_name:
-                print('@@@@@@@@@@@@@@@@@@@@ {0} == {1} {2}'.format(self.name, element_name, str(self.values)))
-                  
+                res = child.get_values(element_name, l + 1)   
+
+
+        return self        
 
 
     @classmethod
@@ -127,6 +128,7 @@ class ApacheConfig(object):
     @classmethod
     def _parse(cls, itobj):
         root = node = ApacheConfig('', section=True)
+        all_nodes = []
         for line in itobj:
             line = line.strip()
             if (len(line) == 0) or cls.re_comment.match(line):
@@ -136,6 +138,7 @@ class ApacheConfig(object):
             if match:
                 values = match.group("value").split()
                 new_node = ApacheConfig(match.group("name"), values=values, section=True)
+                all_nodes.append(new_node)
                 node = node.add_child(new_node)
                 continue
             match = cls.re_section_end.match(line)
@@ -147,6 +150,7 @@ class ApacheConfig(object):
             values = line.split()
             name = values.pop(0)
             node.add_child(ApacheConfig(name, values=values, section=False))
-        return root
+            all_nodes.append(ApacheConfig(name, values=values, section=False))
+        return [root, all_nodes]
 
 
