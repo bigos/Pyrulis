@@ -92,20 +92,7 @@ class ApacheConfig(object):
             else:
                 print self.name+'  '+str(self.values)
 
-  
-    def get_values(self,element_name, l = 0):
-        """trying to get config values
-        """
-        res = False
-        if self.name == element_name:
-            print(">>>> {0} <<<<<>>> {1} <<<<<<<<{2} -------  {3} {4}\n".format(element_name,self.name, type(self.name), l, str(self.values) ))
-            return self
-        if self.section:
-            for child in self.children:
-                res = child.get_values(element_name, l + 1)   
-
-
-        return self        
+   
 
 
     @classmethod
