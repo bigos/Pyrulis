@@ -4,11 +4,7 @@
 from parse_apacheconfig import ApacheConfig 
 
 print("\n\n")
-results = ApacheConfig.parse_file('vserver.conf')
-config = results[0]
-all_nodes = results[1]
 
-#config.print_r()
 
 def find_parent(all_nodes,objid):
     for el in all_nodes:
@@ -16,7 +12,7 @@ def find_parent(all_nodes,objid):
             if id(child) == objid:
                 return id(el)
 
-def print_info(el):
+def print_info(el,all_nodes):
     print("zzzzzzz {0}  values: {1} id: {2} parent_id: {3}".format(el.name,str(el.values),id(el),find_parent(all_nodes,id(el))))
     
 def my_change_values(obj, val):
@@ -43,20 +39,3 @@ def find(all_nodes, name):
     return(node_list)
 
 
-
-for el in all_nodes:
-    if el.section:
-        #print( el.name + str(el.values) + str(id(el) ))
-        print_info(el)
-        if len(el.children) > 0:
-            print('>> children: >>')
-            for x in el.children:
-                #print( x.name + str(x.values) + str(id(el) ))
-                print_info(x)
-            print("\n")
-
-lst = find(all_nodes,'Order')
-
-print(str(lst))
-for x in lst:
-    print( x.name)
