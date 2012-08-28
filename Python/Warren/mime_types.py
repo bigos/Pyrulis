@@ -33,6 +33,14 @@ def list_mime_types(all_nodes):
             mime_types.append(el.values[0])
     return mime_types
 
+def add_mime_type(all_nodes,mime_type):
+    pass
+def remove_mime_type(all_nodes,mime_type):
+    for el in all_nodes:
+        if el.name == 'AddType':
+            if el.values[0] == mime_type:
+                del el
+
 def mime_type_extentions(all_nodes,mime_type):
     for el in all_nodes:
         if el.values[0] == mime_type:
@@ -61,4 +69,7 @@ append_extention(all_nodes, mime,'rails')
 config.print_r()
 
 remove_extention(all_nodes, mime,'htm5')
+config.print_r()
+
+remove_mime_type(all_nodes,'text/scheme')
 config.print_r()
