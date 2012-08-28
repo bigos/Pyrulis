@@ -7,12 +7,11 @@ class ApacheConfig(object):
     re_section_end = re.compile(r"""^</(?P<name>[^\s>]+)\s*>$""")
     #re_statement = re.compile(r"""^(?P<name>[^\s]+)\s*(?P<value>.+)?$""")
 
-    def __init__(self, name, values=[], section=False):
+    def __init__(self, name, values=[], section=False, parent_id=False):
         self.name = name
         self.children = []
         self.values = values
-        self.section = section
-        
+        self.section = section        
         
 
 
@@ -105,13 +104,13 @@ class ApacheConfig(object):
             line = line.strip()
             if (len(line) == 0) or cls.re_comment.match(line):
                 continue
-
             match = cls.re_section_start.match(line)
             if match:
                 values = match.group("value").split()
                 new_node = ApacheConfig(match.group("name"), values=values, section=True)
                 all_nodes.append(new_node)
                 node = node.add_child(new_node)
+                
                 continue
             match = cls.re_section_end.match(line)
             if match:

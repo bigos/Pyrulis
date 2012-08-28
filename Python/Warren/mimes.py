@@ -7,21 +7,29 @@ results = ApacheConfig.parse_file('vserver.conf')
 config = results[0]
 all_nodes = results[1]
 
-config.print_r()
+#config.print_r()
+
+def find_parent(all_nodes,objid):
+    for el in all_nodes:
+        for child in el.children:
+            if id(child) == objid:
+                return id(el)
 
 for el in all_nodes:
     if el.section:
-        print( el.name + str(el.values))
+        #print( el.name + str(el.values) + str(id(el) ))
+        print("zzzzzzz {0}  values: {1} id: {2} parent_id: {3}".format(el.name,str(el.values),id(el),find_parent(all_nodes,id(el))))
         if len(el.children) > 0:
             print('>>>')
             for x in el.children:
-                print( x.name + str(x.values))
+                #print( x.name + str(x.values) + str(id(el) ))
+                print("zzzzzzz {0}  values: {1} id: {2} parent_id: {3}".format(x.name,str(x.values),id(x),find_parent(all_nodes,id(x))))
             print('<<<')
+
+
 
     
 def my_change_values(obj, val):
-    """my code for recursive changing of config values
-    """
     element_id = id(obj)
     if obj.section:
         print obj.name+' ###  '+str(obj.values)
@@ -35,15 +43,14 @@ def my_change_values(obj, val):
         else:
             print obj.name+'  '+str(obj.values)
 
-
 def find(all_nodes, name):   
     for el in all_nodes:
         if el.name == name:
             
             print('!!!!!!!!!!!!!!! '+  el.name + str(el.values) )
             my_change_values(el,'eeeeeeeee rrrrr ttttt')
-            config.print_r()
+            #config.print_r()
 
 
 
-find(all_nodes,'Allow')
+#find(all_nodes,'Allow')
