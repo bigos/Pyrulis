@@ -1,7 +1,7 @@
 #! /usr/bin/python
 
 
-from apacheconfig import ApacheConfig 
+from parse_apacheconfig import ApacheConfig 
 
 print("\n\n")
 results = ApacheConfig.parse_file('vserver.conf')
