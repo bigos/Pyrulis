@@ -1,7 +1,6 @@
 /var/log/apache2/*.log {
 	size 100k
-	compress
-	rotate 20
+	rotate 6
 	missingok
 	notifempty
 	create 640 root geoff

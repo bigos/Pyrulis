@@ -1,8 +1,8 @@
-/var/log/apache2/*.log {
+/var/log/apache2/*.log.6 {
 	size 100k
 	missingok
-	rotate 40
-	delaycompress
+	rotate 60
+	compress
 	notifempty
 	create 640 root jack
 	sharedscripts
