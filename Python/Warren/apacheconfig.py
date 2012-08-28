@@ -78,26 +78,7 @@ class ApacheConfig(object):
         else:
             if indent >= 0:
                 print "    " * indent + self.name + " " + " ".join(self.values)
-
-    
-    def change_values(self,element_id,val):
-        """my code for recursive changing of config values
-        """
-        if self.section:
-            print self.name+' ###  '+str(self.values)
-            for child in self.children:
-                child.change_values(element_id,val)
-        else:
-            if id(self) == element_id:
-                ln = len(self.values)
-                for x in range(1,ln):
-                    self.values.pop()
-                self.values.append(str(val))
-            else:
-                print self.name+'  '+str(self.values)
-
-   
-
+  
 
     @classmethod
     def parse_file(cls, file):
@@ -140,8 +121,9 @@ class ApacheConfig(object):
                 continue
             values = line.split()
             name = values.pop(0)
-            node.add_child(ApacheConfig(name, values=values, section=False))
-            all_nodes.append(ApacheConfig(name, values=values, section=False))
+            child = ApacheConfig(name, values=values, section=False)
+            node.add_child( child )
+            all_nodes.append( child )
         return [root, all_nodes]
 
 
