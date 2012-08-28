@@ -5,6 +5,11 @@ from parse_apacheconfig import ApacheConfig
 
 print("\n\n")
 
+def find_parent_obj(all_nodes,objid):
+    for el in all_nodes:
+        for child in el.children:
+            if id(child) == objid:
+                return (el)
 
 def find_parent(all_nodes,objid):
     for el in all_nodes:
@@ -36,5 +41,4 @@ def find(all_nodes, name):
             node_list.append(el)
             #print('!!!! found !!!!!!!!!!! '+  el.name + str(el.values) )            
     return(node_list)
-
 

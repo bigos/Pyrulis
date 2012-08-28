@@ -39,7 +39,10 @@ def remove_mime_type(all_nodes,mime_type):
     for el in all_nodes:
         if el.name == 'AddType':
             if el.values[0] == mime_type:
-                del el
+                print('aaaaaaaaaaaaaaaaah'+el.values[0])
+                parent = find_parent_obj(all_nodes,id(el))
+                parent.children.remove(el)
+                
 
 def mime_type_extentions(all_nodes,mime_type):
     for el in all_nodes:
@@ -72,4 +75,5 @@ remove_extention(all_nodes, mime,'htm5')
 config.print_r()
 
 remove_mime_type(all_nodes,'text/scheme')
+print('rrrrrrrrrrrrrrrrrr')
 config.print_r()
