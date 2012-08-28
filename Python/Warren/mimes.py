@@ -3,6 +3,7 @@
 
 from apacheconfig import ApacheConfig 
 
+print("\n\n")
 results = ApacheConfig.parse_file('vserver.conf')
 config = results[0]
 all_nodes = results[1]
@@ -15,16 +16,19 @@ def find_parent(all_nodes,objid):
             if id(child) == objid:
                 return id(el)
 
+def print_info(el):
+    print("zzzzzzz {0}  values: {1} id: {2} parent_id: {3}".format(el.name,str(el.values),id(el),find_parent(all_nodes,id(el))))
+
 for el in all_nodes:
     if el.section:
         #print( el.name + str(el.values) + str(id(el) ))
-        print("zzzzzzz {0}  values: {1} id: {2} parent_id: {3}".format(el.name,str(el.values),id(el),find_parent(all_nodes,id(el))))
+        print_info(el)
         if len(el.children) > 0:
-            print('>>>')
+            print('>> children: >>')
             for x in el.children:
                 #print( x.name + str(x.values) + str(id(el) ))
-                print("zzzzzzz {0}  values: {1} id: {2} parent_id: {3}".format(x.name,str(x.values),id(x),find_parent(all_nodes,id(x))))
-            print('<<<')
+                print_info(x)
+            print("\n")
 
 
 
