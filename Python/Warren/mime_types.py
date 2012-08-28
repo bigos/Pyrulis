@@ -34,12 +34,11 @@ def list_mime_types(all_nodes):
             mime_types.append(el.values[0])
     return mime_types
 
-def add_mime_type(all_nodes,parent,mime_type, extentions):
+def add_mime_type(all_nodes,parent,mime_type):
     for el in all_nodes:
         if id(el) == id(parent):
-            child = el.add_child
-            child.name = 'AddType'
-            child.values = extentions.split()
+            child = ApacheConfig('AddType', values=mime_type, section=False)
+            el.add_child(child)
     
 def remove_mime_type(all_nodes,mime_type):
     for el in all_nodes:
@@ -84,5 +83,5 @@ remove_mime_type(all_nodes,'text/scheme')
 print('rrrrrrrrrrrrrrrrrr')
 config.print_r()
 
-add_mime_type(all_nodes, top_obj, 'text/scss', 'css scss'
+add_mime_type(all_nodes, top_obj, ['text/scss', 'css', 'scss'])
 config.print_r()
