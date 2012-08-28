@@ -37,9 +37,21 @@ def mime_type_extentions(all_nodes,mime_type):
     for el in all_nodes:
         if el.values[0] == mime_type:
             return el.values[1:]
+
+def append_extentions(all_nodes,mime_type,extention):
+    for el in all_nodes:
+        if el.name == 'AddType':
+            if el.values[0] == mime_type:
+                el.values.append(extention)
+        
+
+
+
 ########################################
 print('found mime types: '+str(list_mime_types(all_nodes)))
 
 mime='text/html'
 print('extentions for '+mime+' : '+str(mime_type_extentions(all_nodes,mime)))
 
+append_extentions(all_nodes, mime,'rails')
+config.print_r()
