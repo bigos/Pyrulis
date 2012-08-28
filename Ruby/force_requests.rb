@@ -43,9 +43,11 @@ def day_log()
   touch_log_files()
 end
 
-70.times do
-  day_log()
-  `sudo cp /var/log/apache2/sample_file.txt   /var/log/apache2/my_access.log`
-  `sudo logrotate -v -f ./logrotate_apache2.txt `
+10.times do
+  7.times do
+    day_log()
+    `sudo cp /var/log/apache2/sample_file.txt   /var/log/apache2/my_access.log`
+    `sudo logrotate -v -f ./logrotate_apache2.txt `
+  end
   `sudo logrotate -v -f ./logrotate_apache3.txt `
 end
