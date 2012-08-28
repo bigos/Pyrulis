@@ -18,20 +18,6 @@ def find_parent(all_nodes,objid):
 
 def print_info(el):
     print("zzzzzzz {0}  values: {1} id: {2} parent_id: {3}".format(el.name,str(el.values),id(el),find_parent(all_nodes,id(el))))
-
-for el in all_nodes:
-    if el.section:
-        #print( el.name + str(el.values) + str(id(el) ))
-        print_info(el)
-        if len(el.children) > 0:
-            print('>> children: >>')
-            for x in el.children:
-                #print( x.name + str(x.values) + str(id(el) ))
-                print_info(x)
-            print("\n")
-
-
-
     
 def my_change_values(obj, val):
     element_id = id(obj)
@@ -47,14 +33,30 @@ def my_change_values(obj, val):
         else:
             print obj.name+'  '+str(obj.values)
 
-def find(all_nodes, name):   
+def find(all_nodes, name):  
+    node_list = []
     for el in all_nodes:
         if el.name == name:
-            
+            node_list.append(el)
             print('!!!!!!!!!!!!!!! '+  el.name + str(el.values) )
             my_change_values(el,'eeeeeeeee rrrrr ttttt')
-            #config.print_r()
+    return(node_list)
 
 
 
-#find(all_nodes,'Allow')
+for el in all_nodes:
+    if el.section:
+        #print( el.name + str(el.values) + str(id(el) ))
+        print_info(el)
+        if len(el.children) > 0:
+            print('>> children: >>')
+            for x in el.children:
+                #print( x.name + str(x.values) + str(id(el) ))
+                print_info(x)
+            print("\n")
+
+lst = find(all_nodes,'Order')
+
+print(str(lst))
+for x in lst:
+    print( x.name)
