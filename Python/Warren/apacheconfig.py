@@ -13,6 +13,7 @@ class ApacheConfig(object):
         self.values = values
         self.section = section
         
+        
 
 
     def add_child(self, child):
@@ -79,16 +80,19 @@ class ApacheConfig(object):
                 print "    " * indent + self.name + " " + " ".join(self.values)
 
     
-    def change_values(self,element_name,val):
+    def change_values(self,element_id,val):
         """my code for recursive changing of config values
         """
         if self.section:
             print self.name+' ###  '+str(self.values)
             for child in self.children:
-                child.change_values(element_name,val)
+                child.change_values(element_id,val)
         else:
-            if self.name == element_name:
-                self.values[-1] = val
+            if id(self) == element_id:
+                ln = len(self.values)
+                for x in range(1,ln):
+                    self.values.pop()
+                self.values.append(str(val))
             else:
                 print self.name+'  '+str(self.values)
 
