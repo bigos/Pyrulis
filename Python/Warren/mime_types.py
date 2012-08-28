@@ -7,6 +7,7 @@ print("\n\n")
 results = ApacheConfig.parse_file('vserver.conf')
 config = results[0]
 all_nodes = results[1]
+top_obj = all_nodes[0]
 #config.print_r()
 
 for el in all_nodes:
@@ -33,8 +34,13 @@ def list_mime_types(all_nodes):
             mime_types.append(el.values[0])
     return mime_types
 
-def add_mime_type(all_nodes,mime_type):
-    pass
+def add_mime_type(all_nodes,parent,mime_type, extentions):
+    for el in all_nodes:
+        if id(el) == id(parent):
+            child = el.add_child
+            child.name = 'AddType'
+            child.values = extentions.split()
+    
 def remove_mime_type(all_nodes,mime_type):
     for el in all_nodes:
         if el.name == 'AddType':
@@ -76,4 +82,7 @@ config.print_r()
 
 remove_mime_type(all_nodes,'text/scheme')
 print('rrrrrrrrrrrrrrrrrr')
+config.print_r()
+
+add_mime_type(all_nodes, top_obj, 'text/scss', 'css scss'
 config.print_r()
