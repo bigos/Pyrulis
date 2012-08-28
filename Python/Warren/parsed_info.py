@@ -34,8 +34,7 @@ def find(all_nodes, name):
     for el in all_nodes:
         if el.name == name:
             node_list.append(el)
-            print('!!!!!!!!!!!!!!! '+  el.name + str(el.values) )
-            my_change_values(el,'eeeeeeeee rrrrr ttttt')
+            #print('!!!! found !!!!!!!!!!! '+  el.name + str(el.values) )            
     return(node_list)
 
 
