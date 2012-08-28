@@ -10,14 +10,7 @@ all_nodes = results[1]
 top_obj = all_nodes[0]
 #config.print_r()
 
-for el in all_nodes:
-    if el.section:
-        print_info(el,all_nodes)
-        if len(el.children) > 0:
-            print('>> children: >>')
-            for x in el.children:
-                print_info(x,all_nodes)
-        print("\n")
+
 
 print("\n\n\n")
 lst = find(all_nodes,'AddType')
