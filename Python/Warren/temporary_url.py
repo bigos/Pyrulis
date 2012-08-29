@@ -33,13 +33,12 @@ add_temporary_url(all_nodes, top_obj, 'one-example-com.temporaryurl.com')
 
 remove_temporary_url(all_nodes, top_obj, 'remove-me.example.com')
 
+tops = found_top_objects(all_nodes)
+# adding directives to the other virtual server
+add_directive(all_nodes,tops[1],'AddMe',['hope','it','works'])
+
 print("")
 config.print_r()
 
 
 
-
-print("\nfound top objects")
-tpo = found_top_objects(all_nodes)
-for el in tpo:
-    print("------------> {0} {1} ".format(el.name,str(el.values)))
