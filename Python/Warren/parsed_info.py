@@ -57,9 +57,12 @@ def change_values(all_nodes,parent,name, values):
                 for nv in values:
                     el.values.append(nv)
 
-def find_top_objects(all_nodes):
+def found_top_objects(all_nodes):
     found = []
     for el in all_nodes:
         if find_parent_obj(all_nodes,id(el)) is None:
             found.append(el)
     return found
+
+
+    

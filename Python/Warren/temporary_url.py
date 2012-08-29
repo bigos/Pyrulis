@@ -38,11 +38,8 @@ config.print_r()
 
 
 
-for el in all_nodes:
-    print("zzzzzzz {0}  values: {1} id: {2} parent_id: {3}".format(el.name,str(el.values),id(el),find_parent_obj(all_nodes,id(el))))
 
-
-tpo = find_top_objects(all_nodes)
+print("\nfound top objects")
+tpo = found_top_objects(all_nodes)
 for el in tpo:
-    print(str(el))
     print("------------> {0} {1} ".format(el.name,str(el.values)))
