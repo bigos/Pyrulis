@@ -1,6 +1,5 @@
 #! /usr/bin/python
 
-
 from parse_apacheconfig import ApacheConfig
 
 print("\n\n")
