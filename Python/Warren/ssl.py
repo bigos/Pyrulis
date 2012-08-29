@@ -8,6 +8,18 @@ results = ApacheConfig.parse_file('vserver.conf')
 config = results[0]
 all_nodes = results[1]
 top_obj = all_nodes[0]
-#config.print_r()
+
+config.print_r()
+
+# http://httpd.apache.org/docs/2.2/ssl/ssl_howto.html#strongurl
 
 
+
+################################################
+
+
+remove_directive(all_nodes,top_obj,'SSLEngine')
+
+add_directive(all_nodes,top_obj,'MyTest',['test'])
+
+config.print_r()
