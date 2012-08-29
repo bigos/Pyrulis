@@ -10,7 +10,7 @@ def find_parent_obj(all_nodes,objid):
             if id(child) == objid:
                 return (el)
 
-def print_info(el,all_nodes):
+def print_info(all_nodes, el):
     print("zzzzzzz {0}  values: {1} id: {2} parent_id: {3}".format(el.name,str(el.values),id(el),find_parent_objid(all_nodes,id(el))))
 
 def my_change_values(obj, val):
@@ -46,6 +46,7 @@ def remove_directive(all_nodes,parent,name):
         if parent == find_parent_obj(all_nodes,id(el)):
             if el.name == name:
                 parent.children.remove(el)    
+                all_nodes.remove(el)
 
 def change_values(all_nodes,parent,name, values):
     for el in all_nodes:
@@ -55,3 +56,10 @@ def change_values(all_nodes,parent,name, values):
                     el.values.remove(v)
                 for nv in values:
                     el.values.append(nv)
+
+def find_top_objects(all_nodes):
+    found = []
+    for el in all_nodes:
+        if find_parent_obj(all_nodes,id(el)) is None:
+            found.append(el)
+    return found
