@@ -22,7 +22,7 @@ remove_directive(all_nodes,top_obj,'SSLCipherSuite')
 
 change_values(all_nodes,top_obj,'SSLEngine',['off'])
 
-add_directive(all_nodes,top_obj,'MyTest',['test'])
+add_directive(all_nodes,top_obj,'SSLMyTest',['test'])
 
 print("")
 config.print_r()
