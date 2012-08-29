@@ -22,7 +22,8 @@ def remove_temporary_url(all_nodes,top_obj, url):
     for el in all_nodes:
         if el.name == 'ServerAlias' and el.values[0] == url:
             parent = find_parent_obj(all_nodes,id(el))
-            parent.children.remove(el)    
+            parent.children.remove(el)  
+            all_nodes.remove(el)
 
             
 
@@ -37,3 +38,11 @@ config.print_r()
 
 
 
+for el in all_nodes:
+    print("zzzzzzz {0}  values: {1} id: {2} parent_id: {3}".format(el.name,str(el.values),id(el),find_parent_obj(all_nodes,id(el))))
+
+
+tpo = find_top_objects(all_nodes)
+for el in tpo:
+    print(str(el))
+    print("------------> {0} {1} ".format(el.name,str(el.values)))
