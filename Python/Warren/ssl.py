@@ -18,8 +18,11 @@ config.print_r()
 ################################################
 
 
-remove_directive(all_nodes,top_obj,'SSLEngine')
+remove_directive(all_nodes,top_obj,'SSLCipherSuite')
+
+change_values(all_nodes,top_obj,'SSLEngine',['off'])
 
 add_directive(all_nodes,top_obj,'MyTest',['test'])
 
+print("")
 config.print_r()

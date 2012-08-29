@@ -48,8 +48,11 @@ def remove_directive(all_nodes,parent,name):
             if el.name == name:
                 parent.children.remove(el)    
 
-def change_values(objid, values):
+def change_values(all_nodes,parent,name, values):
     for el in all_nodes:
-        if id(el) == objid:
-            el.values = values
-            
+        if parent == find_parent_obj(all_nodes,id(el)):
+            if el.name == name:
+                for v in el.values:
+                    el.values.remove(v)
+                for nv in values:
+                    el.values.append(nv)
