@@ -1,0 +1,17 @@
+/var/log/apache2/*.log.6 {
+	size 100k
+	missingok
+	rotate 60
+	compress
+	notifempty
+	create 640 root jack
+	sharedscripts
+	postrotate
+		/etc/init.d/apache2 reload > /dev/null
+	endscript
+	prerotate
+		if [ -d /etc/logrotate.d/httpd-prerotate ]; then \
+			run-parts /etc/logrotate.d/httpd-prerotate; \
+		fi; \
+	endscript
+}
