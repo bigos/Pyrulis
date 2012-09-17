@@ -1,7 +1,3 @@
-;; This buffer is for notes you don't want to save, and for Lisp evaluation.
-;; If you want to create a file, visit that file with C-x C-f,
-;; then enter the text in that file's own buffer.
-
 
 (defun read-lines (file-path)
   (let ((structures))
@@ -10,11 +6,41 @@
 		 (read-line stream nil)))
 	  ((null line))
 	(setq structures (concatenate 'list structures (list line)))))
-    (car (list  structures)))
+    (car (list  structures))))
 
+(defun load-file (path) 
+  (with-output-to-string (out)
+    (with-open-file (in path)
+      (loop with buffer = (make-array 8192 :element-type 'character)
+	 for n-characters = (read-sequence buffer in)
+	 while (< 0 n-characters)
+	 do (write-sequence buffer out :start 0 :end n-characters))) ))
+
+(defun create-structures (file-path) 
+  (let ((structures) (s) (x) (y))
+    (block my-block
+      (with-open-file (stream file-path)
+	(do ((line (read-line stream nil)
+		   (read-line stream nil)))
+	    ((null line))
+	  (setq line (string-trim " " line))
+	  (format T ">>>>>>> ~A~%" line)
+	  (unless  (search "-" line :start1 0 :end1 1 )
+	    (progn (unless (string= line "")
+		     (progn (setq x (subseq line 0 (search " " line)))
+			    (setq y (subseq line (search " " line :from-end t) (length line)))))
+		   (setq s (concatenate 'list s (list ( list x y)))))
+	    (progn (setq structures (concatenate 'list structures s))
+		   (setq s ())))))
+      (return-from my-block structures))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (defun main ()
-    (let* ((file-path "/home/jacek/Programming/PuzzleTest/data.txt"))
-      (format T "~S~%" (read-lines file-path))
-      )))
+  
+(defun main ()
+  (let* ((file-path "/home/jacek/Programming/PuzzleTest/data.txt") (res))
+    (format T "~S~%" (load-file file-path))
+    (setq res (create-structures file-path))
+    
+(format T "~%############################## ~S ~%" res )
+    ))
+
 
