@@ -24,23 +24,30 @@
 		   (read-line stream nil)))
 	    ((null line))
 	  (setq line (string-trim " " line))
-	  (format T ">>>>>>> ~A~%" line)
 	  (unless  (search "-" line :start1 0 :end1 1 )
 	    (progn (unless (string= line "")
 		     (progn (setq x (subseq line 0 (search " " line)))
-			    (setq y (subseq line (search " " line :from-end t) (length line)))))
-		   (setq s (concatenate 'list s (list ( list x y)))))
+			    (setq y (subseq line (+ 1 (search ">" line))))))
+		   (setq s (concatenate 'list s (list (list (string-trim " " x) 
+							    (string-trim " " y))))))
 	    (progn (setq structures (concatenate 'list structures s))
-		   (setq s ())))))
+		   (setq s nil)))))
       (return-from my-block structures))))
+
+(defun dump (structures)
+  (dolist (str structures)
+    (format t "~A~%" str)
+    )
+  )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   
 (defun main ()
-  (let* ((file-path "/home/jacek/Programming/PuzzleTest/data.txt") (res))
+  (let* ((file-path "/home/jacek/Programming/PuzzleTest/data.txt") (structures))
     (format T "~S~%" (load-file file-path))
-    (setq res (create-structures file-path))
+    (setq structures (create-structures file-path))    
+    (format T "~%############################## ~S ~%" structures )
+    ; (dump structures)
     
-(format T "~%############################## ~S ~%" res )
     ))
 
 
