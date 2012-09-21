@@ -16,23 +16,25 @@
 	 while (< 0 n-characters)
 	 do (write-sequence buffer out :start 0 :end n-characters))) ))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun create-structures (file-path) 
-  (let ((structures) (s) (x) (y) )     
+  (let ((structures) (s) (x) (y))     
     (with-open-file (stream file-path)
       (do ((line (read-line stream nil)
 		 (read-line stream nil)))
 	  ((null line))
-	(setq line (string-trim " " line))
-	(unless  (search "-" line :start1 0 :end1 1 )
-	  (progn (unless (string= line "")
-		   (progn (setq x (string-trim " " (subseq line 0 (search " " line))))
-			  (setq y (string-trim " " (subseq line (+ 1 (search ">" line)))))))
-		 (setq s (concatenate 'list s (list (list x (if (equal y "") nil y))))))
-	  (progn (setq structures (concatenate 'list structures s))
-		 (setq s nil)))))
-    (car (list structures))))
+	(setq line (string-trim " " line))	
+	(format t "~A~%" line)
+	(if (not (search "-" line :start1 0 :end1 1 ))	  
+	    (progn (unless (string= line "")
+		     (progn (setq x (string-trim " " (subseq line 0 (search " " line))))
+			    (setq y (string-trim " " (subseq line (+ 1 (search ">" line)))))))		
+		   (setq s (concatenate 'list  s (list (list x (if (equal y "") nil y))))))
+	    (progn
+	      (setq structures (concatenate 'list structures   (list s)))
+	      (setq s nil)))))
+    (setq structures (concatenate 'list structures (list s)))))
 
 (let ((jobs) (job-priorities))
   (defun job-collection (str)     
@@ -57,9 +59,9 @@
     (format nil "~S~%" (load-file file-path))
     (setq structures (create-structures file-path))    
     (format T "~%############################## ~S ~%" structures )
-    (job-collection (subseq structures 5 8))
-    (format T "~A~%" (job-priorities-returner))     
-    (format T "~A~%" (jobs-returner))
+    ;(job-collection (subseq structures 5 8))
+    ;(format T "~A~%" (job-priorities-returner))     
+    ;(format T "~A~%" (jobs-returner))
     ))
 
 
