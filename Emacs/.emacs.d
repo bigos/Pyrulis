@@ -1,1 +1,0 @@
-/home/jacek/.emacs.d
