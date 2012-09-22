@@ -28,8 +28,8 @@
 	(if (not (search "-" line :start1 0 :end1 1 ))	  
 	    (progn 
 	      (unless (string= line "")
-		(progn (setq x (string-trim " " (subseq line 0 (search " " line))))
-		       (setq y (string-trim " " (subseq line (+ 1 (search ">" line)))))))		
+		(progn (setq x (string-trim " " (subseq line 0 (position " " line :test #'string=))))
+		       (setq y (string-trim " " (subseq line (+ 1 (position ">" line :test #'string=)))))))		
 	      (setq s (concatenate 'list  s (list (list x (if (equal y "") nil y))))))
 	    (progn 
 	      (setq structures (concatenate 'list structures   (list s)))
@@ -63,8 +63,8 @@
     (let ((cind) (pind))
       (dolist (jp job-priorities)
 	(format t "^ ~S~%" jp)	
-	(setq cind (search (list (car jp)) jobs :test #'equalp))
-	(setq pind (search (list (cadr jp)) jobs :test #'equalp))
+	(setq cind (position  (car jp)  jobs :test #'string=))
+	(setq pind (position  (cadr jp) jobs :test #'string=))
 	(format t "~S ! ~S + ~S ~S~%" cind pind (car jp) (cadr jp))
 	(format t "c ~A p ~A~%" cind pind)
 	(if (and cind pind)
@@ -72,23 +72,7 @@
 	))) 
 
   )
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;  def validate(str)
-;    if str == '' or str == nil
-;      raise 'No arguments given'
-;    end
-;    puts
-;    puts str
-;    # check if submitted str is valid
-;    @job_priorities.each do |jp|
-;      child_index = str.index jp[:child]
-;      parent_index = str.index jp[:parent]
-;      if child_index < parent_index
-;        return false
-;      end
-;    end
-;    return true
-;  end
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   
 (defun main ()
