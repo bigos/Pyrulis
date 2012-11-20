@@ -11,20 +11,21 @@
     file-content ;;returning the value
     ))
 
-(defun get-key-list ()
-  (let ((keys-list (list "B" "KO" "MN" "W" "AB" "AE" "AW" "PL" "C" "DM" "GB" "GW" "HO" "N" "UC" "V" "BM" "DO" "IT" "TE" "AR" "CR" "DD" "LB" "LN" "MA" "SL" "SQ" "TR" "AP" "CA" "FF" "GM" "ST" "SZ" "AN" "BR" "BT" "CP" "DT" "EV" "GN" "GC" "ON" "OT" "PB" "PC" "PW" "RE" "RO" "RU" "SO" "TM" "US" "WR" "WT" "BL" "OB" "OW" "WL" "FG" "PM" "VW")))
-    keys-list))
+(defun keys-list ()
+  (list "B" "W" "C" "N" "V" 
+	"KO" "MN" "AB" "AE" "AW" "PL" "DM" "GB" "GW" "HO" "UC" "BM" 
+	"DO" "IT" "TE" "AR" "CR" "DD" "LB" "LN" "MA" "SL" "SQ" "TR" 
+	"AP" "CA" "FF" "GM" "ST" "SZ" "AN" "BR" "BT" "CP" "DT" "EV" "GN" 
+	"GC" "ON" "OT" "PB" "PC" "PW" "RE" "RO" "RU" "SO" "TM" 
+	"US" "WR" "WT" "BL" "OB" "OW" "WL" "FG" "PM" "VW"))
 
-(defun find-key (buffer pos )
-  (let ((keys (get-key-list )) (bracket) (key) (found-key))  
+(defun find-key-position (buffer pos )
+  (let ((bracket) (key-position))  
     (setf bracket (position #\[ buffer :start pos))
-    (dolist (el keys)
-      (setf key (search el buffer :start2 pos :end2 bracket))  
-      (if key (setf found-key (subseq buffer key bracket)))
-      )
-    (format t " ======= ~A === " found-key)
-    bracket
-    ))
+    (dolist (el (keys-list))
+      (setf key (search el buffer :start2 pos :end2 bracket))
+      (if key (setf key-position key)))    
+    key-position))
 
 (defun get-event-list (buffer)
   (let ((event-start) (event-end 0) (event) (all-events)
@@ -32,10 +33,12 @@
     (loop while event-end do 			
 	 (setf event-start (position #\; buffer :start event-end) )
 	 (setf event-end (position #\; buffer :start (+ event-start 1)))
-
-	 (setf key-pos (find-key buffer event-start))
-
-	 (format t "~%i'm here   ~A~%" (subseq buffer event-start event-end)))
+	 (setf key-pos (find-key-position buffer event-start))
+	 (format t "~%i'm here   ~A~%" (subseq buffer event-start event-end))
+	 (if key-pos
+	     (format t "~A <<<<<<<<<~%" 
+		     (subseq buffer key-pos 
+			     (position #\[ buffer :start key-pos)))))
     all-events))
 
 
