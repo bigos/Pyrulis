@@ -23,10 +23,11 @@
   (position #\[ buffer :start pos))
 
 (defun closing-bracket (buffer pos)
-  (let ((last-ltr #\a) (ltr))
+  (let ((last-ltr) (ltr) (next-ltr))
     (loop while (< pos  (length buffer)) do
 	 (setf ltr (char buffer pos))
-	 (if (and (eq #\] ltr) (not (eq #\\ last-ltr)))
+	 (setf next-ltr (char buffer (1+ pos)))
+	 (if (and (eq #\] ltr) (not (eq #\\ last-ltr)) (not (eq #\[ next-ltr)) )
 	     (return pos))
 	 (setf last-ltr (char buffer  pos))
 	 (incf pos))))
@@ -38,15 +39,30 @@
       (if key (progn (setf res key))))
     res))
 
+
+(defun string-to-list (str)
+  (let ((lst) (v1) (lstr (length str)) (b 0) (e 0))
+    (setf v1 (substitute #\space #\] str))
+    (setf v1 (substitute #\space #\[ v1))
+    (loop as e from 0 to lstr do
+	 (if (eq (char str x) #\space)
+	     (progn
+
+	       )
+	     )
+	 )
+    ))
+
 (defun get-key-value-position (buffer pos) 
   (let* ((key-pos) (opb) (clb) (key) (val))
     (format t "@ ~a < ~a ~A<<<<<  " pos key-pos (subseq buffer pos (+ 0 pos)))
     (setf key-pos (find-key-position buffer pos)) 
     (setf opb (opening-bracket buffer pos))  
     (setf clb (closing-bracket buffer pos)) 
-    (unless opb (quit))
     (setf key (subseq buffer key-pos opb)) 
-    (setf val (subseq buffer (1+ opb) clb))
+    (if (equalp key "AB")	
+	(setf val (string-to-list (subseq buffer (1+ opb) clb)))	  	
+	(setf val (subseq buffer (1+ opb) clb)))
     (list  (1+ clb) key val )
     ))
 
@@ -59,7 +75,7 @@
 	 (loop while (< key-pos (- (length buffer) 2))  do
 	      (if (closing-bracket buffer key-pos)	    
 		  (setf result (get-key-value-position buffer key-pos)))
-	      (format t "~A <<<~%" result)
+	      (format t "~S <<<~%" result)
 	      (setf key-pos (car result))	      
 	      ))
     all-events))
