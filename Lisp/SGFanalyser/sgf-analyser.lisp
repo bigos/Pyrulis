@@ -16,13 +16,13 @@
 	"DO" "IT" "TE" "AR" "CR" "DD" "LB" "LN" "MA" "SL" "SQ" "TR" 
 	"AP" "CA" "FF" "GM" "ST" "SZ" "AN" "BR" "BT" "CP" "DT" "EV" 
 	"GN" "GC" "ON" "OT" "PB" "PC" "PW" "RE" "RO" "RU" "SO" "TM" 
-	"US" "WR" "WT" "BL" "OB" "OW" "WL" "FG" "PM" "VW" "HA" "KM"))
+	"US" "WR" "WT" "BL" "OB" "OW" "WL" "FG" "PM" "VW" "HA" "KM" "TW" "TB"))
 
 (defun opening-bracket (buffer pos)
   (position #\[ buffer :start pos))
 
 (defun closing-bracket (buffer pos)
-  (let ((last-ltr) (ltr) (next-ltr))
+  (let ((last-ltr) (ltr) (next-ltr))    
     (loop while (< pos  (length buffer)) do
 	 (setf ltr (char buffer pos))
 	 (setf next-ltr (char buffer (1+ pos)))
@@ -40,12 +40,14 @@
 
 (defun get-key-value-position (buffer pos) 
   (let* ((key-pos) (opb) (clb) (key) (val))
-    (format t "@ ~a < ~a ~A<<<<<  " pos key-pos (subseq buffer pos (+ 0 pos)))
     (setf key-pos (find-key-position buffer pos)) 
     (setf opb (opening-bracket buffer pos))  
     (setf clb (closing-bracket buffer pos)) 
     (setf key (subseq buffer key-pos opb)) 
-    (if (equalp key "AB")	
+    (if (or (equalp key "AB") 
+	    (equalp key "AW") 
+	    (equalp key "TB") 
+	    (equalp key "TW") )	
 	(setf val (subseq buffer (1+ opb) clb))	  	
 	(setf val (subseq buffer (1+ opb) clb)))
     (list  (1+ clb) key val )
@@ -57,11 +59,12 @@
 	 (setf event-start (position #\; buffer :start event-end))
 	 (setf event-end (position #\; buffer :start (1+ event-start)))
 	 (format t "~%i'm here  ~A~%" (subseq buffer event-start event-end))
-	 (loop while (< key-pos (- (length buffer) 2))  do
+	 (loop while (< key-pos (- (length buffer) 3))  do	      
 	      (if (closing-bracket buffer key-pos)	    
 		  (setf result (get-key-value-position buffer key-pos)))
 	      (format t "~S <<<~%" result)
-	      (setf key-pos (car result))	      
+	      (if (car result) 
+		  (setf key-pos (car result)))	      
 	      ))
     all-events))
 
