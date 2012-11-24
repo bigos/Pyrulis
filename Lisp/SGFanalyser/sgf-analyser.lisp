@@ -1,6 +1,6 @@
 ;;;#! /usr/bin/sbcl --script
 (defvar *sgf-files-path* "/home/jacek/Programming/Pyrulis/Lisp/SGFanalyser/sgf_files/" )
-(defvar *data-filename* (format nil "~A/~A" *sgf-files-path* "jacekpod-coalburner.sgf") )
+(defvar *data-filename* (format nil "~A/~A" *sgf-files-path* "jacekpod-buonof.sgf") )
 
 (defun read-file-to-string (filename)
   (let ((file-content))
