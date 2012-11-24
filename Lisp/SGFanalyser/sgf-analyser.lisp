@@ -1,7 +1,6 @@
 ;;;#! /usr/bin/sbcl --script
-
-(defvar *data-filename*  "/home/jacek/Desktop/jacekpod-coalburner.sgf" )
-;;; (defvar *data-filename*  "/home/jacek/Desktop/jacekpod-kgsboy.sgf"   )
+(defvar *sgf-files-path* "/home/jacek/Programming/Pyrulis/Lisp/SGFanalyser/sgf_files/" )
+(defvar *data-filename* (format nil "~A/~A" *sgf-files-path* "jacekpod-coalburner.sgf") )
 
 (defun read-file-to-string (filename)
   (let ((file-content))
@@ -39,20 +38,6 @@
       (if key (progn (setf res key))))
     res))
 
-
-(defun string-to-list (str)
-  (let ((lst) (v1) (lstr (length str)) (b 0) (e 0))
-    (setf v1 (substitute #\space #\] str))
-    (setf v1 (substitute #\space #\[ v1))
-    (loop as e from 0 to lstr do
-	 (if (eq (char str x) #\space)
-	     (progn
-
-	       )
-	     )
-	 )
-    ))
-
 (defun get-key-value-position (buffer pos) 
   (let* ((key-pos) (opb) (clb) (key) (val))
     (format t "@ ~a < ~a ~A<<<<<  " pos key-pos (subseq buffer pos (+ 0 pos)))
@@ -61,7 +46,7 @@
     (setf clb (closing-bracket buffer pos)) 
     (setf key (subseq buffer key-pos opb)) 
     (if (equalp key "AB")	
-	(setf val (string-to-list (subseq buffer (1+ opb) clb)))	  	
+	(setf val (subseq buffer (1+ opb) clb))	  	
 	(setf val (subseq buffer (1+ opb) clb)))
     (list  (1+ clb) key val )
     ))
