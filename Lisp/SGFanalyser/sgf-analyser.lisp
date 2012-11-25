@@ -57,17 +57,19 @@
     res))
 
 (defun get-key-value-position (buffer pos) 
-  (let* ((key-pos) (opb) (clb) (key) (val))
+  (let* ((key-pos) (opb) (clb) (key) (val) (new-move))
     (setf key-pos (find-key-position buffer pos)) 
+    (if (eq (char buffer (1- key-pos)) #\;)
+	(setf new-move t))
     (setf opb (opening-bracket buffer pos))  
     (setf clb (last-closing-bracket buffer pos)) 
     (setf key (subseq buffer key-pos opb))     
     (setf val (subseq buffer opb (1+ clb)))
-    (list  (1+ clb) key val )
+    (list  (1+ clb) key val new-move)
     ))
 
 (defun get-event-list (buffer)
-  (let ((event-start) (event-end 0) (all-events) (key-pos 0) (result) (vlst))    
+  (let ((event-start) (event-end 0) (key-pos 0) (result) (vlst))    
     (loop while (< key-pos (- (length buffer) 3)) do 			
 	 (setf event-start (position #\; buffer :start event-end))
 	 (setf event-end (position #\; buffer :start (1+ event-start)))
