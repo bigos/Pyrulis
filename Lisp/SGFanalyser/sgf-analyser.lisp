@@ -76,7 +76,7 @@
 	 (setf vlst (val-to-list (caddr result)))
 	 (if (nth 3 result) 
 	     (progn
-	       (format t "~%")
+	       ;(format t "~%")
 	       (setf all-events  (append all-events (list this-event)))
 	       (setf this-event () )))
 	 (setf this-event  (append this-event (list (nth 1 result) (nth 2 result)))))
@@ -84,7 +84,7 @@
 
 (defun main ()
   (let* ((buffer (read-file-to-string *data-filename*)) (all-events (get-event-list buffer)) )	    			       
-    (format T "~%~%~A <<<<<<<<<<~%" all-events)
+    (format T "~%~%~A <<<<<<<<<<~%" (cdr all-events))
     ))
 
 (main)
