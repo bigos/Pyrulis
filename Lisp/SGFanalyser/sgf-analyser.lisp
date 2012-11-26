@@ -75,11 +75,10 @@
 	     (setf key-pos (car result)))
 	 (setf vlst (val-to-list (caddr result)))
 	 (if (nth 3 result) 
-	     (progn
-	       ;(format t "~%")
+	     (progn	     
 	       (setf all-events  (append all-events (list this-event)))
 	       (setf this-event () )))
-	 (setf this-event  (append this-event (list (nth 1 result) (nth 2 result)))))
+	 (setf this-event  (append this-event (list (list (nth 1 result) vlst)))))
     (setf all-events (append all-events  (list this-event)))))
 
 (defun main ()
