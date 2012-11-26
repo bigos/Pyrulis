@@ -38,7 +38,6 @@
 	   (return clb))
 	 (setf pos (1+ clb)))))
 
-
 (defun val-to-list (val)
   (let ((pos 0) (opb) (clb) (res)) 
     (loop while (< pos (length val)) do
@@ -47,7 +46,6 @@
 	 (setf pos (1+ clb))
 	 (setf res (append res (list (subseq val (1+ opb) clb)))))
     res))
-
 
 (defun find-key-position  (buffer pos)
   (let ((key) (res ))		 
@@ -85,10 +83,8 @@
 	      ))
     all-events))
 
-
 (defun main ()
-  (let* ((buffer (read-file-to-string *data-filename*)) (all-events (get-event-list buffer)) )	
-    			       
+  (let* ((buffer (read-file-to-string *data-filename*)) (all-events (get-event-list buffer)) )	    			       
     ;(format T "~%~%~S <<<<<<<<<<~%" all-events)
     ))
 
