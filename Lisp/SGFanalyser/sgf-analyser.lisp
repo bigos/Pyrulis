@@ -67,25 +67,24 @@
     ))
 
 (defun get-event-list (buffer)
-  (let ((event-start) (event-end 0) (key-pos 0) (result) (vlst))    
-    (loop while (< key-pos (- (length buffer) 3)) do 			
-	 (setf event-start (position #\; buffer :start event-end))
-	 (setf event-end (position #\; buffer :start (1+ event-start)))
-	 (format t "~%i'm here  ~A~%" (subseq buffer event-start event-end))
-	 (loop while (< key-pos (- (length buffer) 3))  do	      
-	      (if (last-closing-bracket buffer key-pos)	    
-		  (setf result (get-key-value-position buffer key-pos)))
-	      (setf vlst (val-to-list (caddr result)))
-	      ;(format t "~s  " (caddr result))
-	      (format t "~S <<< ~S~%" result vlst)
-	      (if (car result) 
-		  (setf key-pos (car result)))	      
-	      ))
-    all-events))
+  (let ((key-pos 0) (result) (vlst) (all-events) (this-event))        
+    (loop while (< key-pos (- (length buffer) 3))  do	      
+	 (if (last-closing-bracket buffer key-pos)	    
+	     (setf result (get-key-value-position buffer key-pos)))
+	 (if (car result) 
+	     (setf key-pos (car result)))
+	 (setf vlst (val-to-list (caddr result)))
+	 (if (nth 3 result) 
+	     (progn
+	       (format t "~%")
+	       (setf all-events  (append all-events (list this-event)))
+	       (setf this-event () )))
+	 (setf this-event  (append this-event (list (nth 1 result) (nth 2 result)))))
+    (setf all-events (append all-events  (list this-event)))))
 
 (defun main ()
   (let* ((buffer (read-file-to-string *data-filename*)) (all-events (get-event-list buffer)) )	    			       
-    ;(format T "~%~%~S <<<<<<<<<<~%" all-events)
+    (format T "~%~%~A <<<<<<<<<<~%" all-events)
     ))
 
 (main)
