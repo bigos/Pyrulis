@@ -66,20 +66,20 @@
     (list  (1+ clb) key val new-move)
     ))
 
-(defun get-event-list (buffer)
-  (let ((key-pos 0) (result) (vlst) (all-events) (this-event))        
+(defun get-move-list (buffer)
+  (let ((key-pos 0) (result) (val-list) (all-moves) (this-move))        
     (loop while (< key-pos (- (length buffer) 3))  do	      
 	 (if (last-closing-bracket buffer key-pos)	    
 	     (setf result (get-key-value-position buffer key-pos)))
 	 (if (car result) 
 	     (setf key-pos (car result)))
-	 (setf vlst (val-to-list (caddr result)))
+	 (setf val-list (val-to-list (caddr result)))
 	 (if (nth 3 result) 
 	     (progn	     
-	       (setf all-events  (append all-events (list this-event)))
-	       (setf this-event () )))
-	 (setf this-event  (append this-event (list (list (nth 1 result) vlst)))))
-    (setf all-events (append all-events  (list this-event)))))
+	       (setf all-moves (append all-moves (list this-move)))
+	       (setf this-move () )))
+	 (setf this-move  (append this-move (list (list (nth 1 result) val-list)))))
+    (setf all-moves (append all-moves  (list this-move)))))
 
 (defun main ()
   (let* ((buffer (read-file-to-string *data-filename*)) (all-events (get-event-list buffer)) )	    			       
