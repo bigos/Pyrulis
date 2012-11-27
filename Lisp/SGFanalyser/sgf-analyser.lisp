@@ -1,14 +1,5 @@
 ;;;#! /usr/bin/sbcl --script
-(defvar *sgf-files-path* "/home/jacek/Programming/Pyrulis/Lisp/SGFanalyser/sgf_files/" )
-(defvar *data-filename* (concatenate 'string *sgf-files-path* "jacekpod-coalburner.sgf"))
 
-(defun read-file-to-string (filename)
-  (let ((file-content))
-    (with-open-file (stream filename)
-      (setf file-content (make-string (file-length stream)))
-      (read-sequence file-content stream ))   
-    file-content ;;returning the value
-    ))
 
 (defun keys-list ()
   (list "B" "W" "C" "N" "V" 
@@ -82,6 +73,17 @@
     (setf all-moves (append all-moves  (list this-move)))
     ;; skipping firs empty list element
     (cdr all-moves)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar *sgf-files-path* "/home/jacek/Programming/Pyrulis/Lisp/SGFanalyser/sgf_files/" )
+(defvar *data-filename* (concatenate 'string *sgf-files-path* "jacekpod-coalburner.sgf"))
+
+(defun read-file-to-string (filename)
+  (let ((file-content))
+    (with-open-file (stream filename)
+      (setf file-content (make-string (file-length stream)))
+      (read-sequence file-content stream ))   
+    file-content ))
 
 (defun main ()
   (let* ((buffer (read-file-to-string *data-filename*)) (all-moves (get-move-list buffer)) )	    			       
