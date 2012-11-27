@@ -82,8 +82,8 @@
     (setf all-moves (append all-moves  (list this-move)))))
 
 (defun main ()
-  (let* ((buffer (read-file-to-string *data-filename*)) (all-events (get-event-list buffer)) )	    			       
-    (format T "~%~%~A <<<<<<<<<<~%" (cdr all-events))
+  (let* ((buffer (read-file-to-string *data-filename*)) (all-moves (get-move-list buffer)) )	    			       
+    (format T "~%~%~A <<<<<<<<<<~%" (cdr all-moves))
     ))
 
 (main)
