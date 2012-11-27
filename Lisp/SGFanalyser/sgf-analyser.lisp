@@ -1,6 +1,6 @@
 ;;;#! /usr/bin/sbcl --script
-(defvar *sgf-files-path* "/home/jacek/Programming/Pyrulis/Lisp/SGFanalyser/sgf_files" )
-(defvar *data-filename* (format nil "~A/~A" *sgf-files-path* "jacekpod-coalburner.sgf"))
+(defvar *sgf-files-path* "/home/jacek/Programming/Pyrulis/Lisp/SGFanalyser/sgf_files/" )
+(defvar *data-filename* (concatenate 'string *sgf-files-path* "jacekpod-coalburner.sgf"))
 
 (defun read-file-to-string (filename)
   (let ((file-content))
@@ -79,11 +79,13 @@
 	       (setf all-moves (append all-moves (list this-move)))
 	       (setf this-move () )))
 	 (setf this-move  (append this-move (list (list (nth 1 result) val-list)))))
-    (setf all-moves (append all-moves  (list this-move)))))
+    (setf all-moves (append all-moves  (list this-move)))
+    ;; skipping firs empty list element
+    (cdr all-moves)))
 
 (defun main ()
   (let* ((buffer (read-file-to-string *data-filename*)) (all-moves (get-move-list buffer)) )	    			       
-    (format T "~%~%~A <<<<<<<<<<~%" (cdr all-moves))
+    (format T "~%~%~A <<<<<<<<<<~%" all-moves)
     ))
 
 (main)
