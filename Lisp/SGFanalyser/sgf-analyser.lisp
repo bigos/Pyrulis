@@ -39,13 +39,13 @@
 	 (setf pos (1+ clb)))))
 
 (defun val-to-list (val)
-  (let ((pos 0) (opb) (clb) (res)) 
+  (let ((pos 0) (opb) (clb)) 
     (loop while (< pos (length val)) do
 	 (setf opb (opening-bracket val pos))
 	 (setf clb (closing-bracket val pos))
 	 (setf pos (1+ clb))
-	 (setf res (append res (list (subseq val (1+ opb) clb)))))
-    res))
+       ;;line below collects results to be returned from the loop
+       collect (subseq val (1+ opb) clb))))
 
 (defun find-key-position  (buffer pos)
   (let ((key) (res ))		 
