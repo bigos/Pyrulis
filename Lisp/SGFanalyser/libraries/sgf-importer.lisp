@@ -65,9 +65,8 @@
     file-content ))
 
 (defun get-move-list (filename)
-  (let ((buffer (read-file-to-string filename)) 
-	(key-pos 0) (result) (val-list) 
-	(all-moves) (this-move))        
+  (let ((buffer) (key-pos 0) (result) (val-list) (all-moves) (this-move))
+    (setf buffer (read-file-to-string filename))        
     (loop while (< key-pos (- (length buffer) 3))  do	      
 	 (if (last-closing-bracket buffer key-pos)	    
 	     (setf result (get-key-value-position buffer key-pos)))
@@ -82,4 +81,3 @@
     (setf all-moves (append all-moves  (list this-move)))
     ;; skipping firs empty list element
     (cdr all-moves)))
-
