@@ -6,17 +6,10 @@
 ;; load libraries
 (load (concatenate 'string *app-path* "load.lisp"))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun read-file-to-string (filename)
-  (let ((file-content))
-    (with-open-file (stream filename)
-      (setf file-content (make-string (file-length stream)))
-      (read-sequence file-content stream ))   
-    file-content ))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()
-  (let* ((buffer (read-file-to-string *sgf-data-filename*)) 
-	 (all-moves (sgf-importer:get-move-list buffer)))	    			       
+  (let* ((all-moves (sgf-importer:get-move-list *sgf-data-filename*)))
     (format T "~%~%~A <<<<<<<<<<~%" all-moves)
     ))
 
