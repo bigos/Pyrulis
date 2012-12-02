@@ -7,21 +7,24 @@
 (load (concatenate 'string *app-path* "load.lisp"))
 
 (defun get-kv (kv-list key)
-  (dolist (el kv-list)
-    (if (equal key (car el))
-	(return el))))
+  (dolist (kv kv-list)
+    (if (equal key (car kv))
+	(return kv))))
 
-(defun get-val (kv)
+(defun get-val-part (kv)
   (if (eq 1 (length (cadr kv))) 
       (caadr kv) 
       (cadr kv)))
+
+(defun get-value (kv-list key)
+  (get-val-part (get-kv kv-list key)))
 
 (defun header-info (kv-list)
   (let ((f))
     (dolist (el kv-list)
       (format T "!!!> ~S~%" el))
-    (format T "~S~%"   (get-val (get-kv kv-list "AB")))
-    (format T "~S~%"   (get-val (get-kv kv-list "RU")))
+    (format T "~S~%"    (get-value kv-list "AB"))
+    (format T "~S~%"    (get-value kv-list "RU"))
     ))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()
