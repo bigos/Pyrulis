@@ -6,7 +6,7 @@
 ;;; load libraries
 (load (concatenate 'string *app-path* "load.lisp"))
 
-(defun get-kv (kv-list key)
+(defun find-kv (kv-list key)
   (dolist (kv kv-list)
     (if (equal key (car kv))
 	(return kv))))
@@ -17,7 +17,7 @@
       (cadr kv)))
 
 (defun get-value (kv-list key)
-  (get-val-part (get-kv kv-list key)))
+  (get-val-part (find-kv kv-list key)))
 
 (defun header-info (kv-list)
   (let ((f))
