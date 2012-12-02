@@ -10,9 +10,9 @@
   (dolist (el kv-list)
     (if (equal key (car el))
 	(return el))))
-y
+
 (defun format-data (g)
-  (format T "^^^^^ ~S !!! ~S <> ~S ^^^^^^^^~%" g (car g) (cadr g)))
+  (format T "^^^^^ ~S !!! ~S <> ~S ^^^^ ~A ^^^^~%" g (car g) (cadr g) (length (cadr g))))
 
 (defun header-info (kv-list)
   (let ((f))
@@ -23,7 +23,8 @@ y
     ))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()
-  (let* ((all-moves (sgf-importer:get-move-list *sgf-data-filename*)))
+  (let* ((all-moves))  
+    (setf all-moves (sgf-importer:get-move-list *sgf-data-filename*))
     (format T "~%~%~A <<<<<<<<<<~%" all-moves)
     (header-info (car all-moves))
     ))
