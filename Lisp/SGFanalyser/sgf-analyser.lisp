@@ -6,20 +6,22 @@
 ;;; load libraries
 (load (concatenate 'string *app-path* "load.lisp"))
 
-(defun get-val (kv-list key)
+(defun get-kv (kv-list key)
   (dolist (el kv-list)
     (if (equal key (car el))
 	(return el))))
 
-(defun format-data (g)
-  (format T "^^^^^ ~S !!! ~S <> ~S ^^^^ ~A ^^^^~%" g (car g) (cadr g) (length (cadr g))))
+(defun get-val (kv)
+  (if (eq 1 (length (cadr kv))) 
+      (caadr kv) 
+      (cadr kv)))
 
 (defun header-info (kv-list)
   (let ((f))
     (dolist (el kv-list)
       (format T "!!!> ~S~%" el))
-    (format-data (get-val kv-list "AB"))
-    (format-data (get-val kv-list "RU"))
+    (format T "~S~%"   (get-val (get-kv kv-list "AB")))
+    (format T "~S~%"   (get-val (get-kv kv-list "RU")))
     ))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()
