@@ -11,13 +11,13 @@
     (if (equal key (car kv))
 	(return kv))))
 
-(defun get-val-part (kv)
+(defun get-v-part (kv)
   (if (eq 1 (length (cadr kv))) 
       (caadr kv) 
       (cadr kv)))
 
 (defun get-value (kv-list key)
-  (get-val-part (find-kv kv-list key)))
+  (get-v-part (find-kv kv-list key)))
 
 (defun header-info (kv-list)
   (let ((f))
