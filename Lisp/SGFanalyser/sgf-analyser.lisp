@@ -38,10 +38,10 @@
   (let ((new-line (format nil "~%"))) 
     (concatenate 'string "white: " (header-value "PW") " " (header-value "WR") " black: " (header-value "PB") " " (header-value "BR")
 		 " board size: "  (header-value "SZ") new-line "rules: " (header-value "RU") " result: "  (header-value "RE")
-		 " komi: " (header-value "KM") " handicap: " (cond  ((length (header-value "AB")) "white") 
-											  ((length (header-value "AW")) "black")
-											  (T nil))  
-		 " " (header-value  "HA"))))
+		 " komi: " (header-value "KM") " handicap: " (header-value  "HA") 
+		 (cond  ((length (header-value "AB"))  (format nil "~%white handicap list ~S" (header-value "AB")) ) 
+			((length (header-value "AW"))  (format nil "~%black handicap list ~S" (header-value "AW")) )
+			(T nil)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()        
