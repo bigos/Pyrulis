@@ -15,31 +15,28 @@
 (defun closing-bracket (buffer pos)
   (let ((last-ltr) (ltr))
     (loop while (< pos (length buffer)) do
-	 (setf ltr (char buffer pos))	
-	 (if (and (eq #\] ltr) (not (eq #\\ last-ltr)))
-	     (return pos))
-	 (setf last-ltr (char buffer pos))
-	 (incf pos))))
+(setf ltr (char buffer pos))	
+(if (and (eq #\] ltr) (not (eq #\\ last-ltr)))
+(return pos))
+(setf last-ltr (char buffer pos))
+(incf pos))))
 
 (defun last-closing-bracket (pos)
   (let ((clb))
     (loop while (< pos (length *buffer*)) do
-	 (setf clb (closing-bracket *buffer* pos))
-	 (unless (eq #\[ (char *buffer* (1+ clb)))	
-	   (return clb))
-	 (setf pos (1+ clb)))))
+(setf clb (closing-bracket *buffer* pos))
+(unless (eq #\[ (char *buffer* (1+ clb)))	
+(return clb))
+(setf pos (1+ clb)))))
 
-(defun val-to-list (key-pos pos2)
-  (let ((pos key-pos) (opb) (clb) (result ""))
-    (loop while (< pos pos2) do
-	 (setf opb (opening-bracket *buffer* pos))
-	 (setf clb (closing-bracket *buffer* pos))
-	 (format t "~S /////// ~S    ~S ~S~%" opb clb pos pos2)
-	 (if T (progn (setf pos (1+ clb)) 
-(format t "~S" (subseq *buffer*  (1+ opb) clb))
-			(setf result (concatenate result (subseq *buffer*  (1+ opb) clb))))))
-    result
-))
+(defun val-to-list (val)
+  (let ((pos 0) (opb) (clb))
+    (loop while (< pos (length val)) do
+(setf opb (opening-bracket val pos))
+(setf clb (closing-bracket val pos))
+(setf pos (1+ clb))
+       ;;line below collects results to be returned from the loop
+       collect (subseq val (1+ opb) clb))))
 
 (defun find-key-position (buffer pos)
   (let ((key) (res ))	
@@ -48,11 +45,11 @@
       (if key (progn (setf res key))))
     res))
 
-(defun get-key-value (pos)
+(defun get-key-value-position (pos)
   (let* ((key-pos) (opb) (clb) (key) (val) (new-move))
     (setf key-pos (find-key-position *buffer* pos))
     (if (eq (char *buffer* (1- key-pos)) #\;)
-	(setf new-move t))
+(setf new-move t))
     (setf opb (opening-bracket *buffer* pos))
     (setf clb (last-closing-bracket pos))
     (setf key (subseq *buffer* key-pos opb))
@@ -71,22 +68,16 @@
   (let ( (key-pos 0) (result) (val-list) (all-moves) (this-move))
     (defparameter *buffer* (read-file-to-string filename))
     (loop while (< key-pos (- (length *buffer*) 3)) do	
-	 (if (last-closing-bracket key-pos)	
-	     (setf result (get-key-value  key-pos)))
-(format T "~%^^^^^^^^^^^^^^ ~S~%~S~%" result (caddr result))
-	 (if (car result)
-	     (setf key-pos (car result)))
-	 (setf val-list (val-to-list key-pos (+ key-pos (length (nth 2 result)))))
-	 (if (nth 3 result)
-	     (progn	
-(format T "~%^^^^^^^^^^^^^^ ~S~%~S~%" result (caddr result))
-	       (setf all-moves (append all-moves (list this-move)))
-	       (setf this-move () )))
-	 (setf this-move (append this-move (list (list (nth 1 result) val-list)))))
-(format t "~S  EEEEEE ~S  ~S ~%" result (caddr result) (nth 3 result))
+(if (last-closing-bracket key-pos)	
+(setf result (get-key-value-position  key-pos)))
+(if (car result)
+(setf key-pos (car result)))
+(setf val-list (val-to-list (caddr result)))
+(if (nth 3 result)
+(progn	
+(setf all-moves (append all-moves (list this-move)))
+(setf this-move () )))
+(setf this-move (append this-move (list (list (nth 1 result) val-list)))))
     (setf all-moves (append all-moves (list this-move)))
     ;; skipping firs empty list element
     (cdr all-moves)))
-
-
-
