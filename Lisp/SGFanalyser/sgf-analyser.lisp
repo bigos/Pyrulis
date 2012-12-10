@@ -23,6 +23,7 @@
 	(return kv))))
 
 (defun get-v-part (kv)
+  ;;(format t ">~S ~S ~S ~S~%" kv (cadr kv) (length (cadr kv)) (caadr kv))
   (if (eq 1 (length (cadr kv))) 
       (caadr kv) 
       (cadr kv)))

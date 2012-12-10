@@ -29,7 +29,6 @@
 	   (return clb))
 	 (setf pos (1+ clb)))))
 
-
 (defun string-split (split-string string)
   "Returns a list containing items in 'string' split from occurrences of 'split-string'."
   (loop with l = (length split-string)
@@ -55,7 +54,7 @@
     (setf clb (last-closing-bracket pos))
     (setf key (subseq *buffer* key-pos opb))
     (setf val (subseq *buffer* (1+ opb)  clb))
-    (list (1+ clb) key val new-move opb clb)))
+    (list (1+ clb) key val new-move )))
 
 (defun read-file-to-string (filename)
   (let ((file-content))
