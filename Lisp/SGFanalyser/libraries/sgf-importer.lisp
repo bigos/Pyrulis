@@ -29,14 +29,15 @@
 	   (return clb))
 	 (setf pos (1+ clb)))))
 
-(defun val-to-list (result)
-  (let ((pos 0) (opb) (clb) (val-length (- (nth 5 result) (1+ (nth 4 result)))))
-    (loop while (< pos val-length) do
-	 (setf opb (opening-bracket (nth 4 result)))
-	 (setf clb (closing-bracket (nth 4 result)))
-	 (setf pos (1+ clb))
-       ;;line below collects results to be returned from the loop
-       collect (subseq *buffer* (1+ opb) clb))))
+
+(defun string-split (split-string string)
+  "Returns a list containing items in 'string' split from occurrences of 'split-string'."
+  (loop with l = (length split-string)
+     for n = 0 then (+ pos l)
+     for pos = (search split-string string :start2 n)
+     if pos collect (subseq string n pos)
+     else collect (subseq string n)
+     while pos))
 
 (defun find-key-position (pos)
   (let ((key) (res ))	
@@ -71,7 +72,8 @@
 	     (setf result (get-key-value-position  key-pos)))
 	 (if (car result)
 	     (setf key-pos (car result)))
-	 (setf val-list (val-to-list result))
+	 ;;;(setf val-list (val-to-list result))
+	 (setf val-list (string-split  "][" (nth 2 result)   ))
 	 (if (nth 3 result)
 	     (progn	
 	       (setf all-moves (append all-moves (list this-move)))
