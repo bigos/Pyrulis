@@ -34,23 +34,20 @@
   (get-value *header-data* key))
 
 (defun game-stats ()
-  (let ((stats " ")) 
-    (concatenate 'string "white: " (header-data "PW") " " (header-data "WR") " black: " (header-data "PB") " " (header-data "BR")
-		 " board size: "  (header-data "SZ") " rules: " (header-data "RU") " result: "  (header-data "RE")
-		 " komi: " (header-data "KM") " handicap: " (cond  ((length (header-data "AB")) "white") 
-											  ((length (header-data "AW")) "black")
+  (let ((stats " ") (new-line (format nil "~%"))) 
+    (concatenate 'string "white: " (header-value "PW") " " (header-value "WR") " black: " (header-value "PB") " " (header-value "BR")
+		 " board size: "  (header-value "SZ") new-line "rules: " (header-value "RU") " result: "  (header-value "RE")
+		 " komi: " (header-value "KM") " handicap: " (cond  ((length (header-value "AB")) "white") 
+											  ((length (header-value "AW")) "black")
 											  (T nil))  
-		 " " (header-data  "HA") 		  
-		 )
-    ))
+		 " " (header-value  "HA"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()
-  (let* ( (header-data))      
+  (let* ( (header-value))      
     (format T "~%~%~A <<<<<<<<<<~%" *all-moves*)    
     (format t ">>>> ~S <<<<<~%" *header-data*)
-    (format t "~S +++++++++++++++++~%" (header-data "RE"))
-    (format t "game stats: ~A~%" (game-stats ))
+    (format t "game stats:~%~A~%" (game-stats ))
     ))
 
 ;;;==================================================
