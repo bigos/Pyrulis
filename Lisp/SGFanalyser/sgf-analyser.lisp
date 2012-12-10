@@ -34,7 +34,7 @@
   (get-value *header-data* key))
 
 (defun game-stats ()
-  (let ((stats " ") (new-line (format nil "~%"))) 
+  (let ((new-line (format nil "~%"))) 
     (concatenate 'string "white: " (header-value "PW") " " (header-value "WR") " black: " (header-value "PB") " " (header-value "BR")
 		 " board size: "  (header-value "SZ") new-line "rules: " (header-value "RU") " result: "  (header-value "RE")
 		 " komi: " (header-value "KM") " handicap: " (cond  ((length (header-value "AB")) "white") 
@@ -43,12 +43,11 @@
 		 " " (header-value  "HA"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun main ()
-  (let* ( (header-value))      
-    (format T "~%~%~A <<<<<<<<<<~%" *all-moves*)    
-    (format t ">>>> ~S <<<<<~%" *header-data*)
-    (format t "game stats:~%~A~%" (game-stats ))
-    ))
+(defun main ()        
+  (format T "~%~%~A <<<<<<<<<<~%" *all-moves*)    
+  (format t ">>>> ~S <<<<<~%" *header-data*)
+  (format t "game stats:~%~A~%" (game-stats ))
+    )
 
 ;;;==================================================
 (in-package :cl-user)
