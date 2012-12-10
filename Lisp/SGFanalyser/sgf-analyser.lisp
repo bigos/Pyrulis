@@ -41,5 +41,6 @@
     (header-info (car all-moves))
     ))
 
+;;;==================================================
 (in-package :cl-user)
 (sgf-analyser:main)
