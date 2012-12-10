@@ -21,11 +21,11 @@
 (setf last-ltr (char buffer pos))
 (incf pos))))
 
-(defun last-closing-bracket (buffer pos)
+(defun last-closing-bracket (pos)
   (let ((clb))
-    (loop while (< pos (length buffer)) do
-(setf clb (closing-bracket buffer pos))
-(unless (eq #\[ (char buffer (1+ clb)))	
+    (loop while (< pos (length *buffer*)) do
+(setf clb (closing-bracket *buffer* pos))
+(unless (eq #\[ (char *buffer* (1+ clb)))	
 (return clb))
 (setf pos (1+ clb)))))
 
@@ -45,15 +45,15 @@
       (if key (progn (setf res key))))
     res))
 
-(defun get-key-value-position (buffer pos)
+(defun get-key-value-position (pos)
   (let* ((key-pos) (opb) (clb) (key) (val) (new-move))
-    (setf key-pos (find-key-position buffer pos))
-    (if (eq (char buffer (1- key-pos)) #\;)
+    (setf key-pos (find-key-position *buffer* pos))
+    (if (eq (char *buffer* (1- key-pos)) #\;)
 (setf new-move t))
-    (setf opb (opening-bracket buffer pos))
-    (setf clb (last-closing-bracket buffer pos))
-    (setf key (subseq buffer key-pos opb))
-    (setf val (subseq buffer opb (1+ clb)))
+    (setf opb (opening-bracket *buffer* pos))
+    (setf clb (last-closing-bracket pos))
+    (setf key (subseq *buffer* key-pos opb))
+    (setf val (subseq *buffer* opb (1+ clb)))
     (list (1+ clb) key val new-move)
     ))
 
@@ -68,8 +68,8 @@
   (let ( (key-pos 0) (result) (val-list) (all-moves) (this-move))
     (defparameter *buffer* (read-file-to-string filename))
     (loop while (< key-pos (- (length *buffer*) 3)) do	
-(if (last-closing-bracket *buffer* key-pos)	
-(setf result (get-key-value-position *buffer* key-pos)))
+(if (last-closing-bracket key-pos)	
+(setf result (get-key-value-position  key-pos)))
 (if (car result)
 (setf key-pos (car result)))
 (setf val-list (val-to-list (caddr result)))
