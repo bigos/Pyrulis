@@ -9,22 +9,22 @@
 "GN" "GC" "ON" "OT" "PB" "PC" "PW" "RE" "RO" "RU" "SO" "TM"
 "US" "WR" "WT" "BL" "OB" "OW" "WL" "FG" "PM" "VW" "HA" "KM" "TW" "TB"))
 
-(defun opening-bracket (buffer pos)
-  (position #\[ buffer :start pos))
+(defun opening-bracket (pos)
+  (position #\[ *buffer* :start pos))
 
-(defun closing-bracket (buffer pos)
+(defun closing-bracket (pos)
   (let ((last-ltr) (ltr))
-    (loop while (< pos (length buffer)) do
-	 (setf ltr (char buffer pos))	
+    (loop while (< pos (length *buffer*)) do
+	 (setf ltr (char *buffer* pos))	
 	 (if (and (eq #\] ltr) (not (eq #\\ last-ltr)))
 	     (return pos))
-	 (setf last-ltr (char buffer pos))
+	 (setf last-ltr (char *buffer* pos))
 	 (incf pos))))
 
 (defun last-closing-bracket (pos)
   (let ((clb))
     (loop while (< pos (length *buffer*)) do
-	 (setf clb (closing-bracket *buffer* pos))
+	 (setf clb (closing-bracket pos))
 	 (unless (eq #\[ (char *buffer* (1+ clb)))	
 	   (return clb))
 	 (setf pos (1+ clb)))))
@@ -33,16 +33,16 @@
   (let ((pos 0) (opb) (clb) (val (subseq *buffer* (nth 4 result) (1+ (nth 5 result)))))
     (format t "~%~S ||| ~S %%%% ~S %%%%" val result x)
     (loop while (< pos (length val)) do
-	 (setf opb (opening-bracket val pos))
-	 (setf clb (closing-bracket val pos))
+	 (setf opb (opening-bracket (nth 4 result)))
+	 (setf clb (closing-bracket (nth 4 result)))
 	 (setf pos (1+ clb))
        ;;line below collects results to be returned from the loop
-       collect (subseq val (1+ opb) clb))))
+       collect (subseq *buffer* (1+ opb) clb))))
 
 (defun find-key-position (pos)
   (let ((key) (res ))	
     (dolist (el (keys-list))
-      (setf key (search el *buffer* :start2 pos :end2 (opening-bracket *buffer* pos)))
+      (setf key (search el *buffer* :start2 pos :end2 (opening-bracket pos)))
       (if key (progn (setf res key))))
     res))
 
@@ -51,7 +51,7 @@
     (setf key-pos (find-key-position  pos))
     (if (eq (char *buffer* (1- key-pos)) #\;)
 	(setf new-move t))
-    (setf opb (opening-bracket *buffer* pos))
+    (setf opb (opening-bracket pos))
     (setf clb (last-closing-bracket pos))
     (setf key (subseq *buffer* key-pos opb))
     (setf val (subseq *buffer* opb (1+ clb)))
