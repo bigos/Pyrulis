@@ -3,11 +3,11 @@
 
 (defun keys-list ()
   (list "B" "W" "C" "N" "V"
-"KO" "MN" "AB" "AE" "AW" "PL" "DM" "GB" "GW" "HO" "UC" "BM"
-"DO" "IT" "TE" "AR" "CR" "DD" "LB" "LN" "MA" "SL" "SQ" "TR"
-"AP" "CA" "FF" "GM" "ST" "SZ" "AN" "BR" "BT" "CP" "DT" "EV"
-"GN" "GC" "ON" "OT" "PB" "PC" "PW" "RE" "RO" "RU" "SO" "TM"
-"US" "WR" "WT" "BL" "OB" "OW" "WL" "FG" "PM" "VW" "HA" "KM" "TW" "TB"))
+	"KO" "MN" "AB" "AE" "AW" "PL" "DM" "GB" "GW" "HO" "UC" "BM"
+	"DO" "IT" "TE" "AR" "CR" "DD" "LB" "LN" "MA" "SL" "SQ" "TR"
+	"AP" "CA" "FF" "GM" "ST" "SZ" "AN" "BR" "BT" "CP" "DT" "EV"
+	"GN" "GC" "ON" "OT" "PB" "PC" "PW" "RE" "RO" "RU" "SO" "TM"
+	"US" "WR" "WT" "BL" "OB" "OW" "WL" "FG" "PM" "VW" "HA" "KM" "TW" "TB"))
 
 (defun opening-bracket (pos)
   (position #\[ *buffer* :start pos))
@@ -54,7 +54,7 @@
     (setf clb (last-closing-bracket pos))
     (setf key (subseq *buffer* key-pos opb))
     (setf val (subseq *buffer* opb (1+ clb)))
-    (list (1+ clb) key val new-move opb clb pos)
+    (list (1+ clb) key val new-move opb clb)
     ))
 
 (defun read-file-to-string (filename)
