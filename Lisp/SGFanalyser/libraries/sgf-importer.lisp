@@ -29,8 +29,9 @@
 	   (return clb))
 	 (setf pos (1+ clb)))))
 
-(defun val-to-list (val)
-  (let ((pos 0) (opb) (clb))
+(defun val-to-list (x result)
+  (let ((pos 0) (opb) (clb) (val (subseq *buffer* (nth 4 result) (1+ (nth 5 result)))))
+    (format t "~%~S ||| ~S %%%% ~S %%%%" val result x)
     (loop while (< pos (length val)) do
 	 (setf opb (opening-bracket val pos))
 	 (setf clb (closing-bracket val pos))
@@ -38,23 +39,23 @@
        ;;line below collects results to be returned from the loop
        collect (subseq val (1+ opb) clb))))
 
-(defun find-key-position (buffer pos)
+(defun find-key-position (pos)
   (let ((key) (res ))	
     (dolist (el (keys-list))
-      (setf key (search el buffer :start2 pos :end2 (opening-bracket buffer pos)))
+      (setf key (search el *buffer* :start2 pos :end2 (opening-bracket *buffer* pos)))
       (if key (progn (setf res key))))
     res))
 
 (defun get-key-value-position (pos)
   (let* ((key-pos) (opb) (clb) (key) (val) (new-move))
-    (setf key-pos (find-key-position *buffer* pos))
+    (setf key-pos (find-key-position  pos))
     (if (eq (char *buffer* (1- key-pos)) #\;)
 	(setf new-move t))
     (setf opb (opening-bracket *buffer* pos))
     (setf clb (last-closing-bracket pos))
     (setf key (subseq *buffer* key-pos opb))
     (setf val (subseq *buffer* opb (1+ clb)))
-    (list (1+ clb) key val new-move)
+    (list (1+ clb) key val new-move opb clb pos)
     ))
 
 (defun read-file-to-string (filename)
@@ -72,7 +73,7 @@
 	     (setf result (get-key-value-position  key-pos)))
 	 (if (car result)
 	     (setf key-pos (car result)))
-	 (setf val-list (val-to-list (caddr result)))
+	 (setf val-list (val-to-list (caddr result) result))
 	 (if (nth 3 result)
 	     (progn	
 	       (setf all-moves (append all-moves (list this-move)))
