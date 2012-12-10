@@ -1,3 +1,10 @@
+;;; define application package
+(defpackage :sgf-analyser
+  (:use :common-lisp ) 
+  (:export :main))
+
+(in-package :sgf-analyser)
+
 ;;; define global variables
 (defvar *app-path* "/home/jacek/Programming/Pyrulis/Lisp/SGFanalyser/")
 (defvar *libraries-path*    (concatenate 'string *app-path* "libraries/"))
@@ -34,4 +41,5 @@
     (header-info (car all-moves))
     ))
 
-(main)
+(in-package :cl-user)
+(sgf-analyser:main)
