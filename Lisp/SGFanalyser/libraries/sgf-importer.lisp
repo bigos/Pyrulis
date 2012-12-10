@@ -54,7 +54,7 @@
     (setf opb (opening-bracket pos))
     (setf clb (last-closing-bracket pos))
     (setf key (subseq *buffer* key-pos opb))
-    (setf val (subseq *buffer* opb (1+ clb)))
+    (setf val (subseq *buffer* (1+ opb)  clb))
     (list (1+ clb) key val new-move opb clb)))
 
 (defun read-file-to-string (filename)
