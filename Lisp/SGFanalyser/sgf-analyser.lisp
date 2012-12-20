@@ -39,8 +39,8 @@
     (concatenate 'string "white: " (header-value "PW") " " (header-value "WR") " black: " (header-value "PB") " " (header-value "BR")
 		 " board size: "  (header-value "SZ") new-line "rules: " (header-value "RU") " result: "  (header-value "RE")
 		 " komi: " (header-value "KM") " handicap: " (header-value  "HA") 
-		 (cond  ((length (header-value "AB"))  (format nil "~%white handicap list ~S" (header-value "AB")) ) 
-			((length (header-value "AW"))  (format nil "~%black handicap list ~S" (header-value "AW")) )
+		 (cond  ((length (header-value "AB"))  (format nil "~%black handicap list ~S" (header-value "AB")) ) 
+			((length (header-value "AW"))  (format nil "~%white handicap list ~S" (header-value "AW")) )
 			(T nil)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
