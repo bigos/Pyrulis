@@ -45,10 +45,15 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()        
-  (format T "~%~%~A <<<<<<<<<<~%" *all-moves*)    
-  (format t ">>>> ~S <<<<<~%" *header-data*)
-  (format t "game stats:~%~A~%" (game-stats ))
-    )
+  (let ((grid) (grid-size))
+    (format T "~%~%~A <<<<<<<<<<~%" *all-moves*)    
+    (format t ">>>> ~S <<<<<~%" *header-data*)
+    (format t "game stats:~%~A~%" (game-stats ))
+    (setf grid-size (parse-integer (header-value "SZ")))
+    (format t "~d <<< grid size ~%" grid-size)
+    (setf grid (make-array (list grid-size grid-size) :initial-element nil))
+    (format t "~A ~%" grid)
+    ))
 
 ;;;==================================================
 (in-package :cl-user)
