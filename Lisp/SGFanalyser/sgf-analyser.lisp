@@ -52,6 +52,7 @@
     (setf grid-size (parse-integer (header-value "SZ")))
     (format t "~d <<< grid size ~%" grid-size)
     (setf grid (make-array (list grid-size grid-size) :initial-element nil))
+    (setf (aref grid 18 18) "zzz") ;setting element of the array
     (format t "~A ~%" grid)
     ))
 
