@@ -230,7 +230,7 @@ and make it look like follows:
 
 ######################################
 Edit routes $ gedit ./config/routes.rb 
-remove generated user and user session routes and add following:
+remove generated user and user_session routes and add following:
   match 'login' => 'user_sessions#create'
   match 'logout' => 'user_sessions#destroy'
   resource :user_session
@@ -266,9 +266,12 @@ make it look like follows:
       = link_to 'add account', new_account_path
 ####################################################
 
+start rails server $  ./script/rails s
+create user account $ firefox http://localhost:3000/account/new
+
 Enjoy!!!
 
-http://localhost:3000/account/new #create user 
-http://localhost:3000/login #login
-
+login/logout: 
+http://localhost:3000/login 
+http://localhost:3000/logout
 
