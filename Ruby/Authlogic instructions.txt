@@ -1,0 +1,274 @@
+Add and configure other gems that you might need for generated authlogic related code
+for example: ./script/rails generate rspec:install 
+
+Add gem 'authlogic' to the Gemfile
+
+Add Authlogic private methods to the application controller
+
+###############################################################################
+Create model ./script/rails generate model UserSession
+
+Remove generated migration $ rm ./db/migrate/2*_create_user_sessions.rb 
+
+Modify UserSession model $ gedit ./app/models/user_session.rb 
+to look like this:
+class UserSession < Authlogic::Session::Base
+  # configuration here, see documentation for sub modules of Authlogic::Session
+end
+
+Add UserSessions controller ./script/rails generate controller UserSessions new create destroy
+
+Fill it with code $ gedit ./app/controllers/user_sessions_controller.rb 
+to look like this:
+class UserSessionsController < ApplicationController
+  before_filter :require_no_user, :only => [:new, :create]
+  before_filter :require_user, :only => :destroy
+  
+  def new
+    @user_session = UserSession.new
+  end
+  
+  def create
+    @user_session = UserSession.new(params[:user_session])
+    if @user_session.save
+      flash[:notice] = "Login successful!"
+      redirect_back_or_default account_url
+    else
+      render :action => :new
+    end
+  end
+  
+  def destroy
+    current_user_session.destroy
+    flash[:notice] = "Logout successful!"
+    redirect_back_or_default new_user_session_url
+  end
+end
+
+Remove not needed views
+$ rm ./app/views/user_sessions/create.html.haml 
+$ rm ./app/views/user_sessions/destroy.html.haml 
+
+Edit $ gedit ./app/views/user_sessions/new.html.haml 
+to look as follows:
+%h1 Login
+= form_for @user_session, :url => user_session_path do |f|
+  - if @user_session.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@user_session.errors.count, "error")
+        prohibited this team from being saved:
+      %ul
+        - @user_session.errors.full_messages.each do |msg|
+          %li= msg  
+  = f.label :login
+  %br
+  = f.text_field :login
+  %br
+  = f.label :password
+  %br
+  = f.password_field :password
+  %br
+  = f.check_box :remember_me
+  = f.label :remember_me
+  %br
+  = f.submit "Login"
+
+###############################################################
+Add User model $ ./script/rails generate model User  
+
+Edit User model $ gedit ./app/models/user.rb
+to contain following:
+class User < ActiveRecord::Base
+  attr_accessible :login, :password, :password_confirmation
+  acts_as_authentic
+end
+
+Edit the migration: $ gedit ./db/migrate/2*_create_users.rb 
+to contain following:
+class CreateUsers < ActiveRecord::Migration
+  def change
+    create_table :users do |t|
+      t.string :login, :null => false
+      t.string :crypted_password, :null => false
+      t.string :password_salt, :null => false
+      t.string :persistence_token, :null => false
+      t.string  :perishable_token,    :null => false
+      t.integer :login_count, :default => 0, :null => false
+      t.integer :failed_login_count, :default => 0, :null => false
+      t.datetime :last_request_at
+      t.datetime :last_login_at
+      t.datetime :current_login_at
+      t.string :last_login_ip
+      t.string :current_login_ip
+      t.timestamps
+    end
+  end
+end
+
+Add Users controller $ ./script/rails generate controller Users new create show edit update
+
+Edit Users controller $ gedit ./app/controllers/users_controller.rb 
+make it look like follows:
+class UsersController < ApplicationController
+  before_filter :require_no_user, :only => [:new, :create]
+  before_filter :require_user, :only => [:show, :edit, :update]
+  
+  def new
+    @user = User.new
+  end
+  
+  def create
+    @user = User.new(params[:user])
+    if @user.save
+      flash[:notice] = "Account registered!"
+      redirect_back_or_default account_url
+    else
+      render :action => :new
+    end
+  end
+  
+  def show
+    @user = @current_user
+  end
+
+  def edit
+    @user = @current_user
+  end
+  
+  def update
+    @user = @current_user # makes our views "cleaner" and more consistent
+    if @user.update_attributes(params[:user])
+      flash[:notice] = "Account updated!"
+      redirect_to account_url
+    else
+      render :action => :edit
+    end
+  end
+end
+
+Remove not needed views
+$ rm ./app/views/users/update.html.haml 
+$ rm ./app/views/users/create.html.haml
+
+Add partial $ touch ./app/views/users/_form.haml
+--------------------------------------------------
+$ gedit ./app/views/users/_form.haml 
+And make it look like following:
+= form.label :login
+%br/
+= form.text_field :login
+%br/
+%br/
+= form.label :password, form.object.new_record? ? nil : "Change password"
+%br/
+= form.password_field :password
+%br/
+%br/
+= form.label :password_confirmation
+%br/
+= form.password_field :password_confirmation
+%br/
+--------------------------------------------------
+$ gedit ./app/views/users/edit.html.haml 
+and make it look like follows:
+%h1 Edit My Account
+= form_for @user, :url => account_path do |f|
+  - if @user.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@user.errors.count, "error")
+        prohibited this team from being saved:
+      %ul
+        - @team.errors.full_messages.each do |msg|
+          %li= msg  
+ 
+  = render :partial => "form", :object => f
+  = f.submit "Update"
+%br/
+= link_to "My Profile", account_path
+--------------------------------------------------
+ $ gedit ./app/views/users/new.html.haml
+and make it look like follows:
+= form_for @user, :url => account_path do |f|
+  - if @user.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@user.errors.count, "error")
+        prohibited this team from being saved:
+      %ul
+        - @user.errors.full_messages.each do |msg|
+          %li= msg
+  = render :partial => "form", :object => f
+  = f.submit "Register"
+--------------------------------------------------
+$ gedit ./app/views/users/show.html.haml 
+and make it look like follows:
+%p
+  %b Login:
+  = h @user.login
+%p
+  %b Login count:
+  = h @user.login_count
+%p
+  %b Last request at:
+  = h @user.last_request_at
+%p
+  %b Last login at:
+  = h @user.last_login_at
+%p
+  %b Current login at:
+  = h @user.current_login_at
+%p
+  %b Last login ip:
+  = h @user.last_login_ip
+%p
+  %b Current login ip:
+  = h @user.current_login_ip
+= link_to 'Edit', edit_account_path
+--------------------------------------------------
+
+######################################
+Edit routes $ gedit ./config/routes.rb 
+remove generated user and user session routes and add following:
+  match 'login' => 'user_sessions#create'
+  match 'logout' => 'user_sessions#destroy'
+  resource :user_session
+  resource :account, :controller => "users"
+
+############################################
+Run migration
+$ rake db:migrate
+############################################
+Replace application layout Generated by Rails with your own
+$ rm ./app/views/layouts/application.html.erb 
+$ gedit ./app/views/layouts/application.html.haml 
+make it look like follows:
+!!!
+%html
+  %head
+    %title Authlogic Test
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    #wrapper
+      #page
+        = yield
+    #dump
+      %p= current_user.inspect      
+      %p= current_user_session.inspect
+      - if current_user
+        = link_to 'Logout', logout_path
+      - else
+        = link_to 'Login', login_path
+      %p= params.inspect
+      = link_to 'add account', new_account_path
+####################################################
+
+Enjoy!!!
+
+http://localhost:3000/account/new #create user 
+http://localhost:3000/login #login
+
+
