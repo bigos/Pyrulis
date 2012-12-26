@@ -152,7 +152,6 @@ $ rm ./app/views/users/update.html.haml
 $ rm ./app/views/users/create.html.haml
 
 Add partial $ touch ./app/views/users/_form.haml
---------------------------------------------------
 $ gedit ./app/views/users/_form.haml 
 And make it look like following:
 = form.label :login
@@ -170,6 +169,7 @@ And make it look like following:
 = form.password_field :password_confirmation
 %br/
 --------------------------------------------------
+
 $ gedit ./app/views/users/edit.html.haml 
 and make it look like follows:
 %h1 Edit My Account
@@ -188,6 +188,7 @@ and make it look like follows:
 %br/
 = link_to "My Profile", account_path
 --------------------------------------------------
+
  $ gedit ./app/views/users/new.html.haml
 and make it look like follows:
 = form_for @user, :url => account_path do |f|
@@ -202,6 +203,7 @@ and make it look like follows:
   = render :partial => "form", :object => f
   = f.submit "Register"
 --------------------------------------------------
+
 $ gedit ./app/views/users/show.html.haml 
 and make it look like follows:
 %p
@@ -226,7 +228,6 @@ and make it look like follows:
   %b Current login ip:
   = h @user.current_login_ip
 = link_to 'Edit', edit_account_path
---------------------------------------------------
 
 ######################################
 Edit routes $ gedit ./config/routes.rb 
