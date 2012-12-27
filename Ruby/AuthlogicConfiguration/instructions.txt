@@ -1,0 +1,105 @@
+Add gems:
+gem 'authlogic'
+gem 'haml-rails'
+
+group :development, :test do
+  gem 'thin'
+  gem 'spinach-rails'
+  gem "rspec-rails"
+end
+
+group :test do
+  gem 'spinach'
+  gem 'rspec' 
+end
+
+$ bundle install
+
+Configure RSpec:
+$ ./script/rails generate rspec:install 
+
+Copy ready made application controller.
+$ cp ../AuthlogicConfiguration/app/controllers/application_controller.rb ./app/controllers/
+
+#########################################
+Create UserSession model
+$ ./script/rails generate model UserSession
+
+Remove generated migration 
+$ rm ./db/migrate/2*_create_user_sessions.rb 
+
+Copy ready made User Session model.
+$ cp ../AuthlogicConfiguration/app/models/user_session.rb ./app/models/
+
+#########################################
+Add UserSessions controller 
+$ ./script/rails generate controller UserSessions new create destroy
+
+Copy ready made User Sessions controller.
+$ cp ../AuthlogicConfiguration/app/controllers/user_sessions_controller.rb ./app/controllers/
+
+
+Remove not needed views
+$ rm ./app/views/user_sessions/create.html.haml
+$ rm ./app/views/user_sessions/destroy.html.haml 
+
+Remove not needed RSpec tests
+$ rm ./spec/views/user_sessions/create.html.haml_spec.rb
+$ rm ./spec/views/user_sessions/destroy.html.haml_spec.rb
+
+Get ready made login form
+$ cp ../AuthlogicConfiguration/app/views/user_sessions/new.html.haml ./app/views/user_sessions/
+
+#########################################
+Add User model 
+$ ./script/rails generate model User  
+
+Copy User model
+./script/rails generate model User
+
+Copy the migration
+$ cp ../AuthlogicConfiguration/db/migrate/20121226215641_create_users.rb ./db/migrate/2*_create_users.rb 
+
+Add Users controller 
+$ ./script/rails generate controller Users new create show edit update
+
+Copy Users controller
+$ cp ../AuthlogicConfiguration/app/controllers/users_controller.rb ./app/controllers/
+
+Remove not needed views
+$ rm ./app/views/users/update.html.haml
+$ rm ./app/views/users/create.html.haml
+
+Remove not needed RSpec tests
+$ rm ./spec/views/users/update.html.haml_spec.rb 
+$ rm ./spec/views/users/create.html.haml_spec.rb 
+
+Remove existing users views
+$ rm ./app/views/users/*
+
+Copy needed files
+cp ../AuthlogicConfiguration/app/views/users/* ./app/views/users/
+
+#########################################
+Edit routes $ gedit ./config/routes.rb
+remove generated user and user_session routes and add following:
+  match 'login' => 'user_sessions#create'
+  match 'logout' => 'user_sessions#destroy'
+  resource :user_session
+  resource :account, :controller => "users"
+
+Run migration
+$ rake db:migrate
+
+#########################################
+Remove *.erb application layout
+$ rm ./app/views/layouts/application.html.erb 
+
+Copy *.haml one
+$ cp ../AuthlogicConfiguration/app/views/layouts/application.html.haml ./app/views/layouts/
+
+#########################################-
+start rails server $ ./script/rails s
+create user account $ firefox http://localhost:3000/account/new
+
+Enjoy!!!

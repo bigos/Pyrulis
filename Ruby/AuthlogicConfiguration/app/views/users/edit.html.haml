@@ -1,0 +1,15 @@
+%h1 Edit My Account
+= form_for @user, :url => account_path do |f|
+  - if @user.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@user.errors.count, "error")
+        prohibited this team from being saved:
+      %ul
+        - @team.errors.full_messages.each do |msg|
+          %li= msg
+ 
+  = render :partial => "form", :object => f
+  = f.submit "Update"
+%br/
+= link_to "My Profile", account_path
