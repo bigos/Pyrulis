@@ -38,7 +38,6 @@ $ ./script/rails generate controller UserSessions new create destroy
 Copy ready made User Sessions controller.
 $ cp ../AuthlogicConfiguration/app/controllers/user_sessions_controller.rb ./app/controllers/
 
-
 Remove not needed views
 $ rm ./app/views/user_sessions/create.html.haml
 $ rm ./app/views/user_sessions/destroy.html.haml 
