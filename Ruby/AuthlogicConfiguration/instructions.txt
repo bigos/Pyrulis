@@ -54,7 +54,7 @@ Add User model
 $ ./script/rails generate model User  
 
 Copy User model
-./script/rails generate model User
+$ cp ../AuthlogicConfiguration/app/models/user.rb ./app/models/
 
 Copy the migration
 $ cp ../AuthlogicConfiguration/db/migrate/20121226215641_create_users.rb ./db/migrate/2*_create_users.rb 
@@ -77,7 +77,7 @@ Remove existing users views
 $ rm ./app/views/users/*
 
 Copy needed files
-cp ../AuthlogicConfiguration/app/views/users/* ./app/views/users/
+$ cp ../AuthlogicConfiguration/app/views/users/* ./app/views/users/
 
 #########################################
 Edit routes $ gedit ./config/routes.rb
