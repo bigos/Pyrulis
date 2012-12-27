@@ -98,7 +98,10 @@ Copy *.haml one
 $ cp ../AuthlogicConfiguration/app/views/layouts/application.html.haml ./app/views/layouts/
 
 #########################################-
-start rails server $ ./script/rails s
-create user account $ firefox http://localhost:3000/account/new
+start rails server 
+$ ./script/rails s
+
+create user account 
+$ firefox http://localhost:3000/account/new
 
 Enjoy!!!
