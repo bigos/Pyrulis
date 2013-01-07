@@ -22,14 +22,11 @@
     (if (equal key (car kv))
 	(return kv))))
 
-(defun get-v-part (kv)
-  ;;(format t ">~S ~S ~S ~S~%" kv (cadr kv) (length (cadr kv)) (caadr kv))
-  (if (eq 1 (length (cadr kv))) 
-      (caadr kv) 
-      (cadr kv)))
-
 (defun get-value (kv-list key)
-  (get-v-part (find-kv kv-list key)))
+  (let ((kv (find-kv kv-list key)))
+    (if (eq 1 (length (cadr kv))) 
+	(caadr kv) 
+	(cadr kv))))
 
 (defun header-value (key)
   (get-value *header-data* key))
