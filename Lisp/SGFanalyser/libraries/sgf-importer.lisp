@@ -29,22 +29,19 @@
 	   (return clb))
 	 (setf pos (1+ clb)))))
 
-(defun string-split (split-string string)
-  "Returns a list containing items in 'string' split from occurrences of 'split-string'."
-  (loop with l = (length split-string)
+(defun split-string (string separator)
+  (loop with l = (length separator)
      for n = 0 then (+ pos l)
-     for pos = (search split-string string :start2 n)
+     for pos = (search separator string :start2 n)
      if pos collect (subseq string n pos)
      else collect (subseq string n)
      while pos))
 
 (defun find-key-position (pos)
-  (let ((key) (res ))	
+  (let ((res ))	
     (dolist (el (keys-list))
-      (setf key (search el *buffer* :start2 pos :end2 (opening-bracket pos)))
-      (if key 
-	  (setf res key)))
-    res))
+      (if (setf res (search el *buffer* :start2 pos :end2 (opening-bracket pos)))
+	  (return res)))))
 
 (defun get-key-value-position (pos)
   (let* ((key-pos) (opb) (clb) (key) (val) (new-move))
@@ -68,16 +65,17 @@
   (let ( (key-pos 0) (result) (val-list) (all-moves) (this-move))
     (defparameter *buffer* (read-file-to-string filename))
     (loop while (< key-pos (- (length *buffer*) 3)) do	
-	 (if (last-closing-bracket key-pos)	
-	     (setf result (get-key-value-position  key-pos)))
-	 (if (car result)
-	     (setf key-pos (car result)))
-	 (setf val-list (string-split  "][" (nth 2 result)   ))
-	 (if (nth 3 result)
-	     (progn	
-	       (setf all-moves (append all-moves (list this-move)))
-	       (setf this-move () )))
-	 (setf this-move (append this-move (list (list (nth 1 result) val-list)))))
+	   (if (last-closing-bracket key-pos)	
+	       (setf result (get-key-value-position  key-pos)))
+	   (if (car result)
+	       (setf key-pos (car result)))
+	   (setf val-list (split-string (nth 2 result) "]["   ))
+	   (if (nth 3 result)
+	       (progn	
+		 (setf all-moves (append all-moves (list this-move)))
+		 (setf this-move () )))
+	   (setf this-move (append this-move (list (list (nth 1 result) val-list))))
+	   )
     (setf all-moves (append all-moves (list this-move)))
     ;; skipping firs empty list element
     (cdr all-moves)))
