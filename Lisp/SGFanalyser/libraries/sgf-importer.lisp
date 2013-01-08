@@ -41,7 +41,8 @@
   (let ((key) (res ))	
     (dolist (el (keys-list))
       (setf key (search el *buffer* :start2 pos :end2 (opening-bracket pos)))
-      (if key (progn (setf res key))))
+      (if key 
+	  (setf res key)))
     res))
 
 (defun get-key-value-position (pos)
