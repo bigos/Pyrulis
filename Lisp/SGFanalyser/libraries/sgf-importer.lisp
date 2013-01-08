@@ -38,10 +38,11 @@
      while pos))
 
 (defun find-key-position (pos)
-  (let ((res ))	
+  (let ((key) (res ))	
     (dolist (el (keys-list))
-      (if (setf res (search el *buffer* :start2 pos :end2 (opening-bracket pos)))
-	  (return res)))))
+      (setf key (search el *buffer* :start2 pos :end2 (opening-bracket pos)))
+      (if key (progn (setf res key))))
+    res))
 
 (defun get-key-value-position (pos)
   (let* ((key-pos) (opb) (clb) (key) (val) (new-move))
