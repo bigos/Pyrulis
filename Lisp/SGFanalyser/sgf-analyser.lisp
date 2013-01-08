@@ -18,8 +18,7 @@
 (defparameter *header-data* (car *all-moves*))
 
 (defun get-value (kv-list key)
-  (let ((kv))
-   (setf kv (assoc key kv-list :test #'equalp))
+  (let ((kv (assoc key kv-list :test #'equalp)))
     (if (eq 1 (length (cadr kv))) 
 	(caadr kv) 
 	(cadr kv))))
