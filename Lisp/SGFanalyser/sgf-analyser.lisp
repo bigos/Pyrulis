@@ -17,11 +17,11 @@
 (defparameter *all-moves*  (sgf-importer:get-move-list *sgf-data-filename*))
 (defparameter *header-data* (car *all-moves*))
 
-(defun get-value (kv-list key)
+(defun get-value (kv-list key)  
   (let ((kv (assoc key kv-list :test #'equalp)))
-    (if (eq 1 (length (cadr kv))) 
-	(caadr kv) 
-	(cadr kv))))
+    (if (listp (cdr kv))
+	(car (cdr kv))
+	(cdr kv))))
 
 (defun header-value (key)
   (get-value *header-data* key))

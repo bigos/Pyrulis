@@ -69,17 +69,19 @@
   (let ( (key-pos 0) (result) (val-list) (all-moves) (this-move))
     (defparameter *buffer* (read-file-to-string filename))
     (loop while (< key-pos (- (length *buffer*) 3)) do	
-	   (if (last-closing-bracket key-pos)	
-	       (setf result (get-key-value-position  key-pos)))
-	   (if (car result)
-	       (setf key-pos (car result)))
-	   (setf val-list (split-string (nth 2 result) "]["   ))
-	   (if (nth 3 result)
-	       (progn	
-		 (setf all-moves (append all-moves (list this-move)))
-		 (setf this-move () )))
-	   (setf this-move (append this-move (list (list (nth 1 result) val-list))))
-	   )
+	 (if (last-closing-bracket key-pos)		     
+	     (setf result (get-key-value-position  key-pos)))
+	 (if (car result)
+	     (setf key-pos (car result)))
+	 (setf val-list (split-string (nth 2 result) "]["   ))
+	 (if (nth 3 result)
+	     (progn	
+	       (setf all-moves (append all-moves (list this-move)))
+	       (setf this-move () )))	 
+	 (setf this-move (append this-move 
+				 (list (cons (nth 1 result) (if (eq 1 (length val-list))
+								(car val-list)
+								(list val-list)))))))
     (setf all-moves (append all-moves (list this-move)))
     ;; skipping firs empty list element
     (cdr all-moves)))
