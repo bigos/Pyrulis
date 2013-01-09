@@ -1,6 +1,8 @@
 
 (in-package :sgf-importer)
 
+(defvar *buffer*)
+
 (defun keys-list ()
   (list "B" "W" "C" "N" "V"
 	"KO" "MN" "AB" "AE" "AW" "PL" "DM" "GB" "GW" "HO" "UC" "BM"
