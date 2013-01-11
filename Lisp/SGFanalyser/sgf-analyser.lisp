@@ -28,32 +28,24 @@
 
 (defun game-stats ()
   (let ((new-line (format nil "~%"))
-	(zzz `(("white" . "PW") ("rank" . "WR") ("black" . "PB") ("rank" . "BR") ("board size" . "SZ") 
-	       ("~%rules" . "RU") ("result" . "RE") ("komi" . "KM") ("~%handicap" . "HA")
-	       ,(cond  ((length (header-value "AB"))  '("black handicap list" . "AB")) 
-		       ((length (header-value "AW"))  '("white handicap list" . "AW"))))))
-    ;;(format t "~%~S~%" zzz)
-    (dolist (el zzz)
-      (format t "~a  ~S " (format nil (car  el))   (header-value (cdr el))))
-    ;;-----------------------------------------------
-    (concatenate 'string "white: " (header-value "PW") " " (header-value "WR") " black: " (header-value "PB") " " (header-value "BR")
-		 " board size: "  (header-value "SZ") new-line "rules: " (header-value "RU") " result: "  (header-value "RE")
-		 " komi: " (header-value "KM") " handicap: " (header-value  "HA") 
-		 (cond  ((length (header-value "AB"))  (format nil "~%black handicap list ~S" (header-value "AB")) ) 
-			((length (header-value "AW"))  (format nil "~%white handicap list ~S" (header-value "AW")) )
-			(T nil)))))
+	(stats `(("white" . "PW") ("white rank" . "WR") ("black" . "PB") ("black rank" . "BR") ("~%board size" . "SZ") 
+		 ("rules" . "RU") ("result" . "RE") ("komi" . "KM") ("~%handicap" . "HA")
+		 ,(cond  ((length (header-value "AB"))  '("black handicap list" . "AB")) 
+			 ((length (header-value "AW"))  '("white handicap list" . "AW"))))))
+    (dolist (el stats)
+      (format t "~a: ~S   " (format nil (car  el))   (header-value (cdr el))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()        
   (let ((grid) (grid-size))
     (format T "~%~%~A <<<<<<<<<<~%" *all-moves*)    
     (format t ">>>> ~S <<<<<~%" *header-data*)
-    (format t "game stats:~%~A~%" (game-stats ))
+    (game-stats )
     (setf grid-size (parse-integer (header-value "SZ")))
-    (format t "~d <<< grid size ~%" grid-size)
+    (format t "~%~d <<< grid size ~%" grid-size)
     (setf grid (make-array (list grid-size grid-size) :initial-element nil))
     (setf (aref grid 18 18) "zzz")	;setting element of the array
-    (format t "~A ~%" grid)
+    ;(format t "~A ~%" grid)
     
     ;;sample char2int
     (loop for x from (char-code #\a) to (char-code #\s) do
