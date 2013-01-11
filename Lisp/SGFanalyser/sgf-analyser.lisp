@@ -27,7 +27,16 @@
   (get-value *header-data* key))
 
 (defun game-stats ()
-  (let ((new-line (format nil "~%"))) 
+  (let ((new-line (format nil "~%"))
+	(zzz `(("white" . "PW") ("rank" . "WR") ("black" . "PB") ("rank" . "BR") ("board size" . "SZ") 
+	       ("~%rules" . "RU") ("result" . "RE") ("komi" . "KM") ("~%handicap" . "HA")
+	       ,(cond  ((length (header-value "AB"))  '("black handicap list" . "AB")) 
+		       ((length (header-value "AW"))  '("white handicap list" . "AW"))))))
+    (format t "~%~S~%" zzz)
+    (dolist (el zzz)
+      (format t ">~S  ~S<~%" (car  el)   (header-value (cdr el)))
+      )
+
     (concatenate 'string "white: " (header-value "PW") " " (header-value "WR") " black: " (header-value "PB") " " (header-value "BR")
 		 " board size: "  (header-value "SZ") new-line "rules: " (header-value "RU") " result: "  (header-value "RE")
 		 " komi: " (header-value "KM") " handicap: " (header-value  "HA") 
