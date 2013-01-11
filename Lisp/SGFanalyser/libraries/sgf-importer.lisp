@@ -70,9 +70,7 @@
     (defparameter *buffer* (read-file-to-string filename))
     (loop while (< key-pos (- (length *buffer*) 3)) do	
 	 (if (last-closing-bracket key-pos)		     
-	     (setf result (get-key-value-position  key-pos)))
-	 (if (car result)
-	     (setf key-pos (car result)))
+	     (setf key-pos (car (setf result (get-key-value-position  key-pos)))))	 
 	 (setf val-list (split-string (nth 2 result) "]["   ))
 	 (if (nth 3 result)
 	     (progn	
