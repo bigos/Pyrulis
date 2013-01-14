@@ -23,10 +23,10 @@
 	(car (cdr kv))
 	(cdr kv))))
 
-(defun header-value (key)
-  (get-value *header-data* key))
-
 (defun game-stats ()
+  ;;labels defines a local funcfiom
+  (labels ((header-value (key) (get-value *header-data* key))))
+
   (let ((new-line (format nil "~%"))
 	(stats `(("white" . "PW") ("white rank" . "WR") ("black" . "PB") ("black rank" . "BR") ("~%board size" . "SZ") 
 		 ("rules" . "RU") ("result" . "RE") ("komi" . "KM") ("~%handicap" . "HA")
