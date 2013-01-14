@@ -15,7 +15,6 @@
 
 ;;; other global variables
 (defparameter *all-moves*  (sgf-importer:get-move-list *sgf-data-filename*))
-(defparameter *header-data* (car *all-moves*))
 
 (defun header-value (key)  
   (let ((kv (assoc key (car *all-moves*) :test #'equalp)))
