@@ -17,16 +17,13 @@
 (defparameter *all-moves*  (sgf-importer:get-move-list *sgf-data-filename*))
 (defparameter *header-data* (car *all-moves*))
 
-(defun get-value (kv-list key)  
-  (let ((kv (assoc key kv-list :test #'equalp)))
+(defun header-value (key)  
+  (let ((kv (assoc key (car *all-moves*) :test #'equalp)))
     (if (listp (cdr kv))
 	(car (cdr kv))
 	(cdr kv))))
 
 (defun game-stats ()
-  ;;labels defines a local funcfiom
-  (labels ((header-value (key) (get-value *header-data* key))))
-
   (let ((new-line (format nil "~%"))
 	(stats `(("white" . "PW") ("white rank" . "WR") ("black" . "PB") ("black rank" . "BR") ("~%board size" . "SZ") 
 		 ("rules" . "RU") ("result" . "RE") ("komi" . "KM") ("~%handicap" . "HA")
@@ -45,8 +42,7 @@
     (format t "~%~d <<< grid size ~%" grid-size)
     (setf grid (make-array (list grid-size grid-size) :initial-element nil))
     (setf (aref grid 18 18) "zzz")	;setting element of the array
-    ;(format t "~A ~%" grid)
-    
+    (format t "~A ~%" grid)    
     ;;sample char2int
     (loop for x from (char-code #\a) to (char-code #\s) do
 	 (format t "~s ~s ~s    " x (- x 97) (code-char x)))
