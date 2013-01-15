@@ -23,8 +23,7 @@
 	(cdr kv))))
 
 (defun game-stats ()
-  (let ((new-line (format nil "~%"))
-	(stats `(("white" . "PW") ("white rank" . "WR") ("black" . "PB") ("black rank" . "BR") ("~%board size" . "SZ") 
+  (let ((stats `(("white" . "PW") ("white rank" . "WR") ("black" . "PB") ("black rank" . "BR") ("~%board size" . "SZ") 
 		 ("rules" . "RU") ("result" . "RE") ("komi" . "KM") ("~%handicap" . "HA")
 		 ,(cond  ((length (header-value "AB"))  '("black handicap list" . "AB")) 
 			 ((length (header-value "AW"))  '("white handicap list" . "AW"))))))
@@ -34,14 +33,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()        
   (let ((grid) (grid-size))
-    (format T "~%~%~A <<<<<<<<<<~%" *all-moves*)    
-    (format t ">>>> ~S <<<<<~%" *header-data*)
+    (format T "~%~%~A <<<<<<<<<<~%" *all-moves*)   
     (game-stats )
     (setf grid-size (parse-integer (header-value "SZ")))
     (format t "~%~d <<< grid size ~%" grid-size)
     (setf grid (make-array (list grid-size grid-size) :initial-element nil))
     (setf (aref grid 18 18) "zzz")	;setting element of the array
-    (format t "~A ~%" grid)    
+    ;(format t "~A ~%" grid)    
     ;;sample char2int
     (loop for x from (char-code #\a) to (char-code #\s) do
 	 (format t "~s ~s ~s    " x (- x 97) (code-char x)))
