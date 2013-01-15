@@ -28,7 +28,8 @@
 		 ,(cond  ((length (header-value "AB"))  '("black handicap list" . "AB")) 
 			 ((length (header-value "AW"))  '("white handicap list" . "AW"))))))
     (dolist (el stats)
-      (format t "~a: ~S   " (format nil (car  el))   (header-value (cdr el))))))
+      ;; ~? explanation: http://www.lispworks.com/documentation/HyperSpec/Body/22_cgf.htm
+      (format t "~@?: ~S   "  (car  el)   (header-value (cdr el))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()        
