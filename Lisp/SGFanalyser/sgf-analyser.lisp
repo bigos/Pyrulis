@@ -31,6 +31,12 @@
       ;; ~? explanation: http://www.lispworks.com/documentation/HyperSpec/Body/22_cgf.htm
       (format t "~@?: ~S   "  (car  el)   (header-value (cdr el))))))
 
+(defun add-handicaps ()
+  (format t "~%~%going to add handicaps~%"))
+
+(defun print-board ()
+  (format t "~%~%going to print the board~%"))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()        
   (let ((grid) (grid-size))
@@ -46,6 +52,11 @@
 	 (format t "~s ~s ~s    " x (- x 97) (code-char x)))
 					;get char from str
     (format t "~% :~s:   "  (char "abc" 1))
+    
+    (add-handicaps)
+    ;print the board
+    (print-board)
+
     ))
 
 ;;;==================================================
