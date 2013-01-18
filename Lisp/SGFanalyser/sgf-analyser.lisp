@@ -32,8 +32,7 @@
       (format t "~@?: ~S   "  (car  el)   (header-value (cdr el))))))
 
 (defun add-handicaps ()
-  (dolist (handis (list (list "black" (header-value "AB")) (list "white" (header-value "AW"))))
-    ;;(format t "~%>>> ~S ~S~%" (car handis) (cadr handis))
+  (dolist (handis `(("black" ,(header-value "AB")) ("white" ,(header-value "AW"))))
     (dolist (pos (cadr handis))
       (format t "#### going to place ~A at ~A ~%" (car handis) pos))))
  
