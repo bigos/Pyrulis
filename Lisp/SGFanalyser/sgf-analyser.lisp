@@ -32,8 +32,11 @@
       (format t "~@?: ~S   "  (car  el)   (header-value (cdr el))))))
 
 (defun add-handicaps ()
-  (format t "~%~%going to add handicaps~%"))
-
+  (dolist (handis (list (list "black" (header-value "AB")) (list "white" (header-value "AW"))))
+    ;;(format t "~%>>> ~S ~S~%" (car handis) (cadr handis))
+    (dolist (pos (cadr handis))
+      (format t "#### going to place ~A at ~A ~%" (car handis) pos))))
+ 
 (defun print-board ()
   (format t "~%~%going to print the board~%"))
 
@@ -51,7 +54,7 @@
     (loop for x from (char-code #\a) to (char-code #\s) do
 	 (format t "~s ~s ~s    " x (- x 97) (code-char x)))
 					;get char from str
-    (format t "~% :~s:   "  (char "abc" 1))
+    (format t "~% :~s:   ~%"  (char "abc" 1))
     
     (add-handicaps)
     ;print the board
