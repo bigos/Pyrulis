@@ -1,3 +1,5 @@
+
+
 ;;; define application package
 (defpackage :sgf-analyser
   (:use :common-lisp ) 
