@@ -66,8 +66,7 @@
     (setf grid-size (parse-integer (header-value "SZ")))
     (format t "~%~d <<< grid size ~%" grid-size)
     (setf grid (make-array (list grid-size grid-size) :initial-element nil))
-    (setf (aref grid 18 18) "z")	;setting element of the array
-   
+      
     ;;sample char2int
     (loop for x from (char-code #\a) to (char-code #\s) do
 	 (format t "~s ~s ~s    " x (- x 97) (code-char x)))
