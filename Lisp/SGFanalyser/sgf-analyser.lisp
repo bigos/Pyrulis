@@ -41,8 +41,7 @@
 	(column-letters '(a b c d e f g h j k l m n o p q r s t)))
     (format t "    ")
     (dolist (c column-letters)
-      (format t "~a " c)
-      )
+      (format t "~a " c))
     (loop for r from (- size 1) downto 0 do
 	 (format T "~&~2d  " (+ r 1))	 
 	 (dotimes (c size)
