@@ -37,9 +37,11 @@
     (cons (coord 0) (coord 1))))
 
 (defun add-handicaps (board)
-  (dolist (handis `(("black" ,(header-value "AB")) ("white" ,(header-value "AW"))))
+  (dolist (handis `(("b" ,(header-value "AB")) ("w" ,(header-value "AW"))))
     (dolist (pos (cadr handis))
-      (format t "#### going to place ~A at ~A ~A~%" (car handis) pos (sgf-to-i pos)))))
+      (format t "#### going to place ~A at ~A ~A~%" (car handis) pos (sgf-to-i pos))
+      (setf (aref board (car (sgf-to-i pos)) (cdr (sgf-to-i pos))) (car handis))
+      )))
  
 (defun print-board (board)
   (let ((size (car (array-dimensions board))) (stone) 
