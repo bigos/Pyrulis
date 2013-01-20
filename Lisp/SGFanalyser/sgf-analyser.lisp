@@ -38,20 +38,14 @@
  
 (defun print-board (board)
   (let ((size (car (array-dimensions board))) (stone))
-    (format t "~%~A ~%" board)    
-    (format t "~%~% ~s~%" (car (array-dimensions board)))
-    (dotimes (r size)
-      (format t "row ~2d: " r)
-      (dotimes (c size)
-	(setf stone (aref board r c))
-	(format t "~2a"
-		(if stone 
-		    stone 
-		    "."))
-	)
-      (format t "~%")
-      )
-    ))
+    (loop for r from (- size 1) downto 0 do
+	 (format T "~&~2:a  " r )	 
+	 (dotimes (c size)
+	   (setf stone (aref board r c))
+	   (format t "~2a"
+		   (if stone 
+		       stone 
+		       "."))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()        
