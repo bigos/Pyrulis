@@ -37,7 +37,12 @@
       (format t "#### going to place ~A at ~A ~%" (car handis) pos))))
  
 (defun print-board (board)
-  (let ((size (car (array-dimensions board))) (stone))
+  (let ((size (car (array-dimensions board))) (stone) 
+	(column-letters '(a b c d e f g h j k l m n o p q r s t)))
+    (format t "    ")
+    (dolist (c column-letters)
+      (format t "~a " c)
+      )
     (loop for r from (- size 1) downto 0 do
 	 (format T "~&~2d  " (+ r 1))	 
 	 (dotimes (c size)
