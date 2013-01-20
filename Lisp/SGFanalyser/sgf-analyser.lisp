@@ -36,8 +36,22 @@
     (dolist (pos (cadr handis))
       (format t "#### going to place ~A at ~A ~%" (car handis) pos))))
  
-(defun print-board ()
-  (format t "~%~%going to print the board~%"))
+(defun print-board (board)
+  (let ((size (car (array-dimensions board))) (stone))
+    (format t "~%~A ~%" board)    
+    (format t "~%~% ~s~%" (car (array-dimensions board)))
+    (dotimes (r size)
+      (format t "row ~2d: " r)
+      (dotimes (c size)
+	(setf stone (aref board r c))
+	(format t "~2a"
+		(if stone 
+		    stone 
+		    "."))
+	)
+      (format t "~%")
+      )
+    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()        
@@ -47,8 +61,8 @@
     (setf grid-size (parse-integer (header-value "SZ")))
     (format t "~%~d <<< grid size ~%" grid-size)
     (setf grid (make-array (list grid-size grid-size) :initial-element nil))
-    (setf (aref grid 18 18) "zzz")	;setting element of the array
-    ;(format t "~A ~%" grid)    
+    (setf (aref grid 18 18) "z")	;setting element of the array
+   
     ;;sample char2int
     (loop for x from (char-code #\a) to (char-code #\s) do
 	 (format t "~s ~s ~s    " x (- x 97) (code-char x)))
@@ -57,7 +71,7 @@
     
     (add-handicaps)
     ;print the board
-    (print-board)
+    (print-board grid)
 
     ))
 
