@@ -36,12 +36,14 @@
 	     (- (char-code(char coordinates i)) 97)))
     (cons (coord 0) (coord 1))))
 
+(defun place-stone (board colour coordinates)
+  (setf (aref board (car coordinates) (cdr coordinates)) colour))
+
 (defun add-handicaps (board)
   (dolist (handis `(("b" ,(header-value "AB")) ("w" ,(header-value "AW"))))
     (dolist (pos (cadr handis))
       (format t "#### going to place ~A at ~A ~A~%" (car handis) pos (sgf-to-i pos))
-      (setf (aref board (car (sgf-to-i pos)) (cdr (sgf-to-i pos))) (car handis))
-      )))
+      (place-stone board (car handis) (sgf-to-i pos)))))
  
 (defun print-board (board)
   (let ((size (car (array-dimensions board))) (stone) 
