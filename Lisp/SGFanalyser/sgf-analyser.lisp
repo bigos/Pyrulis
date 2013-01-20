@@ -39,7 +39,7 @@
 (defun print-board (board)
   (let ((size (car (array-dimensions board))) (stone))
     (loop for r from (- size 1) downto 0 do
-	 (format T "~&~2:a  " r )	 
+	 (format T "~&~2d  " (+ r 1))	 
 	 (dotimes (c size)
 	   (setf stone (aref board r c))
 	   (format t "~2a"
