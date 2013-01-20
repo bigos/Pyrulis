@@ -31,10 +31,15 @@
       ;; ~? explanation: http://www.lispworks.com/documentation/HyperSpec/Body/22_cgf.htm
       (format t "~@?: ~S   "  (car  el)   (header-value (cdr el))))))
 
-(defun add-handicaps ()
+(defun sgf-to-i (coordinates)
+  (labels ((coord (i)
+	     (- (char-code(char coordinates i)) 97)))
+    (cons (coord 0) (coord 1))))
+
+(defun add-handicaps (board)
   (dolist (handis `(("black" ,(header-value "AB")) ("white" ,(header-value "AW"))))
     (dolist (pos (cadr handis))
-      (format t "#### going to place ~A at ~A ~%" (car handis) pos))))
+      (format t "#### going to place ~A at ~A ~A~%" (car handis) pos (sgf-to-i pos)))))
  
 (defun print-board (board)
   (let ((size (car (array-dimensions board))) (stone) 
@@ -67,8 +72,7 @@
 					;get char from str
     (format t "~% :~s:   ~%"  (char "abc" 1))
     
-    (add-handicaps)
-    ;print the board
+    (add-handicaps grid)
     (print-board grid)
 
     ))
