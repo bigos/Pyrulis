@@ -51,10 +51,10 @@
     (format t "    ")
     (dolist (c column-letters)
       (format t "~a " c))
-    (loop for r from (- size 1) downto 0 do
+    (dotimes (r size)
 	 (format T "~&~2d  " (+ r 1))	 
 	 (dotimes (c size)
-	   (setf stone (aref board r c))
+	   (setf stone (aref board c r))
 	   (format t "~2a"
 		   (if stone 
 		       stone 
