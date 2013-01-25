@@ -78,7 +78,8 @@
     (add-handicaps grid)
     (print-board grid)
     (dotimes (x 3)
-      (format t "~% ~a~%" (nth  x all-moves))
+      (format t "~%~S " (caar (nth x all-moves)))
+      (format t "~% ~a~%" (sgf-to-i (cdr (car (nth  x all-moves)))))
       )
 
     ))
