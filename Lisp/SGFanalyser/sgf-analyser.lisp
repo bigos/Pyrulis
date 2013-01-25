@@ -40,7 +40,7 @@
   (setf (aref board (car coordinates) (cdr coordinates)) colour))
 
 (defun add-handicaps (board)
-  (dolist (handis `(("b" ,(header-value "AB")) ("w" ,(header-value "AW"))))
+  (dolist (handis `(("B" ,(header-value "AB")) ("W" ,(header-value "AW"))))
     (dolist (pos (cadr handis))
       (format t "#### going to place ~A at ~A ~A~%" (car handis) pos (sgf-to-i pos))
       (place-stone board (car handis) (sgf-to-i pos)))))
@@ -62,12 +62,12 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()        
-  (let ((grid) (grid-size) (move))
+  (let ((board) (board-size) (move))
     (format T "~%~%~A <<<<<<<<<<~%" *game-record*)   
     (game-stats )
-    (setf grid-size (parse-integer (header-value "SZ")))
-    (format t "~%~d <<< grid size ~%" grid-size)
-    (setf grid (make-array (list grid-size grid-size) :initial-element nil))
+    (setf board-size (parse-integer (header-value "SZ")))
+    (format t "~%~d <<< board size ~%" board-size)
+    (setf board (make-array (list board-size board-size) :initial-element nil))
       
     ;;sample char2int
     (loop for x from (char-code #\a) to (char-code #\s) do
@@ -75,11 +75,12 @@
 					;get char from str
     (format t "~% :~s:   ~%"  (char "abc" 1))
     
-    (add-handicaps grid)
-    (print-board grid)
+    (add-handicaps board)
+    (print-board board)
     (dolist (move (subseq (cdr *game-record*) 0 3))
-      (format t "~% color ~S coordinates  ~S    ~S~%" (caar move) (cdar move) (sgf-to-i (cdar move)))
-      )
+      (format t "~% color ~S coordinates ~S~%" (caar move) (sgf-to-i (cdar move)))
+      (place-stone board (caar move) (sgf-to-i (cdar move))))
+    (print-board board)
 
     ))
 
