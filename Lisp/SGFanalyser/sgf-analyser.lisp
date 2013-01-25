@@ -14,10 +14,10 @@
 (load (concatenate 'string *app-path* "load.lisp"))
 
 ;;; other global variables
-(defparameter *all-moves*  (sgf-importer:get-move-list *sgf-data-filename*))
+(defparameter *game-record*  (sgf-importer:get-move-list *sgf-data-filename*))
 
 (defun header-value (key)  
-  (let ((kv (assoc key (car *all-moves*) :test #'equalp)))
+  (let ((kv (assoc key (car *game-record*) :test #'equalp)))
     (if (listp (cdr kv))
 	(car (cdr kv))
 	(cdr kv))))
@@ -62,7 +62,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()        
-  (let ((grid) (grid-size))
+  (let ((grid) (grid-size) (all-moves (cdr *game-record*)))
     (format T "~%~%~A <<<<<<<<<<~%" *all-moves*)   
     (game-stats )
     (setf grid-size (parse-integer (header-value "SZ")))
@@ -77,6 +77,9 @@
     
     (add-handicaps grid)
     (print-board grid)
+    (dotimes (x 3)
+      (format t "~% ~a~%" (nth  x all-moves))
+      )
 
     ))
 
