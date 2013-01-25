@@ -62,8 +62,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()        
-  (let ((grid) (grid-size) (all-moves (cdr *game-record*)))
-    (format T "~%~%~A <<<<<<<<<<~%" *all-moves*)   
+  (let ((grid) (grid-size) (move))
+    (format T "~%~%~A <<<<<<<<<<~%" *game-record*)   
     (game-stats )
     (setf grid-size (parse-integer (header-value "SZ")))
     (format t "~%~d <<< grid size ~%" grid-size)
@@ -77,9 +77,8 @@
     
     (add-handicaps grid)
     (print-board grid)
-    (dotimes (x 3)
-      (format t "~%~S " (caar (nth x all-moves)))
-      (format t "~% ~a~%" (sgf-to-i (cdr (car (nth  x all-moves)))))
+    (dolist (move (subseq (cdr *game-record*) 0 3))
+      (format t "~% color ~S coordinates  ~S    ~S~%" (caar move) (cdar move) (sgf-to-i (cdar move)))
       )
 
     ))
