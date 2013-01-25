@@ -52,7 +52,7 @@
     (dolist (c column-letters)
       (format t "~a " c))
     (dotimes (r size)
-	 (format T "~&~2d  " (+ r 1))	 
+	 (format T "~&~2d  " (- size r ))	 
 	 (dotimes (c size)
 	   (setf stone (aref board c r))
 	   (format t "~2a"
