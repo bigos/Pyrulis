@@ -48,17 +48,18 @@
 (defun print-board (board)
   (let ((size (car (array-dimensions board))) (stone) 
 	(column-letters '(a b c d e f g h j k l m n o p q r s t)))
-    (format t "    ")
+    (format t "~%    ")
     (dolist (c column-letters)
       (format t "~a " c))
     (dotimes (r size)
-	 (format T "~&~2d  " (- size r ))	 
-	 (dotimes (c size)
-	   (setf stone (aref board c r))
-	   (format t "~2a"
-		   (if stone 
-		       stone 
-		       "."))))))
+      (format T "~&~2d  " (- size r ))	 
+      (dotimes (c size)
+	(setf stone (aref board c r))
+	(format t "~2a"
+		(if stone 
+		    stone 
+		    "."))))
+    (format t "~%~%")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()        
@@ -78,7 +79,7 @@
     (add-handicaps board)
     (print-board board)
     (dolist (move (subseq (cdr *game-record*) 0 3))
-      (format t "~% color ~S coordinates ~S~%" (caar move) (sgf-to-i (cdar move)))
+      (format t "color ~S coordinates ~S~%" (caar move) (sgf-to-i (cdar move)))
       (place-stone board (caar move) (sgf-to-i (cdar move))))
     (print-board board)
 
