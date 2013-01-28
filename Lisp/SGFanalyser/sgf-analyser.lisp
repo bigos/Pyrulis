@@ -9,7 +9,8 @@
 (defvar *app-path* "/home/jacek/Programming/Pyrulis/Lisp/SGFanalyser/")
 (defvar *libraries-path*    (concatenate 'string *app-path* "libraries/"))
 (defvar *sgf-data-filename* (concatenate 'string *app-path* "game_records/" "jacekpod-coalburner.sgf"))
- 
+(defvar *column-letters* '(a b c d e f g h j k l m n o p q r s t)) 
+
 ;;; load libraries
 (load (concatenate 'string *app-path* "load.lisp"))
 
@@ -46,10 +47,9 @@
       (place-stone board (car handis) (sgf-to-i pos)))))
  
 (defun print-board (board)
-  (let ((size (car (array-dimensions board))) (stone) 
-	(column-letters '(a b c d e f g h j k l m n o p q r s t)))
+  (let ((size (car (array-dimensions board))) (stone))
     (format t "~%    ")
-    (dolist (c column-letters)
+    (dolist (c *column-letters*)
       (format t "~a " c))
     (dotimes (r size)
       (format T "~&~2d  " (- size r ))	 
