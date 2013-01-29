@@ -60,11 +60,9 @@
     (format t "~%~%")))
 
 (defun parse-coordinates (str)
-  (let ((column (subseq str 0 1)) (row (subseq str 1 2)))
-    (format t "~S ~S : ~S    ~%" column row
-	    (position column *column-letters* :test #'equal))
-    (format nil "~%entered: ~S~%" str)
-    ))
+  (let ((column (position (subseq str 0 1) *column-letters* :test #'equal)) 
+	(row (parse-integer (subseq str 1 2))))
+    (cons column row)))
 
 (defun show-coordinates (str)
   (format t "~a~%"
