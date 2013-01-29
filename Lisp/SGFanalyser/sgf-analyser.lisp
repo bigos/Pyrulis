@@ -9,7 +9,7 @@
 (defvar *app-path* "/home/jacek/Programming/Pyrulis/Lisp/SGFanalyser/")
 (defvar *libraries-path*    (concatenate 'string *app-path* "libraries/"))
 (defvar *sgf-data-filename* (concatenate 'string *app-path* "game_records/" "jacekpod-coalburner.sgf"))
-(defvar *column-letters* '(a b c d e f g h j k l m n o p q r s t)) 
+(defvar *column-letters* '("a" "b" "c" "d" "e" "f" "g" "h" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s" "t")) 
 
 ;;; load libraries
 (load (concatenate 'string *app-path* "load.lisp"))
