@@ -59,6 +59,19 @@
 		    "."))))
     (format t "~%~%")))
 
+(defun parse-coordinates (str)
+  (let ((column (subseq str 0 1)) (row (subseq str 1 2)))
+    (format t "~S ~S : ~S    ~%" column row
+	    (position column *column-letters* :test #'equal))
+    (format nil "~%entered: ~S~%" str)
+    ))
+
+(defun show-coordinates (str)
+  (format t "~a~%"
+	  (if (eq  (length str) 2)
+	      (parse-coordinates str)
+	      "Error")))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()        
   (let ((board) (board-size) (move))
@@ -80,6 +93,8 @@
       (format t "color ~S coordinates ~S~%" (caar move) (sgf-to-i (cdar move)))
       (place-stone board (caar move) (sgf-to-i (cdar move))))
     (print-board board)
+    (princ "Enter coordinates: ")
+    (show-coordinates (read-line))
 
     ))
 
