@@ -9,13 +9,13 @@
 (defvar *app-path* "/home/jacek/Programming/Pyrulis/Lisp/SGFanalyser/")
 (defvar *libraries-path*    (concatenate 'string *app-path* "libraries/"))
 (defvar *sgf-data-filename* (concatenate 'string *app-path* "game_records/" "jacekpod-coalburner.sgf"))
-(defvar *column-letters* '("a" "b" "c" "d" "e" "f" "g" "h" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s" "t")) 
 
 ;;; load libraries
 (load (concatenate 'string *app-path* "load.lisp"))
 
 ;;; other global variables
 (defparameter *game-record*  (sgf-importer:get-move-list *sgf-data-filename*))
+(defvar *column-letters* '("a" "b" "c" "d" "e" "f" "g" "h" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s" "t")) 
 
 (defun header-value (key)  
   (let ((kv (assoc key (car *game-record*) :test #'equalp)))
