@@ -59,20 +59,14 @@
 		    "."))))
     (format t "~%~%")))
 
-(defun parse-coordinates (str)
+(defun parse-board-coordinates (str)
   (let ((column (position (subseq str 0 1) *column-letters* :test #'equal)) 
 	(row (parse-integer (subseq str 1 2))))
     (cons column row)))
 
-(defun show-coordinates (str)
-  (format t "~a~%"
-	  (if (eq  (length str) 2)
-	      (parse-coordinates str)
-	      "Error")))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()        
-  (let ((board) (board-size) (move))
+  (let ((board) (board-size) (move) (coordinates))
     (format T "~%~%~A <<<<<<<<<<~%" *game-record*)   
     (game-stats )
     (setf board-size (parse-integer (header-value "SZ")))
@@ -93,8 +87,11 @@
     (print-board board)
 
     (princ "Enter coordinates: ")
-    (show-coordinates (read-line))
-
+    (setq coordinates (read-line))
+    (format t "~a~%"
+	    (if (eq  (length coordinates) 2)
+		(parse-board-coordinates coordinates)
+		"Error"))
     ))
 
 ;;;==================================================
