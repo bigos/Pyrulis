@@ -91,7 +91,9 @@
     (format t "~a~%"
 	    (if (eq  (length coordinates) 2)
 		(parse-board-coordinates coordinates)
-		"Error"))
+		(error "Error: You have entered invalid coordinates. 
+Please enter valid coordinates (for example a1)
+one of the error options below should let you try correct value.")))
     ))
 
 ;;;==================================================
