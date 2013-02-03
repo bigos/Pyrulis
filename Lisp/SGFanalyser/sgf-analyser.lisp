@@ -64,6 +64,13 @@
 	(row (parse-integer (subseq str 1 2))))
     (cons column row)))
 
+(define-condition coordinates-error (error)
+                  ((message :initarg :message :reader coordinates-error-message)
+		   (coordinates :initarg :coordinates :reader coordinates-error-coordinates))
+  (:report (lambda (condition stream)
+             (format stream "There is a problem with: ~A.    [ ~A ]"
+                     (coordinates-error-message condition) 
+		     (coordinates-error-coordinates condition)))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()        
   (let ((board) (board-size) (move) (coordinates))
@@ -91,9 +98,9 @@
     (format t "~a~%"
 	    (if (eq  (length coordinates) 2)
 		(parse-board-coordinates coordinates)
-		(error "Error: You have entered invalid coordinates. 
-Please enter valid coordinates (for example a1)
-one of the error options below should let you try correct value.")))
+		(make-condition 'coordinates-error 
+				:message "You have entered invalid coordinates"
+				:coordinates coordinates)))
     ))
 
 ;;;==================================================
