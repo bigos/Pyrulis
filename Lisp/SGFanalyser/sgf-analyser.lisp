@@ -105,11 +105,10 @@
 	    (error 'coordinates-error 
 		   :message "You have entered invalid coordinates"
 		   :coordinates coordinates)
-	  (re-enter-coordinates ()
-	    :report "reenter the stuff"						
-	    (setq coordinates (enter-new-value)))
-	  (use-value () :report "try standard value" (setq coordinates "s2"))	  
-	  )
+	  (re-enter-coordinates () :report "reenter the stuff" 
+				(setq coordinates (enter-new-value)))
+	  (use-value () :report "try standard value" 
+		     (setq coordinates "s2")))
 	)
     (format t "the coordinates are: ~A~%" coordinates)
     ))
