@@ -71,6 +71,10 @@
              (format stream "There is a problem with: ~A.    [ ~A ]"
                      (coordinates-error-message condition) 
 		     (coordinates-error-coordinates condition)))))
+
+(defun enter-new-value ()
+  (format t "Enter new value ")
+  (read-line))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()        
   (let ((board) (board-size) (move) (coordinates))
@@ -92,15 +96,22 @@
       (format t "color ~S coordinates ~S~%" (caar move) (sgf-to-i (cdar move)))
       (place-stone board (caar move) (sgf-to-i (cdar move))))
     (print-board board)
-
+     
     (princ "Enter coordinates: ")
     (setq coordinates (read-line))
-    (format t "~a~%"
-	    (if (eq  (length coordinates) 2)
-		(parse-board-coordinates coordinates)
-		(make-condition 'coordinates-error 
-				:message "You have entered invalid coordinates"
-				:coordinates coordinates)))
+    (if (eq  (length coordinates) 2)
+	(parse-board-coordinates coordinates)
+	(restart-case
+	    (error 'coordinates-error 
+		   :message "You have entered invalid coordinates"
+		   :coordinates coordinates)
+	  (re-enter-coordinates ()
+	    :report "reenter the stuff"						
+	    (setq coordinates (enter-new-value)))
+	  (use-value () :report "try standard value" (setq coordinates "s2"))	  
+	  )
+	)
+    (format t "the coordinates are: ~A~%" coordinates)
     ))
 
 ;;;==================================================
