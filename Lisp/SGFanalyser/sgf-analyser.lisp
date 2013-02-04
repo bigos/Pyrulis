@@ -110,7 +110,7 @@
 	  (use-value () :report "try standard value" 
 		     (setq coordinates "s2")))
 	)
-    (format t "the coordinates are: ~A~%" coordinates)
+    (format t "the coordinates are: ~A~%" (parse-board-coordinates coordinates))
     ))
 
 ;;;==================================================
