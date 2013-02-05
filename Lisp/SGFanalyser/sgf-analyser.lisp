@@ -60,22 +60,27 @@
     (format t "~%~%")))
 
 (defun parse-board-coordinates (str)
-  (let ((column) (row)) 
-    (setq column (position (subseq str 0 1) *column-letters* :test #'equal)) 
-    (setq row (- (parse-integer (header-value "SZ")) (parse-integer (subseq str 1))))
+  (let ((column (position (subseq str 0 1) *column-letters* :test #'equal)) 
+	(row (- (parse-integer (header-value "SZ")) (parse-integer (subseq str 1)))))
     (cons column row)))
 
 (defun enter-coordinates ()
-  (let ((coord) (parsed))
+  (let ((parsed) (board-size (parse-integer (header-value "SZ"))))
     (loop until (and (car parsed) (cdr parsed)) 
        do 
-	 (format t "~%~%Enter coordinates (a1 - t19) ")
-	 (setq coord (read-line))	 
+	 (format t "~%~%Enter coordinates (a1 - t19) ")	 
 	 (handler-case
-	     (setq parsed (parse-board-coordinates coord))
-	   (condition (err) (format t "invalid coordinates, enter a1 to t19 (column i is not valid),~%~% raised:  ~S~%~A" err err)))
-	 (if (not (car parsed))
-	     (format t "~&wrong column entered, you need a - t , except i")))
+	     (progn
+	       (setq parsed (parse-board-coordinates (read-line)))
+	       (unless (car parsed)
+		 (format t "~&wrong column entered, you need a - t , except i"))
+					;checks for correct parsed values 0-18 in case of 19 size boad
+	       (if (or (> (cdr parsed) (- board-size 1))  
+		       (< (cdr parsed) 0))
+		   (progn
+		     (format t "~&wrong row entered, you need something between 1 and ~A"  board-size)
+		     (setf (cdr parsed) nil))))
+	   (condition (err) (format t "couldn't parse the coordinates, enter a1 to t19~&raised:  ~S~&~A" err err))))
     parsed))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
