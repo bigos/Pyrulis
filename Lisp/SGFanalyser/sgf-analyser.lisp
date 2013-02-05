@@ -60,9 +60,24 @@
     (format t "~%~%")))
 
 (defun parse-board-coordinates (str)
-  (let ((column (position (subseq str 0 1) *column-letters* :test #'equal)) 
-	(row (parse-integer (subseq str 1 2))))
+  (let ((column) (row)) 
+    (setq column (position (subseq str 0 1) *column-letters* :test #'equal)) 
+    (setq row (- (parse-integer (header-value "SZ")) (parse-integer (subseq str 1))))
     (cons column row)))
+
+(defun enter-coordinates ()
+  (let ((coord) (parsed))
+    (loop until (and (car parsed) (cdr parsed)) 
+       do 
+	 (format t "~%~%Enter coordinates (a1 - t19) ")
+	 (setq coord (read-line))	 
+	 (handler-case
+	     (setq parsed (parse-board-coordinates coord))
+	   (condition (err) (format t "invalid coordinates, enter a1 to t19 (column i is not valid),~%~% raised:  ~S~%~A" err err)))
+	 (if (not (car parsed))
+	     (format t "~&wrong column entered, you need a - t , except i"))
+	 )
+    parsed))
 
 (define-condition coordinates-error (error)
                   ((message :initarg :message :reader coordinates-error-message)
@@ -72,9 +87,6 @@
                      (coordinates-error-message condition) 
 		     (coordinates-error-coordinates condition)))))
 
-(defun enter-new-value ()
-  (format t "Enter new value ")
-  (read-line))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()        
   (let ((board) (board-size) (move) (coordinates))
@@ -97,20 +109,8 @@
       (place-stone board (caar move) (sgf-to-i (cdar move))))
     (print-board board)
      
-    (princ "Enter coordinates: ")
-    (setq coordinates (read-line))
-    (if (eq  (length coordinates) 2)
-	(parse-board-coordinates coordinates)
-	(restart-case
-	    (error 'coordinates-error 
-		   :message "You have entered invalid coordinates"
-		   :coordinates coordinates)
-	  (re-enter-coordinates () :report "reenter the stuff" 
-				(setq coordinates (enter-new-value)))
-	  (use-value () :report "try standard value" 
-		     (setq coordinates "s2")))
-	)
-    (format t "the coordinates are: ~A~%" (parse-board-coordinates coordinates))
+    (setq coordinates (enter-coordinates))    
+    (format t "the coordinates are: ~A~%"  coordinates)
     ))
 
 ;;;==================================================
