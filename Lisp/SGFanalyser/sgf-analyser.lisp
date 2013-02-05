@@ -13,15 +13,17 @@
 ;;; other global variables
 (defvar *sgf-data-filename* (concatenate 'string *app-path* "game_records/" "jacekpod-coalburner.sgf"))
 (defparameter *game-record* (sgf-importer:get-move-list *sgf-data-filename*))
-(defvar *board-size* (parse-integer (header-value "SZ")))
-(defvar *column-letters* '("a" "b" "c" "d" "e" "f" "g" "h" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s" "t")) 
-(defvar *last-column-letter* (car (subseq *column-letters* (- (parse-integer (header-value "SZ")) 1))))
 
 (defun header-value (key)  
   (let ((kv (assoc key (car *game-record*) :test #'equalp)))
     (if (listp (cdr kv))
 	(car (cdr kv))
 	(cdr kv))))
+
+(defvar *column-letters* '("a" "b" "c" "d" "e" "f" "g" "h" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s" "t"))
+(defvar *board-size* (parse-integer (header-value "SZ")))
+(defvar *last-column-letter* (car (subseq *column-letters* (- (parse-integer (header-value "SZ")) 1))))
+
 
 (defun game-stats ()
   (let ((stats `(("white" . "PW") ("white rank" . "WR") ("black" . "PB") ("black rank" . "BR") ("~%board size" . "SZ") 
@@ -34,7 +36,7 @@
 
 (defun sgf-to-i (coordinates)
   (labels ((coord (i)
-	     (- (char-code(char coordinates i)) 97)))
+	     (position (char coordinates i) "abcdefghijklmnopqrs")))
     (cons (coord 0) (coord 1))))
 
 (defun place-stone (board colour coordinates)
