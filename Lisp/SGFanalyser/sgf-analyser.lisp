@@ -60,27 +60,37 @@
     (format t "~%~%")))
 
 (defun parse-board-coordinates (str)
-  (let ((column (position (subseq str 0 1) *column-letters* :test #'equal)) 
-	(row (- (parse-integer (header-value "SZ")) (parse-integer (subseq str 1)))))
+  (let* ((board-size (parse-integer (header-value "SZ")))
+	 (column (position (subseq str 0 1) (subseq *column-letters* 0 board-size) :test #'equal)) 
+	 (row (- (parse-integer (header-value "SZ")) (parse-integer (subseq str 1)))))
     (cons column row)))
+
+(defun last-column-letter ()
+  (let ((board-size (parse-integer (header-value "SZ"))))
+    (car (subseq *column-letters* (- board-size 1) ))))
+
+(defun max-coordinate ()
+  (let ((board-size (parse-integer (header-value "SZ"))))
+    (if (> board-size 19)
+	(error "too big board size"))
+    (format nil "~a~a" (last-column-letter) board-size)))
 
 (defun enter-coordinates ()
   (let ((parsed) (board-size (parse-integer (header-value "SZ"))))
     (loop until (and (car parsed) (cdr parsed)) 
        do 
-	 (format t "~%~%Enter coordinates (a1 - t19) ")	 
+	 (format t "~%~%Enter coordinates (a1 - ~A) " (max-coordinate))	 
 	 (handler-case
 	     (progn
 	       (setq parsed (parse-board-coordinates (read-line)))
 	       (unless (car parsed)
-		 (format t "~&wrong column entered, you need a - t , except i"))
-					;checks for correct parsed values 0-18 in case of 19 size boad
-	       (if (or (> (cdr parsed) (- board-size 1))  
+		 (format t "~&wrong column entered, you need a - ~A , except i" (last-column-letter)))
+	       (if (or (> (cdr parsed) (- board-size 1)) ;checks for correct row, max 18 in case of 19 size boad
 		       (< (cdr parsed) 0))
 		   (progn
 		     (format t "~&wrong row entered, you need something between 1 and ~A"  board-size)
 		     (setf (cdr parsed) nil))))
-	   (condition (err) (format t "couldn't parse the coordinates, enter a1 to t19~&raised:  ~S~&~A" err err))))
+	   (condition (err) (format t "couldn't parse the coordinates, enter a1 to ~a ~&raised:  ~S~&~A" (max-coordinate) err err))))
     parsed))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
