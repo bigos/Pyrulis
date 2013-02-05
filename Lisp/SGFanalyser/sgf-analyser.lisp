@@ -78,14 +78,6 @@
 	     (format t "~&wrong column entered, you need a - t , except i")))
     parsed))
 
-(define-condition coordinates-error (error)
-                  ((message :initarg :message :reader coordinates-error-message)
-		   (coordinates :initarg :coordinates :reader coordinates-error-coordinates))
-  (:report (lambda (condition stream)
-             (format stream "There is a problem with: ~A.    [ ~A ]"
-                     (coordinates-error-message condition) 
-		     (coordinates-error-coordinates condition)))))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()        
   (let ((board) (board-size) (move) (coordinates))
