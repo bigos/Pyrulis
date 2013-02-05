@@ -20,9 +20,11 @@
 	(car (cdr kv))
 	(cdr kv))))
 
-(defvar *column-letters* '("a" "b" "c" "d" "e" "f" "g" "h" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s" "t"))
+;; board column name ! no "i" !
+(defvar *board-column-letters* "abcdefghjklmnopqrst")
+(defvar *sgf-letters* "abcdefghijklmnopqrs")
 (defvar *board-size* (parse-integer (header-value "SZ")))
-(defvar *last-column-letter* (car (subseq *column-letters* (- (parse-integer (header-value "SZ")) 1))))
+(defvar *last-column-letter* (subseq *board-column-letters* (- (parse-integer (header-value "SZ")) 1)))
 
 
 (defun game-stats ()
@@ -36,7 +38,9 @@
 
 (defun sgf-to-i (coordinates)
   (labels ((coord (i)
-	     (position (char coordinates i) "abcdefghijklmnopqrs")))
+	     ;; the string contains sgf values 
+	     ;; so it is supposed to contain "i"
+	     (position (char coordinates i) *sgf-letters*)))
     (cons (coord 0) (coord 1))))
 
 (defun place-stone (board colour coordinates)
@@ -51,8 +55,8 @@
 (defun print-board (board)
   (let ((size (car (array-dimensions board))) (stone))
     (format t "~%    ")
-    (dolist (c *column-letters*)
-      (format t "~a " c))
+    (dotimes (c (length *board-column-letters*))
+      (format t "~a " (char *board-column-letters* c )))
     (dotimes (r size)
       (format T "~&~2d  " (- size r ))	 
       (dotimes (c size)
@@ -64,7 +68,7 @@
     (format t "~%~%")))
 
 (defun parse-board-coordinates (str)
-  (let* ((column (position (subseq str 0 1) (subseq *column-letters* 0 *board-size*) :test #'equal)) 
+  (let* ((column (position (char str 0 ) (subseq *board-column-letters* 0 *board-size*) :test #'equal)) 
 	 (row (- (parse-integer (header-value "SZ")) (parse-integer (subseq str 1)))))
     (cons column row)))
 
@@ -81,6 +85,7 @@
 	 (handler-case
 	     (progn
 	       (setq parsed (parse-board-coordinates (read-line)))
+	       (format t "~& ...........  ~S~%" parsed)
 	       (unless (car parsed)
 		 (format t "~&wrong column entered, you need a - ~A , except i" *last-column-letter*))
 	       (if (or (> (cdr parsed) (- *board-size* 1)) ;checks for correct row, max 18 in case of 19 size boad
