@@ -75,8 +75,7 @@
 	     (setq parsed (parse-board-coordinates coord))
 	   (condition (err) (format t "invalid coordinates, enter a1 to t19 (column i is not valid),~%~% raised:  ~S~%~A" err err)))
 	 (if (not (car parsed))
-	     (format t "~&wrong column entered, you need a - t , except i"))
-	 )
+	     (format t "~&wrong column entered, you need a - t , except i")))
     parsed))
 
 (define-condition coordinates-error (error)
