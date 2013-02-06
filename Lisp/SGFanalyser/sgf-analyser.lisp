@@ -78,6 +78,18 @@
 (defun valid-coordinates-p (parsed)
   (and (car parsed) (cdr parsed)))
 
+(defun messages-on-errors (parsed)
+  ;;messages for invalid column
+  (unless (car parsed)
+    (format t "~&wrong column entered, you need a - ~A , except i" *last-column-letter*))
+  ;;messages for invalid row
+  (if (or (> (cdr parsed) (- *board-size* 1)) ;checks for correct row, max 18 in case of 19 size boad
+	  (< (cdr parsed) 0))
+      (progn
+	(format t "~&wrong row entered, you need something between 1 and ~A"  *board-size*)
+	;; make it fail the validation test
+	(setf (cdr parsed) nil))))
+
 (defun enter-coordinates ()
   (let ((parsed))
     (loop until (valid-coordinates-p parsed) 
@@ -86,15 +98,7 @@
 	 (handler-case
 	     (progn
 	       (setq parsed (parse-board-coordinates (read-line)))
-	       ;;messages for invalid column
-	       (unless (car parsed)
-		 (format t "~&wrong column entered, you need a - ~A , except i" *last-column-letter*))
-	       ;;messages for invalid row
-	       (if (or (> (cdr parsed) (- *board-size* 1)) ;checks for correct row, max 18 in case of 19 size boad
-		       (< (cdr parsed) 0))
-		   (progn
-		     (format t "~&wrong row entered, you need something between 1 and ~A"  *board-size*)
-		     (setf (cdr parsed) nil))))
+	       (messages-on-errors parsed))
 	   (condition (err) (format t "couldn't parse the coordinates, enter a1 to ~a ~&raised:  ~S~&~A" (max-coordinate) err err))))
     parsed))
 
