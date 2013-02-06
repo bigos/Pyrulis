@@ -38,8 +38,6 @@
 
 (defun sgf-to-i (coordinates)
   (labels ((coord (i)
-	     ;; the string contains sgf values 
-	     ;; so it is supposed to contain "i"
 	     (position (char coordinates i) *sgf-letters*)))
     (cons (coord 0) (coord 1))))
 
@@ -75,19 +73,23 @@
 (defun max-coordinate ()
   (if (> *board-size* 19)
       (error "too big board size"))
-  (format nil "~a~a" *last-column-letter* *board-size*))
+  (format nil "~a~a" *last-column-letter* *board-size*))	
+
+(defun valid-coordinates-p (parsed)
+  (and (car parsed) (cdr parsed)))
 
 (defun enter-coordinates ()
   (let ((parsed))
-    (loop until (and (car parsed) (cdr parsed)) 
+    (loop until (valid-coordinates-p parsed) 
        do 
 	 (format t "~%~%Enter coordinates (a1 - ~A) " (max-coordinate))	 
 	 (handler-case
 	     (progn
 	       (setq parsed (parse-board-coordinates (read-line)))
-	       (format t "~& ...........  ~S~%" parsed)
+	       ;;messages for invalid column
 	       (unless (car parsed)
 		 (format t "~&wrong column entered, you need a - ~A , except i" *last-column-letter*))
+	       ;;messages for invalid row
 	       (if (or (> (cdr parsed) (- *board-size* 1)) ;checks for correct row, max 18 in case of 19 size boad
 		       (< (cdr parsed) 0))
 		   (progn
