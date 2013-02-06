@@ -30,8 +30,8 @@
 (defun game-stats ()
   (let ((stats `(("white" . "PW") ("white rank" . "WR") ("black" . "PB") ("black rank" . "BR") ("~%board size" . "SZ") 
 		 ("rules" . "RU") ("result" . "RE") ("komi" . "KM") ("~%handicap" . "HA")
-		 ,(cond  ((> (length (header-value "AB")) 0)  '("black handicap list" . "AB")) 
-			 ((> (length (header-value "AW")) 0)  '("white handicap list" . "AW"))))))
+		 ,(cond  ((not (zerop (length (header-value "AB"))))  '("black handicap list" . "AB")) 
+			 ((not (zerop (length (header-value "AW"))))  '("white handicap list" . "AW"))))))
     (dolist (el stats)
       ;; ~? explanation: http://www.lispworks.com/documentation/HyperSpec/Body/22_cgf.htm
       (format t "~@?: ~S   "  (car  el)   (header-value (cdr el))))))
