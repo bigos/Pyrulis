@@ -1,11 +1,11 @@
 
 (in-package :board-coordinates)
 
-(defvar *board-column-letters* "abcdefghjklmnopqrst")
-(defvar *last-column-letter* (subseq *board-column-letters* (- sgf-analyser::*board-size* 1)))
+
+(defvar *last-column-letter* (subseq sgf-analyser::*board-column-letters* (- sgf-analyser::*board-size* 1)))
 
 (defun parse-board-coordinates (str)
-  (let* ((column (position (char str 0 ) (subseq *board-column-letters* 0 sgf-analyser::*board-size*) :test #'equal)) 
+  (let* ((column (position (char str 0 ) (subseq sgf-analyser::*board-column-letters* 0 sgf-analyser::*board-size*) :test #'equal)) 
 	 (row (- sgf-analyser::*board-size* (parse-integer (subseq str 1)))))
     (cons column row)))
 

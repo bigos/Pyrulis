@@ -7,6 +7,8 @@
 
 (defvar *app-path* "/home/jacek/Programming/Pyrulis/Lisp/SGFanalyser/")
 (defvar *libraries-path* (concatenate 'string *app-path* "libraries/"))
+
+
 ;;; load libraries
 (load (concatenate 'string *app-path* "load.lisp"))
 
@@ -20,8 +22,15 @@
 	(car (cdr kv))
 	(cdr kv))))
 
+
+(defvar *board-column-letters* "abcdefghjklmnopqrst")
 (defvar *sgf-letters* "abcdefghijklmnopqrs")
 (defvar *board-size* (parse-integer (header-value "SZ")))
+
+(defpackage :board-coordinates
+  (:use :common-lisp ) 
+  (:export :enter))
+(load-library "board-coordinates.lisp")
 
 (defun game-stats ()
   (let ((stats `(("white" . "PW") ("white rank" . "WR") ("black" . "PB") ("black rank" . "BR") ("~%board size" . "SZ") 
@@ -89,3 +98,4 @@
 ;;;==================================================
 (in-package :cl-user)
 (sgf-analyser:main)
+
