@@ -1,7 +1,7 @@
 ;;; define application package
 (defpackage :sgf-analyser
   (:use :common-lisp ) 
-  (:export :main :header-value :*board-size*))
+  (:export :main ))
 
 (in-package :sgf-analyser)
 
