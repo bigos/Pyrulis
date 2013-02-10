@@ -1,6 +1,8 @@
+(defpackage :board-coordinates
+  (:use :common-lisp ) 
+  (:export :enter))
 
 (in-package :board-coordinates)
-
 
 (defvar *last-column-letter* (subseq sgf-analyser::*board-column-letters* (- sgf-analyser::*board-size* 1)))
 
@@ -33,7 +35,7 @@
   (let ((parsed))
     (loop until (valid-coordinates-p parsed) 
        do 
-	 (format t "~%~%Enter coordinates (a1 - ~A) " (max-coordinate))	 
+	 (format t "~%~% Enter coordinates (a1 - ~A) " (max-coordinate))	 
 	 (handler-case
 	     (progn
 	       (setq parsed (parse-board-coordinates (read-line)))

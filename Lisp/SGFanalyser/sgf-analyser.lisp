@@ -8,9 +8,10 @@
 (defvar *app-path* "/home/jacek/Programming/Pyrulis/Lisp/SGFanalyser/")
 (defvar *libraries-path* (concatenate 'string *app-path* "libraries/"))
 
+(defun load-library (name)
+  (load (concatenate 'string *libraries-path* name)))
 
-;;; load libraries
-(load (concatenate 'string *app-path* "load.lisp"))
+(load-library "sgf-importer.lisp")
 
 ;;; other global variables
 (defvar *sgf-data-filename* (concatenate 'string *app-path* "game_records/" "jacekpod-coalburner.sgf"))
@@ -27,10 +28,8 @@
 (defvar *sgf-letters* "abcdefghijklmnopqrs")
 (defvar *board-size* (parse-integer (header-value "SZ")))
 
-(defpackage :board-coordinates
-  (:use :common-lisp ) 
-  (:export :enter))
 (load-library "board-coordinates.lisp")
+
 
 (defun game-stats ()
   (let ((stats `(("white" . "PW") ("white rank" . "WR") ("black" . "PB") ("black rank" . "BR") ("~%board size" . "SZ") 
@@ -72,7 +71,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main ()        
-  (let ((board) (move) (coordinates))
+  (let ((board) (coordinates))
     (format T "~%~%~A <<<<<<<<<<~%" *game-record*)   
     (game-stats )
     (format t "~%~d <<< board size ~%" *board-size*)
