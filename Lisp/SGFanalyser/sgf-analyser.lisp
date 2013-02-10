@@ -98,4 +98,5 @@
 ;;;==================================================
 (in-package :cl-user)
 (sgf-analyser:main)
+(sb-ext:quit)
 
