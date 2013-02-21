@@ -2,9 +2,9 @@
 
 
 (in-package :cl-user)
-(defpackage sgf-analyser-asd
+(defpackage sgf-analyser
   (:use :cl :asdf))
-(in-package :sgf-analyser-asd)
+(in-package :sgf-analyser)
 
 (defsystem sgf-analyser
   :version "0.0.1"
