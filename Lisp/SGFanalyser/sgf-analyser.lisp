@@ -1,9 +1,3 @@
-;;; define application package
-(defpackage :sgf-analyser
-  (:use :common-lisp ) 
-  (:export :main ))
-
-(in-package :sgf-analyser)
 
 (defvar *app-path* "/home/jacek/Programming/Pyrulis/Lisp/SGFanalyser/")
 (defvar *libraries-path* (concatenate 'string *app-path* "libraries/"))
