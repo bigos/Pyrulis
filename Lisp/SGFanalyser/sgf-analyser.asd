@@ -2,6 +2,7 @@
 
 
 (in-package :cl-user)
+
 (defpackage sgf-analyser
   (:use :cl :asdf)
   (:export :main))
