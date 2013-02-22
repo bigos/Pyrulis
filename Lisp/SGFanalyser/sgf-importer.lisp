@@ -1,8 +1,4 @@
-(defpackage :sgf-importer 
-  (:use :common-lisp)
-  (:export :get-move-list))
 
-(in-package :sgf-importer)
 
 (defvar *buffer*)
 

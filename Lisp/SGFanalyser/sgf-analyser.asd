@@ -3,17 +3,19 @@
 
 (in-package :cl-user)
 (defpackage sgf-analyser
-  (:use :cl :asdf))
+  (:use :cl :asdf)
+  (:export :main))
+
 (in-package :sgf-analyser)
 
 (defsystem sgf-analyser
+  :serial t
   :version "0.0.1"
   :author "Jacek Podkanski"
   :licence "GPLv3"
-  :components ((:module "libraries"
-			:components ((:file "sgf-importer") 
-				     (:file "board-coordinates")))
+  :components ((:file "sgf-importer") 
 	       (:file "sgf-analyser"))
   :description "*.sgf file analyser"
   :long-description "Analyser of Go games in *.sgf format"
+
 )

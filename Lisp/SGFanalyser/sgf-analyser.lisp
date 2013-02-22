@@ -3,7 +3,7 @@
 
 ;;; other global variables
 (defvar *sgf-data-filename* (concatenate 'string *app-path* "game_records/" "jacekpod-coalburner.sgf"))
-(defparameter *game-record* (sgf-importer:get-move-list *sgf-data-filename*))
+(defparameter *game-record* (get-move-list *sgf-data-filename*))
 
 (defun header-value (key)  
   (let ((kv (assoc key (car *game-record*) :test #'equalp)))
@@ -14,6 +14,51 @@
 (defvar *board-column-letters* "abcdefghjklmnopqrst")
 (defvar *sgf-letters* "abcdefghijklmnopqrs")
 (defvar *board-size* (parse-integer (header-value "SZ")))
+
+;;;;;;;;;; previously in board coordinates ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defvar *board-column-letters* "abcdefghjklmnopqrst")
+
+(defvar *last-column-letter* (subseq *board-column-letters* (- *board-size* 1)))
+
+(defun parse-board-coordinates (str)
+  (let* ((column (position (char str 0 ) (subseq *board-column-letters* 0 *board-size*) :test #'equal)) 
+	 (row (- *board-size* (parse-integer (subseq str 1)))))
+    (cons column row)))
+
+(defun max-coordinate ()
+  (if (> *board-size* 19)
+      (error "too big board size"))
+  (format nil "~a~a" *last-column-letter* *board-size*))	
+
+(defun valid-coordinates-p (parsed)
+  (and (car parsed) (cdr parsed)))
+
+(defun messages-on-errors (parsed)
+  ;;messages for invalid column
+  (unless (car parsed)
+    (format t "~&wrong column entered, you need a - ~A , except i" *last-column-letter*))
+  ;;messages for invalid row
+  (if (or (> (cdr parsed) (- *board-size* 1)) ;checks for correct row, max 18 in case of 19 size boad
+	  (< (cdr parsed) 0))
+      (progn
+	(format t "~&wrong row entered, you need something between 1 and ~A"  *board-size*)
+	;; make it fail the validation test
+	(setf (cdr parsed) nil))))
+
+(defun enter ()
+  (let ((parsed))
+    (loop until (valid-coordinates-p parsed) 
+       do 
+	 (format t "~%~% Enter coordinates (a1 - ~A) " (max-coordinate))	 
+	 (handler-case
+	     (progn
+	       (setq parsed (parse-board-coordinates (read-line)))
+	       (messages-on-errors parsed))
+	   (condition (err) (format t "couldn't parse the coordinates, enter a1 to ~a ~&raised:  ~S~&~A" (max-coordinate) err err))))
+    parsed))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun game-stats ()
   (let ((stats `(("white" . "PW") ("white rank" . "WR") ("black" . "PB") ("black rank" . "BR") ("~%board size" . "SZ") 
@@ -74,8 +119,9 @@
       (place-stone board (caar move) (sgf-to-i (cdar move))))
     (print-board board)
      
-    (setq coordinates (board-coordinates:enter))    
+    (setq coordinates (enter))    
     (format t "the coordinates are: ~A~%"  coordinates)
     ))
 
 ;;;==================================================
+(main)
