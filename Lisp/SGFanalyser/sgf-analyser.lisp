@@ -3,7 +3,7 @@
 
 ;;; other global variables
 (defvar *sgf-data-filename* (concatenate 'string *app-path* "game_records/" "jacekpod-coalburner.sgf"))
-(defparameter *game-record* (get-move-list *sgf-data-filename*))
+(defparameter *game-record* (sgf-importer:get-move-list *sgf-data-filename*))
 
 (defun header-value (key)  
   (let ((kv (assoc key (car *game-record*) :test #'equalp)))

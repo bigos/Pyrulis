@@ -1,4 +1,4 @@
-
+(in-package :sgf-importer)
 
 (defvar *buffer*)
 

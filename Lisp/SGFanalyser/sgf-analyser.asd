@@ -7,6 +7,12 @@
   (:use :cl :asdf)
   (:export :main))
 
+(defpackage :sgf-importer 
+  (:use :common-lisp)
+  (:export :get-move-list))
+
+
+
 (in-package :sgf-analyser)
 
 (defsystem sgf-analyser
