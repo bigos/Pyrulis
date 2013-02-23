@@ -14,11 +14,6 @@
 (defvar *board-column-letters* "abcdefghjklmnopqrst")
 (defvar *sgf-letters* "abcdefghijklmnopqrs")
 (defvar *board-size* (parse-integer (header-value "SZ")))
-
-;;;;;;;;;; previously in board coordinates ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defvar *board-column-letters* "abcdefghjklmnopqrst")
-
 (defvar *last-column-letter* (subseq *board-column-letters* (- *board-size* 1)))
 
 (defun parse-board-coordinates (str)
@@ -34,7 +29,7 @@
 (defun valid-coordinates-p (parsed)
   (and (car parsed) (cdr parsed)))
 
-(defun messages-on-errors (parsed)
+(defun messages-on-coordinate-errors (parsed)
   ;;messages for invalid column
   (unless (car parsed)
     (format t "~&wrong column entered, you need a - ~A , except i" *last-column-letter*))
@@ -46,7 +41,7 @@
 	;; make it fail the validation test
 	(setf (cdr parsed) nil))))
 
-(defun enter ()
+(defun enter-coordinates ()
   (let ((parsed))
     (loop until (valid-coordinates-p parsed) 
        do 
@@ -54,7 +49,7 @@
 	 (handler-case
 	     (progn
 	       (setq parsed (parse-board-coordinates (read-line)))
-	       (messages-on-errors parsed))
+	       (messages-on-coordinate-errors parsed))
 	   (condition (err) (format t "couldn't parse the coordinates, enter a1 to ~a ~&raised:  ~S~&~A" (max-coordinate) err err))))
     parsed))
 
@@ -119,7 +114,7 @@
       (place-stone board (caar move) (sgf-to-i (cdar move))))
     (print-board board)
      
-    (setq coordinates (enter))    
+    (setq coordinates (enter-coordinates))    
     (format t "the coordinates are: ~A~%"  coordinates)
     ))
 
