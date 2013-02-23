@@ -1,6 +1,6 @@
 (defpackage #:sgf-analyser
   (:use :cl :asdf)
-  (:export :main))
+  (:export :run))
 
 (defpackage #:sgf-importer 
   (:use :common-lisp)

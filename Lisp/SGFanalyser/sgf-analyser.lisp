@@ -1,3 +1,4 @@
+(in-package :sgf-analyser)
 
 (defvar *app-path* "/home/jacek/Programming/Pyrulis/Lisp/SGFanalyser/")
 (defvar *sgf-data-filename* (concatenate 'string *app-path* "game_records/" "jacekpod-coalburner.sgf"))
@@ -53,7 +54,7 @@
     (format t "~%~%")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun main ()        
+(defun run ()        
   (let ((board) (coordinates))
     (format T "~%~%~A <<<<<<<<<<~%" *game-record*)   
     (game-stats )
@@ -78,4 +79,4 @@
     ))
 
 ;;;==================================================
-
+(format t "~&Type (run) to start the program")

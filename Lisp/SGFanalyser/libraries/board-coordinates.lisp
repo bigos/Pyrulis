@@ -1,4 +1,4 @@
-
+(in-package :sgf-analyser)
 
 (defun parse-board-coordinates (str)
   (let* ((column (position (char str 0 ) (subseq *board-column-letters* 0 *board-size*) :test #'equal)) 
