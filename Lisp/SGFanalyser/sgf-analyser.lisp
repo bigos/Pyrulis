@@ -59,7 +59,7 @@
     (format T "~%~%~A <<<<<<<<<<~%" *game-record*)   
     (game-stats )
     (format t "~%~d <<< board size ~%" *board-size*)
-    (setf board (make-array (list *board-size* *board-size*) :initial-element nil))
+    (setf board (make-array `(,*board-size* ,*board-size*) :initial-element nil))
       
     ;;sample char2int
     (loop for x from (char-code #\a) to (char-code #\s) do
