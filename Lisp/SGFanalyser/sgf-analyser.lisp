@@ -69,7 +69,7 @@
     
     (add-handicaps board)
     (print-board board)
-    (dolist (move (subseq (cdr *game-record*) 0 3))
+    (dolist (move (subseq (cdr *game-record*) 0 20))
       (format t "color ~S coordinates ~S~%" (caar move) (sgf-to-i (cdar move)))
       (place-stone board (caar move) (sgf-to-i (cdar move))))
     (print-board board)
