@@ -53,6 +53,9 @@
 		    "."))))
     (format t "~%~%")))
 
+(defun stone-at (board coordinates)
+  (aref board (car coordinates) (cdr coordinates)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun run ()        
   (let ((board) (coordinates))
@@ -76,6 +79,7 @@
      
     (setq coordinates (enter-coordinates))    
     (format t "the coordinates are: ~A~%"  coordinates)
+    (format t "~A"  (stone-at board coordinates))
     ))
 
 ;;;==================================================
