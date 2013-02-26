@@ -57,12 +57,10 @@
   (aref board (car coordinates) (cdr coordinates)))
 
 (defun board-edge-p (val)
-  ;; checks if row/column is on the edge
-  (if (or (eq val 0) 
-	  (eq val (1- *board-size*))) 
-      t))
+  (or (eq val 0) (eq val (1- *board-size*))))
 
 (defun neighbours (board coordinates)
+  
   (format t "~&will try to find neighbours for ~s     edges ~s:~s   ~%" coordinates (board-edge-p (car coordinates)) (board-edge-p (cdr coordinates))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
