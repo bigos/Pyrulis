@@ -83,4 +83,4 @@
     ))
 
 ;;;==================================================
-(format t "~&Type (run) to start the program")
+(format t "~&Type (sgf-analyser:run) to start the program")
