@@ -1,17 +1,21 @@
-;;; timer oo yprogram will go here
+;;; oo timer program will go here
 (format t "~%this is a timer~%~%")
 
 (defclass my-timer ()
-  (value
-    ))
+  ((timer-value :initform 0)))
 
 (defgeneric get-value (my-timer))
 
 (defmethod get-value (my-timer)
-  (slot-value my-timer 'value))
+  (slot-value my-timer 'timer-value))
 
 (defgeneric inc (my-timer))
 
 (defmethod inc (my-timer)
-  (incf value)
-  )
+  (incf (slot-value my-timer 'timer-value)))
+
+(defparameter *obj* (make-instance 'my-timer ))
+
+(format t "initial value is: ~d~%" (get-value *obj*))
+
+(format t "increased value is: ~d~%" (inc *obj*))
