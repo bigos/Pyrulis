@@ -60,8 +60,14 @@
   (or (eq val 0) (eq val (1- *board-size*))))
 
 (defun neighbours (board coordinates)
-  
-  (format t "~&will try to find neighbours for ~s     edges ~s:~s   ~%" coordinates (board-edge-p (car coordinates)) (board-edge-p (cdr coordinates))))
+  (format t "~&will try to find neighbours for ~s     edges ~s:~s   ~%" 
+	  coordinates (board-edge-p (car coorydinates)) (board-edge-p (cdr coordinates)))
+  (let ((lives) (whites) (blacks))
+    ;;above
+    ;;right
+    ;;bottom
+    ;;left
+    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun run ()        
