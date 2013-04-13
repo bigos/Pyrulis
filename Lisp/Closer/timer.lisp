@@ -2,7 +2,7 @@
 (format t "~%this is a timer~%~%")
 
 (defclass my-timer ()
-  ((timer-value :initform 0)))
+  ((timer-value :initform (- 2 2))))
 
 (defgeneric get-value (my-timer))
 
