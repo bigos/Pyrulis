@@ -21,7 +21,7 @@
 
 (hunchentoot:define-easy-handler (say-hey :uri "/hi") (name)
   (setf (hunchentoot:content-type*) "text/html")
-  (format nil "<html><head><title>hi</title></head><body></body><h1>Hi ~a</h1><p>~s</p></html>" name name))
+  (format nil "<html><head><title>hi</title></head><body></body><h1>Hi ~a</h1><p>~s ~s ~s ~s</p></html>" name name (hunchentoot:query-string*) (hunchentoot:get-parameters*) (hunchentoot:post-parameters*)))
 
 ;;;==================================================
 (format t "~&Type (in-package :web-app-trial) and then (run) to start the program, 
