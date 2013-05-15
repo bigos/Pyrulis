@@ -10,7 +10,7 @@
 
 (defun poker ()
   (dolist (this-acceptor *my-acceptors*)
-    (format t "found: ~S~%" this-acceptor)))
+    (format t "found: ~S ~S~%" this-acceptor hunchentoot:*dispatch-table*)))
 
 (defun run () 
   (let ((my-acceptor))
