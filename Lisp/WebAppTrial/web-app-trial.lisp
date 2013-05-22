@@ -55,8 +55,8 @@ then visit: http://localhost:4242/hi?name=Jack")
   (call-next-method))
 
 ;;; Instantiate VHOSTs
-(defvar vhost1 (make-instance 'vhost :port 50001))
-(defvar vhost2 (make-instance 'vhost :port 50002))
+(defvar vhost1 (make-instance 'vhost :port 5001))
+(defvar vhost2 (make-instance 'vhost :port 5002))
 
 ;;; Populate each dispatch table
 (push
