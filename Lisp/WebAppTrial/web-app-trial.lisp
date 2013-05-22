@@ -37,7 +37,8 @@
 		  (:p :class "message"  "Hi everybody, we have success at last.")
 		  (:p (who:fmt "~s  ~a" 1 2))
 		  (:footer :style "color: white; text-align: center; background:#444;" "&copy; 2013 Jacek Podkanski")))
-		)))
+		)
+))
 
 ;;;==================================================
 (format t "~&Type (in-package :web-app-trial) and then (run) to start the program, 
@@ -85,14 +86,21 @@ then visit: http://localhost:4242/hi?name=Jack")
 (defun foo1 () "Hello")
 (defun foo2 () "Goodbye")
 (defun foo3 () 
-  "<html>
-  <head>
-<title>this is markup</title>
-</head>
-<body>
-<h1>this is markup</h1>
-</body>
-</html>")
+  (who:with-html-output-to-string (out)
+    (:html
+     (:head
+      (:title "yet another Lisp web app")
+      (:style :type "text/css" "h1{color:red;}~%p.message{color:blue;}"))
+     (:body  
+      (:div
+       (:a :href "/" "see the index")
+       (:span :style "margin:0 2em;" "|")
+       (:a :href "/about_me" "info about me"))
+      (:hr)    
+      (:h1 :id "heading" "Hello Lispers")
+      (:p :class "message"  "Hi everybody, we have lift off.")
+      (:p (who:fmt "~s  ~a" 1 (+ 1 1)))
+      (:footer :style "color: white; text-align: center; background:#444;" "&copy; 2013 Jacek Podkanski")))))
 
 ;;; Start VHOSTs
 ;(hunchentoot:start vhost1)
