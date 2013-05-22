@@ -63,13 +63,26 @@ then visit: http://localhost:4242/hi?name=Jack")
  (hunchentoot:create-prefix-dispatcher "/foo" 'foo1)
  (dispatch-table vhost1))
 (push
+ (hunchentoot:create-prefix-dispatcher "/" 'foo3)
+ (dispatch-table vhost1))
+(push
  (hunchentoot:create-prefix-dispatcher "/foo" 'foo2)
  (dispatch-table vhost2))
 
 ;;; Define handlers
 (defun foo1 () "Hello")
 (defun foo2 () "Goodbye")
+(defun foo3 () 
+  "<html>
+  <head>
+<title>this is markup</title>
+</head>
+<body>
+<h1>this is markup</h1>
+</body>
+</html>")
 
 ;;; Start VHOSTs
-(hunchentoot:start vhost1)
-(hunchentoot:start vhost2)
+;(hunchentoot:start vhost1)
+;(hunchentoot:start vhost2)
+
