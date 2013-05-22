@@ -19,13 +19,22 @@
     (setf my-acceptor (make-instance 'hunchentoot:easy-acceptor :port 4242))
     (push (hunchentoot:start my-acceptor) *my-acceptors*)))
 
-(hunchentoot:define-easy-handler (say-hey :uri "/hi") 
-  (setf (hunchentoot:content-type*) "text/html")
-  (format nil "<html><head><title>hi</title></head><body></body><h1>Hi ~a</h1><p>~s ~s ~s ~s</p></html>" (hunchentoot:query-string*) (hunchentoot:get-parameters*) (hunchentoot:post-parameters*)))
 
 (hunchentoot:define-easy-handler (home-page :uri "/lo") ()
   (setf (hunchentoot:content-type*) "text/html")
-  (format nil "<html><hread></head><body><h1>Home page</h1></body></html>"))
+  (format nil (who:with-html-output-to-string (out)
+		(:html
+		 (:body  
+		  (:div
+		   (:a :href "/" "see the index")
+		   (:span :style "margin:0 2em;" "|")
+		   (:a :href "/about_me" "info about me"))
+		  (:hr)    
+		  (:h1 :id "heading" "Hello Lisp World")
+		  (:p :class "message"  "Hi everybody, we have success at last. I've made restas run on Heroku.")
+		  (:p (who:fmt "~s  ~a" 1 2))
+		  (:footer :style "color: white; text-align: center; background:#444;" "&copy; 2013 Jacek Podkanski")))
+		)))
 
 ;;;==================================================
 (format t "~&Type (in-package :web-app-trial) and then (run) to start the program, 

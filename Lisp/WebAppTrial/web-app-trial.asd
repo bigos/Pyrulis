@@ -4,7 +4,7 @@
     :version "0.0.1"
     :author "Jacek Podkanski"
     :licence "GPLv3"
-    :depends-on (:hunchentoot)
+    :depends-on (:hunchentoot :cl-who)
     :components ((:file "packages") 
 		 (:file "web-app-trial"))
     :description "trial web application"
