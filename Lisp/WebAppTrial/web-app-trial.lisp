@@ -24,6 +24,9 @@
   (setf (hunchentoot:content-type*) "text/html")
   (format nil (who:with-html-output-to-string (out)
 		(:html
+		 (:head
+		  (:title "Lisp web app")
+		  (:style :type "text/css" "h1{color:red;}~%p.message{color:blue;}"))
 		 (:body  
 		  (:div
 		   (:a :href "/" "see the index")
@@ -31,7 +34,7 @@
 		   (:a :href "/about_me" "info about me"))
 		  (:hr)    
 		  (:h1 :id "heading" "Hello Lisp World")
-		  (:p :class "message"  "Hi everybody, we have success at last. I've made restas run on Heroku.")
+		  (:p :class "message"  "Hi everybody, we have success at last.")
 		  (:p (who:fmt "~s  ~a" 1 2))
 		  (:footer :style "color: white; text-align: center; background:#444;" "&copy; 2013 Jacek Podkanski")))
 		)))
