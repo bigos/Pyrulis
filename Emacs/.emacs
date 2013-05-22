@@ -1,4 +1,5 @@
 (add-to-list 'load-path "/home/jacek/.emacs.d/lisp/")
+
 (setq package-archives '(("ELPA" . "http://tromey.com/elpa/") 
 			 ("gnu" . "http://elpa.gnu.org/packages/")
 			 ("marmalade" . "http://marmalade-repo.org/packages/")))
@@ -10,9 +11,10 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
  '(column-number-mode t)
- '(custom-enabled-themes (quote (misterioso)))
+ '(custom-enabled-themes (quote (tango-dark)))
  '(inhibit-startup-buffer-menu t)
  '(inhibit-startup-screen t)
+ '(safe-local-variable-values (quote ((Base . 10) (Syntax . ANSI-Common-Lisp) (ruby-compilation-executable . "ruby") (ruby-compilation-executable . "ruby1.8") (ruby-compilation-executable . "ruby1.9") (ruby-compilation-executable . "rbx") (ruby-compilation-executable . "jruby"))))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -21,7 +23,6 @@
  ;; If there is more than one, they won't work right.
  )
 
-
 ;;; MacOSX style shortcuts
 (global-set-key (kbd "s-z") 'undo)
 (global-set-key (kbd "s-x") 'clipboard-kill-region)
@@ -29,15 +30,11 @@
 (global-set-key (kbd "s-v") 'clipboard-yank)
 
 (menu-bar-mode 1)
-(tool-bar-mode 1)
 (global-linum-mode )
-
-
 
 ; your SLIME directory
 ;(add-to-list 'load-path "/home/jacek/quicklisp/dists/quicklisp/software/slime-20120520-cvs")
 ;(setq inferior-lisp-program "/usr/bin/sbcl") ; your Lisp system
-
   
 (load (expand-file-name "~/quicklisp/slime-helper.el"))
 ;; Replace "sbcl" with the path to your implementation
@@ -46,9 +43,6 @@
 (require 'slime)
 (slime-setup '(slime-repl slime-fancy)) 
 
-(autoload 'enable-paredit-mode "paredit"
-  "Turn on pseudo-structural editing of Lisp code."
-  t)
 (autoload 'paredit-mode "paredit"
   "Minor mode for pseudo-structurally editing Lisp code." t)
 (add-hook 'emacs-lisp-mode-hook       (lambda () (paredit-mode +1)))
@@ -69,13 +63,22 @@
 
 (setq frame-title-format '((:eval default-directory)))
 
+(add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
 
-
+(add-to-list 'load-path "/home/jacek/.emacs.d/elpa/yaml-mode-0.0.7")
 (require 'yaml-mode)
+(autoload 'yaml-mode  "yaml"
+  "Minor mode for editing yaml files." t)
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 (add-hook 'yaml-mode-hook
 	  '(lambda ()
 	     (define-key yaml-mode-map "\C-m" 'newline-and-indent)
 	     ))
 
-(require 'quack)
+(require 'ido)
+(ido-mode t)
+
+
+(add-to-list 'load-path "/home/jacek/.emacs.d/elpa/rvm-1.3.0")
+(require 'rvm)  
+(rvm-use-default)
