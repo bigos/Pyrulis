@@ -1,49 +1,8 @@
 (in-package :web-app-trial)
 
-(defparameter *my-acceptors* nil)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun stop ()
-  (dolist (acceptor *my-acceptors*)
-    (format t "going to stop: ~S~%" acceptor)
-    (hunchentoot:stop acceptor)))
-
-(defun poker ()
-  (dolist (this-acceptor *my-acceptors*)
-    (format t "found: ~S ~S~%" this-acceptor hunchentoot:*dispatch-table*)))
-
-(defun run () 
-  (let ((my-acceptor))
-    (format t "This will start the server.~%")
-    (format t "You can access the documentation at http://localhost:4242/hunchentoot-doc.html~%")
-    (setf my-acceptor (make-instance 'hunchentoot:easy-acceptor :port 4242))
-    (push (hunchentoot:start my-acceptor) *my-acceptors*)))
-
-
-(hunchentoot:define-easy-handler (home-page :uri "/lo") ()
-  (setf (hunchentoot:content-type*) "text/html")
-  (format nil (who:with-html-output-to-string (out)
-		(:html
-		 (:head
-		  (:title "Lisp web app")
-		  (:style :type "text/css" "h1{color:red;}~%p.message{color:blue;}"))
-		 (:body  
-		  (:div
-		   (:a :href "/" "see the index")
-		   (:span :style "margin:0 2em;" "|")
-		   (:a :href "/about_me" "info about me"))
-		  (:hr)    
-		  (:h1 :id "heading" "Hello Lisp World")
-		  (:p :class "message"  "Hi everybody, we have success at last.")
-		  (:p (who:fmt "~s  ~a" 1 2))
-		  (:footer :style "color: white; text-align: center; background:#444;" "&copy; 2013 Jacek Podkanski")))
-		)
-))
-
-;;;==================================================
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (format t "~&Type (in-package :web-app-trial) and then (run) to start the program, 
-then visit: http://localhost:4242/hi?name=Jack")
-
+then visit: localhost:5001/ and localhost:5002/")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Subclass ACCEPTOR
@@ -76,7 +35,7 @@ then visit: http://localhost:4242/hi?name=Jack")
  (hunchentoot:create-prefix-dispatcher "/foo" 'foo1)
  (dispatch-table vhost1))
 (push
- (hunchentoot:create-prefix-dispatcher "/" 'foo3)
+ (hunchentoot:create-prefix-dispatcher "/faa" 'foo3)
  (dispatch-table vhost1))
 (push
  (hunchentoot:create-prefix-dispatcher "/foo" 'foo2)
@@ -103,6 +62,7 @@ then visit: http://localhost:4242/hi?name=Jack")
       (:footer :style "color: white; text-align: center; background:#444;" "&copy; 2013 Jacek Podkanski")))))
 
 ;;; Start VHOSTs
-;(hunchentoot:start vhost1)
-;(hunchentoot:start vhost2)
+(defun run ()
+  (hunchentoot:start vhost1)
+  (hunchentoot:start vhost2))
 
