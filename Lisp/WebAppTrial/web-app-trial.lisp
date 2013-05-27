@@ -68,3 +68,6 @@ then visit: localhost:5001/ and localhost:5002/")
   (hunchentoot:start vhost1)
   (hunchentoot:start vhost2))
 
+(defun stop ()
+  (hunchentoot:stop vhost1)
+  (hunchentoot:stop vhost2))
