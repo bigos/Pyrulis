@@ -17,13 +17,17 @@
 (hunchentoot:define-easy-handler (uri2 :uri "/about_me") ()
   (foo1))
 
+(hunchentoot:define-easy-handler (style1 :uri "/style.css") ()
+  (setf (hunchentoot:content-type*) "text/css")
+  (format nil "body{background: #eeffcc; font-family: arial;}"))
+
 ;;; Views
 (defun faa1 () 
   (who:with-html-output-to-string (out)
     (:html
      (:head
       (:title "yet another Lisp web app")
-      (:style :type "text/css" "h1{color:red;}~%p.message{color:blue;}"))
+      (:link :href "style.css" :media "all" :rel "stylesheet" :type "text/css"))
      (:body  
       (:div
        (:a :href "/" "see the index")
@@ -41,10 +45,11 @@
   (who:with-html-output-to-string (out)
     (:html
      (:head
-      (:title "This is foo")) 
+      (:title "This is foo")
+      (:link :href "style.css" :media "all" :rel "stylesheet" :type "text/css")) 
      (:body
       (:h1 "Foo")
       (:a :href "/faa" "faa")
       (:p "foo foo foo"
-	  (who:fmt "rq ~s  " (who:escape-string (format nil "~A"  hunchentoot:*request*)))
+	  (who:fmt (who:escape-string (format nil "~a" hunchentoot:*request*)))
 	  (who:fmt "~s" (hunchentoot:get-parameters*)))))))
