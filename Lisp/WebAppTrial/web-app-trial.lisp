@@ -19,7 +19,9 @@
 
 (hunchentoot:define-easy-handler (style1 :uri "/style.css") ()
   (setf (hunchentoot:content-type*) "text/css")
-  (format nil "body{background: #eeffcc; font-family: arial;}"))
+  (format nil "~a ~a" 
+	  "body{background: #eeffcc; font-family: arial;}" 
+	  "footer{color: white; text-align: center; background:#464;}"))
 
 ;;; Views
 (defun faa1 () 
@@ -32,14 +34,14 @@
       (:div
        (:a :href "/" "see the index")
        (:span :style "margin:0 2em;" "|")
-       (:a :href "/about_me?name=Jacek" "info about me")
+       (:a :href "/about_me?name=Jacek&language=Lisp" "info about me")
        (:span :style "margin:0 2em;" "|")
        (:a :href "/hunchentoot-doc.html" "Documentation"))
       (:hr)    
       (:h1 :id "heading" "Hello Lispers")
       (:p :class "message"  "Hi everybody, we have lift off.")
       (:p (who:fmt " acceptor object ~s  " (who:escape-string (format nil "~A"  hunchentoot:*acceptor*))))
-      (:footer :style "color: white; text-align: center; background:#444;" "&copy; 2013 Jacek Podkanski")))))
+      (:footer "&copy; 2013 Jacek Podkanski")))))
 
 (defun foo1 ()
   (who:with-html-output-to-string (out)
