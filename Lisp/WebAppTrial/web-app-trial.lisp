@@ -16,25 +16,30 @@ then visit: localhost:5001/ and localhost:5002/")
   (:default-initargs		       ; default-initargs must be used
    :address "127.0.0.1"))	       ; because ACCEPTOR uses it
 
+
 ;;; Instantiate VHOSTs
 (defvar vhost1 (make-instance 'vhost :port 5001))
-(defvar vhost2 (make-instance 'vhost :port 5002))
 
-;;; Populate each dispatch table
-(push
- (hunchentoot:create-prefix-dispatcher "/foo" 'foo1)
- (dispatch-table vhost1))
-(push
- (hunchentoot:create-prefix-dispatcher "/faa" 'foo3)
- (dispatch-table vhost1))
-(push
- (hunchentoot:create-prefix-dispatcher "/foo" 'foo2)
- (dispatch-table vhost2))
+;;; Start and Stop
+(defun run ()
+  (hunchentoot:start vhost1))
 
-;;; Define handlers
-(defun foo1 () "Hello")
-(defun foo2 () "Goodbye")
-(defun foo3 () 
+(defun stop ()
+  (hunchentoot:stop vhost1))
+
+
+;;; Routes
+(hunchentoot:define-easy-handler (uri1 :uri "/faa") ()
+  (setf (hunchentoot:content-type*) "text/html")
+  (faa1))
+
+(hunchentoot:define-easy-handler (uri2 :uri "/about_me") ()
+  (setf (hunchentoot:content-type*) "text/html")
+  (foo1))
+
+
+;;; Views
+(defun faa1 () 
   (who:with-html-output-to-string (out)
     (:html
      (:head
@@ -53,11 +58,13 @@ then visit: localhost:5001/ and localhost:5002/")
       (:p (who:fmt " acceptor object ~s  " (who:escape-string (format nil "~A"  hunchentoot:*acceptor*))))
       (:footer :style "color: white; text-align: center; background:#444;" "&copy; 2013 Jacek Podkanski")))))
 
-;;; Start VHOSTs
-(defun run ()
-  (hunchentoot:start vhost1)
-  (hunchentoot:start vhost2))
-
-(defun stop ()
-  (hunchentoot:stop vhost1)
-  (hunchentoot:stop vhost2))
+(defun foo1 ()
+  (who:with-html-output-to-string (out)
+    (:html
+     (:head
+      (:title "This is foo")) 
+     (:body
+      (:h1 "Foo")
+      (:a :href "/faa" "faa")
+      (:p "foo foo foo")
+      ))))
