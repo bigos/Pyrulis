@@ -6,7 +6,7 @@ then visit: localhost:5001/ and localhost:5002/")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Subclass ACCEPTOR
-(defclass vhost (hunchentoot:acceptor)
+(defclass vhost (hunchentoot:easy-acceptor)
   ;; slots
   ((dispatch-table
     :initform '()
