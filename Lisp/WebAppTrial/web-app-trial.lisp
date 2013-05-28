@@ -60,7 +60,7 @@ then visit: localhost:5001/ and localhost:5002/")
       (:hr)    
       (:h1 :id "heading" "Hello Lispers")
       (:p :class "message"  "Hi everybody, we have lift off.")
-      (:p (who:fmt "~s  ~a" 1 (+ 1 1)))
+      (:p (who:fmt " acceptor object ~s  " (who:escape-string (format nil "~A"  hunchentoot:*acceptor*))))
       (:footer :style "color: white; text-align: center; background:#444;" "&copy; 2013 Jacek Podkanski")))))
 
 ;;; Start VHOSTs
