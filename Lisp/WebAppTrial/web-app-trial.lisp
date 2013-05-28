@@ -16,16 +16,6 @@ then visit: localhost:5001/ and localhost:5002/")
   (:default-initargs		       ; default-initargs must be used
    :address "127.0.0.1"))	       ; because ACCEPTOR uses it
 
-;;; Specialise ACCEPTOR-DISPATCH-REQUEST for VHOSTs
-(defmethod hunchentoot:acceptor-dispatch-request ((vhost vhost) request)
-  ;; try REQUEST on each dispatcher in turn
-  (mapc (lambda (dispatcher)
-	  (let ((handler (funcall dispatcher request)))
-	    (when handler ; Handler found. FUNCALL it and return result
-	      (return-from hunchentoot:acceptor-dispatch-request (funcall handler)))))
-	(dispatch-table vhost))
-  (call-next-method))
-
 ;;; Instantiate VHOSTs
 (defvar vhost1 (make-instance 'vhost :port 5001))
 (defvar vhost2 (make-instance 'vhost :port 5002))
