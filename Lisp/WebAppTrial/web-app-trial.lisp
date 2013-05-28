@@ -23,6 +23,10 @@
 	  "body{background: #eeffcc; font-family: arial;}" 
 	  "footer{color: white; text-align: center; background:#464;}"))
 
+;;; helpers
+(defmacro escaped-string (string)
+  `(who:fmt (who:escape-string (format nil "~A" ,string))))
+
 ;;; Views
 (defun faa1 () 
   (who:with-html-output-to-string (out)
@@ -40,7 +44,7 @@
       (:hr)    
       (:h1 :id "heading" "Hello Lispers")
       (:p :class "message"  "Hi everybody, we have lift off.")
-      (:p (who:fmt " acceptor object ~s  " (who:escape-string (format nil "~A"  hunchentoot:*acceptor*))))
+      (:p "acceptor object" (escaped-string  hunchentoot:*acceptor*))
       (:footer "&copy; 2013 Jacek Podkanski")))))
 
 (defun foo1 ()
@@ -53,5 +57,6 @@
       (:h1 "Foo")
       (:a :href "/faa" "faa")
       (:p "foo foo foo"
-	  (who:fmt (who:escape-string (format nil "~a" hunchentoot:*request*)))
+	  (escaped-string " <tag>text</tag> y")
+	  (escaped-string hunchentoot:*request*)
 	  (who:fmt "~s" (hunchentoot:get-parameters*)))))))
