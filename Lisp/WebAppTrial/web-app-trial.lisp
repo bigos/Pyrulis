@@ -21,6 +21,9 @@
 (hunchentoot:define-easy-handler (uri2 :uri "/about_me") ()
   (foo1))
 
+(hunchentoot:define-easy-handler (uri3 :uri "/") ()
+  (home-page))
+
 (hunchentoot:define-easy-handler (js1 :uri "/javascript.js") ()
   (setf (hunchentoot:content-type*) "text/javascript")
   (parenscript:ps
@@ -35,6 +38,17 @@
 (setf parenscript:*js-string-delimiter* #\")
 
 ;;; Views
+(defun home-page ()
+  (who:with-html-output-to-string (out)
+    (:html
+     (:head
+      (:title "Welcome to my humble home page")
+      (:link :href "/style.css" :media "all" :rel "stylesheet" :type "text/css"))
+     (:body
+      (:h1 "Welcome")
+      (:p "This is Home Page")
+      (:a :href "/faa" "More")))))
+
 (defun faa1 () 
   (who:with-html-output-to-string (out)
     (:html
