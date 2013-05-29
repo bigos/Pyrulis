@@ -21,12 +21,11 @@
 (hunchentoot:define-easy-handler (uri2 :uri "/about_me") ()
   (foo1))
 
-
 (hunchentoot:define-easy-handler (js1 :uri "/javascript.js") ()
   (setf (hunchentoot:content-type*) "text/javascript")
   (parenscript:ps
-   (defun greeting-callback ()
-     (alert "Hello World"))))
+    (defun greeting-callback ()
+      (alert "Hello World"))))
 
 ;;; helpers
 (defmacro escaped-string (string)
