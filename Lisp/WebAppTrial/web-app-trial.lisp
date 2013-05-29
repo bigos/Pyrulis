@@ -27,6 +27,9 @@
 (defmacro escaped-string (string)
   `(who:fmt (who:escape-string (format nil "~A" ,string))))
 
+;;; make parenscript work nicely with cl-who
+(setf parenscript:*js-string-delimiter* #\")
+
 ;;; Views
 (defun faa1 () 
   (who:with-html-output-to-string (out)
@@ -37,7 +40,7 @@
      (:body  
       (:div
        (:a :href "/" "see the index")
-       (:span :style "margin:0 2em;" "|")
+       (:span :style "margin:0 2em	;" "|")
        (:a :href "/about_me?name=Jacek&language=Lisp" "info about me")
        (:span :style "margin:0 2em;" "|")
        (:a :href "/hunchentoot-doc.html" "Documentation"))
@@ -59,4 +62,5 @@
       (:p "foo foo foo"
 	  (escaped-string " <tag>text</tag> y")
 	  (escaped-string hunchentoot:*request*)
-	  (who:fmt "~s" (hunchentoot:get-parameters*)))))))
+	  (who:fmt "~s" (hunchentoot:get-parameters*)))
+      (:a :href "#" :onclick (parenscript:ps (alert "Thank you for clicking")) "click me")))))
