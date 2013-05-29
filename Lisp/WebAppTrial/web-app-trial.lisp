@@ -11,17 +11,16 @@
   (hunchentoot:stop vhost1))
 
 ;;; Routes
+(push
+ (hunchentoot:create-static-file-dispatcher-and-handler  "/style.css" "style.css")
+ hunchentoot:*dispatch-table* )
+
 (hunchentoot:define-easy-handler (uri1 :uri "/faa") ()
   (faa1))
 
 (hunchentoot:define-easy-handler (uri2 :uri "/about_me") ()
   (foo1))
 
-(hunchentoot:define-easy-handler (style1 :uri "/style.css") ()
-  (setf (hunchentoot:content-type*) "text/css")
-  (format nil "~a ~a" 
-	  "body{background: #eeffcc; font-family: arial;}" 
-	  "footer{color: white; text-align: center; background:#464;}"))
 
 (hunchentoot:define-easy-handler (js1 :uri "/javascript.js") ()
   (setf (hunchentoot:content-type*) "text/javascript")
@@ -42,7 +41,7 @@
     (:html
      (:head
       (:title "yet another Lisp web app")
-      (:link :href "style.css" :media "all" :rel "stylesheet" :type "text/css"))
+      (:link :href "/style.css" :media "all" :rel "stylesheet" :type "text/css"))
      (:body  
       (:div
        (:a :href "/" "see the index")
@@ -61,7 +60,7 @@
     (:html
      (:head
       (:title "This is foo")
-      (:link :href "style.css" :media "all" :rel "stylesheet" :type "text/css")
+      (:link :href "/style.css" :media "all" :rel "stylesheet" :type "text/css")
       (:script :src "/javascript.js" )) 
      (:body
       (:h1 "Foo")
