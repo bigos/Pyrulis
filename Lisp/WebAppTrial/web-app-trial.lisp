@@ -23,6 +23,12 @@
 	  "body{background: #eeffcc; font-family: arial;}" 
 	  "footer{color: white; text-align: center; background:#464;}"))
 
+(hunchentoot:define-easy-handler (js1 :uri "/javascript.js") ()
+  (setf (hunchentoot:content-type*) "text/javascript")
+  (parenscript:ps
+   (defun greeting-callback ()
+     (alert "Hello World"))))
+
 ;;; helpers
 (defmacro escaped-string (string)
   `(who:fmt (who:escape-string (format nil "~A" ,string))))
@@ -55,7 +61,8 @@
     (:html
      (:head
       (:title "This is foo")
-      (:link :href "style.css" :media "all" :rel "stylesheet" :type "text/css")) 
+      (:link :href "style.css" :media "all" :rel "stylesheet" :type "text/css")
+      (:script :src "/javascript.js" )) 
      (:body
       (:h1 "Foo")
       (:a :href "/faa" "faa")
@@ -63,4 +70,4 @@
 	  (escaped-string " <tag>text</tag> y")
 	  (escaped-string hunchentoot:*request*)
 	  (who:fmt "~s" (hunchentoot:get-parameters*)))
-      (:a :href "#" :onclick (parenscript:ps (alert "Thank you for clicking")) "click me")))))
+      (:a :href "#" :onclick (parenscript:ps (greeting-callback)) "click me")))))
