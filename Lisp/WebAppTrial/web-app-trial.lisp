@@ -14,8 +14,9 @@
 
 ;;; Routes
 (push
- (hunchentoot:create-static-file-dispatcher-and-handler "/style.css" "/home/jacek/Programming/Pyrulis/Lisp/WebAppTrial/style.css" )
- hunchentoot:*dispatch-table* )
+ (hunchentoot:create-static-file-dispatcher-and-handler 
+  "/style.css" (format nil "~A~A" *application-directory* "style.css"))
+ hunchentoot:*dispatch-table*)
 
 (hunchentoot:define-easy-handler (uri1 :uri "/faa") ()
   (faa1))
