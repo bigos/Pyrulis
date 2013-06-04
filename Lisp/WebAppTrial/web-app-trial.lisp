@@ -1,6 +1,6 @@
 (in-package :web-app-trial)
 
-(defvar *application-directory* (asdf:system-source-directory (intern (package-name *package*))))
+(defvar *application-directory* (asdf:system-source-directory :web-app-trial))
 
 ;;; Instantiate VHOSTs
 (defvar vhost1 (make-instance 'hunchentoot:easy-acceptor :port 5000))
