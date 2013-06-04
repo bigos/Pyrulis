@@ -6,6 +6,7 @@
     :licence "GPLv3"
     :depends-on (:hunchentoot :cl-who :parenscript)
     :components ((:file "packages") 
-		 (:file "web-app-trial"))
+		 (:file "web-app-trial")
+		 (:file "javascript"))
     :description "trial web application"
     :long-description "attempt to write a web app using common lisp")
