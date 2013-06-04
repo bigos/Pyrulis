@@ -1,7 +1,9 @@
-p{border:solid green 1px;}
+p{line-height: 125%;
+   color: #131;
+}
 
 body{background: #eeffcc; 
      font-family: arial;}
 
 footer{color: white; 
-       text-align: center; background:#464;}
+       text-align: center; background:#363;}
