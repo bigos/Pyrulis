@@ -1,5 +1,7 @@
 (in-package :web-app-trial)
 
+(defvar *application-directory* (asdf:system-source-directory (intern (package-name *package*))))
+
 ;;; Instantiate VHOSTs
 (defvar vhost1 (make-instance 'hunchentoot:easy-acceptor :port 5000))
 
@@ -26,9 +28,7 @@
 
 (hunchentoot:define-easy-handler (js1 :uri "/javascript.js") ()
   (setf (hunchentoot:content-type*) "text/javascript")
-  (parenscript:ps
-    (defun greeting-callback ()
-      (alert "Hello World"))))
+  (app-js))
 
 ;;; helpers
 (defmacro escaped-string (string)
@@ -46,7 +46,7 @@
       (:link :href "/style.css" :media "all" :rel "stylesheet" :type "text/css"))
      (:body
       (:h1 "Welcome")
-      (:p "This is Home Page")
+      (:p "This is Home Page" )
       (:a :href "/faa" "More")))))
 
 (defun faa1 () 
