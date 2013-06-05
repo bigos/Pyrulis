@@ -12,13 +12,12 @@
 (defun stop ()
   (hunchentoot:stop vhost1))
 
+;;; make parenscript work nicely with cl-who
+(setf parenscript:*js-string-delimiter* #\")
 
 ;;; helpers
 (defmacro escaped-string (string)
   `(who:fmt (who:escape-string (format nil "~A" ,string))))
-
-;;; make parenscript work nicely with cl-who
-(setf parenscript:*js-string-delimiter* #\")
 
 (defun inspect-object (obj)
   (loop for the-slot in (mapcar #'sb-pcl:slot-definition-name (sb-pcl:class-slots (class-of obj))) 
