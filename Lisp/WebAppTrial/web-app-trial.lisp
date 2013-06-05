@@ -38,6 +38,23 @@
 ;;; make parenscript work nicely with cl-who
 (setf parenscript:*js-string-delimiter* #\")
 
+(defun inspect-object (obj)
+  (loop for the-slot in (mapcar #'sb-pcl:slot-definition-name (sb-pcl:class-slots (class-of obj))) 
+     collect (list the-slot  (if (slot-boundp obj the-slot)
+				 (slot-value obj the-slot)
+				 "unbound"))))
+;;; pretty print object on a web page
+(defun pp-object (obj)
+  (with-output-to-string (str) 
+    (format str "<pre>")
+    (format str "~a" (who:escape-string (format nil "~a~%" obj)))
+    (loop for the-slot in (mapcar #'sb-pcl:slot-definition-name (sb-pcl:class-slots (class-of obj))) 
+       do
+	 (format str "~A~%" (who:escape-string (format nil "~A" (list the-slot  (if (slot-boundp obj the-slot)
+										    (slot-value obj the-slot)
+										    "unbound"))))))
+    (format str "</pre>")))
+
 ;;; Views
 (defun home-page ()
   (who:with-html-output-to-string (out)
@@ -80,7 +97,9 @@
       (:h1 "Foo")
       (:a :href "/faa" "faa")
       (:p "foo foo foo"
-	  (escaped-string " <tag>text</tag> y")
+	  (escaped-string " <tag>text</tag> y ")
 	  (escaped-string hunchentoot:*request*)
 	  (who:fmt "~s" (hunchentoot:get-parameters*)))
+      (:p
+       (who:fmt "~a"  (pp-object hunchentoot:*request*)))
       (:a :href "#" :onclick (parenscript:ps (greeting-callback)) "click me")))))
