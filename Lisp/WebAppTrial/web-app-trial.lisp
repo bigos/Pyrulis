@@ -102,5 +102,5 @@
 	  (who:fmt "~s" (hunchentoot:get-parameters*)))
       (:p
        (who:fmt "~a"  (pp-object hunchentoot:*request*)))
-      (hunchentoot:log-message* :info "abcdef ~D~%~%~A~%" 123 (inspect-object hunchentoot:*request*))
+      (hunchentoot:log-message* :info "abcdef ~D~%~%~A~%" 123 (inspect-object hunchentoot:*reply*))
       (:a :href "#" :onclick (parenscript:ps (greeting-callback)) "click me")))))
