@@ -61,7 +61,7 @@
 
 (defun neighbours (board coordinates)
   (format t "~&will try to find neighbours for ~s     edges ~s:~s   ~%" 
-	  coordinates (board-edge-p (car coorydinates)) (board-edge-p (cdr coordinates)))
+	  coordinates (board-edge-p (car coordinates)) (board-edge-p (cdr coordinates)))
   (let ((lives) (whites) (blacks))
     ;;above
     ;;right
