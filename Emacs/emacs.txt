@@ -86,3 +86,9 @@
 
 ;(require 'quack)
 
+
+(require 'smartrep)
+;;; the following allows you to use use o and O to continue moving 
+;;; back and forth between windows after the initial `C-x o'.
+(smartrep-define-key global-map "C-x" '(("o" . 'other-window)
+("O" . (lambda () (interactive) (other-window -1)))))
