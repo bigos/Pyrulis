@@ -48,6 +48,8 @@
 (slime-setup '(slime-repl slime-fancy)) 
 (setq common-lisp-hyperspec-root
       "file:/home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/")
+(setq browse-url-browser-function 'browse-url-generic)
+(setq browse-url-generic-program "google-chrome")
 
 (autoload 'enable-paredit-mode "paredit"
   "Turn on pseudo-structural editing of Lisp code."
