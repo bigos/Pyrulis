@@ -59,7 +59,7 @@
 (defun safe-stone-at (board coordinates)
   (if (or (invalid-coordinate-p (car coordinates)) 
 	  (invalid-coordinate-p (cdr coordinates)))
-      :out
+      :outside
       (stone-at board coordinates)))
 
 (defun board-edge-p (coordinate)
