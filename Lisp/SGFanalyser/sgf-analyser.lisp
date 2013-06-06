@@ -57,24 +57,24 @@
   (aref board (car coordinates) (cdr coordinates)))
 
 (defun safe-stone-at (board coordinates)
-  (if (or (invalid-coordinate-p (car coordinates)) 
-	  (invalid-coordinate-p (cdr coordinates)))
-      :outside
-      (stone-at board coordinates)))
+  (if (or (valid-coordinate-p (car coordinates)) 
+	  (valid-coordinate-p (cdr coordinates)))
+      (stone-at board coordinates)
+      :outside))
 
 (defun board-edge-p (coordinate)
   (or (eq coordinate 0)
       (eq coordinate (1- *board-size*))))
 
-(defun invalid-coordinate-p (coordinate)
-  (or (< coordinate 0)
-      (> coordinate (1- *board-size*))))
+(defun valid-coordinate-p (coordinate)
+  (or (> coordinate 0)
+      (< coordinate (1- *board-size*))))
 
 (defun neighbours (board coordinates)
   (format t "~&will try to find neighbours for ~s     edges ~s:~s   ~%" 
 	  coordinates (board-edge-p (car coordinates)) (board-edge-p (cdr coordinates)))
   (let ((lives) (whites) (blacks))
-    (format T "~s" `( ;;above right bottom left
+    (format T "~s" `( ;; above right bottom left
 		     ,(safe-stone-at board (cons (car coordinates)  (1- (cdr coordinates))))     
 		     ,(safe-stone-at board (cons (1+ (car coordinates)) (cdr coordinates)))
 		     ,(safe-stone-at board (cons (car coordinates) (1+ (cdr coordinates))))
