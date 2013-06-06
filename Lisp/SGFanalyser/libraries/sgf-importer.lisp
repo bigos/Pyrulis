@@ -51,10 +51,10 @@
     (setf key-pos (find-key-position  pos))
     (if (eq (char *buffer* (1- key-pos)) #\;)
 	(setf new-move t))
-    (setf opb (opening-bracket pos))
-    (setf clb (last-closing-bracket pos))
-    (setf key (subseq *buffer* key-pos opb))
-    (setf val (subseq *buffer* (1+ opb)  clb))
+    (setf opb (opening-bracket pos)
+	  clb (last-closing-bracket pos)
+	  key (subseq *buffer* key-pos opb)
+	  val (subseq *buffer* (1+ opb)  clb))
     (list (1+ clb) key val new-move )))
 
 (defun read-file-to-string (filename)
@@ -72,9 +72,8 @@
 	     (setf key-pos (car (setf result (get-key-value-position  key-pos)))))	 
 	 (setf val-list (split-string (nth 2 result) "]["   ))
 	 (if (nth 3 result)
-	     (progn	
-	       (setf all-moves (append all-moves (list this-move)))
-	       (setf this-move () )))	 
+	     (setf all-moves (append all-moves (list this-move))
+		   this-move () ))	 
 	 (setf this-move (append this-move 
 				 (list (cons (nth 1 result) (if (eq 1 (length val-list))
 								(car val-list)
