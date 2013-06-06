@@ -74,18 +74,15 @@
   (format t "~&will try to find neighbours for ~s     edges ~s:~s   ~%" 
 	  coordinates (board-edge-p (car coordinates)) (board-edge-p (cdr coordinates)))
   (let ((lives) (whites) (blacks))
-    (format T "~s" `( ;;above
+    (format T "~s" `( ;;above right bottom left
 		     ,(safe-stone-at board (cons (car coordinates)  (1- (cdr coordinates))))     
-		      ;;right
 		     ,(safe-stone-at board (cons (1+ (car coordinates)) (cdr coordinates)))
-		      ;;bottom
 		     ,(safe-stone-at board (cons (car coordinates) (1+ (cdr coordinates))))
-		      ;;left
 		     ,(safe-stone-at board (cons (1- (car coordinates)) (cdr coordinates)))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun run ()        
-  (let ((board) (coordinates))
+  (let ((goban))
     (format T "~%~%~A <<<<<<<<<<~%" *game-record*)   
     (game-stats )
     (format t "~%~d <<< board size ~%" *board-size*)
