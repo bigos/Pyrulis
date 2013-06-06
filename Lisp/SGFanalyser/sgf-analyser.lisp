@@ -56,17 +56,22 @@
 (defun stone-at (board coordinates)
   (aref board (car coordinates) (cdr coordinates)))
 
-(defun board-edge-p (val)
-  (or (eq val 0) (eq val (1- *board-size*))))
+(defun board-edge-p (coordinate)
+  (or (eq coordinate 0) (eq coordinate (1- *board-size*))))
 
 (defun neighbours (board coordinates)
   (format t "~&will try to find neighbours for ~s     edges ~s:~s   ~%" 
 	  coordinates (board-edge-p (car coordinates)) (board-edge-p (cdr coordinates)))
   (let ((lives) (whites) (blacks))
-    ;;above
-    ;;right
-    ;;bottom
-    ;;left
+    (format T "~s" `(
+		     ;;above
+		     ,(stone-at board (cons (car coordinates)  (1- (cdr coordinates))))     
+		      ;;right
+		     ,(stone-at board (cons (1+ (car coordinates)) (cdr coordinates)))
+		      ;;bottom
+		     ,(stone-at board (cons (car coordinates) (1+ (cdr coordinates))))
+		      ;;left
+		     ,(stone-at board (cons (1- (car coordinates)) (cdr coordinates)))))
     ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -77,12 +82,14 @@
     (format t "~%~d <<< board size ~%" *board-size*)
     (setf board (make-array `(,*board-size* ,*board-size*) :initial-element nil))
       
+    ;; just testing some lisp functions ;;;;;;;;;;;;;;;;;
     ;;sample char2int
     (loop for x from (char-code #\a) to (char-code #\s) do
 	 (format t "~s ~s ~s    " x (- x 97) (code-char x)))
-					;get char from str
+    ;;get char from str
     (format t "~% :~s:   ~%"  (char "abc" 1))
-    
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
     (add-handicaps board)
     (print-board board)
     (dolist (move (subseq (cdr *game-record*) 0 20))

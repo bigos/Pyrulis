@@ -2,7 +2,7 @@
 
 (defvar *buffer*)
 
-(defun keys-list ()
+(defun sgf-keys-list ()
   (list "B" "W" "C" "N" "V"
 	"KO" "MN" "AB" "AE" "AW" "PL" "DM" "GB" "GW" "HO" "UC" "BM"
 	"DO" "IT" "TE" "AR" "CR" "DD" "LB" "LN" "MA" "SL" "SQ" "TR"
@@ -40,7 +40,7 @@
 
 (defun find-key-position (pos)
   (let ((key) (res ))	
-    (dolist (el (keys-list))
+    (dolist (el (sgf-keys-list))
       (setf key (search el *buffer* :start2 pos :end2 (opening-bracket pos)))
       (if key 
 	  (setf res key)))
