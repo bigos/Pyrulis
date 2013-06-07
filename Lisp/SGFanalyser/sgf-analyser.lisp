@@ -54,12 +54,9 @@
     (format t "~%~%")))
 
 (defun stone-at (board coordinates)
-  (aref board (car coordinates) (cdr coordinates)))
-
-(defun safe-stone-at (board coordinates)
-  (if (or (valid-coordinate-p (car coordinates)) 
+  (if (and (valid-coordinate-p (car coordinates))
 	  (valid-coordinate-p (cdr coordinates)))
-      (stone-at board coordinates)
+      (aref board (car coordinates) (cdr coordinates))
       :outside))
 
 (defun board-edge-p (coordinate)
@@ -67,41 +64,41 @@
       (eq coordinate (1- *board-size*))))
 
 (defun valid-coordinate-p (coordinate)
-  (or (> coordinate 0)
-      (< coordinate (1- *board-size*))))
+  (and (>= coordinate 0)
+       (<= coordinate (1- *board-size*))))
 
 (defun neighbours (board coordinates)
   (format t "~&will try to find neighbours for ~s     edges ~s:~s   ~%" 
 	  coordinates (board-edge-p (car coordinates)) (board-edge-p (cdr coordinates)))
   (let ((lives) (whites) (blacks))
     (format T "~s" `( ;; above right bottom left
-		     ,(safe-stone-at board (cons (car coordinates)  (1- (cdr coordinates))))     
-		     ,(safe-stone-at board (cons (1+ (car coordinates)) (cdr coordinates)))
-		     ,(safe-stone-at board (cons (car coordinates) (1+ (cdr coordinates))))
-		     ,(safe-stone-at board (cons (1- (car coordinates)) (cdr coordinates)))))))
+		     ,(stone-at board (cons (car coordinates)  (1- (cdr coordinates))))     
+		     ,(stone-at board (cons (1+ (car coordinates)) (cdr coordinates)))
+		     ,(stone-at board (cons (car coordinates) (1+ (cdr coordinates))))
+		     ,(stone-at board (cons (1- (car coordinates)) (cdr coordinates)))))))
 
 ;;;----------------------------------------------------------------
-(defclass goban ()
-  ((size :reader size :initarg :size) 
-   (board :accessor board :initarg :board)))
+;; (defclass goban ()
+;;   ((size :reader size :initarg :size) 
+;;    (board :accessor board :initarg :board)))
 
-(defgeneric obj-add-handicaps (goban))
-(defgeneric obj-print-board (goban))
+;; (defgeneric obj-add-handicaps (goban))
+;; (defgeneric obj-print-board (goban))
 
-(defmethod obj-add-handicaps (goban)
-  (add-handicaps (slot-value goban 'board)))      
+;; (defmethod obj-add-handicaps (goban)
+;;   (add-handicaps (slot-value goban 'board)))      
 
-(defmethod obj-print-board (goban)
-  (print-board (slot-value goban 'board)))
+;; (defmethod obj-print-board (goban)
+;;   (print-board (slot-value goban 'board)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun run ()        
-  (let ((my-goban))
+  (let ((board) (coordinates) (my-goban))
     (format T "~%~%~A <<<<<<<<<<~%" *game-record*)   
     (game-stats )
     (format t "~%~d <<< board size ~%" *board-size*)
     (setf board (make-array `(,*board-size* ,*board-size*) :initial-element nil))
-    (defparameter *goban* (make-instance 'goban :size *board-size* :board board))
+    ;(defparameter *goban* (make-instance 'goban :size *board-size* :board board))
       
     ;; just testing some lisp functions ;;;;;;;;;;;;;;;;;
     ;;sample char2int
