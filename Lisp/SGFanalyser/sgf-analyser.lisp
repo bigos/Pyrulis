@@ -1,7 +1,7 @@
 (in-package :sgf-analyser)
 
-(defvar *app-path* "/home/jacek/Programming/Pyrulis/Lisp/SGFanalyser/")
-(defvar *sgf-data-filename* (concatenate 'string *app-path* "game_records/" "jacekpod-coalburner.sgf"))
+(defvar *app-path* (asdf:system-source-directory :sgf-analyser))
+(defvar *sgf-data-filename* (merge-pathnames "game_records/jacekpod-coalburner.sgf" *app-path*))
 
 (defparameter *game-record* (sgf-importer:get-move-list *sgf-data-filename*))
 (defun header-value (key)  
@@ -80,13 +80,20 @@
 		     ,(safe-stone-at board (cons (car coordinates) (1+ (cdr coordinates))))
 		     ,(safe-stone-at board (cons (1- (car coordinates)) (cdr coordinates)))))))
 
+;;;----------------------------------------------------------------
+(defclass goban ()
+  ((size :reader size :initarg :size) 
+   (board :accessor board :initarg :board)))
+;;;----------------------------------------------------------------
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun run ()        
-  (let ((goban))
+  (let ((my-goban))
     (format T "~%~%~A <<<<<<<<<<~%" *game-record*)   
     (game-stats )
     (format t "~%~d <<< board size ~%" *board-size*)
     (setf board (make-array `(,*board-size* ,*board-size*) :initial-element nil))
+    (defparameter *goban* (make-instance 'goban :size *board-size* :board board))
       
     ;; just testing some lisp functions ;;;;;;;;;;;;;;;;;
     ;;sample char2int
