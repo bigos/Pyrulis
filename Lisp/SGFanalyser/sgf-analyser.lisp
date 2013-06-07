@@ -111,8 +111,8 @@
     (format t "~% :~s:   ~%"  (char "abc" 1))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-    (obj-add-handicaps *goban*)
-    (obj-print-board *goban*)
+    ;(obj-add-handicaps *goban*)
+    ;(obj-print-board *goban*)
     (dolist (move (subseq (cdr *game-record*) 0 20))
       (format t "color ~S coordinates ~S~%" (caar move) (sgf-to-i (cdar move)))
       (place-stone board (caar move) (sgf-to-i (cdar move))))
