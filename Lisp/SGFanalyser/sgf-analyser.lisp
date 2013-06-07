@@ -84,7 +84,15 @@
 (defclass goban ()
   ((size :reader size :initarg :size) 
    (board :accessor board :initarg :board)))
-;;;----------------------------------------------------------------
+
+(defgeneric obj-add-handicaps (goban))
+(defgeneric obj-print-board (goban))
+
+(defmethod obj-add-handicaps (goban)
+  (add-handicaps (slot-value goban 'board)))      
+
+(defmethod obj-print-board (goban)
+  (print-board (slot-value goban 'board)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun run ()        
@@ -103,8 +111,8 @@
     (format t "~% :~s:   ~%"  (char "abc" 1))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-    (add-handicaps board)
-    (print-board board)
+    (obj-add-handicaps *goban*)
+    (obj-print-board *goban*)
     (dolist (move (subseq (cdr *game-record*) 0 20))
       (format t "color ~S coordinates ~S~%" (caar move) (sgf-to-i (cdar move)))
       (place-stone board (caar move) (sgf-to-i (cdar move))))
