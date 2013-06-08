@@ -68,16 +68,6 @@
   (and (>= coordinate 0)
        (<= coordinate (1- *board-size*))))
 
-(defun neighbours (board coordinates)
-  (format t "~&will try to find neighbours for ~s     edges ~s:~s   ~%" 
-	  coordinates (board-edge-p (car coordinates)) (board-edge-p (cdr coordinates)))
-  (let ((lives) (whites) (blacks))
-    (format T "~s" `( ;; above right bottom left
-		     ,(stone-at board (cons (car coordinates)  (1- (cdr coordinates))))     
-		     ,(stone-at board (cons (1+ (car coordinates)) (cdr coordinates)))
-		     ,(stone-at board (cons (car coordinates) (1+ (cdr coordinates))))
-		     ,(stone-at board (cons (1- (car coordinates)) (cdr coordinates)))))))
-
 ;;;----------------------------------------------------------------
 (defclass goban ()
   ((size :reader size :initarg :size) 
@@ -85,13 +75,27 @@
 
 (defgeneric obj-add-handicaps (goban))
 (defgeneric obj-print-board (goban))
+(defgeneric obj-place-stone (goban colour coordinates))
+(defgeneric neighbours (goban coordinates))
 
-(defmethod obj-add-handicaps (goban)
-  (add-handicaps (slot-value goban 'board)))      
+(defmethod obj-add-handicaps (self)
+  (add-handicaps (slot-value self 'board)))      
 
-(defmethod obj-print-board (goban)
-  (print-board (slot-value goban 'board)))
+(defmethod obj-print-board (self)
+  (print-board (slot-value self 'board)))
 
+(defmethod obj-place-stone ((self goban) colour coordinates)
+  (setf (aref (slot-value self 'board) (car coordinates) (cdr coordinates)) colour))
+
+(defmethod neighbours ((self goban) coordinates)
+  (format t "~&will try to find neighbours for ~s     edges ~s:~s   ~%" 
+	  coordinates (board-edge-p (car coordinates)) (board-edge-p (cdr coordinates)))
+  (let ((lives) (whites) (blacks) (board (slot-value self 'board)))
+    (format T "~s" `( ;; above right bottom left
+		     ,(stone-at board (cons (car coordinates)  (1- (cdr coordinates))))     
+		     ,(stone-at board (cons (1+ (car coordinates)) (cdr coordinates)))
+		     ,(stone-at board (cons (car coordinates) (1+ (cdr coordinates))))
+		     ,(stone-at board (cons (1- (car coordinates)) (cdr coordinates)))))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun run ()        
   (let ((board) (coordinates))
@@ -100,29 +104,20 @@
     (format t "~%~d <<< board size ~%" *board-size*)
     (setf board (make-array `(,*board-size* ,*board-size*) :initial-element nil))
     (setf *goban* (make-instance 'goban :size *board-size* :board board))
-      
-    ;; just testing some lisp functions ;;;;;;;;;;;;;;;;;
-    ;;sample char2int
-    (loop for x from (char-code #\a) to (char-code #\s) do
-	 (format t "~s ~s ~s    " x (- x 97) (code-char x)))
-    ;;get char from str
-    (format t "~% :~s:   ~%"  (char "abc" 1))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
     (obj-add-handicaps *goban*)
  
     (dolist (move (subseq (cdr *game-record*) 0 20))
       (format t "color ~S coordinates ~S~%" (caar move) (sgf-to-i (cdar move)))
-      (place-stone board (caar move) (sgf-to-i (cdar move))))
+      (obj-place-stone *goban* (caar move) (sgf-to-i (cdar move))))
 
-    (print-board board)
     (obj-print-board *goban*)
 
     (setq coordinates (enter-coordinates))    
     (format t "the coordinates are: ~A~%"  coordinates)
 
     (format t "~A"  (stone-at board coordinates))
-    (neighbours board coordinates)
+    (neighbours *goban* coordinates)
     (format t ">>>>>>>> ~S" *goban*)
     ))
 
