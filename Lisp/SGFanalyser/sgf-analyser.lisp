@@ -1,5 +1,6 @@
 (in-package :sgf-analyser)
 
+(defparameter *goban* 1)
 (defvar *app-path* (asdf:system-source-directory :sgf-analyser))
 (defvar *sgf-data-filename* (merge-pathnames "game_records/jacekpod-coalburner.sgf" *app-path*))
 
@@ -37,7 +38,7 @@
     (dolist (pos (cadr handis))
       (format t "#### going to place ~A at ~A ~A~%" (car handis) pos (sgf-to-i pos))
       (place-stone board (car handis) (sgf-to-i pos)))))
- 
+
 (defun print-board (board)
   (let ((size (car (array-dimensions board))) (stone))
     (format t "~%    ")
@@ -55,7 +56,7 @@
 
 (defun stone-at (board coordinates)
   (if (and (valid-coordinate-p (car coordinates))
-	  (valid-coordinate-p (cdr coordinates)))
+	   (valid-coordinate-p (cdr coordinates)))
       (aref board (car coordinates) (cdr coordinates))
       :outside))
 
@@ -78,27 +79,27 @@
 		     ,(stone-at board (cons (1- (car coordinates)) (cdr coordinates)))))))
 
 ;;;----------------------------------------------------------------
-;; (defclass goban ()
-;;   ((size :reader size :initarg :size) 
-;;    (board :accessor board :initarg :board)))
+(defclass goban ()
+  ((size :reader size :initarg :size) 
+   (board :accessor board :initarg :board)))
 
-;; (defgeneric obj-add-handicaps (goban))
-;; (defgeneric obj-print-board (goban))
+(defgeneric obj-add-handicaps (goban))
+(defgeneric obj-print-board (goban))
 
-;; (defmethod obj-add-handicaps (goban)
-;;   (add-handicaps (slot-value goban 'board)))      
+(defmethod obj-add-handicaps (goban)
+  (add-handicaps (slot-value goban 'board)))      
 
-;; (defmethod obj-print-board (goban)
-;;   (print-board (slot-value goban 'board)))
+(defmethod obj-print-board (goban)
+  (print-board (slot-value goban 'board)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun run ()        
-  (let ((board) (coordinates) (my-goban))
+  (let ((board) (coordinates))
     (format T "~%~%~A <<<<<<<<<<~%" *game-record*)   
     (game-stats )
     (format t "~%~d <<< board size ~%" *board-size*)
     (setf board (make-array `(,*board-size* ,*board-size*) :initial-element nil))
-    ;(defparameter *goban* (make-instance 'goban :size *board-size* :board board))
+    (setf *goban* (make-instance 'goban :size *board-size* :board board))
       
     ;; just testing some lisp functions ;;;;;;;;;;;;;;;;;
     ;;sample char2int
@@ -108,18 +109,21 @@
     (format t "~% :~s:   ~%"  (char "abc" 1))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-    ;(obj-add-handicaps *goban*)
-    ;(obj-print-board *goban*)
+    (obj-add-handicaps *goban*)
+ 
     (dolist (move (subseq (cdr *game-record*) 0 20))
       (format t "color ~S coordinates ~S~%" (caar move) (sgf-to-i (cdar move)))
       (place-stone board (caar move) (sgf-to-i (cdar move))))
+
     (print-board board)
-     
+    (obj-print-board *goban*)
+
     (setq coordinates (enter-coordinates))    
     (format t "the coordinates are: ~A~%"  coordinates)
 
     (format t "~A"  (stone-at board coordinates))
     (neighbours board coordinates)
+    (format t ">>>>>>>> ~S" *goban*)
     ))
 
 ;;;==================================================
