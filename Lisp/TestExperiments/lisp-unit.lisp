@@ -5,6 +5,8 @@
 
 (in-package :simple-tests)
 
+(setf *print-failures* t)
+
 (define-test test-addition
   "test simple addition"
   (assert-equal 3 (+ 1 2))
@@ -14,5 +16,6 @@
   "test simple multiplication"
   (assert-equal 9 (* 3 3)))
 
-;; (run-tests :all)
-(run-tests '(test-addition test-multiplication))
+(run-tests :all)
+; (run-tests '(test-addition test-multiplication))
+
