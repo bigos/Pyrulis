@@ -1,4 +1,4 @@
-(ql:quickload :lisp-unit)
+; (ql:quickload :lisp-unit)
 
 (defpackage :simple-tests
   (:use :common-lisp :lisp-unit))
