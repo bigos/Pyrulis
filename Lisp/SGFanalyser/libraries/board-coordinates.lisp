@@ -18,7 +18,7 @@
   (unless (car parsed)
     (format t "~&wrong column entered, you need a - ~A , except i" *last-column-letter*))
   ;;messages for invalid row
-  (if (or (> (cdr parsed) (- *board-size* 1)) ;checks for correct row, max 18 in case of 19 size boad
+  (if (or (> (cdr parsed) (1- *board-size*)) ;checks for correct row, max 18 in case of 19 size boad
 	  (< (cdr parsed) 0))
       (progn
 	(format t "~&wrong row entered, you need something between 1 and ~A"  *board-size*)
@@ -29,7 +29,7 @@
   (let ((parsed))
     (loop until (valid-coordinates-p parsed) 
        do 
-	 (format t "~%~% Enter coordinates (a1 - ~A) " (max-coordinate))	 
+	 (format t "~&~% Enter coordinates (a1 - ~A) " (max-coordinate))	 
 	 (handler-case
 	     (progn
 	       (setq parsed (parse-board-coordinates (read-line)))
