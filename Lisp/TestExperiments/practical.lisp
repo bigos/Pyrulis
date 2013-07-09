@@ -17,7 +17,7 @@
   "Combine the results (as booleans) of evaluating 'forms' in order."
   (let ((result (gensym)))
     `(let ((,result t))
-      ,@(loop for f in forms collect `(unless ,f (setf ,result nil)))
+       ,@(loop for f in forms collect `(unless ,f (setf ,result nil)))
       ,result)))
 
 (defun report-result (result form)
@@ -39,7 +39,7 @@
 
 (deftest test-/ ()
   (check 
-    (= (/ 6 3) 2)
+    (= (/ 6 0) 2)
     (= (/ 4 2) 2)))
 
 (defun test-arithmetic ()
