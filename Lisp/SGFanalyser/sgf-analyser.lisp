@@ -8,13 +8,13 @@
 (defun header-value (key)
   (let ((kv (assoc key (car *game-record*) :test #'equalp)))
     (if (listp (cdr kv))
-        (car (cdr kv))
+        (cadr kv)
         (cdr kv))))
 
 (defvar *board-column-letters* "abcdefghjklmnopqrst")
 (defvar *sgf-letters* "abcdefghijklmnopqrs")
 (defvar *board-size* (parse-integer (header-value "SZ")))
-(defvar *last-column-letter* (subseq *board-column-letters* (- *board-size* 1)))
+(defvar *last-column-letter* (subseq *board-column-letters* (1- *board-size*)))
 
 (defun game-stats ()
   (let ((stats `(("white" . "PW") ("white rank" . "WR") ("black" . "PB")
@@ -24,7 +24,7 @@
                          ((not (zerop (length (header-value "AW")))) '("white handicap list" . "AW"))))))
     (dolist (el stats)
       ;; ~? explanation: http://www.lispworks.com/documentation/HyperSpec/Body/22_cgf.htm
-      (format t "~@?: ~S   "  (car  el)   (header-value (cdr el))))))
+      (format t "~@?: ~S   " (car  el) (header-value (cdr el))))))
 
 (defun sgf-to-i (coordinates)
   (labels ((coord (i)
