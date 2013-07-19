@@ -90,12 +90,12 @@
 (defmethod neighbours ((self goban) coordinates)
   (format t "~&will try to find neighbours for ~s     edges ~s:~s   ~%"
 	  coordinates (board-edge-p (car coordinates)) (board-edge-p (cdr coordinates)))
-  (let ((lives) (whites) (blacks) (board (slot-value self 'board)))
-    (format T "~s" `( ;; above right bottom left
-		     ,(stone-at board (cons (car coordinates)  (1- (cdr coordinates))))
-		     ,(stone-at board (cons (1+ (car coordinates)) (cdr coordinates)))
-		     ,(stone-at board (cons (car coordinates) (1+ (cdr coordinates))))
-		     ,(stone-at board (cons (1- (car coordinates)) (cdr coordinates)))))))
+  (let* ((lives) (whites) (blacks) (board (slot-value self 'board))
+         (neighbours '((0 . -1) (1 . 0) (0 . 1) (-1 . 0))))             
+    (dolist (n neighbours) 
+      (format t "~S ~S~%" n (stone-at board (cons (+ (car n) (car coordinates))
+                                                  (+ (cdr n) (cdr coordinates))))))))
+ 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun run ()
   (let ((board) (coordinates))
