@@ -94,7 +94,7 @@
   (let ((neighbour-coord-offsets '((0 . -1) (1 . 0) (0 . 1) (-1 . 0)))
         (coord)
         (result))
-    (format t "~S <<<<~%" 
+    (format t "~&~S <<<<~%" 
             (mapcar 
              #'(lambda (offset)                  
                  (progn 
@@ -128,9 +128,9 @@
     (setq coordinates (enter-coordinates))
     (format t "the coordinates are: ~A~%"  coordinates)
 
-    (format t "~A"  (stone-at *goban* coordinates))
-    (neighbours *goban* coordinates)
-    (format t ">>>>>>>> ~S" *goban*)
+    (format t "stone at given coordinates >~A<"  (stone-at *goban* coordinates))
+    (each-neighbour *goban* coordinates 'stone-at)
+    ;(format t ">>>>>>>> ~S" *goban*)
     ))
 
 ;;;==================================================
