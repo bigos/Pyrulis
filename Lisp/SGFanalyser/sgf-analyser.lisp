@@ -91,13 +91,12 @@
                                                          (+ (cdr neighbour) (cdr coordinates))))))))
 
 (defmethod each-neighbour ((self goban) coordinates func)
-  (let ((xc))
+  (let ((neighbour))
     (dolist (nc '((0 . -1) (1 . 0) (0 . 1) (-1 . 0)))
-      (setf xc (cons (+ (car nc) (car coordinates)) 
-                     (+ (cdr nc) (cdr coordinates))))
-      (format t "~s~S~%" xc (funcall func self xc))
-      )))
-;;; try to use mapcar
+      (setf neighbour (cons (+ (car nc) (car coordinates)) 
+                            (+ (cdr nc) (cdr coordinates))))
+      (format t "~s~S~%" neighbour (funcall func self neighbour)))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun run ()
   (let ((board) (coordinates))
