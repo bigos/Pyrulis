@@ -92,18 +92,19 @@
 
 (defmethod each-neighbour ((self goban) coordinates func)
   (let ((neighbour-coord-offsets '((0 . -1) (1 . 0) (0 . 1) (-1 . 0)))
-        (neighbour))
+        (coord)
+        (result))
     (format t "~S <<<<~%" 
             (mapcar 
-             #'(lambda (c) 
-                 (list
-                  (stone-at *goban* (cons (+ (car c) (car coordinates)) 
-                                          (+ (cdr c) (cdr coordinates)))))) 
-             '((0 . -1) (1 . 0) (0 . 1) (-1 . 0)) ))
-    (dolist (nc neighbour-coord-offsets)
-      (setf neighbour (cons (+ (car nc) (car coordinates)) 
-                            (+ (cdr nc) (cdr coordinates))))
-      (format t "~s~S~%" neighbour (funcall func self neighbour)))))
+             #'(lambda (c)                  
+                 (progn 
+                   (setf coord (cons (+ (car c) (car coordinates)) 
+                                     (+ (cdr c) (cdr coordinates))))
+                   (setf result (stone-at *goban* coord))
+                   (if (eq result :outside)
+                       (list result)
+                       (list coord result))))              
+             neighbour-coord-offsets ))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun run ()
