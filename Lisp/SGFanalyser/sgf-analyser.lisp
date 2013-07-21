@@ -49,7 +49,7 @@
 (defgeneric stone-at (goban coordinates))
 (defgeneric place-stone (goban colour coordinates))
 (defgeneric neighbours (goban coordinates))
-(defgeneric each-neighbour (goban coordinates))
+(defgeneric each-neighbour (goban coordinates func))
 
 (defmethod stone-at ((self goban) coordinates)
   (if (and (valid-coordinate-p (car coordinates))
@@ -89,13 +89,15 @@
     (dolist (neighbour '((0 . -1)(1 . 0)(0 . 1)(-1 . 0)))
       (format t "~s ~s~%" neighbour (stone-at self (cons (+ (car neighbour) (car coordinates))
                                                          (+ (cdr neighbour) (cdr coordinates))))))))
-(defmethod each-neighbour ((self goban) coordinates)
+
+(defmethod each-neighbour ((self goban) coordinates func)
   (let ((xc))
     (dolist (nc '((0 . -1) (1 . 0) (0 . 1) (-1 . 0)))
       (setf xc (cons (+ (car nc) (car coordinates)) 
                      (+ (cdr nc) (cdr coordinates))))
-      (format t "~s~S~%" xc (stone-at self xc))
+      (format t "~s~S~%" xc (funcall func self xc))
       )))
+;;; try to use mapcar
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun run ()
   (let ((board) (coordinates))
