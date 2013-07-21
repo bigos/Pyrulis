@@ -96,10 +96,10 @@
         (result))
     (format t "~S <<<<~%" 
             (mapcar 
-             #'(lambda (c)                  
+             #'(lambda (offset)                  
                  (progn 
-                   (setf coord (cons (+ (car c) (car coordinates)) 
-                                     (+ (cdr c) (cdr coordinates))))
+                   (setf coord (cons (+ (car offset) (car coordinates)) 
+                                     (+ (cdr offset) (cdr coordinates))))
                    (setf result (stone-at *goban* coord))
                    (if (eq result :outside)
                        (list result)
