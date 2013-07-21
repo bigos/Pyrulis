@@ -91,15 +91,23 @@
                                                          (+ (cdr neighbour) (cdr coordinates))))))))
 
 (defmethod each-neighbour ((self goban) coordinates func)
-  (let ((neighbour))
-    (dolist (nc '((0 . -1) (1 . 0) (0 . 1) (-1 . 0)))
+  (let ((neighbour-coord-offsets '((0 . -1) (1 . 0) (0 . 1) (-1 . 0)))
+        (neighbour))
+    (format t "~S <<<<~%" 
+            (mapcar 
+             #'(lambda (c) 
+                 (list
+                  (stone-at *goban* (cons (+ (car c) (car coordinates)) 
+                                          (+ (cdr c) (cdr coordinates)))))) 
+             '((0 . -1) (1 . 0) (0 . 1) (-1 . 0)) ))
+    (dolist (nc neighbour-coord-offsets)
       (setf neighbour (cons (+ (car nc) (car coordinates)) 
                             (+ (cdr nc) (cdr coordinates))))
       (format t "~s~S~%" neighbour (funcall func self neighbour)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun run ()
-  (let ((board) (coordinates))
+  (let ((coordinates))
     (format T "~%~%~A <<<<<<<<<<~%" *game-record*)
     (game-stats )
     (format t "~%~d <<< board size ~%" *board-size*)
