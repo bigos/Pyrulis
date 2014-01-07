@@ -17,7 +17,7 @@ sub solution {
     my $sum1;
     my $sum2;
     my $res;
-    my $res2;
+    my $res2 = 2000;
     for (my $p = 1; $p < $n; $p++) {
         print "\n".$p."  vvvvvvvvvvv\n";
         # How do I get part of an array in Perl ?????
@@ -30,27 +30,17 @@ sub solution {
         print $sum2."\n";
         $res = abs($sum1 - $sum2);
         print $res;
-        if ($p == 1) {
-            $res2 = $sum1;
-        } else {
-            if ($res < $res2) {
-                $res2 = $res;
-            }
-        }
-
+        $res2 = $res if ($res < $res2);
     }
+    print"\n";
     $res2;
 }
 
-print "\n";
+print "ssssss\n";
 
 print solution (3, 1, 2, 4, 3);
 
 
-print "\n";
+print "\nssssz\n";
 
-my @rrr = (1,2,3,4,5,6,7);
-print @rrr;
-print "\n";
-print @rrr[2 .. (scalar(@rrr) -2)];
-print "\n";
+print solution(-1000,1000);
