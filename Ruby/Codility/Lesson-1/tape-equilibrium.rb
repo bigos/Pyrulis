@@ -1,25 +1,28 @@
 def solution(a)
   n = a.size
   r = a.reverse
+  p a
+  for x in 1 .. n-1
+    a[x] = a[x-1] + a[x]
+    r[x] = r[x-1] + r[x]
 
+  end
+    puts "#{x} : #{a.inspect}  #{r.inspect}"
+  r.reverse!
   #p a
-  sa=Array.new n-1
-  sr = Array.new n-1
-  for x in 1..(n-1)
-    sa[x-1] = a[0,x].inject(:+)
-    sr[x-1] = r[0,x].inject(:+)
-  end
-  sr.reverse!
-
-  r=2000
-  for x in 0 .. sa.size-1
-    r2 = (sa [x]-sr [x]).abs
-    if r2 < r
-      r = r2
+  #p r
+  r1 = 200
+  for x in 0 .. a.size-2
+    s=a[x]
+    e=r[x+1]
+    r2 = (s - e).abs
+    #puts "#{s} #{e}  #{r2}"
+    if r2 < r1
+      r1 = r2
     end
-
   end
-  r
+  r1
 end
 
 p solution [3, 1, 2, 4, 3]
+p solution [-1000, 1000]
