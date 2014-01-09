@@ -18,24 +18,16 @@ end
 
 def solution(x, a)
   n = a.size
-  pos = 0
-  k = 0
   count = 0
   r = Array.new x
-  puts "*********  #{x}   #{a.inspect}"
   for z in 0 .. n-1
     unless r[a[z]-1]
       r[ a[z]-1 ] = a[z]
       count += 1
     end
-    puts ":: #{z} #{count}  #{r.inspect}"
     if count == x
       return z
     end
-    # if r.all? { |e| e != nil }
-    #   puts "final count "+count.to_s
-    #   return z
-    # end
   end
   -1
 end
