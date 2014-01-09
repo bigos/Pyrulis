@@ -19,20 +19,20 @@ sub solution {
     my $res;
     my $res2 = 2000;
     for (my $p = 1; $p < $n; $p++) {
-        print "\n".$p."  vvvvvvvvvvv\n";
+        #print "\n".$p."  vvvvvvvvvvv\n";
         # How do I get part of an array in Perl ?????
         $sum1 = 0;
         map { $sum1 += $_ } @a[0 .. $p-1];
-        print $sum1."\n";
+        #print $sum1."\n";
 
         $sum2 = 0;
         map {$sum2 += $_} @a[$p .. (scalar(@a)-1)];
-        print $sum2."\n";
+        #print $sum2."\n";
         $res = abs($sum1 - $sum2);
-        print $res;
+        #print $res;
         $res2 = $res if ($res < $res2);
     }
-    print"\n";
+    #print"\n";
     $res2;
 }
 
