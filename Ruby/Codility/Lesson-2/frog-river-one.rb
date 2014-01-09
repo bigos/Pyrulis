@@ -1,21 +1,3 @@
-def fn(x)
-  (2 ** (x+1))
-end
-
-# def solution(x, a)
-#   n = a.size
-#   #p a
-#   zzz=0
-#   expected = (2 ** (x+1))-2
-#   #puts "expected #{expected}"
-#   for x in 0 .. n-1
-#     zzz = (zzz | 2**a[x])
-#     #puts " #{2**a[x]} #{zzz}"
-#     return x if zzz == expected
-#   end
-#   -1
-# end
-
 def solution(x, a)
   n = a.size
   count = 0
