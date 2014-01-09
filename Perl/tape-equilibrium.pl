@@ -23,6 +23,7 @@ sub solution {
         # How do I get part of an array in Perl ?????
         $sum1 = 0;
         map { $sum1 += $_ } @a[0 .. $p-1];
+
         #print $sum1."\n";
 
         $sum2 = 0;
