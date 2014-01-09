@@ -1,20 +1,26 @@
+def fn(x)
+  (2 ** (x+1))
+end
+
 def solution(x, a)
   n = a.size
   pos = 0
   k = 0
   r = Array.new x
-  #puts "#{x}   #{a.inspect}"
-  for z in 0 .. n-1
-    r[ a[z]-1 ] = a[z]
-    #puts ":: #{z}   #{r.inspect}"
-    if r.all? { |e| e != nil }
-      return z
-    end
-  end
+  zzz=0
+  expected = (2 ** (x+1))-2
+  a.map {|b|
+    r[b] = b
+    zzz = (zzz | 2**b)
+    return k if zzz == expected
+    k += 1
+  }
   -1
 end
 
-p solution(5, [1, 3, 1, 4, 2, 3, 5, 4])
+p solution(3, [3, 2, 1]) # expect 2
+
+p solution(5, [1, 3, 1, 4, 2, 3, 5, 4]) # expect 6
 
 p solution(1, [1]) # expect 0
 
