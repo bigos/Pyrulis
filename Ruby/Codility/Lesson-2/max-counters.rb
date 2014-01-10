@@ -33,7 +33,12 @@ def solution(n, a)
   cnt.solution(n,a)
 end
 
+require 'benchmark'
 
+puts Benchmark.measure {
+  p solution(5,[3,4,4,6,1,4,4])
+}
 
-
-p solution(5,[3,4,4,6,1,4,4])
+puts Benchmark.measure {
+  p solution(500,([501]*555))
+}
