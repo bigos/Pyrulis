@@ -42,22 +42,23 @@ skins along with much less crappy looking demos.")
 
 (defn -main [& args]
   (invoke-later
-    (->
-      (frame
-        :title "Seesaw Substance/Insubstantial Example"
-        :on-close :exit
-        :content (vertical-panel
-                   :items [(laf-selector)
-                           (text :multi-line? true :text notes :border 5)
-                           :separator
-                           (label :text "A Label")
-                           (button :text "A Button")
-                           (checkbox :text "A checkbox")
-                           (combobox :model ["A combobox" "more" "items"])
-                           (horizontal-panel
-                             :border "Some radio buttons"
-                             :items (map (partial radio :text)
-                                         ["First" "Second" "Third"]))
-                           (scrollable (listbox :model (range 100)))]))
-      pack!
-      show!)))
+   (->
+    (frame
+     :title "Seesaw Substance/Insubstantial Example"
+     :on-close :exit
+     :content (vertical-panel
+               :items [(laf-selector)
+                       (text :multi-line? true :text notes :border 5)
+                       :separator
+                       (label :text "A Label")
+                       (button :text "A Button"
+                               :listen [:mouse-clicked (fn [e]  (alert "NEXT!"))])
+                       (checkbox :text "A checkbox")
+                       (combobox :model ["A combobox" "more" "items"])
+                       (horizontal-panel
+                        :border "Some radio buttons"
+                        :items (map (partial radio :text)
+                                    ["First" "Second" "Third"]))
+                       (scrollable (listbox :model (range 100)))]))
+    pack!
+    show!)))
