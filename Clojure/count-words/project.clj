@@ -1,3 +1,6 @@
 (defproject count-words "1.0.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :dependencies [[org.clojure/clojure "1.3.0"]])
+  :description "Example of using Substance Look and Feel with Seesaw"
+  :dependencies [[org.clojure/clojure "1.4.0"]
+                 [seesaw "1.4.2"]
+                 [com.github.insubstantial/substance "7.1"]]
+  :main count-words.core)
