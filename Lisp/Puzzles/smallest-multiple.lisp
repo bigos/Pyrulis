@@ -12,10 +12,10 @@
             (push (cdr x) b))))
     (append (reverse a) (reverse b))))
 
-(loop for n from 1 by 1
-   ;; until (zerop (search '(2 3 4)
-   ;;                      (divisors n)))
-   ;return n
-   do
-     (princ n)
-     )
+(defun solution ()
+  (loop for n from 0 by 20
+     for divs = (divisors n)
+     ;; do (format t "~s  " n)
+     until  (search '(2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20) divs)
+     finally (return n)
+       ))
