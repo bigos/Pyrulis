@@ -1,17 +1,15 @@
 def solution(s, p, q)
-  n = s.size
-  codes={'A'=>1,'C'=>2,'G'=>3,'T'=>4}
-  result=[]
+  zz=[]
   for x in 0 .. p.size-1
-    #range =[p[x],q[x]]
-    #p range
-    z = s.slice p[x] .. q[x]
+    zz << (s.slice p[x] .. q[x])
+  end
+  codes = {'A'=>1,'C'=>2,'G'=>3,'T'=>4}
+  result = []
+  zz.each { |z|
     f = 5
     z.each_char { |c|
-      f=codes[c] if codes[c] < f
-    }
-    result << f
-  end
+      f = codes[c] if codes[c] < f }
+    result << f }
   result
 end
 
