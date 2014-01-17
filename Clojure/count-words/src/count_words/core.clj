@@ -1,8 +1,12 @@
 (ns count-words.core
   (:use [seesaw.core])
   (:import  org.pushingpixels.substance.api.SubstanceLookAndFeel)
+  (:require [clojure.string :as str]
+            [clojure.edn :as edn]
+            [clojure.pprint :as pp])
   (:gen-class))
 
+;; http://clojure-doc.org/articles/cookbooks/strings.html
 
 (defn laf-selector []
   (horizontal-panel
@@ -62,7 +66,8 @@ skins along with much less crappy looking demos.")
                        :separator
                        (label :text "A Label")
                        (button :text "A Button"
-                               :listen [:mouse-clicked (fn [e]  (alert "NEXT!"))])
+                               :listen [:mouse-clicked (fn [e]  (alert (-> (java.io.File. ".") .getAbsolutePath)
+))])
                        (button :text "Play sound clip"
                                :listen [:mouse-clicked (fn [e]  (play-file "/home/jacek/Audio/februar.mp3"))])
                        (checkbox :text "A checkbox")
