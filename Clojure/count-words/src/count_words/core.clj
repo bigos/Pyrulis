@@ -40,6 +40,16 @@ See http://insubstantial.github.com/insubstantial/substance/docs/getting-started
 for more info. There you'll also find much more info about the
 skins along with much less crappy looking demos.")
 
+(defn play-file [filename & opts]
+  (let [fis (java.io.FileInputStream. filename)
+        bis (java.io.BufferedInputStream. fis)
+        player (javazoom.jl.player.Player. bis)]
+    (if-let [synchronously (first opts)]
+      (doto player
+        (.play)
+        (.close))
+      (.start (Thread. #(doto player (.play) (.close)))))))
+
 (defn -main [& args]
   (invoke-later
    (->
@@ -53,6 +63,8 @@ skins along with much less crappy looking demos.")
                        (label :text "A Label")
                        (button :text "A Button"
                                :listen [:mouse-clicked (fn [e]  (alert "NEXT!"))])
+                       (button :text "Play sound clip"
+                               :listen [:mouse-clicked (fn [e]  (play-file "/home/jacek/Audio/februar.mp3"))])
                        (checkbox :text "A checkbox")
                        (combobox :model ["A combobox" "more" "items"])
                        (horizontal-panel
