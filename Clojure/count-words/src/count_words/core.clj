@@ -1,9 +1,7 @@
 (ns count-words.core
   (:use [seesaw.core])
   (:import  org.pushingpixels.substance.api.SubstanceLookAndFeel)
-  (:require [clojure.string :as str]
-            [clojure.edn :as edn]
-            [clojure.pprint :as pp])
+  (:require [clojure.string :as str])
   (:gen-class))
 
 ;; http://clojure-doc.org/articles/cookbooks/strings.html
@@ -67,9 +65,19 @@ skins along with much less crappy looking demos.")
                        (label :text "A Label")
                        (button :text "A Button"
                                :listen [:mouse-clicked (fn [e]  (alert (-> (java.io.File. ".") .getAbsolutePath)
-))])
+                                                                       ))])
                        (button :text "Play sound clip"
                                :listen [:mouse-clicked (fn [e]  (play-file "/home/jacek/Audio/februar.mp3"))])
+                       (button :text "About the system"
+                               :listen [:mouse-clicked (fn [e]
+                                                         (alert (str/join
+                                                                 ["you are running "
+                                                                  (-> (System/getProperties) (.get "os.name"))
+                                                                  "\nand your home folder is "
+                                                                  (-> (System/getProperties) (.get "user.home"))
+                                                                  ])
+                                                                ))])
+
                        (checkbox :text "A checkbox")
                        (combobox :model ["A combobox" "more" "items"])
                        (horizontal-panel
