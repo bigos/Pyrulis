@@ -1,7 +1,8 @@
 (ns count-words.core
   (:use [seesaw.core])
   (:import  org.pushingpixels.substance.api.SubstanceLookAndFeel)
-  (:require [clojure.string :as str])
+  (:require [clojure.string :as str]
+            [clojure.java.io :as io])
   (:gen-class))
 
 ;; http://clojure-doc.org/articles/cookbooks/strings.html
