@@ -2,6 +2,7 @@
   (:use [seesaw.core])
   (:import  org.pushingpixels.substance.api.SubstanceLookAndFeel)
   (:require [clojure.string :as str]
+            [clj-yaml.core :as yaml]
             [clojure.java.io :as io])
   (:gen-class))
 
