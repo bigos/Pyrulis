@@ -56,11 +56,10 @@ skins along with much less crappy looking demos.")
 (defn platform []
   (let [osname (-> (System/getProperties)
                    (.get "os.name"))]
-    (if (>= (.indexOf osname "Linux") 0)
-      "Linux"
-      (if (>= (.indexOf osname "Windows") 0)
-        "Windows"
-        "MacOSX"))))
+    (cond
+     (>= (.indexOf osname "Linux") 0) "Linux"
+     (>= (.indexOf osname "Windows") 0) "Windows"
+     :else "MacOSX")))
 
 (defn config-folder []
   (-> (-> (System/getProperties) (.get "user.home"))
@@ -93,7 +92,12 @@ skins along with much less crappy looking demos.")
                        (button :text "Config folder location"
                                :listen [:mouse-clicked
                                         (fn [e]
-                                          (alert (config-folder)))])
+                                          (alert (str/join [(config-folder)
+                                                             "\n"
+                                                             (if (.exists (io/file (config-folder)))
+                                                               "File exists"
+                                                               "File DOES NOT exist")]
+                                                  )))])
 
                        (checkbox :text "A checkbox")
                        (combobox :model ["A combobox" "more" "items"])
