@@ -2,13 +2,11 @@ def solution(n)
   str=n.to_s.reverse!
   ns=''
   counter = 1
-  #p str
   for x in 0 .. str.size-1
     ns << str[x,1]
     if counter % 3 == 0
       ns << ','
     end
-    # p ns
     counter +=1
   end
   # that's why I failed the test

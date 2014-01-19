@@ -33,17 +33,17 @@ def to_underscores(camel_string):
     return result.strip('_')
 
 def spaces(n):
-    return ' ' * n   
+    return ' ' * n
 
 def generate(sing_camel, plu_camel):
     sing_under = to_underscores(sing_camel)
     plu_under =  to_underscores(plu_camel)
     methods = [
-        ['index','all', False, False],             
-        ['show','find',':id', False],              
+        ['index','all', False, False],
+        ['show','find',':id', False],
         ['new','new', False, False],
         ['edit','find',':id', False],
-        ['create','new',":{0}".format(sing_under),"if {0}.save".format(sing_under)],              
+        ['create','new',":{0}".format(sing_under),"if {0}.save".format(sing_under)],
         ['update','find',':id',"if @{0}.update_attributes(params[:{0}])".format(sing_under)],
         ['destroy','find',':id', False] ]
     print methods
