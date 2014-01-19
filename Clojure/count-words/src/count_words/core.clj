@@ -53,6 +53,20 @@ skins along with much less crappy looking demos.")
         (.close))
       (.start (Thread. #(doto player (.play) (.close)))))))
 
+(defn platform []
+  (let [osname (-> (System/getProperties)
+                   (.get "os.name"))]
+    (if (>= (.indexOf osname "Linux") 0)
+      "Linux"
+      (if (>= (.indexOf osname "Windows") 0)
+        "Windows"
+        "MacOSX"))))
+
+(defn config-folder []
+  (-> (-> (System/getProperties) (.get "user.home"))
+      (io/file "Slovak" "Config")
+      (.getPath)))
+
 (defn -main [& args]
   (invoke-later
    (->
@@ -79,17 +93,7 @@ skins along with much less crappy looking demos.")
                        (button :text "Config folder location"
                                :listen [:mouse-clicked
                                         (fn [e]
-                                          (alert (if (>= (.indexOf
-                                                          (-> (System/getProperties)
-                                                              (.get "os.name"))
-                                                          "Linux") 0)
-                                                   "Linux"
-                                                   (if (>= (.indexOf
-                                                            (-> (System/getProperties)
-                                                                (.get "os.name"))
-                                                            "Windows") 0)
-                                                     "Windows"
-                                                     "MacOSx"))))])
+                                          (alert (config-folder)))])
 
                        (checkbox :text "A checkbox")
                        (combobox :model ["A combobox" "more" "items"])
