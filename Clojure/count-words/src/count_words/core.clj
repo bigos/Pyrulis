@@ -75,12 +75,25 @@ skins along with much less crappy looking demos.")
                                                                  ["you are running "
                                                                   (-> (System/getProperties) (.get "os.name"))
                                                                   "\nand your home folder is "
-                                                                  (-> (System/getProperties) (.get "user.home"))
-                                                                  ])
-                                                                ))])
+                                                                  (-> (System/getProperties) (.get "user.home")) ])))])
+                       (button :text "Config folder location"
+                               :listen [:mouse-clicked
+                                        (fn [e]
+                                          (alert (if (>= (.indexOf
+                                                          (-> (System/getProperties)
+                                                              (.get "os.name"))
+                                                          "Linux") 0)
+                                                   "Linux"
+                                                   (if (>= (.indexOf
+                                                            (-> (System/getProperties)
+                                                                (.get "os.name"))
+                                                            "Windows") 0)
+                                                     "Windows"
+                                                     "MacOSx"))))])
 
                        (checkbox :text "A checkbox")
                        (combobox :model ["A combobox" "more" "items"])
+
                        (horizontal-panel
                         :border "Some radio buttons"
                         :items (map (partial radio :text)
