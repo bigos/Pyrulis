@@ -73,40 +73,48 @@ skins along with much less crappy looking demos.")
     (frame
      :title "Seesaw Substance/Insubstantial Example"
      :on-close :exit
-     :content (vertical-panel
-               :items [(laf-selector)
-                       (text :multi-line? true :text notes :border 5)
-                       :separator
-                       (label :text "A Label")
-                       (button :text "A Button"
-                               :listen [:mouse-clicked (fn [e]  (alert (-> (java.io.File. ".") .getAbsolutePath)
-                                                                       ))])
-                       (button :text "Play sound clip"
-                               :listen [:mouse-clicked (fn [e]  (play-file "/home/jacek/Audio/februar.mp3"))])
-                       (button :text "About the system"
-                               :listen [:mouse-clicked (fn [e]
-                                                         (alert (str/join
-                                                                 ["you are running "
-                                                                  (-> (System/getProperties) (.get "os.name"))
-                                                                  "\nand your home folder is "
-                                                                  (-> (System/getProperties) (.get "user.home")) ])))])
-                       (button :text "Config folder location"
-                               :listen [:mouse-clicked
-                                        (fn [e]
-                                          (alert (str/join [(config-folder)
-                                                             "\n"
-                                                             (if (.exists (io/file (config-folder)))
-                                                               "File exists"
-                                                               "File DOES NOT exist")]
-                                                  )))])
+     :content
+     (vertical-panel
+      :items
+      [(laf-selector)
+       (text :multi-line? true :text notes :border 5)
+       :separator
+       (label :text "A Label")
+       (button :text "A Button"
+               :listen [:mouse-clicked (fn [e]  (alert (-> (java.io.File. ".")
+                                                           .getAbsolutePath)
+                                                       ))])
+       (button :text "Play sound clip"
+               :listen [:mouse-clicked
+                        (fn [e] (play-file
+                                 "/home/jacek/Audio/februar.mp3"))])
+       (button :text "About the system"
+               :listen [:mouse-clicked (fn [e]
+                                         (alert (str/join
+                                                 ["you are running "
+                                                  (-> (System/getProperties)
+                                                      (.get "os.name"))
+                                                  "\nand your home folder is "
+                                                  (-> (System/getProperties)
+                                                      (.get "user.home")) ])))])
+       (button :text "Config folder location"
+               :listen [:mouse-clicked
+                        (fn [e]
+                          (alert (str/join
+                                  [(config-folder)
+                                   "\n"
+                                   (if (.exists (io/file (config-folder)))
+                                     "File exists"
+                                     "File DOES NOT exist")]
+                                  )))])
 
-                       (checkbox :text "A checkbox")
-                       (combobox :model ["A combobox" "more" "items"])
+       (checkbox :text "A checkbox")
+       (combobox :model ["A combobox" "more" "items"])
 
-                       (horizontal-panel
-                        :border "Some radio buttons"
-                        :items (map (partial radio :text)
-                                    ["First" "Second" "Third"]))
-                       (scrollable (listbox :model (range 100)))]))
+       (horizontal-panel
+        :border "Some radio buttons"
+        :items (map (partial radio :text)
+                    ["First" "Second" "Third"]))
+       (scrollable (listbox :model (range 100)))]))
     pack!
     show!)))
