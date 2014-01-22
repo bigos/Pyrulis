@@ -68,6 +68,7 @@ skins along with much less crappy looking demos.")
       (.getPath)))
 
 (defn -main [& args]
+  ;; (native!) ;; use this for native looks
   (invoke-later
    (->
     (frame
@@ -76,7 +77,18 @@ skins along with much less crappy looking demos.")
      :content
      (vertical-panel
       :items
-      [(laf-selector)
+      [ ;;(laf-selector)
+       (menubar :items
+                [(menu :text "Edit"
+                       :halign :left
+                       :items ["item1" "second item"])
+                 (menu :text "Help" :items
+                       [
+                        (menu-item :text "Platform"
+                                   :listen [:action (fn [e]
+                                                      (alert
+                                                       (-> (System/getProperties)
+                                                           (.get "os.name"))) )])])])
        (text :multi-line? true :text notes :border 5)
        :separator
        (label :text "A Label")
@@ -116,5 +128,6 @@ skins along with much less crappy looking demos.")
         :items (map (partial radio :text)
                     ["First" "Second" "Third"]))
        (scrollable (listbox :model (range 100)))]))
+
     pack!
     show!)))
