@@ -101,7 +101,8 @@ skins along with much less crappy looking demos.")
                         (fn [e] (play-file
                                  "/home/jacek/Audio/februar.mp3"))])
        (button :text "About the system"
-               :listen [:mouse-clicked (fn [e]
+               :mnemonic \A
+               :listen [:action (fn [e]
                                          (alert (str/join
                                                  ["you are running "
                                                   (-> (System/getProperties)
@@ -110,7 +111,8 @@ skins along with much less crappy looking demos.")
                                                   (-> (System/getProperties)
                                                       (.get "user.home")) ])))])
        (button :text "Config folder location"
-               :listen [:mouse-clicked
+               :mnemonic \C
+               :listen [:action
                         (fn [e]
                           (alert (str/join
                                   [(config-folder)
