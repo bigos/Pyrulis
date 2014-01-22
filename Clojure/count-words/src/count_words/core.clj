@@ -67,8 +67,12 @@ skins along with much less crappy looking demos.")
       (io/file "Slovak" "Config")
       (.getPath)))
 
+(def  ^:dynamic cbv  (horizontal-panel
+                       :border "Some radio buttons"
+                       :items (map (partial radio :text)
+                                   ["First" "Second" "Third"])))
 (defn -main [& args]
-  ;; (native!) ;; use this for native looks
+  ;;(native!) ;; use this for native looks
   (invoke-later
    (->
     (frame
@@ -103,13 +107,13 @@ skins along with much less crappy looking demos.")
        (button :text "About the system"
                :mnemonic \A
                :listen [:action (fn [e]
-                                         (alert (str/join
-                                                 ["you are running "
-                                                  (-> (System/getProperties)
-                                                      (.get "os.name"))
-                                                  "\nand your home folder is "
-                                                  (-> (System/getProperties)
-                                                      (.get "user.home")) ])))])
+                                  (alert (str/join
+                                          ["you are running "
+                                           (-> (System/getProperties)
+                                               (.get "os.name"))
+                                           "\nand your home folder is "
+                                           (-> (System/getProperties)
+                                               (.get "user.home")) ])))])
        (button :text "Config folder location"
                :mnemonic \C
                :listen [:action
@@ -121,14 +125,14 @@ skins along with much less crappy looking demos.")
                                      "File exists"
                                      "File DOES NOT exist")]
                                   )))])
+       (button :text "Hide combo" :listen [:action
+                                           (fn [e]
+                                             (hide! cbv))])
 
        (checkbox :text "A checkbox")
        (combobox :model ["A combobox" "more" "items"])
 
-       (horizontal-panel
-        :border "Some radio buttons"
-        :items (map (partial radio :text)
-                    ["First" "Second" "Third"]))
+       cbv
        (scrollable (listbox :model (range 100)))]))
 
     pack!
