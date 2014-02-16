@@ -1,14 +1,11 @@
-;;;; package.lisp
-
 (defpackage #:impex
   (:use #:cl))
 
-
 (defpackage #:foo
-  (:use #:cl))
+  (:use #:cl) (:export :foo1))
 
 (defpackage #:bar
-  (:use #:cl))
+  (:use #:cl) (:export :bar1))
 
 (defpackage #:baz
-  (:use #:cl))
+  (:use #:cl) (:export :baz1))
