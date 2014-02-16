@@ -4,9 +4,9 @@
 
 (defun runme ()
   (format t "Running~%")
-  (foo:foo1)
-  (bar:bar1)
-  (baz:baz1))
+  (foo1)
+  (bar1)
+  (baz1))
 
 (in-package #:foo)
 (defun foo1 () (format t "foo1~%") (foo2))

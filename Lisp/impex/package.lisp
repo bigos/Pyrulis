@@ -1,5 +1,5 @@
 (defpackage #:impex
-  (:use #:cl))
+  (:use #:cl #:foo #:bar #:baz))
 
 (defpackage #:foo
   (:use #:cl) (:export :foo1))
