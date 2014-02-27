@@ -18,18 +18,21 @@
                :src "/tutorial2.js"))
      (:body
       (:h2 "Parenscript tutorial: 2nd example")
-      (:a :href "#" :onclick (ps (greeting-callback))
-          "Hello World")))))
+      (:a :href "#" :onclick (ps (clickme-callback))
+          "Click Me")))))
 
 (define-easy-handler (tutorial2-javascript :uri "/tutorial2.js") ()
   (setf (content-type*) "text/javascript")
   (ps
-    (defun greeting-callback ()
+    (defun clickme-callback ()
+      (setf (chain document body inner-h-t-m-l) "Thank you for clicking")
       (alert "Hi everyone"))
+
     (defun sum-digits (number)
       (let ((numary (chain number (to-string) (split (regex "(-\\d|\\d)"))))))
       (loop for x in numary
          when (not (= "" x))
          sum (abs (parse-int x))))
+
     (defun log-me (str)
       (console.log  str))))
