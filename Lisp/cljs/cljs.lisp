@@ -14,12 +14,18 @@
     (:html
      (:head
       (:title "Parenscript tutorial: 2nd example")
+      (:script :type "text/javascript" :src
+               "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
       (:script :type "text/javascript"
                :src "/tutorial2.js"))
      (:body
       (:h2 "Parenscript tutorial: 2nd example")
-      (:a :href "#" :onclick (ps (clickme-callback))
-          "Click Me")))))
+      (:p
+       (:a :href "#" :onclick (ps (clickme-callback))
+           "Click Me"))
+      (:p
+       (:a :href "#" :onclick (ps (jquery-test)) "jQuery"))
+      ))))
 
 (define-easy-handler (tutorial2-javascript :uri "/tutorial2.js") ()
   (setf (content-type*) "text/javascript")
@@ -27,6 +33,9 @@
     (defun clickme-callback ()
       (setf (chain document body inner-h-t-m-l) "Thank you for clicking")
       (alert "Hi everyone"))
+
+    (defun jquery-test ()
+       (chain ($ "body") (append "<p>Success</p>")))
 
     (defun sum-digits (number)
       (let ((numary (chain number (to-string) (split (regex "(-\\d|\\d)"))))))
