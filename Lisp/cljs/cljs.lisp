@@ -19,30 +19,19 @@
       (:script :type "text/javascript"
                :src "/tutorial2.js"))
      (:body
-      (:h2 "Parenscript tutorial: 2nd example")
+      (:h2 "Parenscript and jQuery test")
       (:p
-       (:a :href "#" :onclick (ps (clickme-callback))
-           "Click Me"))
+       (:a :href "#" :onclick (ps (jquery-test)) "Add Content"))
       (:p
-       (:a :href "#" :onclick (ps (jquery-test)) "jQuery"))
+       (:a :href "#" :onclick (ps (jquery-clear-results)) "Clear"))
+      (:div :id "results")
       ))))
 
 (define-easy-handler (tutorial2-javascript :uri "/tutorial2.js") ()
   (setf (content-type*) "text/javascript")
   (ps
-    (defun clickme-callback ()
-      (setf (chain document body inner-h-t-m-l) "Thank you for clicking")
-      (alert "Hi everyone"))
-
     (defun jquery-test ()
-       (chain ($ "body") (append
-                          (who-ps-html (:p "Success")))))
-
-    (defun sum-digits (number)
-      (let ((numary (chain number (to-string) (split (regex "(-\\d|\\d)"))))))
-      (loop for x in numary
-         when (not (= "" x))
-         sum (abs (parse-int x))))
-
-    (defun log-me (str)
-      (console.log  str))))
+      (chain ($ "#results") (append
+                             (who-ps-html (:p "Success")))))
+    (defun jquery-clear-results ()
+      (chain ($ "#results") (empty)))))
