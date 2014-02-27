@@ -35,7 +35,8 @@
       (alert "Hi everyone"))
 
     (defun jquery-test ()
-       (chain ($ "body") (append "<p>Success</p>")))
+       (chain ($ "body") (append
+                          (who-ps-html (:p "Success")))))
 
     (defun sum-digits (number)
       (let ((numary (chain number (to-string) (split (regex "(-\\d|\\d)"))))))
