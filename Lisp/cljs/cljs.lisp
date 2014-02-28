@@ -21,15 +21,25 @@
      (:body
       (:h2 "Parenscript and jQuery test")
       (:p
-       (:a :href "#" :onclick (ps (jquery-test)) "Add Content"))
-      (:p
-       (:a :href "#" :onclick (ps (jquery-clear-results)) "Clear"))
+       (:a :href "#" :onclick (ps (jquery-test)) "Add Content")
+       (fmt "&nbsp;")
+       (:a :href "#" :onclick (ps (jquery-clear-results)) "Clear")
+       (fmt "&nbsp;")
+       (:a :href "#" :onclick (ps (change-css)) "Toggle CSS")
+       )
       (:div :id "results")
       ))))
 
 (define-easy-handler (tutorial2-javascript :uri "/tutorial2.js") ()
   (setf (content-type*) "text/javascript")
   (ps
+    (defun change-css ()
+      (let ((currcol (chain ($ "#results") (css "backgroundColor")))
+            (newcol))
+        (setf newcol (if (= currcol "transparent")
+                          "yellow"
+                          "transparent"))
+        (chain ($ "#results") (css "backgroundColor" newcol))))
     (defun jquery-test ()
       (chain ($ "#results") (append
                              (who-ps-html (:p "Success")))))
