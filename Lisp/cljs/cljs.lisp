@@ -9,7 +9,7 @@
 
 (defparameter *server* (start (make-instance 'easy-acceptor :port 8000)))
 
-(define-easy-handler (tutorial2 :uri "/tutorial2") ()
+(define-easy-handler (tutorial2 :uri "/") ()
   (with-html-output-to-string (s)
     (:html
      (:head
@@ -34,12 +34,13 @@
   (setf (content-type*) "text/javascript")
   (ps
     (defun change-css ()
-      (let ((currcol (chain ($ "#results") (css "backgroundColor")))
-            (newcol))
-        (setf newcol (if (= currcol "transparent")
-                          "yellow"
-                          "transparent"))
-        (chain ($ "#results") (css "backgroundColor" newcol))))
+      (chain ($ "#results")
+             (css "backgroundColor"
+                  (if (=
+                       (chain ($ "#results") (css "backgroundColor"))
+                       "transparent")
+                      "yellow"
+                      "transparent"))))
     (defun jquery-test ()
       (chain ($ "#results") (append
                              (who-ps-html (:p "Success")))))
