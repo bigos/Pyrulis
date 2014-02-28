@@ -36,9 +36,9 @@
     (defun change-css ()
       (chain ($ "#results")
              (css "backgroundColor"
-                  (if (=
-                       (chain ($ "#results") (css "backgroundColor"))
-                       "transparent")
+                  (if (= (chain ($ "#results")
+                                (css "backgroundColor"))
+                         "transparent")
                       "yellow"
                       "transparent"))))
     (defun jquery-test ()
