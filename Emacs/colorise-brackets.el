@@ -14,5 +14,7 @@
    '(rainbow-delimiters-depth-7-face ((t (:foreground "green"))))
    '(rainbow-delimiters-depth-8-face ((t (:foreground "yellow"))))
    '(rainbow-delimiters-depth-9-face ((t (:foreground "violet"))))
-   '(rainbow-delimiters-unmatched-face ((t (:foreground "red"))))))
+   '(rainbow-delimiters-unmatched-face ((t (:foreground "red"))))
+   '(highlight ((t (:foreground "#ff0000" :background "black"))))
+   ))
 (colorise-brackets)
