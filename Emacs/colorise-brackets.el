@@ -15,7 +15,7 @@
    '(rainbow-delimiters-depth-8-face ((t (:foreground "yellow"))))
    '(rainbow-delimiters-depth-9-face ((t (:foreground "red"))))
    '(rainbow-delimiters-unmatched-face ((t (:foreground "white" :background "red"))))
-   '(highlight ((t (:foreground "#ff0000" :background "grey"))))
-   ))
+   '(highlight ((t (:foreground "#ff0000" :background "grey"))))))
 
+;; to get rid of header line in REPL change Slime Header Line in Emacs settings
 (colorise-brackets)
