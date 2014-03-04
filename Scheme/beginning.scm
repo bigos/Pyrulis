@@ -16,8 +16,8 @@
 
 (define (sum-of-2-largest-of-3 a b c)
   (+(max a b)
-    (max b c))) 
-  
+    (max b c)))
+
 (define (average x y)
   (/ (+ x y) 2))
 
@@ -48,4 +48,8 @@
       (cube-sqrt-iter (cube-improve guess x) x)))
 ;x/y^2+2y/3 - y guess
 (define (cube-improve guess x)
-  (/ (+ (/ x (* guess guess)) (* 2 guess)) 3))
+  (/
+   (+
+    (/ x (* guess guess))
+    (* 2 guess))
+   3))
