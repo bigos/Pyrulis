@@ -22,7 +22,7 @@
   (/ (+ x y) 2))
 
 (define (improve guess x)
-  (average guess(/ x guess)))
+  (average guess (/ x guess)))
 
 (define (sqrt-iter guess x)
   (if (good-enough? guess x)
@@ -31,9 +31,21 @@
                  x)))
 
 (define (good-enough? guess x)
-  (< (abs (- (square guess) x)) 0.00001))
+  (< (abs (- (square guess) x)) 0.01))
 
 (define (sqrt x)
   (sqrt-iter 1.0 x))
 
-; todo excercise 1.8
+; todo excercise 1.8 unfinished
+(define (cube-sqrt x)
+  (cube-sqrt-iter 1.0 x))
+
+(define (cube-sqrt-iter guess x)
+  (if (<(abs(-(* guess guess guess)
+               x))
+         0.01)
+      guess
+      (cube-sqrt-iter (cube-improve guess x) x)))
+;x/y^2+2y/3 - y guess
+(define (cube-improve guess x)
+  (/ (+ (/ x (* guess guess)) (* 2 guess)) 3))
