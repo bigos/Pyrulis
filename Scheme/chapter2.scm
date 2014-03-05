@@ -57,6 +57,10 @@
 (define (ff n)
   (if (< n 3)
       n
-      (fiter n))
-  (define (fiter n)
-    ))
+      (+
+       (fiter n 1)
+       (fiter n 2)
+       (fiter n 3))))
+
+(define (fiter n x)
+  (* x (f (- n x))))
