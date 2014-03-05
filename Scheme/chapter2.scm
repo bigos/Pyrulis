@@ -53,17 +53,15 @@
          (* 2 (f (- n 2)))
          (* 3 (f (- n 3))))))
 
-; todo: finish it tomorrow
-(define (ff n)
+(define (g n)
   (if (< n 3)
       n
-      (+
-       (fiter n 1)
-       (fiter n 2)
-       (fiter n 3))))
+      (g-iter 2 1 0 n)))
 
-(define (fiter n count)
-(if (= 0 count)
-n
-fiter n (- count 1))
-  )
+(define (g-iter a b c count)
+  (if (< count 3)
+      a
+      (g-iter (+ a (* 2 b) (* 3 c))
+              a
+              b
+              (- count 1))))
