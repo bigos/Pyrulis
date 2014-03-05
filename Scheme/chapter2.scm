@@ -62,5 +62,8 @@
        (fiter n 2)
        (fiter n 3))))
 
-(define (fiter n x)
-  (* x (f (- n x))))
+(define (fiter n count)
+(if (= 0 count)
+n
+fiter n (- count 1))
+  )
