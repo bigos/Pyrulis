@@ -65,3 +65,11 @@
               a
               b
               (- count 1))))
+
+;; Exercise 1.12.
+
+(define (pascal x y)
+  (cond ((= 1 x) 1)
+        ((> x y) 0)
+        (else (+ (pascal (- x 1) (- y 1))
+                 (pascal x (- y 1))))))
