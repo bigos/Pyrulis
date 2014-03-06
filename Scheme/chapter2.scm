@@ -53,17 +53,30 @@
          (* 2 (f (- n 2)))
          (* 3 (f (- n 3))))))
 
-; todo: finish it tomorrow
-(define (ff n)
+(define (g n)
   (if (< n 3)
       n
-      (+
-       (fiter n 1)
-       (fiter n 2)
-       (fiter n 3))))
+      (g-iter 2 1 0 n)))
+
 
 (define (fiter n x)
   (* x (f (- n x))))
+
+(define (g-iter a b c count)
+  (if (< count 3)
+      a
+      (g-iter (+ (* 1 a) (* 2 b) (* 3 c))
+              a
+              b
+              (- count 1))))
+
+;; Exercise 1.12.
+
+(define (pascal x y)
+  (cond ((= 1 x) 1)
+        ((> x y) 0)
+        (else (+ (pascal (- x 1) (- y 1))
+                 (pascal x (- y 1))))))
 
 ;; my own recursion and iteration excercise
 (define (sr n)
