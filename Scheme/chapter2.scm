@@ -64,3 +64,18 @@
 
 (define (fiter n x)
   (* x (f (- n x))))
+
+;; my own recursion and iteration excercise
+(define (sr n)
+  (if (= n 0)
+      n
+      (+ n
+         (sr (- n 1)))))
+
+(define (sr2 n)
+  (sri 1 0 n))
+
+(define (sri x y n)
+  (if (> x n)
+      y
+      (sri (+ 1 x) (+ x y) n)))
