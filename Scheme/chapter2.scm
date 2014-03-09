@@ -77,6 +77,12 @@
         ((> x y) 0)
         (else (+ (pascal (- x 1) (- y 1))
                  (pascal x (- y 1))))))
+;; x -->
+;y 1 0 0 0 0
+;| 1 1 0 0 0
+;| 1 2 1 0 0
+;V 1 3 3 1 0
+;; 1 4 6 4 1
 
 ;; my own recursion and iteration excercise
 (define (sr n)
