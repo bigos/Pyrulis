@@ -92,3 +92,5 @@
   (if (> x n)
       y
       (sri (+ 1 x) (+ x y) n)))
+
+# Exercise 1.16.
