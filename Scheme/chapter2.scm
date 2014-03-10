@@ -112,4 +112,10 @@
 ; a - 5
 ; b - log3(n)
 
-; Exercise 1.16.
+; Exercise 1.16
+(define (square x) (* x x))
+; recursive version
+(define (fast-expt b n)
+  (cond ((= n 0) 1)
+        ((even? n) (square (fast-expt b (/ n 2))))
+        (else (* b (fast-expt b (- n 1))))))
