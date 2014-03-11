@@ -38,13 +38,18 @@
 (defun improve (guess x)
     (average guess (/ x guess)))
 
-(defun sqrt-iter (guess x)
-    (if (good-enough? guess x)
+(defun sqrt-iter (guess last-guess x)
+  (format t "~S " (- guess last-guess))
+  (if (< (abs (- guess last-guess)) 0.0001)
         guess
         (sqrt-iter (improve guess x)
+                   guess
                    x)))
 
 (defun my-sqrt (x)
-    (sqrt-iter 1.0 x))
+    (sqrt-iter 1.0 0 x))
 
-;; Exercise 1.6
+;; Exercise 1.8
+;TODO
+
+;; 1.1.8  Procedures as Black-Box Abstractions
