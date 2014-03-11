@@ -76,3 +76,11 @@
      and last = 1 then  (* count last)
      until (> count n)
      finally (return last)))
+
+; Exercise 1.10
+(defun a (x y)
+    (cond ((= y 0) 0)
+          ((= x 0) (* 2 y))
+          ((= y 1) 2)
+          (T(a (- x 1)
+                   (a x (- y 1))))))
