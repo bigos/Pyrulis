@@ -84,3 +84,18 @@
           ((= y 1) 2)
           (T(a (- x 1)
                    (a x (- y 1))))))
+
+;; 1.2.2  Tree Recursion
+(defun fib (n)
+  (cond ((= n 0) 0)
+        ((= n 1) 1)
+        (T (+ (fib (- n 1))
+              (fib (- n 2))))))
+
+(defun fib-iter (n)
+  (loop
+     for count from 0
+     for a = 0 then b
+     and b = 1 then (+ a b)
+     until (= count n)
+     finally (return a)))
