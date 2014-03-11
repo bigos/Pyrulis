@@ -1,3 +1,5 @@
+;; 1.1.6  Conditional Expressions and Predicates
+
 ; Excercise 1.3
 
 (defun two-larger (a b c)
@@ -22,3 +24,27 @@
     (if (= x 0)
         0
         (funcall y)))
+
+;; 1.1.7  Example: Square Roots by Newton's Method
+
+(defun average (x y)
+  (/ (+ x y) 2))
+
+(defun square (x) (* x x))
+
+(defun good-enough? (guess x)
+    (< (abs (- (square guess) x)) 0.001))
+
+(defun improve (guess x)
+    (average guess (/ x guess)))
+
+(defun sqrt-iter (guess x)
+    (if (good-enough? guess x)
+        guess
+        (sqrt-iter (improve guess x)
+                   x)))
+
+(defun my-sqrt (x)
+    (sqrt-iter 1.0 x))
+
+;; Exercise 1.6
