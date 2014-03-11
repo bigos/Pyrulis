@@ -50,6 +50,16 @@
     (sqrt-iter 1.0 0 x))
 
 ;; Exercise 1.8
-;TODO
+(defun cube-sqrt (x)
+  (loop
+     for guess = 1.0 then (/
+                         (+
+                          (/ x (square guess))
+                          (* 2 guess))
+                         3)
+     and last-guess = 0 then guess
+     for diff = (abs (- guess last-guess))
+     until (< diff 0.001)
+     finally (return guess)))
 
 ;; 1.1.8  Procedures as Black-Box Abstractions
