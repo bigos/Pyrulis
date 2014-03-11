@@ -62,4 +62,17 @@
      until (< diff 0.001)
      finally (return guess)))
 
-;; 1.1.8  Procedures as Black-Box Abstractions
+
+;; 1.2.1  Linear Recursion and Iteration
+(defun fac (n)
+  (* n
+     (if (= n 1)
+         1
+         (fac (1- n)))))
+
+(defun fac-iter (n)
+  (loop
+     for count from 1
+     and last = 1 then  (* count last)
+     until (> count n)
+     finally (return last)))
