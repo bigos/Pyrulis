@@ -139,7 +139,19 @@
          finally (return a))))
 
 ;; Exercise 1.12
-;;TODO
+(defun pascal (x y)
+    (cond ((= 1 x) 1)
+          ((> x y) 0)
+          (T (+ (pascal (- x 1) (- y 1))
+                (pascal x (- y 1))))))
+
+                                        ; x -->
+                                        ;y 1 0 0 0 0
+                                        ;| 1 1 0 0 0
+                                        ;| 1 2 1 0 0
+                                        ;V 1 3 3 1 0
+                                        ; 1 4 6 4 1
+
 
 ;; Exercise 1.13
 ;;TODO
