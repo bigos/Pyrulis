@@ -121,7 +121,22 @@
         ((= kinds-of-coins 5) 50)))
 
 ;; Exercise 1.11
-;;TODO
+(defun f (n)
+    (if (< n 3)
+        n
+        (+ (* 1 (f (- n 1))) ;4: 1f3 2f2 3f1 - 5: 1f4 2f3 1f2
+           (* 2 (f (- n 2))) ;7: 1f6 2f5 3f4
+           (* 3 (f (- n 3))))))
+
+(defun f-iter (n)
+  (if (< n 3)
+      n
+      (loop
+         for count from n downto 2
+         for a = 2 then (+ (* 1 a) (* 2 b) ( * 3 c))
+         and b = 1 then a
+         and c = 0 then b
+         finally (return a))))
 
 ;; Exercise 1.12
 ;;TODO
