@@ -157,3 +157,5 @@
 ;;TODO
 
 ;; 1.2.3  Orders of Growth
+
+;; 1.2.4  Exponentiation
