@@ -171,3 +171,10 @@
   (cond ((= n 0) a)
         ((evenp n) (fast-expt-iter (expt b 2) (/ n 2) a))
         (T (fast-expt-iter b (- n 1) (* a b)))))
+
+;; Exercise 1.17
+
+(defun fast-mul (b n)
+  (if (= n 0)
+      0
+      (+ b (fast-mul b (1- n)))))
