@@ -175,10 +175,9 @@
 ;; Exercise 1.17
 
 (defun fast-mul (b n)
-  (cond ((= n 0))
-        ((= n 1) b)
+  (cond ((= n 0) 0)
         ((evenp n) (* 2 (fast-mul b (/ n 2))))
-        (T (+ b (fast-mul b (1- n))))))
+        (T  (+ b (fast-mul b (1- n))))))
 
 ;; Exercise 1.18
 (defun fast-mul-iter (b n &optional (total 0))
