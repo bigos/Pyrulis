@@ -203,3 +203,13 @@
                           (1- count)))))
 
 ;;1.2.5  Greatest Common Divisors
+;;1.2.6  Example: Testing for Primality
+(defun divides? (a b)
+  (zerop (mod a b)))
+
+(defun find-divisor (n &optional (test-divisor 2))
+  (cond ((> (expt test-divisor 2) n) n)
+        ((divides? n test-divisor) test-divisor)
+        (T (find-divisor n (1+ test-divisor)))))
+
+;; Exercise 1.21 done
