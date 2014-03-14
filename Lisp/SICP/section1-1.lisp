@@ -184,3 +184,22 @@
   (cond ((zerop n) total)
         ((evenp n) (fast-mul-iter ( * 2 b) (/ n 2) total))
         (T (fast-mul-iter b (1- n) (+ total b)))))
+
+;; Exercise 1.19
+
+;; (fib-iter 1 0 0 1 n) n is fib of n
+(defun fib-iter (a b p q count)
+       (cond ((zerop count) b)
+             ((evenp count)
+              (fib-iter a
+                        b
+                        (+ (* p p) (* q q))
+                        (+ (* 2 p q) (* q q))
+                        (/ count 2)))
+             (T (fib-iter (+ (* b q) (* a q) (* a p))
+                          (+ (* b p) (* a q))
+                          p
+                          q
+                          (1- count)))))
+
+;;1.2.5  Greatest Common Divisors
