@@ -1,7 +1,6 @@
-(declaim (optimize (debug 3) (safety 3)))
+(declaim (optimize (speed 0) (safety 3) (debug 3)))
 
-(defun good-enough? ( result expected tolerance)
-  ;;(format t "~&trying ~f ~f ~f ~f~%" operator result expected tolerance)
+(defun good-enough? (result expected tolerance)
   (< (abs (- expected result)) tolerance))
 
 (defun average (min max) (/ (+ min max) 2))
@@ -9,8 +8,6 @@
 (defparameter *counter* 10)
 
 (defun sqr (n &optional (guess 0) (tolerance n))
- ;; (format t "~& ~f ~f  " guess tolerance)
-  (/ 2 0)
   (cond ((eq (square guess) n) guess)
         ((good-enough? (square guess) n 0.01) (average guess tolerance))
         ((> (square guess) n)
