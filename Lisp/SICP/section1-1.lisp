@@ -213,3 +213,6 @@
         (T (find-divisor n (1+ test-divisor)))))
 
 ;; Exercise 1.21 done
+
+;; 1.3  Formulating Abstractions with Higher-Order Procedures
+;; Excercise 1.32
