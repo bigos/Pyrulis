@@ -5,11 +5,16 @@
 (clear)
 
 (define (jacek)
+  (turn 180)
+  (move 200)
+  (turn 180)
+  
   (draw 50)
   (turn 90)
   (draw 100)
   (turn 90)
   (draw 50)
+  
   (turn 90)
   (move 100)
   (turn 90)
