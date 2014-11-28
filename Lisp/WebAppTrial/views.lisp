@@ -29,7 +29,7 @@
       (:h1 :id "heading" "Hello Lispers")
       (:p :class "message"  "Hi everybody, we have lift off.")
       (:p "acceptor object" (escaped-string  hunchentoot:*acceptor*))
-      (:footer "&copy; 2014 Jacek Podkanski")))))
+      (:footer (who:fmt "&copy; ~a Jacek Podkanski" (+ 2000 14)))))))
 
 (defun foo1-view ()
   (who:with-html-output-to-string (out)
