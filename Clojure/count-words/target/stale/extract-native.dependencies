@@ -1,0 +1,1 @@
+([:dependencies ([org.clojure/clojure "1.4.0"] [clj-yaml/clj-yaml "0.4.0"] [seesaw/seesaw "1.4.2"] [com.github.insubstantial/substance "7.1"] [org.clojars.technomancy/jlayer "1.0"] [org.clojure/tools.nrepl "0.2.3" :exclusions ([org.clojure/clojure])] [clojure-complete/clojure-complete "0.2.3" :exclusions ([org.clojure/clojure])])])
