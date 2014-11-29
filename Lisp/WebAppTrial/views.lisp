@@ -37,15 +37,22 @@
      (:head
       (:title "This is foo")
       (:link :href "/style.css" :media "all" :rel "stylesheet" :type "text/css")
+      (:script :src "jquery-2.1.1.min.js")
       (:script :src "/javascript.js" ))
      (:body
       (:h1 "Foo")
       (:a :href "/faa" "faa")
-      (:p "foo foo foo"
+      (:p :class "my-info" "foo foo foo"
           (escaped-string " <tag>text</tag> y ")
           (escaped-string hunchentoot:*request*)
           (who:fmt "~s" (hunchentoot:get-parameters*)))
       (:p
        (who:fmt "~a"  (pp-object hunchentoot:*request*)))
       (hunchentoot:log-message* :info "abcdef ~D~%~%~A~%" 123 (inspect-object hunchentoot:*reply*))
-      (:a :href "#" :onclick (parenscript:ps (greeting-callback)) "click me")))))
+      (:a :href "#" :onclick (parenscript:ps (greeting-callback)) "click me")
+      (:h3 "jQuery test")
+      (:p
+       (:a :href "#"
+           :onclick (parenscript:ps (hiding-callback))
+           "click to trick"))
+      ))))

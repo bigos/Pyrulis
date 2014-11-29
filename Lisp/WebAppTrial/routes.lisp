@@ -2,8 +2,13 @@
 
 ;;; Routes
 (push
- (hunchentoot:create-static-file-dispatcher-and-handler 
+ (hunchentoot:create-static-file-dispatcher-and-handler
   "/style.css" (merge-pathnames *application-directory* "style.css"))
+ hunchentoot:*dispatch-table*)
+
+(push
+ (hunchentoot:create-static-file-dispatcher-and-handler
+  "/jquery-2.1.1.min.js" (merge-pathnames *application-directory* "jquery-2.1.1.min.js"))
  hunchentoot:*dispatch-table*)
 
 (hunchentoot:define-easy-handler (uri1 :uri "/faa") ()
