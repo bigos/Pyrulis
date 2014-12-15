@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 ([:dependencies ([org.clojure/clojure "1.4.0"] [seesaw/seesaw "1.4.2"] [com.github.insubstantial/substance "7.1"] [org.clojars.technomancy/jlayer "1.0"] [org.clojure/tools.nrepl "0.2.3" :exclusions ([org.clojure/clojure])] [clojure-complete/clojure-complete "0.2.3" :exclusions ([org.clojure/clojure])])])
+=======
+([:dependencies ([org.clojure/clojure "1.4.0"] [clj-yaml/clj-yaml "0.4.0"] [seesaw/seesaw "1.4.2"] [com.github.insubstantial/substance "7.1"] [org.clojars.technomancy/jlayer "1.0"] [org.clojure/tools.nrepl "0.2.3" :exclusions ([org.clojure/clojure])] [clojure-complete/clojure-complete "0.2.3" :exclusions ([org.clojure/clojure])])])
+>>>>>>> 4d57c4b0851fc8d184e656b8b85057c93bbad39b

@@ -3,4 +3,7 @@
 (defun app-js ()
   (parenscript:ps
     (defun greeting-callback ()
-      (alert "Hello World"))))
+      (alert "Hello World"))
+
+    (defun hiding-callback ()
+      (parenscript:chain ($ ".my-info") (toggle)))))
