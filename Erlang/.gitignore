@@ -1,0 +1,2 @@
+# ignore Erlang's beam files
+*.beam
