@@ -1,12 +1,17 @@
-;;;
-
+;;; Code:
 (setq prelude-guru nil)
 (global-hl-line-mode -1)
-;(setq prelude-whitespace nil)
-(setq prelude-flyspell nil)
-;(smartparens-global-mode -1)
+                                        ;(setq prelude-whitespace nil)
+                                        ; (setq prelude-flyspell nil)
+                                        ;(smartparens-global-mode -1)
 
 (global-linum-mode )
+
+(require 'git-auto-commit-mode)
+
+;; Allow hash to be entered on MacOSX
+(fset 'insertPound "#")
+(global-set-key (kbd "M-3") 'insertPound)
 
 ;;; MacOSX style shortcuts
 (global-set-key (kbd "s-z") 'undo)
@@ -17,15 +22,20 @@
 (global-set-key (kbd "s-a") 'bs-cycle-previous)
 (global-set-key (kbd "s-s") 'bs-cycle-next)
 (global-set-key (kbd "s-b") 'ibuffer)
-(global-set-key (kbd "s-w") (lambda () (interactive) (switch-to-buffer "*slime-repl sbcl*")))
-(global-set-key (kbd "s-q") 'ido-switch-buffer)
 
+;;; MacOSX F keys
+(global-set-key (kbd "s-3") 'kmacro-start-macro-or-insert-counter)
+(global-set-key (kbd "s-4") 'kmacro-end-or-call-macro)
+
+(fset 'insert-rails-erb-tag [?< ?% ?% ?> left left])
+(global-set-key (kbd "s-=") 'insert-rails-erb-tag)
+
+;;; get rid of utf-8 warning in Ruby mode
+(setq ruby-insert-encoding-magic-comment nil)
+
+(setq inferior-lisp-program "/usr/local/bin/sbcl")
 (slime-setup '(slime-repl slime-fancy))
-(setq common-lisp-hyperspec-root
-      "file:/home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/")
-;(setq browse-url-browser-function 'browse-url-generic)
-;(setq browse-url-generic-program "google-chrome")
-
+(setq slime-default-lisp 'sbcl)
 
 (when (not(package-installed-p 'paredit))
   (package-initialize 'paredit))
@@ -41,6 +51,11 @@
 (add-hook 'lisp-interaction-mode-hook (lambda () (swap-paredit)))
 (add-hook 'scheme-mode-hook (lambda () (swap-paredit)))
 (add-hook 'slime-repl-mode-hook (lambda () (swap-paredit)))
+(add-hook 'lfe-mode-hook (lambda () (swap-paredit)))
+(add-hook 'lfe-mode-hook (lambda () (rainbow-delimiters-mode +1)))
+
+(custom-set-faces
+ '(default ((t (:height 140 :family "Andale Mono")))))
 
 (defun colorise-brackets ()
   (require 'rainbow-delimiters)
@@ -61,5 +76,39 @@
    '(rainbow-delimiters-unmatched-face ((t (:foreground "white" :background "red"))))
    '(highlight ((t (:foreground "#ff0000" :background "grey"))))
    ))
-
 (colorise-brackets)
+
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+;; (defun dark-colorise-brackets ()
+;;   (require 'rainbow-delimiters)
+;;   (custom-set-faces
+;;    ;; custom-set-faces was added by Custom.
+;;    ;; If you edit it by hand, you could mess it up, so be careful.
+;;    ;; Your init file should contain only one such instance.
+;;    ;; If there is more than one, they won't work right.
+;;    '(rainbow-delimiters-depth-1-face ((t (:foreground "#888888"))))
+;;    '(rainbow-delimiters-depth-2-face ((t (:foreground "#0000cc"))))
+;;    '(rainbow-delimiters-depth-3-face ((t (:foreground "#00dd00"))))
+;;    '(rainbow-delimiters-depth-4-face ((t (:foreground "#ffdd00"))))
+;;    '(rainbow-delimiters-depth-5-face ((t (:foreground "#aa0000"))))
+;;    '(rainbow-delimiters-depth-6-face ((t (:foreground "blue"))))
+;;    '(rainbow-delimiters-depth-7-face ((t (:foreground "#00dd00"))))
+;;    '(rainbow-delimiters-depth-8-face ((t (:foreground "#ffdd00"))))
+;;    '(rainbow-delimiters-depth-9-face ((t (:foreground "#cc0000"))))
+;;    '(rainbow-delimiters-unmatched-face ((t (:foreground "white" :background "red"))))
+;;    '(highlight ((t (:foreground "#ff0000" :background "grey"))))
+;;    ))
+;; (dark-colorise-brackets)
+
+;; moving buffers
+(require 'buffer-move)
+;; need to find unused shortcuts for moving up and down
+(global-set-key (kbd "<M-s-up>")     'buf-move-up)
+(global-set-key (kbd "<M-s-down>")   'buf-move-down)
+(global-set-key (kbd "<M-s-left>")   'buf-move-left)
+(global-set-key (kbd "<M-s-right>")  'buf-move-right)
+
+
+(provide 'personal)
+;;; personal ends here
