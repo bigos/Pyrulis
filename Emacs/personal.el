@@ -45,7 +45,7 @@
 (add-hook 'lfe-mode-hook (lambda () (swap-paredit)))
 (add-hook 'lfe-mode-hook (lambda () (rainbow-delimiters-mode +1)))
 
-(setq debug-on-error t)
+
 (require 'color)
 (defun custom-colours (colors-number saturation brightness increment)
   (let (colour-list '())
