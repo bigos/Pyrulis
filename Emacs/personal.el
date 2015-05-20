@@ -1,11 +1,15 @@
 ;;; Code:
 (setq prelude-guru nil)
 (global-hl-line-mode -1)
-                                        ;(setq prelude-whitespace nil)
-                                        ; (setq prelude-flyspell nil)
-                                        ;(smartparens-global-mode -1)
+;; (setq prelude-whitespace nil)
+;; (setq prelude-flyspell nil)
+;;(smartparens-global-mode -1)
 
 (global-linum-mode )
+
+;; magit warning silencing
+(setq magit-auto-revert-mode nil)
+(setq magit-last-seen-setup-instructions "1.4.0")
 
 (require 'git-auto-commit-mode)
 
@@ -26,6 +30,12 @@
 ;;; MacOSX F keys
 (global-set-key (kbd "s-3") 'kmacro-start-macro-or-insert-counter)
 (global-set-key (kbd "s-4") 'kmacro-end-or-call-macro)
+
+;;; web mode
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(setq web-mode-code-indent-offset 2)
+(setq web-mode-markup-indent-offset 2)
+(setq web-mode-css-indent-offset 2)
 
 (fset 'insert-rails-erb-tag [?< ?% ?% ?> left left])
 (global-set-key (kbd "s-=") 'insert-rails-erb-tag)
