@@ -15,4 +15,4 @@ prime0 n | n < 1 = error "not a positive integer"
          | otherwise = ld n == n
 
 
-{- page 22 -}
+{- page 25 - exercise 1.10 -}

@@ -18,6 +18,11 @@ prime0 n | n < 1     = error "not a positive integer"
          | n == 1    = False
          | otherwise = ld n == n
 
+maxInt :: [Int] -> Int
+maxInt [] = error "empty list"
+maxInt [x] = x
+maxInt (x:xs) = max x (maxInt xs)
+
 mnmInt :: [Int] -> Int
 mnmInt [] = error "empty list"
 mnmInt [x] = x
