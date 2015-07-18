@@ -11,7 +11,7 @@
 (setq magit-auto-revert-mode nil)
 (setq magit-last-seen-setup-instructions "1.4.0")
 
-(require 'git-auto-commit-mode)
+
 
 ;; Allow hash to be entered on MacOSX
 (fset 'insertPound "#")
@@ -64,8 +64,7 @@
 (add-hook 'lfe-mode-hook (lambda () (swap-paredit)))
 (add-hook 'lfe-mode-hook (lambda () (rainbow-delimiters-mode +1)))
 
-(custom-set-faces
- '(default ((t (:height 140 :family "Andale Mono")))))
+
 
 (defun colorise-brackets ()
   (require 'rainbow-delimiters)
