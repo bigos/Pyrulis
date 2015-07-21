@@ -5,7 +5,12 @@
 ;; (setq prelude-flyspell nil)
 ;;(smartparens-global-mode -1)
 
-(global-linum-mode )
+(require 'magit)
+
+(prelude-require-packages '(buffer-move paredit underwater-theme
+                                        rubocop rvm rinari ruby-block
+                                        ruby-refactor rspec-mode rails-log-mode
+                                        slime))
 
 ;; magit warning silencing
 (setq magit-auto-revert-mode nil)
@@ -88,6 +93,7 @@
 (colorise-brackets)
 
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'prog-mode-hook 'linum-mode)
 
 ;; (defun dark-colorise-brackets ()
 ;;   (require 'rainbow-delimiters)
