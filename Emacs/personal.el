@@ -48,7 +48,9 @@
 ;;; get rid of utf-8 warning in Ruby mode
 (setq ruby-insert-encoding-magic-comment nil)
 
-(setq inferior-lisp-program "/usr/local/bin/sbcl")
+
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
+(setq inferior-lisp-program "sbcl")
 (slime-setup '(slime-repl slime-fancy))
 (setq slime-default-lisp 'sbcl)
 
@@ -66,9 +68,8 @@
 (add-hook 'lisp-interaction-mode-hook (lambda () (swap-paredit)))
 (add-hook 'scheme-mode-hook (lambda () (swap-paredit)))
 (add-hook 'slime-repl-mode-hook (lambda () (swap-paredit)))
+(add-hook 'slime-repl-mode-hook (lambda () (rainbow-delimiters-mode +1)))
 (add-hook 'lfe-mode-hook (lambda () (swap-paredit)))
-(add-hook 'lfe-mode-hook (lambda () (rainbow-delimiters-mode +1)))
-
 
 
 (defun colorise-brackets ()
@@ -78,6 +79,9 @@
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
+   ;; emacs colors
+   ;; http://raebear.net/comp/emacscolors.html
+   ;; or use (list-colors-display)
    '(rainbow-delimiters-depth-1-face ((t (:foreground "grey"))))
    '(rainbow-delimiters-depth-2-face ((t (:foreground "blue"))))
    '(rainbow-delimiters-depth-3-face ((t (:foreground "green"))))
