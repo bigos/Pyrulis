@@ -1,5 +1,7 @@
-;;; Code:
-(setq prelude-guru nil)
+;;; code:
+
+(setq guru-warn-only t)
+
 (global-hl-line-mode -1)
 ;; (setq prelude-whitespace nil)
 ;; (setq prelude-flyspell nil)
