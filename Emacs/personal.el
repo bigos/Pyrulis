@@ -48,13 +48,10 @@
 ;;; get rid of utf-8 warning in Ruby mode
 (setq ruby-insert-encoding-magic-comment nil)
 
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
+;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
 (setq inferior-lisp-program "sbcl")
 (slime-setup '(slime-repl slime-fancy))
 (setq slime-default-lisp 'sbcl)
-
-(when (not(package-installed-p 'paredit))
-  (package-initialize 'paredit))
 
 (defun swap-paredit ()
   (paredit-mode +1)
