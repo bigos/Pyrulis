@@ -48,7 +48,6 @@
 ;;; get rid of utf-8 warning in Ruby mode
 (setq ruby-insert-encoding-magic-comment nil)
 
-
 (load (expand-file-name "~/quicklisp/slime-helper.el"))
 (setq inferior-lisp-program "sbcl")
 (slime-setup '(slime-repl slime-fancy))
@@ -68,8 +67,22 @@
 (add-hook 'lisp-interaction-mode-hook (lambda () (swap-paredit)))
 (add-hook 'scheme-mode-hook (lambda () (swap-paredit)))
 (add-hook 'slime-repl-mode-hook (lambda () (swap-paredit)))
-(add-hook 'slime-repl-mode-hook (lambda () (rainbow-delimiters-mode +1)))
+(add-hook 'slime-repl-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'lfe-mode-hook (lambda () (swap-paredit)))
+(add-hook 'lfe-mode-hook (lambda () (rainbow-delimiters-mode +1)))
+
+(require 'color)
+(defun hsl-to-hex (h s l)
+  (let (rgb)
+    (setq rgb (color-hsl-to-rgb h s l))
+    (color-rgb-to-hex (nth 0 rgb)
+                      (nth 1 rgb)
+                      (nth 2 rgb))))
+
+(defun bracket-colors ()
+  (let (hexcolors)
+    (dolist (n '(1.0 0.6 .3 .15) hexcolors )
+      (push (hsl-to-hex n 1.0 0.55) hexcolors))))
 
 
 (defun colorise-brackets ()
@@ -79,46 +92,25 @@
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-   ;; emacs colors
+   ;; emacs colours
    ;; http://raebear.net/comp/emacscolors.html
    ;; or use (list-colors-display)
-   '(rainbow-delimiters-depth-1-face ((t (:foreground "grey"))))
-   '(rainbow-delimiters-depth-2-face ((t (:foreground "RoyalBlue"))))
-   '(rainbow-delimiters-depth-3-face ((t (:foreground "lime green"))))
-   '(rainbow-delimiters-depth-4-face ((t (:foreground "yellow"))))
-   '(rainbow-delimiters-depth-5-face ((t (:foreground "red"))))
-   '(rainbow-delimiters-depth-6-face ((t (:foreground "RoyalBlue"))))
-   '(rainbow-delimiters-depth-7-face ((t (:foreground "lime green"))))
-   '(rainbow-delimiters-depth-8-face ((t (:foreground "yellow"))))
-   '(rainbow-delimiters-depth-9-face ((t (:foreground "red"))))
-   '(rainbow-delimiters-unmatched-face ((t (:foreground "white" :background "red"))))
-   '(highlight ((t (:foreground "#ff0000" :background "grey"))))
+   `(rainbow-delimiters-depth-1-face ((t (:foreground "grey"))))
+   `(rainbow-delimiters-depth-2-face ((t (:foreground ,(elt(bracket-colors) 3)))))
+   `(rainbow-delimiters-depth-3-face ((t (:foreground ,(elt(bracket-colors) 2)))))
+   `(rainbow-delimiters-depth-4-face ((t (:foreground ,(elt(bracket-colors) 1)))))
+   `(rainbow-delimiters-depth-5-face ((t (:foreground ,(elt(bracket-colors) 0)))))
+   `(rainbow-delimiters-depth-6-face ((t (:foreground ,(elt(bracket-colors) 3)))))
+   `(rainbow-delimiters-depth-7-face ((t (:foreground ,(elt(bracket-colors) 2)))))
+   `(rainbow-delimiters-depth-8-face ((t (:foreground ,(elt(bracket-colors) 1)))))
+   `(rainbow-delimiters-depth-9-face ((t (:foreground ,(elt(bracket-colors) 0)))))
+   `(rainbow-delimiters-unmatched-face ((t (:foreground "white" :background "red"))))
+   `(highlight ((t (:foreground "#ff0000" :background "grey"))))
    ))
 (colorise-brackets)
 
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'prog-mode-hook 'linum-mode)
-
-;; (defun dark-colorise-brackets ()
-;;   (require 'rainbow-delimiters)
-;;   (custom-set-faces
-;;    ;; custom-set-faces was added by Custom.
-;;    ;; If you edit it by hand, you could mess it up, so be careful.
-;;    ;; Your init file should contain only one such instance.
-;;    ;; If there is more than one, they won't work right.
-;;    '(rainbow-delimiters-depth-1-face ((t (:foreground "#888888"))))
-;;    '(rainbow-delimiters-depth-2-face ((t (:foreground "#0000cc"))))
-;;    '(rainbow-delimiters-depth-3-face ((t (:foreground "#00dd00"))))
-;;    '(rainbow-delimiters-depth-4-face ((t (:foreground "#ffdd00"))))
-;;    '(rainbow-delimiters-depth-5-face ((t (:foreground "#aa0000"))))
-;;    '(rainbow-delimiters-depth-6-face ((t (:foreground "blue"))))
-;;    '(rainbow-delimiters-depth-7-face ((t (:foreground "#00dd00"))))
-;;    '(rainbow-delimiters-depth-8-face ((t (:foreground "#ffdd00"))))
-;;    '(rainbow-delimiters-depth-9-face ((t (:foreground "#cc0000"))))
-;;    '(rainbow-delimiters-unmatched-face ((t (:foreground "white" :background "red"))))
-;;    '(highlight ((t (:foreground "#ff0000" :background "grey"))))
-;;    ))
-;; (dark-colorise-brackets)
 
 ;; moving buffers
 (require 'buffer-move)
