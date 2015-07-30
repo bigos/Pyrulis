@@ -81,7 +81,7 @@
 (defun bracket-colors ()
   (let (hexcolors)
     (reverse (dolist (n '(0.72 .4 .13 .90) hexcolors )
-                  (push (hsl-to-hex (+ n 0.0) 1.0 0.55) hexcolors)))))
+                  (push (hsl-to-hex (+ n 0.0) 1.0 0.65) hexcolors)))))
 
 
 (defun colorise-brackets ()
