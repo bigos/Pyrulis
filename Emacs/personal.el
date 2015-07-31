@@ -17,7 +17,7 @@
 (setq magit-auto-revert-mode nil)
 (setq magit-last-seen-setup-instructions "1.4.0")
 
-(whitespace-line ((t (:background "gray16"))))
+(setq whitespace-line '(t (:background "gray16")))
 
 ;; Allow hash to be entered on MacOSX
 (fset 'insertPound "#")
