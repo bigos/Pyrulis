@@ -79,8 +79,12 @@
 
 (defun bracket-colors ()
   (let (hexcolors)
-    (reverse (dolist (n '(0.72 .4 .13 .90) hexcolors )
-                  (push (hsl-to-hex (+ n 0.0) 1.0 0.65) hexcolors)))))
+    (concatenate 'list
+                 (dolist (n'(.71 .3 .11 .01))
+                   (push (hsl-to-hex (+ n 0.0) 1.0 0.65) hexcolors))
+                 (dolist (n '(.81 .49 .17 .05))
+                   (push (hsl-to-hex (+ n 0.0) 1.0 0.55) hexcolors)))
+    (reverse hexcolors)))
 
 
 (defun colorise-brackets ()
@@ -90,14 +94,14 @@
    ;; http://raebear.net/comp/emacscolors.html
    ;; or use (list-colors-display)
    `(rainbow-delimiters-depth-1-face ((t (:foreground "grey"))))
-   `(rainbow-delimiters-depth-2-face ((t (:foreground ,(elt(bracket-colors) 0)))))
-   `(rainbow-delimiters-depth-3-face ((t (:foreground ,(elt(bracket-colors) 1)))))
-   `(rainbow-delimiters-depth-4-face ((t (:foreground ,(elt(bracket-colors) 2)))))
-   `(rainbow-delimiters-depth-5-face ((t (:foreground ,(elt(bracket-colors) 3)))))
-   `(rainbow-delimiters-depth-6-face ((t (:foreground ,(elt(bracket-colors) 0)))))
-   `(rainbow-delimiters-depth-7-face ((t (:foreground ,(elt(bracket-colors) 1)))))
-   `(rainbow-delimiters-depth-8-face ((t (:foreground ,(elt(bracket-colors) 2)))))
-   `(rainbow-delimiters-depth-9-face ((t (:foreground ,(elt(bracket-colors) 3)))))
+   `(rainbow-delimiters-depth-2-face ((t (:foreground ,(nth 0 (bracket-colors))))))
+   `(rainbow-delimiters-depth-3-face ((t (:foreground ,(nth 1 (bracket-colors))))))
+   `(rainbow-delimiters-depth-4-face ((t (:foreground ,(nth 2 (bracket-colors))))))
+   `(rainbow-delimiters-depth-5-face ((t (:foreground ,(nth 3 (bracket-colors))))))
+   `(rainbow-delimiters-depth-6-face ((t (:foreground ,(nth 4 (bracket-colors))))))
+   `(rainbow-delimiters-depth-7-face ((t (:foreground ,(nth 5 (bracket-colors))))))
+   `(rainbow-delimiters-depth-8-face ((t (:foreground ,(nth 6 (bracket-colors))))))
+   `(rainbow-delimiters-depth-9-face ((t (:foreground ,(nth 7 (bracket-colors))))))
    `(rainbow-delimiters-unmatched-face ((t (:foreground "white" :background "red"))))
    `(highlight ((t (:foreground "#ff0000" :background "grey"))))
    ))
