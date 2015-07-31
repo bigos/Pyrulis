@@ -3,7 +3,6 @@
 (setq guru-warn-only t)
 
 (global-hl-line-mode -1)
-;; (setq prelude-whitespace nil)
 ;; (setq prelude-flyspell nil)
 ;;(smartparens-global-mode -1)
 
@@ -18,7 +17,7 @@
 (setq magit-auto-revert-mode nil)
 (setq magit-last-seen-setup-instructions "1.4.0")
 
-
+(whitespace-line ((t (:background "gray16"))))
 
 ;; Allow hash to be entered on MacOSX
 (fset 'insertPound "#")
