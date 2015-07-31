@@ -11,7 +11,7 @@
 (prelude-require-packages '(buffer-move paredit underwater-theme
                                         rubocop rvm rinari ruby-block
                                         ruby-refactor rspec-mode rails-log-mode
-                                        slime))
+                                        slime web-mode))
 
 ;; magit warning silencing
 (setq magit-auto-revert-mode nil)
