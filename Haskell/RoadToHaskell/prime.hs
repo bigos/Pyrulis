@@ -16,7 +16,19 @@ prime0 n | n < 1 = error "not a positive integer"
 
 
 {- page 14/25 - exercise 1.10 -}
+
+-- loading several modules
+-- :add ./mod1.hs
+-- :add ./mod2.hs
+
 removeFst :: Int -> [Int] -> [Int]
 removeFst _ [] = []
 removeFst i (x:xs) | i == x = xs
                    | otherwise = x : removeFst i xs
+
+-- Example 1.11
+srtInts :: [Int] -> [Int]
+srtInts [] = []
+srtInts xs = m :(srtInts(removeFst m xs)) where m = minimum xs
+-- usage:
+-- srtInts( removeFst 2 [1,2,3,4,5,4,3,2,1] )
