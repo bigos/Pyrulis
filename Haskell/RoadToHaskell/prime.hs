@@ -27,8 +27,20 @@ removeFst i (x:xs) | i == x = xs
                    | otherwise = x : removeFst i xs
 
 -- Example 1.11
+-- where version
 srtInts :: [Int] -> [Int]
 srtInts [] = []
-srtInts xs = m :(srtInts(removeFst m xs)) where m = minimum xs
+srtInts xs = m : (srtInts(removeFst m xs)) where m = minimum xs
 -- usage:
 -- srtInts( removeFst 2 [1,2,3,4,5,4,3,2,1] )
+
+-- let version
+srtInts' :: [Int] -> [Int]
+srtInts' [] = []
+srtInts' xs = let
+  m = minimum xs
+  in m : (srtInts'(removeFst m xs))
+
+
+-- Example 1.12 page 26/15
+-- TODO:
