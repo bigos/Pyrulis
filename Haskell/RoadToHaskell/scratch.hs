@@ -1,8 +1,5 @@
-removeFst' :: Int -> [Int] -> [Int] -> [Int]
-removeFst' i [] result = []
-removeFst' i (x:xs) result | i == x = result
-removeFst' i lints result = removeFst' i z
+removeFst' i n a | head (snd spl) == i = (fst spl) ++ tail (snd spl)
+                 | otherwise =  removeFst' i (n + 1) a
+  where spl = splitAt n a
 
-removeFst :: Int -> [Int] -> [Int]
-removeFst i lints | lints == [] = lints
-                  | otherwise = removeFst' i lints []
+removeFst i a = removeFst' i 0 a
