@@ -1,5 +1,8 @@
-removeFst' i n a | head (snd spl) == i = (fst spl) ++ tail (snd spl)
-                 | otherwise =  removeFst' i (n + 1) a
-  where spl = splitAt n a
+removeFst :: Int -> [Int] -> [Int]
+removeFst _ [] = []
+removeFst i (x:xs) | i == x = xs
+                   | otherwise = x : removeFst i xs
 
-removeFst i a = removeFst' i 0 a
+                                 -- loading several modules
+                                 -- :add ./mod1.hs
+                                 -- :add ./mod2.hs
