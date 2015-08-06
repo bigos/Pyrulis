@@ -44,6 +44,6 @@ srtInts' xs = let
 
 -- Example 1.12 page 26/15
 
--- 1.13
--- count :: Char -> String -> Int
-count c cs = s map (\x -> if c == x then 1 else 0) cs
+-- Example 1.13
+count :: Char -> String -> Int
+count c cs = sum( map (\x -> if c == x then 1 else 0) cs)
