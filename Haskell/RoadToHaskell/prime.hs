@@ -50,6 +50,5 @@ count c cs = sum( map (\x -> if c == x then 1 else 0) cs)
 
 -- Excercise 1.14
 blowup :: String -> String
-blowup s = map (\x -> x ++ (head  " ")) s
-
--- scanl (\x y -> x ++ [y]) "" "abcdef"
+blowup s = last $ scanl (\x y -> x ++ (replicate (length x) y)) " " s
+-- geometric grows is wrong
