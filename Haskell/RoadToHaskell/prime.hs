@@ -47,3 +47,9 @@ srtInts' xs = let
 -- Example 1.13
 count :: Char -> String -> Int
 count c cs = sum( map (\x -> if c == x then 1 else 0) cs)
+
+-- Excercise 1.14
+blowup :: String -> String
+blowup s = map (\x -> x ++ (head  " ")) s
+
+-- scanl (\x y -> x ++ [y]) "" "abcdef"
