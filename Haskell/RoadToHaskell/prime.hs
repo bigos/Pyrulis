@@ -57,11 +57,14 @@ blowup s =  blowup (init s) ++ (replicate (length s) (last s))
 -- Excercise 1.150
 strString :: [String] -> [String]
 strString [] = []
-strString (x:xs) = strString small ++ mid ++ strString large
+strString (x:xs) = strString small ++ (x : strString large)
   where
-    small = [y | y <- xs, y < x]
-    mid   = [y | y <- xs, y == x] ++ [x]
+    small = [y | y <- xs, y <= x]
     large = [y | y <- xs, y > x]
 
 
 -- TODO:
+ -- quicksort [] = []
+ -- quicksort (x:xs) = quicksort small ++ (x : quicksort large)
+ --   where small = [y | y <- xs, y <= x]
+ --         large = [y | y <- xs, y > x]
