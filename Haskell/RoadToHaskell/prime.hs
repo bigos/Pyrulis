@@ -72,3 +72,5 @@ prefix (x:xs) (y:ys) = (x==y) && prefix xs ys
 substring :: String -> String -> Bool
 substring x [] = False
 substring x (y:ys) = if prefix x (y:ys) then True else substring x ys
+
+-- Section 1.6 Haskell Types
