@@ -54,7 +54,7 @@ blowup "" = ""
 blowup s =  blowup (init s) ++ (replicate (length s) (last s))
 
 
--- Excercise 1.150
+-- Exercise 1.15
 strString :: [String] -> [String]
 strString [] = []
 strString (x:xs) = strString small ++ (x : strString large)
@@ -62,9 +62,13 @@ strString (x:xs) = strString small ++ (x : strString large)
     small = [y | y <- xs, y <= x]
     large = [y | y <- xs, y > x]
 
+-- Example 1.16
+prefix :: String -> String -> Bool
+prefix [] ys = True
+prefix (x:xs) [] = False
+prefix (x:xs) (y:ys) = (x==y) && prefix xs ys
 
--- TODO:
- -- quicksort [] = []
- -- quicksort (x:xs) = quicksort small ++ (x : quicksort large)
- --   where small = [y | y <- xs, y <= x]
- --         large = [y | y <- xs, y > x]
+-- Exercise 1.17 page 28/17
+substring :: String -> String -> Bool
+substring x [] = False
+substring x (y:ys) = if prefix x (y:ys) then True else substring x ys
