@@ -52,3 +52,16 @@ count c cs = sum( map (\x -> if c == x then 1 else 0) cs)
 blowup :: String -> String
 blowup "" = ""
 blowup s =  blowup (init s) ++ (replicate (length s) (last s))
+
+
+-- Excercise 1.150
+strString :: [String] -> [String]
+strString [] = []
+strString (x:xs) = strString small ++ mid ++ strString large
+  where
+    small = [y | y <- xs, y < x]
+    mid   = [y | y <- xs, y == x] ++ [x]
+    large = [y | y <- xs, y > x]
+
+
+-- TODO:
