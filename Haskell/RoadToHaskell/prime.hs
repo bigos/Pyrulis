@@ -74,3 +74,12 @@ substring x [] = False
 substring x (y:ys) = if prefix x (y:ys) then True else substring x ys
 
 -- Section 1.6 Haskell Types
+-- Section 1.7 Prime Factorisation
+
+factors :: Integer -> [Integer]
+factors n | n < 1  = error "Argument not positive"
+          | n == 1 = []
+          | otherwise = p : factors (div n p)
+  where p = ld n
+
+-- Section 1.8 The map and filter Functions
