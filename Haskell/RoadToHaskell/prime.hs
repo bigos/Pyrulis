@@ -84,4 +84,7 @@ factors n | n < 1  = error "Argument not positive"
 
 -- Section 1.8 The map and filter Functions
 
--- Excercise 1.20
+-- Exercise 1.20 page 22/33
+lengths :: [[a]] -> [Int]
+lengths [] = []
+lengths xs = map length xs
