@@ -83,3 +83,5 @@ factors n | n < 1  = error "Argument not positive"
   where p = ld n
 
 -- Section 1.8 The map and filter Functions
+
+-- Excercise 1.20
