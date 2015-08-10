@@ -88,3 +88,22 @@ factors n | n < 1  = error "Argument not positive"
 lengths :: [[a]] -> [Int]
 lengths [] = []
 lengths xs = map length xs
+
+-- Exercise 1.21
+sumLengths :: [[a]] -> Int
+sumLengths xs = sum $ map length xs
+
+-- Example 1.22
+primes0 :: [Integer]
+primes0 = filter prime0 [2..]
+
+-- Example 1.23
+ldp :: Integer -> Integer
+ldp n = ldpf primes1 n
+
+ldpf :: [Integer] -> Integer -> Integer
+ldpf (p:ps) n | rem n p == 0 = p
+              | p^2 > n      = n
+              | otherwise    = ldpf ps n
+
+-- Exercise 1.24
