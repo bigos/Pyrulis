@@ -94,12 +94,12 @@ sumLengths :: [[a]] -> Int
 sumLengths xs = sum $ map length xs
 
 -- Example 1.22
-primes0 :: [Integer]
-primes0 = filter prime0 [2..]
+primes1 :: [Integer]
+primes1 = filter prime0 [2..]
 
 -- Example 1.23
 ldp :: Integer -> Integer
-ldp n = ldpf primes1 n
+ldp  = ldpf primes1
 
 ldpf :: [Integer] -> Integer -> Integer
 ldpf (p:ps) n | rem n p == 0 = p
@@ -107,3 +107,4 @@ ldpf (p:ps) n | rem n p == 0 = p
               | otherwise    = ldpf ps n
 
 -- Exercise 1.24
+-- it will still work because of ldp also being a prime
