@@ -116,3 +116,6 @@ ldpf (p:ps) n | rem n p == 0 = p
 -- https://www.haskell.org/onlinereport/standard-prelude.html
 
 -- end of chapter 1 on page 26
+
+
+-- equivalence page 35
