@@ -8,3 +8,8 @@ x ==> y = (not x) || y -- if you pass the test then my name is Obama
 -- direct version
 -- True ==> x  = x
 -- False ==> x = True
+
+-- 5 < n ⇒ 3 < n.
+
+
+-- Equivalence
