@@ -13,6 +13,6 @@ end
 [1,2,3,4,5,6,7].each do |n|
   ares = a n
   bres = b n
-  print n, ' ',ares, ' ', bres, ' - ', ares && bres
+  print n, ' ',ares, ' ', bres, ' - ', (!ares || bres)
   puts
 end
