@@ -113,5 +113,6 @@ ldpf (p:ps) n | rem n p == 0 = p
 -- Section 1.10 Further Reading
 -- note to myself:
 -- keep reading standard Haskell files like Prelude.hs
+-- https://www.haskell.org/onlinereport/standard-prelude.html
 
 -- end of chapter 1 on page 26
