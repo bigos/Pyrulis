@@ -108,3 +108,5 @@ ldpf (p:ps) n | rem n p == 0 = p
 
 -- Exercise 1.24
 -- it will still work because of ldp also being a prime
+
+-- Section 1.9 Haskell Equations and Equational Reasoning
