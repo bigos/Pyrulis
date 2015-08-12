@@ -28,4 +28,4 @@ p ==> q = (not p) || q -- if you pass the test then my name is Obama
 -- opposite of p IMPLIES q is: p AND NOT q
 
 
--- Equivalence
+-- Equivalence page 35/46
