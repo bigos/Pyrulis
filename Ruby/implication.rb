@@ -1,6 +1,8 @@
 #! /usr/bin/env ruby
 
 puts 'testing implications'
+# run like this from Emacs eshell
+# ~/.rvm/rubies/ruby-2.2.1/bin/ruby ./implication.rb
 
 def a(n)
   5 < n
