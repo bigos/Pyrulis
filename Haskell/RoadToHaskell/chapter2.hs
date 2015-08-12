@@ -4,12 +4,25 @@ orTable xs = map (\x -> (fst x, snd x, fst x || snd x)) xs
 
 -- implication
 (==>) :: Bool -> Bool -> Bool
-x ==> y = (not x) || y -- if you pass the test then my name is Obama
+p ==> q = (not p) || q -- if you pass the test then my name is Obama
 -- direct version
 -- True ==> x  = x
 -- False ==> x = True
 
 -- 5 < n ⇒ 3 < n.
+
+-- principles
+
+-- a false statement implies anything (T/F)
+-- innocent until proven guilty
+
+-- p | q | p implies q
+-- T | T | T
+-- T | F | F
+-- F | T | T
+-- F | F | T
+
+-- opposite of p IMPLIES q is: p AND NOT q
 
 
 -- Equivalence
