@@ -4,19 +4,15 @@ puts 'testing implications'
 # run like this from Emacs eshell
 # ~/.rvm/rubies/ruby-2.2.1/bin/ruby ./implication.rb
 
-def a(n)
-  5 < n
-end
+def a(n) 5 < n end
 
-def b(n)
-  3 < n
-end
+def b(n) 3 < n end
 
 [2,4,6].each do |n|
   ares = a n
   bres = b n
   print n, ' ',bres, ' ', ares, ' - ', (!bres || ares)
-  print '  -  '
+  print "\t -  "
   print n, ' ',ares, ' ', bres, ' - ', (!ares || bres)
   puts
 end
