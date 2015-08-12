@@ -21,5 +21,5 @@ puts '---------------'
 
 v = [[true, true], [true, false], [false, true], [false, false]]
 v.each do |n|
-  p (!n [0] || n [1])
+  p !n[0] || n[1]
 end
