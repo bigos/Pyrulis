@@ -12,10 +12,12 @@ def b(n)
   3 < n
 end
 
-[2,3,4,5,6].each do |n|
+[2,4,6].each do |n|
   ares = a n
   bres = b n
   print n, ' ',bres, ' ', ares, ' - ', (!bres || ares)
+  print '  -  '
+  print n, ' ',ares, ' ', bres, ' - ', (!ares || bres)
   puts
 end
 
