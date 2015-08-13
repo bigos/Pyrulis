@@ -25,4 +25,11 @@ p ==> q = (not p) || q
 -- opposite of p IMPLIES q is: p AND NOT q
 -- if I win the elections the taxes will not go down
 
+verdict :: Bool -> Bool -> (Bool, String)
+verdict p q | not p       = (True,  "innocent unless proven guilty")
+            | p && result = (True,  "telling the truth")
+            | otherwise   = (False, "LIAR")
+  where result = p ==> q
+-- map (\x -> verdict (fst x == 1) (snd x == 1)) [(1,1),(1,0),(0,1),(0,0)]
+
 -- Equivalence page 35/46
