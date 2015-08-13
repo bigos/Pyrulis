@@ -26,15 +26,12 @@ p ==> q = (not p) || q
 -- if I win the elections the taxes will not go down
 
 verdict :: Bool -> Bool -> (Bool, String)
-verdict p q = verdict2 p (p ==> q)
--- map (\x -> verdict (fst x == 1) (snd x == 1)) [(1,1),(1,0),(0,1),(0,0)]
-
-verdict2 :: Bool -> Bool -> (Bool, String)
-verdict2 True True  = (True, "telling the truth")
-verdict2 True False = (False, "LIAR")
-verdict2 False _    = (True, "innocent unless proven guilty")
--- will get warning - verdict2 _ True     = (True, "innocent unless proven guilty")
--- map (\x -> verdict2 (fst x) ((fst x) ==> (snd x))) [(True,True),(True,False),(False,True),(False,False)]
+verdict p q = (result, remark)
+  where result = p ==> q
+        remark | not result = "LIAR"
+               | p = "telling the truth"
+               | otherwise = "innocent unless proven guilty"
+-- map (\x -> (verdict (fst x==1) (snd x ==1)) ) [(1,1),(1,0),(0,1),(0,0)
 
 
 -- Equivalence page 35/46
