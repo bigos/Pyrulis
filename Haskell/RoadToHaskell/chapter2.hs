@@ -4,28 +4,25 @@ orTable xs = map (\x -> (fst x, snd x, fst x || snd x)) xs
 
 -- implication
 (==>) :: Bool -> Bool -> Bool
-p ==> q = (not p) || q -- if you pass the test then my name is Obama
--- if you pass the test then my name is Obama
--- or my name is not Obama if you fail the test
+p ==> q = (not p) || q
 
 -- direct version
--- True ==> x  = x
--- False ==> x = True
+-- True  ==> q = q
+-- False ==> q = True # innocent unless proven guilty
 
--- 5 < n ⇒ 3 < n.
+-- Principle
+-- innocent unless proven guilty
 
--- principles
-
--- a false statement implies anything (T/F)
--- innocent until proven guilty
+-- Statement
+-- if I win the elections the taxes will go down
 
 -- p | q | p implies q
--- T | T | T
--- T | F | F
--- F | T | T
--- F | F | T
+-- T | T | T   < kept the promise, so innocent
+-- T | F | F   <-- LIED!!!
+-- F | T | T   < not won, so innocent
+-- F | F | T   < not won, so innocent
 
 -- opposite of p IMPLIES q is: p AND NOT q
-
+-- if I win the elections the taxes will not go down
 
 -- Equivalence page 35/46

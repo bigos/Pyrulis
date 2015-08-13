@@ -1,0 +1,18 @@
+* Implication
+a promise
+** Principle
+Innocent unless proven guilty
+** Statement
+If I win the elections taxes will go down.
+
+*** Truth Table
+**** variables
+p = win election
+q = taxes down
+**** results
+| p | q | p->q | comment    |
+|---+---+------+------------|
+| T | T | T    | DIDN'T LIE |
+| T | F | F    | LIED!!!    |
+| F | T | T    | DIDN'T LIE |
+| F | F | T    | DIDN'T LIE |
