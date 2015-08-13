@@ -29,8 +29,7 @@ verdict :: Bool -> Bool -> (Bool, String)
 verdict p q | not result  = (False, "LIAR")
             | result && p = (True,  "telling the truth")
             | result      = (True,  "innocent unless proven guilty")
-            | otherwise   = (False, "we shouldn't get here") -- ???
-  where result = (not p) || q
+  where result = p ==> q
 -- map (\x -> verdict (fst x == 1) (snd x == 1)) [(1,1),(1,0),(0,1),(0,0)]
 
 -- Equivalence page 35/46
