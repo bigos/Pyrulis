@@ -33,5 +33,25 @@ verdict p q = (result, remark)
                | otherwise = "innocent unless proven guilty"
 -- map (\x -> (verdict (fst x==1) (snd x ==1)) ) [(1,1),(1,0),(0,1),(0,0)
 
-
 -- Equivalence page 35/46
+
+-- an equivalence P ⇔ Q amounts to the conjunction of two implications
+-- P ⇒ Q and Q ⇒ P taken together
+
+iff :: Bool -> Bool -> Bool
+iff p q = result
+  where result = p ==> q && q ==> p
+-- map (\x -> (myEquivalence (fst x==1) (snd x ==1)) ) [(1,1),(1,0),(0,1),(0,0)
+
+-- Example 2.3 page 36/n+11
+
+-- Example 2.4
+
+-- the formula
+-- ¬P ∧ ((P ⇒ Q) ⇔ ¬(Q ∧ ¬P )).
+
+p = True
+q = False
+formula1 = (not p) && (p ==> q) `iff` not (q && (not p))
+
+-- 2.2 Logical Validity and Related Notions -- page 38/49

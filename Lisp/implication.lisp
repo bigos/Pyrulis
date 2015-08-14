@@ -13,3 +13,10 @@
 (map 'list
      (lambda (x) (format t "~A~%" (verdict (car x) (cdr x))))
      '((T . T) (T . NIL) (NIL . T) (NIL . NIL)))
+
+(defun verdict2 (p q)
+  (if (implies p q)
+      (if p
+          (list T "telling the truth")
+          (list T "innocent unless proven guilty"))
+      (list NIL "LIAR")))
