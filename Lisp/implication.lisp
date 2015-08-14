@@ -20,3 +20,12 @@
           (list T "telling the truth")
           (list T "innocent unless proven guilty"))
       (list NIL "LIAR")))
+
+(defun iff (p q)
+  (and (implies p q) (implies q p)))
+
+(defun formula1 (p q)
+  (and (not p)
+       (iff (implies p q)
+            (not (and (q
+                       (not p)))))))
