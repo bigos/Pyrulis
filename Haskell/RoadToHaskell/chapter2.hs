@@ -38,10 +38,10 @@ verdict p q = (result, remark)
 -- an equivalence P ⇔ Q amounts to the conjunction of two implications
 -- P ⇒ Q and Q ⇒ P taken together
 
-iff :: Bool -> Bool -> Bool
-iff p q = result
+(<=>) :: Bool -> Bool -> Bool
+(<=>) p q = result
   where result = p ==> q && q ==> p
--- map (\x -> (myEquivalence (fst x==1) (snd x ==1)) ) [(1,1),(1,0),(0,1),(0,0)
+-- map (\x -> ( (fst x==1) <=> (snd x ==1)) ) [(1,1),(1,0),(0,1),(0,0)
 
 -- Example 2.3 page 36/n+11
 
@@ -52,6 +52,12 @@ iff p q = result
 
 p = True
 q = False
-formula1 = (not p) && (p ==> q) `iff` not (q && (not p))
+formula1 = (not p) && (p ==> q) <=> not (q && (not p))
 
 -- 2.2 Logical Validity and Related Notions -- page 38/49
+
+-- Truth Table of an Expression
+-- If an expression contains n letters P, Q, . . ., then there are 2 n possible
+-- distributions of the truth values between these letters.
+-- The 2^n -row table that contains the calculations of these values is
+-- the truth table of the expression
