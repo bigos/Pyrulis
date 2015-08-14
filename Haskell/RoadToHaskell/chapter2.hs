@@ -50,9 +50,10 @@ verdict p q = (result, remark)
 -- the formula
 -- ¬P ∧ ((P ⇒ Q) ⇔ ¬(Q ∧ ¬P )).
 
+p = True
+q = False
+
 formula1 = (not p) && (p ==> q) <=> not (q && (not p))
-  where p = True
-        q = False
 
 -- 2.2 Logical Validity and Related Notions -- page 38/49
 
@@ -66,3 +67,32 @@ formula1 = (not p) && (p ==> q) <=> not (q && (not p))
 formula2 p q = ((not p) && (p ==> q) <=> (q && (not p)))
 
 booleanSet = [(True,True),(True,False),(False,True),(False,False)]
+
+valid1 :: (Bool -> Bool) -> Bool
+valid1 boolfun = (boolfun True) && (boolfun False)
+
+excluded_middle :: Bool -> Bool
+excluded_middle p = p || not p
+
+valid2 :: (Bool -> Bool -> Bool) -> Bool
+valid2 bf = (bf    True  True)
+            && (bf True  False)
+            && (bf False True)
+            && (bf False False)
+-- now we can run: valid2 formula2
+
+form1 p q = p ==> (q ==> p)
+form2 p q = (p ==> q) ==> p
+
+valid3 :: (Bool -> Bool -> Bool -> Bool) -> Bool
+valid3 bf = and [ bf p q r | p <- [True,False],
+                  q <- [True,False],
+                  r <- [True,False]]
+
+valid4 :: (Bool -> Bool -> Bool -> Bool -> Bool) -> Bool
+valid4 bf = and [ bf p q r s | p <- [True,False],
+                  q <- [True,False],
+                  r <- [True,False],
+                  s <- [True,False]]
+
+-- Example 2.6 page 43/54
