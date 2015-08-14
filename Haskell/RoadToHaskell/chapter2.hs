@@ -50,9 +50,9 @@ verdict p q = (result, remark)
 -- the formula
 -- ¬P ∧ ((P ⇒ Q) ⇔ ¬(Q ∧ ¬P )).
 
-p = True
-q = False
 formula1 = (not p) && (p ==> q) <=> not (q && (not p))
+  where p = True
+        q = False
 
 -- 2.2 Logical Validity and Related Notions -- page 38/49
 
@@ -61,3 +61,8 @@ formula1 = (not p) && (p ==> q) <=> not (q && (not p))
 -- distributions of the truth values between these letters.
 -- The 2^n -row table that contains the calculations of these values is
 -- the truth table of the expression
+
+-- Example 2.5
+formula2 p q = ((not p) && (p ==> q) <=> (q && (not p)))
+
+booleanSet = [(True,True),(True,False),(False,True),(False,False)]
