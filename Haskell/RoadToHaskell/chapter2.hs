@@ -46,6 +46,8 @@ verdict p q = (result, remark)
 -- Example 2.3 page 36/n+11
 
 -- Example 2.4
+(<+>) :: Bool -> Bool -> Bool
+x <+> y = x /= y
 
 -- the formula
 -- ¬P ∧ ((P ⇒ Q) ⇔ ¬(Q ∧ ¬P )).
@@ -96,3 +98,53 @@ valid4 bf = and [ bf p q r s | p <- [True,False],
                   s <- [True,False]]
 
 -- Example 2.6 page 43/54
+
+-- Example 2.7 page 43/54
+
+-- Example 2.8 page 43/54
+
+-- Exercise 2.9 page 44/55
+
+logEquiv1 :: (Bool -> Bool) -> (Bool -> Bool) -> Bool
+logEquiv1 bf1 bf2 =
+  (bf1 True <=> bf2 True) && (bf1 False <=> bf2 False)
+
+logEquiv2 :: (Bool -> Bool -> Bool) -> (Bool -> Bool -> Bool) -> Bool
+logEquiv2 bf1 bf2 =
+  and [(bf1 p q) <=> (bf2 p q) | p <- [True,False], q <- [True,False]]
+
+logEquiv3 :: (Bool -> Bool -> Bool -> Bool) ->
+             (Bool -> Bool -> Bool -> Bool) -> Bool
+logEquiv3 bf1 bf2 =
+  and [(bf1 p q r) <=> (bf2 p q r) | p <- [True,False],
+       q <- [True,False],
+       r <- [True,False]]
+
+formula3 p q = p
+formula4 p q = (p <+> q) <+> q
+formula5 p q = p <=> ((p <+> q) <+> q) -- formulas 3 and 4 together
+
+-- pages 45-46 / 56-57
+-- Theorem 2.10
+-- handy rules -
+
+-- ≡ equivalent
+-- ∧ and
+-- ∨ or
+-- ¬ not
+-- ⇔ iff
+-- ⇒ implies
+
+-- Exercise 2.11 page 46/57
+
+
+test1 = logEquiv1 id (\p -> not(not p)) -- id = identical?
+-- many other tests
+test9b = logEquiv3 (\ p q r -> p || (q && r))
+         (\ p q r -> (p || q) && (p || r))
+
+-- Exercise 2.13 page 48/59
+-- stuck
+-- test2103 = logEquiv2 (True && True) (\ p -> p || True)
+
+-- perhaps I should skip the rest of the chapter and go to Chapter 3 page 71/82
