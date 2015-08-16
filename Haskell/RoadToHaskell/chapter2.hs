@@ -147,4 +147,4 @@ test9b = logEquiv3 (\ p q r -> p || (q && r))
 -- stuck
 -- test2103 = logEquiv2 (True && True) (\ p -> p || True)
 
--- perhaps I should skip the rest of the chapter and go to Chapter 3 page 71/82
+-- perhaps I should skip the rest of the chapter and go to Chapter 3 page 71/82==
