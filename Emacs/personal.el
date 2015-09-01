@@ -54,6 +54,10 @@
 (slime-setup '(slime-repl slime-fancy))
 (setq slime-default-lisp 'sbcl)
 
+(slime-setup '(slime-repl slime-fancy))
+(setq common-lisp-hyperspec-root
+      "file:/home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/")
+
 (defun swap-paredit ()
   (paredit-mode +1)
   (smartparens-mode -1))

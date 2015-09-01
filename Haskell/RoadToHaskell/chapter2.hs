@@ -101,6 +101,7 @@ valid4 bf = and [ bf p q r s | p <- [True,False],
 
 -- Example 2.7 page 43/54
 
+
 -- Example 2.8 page 43/54
 
 -- Exercise 2.9 page 44/55
