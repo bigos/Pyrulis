@@ -146,7 +146,15 @@ test9b = logEquiv3 (\ p q r -> p || (q && r))
          (\ p q r -> (p || q) && (p || r))
 
 -- Exercise 2.13 page 48/59
--- stuck
--- test2103 = logEquiv2 (True && True) (\ p -> p || True)
+-- replace 1 with actual code
+tst1a = not True <=> False
+tst1b = not False <=> True
+tst2  = logEquiv1 (\p -> p ==> False)  (\p -> not p)
+tst3a = 1
+tst3b = 1
+tst4a = 1
+tst4b = 1
+tst5  = 1
+tst6  = 1
 
 -- perhaps I should skip the rest of the chapter and go to Chapter 3 page 71/82==
