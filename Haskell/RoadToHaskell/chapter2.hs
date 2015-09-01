@@ -98,6 +98,7 @@ valid4 bf = and [ bf p q r s | p <- [True,False],
                   s <- [True,False]]
 
 -- Example 2.6 page 43/54
+-- perhaps I should redo it manually
 
 -- Example 2.7 page 43/54
 
@@ -137,7 +138,7 @@ formula5 p q = p <=> ((p <+> q) <+> q) -- formulas 3 and 4 together
 -- ⇒ implies
 
 -- Exercise 2.11 page 46/57
-
+-- redo exercise manually
 
 test1 = logEquiv1 id (\p -> not(not p)) -- id = identical?
 -- many other tests
