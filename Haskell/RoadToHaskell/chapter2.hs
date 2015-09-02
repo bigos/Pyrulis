@@ -158,4 +158,10 @@ tst4b = logEquiv1 (\p -> p && True) (\p -> p)
 tst5  = logEquiv1 (\p -> p || (not p)) (const True)
 tst6  = logEquiv1 (\p -> p && (not p)) (const False)
 
--- perhaps I should skip the rest of the chapter and go to Chapter 3 page 71/82==
+-- Example 2.14 page 48/59
+
+ex214 = logEquiv2 (\p q -> not (p ==> q)) (\p q -> p && (not q))
+ex214' = logEquiv2 (\p q -> not ((not p) ==> q))  (\p q -> (not p) && (not q))
+
+
+-- Exercise 2.15 page 48/59
