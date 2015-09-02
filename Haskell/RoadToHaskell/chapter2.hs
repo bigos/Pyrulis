@@ -153,9 +153,9 @@ tst1b = not False <=> True
 tst2  = logEquiv1 (\p -> p ==> False)  (\p -> not p)
 tst3a = logEquiv1 (\p -> p || True) (\p -> True) -- could use constant function insteadof 2nd lambda
 tst3b = logEquiv1 (\p -> p && False) (const False) -- constant function
-tst4a = 1
-tst4b = 1
-tst5  = 1
-tst6  = 1
+tst4a = logEquiv1 (\p -> p || False) (\p -> p)
+tst4b = logEquiv1 (\p -> p && True) (\p -> p)
+tst5  = logEquiv1 (\p -> p || (not p)) (const True)
+tst6  = logEquiv1 (\p -> p && (not p)) (const False)
 
 -- perhaps I should skip the rest of the chapter and go to Chapter 3 page 71/82==
