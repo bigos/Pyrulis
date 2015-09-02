@@ -165,3 +165,13 @@ ex214' = logEquiv2 (\p q -> not ((not p) ==> q))  (\p q -> (not p) && (not q))
 
 
 -- Exercise 2.15 page 48/59
+contrad1 :: (Bool -> Bool) -> Bool
+contrad1 bf = not (bf True) && not (bf False)
+
+contrad2 :: (Bool -> Bool -> Bool) -> Bool
+contrad2 bf = and [not (bf p q) | p <- [True,False], q <- [True,False]]
+
+contrad3 :: (Bool -> Bool -> Bool -> Bool) -> Bool
+contrad3 bf = and [ not (bf p q r) | p <- [True,False],
+                    q <- [True,False],
+                    r <- [True,False]]
