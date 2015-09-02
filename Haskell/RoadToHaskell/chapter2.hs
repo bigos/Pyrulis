@@ -146,12 +146,13 @@ test9b = logEquiv3 (\ p q r -> p || (q && r))
          (\ p q r -> (p || q) && (p || r))
 
 -- Exercise 2.13 page 48/59
+-- figure 2.1 on page xx/58 gives the clue
 -- replace 1 with actual code
 tst1a = not True <=> False
 tst1b = not False <=> True
 tst2  = logEquiv1 (\p -> p ==> False)  (\p -> not p)
-tst3a = 1
-tst3b = 1
+tst3a = logEquiv1 (\p -> p || True) (\p -> True) -- could use constant function insteadof 2nd lambda
+tst3b = logEquiv1 (\p -> p && False) (const False) -- constant function
 tst4a = 1
 tst4b = 1
 tst5  = 1
