@@ -1,6 +1,8 @@
 ;;; code:
 
 (setq guru-warn-only t)
+(setq recentf-keep '(file-remote-p file-readable-p))
+(server-start)
 
 (global-hl-line-mode -1)
 ;; (setq prelude-flyspell nil)
@@ -42,6 +44,13 @@
 (setq web-mode-code-indent-offset 2)
 (setq web-mode-markup-indent-offset 2)
 (setq web-mode-css-indent-offset 2)
+(add-hook 'web-mode-hook #'(lambda () (smartparens-mode -1)))
+(setq web-mode-extra-snippets
+      '(("erb" . (
+                  ("%" . "<% | %>")
+                  ("=" . "<%= | %>")
+                  ))))
+
 
 (fset 'insert-rails-erb-tag [?< ?% ?% ?> left left])
 (global-set-key (kbd "s-=") 'insert-rails-erb-tag)
@@ -53,6 +62,10 @@
 (setq inferior-lisp-program "sbcl")
 (slime-setup '(slime-repl slime-fancy))
 (setq slime-default-lisp 'sbcl)
+
+(slime-setup '(slime-repl slime-fancy))
+;; (setq common-lisp-hyperspec-root
+;;       "file:/home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/")
 
 (defun swap-paredit ()
   (paredit-mode +1)
