@@ -19,7 +19,6 @@
 (setq magit-auto-revert-mode nil)
 (setq magit-last-seen-setup-instructions "1.4.0")
 
-(setq whitespace-line '(t (:background "gray16")))
 
 ;; Allow hash to be entered on MacOSX
 (fset 'insertPound "#")
@@ -46,13 +45,7 @@
 (setq web-mode-css-indent-offset 2)
 (add-hook 'web-mode-hook #'(lambda () (smartparens-mode -1)))
 (setq web-mode-extra-snippets
-      '(("erb" . (
-                  ("%" . "<% | %>")
-                  ("5" . "<% | %>")
-                  ("=" . "<%= | %>")
-                  ))))
-
-
+      '(("erb" . (("=" . "<%= | %>")))))
 (fset 'insert-rails-erb-tag [?< ?% ?% ?> left left])
 (global-set-key (kbd "s-=") 'insert-rails-erb-tag)
 
@@ -63,6 +56,8 @@
 (setq inferior-lisp-program "sbcl")
 (slime-setup '(slime-repl slime-fancy))
 (setq slime-default-lisp 'sbcl)
+
+(slime-setup '(slime-repl slime-fancy))
 ;; (setq common-lisp-hyperspec-root
 ;;       "file:/home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/")
 
