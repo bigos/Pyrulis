@@ -98,8 +98,10 @@ valid4 bf = and [ bf p q r s | p <- [True,False],
                   s <- [True,False]]
 
 -- Example 2.6 page 43/54
+-- perhaps I should redo it manually
 
 -- Example 2.7 page 43/54
+
 
 -- Example 2.8 page 43/54
 
@@ -136,7 +138,7 @@ formula5 p q = p <=> ((p <+> q) <+> q) -- formulas 3 and 4 together
 -- ⇒ implies
 
 -- Exercise 2.11 page 46/57
-
+-- redo exercise manually
 
 test1 = logEquiv1 id (\p -> not(not p)) -- id = identical?
 -- many other tests
@@ -144,7 +146,32 @@ test9b = logEquiv3 (\ p q r -> p || (q && r))
          (\ p q r -> (p || q) && (p || r))
 
 -- Exercise 2.13 page 48/59
--- stuck
--- test2103 = logEquiv2 (True && True) (\ p -> p || True)
+-- figure 2.1 on page xx/58 gives the clue
+-- replace 1 with actual code
+tst1a = not True <=> False
+tst1b = not False <=> True
+tst2  = logEquiv1 (\p -> p ==> False)  (\p -> not p)
+tst3a = logEquiv1 (\p -> p || True) (\p -> True) -- could use constant function insteadof 2nd lambda
+tst3b = logEquiv1 (\p -> p && False) (const False) -- constant function
+tst4a = logEquiv1 (\p -> p || False) (\p -> p)
+tst4b = logEquiv1 (\p -> p && True) (\p -> p)
+tst5  = logEquiv1 (\p -> p || (not p)) (const True)
+tst6  = logEquiv1 (\p -> p && (not p)) (const False)
 
--- perhaps I should skip the rest of the chapter and go to Chapter 3 page 71/82==
+-- Example 2.14 page 48/59
+
+ex214 = logEquiv2 (\p q -> not (p ==> q)) (\p q -> p && (not q))
+ex214' = logEquiv2 (\p q -> not ((not p) ==> q))  (\p q -> (not p) && (not q))
+
+
+-- Exercise 2.15 page 48/59
+contrad1 :: (Bool -> Bool) -> Bool
+contrad1 bf = not (bf True) && not (bf False)
+
+contrad2 :: (Bool -> Bool -> Bool) -> Bool
+contrad2 bf = and [not (bf p q) | p <- [True,False], q <- [True,False]]
+
+contrad3 :: (Bool -> Bool -> Bool -> Bool) -> Bool
+contrad3 bf = and [ not (bf p q r) | p <- [True,False],
+                    q <- [True,False],
+                    r <- [True,False]]

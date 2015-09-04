@@ -48,6 +48,7 @@
 (setq web-mode-extra-snippets
       '(("erb" . (
                   ("%" . "<% | %>")
+                  ("5" . "<% | %>")
                   ("=" . "<%= | %>")
                   ))))
 
@@ -62,8 +63,6 @@
 (setq inferior-lisp-program "sbcl")
 (slime-setup '(slime-repl slime-fancy))
 (setq slime-default-lisp 'sbcl)
-
-(slime-setup '(slime-repl slime-fancy))
 ;; (setq common-lisp-hyperspec-root
 ;;       "file:/home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/")
 
