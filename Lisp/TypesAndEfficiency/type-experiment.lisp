@@ -35,7 +35,30 @@
 
 ;; We note that the type mismatch has been detected at compile type, not at run time. This is because the whole of the Lisp system is available both at run time and compile time, a key feature needed to support Lisp’s macro system. So in principle, features available at runtime can also be made available at compile time. It is up to the implementation how to handle type mismatch conditions. More importantly, it is up to the developer to elicit them.
 
-(declaim (optimize (speed 3) (safety 0) (space 0) (debug 3)))
+(declaim (optimize (speed 3) (safety 3) (space 0) (debug 3)))
+
+(declaim
+ (ftype
+  (function (integer) integer)
+  xplusone))
+
+(defun xplusone (x) (+ x 1))
+
+
+(declaim
+ (ftype
+  (function (integer) integer)
+  more))
+
+;;; this one gives compilation warning and run-time error
+(defun more (x) (* 2 (xplusone "one")))
+
+;;; this will give compilation error
+;; (more "one")
+
+;;; -------------------------------------
+(ql:quickload :cl-quickcheck)           ;
+;;; -------------------------------------
 
 (defun foo (x y)
   (logxor x y))
