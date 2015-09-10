@@ -1,7 +1,12 @@
 ;;; code:
 
-(setq guru-warn-only t)
-(setq recentf-keep '(file-remote-p file-readable-p))
+
+(defun disable-guru-mode ()
+  (guru-mode -1))
+(add-hook 'prelude-prog-mode-hook 'disable-guru-mode t)
+
+;; (setq guru-warn-only t)
+;; (setq recentf-keep '(file-remote-p file-readable-p))
 (server-start)
 
 (global-hl-line-mode -1)
