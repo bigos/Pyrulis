@@ -42,6 +42,13 @@
      (:body
       (:h1 "Foo")
       (:a :href "/faa" "faa")
+
+      (:h3 "jQuery test")
+      (:p
+       (:a :href "#"
+           :onclick (parenscript:ps (hiding-callback))
+           "click to trick"))
+
       (:p :class "my-info" "foo foo foo"
           (escaped-string " <tag>text</tag> y ")
           (escaped-string hunchentoot:*request*)
@@ -50,9 +57,5 @@
        (who:fmt "~a"  (pp-object hunchentoot:*request*)))
       (hunchentoot:log-message* :info "abcdef ~D~%~%~A~%" 123 (inspect-object hunchentoot:*reply*))
       (:a :href "#" :onclick (parenscript:ps (greeting-callback)) "click me")
-      (:h3 "jQuery test")
-      (:p
-       (:a :href "#"
-           :onclick (parenscript:ps (hiding-callback))
-           "click to trick"))
+
       ))))
