@@ -1,10 +1,10 @@
 (in-package :web-app-trial)
 
 (defun home-page ()
-  (home-page-view))
+  (default-layout  (home-page-view)))
 
 (defun faa1 ()
-  (faa1-view))
+  (default-layout  (faa1-view)))
 
 (defun foo1 ()
-  (foo1-view))
+  (default-layout (foo1-view)))
