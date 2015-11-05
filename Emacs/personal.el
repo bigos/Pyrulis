@@ -24,14 +24,16 @@
 
 (require 'magit)
 
-(require 'rvm)
-(rvm-use-default)
+
 
 (prelude-require-packages '(buffer-move paredit underwater-theme
                                         rubocop rvm rinari ruby-block
                                         ruby-refactor rspec-mode rails-log-mode
                                         ruby-hash-syntax slime web-mode
-                                        rainbow-delimiters buffer-move))
+                                        rainbow-delimiters buffer-move rvm))
+
+(require 'rvm)
+(rvm-use-default)
 
 ;; magit warning silencing
 (setq magit-auto-revert-mode nil)
