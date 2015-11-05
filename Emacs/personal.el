@@ -1,5 +1,14 @@
 ;;; code:
 
+;; finding out the os
+;; https://www.gnu.org/software/emacs/manual/html_node/elisp/System-Environment.html#System-Environment
+;; (if (eq system-type 'gnu/linux)
+;;     "it's linux"
+;;   (if (eq system-type 'darwin)
+;;       "working on a mac"
+;;     "is it windows"))
+
+(set-default-coding-systems 'utf-8)
 
 (defun disable-guru-mode ()
   (guru-mode -1))
@@ -7,7 +16,7 @@
 
 ;; (setq guru-warn-only t)
 ;; (setq recentf-keep '(file-remote-p file-readable-p))
-(server-start)
+;; (server-start)
 
 (global-hl-line-mode -1)
 ;; (setq prelude-flyspell nil)
@@ -15,15 +24,18 @@
 
 (require 'magit)
 
+(require 'rvm)
+(rvm-use-default)
+
 (prelude-require-packages '(buffer-move paredit underwater-theme
                                         rubocop rvm rinari ruby-block
                                         ruby-refactor rspec-mode rails-log-mode
-                                        ruby-hash-syntax slime web-mode))
+                                        ruby-hash-syntax slime web-mode
+                                        rainbow-delimiters buffer-move))
 
 ;; magit warning silencing
 (setq magit-auto-revert-mode nil)
 (setq magit-last-seen-setup-instructions "1.4.0")
-
 
 ;; Allow hash to be entered on MacOSX
 (fset 'insertPound "#")
@@ -39,7 +51,7 @@
 (global-set-key (kbd "s-s") 'bs-cycle-next)
 (global-set-key (kbd "s-b") 'ibuffer)
 
-;;; MacOSX F keys
+;;; on some Macs F keys are bound to some desktop actions
 (global-set-key (kbd "s-3") 'kmacro-start-macro-or-insert-counter)
 (global-set-key (kbd "s-4") 'kmacro-end-or-call-macro)
 
@@ -52,12 +64,13 @@
 (setq web-mode-extra-snippets
       '(("erb" . (("=" . "<%= | %>")))))
 (fset 'insert-rails-erb-tag [?< ?% ?% ?> left left])
+
 (global-set-key (kbd "s-=") 'insert-rails-erb-tag)
 
 ;;; get rid of utf-8 warning in Ruby mode
 (setq ruby-insert-encoding-magic-comment nil)
 
-;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
 (setq inferior-lisp-program "sbcl")
 (slime-setup '(slime-repl slime-fancy))
 (setq slime-default-lisp 'sbcl)
