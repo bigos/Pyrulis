@@ -35,6 +35,10 @@
 (require 'rvm)
 (rvm-use-default)
 
+
+(setq whitespace-line '(t (:background "gray15")))
+
+
 ;; magit warning silencing
 (setq magit-auto-revert-mode nil)
 (setq magit-last-seen-setup-instructions "1.4.0")
