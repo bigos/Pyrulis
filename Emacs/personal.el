@@ -69,8 +69,9 @@
 (add-hook 'web-mode-hook #'(lambda () (smartparens-mode -1)))
 (setq web-mode-extra-snippets
       '(("erb" . (("=" . "<%= | %>")))))
-(fset 'insert-rails-erb-tag [?< ?% ?% ?> left left])
 
+;;; insert only <% side of erb tag, autopairing will take care of the rest
+(fset 'insert-rails-erb-tag [?< ?% ])
 (global-set-key (kbd "s-=") 'insert-rails-erb-tag)
 
 ;;; get rid of utf-8 warning in Ruby mode
