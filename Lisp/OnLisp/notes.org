@@ -1,4 +1,5 @@
 * Chapter 2
+Functions
 
 ** 2.2 Defining Functions
 *** defun and setf
@@ -158,3 +159,35 @@ may also want to put
 (proclaim ’(optimize speed))
 
 at the top of the file, to ensure that the compiler can take advantage of your efforts.
+
+*** example
+
+Given tail-recursion and type declarations, existing Common Lisp compilers
+can generate code that runs as fast as, or faster than, C. Richard Gabriel gives as
+an example the following function, which returns the sum of the integers from 1
+to n:
+
+(defun triangle (n)
+  (labels ((tri (c n)
+          (declare (type fixnum n c))
+          (if (zerop n)
+            c
+            (tri (the fixnum (+ n c))
+              (the fixnum (- n 1))))))
+    (tri 0 n)))
+
+This is what fast Common Lisp code looks like. At first it may not seem natural
+to write functions this way. It’s often a good idea to begin by writing a function
+in whatever way seems most natural, and then, if necessary, transforming it into a
+tail-recursive equivalent.
+
+** 2.9 Compilation
+
+** 2.10 Functions from Lists
+It cannot be overemphasized how important it is that Lisp programs can
+write Lisp programs, especially since this fact is so often overlooked. Even
+experienced Lisp users rarely realize the advantages they derive from this feature
+of the language. This is why Lisp macros are so powerful,
+
+* Chapter 3
+Functional Programming
