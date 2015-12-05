@@ -17,19 +17,39 @@ expressions do approximately the same thing:
 (setf (symbol-function ’double)
   #’(lambda (x) (* x 2)))
 
+
 ** 2.3 Functional Arguments
 
+*** Apply and Funcall
+Generally, we call apply
+with two arguments: a function, and a list of arguments for it. The following four
+expressions all have the same effect:
 
+(+ 1 2)
+(apply #’+ ’(1 2))
+(apply (symbol-function ’+) ’(1 2))
+(apply #’(lambda (x y) (+ x y)) ’(1 2))
 
+In Common Lisp, apply can take any number of arguments, and the function
+given first will be applied to the list made by consing the rest of the arguments
+onto the list given last. So the expression
 
+(apply #’+ 1 ’(2))
 
+is equivalent to the preceding four. If it is inconvenient to give the arguments as
+a list, we can use funcall, which differs from apply only in this respect. This
+expression
 
+(funcall #’+ 1 2)
 
+has the same effect as those above.
 
+*** functions as arguments
+page 15
 
+Since functions are data objects, a variable can have a function as its
+regular value. That’s what’s happening here. Sharp-quote is only for referring
+to the function named by a symbol
 
---------------------------------------
-
-** Functions as Properties
-
+** 2.4 Functions as Properties
 *** cond vs stored function
