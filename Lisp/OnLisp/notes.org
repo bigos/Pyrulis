@@ -68,3 +68,36 @@ said to be free. In this example, scope comes into play:
 Within the defun expression,x is bound and y is free. Free variables are interesting
 because it’s not obvious what their values should be. There’s no uncertainty about
 the value of a bound variable—when scope-test is called, the value of x should
+be whatever is passed as the argument. But what should be the value of y? This
+is the question answered by the dialect’s scope rules.
+In a dynamically scoped Lisp, to find the value of a free variable when exe-
+cuting scope-test, we look back through the chain of functions that called it.
+When we find an environment where y was bound, that binding of y will be the
+one used in scope-test. If we find none, we take the global value of y. Thus, in
+a dynamically scoped Lisp, y would have the value it had in the calling expression:
+
+(let ((y 5))
+  (scope-test 3))
+    (3 5)
+
+With dynamic scope, it means nothing that y was bound to 7 when scope-test
+was defined. All that matters is that y had a value of 5 when scope-test was
+called.
+In a lexically scoped Lisp, instead of looking back through the chain of calling
+functions, we look back through the containing environments at the time the
+function was defined. In a lexically scoped Lisp, our example would catch the
+binding of y where scope-test was defined. So this is what would happen in
+Common Lisp:
+
+(let ((y 5))
+  (scope-test 3))
+    (3 7)
+
+Here the binding of y to 5 at the time of the call has no effect on the returned
+value.
+Though you can still get dynamic scope by declaring a variable to be special,
+lexical scope is the default in Common Lisp. On the whole, the Lisp community
+seems to view the passing of dynamic scope with little regret. For one thing, it
+used to lead to horribly elusive bugs. But lexical scope is more than a way of
+avoiding bugs. As the next section will show, it also makes possible some new
+programming techniques.
