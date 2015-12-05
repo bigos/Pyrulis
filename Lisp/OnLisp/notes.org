@@ -1,0 +1,17 @@
+* Chapter 2
+
+** defun and setf
+page 12
+*** symbol-value
+The function symbol-value takes a
+symbol and returns the value of the corresponding special variable:
+
+*** symbol-function
+Beneath the surface, defun is setting the symbol-function of its first argu-
+ment to a function constructed from the remaining arguments. The following two
+expressions do approximately the same thing:
+
+(defun double (x) (* x 2))
+
+(setf (symbol-function ’double)
+  #’(lambda (x) (* x 2)))
