@@ -1,1 +1,1 @@
-(defun double (x) (* x 2))
+(defun my-double (x) (* x 2))
