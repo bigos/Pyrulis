@@ -17,7 +17,6 @@ expressions do approximately the same thing:
 (setf (symbol-function ’double)
   #’(lambda (x) (* x 2)))
 
-
 ** 2.3 Functional Arguments
 
 *** Apply and Funcall
@@ -53,3 +52,19 @@ to the function named by a symbol
 
 ** 2.4 Functions as Properties
 *** cond vs stored function
+
+
+** Scope
+The difference between lexical and dynamic scope comes down to how an
+implementation deals with free variables. A symbol is bound in an expression
+if it has been established as a variable, either by appearing as a parameter, or by
+variable-binding operators like let and do. Symbols which are not bound are
+said to be free. In this example, scope comes into play:
+
+(let ((y 7))
+  (defun scope-test (x)
+    (list x y)))
+
+Within the defun expression,x is bound and y is free. Free variables are interesting
+because it’s not obvious what their values should be. There’s no uncertainty about
+the value of a bound variable—when scope-test is called, the value of x should
