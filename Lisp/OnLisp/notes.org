@@ -191,3 +191,44 @@ of the language. This is why Lisp macros are so powerful,
 
 * Chapter 3
 Functional Programming
+
+This chapter describes the kind of construction methods which prevail in
+the Lisp world. The sophistication of these methods allows us to attempt more
+ambitious kinds of programs. The next chapter will describe one particularly
+important class of programs which become possible in Lisp: programs which
+evolve instead of being developed by the old plan-and-implement method.
+
+** 3.1 Functional Design
+
+*** Figure 3.2: A function to return reversed lists.
+(defun good-reverse (lst)
+  (labels ((rev (lst acc)
+          (if (null lst)
+            acc
+            (rev (cdr lst) (cons (car lst) acc)))))
+    (rev lst nil)))
+
+Having functional
+programming as an ideal doesn’t imply that programs should never have side-
+effects. It just means that they should have no more than necessary.
+
+*** Taxable operations
+It may take time to develop this habit. One way to start is to treat the following
+operators as if there were a tax on their use:
+
+set setq setf psetf psetq incf decf push pop pushnew
+rplaca rplacd rotatef shiftf remf remprop remhash
+
+and also let*, in which imperative programs often lie concealed. Treating
+these operators as taxable is only proposed as a help toward, not a criterion for,
+good Lisp style. However, this alone can get you surprisingly far.
+
+*** good idea
+Functional programming is a good idea in general. It is a particularly good idea
+in Lisp, because Lisp has evolved to support it. Built-in operators like reverse
+and nreverse are meant to be used in this way. Other operators, like values
+and multiple-value-bind, have been provided specifically to make functional
+programming easier.
+
+** 3.2 Imperative Outside-In
+page 33
