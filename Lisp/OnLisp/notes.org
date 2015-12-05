@@ -18,3 +18,18 @@ expressions do approximately the same thing:
   #’(lambda (x) (* x 2)))
 
 ** 2.3 Functional Arguments
+
+
+
+
+
+
+
+
+
+
+--------------------------------------
+
+** Functions as Properties
+
+*** cond vs stored function
