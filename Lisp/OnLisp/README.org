@@ -1,2 +1,2 @@
 * Book by Paul Graham
-* Chapter 4
+* Chapter 3
