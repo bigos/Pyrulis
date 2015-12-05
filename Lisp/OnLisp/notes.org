@@ -123,3 +123,38 @@ function causes the creation of a closure.
 Closures play a more conspicuous role in a style of programming promoted
 by Abelson and Sussman’s classic Structure and Interpretation of Computer Pro-
 grams. Closures are functions with local state.
+
+** 2.7 Local Functions
+When we define functions with lambda-expressions, we face a restriction which
+doesn’t arise with defun: a function defined in a lambda-expression doesn’t have
+a name and therefore has no way of referring to itself. This means that in Common
+Lisp we can’t use lambda to define a recursive function.
+
+** 2.8 Tail Recursion
+A recursive function is one that calls itself. Such a call is tail-recursive if no
+work remains to be done in the calling function afterwards. This function is not
+tail-recursive
+
+(defun our-length (lst)
+  (if (null lst)
+    0
+    (1+ (our-length (cdr lst)))))
+
+because on returning from the recursive call we have to pass the result to 1+. The
+following function is tail-recursive, though
+
+(defun our-find-if (fn lst)
+  (if (funcall fn (car lst))
+    (car lst)
+    (our-find-if fn (cdr lst))))
+
+because the value of the recursive call is immediately returned.
+
+*** optimisation
+Many Common Lisp compilers can do tail-recursion optimization, but not all
+of them do it by default. So after writing your functions to be tail-recursive, you
+may also want to put
+
+(proclaim ’(optimize speed))
+
+at the top of the file, to ensure that the compiler can take advantage of your efforts.
