@@ -1,0 +1,13 @@
+* Interesting Notes
+
+** Associativity and Precedence
+pages 13, 14, 15
+infilxl, infixr
+
+** 2.6 Declaring values
+The order of declarations in a source code file doesn’t matter because GHCi
+loads the entire file at once, so it knows all the values that have been
+specified, no matter what order they appear in.
+
+On the other hand, when
+you enter them one-by-one into the REPL, the order does matter.
