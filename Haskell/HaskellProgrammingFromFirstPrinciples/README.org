@@ -1,3 +1,6 @@
 Haskell Programming from first principles
 
 * Exercises
+
+* Bookmarks
+2.5 Infix operators
