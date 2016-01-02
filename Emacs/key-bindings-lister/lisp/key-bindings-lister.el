@@ -35,6 +35,9 @@
 
 ;; BOOOO got inactive key bibdings as well
 
+;; perhaps (current-active-maps) is the way to go
+;; (elt (current-active-maps) 11)
+
 (defun print-current-buffer-info ()
   (interactive)
   (let ((the-buffer (current-buffer))
