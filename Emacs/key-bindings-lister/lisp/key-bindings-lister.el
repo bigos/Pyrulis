@@ -11,6 +11,7 @@
 
 ;; find the code for C-s
 
+;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Ctl_002dChar-Syntax.html#Ctl_002dChar-Syntax
 ;; ELISP> ?\C-s
 ;; 19 (#o23, #x13, ?\C-s)
 
@@ -43,6 +44,16 @@
 
 ;; perhaps (current-active-maps) is the way to go
 ;; (elt (current-active-maps) 11)
+
+;; (elt (elt (current-active-maps) 11) 1)
+;; char-tables
+;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Char_002dTable-Type.html#Char_002dTable-Type
+
+;; (type-of  (elt (elt (current-active-maps) 11) 1) )
+;; char-table
+
+;; commands in char-table
+;; (dotimes (x 130 y) (progn (princ x) (print  (elt (elt (elt (current-active-maps) 11) 1) x))))
 
 (defun print-current-buffer-info ()
   (interactive)
