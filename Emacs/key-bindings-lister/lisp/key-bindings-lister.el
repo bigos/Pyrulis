@@ -55,6 +55,34 @@
 ;; commands in char-table
 ;; (dotimes (x 130 y) (progn (princ x) (print  (elt (elt (elt (current-active-maps) 11) 1) x))))
 
+;; more key-binding
+;; ELISP> (key-binding "\C-@" )
+;; set-mark-command
+;; ELISP> (key-binding "\C-a" )
+;; prelude-move-beginning-of-line
+;; ELISP> (key-binding "\C-b" )
+;; backward-char
+;; ELISP> (key-binding "\M-=" )
+;; count-words-region
+;; ELISP> (key-binding "<f2>" )
+;; nil
+;; ELISP> (kbd "a")
+;; "a"
+;; ELISP> (kbd "<f2>")
+;; [f2]
+
+;; ELISP> (key-binding [f2] )
+;; 2C-command
+;; ELISP> (key-binding [f10] )
+;; menu-bar-open
+;; ELISP> (key-binding [home] )
+;; prelude-move-beginning-of-line
+;; ELISP> (key-binding [down] )
+;; next-line
+
+;; very promising find
+;; (lookup-key (elt (current-active-maps) 11) "\C-a")
+
 (defun print-current-buffer-info ()
   (interactive)
   (let ((the-buffer (current-buffer))
