@@ -33,6 +33,10 @@
 ;; now M-g
 ;; ?\M-g
 
+;; super bindings
+;; ELISP> ?\s-=
+;; 8388669 (#o40000075, #x80003d)
+
 ;; BOOOO got inactive key bibdings as well
 
 ;; perhaps (current-active-maps) is the way to go
