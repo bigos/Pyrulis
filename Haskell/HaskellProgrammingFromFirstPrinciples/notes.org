@@ -11,3 +11,6 @@ specified, no matter what order they appear in.
 
 On the other hand, when
 you enter them one-by-one into the REPL, the order does matter.
+
+** 2.7 Arithemetic functions in Haskell
+p 23

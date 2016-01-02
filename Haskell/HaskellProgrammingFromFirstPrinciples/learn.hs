@@ -1,4 +1,4 @@
--- learn.hs - p 17
+-- learn.hs - p 23
 module Learn where
 -- First, we declare the name of our module so
 -- it can be imported by name in a project.
