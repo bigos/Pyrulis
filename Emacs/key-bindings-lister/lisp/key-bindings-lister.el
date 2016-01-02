@@ -111,6 +111,20 @@
           (set-buffer current)
           content))))
 
+;;; run in ielm like this: (my-list-bindings 11)
+;;; n=11 for global
+(defun my-list-bindings (n)
+  "almost clean way of listing key bindings"
+  (map-keymap
+   (lambda (x y)
+     (print "!!!!!!!!!!!!!!!!!!!!!")
+     (princ x)
+     (if (eq x 'menu-bar)
+         (print "*** skipping menu bar ***")
+       (print y)))
+   (elt (current-active-maps) n )))
+
+
 (provide 'key-bindings-lister)
 
 ;;; key-bindings-lister.el ends here
