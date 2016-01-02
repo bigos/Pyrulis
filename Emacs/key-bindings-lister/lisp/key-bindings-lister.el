@@ -36,6 +36,8 @@
 ;; super bindings
 ;; ELISP> ?\s-=
 ;; 8388669 (#o40000075, #x80003d)
+;; ELISP> (key-binding [8388669])
+;; insert-rails-erb-tag
 
 ;; BOOOO got inactive key bibdings as well
 
