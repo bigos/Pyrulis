@@ -83,6 +83,9 @@
 ;; very promising find
 ;; (lookup-key (elt (current-active-maps) 11) "\C-a")
 
+;; clean way of finding the bindings
+;; (map-keymap (lambda (x y)(print "!!!!!!!!!!!!!!!!!!!!!")(princ x)(print y)) (elt (current-active-maps) 11) )
+
 (defun print-current-buffer-info ()
   (interactive)
   (let ((the-buffer (current-buffer))
