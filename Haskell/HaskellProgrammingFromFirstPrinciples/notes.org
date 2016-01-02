@@ -12,5 +12,57 @@ specified, no matter what order they appear in.
 On the other hand, when
 you enter them one-by-one into the REPL, the order does matter.
 
-** 2.7 Arithemetic functions in Haskell
-p 23
+** 2.7 Arithmetic functions in Haskell
+
+| operator | name      | purpose                               |
+|----------+-----------+---------------------------------------|
+| +        | plus      | addition                              |
+| *        | asterisk  | multiplication                        |
+| /        | slash     | fractional division                   |
+| div      | divide    | integral division, round down         |
+| mod      | modulo    | remainder after division              |
+| quot     | quotient  | integral division, round towards zero |
+| rem      | remainder | remainder after division              |
+
+** 2.7 Negative Numbers
+Prelude> 1000 + (-9)
+991
+
+** Parenthesizing infix functions
+There are times when you want to refer to an infix function without applying
+any arguments, and there are also times when you want to use them as
+prefix operators instead of infix. In both cases you must wrap the operator
+in parentheses.
+
+(+1) is the same addition function but with one argument applied, making
+it return the next argument it’s applied to plus one:
+Prelude> 1 + 2
+Prelude> (+) 1 2
+Prelude> (+1) 2
+
+** 2.10 for quotients and remainders
+(quot x y)*y + (rem x y) == x
+(div x y)*y + (mod x y) == x
+
+** 2.11 Evaluation
+When we talk about reducing an expression, we’re talking about evaluating
+the terms until it reaches its simplest form. Once a term has reached its
+simplest form, we say that it is irreducible or finished evaluating. Usually,
+we call this a value. Haskell uses a non-strict evaluation (sometimes called
+“lazy evaluation”) strategy which defers evaluation of terms until they’re
+forced by other terms referring to them.
+
+** 2.12 Let and where
+We can use let and where to introduce names for expressions.
+
+printInc n = print plusTwo
+where plusTwo = n + 2
+
+same
+
+printInc2 n = let plusTwo = n + 2
+in print plusTwo
+
+*** Intermission: Exercises
+
+p 32
