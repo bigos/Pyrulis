@@ -1,5 +1,7 @@
 * Interesting Notes
 
+* Chapter 2
+
 ** Associativity and Precedence
 pages 13, 14, 15
 infilxl, infixr
@@ -72,5 +74,11 @@ Prelude> (\x -> x) 1
 -- ((lambda (x) x) 1)
 -- 1
 
-** 2.13 Chapter Exercises
-p 35
+** TODO 2.13 Chapter Exercises
+p 35 - finish me
+
+** TODO 2.14 Definitions
+** TODO 2.15 Follow-up resources
+
+
+* TODO Chapter 3
