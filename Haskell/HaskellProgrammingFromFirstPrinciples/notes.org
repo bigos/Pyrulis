@@ -65,4 +65,12 @@ in print plusTwo
 
 *** Intermission: Exercises
 
-p 32
+*** The lambdas beneath let expressions
+Prelude> (\x -> x) 1
+1
+
+-- ((lambda (x) x) 1)
+-- 1
+
+** 2.13 Chapter Exercises
+p 35
