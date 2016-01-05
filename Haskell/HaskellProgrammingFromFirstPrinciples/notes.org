@@ -74,10 +74,39 @@ Prelude> (\x -> x) 1
 -- ((lambda (x) x) 1)
 -- 1
 
-** TODO 2.13 Chapter Exercises
-p 35 - finish me
+** 2.13 Chapter Exercises
+*** $ Operator
+The ($) operator
+is a convenience for when you want to express something with fewer pairs
+of parentheses.
+Example of ($) in some expressions:
+
+Prelude> (2^) $ 2 + 2
+16
+Prelude> (2^) (2 + 2)
+16
+Prelude> (2^) 2 + 2
+6
+
+If you like, a way to understand ($) in words is: “evaluate everything to
+the right of me first.”
+Also note that you can stack up multiple uses of ($) in the same expression.
+For example, this works:
+
+Prelude> (2^) $ (+2) $ 3*2
+256
+
+But this does not:
+Prelude> (2^) $ 2 + 2 $ (*30)
+-- A rather long and ugly type error about trying to
+-- use numbers as if they were functions follows.
+
+We can see for ourselves why this code doesn’t make sense if we examine
+the reduction steps.
 
 ** TODO 2.14 Definitions
+finish me on page 42
+
 ** TODO 2.15 Follow-up resources
 
 

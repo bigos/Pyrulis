@@ -4,6 +4,17 @@ module Learn where
 -- it can be imported by name in a project.
 -- We won't be doing a project of this size
 -- for a while yet.
-x = 10 * 5 + y
-myResult = x * 5
-y = 10
+
+z = 7
+
+x = y^2
+
+waxOn = x*5
+  where x = y*y
+
+-- waxOff x = (x * 3) ^ 2
+waxOff x = (x ^ 2) * 9
+
+triple x = x*3
+
+y = z+8
