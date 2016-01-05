@@ -104,10 +104,10 @@ Prelude> (2^) $ 2 + 2 $ (*30)
 We can see for ourselves why this code doesn’t make sense if we examine
 the reduction steps.
 
-** TODO 2.14 Definitions
-finish me on page 42
-
-** TODO 2.15 Follow-up resources
-
+** 2.14 Definitions
+** 2.15 Follow-up resources
 
 * TODO Chapter 3
+
+** 3.1 Printing strings
+finish me on page 45
