@@ -111,6 +111,7 @@ the reduction steps.
 ** 3.1 Printing strings
 ** 3.2 A first look at types
 
+
 checking value's type in ghci:
 Prelude> :t 'a'
 'a' :: Char
@@ -120,10 +121,36 @@ Prelude> :t 'a'
 Prelude> print "hello world!"
 "hello world!"
 
-*** printing commands discused
+*** printing commands discussed
 print
 putStrLn
 putStr
 
 *** paragraph The main function
-finish me on page 48
+*** String concatenation
+*** Global versus local definitions
+Here’s an example for review:
+
+module GlobalLocal where
+topLevelFunction :: Integer -> Integer
+topLevelFunction x = x + woot + topLevelValue
+where woot :: Integer
+woot = 10
+
+topLevelValue :: Integer
+topLevelValue = 5
+
+In the above, you could import and use topLevelFunction or
+topLevelValue from another module. However, woot is effectively invisible
+outside of topLevelFunction. The where and let clauses in Haskell intro-
+duce local bindings or declarations. To bind or declare something means to
+give an expression a name. You could pass around and use an anonymous
+version of topLevelFunction manually, but giving it a name and reusing
+it by that name is more pleasant and less repetitious. Also note we explic-
+itly declared the type of woot in the where clause. This wasn’t necessary
+(Haskell’s type inference would’ve figured it out fine), but it was done here
+to show you how in case you need to.
+
+*** Intermission: Exercises
+
+p 52
