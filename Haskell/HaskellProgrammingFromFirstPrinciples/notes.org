@@ -1,7 +1,6 @@
 * Interesting Notes
 
 * Chapter 2
-
 ** Associativity and Precedence
 pages 13, 14, 15
 infilxl, infixr
@@ -107,7 +106,24 @@ the reduction steps.
 ** 2.14 Definitions
 ** 2.15 Follow-up resources
 
-* TODO Chapter 3
 
+* TODO Chapter 3
 ** 3.1 Printing strings
-finish me on page 45
+** 3.2 A first look at types
+
+checking value's type in ghci:
+Prelude> :t 'a'
+'a' :: Char
+
+** 3.3 Printing simple strings
+
+Prelude> print "hello world!"
+"hello world!"
+
+*** printing commands discused
+print
+putStrLn
+putStr
+
+*** paragraph The main function
+finish me on page 48
