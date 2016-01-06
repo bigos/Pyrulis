@@ -110,4 +110,10 @@ the reduction steps.
 * TODO Chapter 3
 
 ** 3.1 Printing strings
-finish me on page 45
+** 3.2 A first look at types
+
+
+-- ---------- gap
+*** String concatentation
+*** Global versus local definitions
+then on page 51
