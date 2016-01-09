@@ -155,5 +155,6 @@ to show you how in case you need to.
 
 ** 3.4 Type signatures of concatenation functions
 Everything after the :: is about our types, not our values.
-
-p55 Intermission: Exercises
+*** Intermission: Exercises
+** 3.5 An example of concatenation and scoping
+p 56
