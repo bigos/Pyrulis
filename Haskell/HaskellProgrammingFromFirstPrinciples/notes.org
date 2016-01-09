@@ -154,4 +154,6 @@ to show you how in case you need to.
 *** Intermission: Exercises
 
 ** 3.4 Type signatures of concatenation functions
-p 53
+Everything after the :: is about our types, not our values.
+
+p55 Intermission: Exercises
