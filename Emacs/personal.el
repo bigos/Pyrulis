@@ -1,5 +1,10 @@
 ;;; code:
 
+(defun load-acl2 ()
+  (interactive)
+  (load "~/Documents/acl2-7.1/emacs/emacs-acl2.el")
+  (setq inferior-acl2-program "~/Documents/acl2-7.1/saved_acl2"))
+
  (setq prelude-guru nil) ;; better for slime
 ;; (setq guru-warn-only t) ;; not suitable for slime
 
