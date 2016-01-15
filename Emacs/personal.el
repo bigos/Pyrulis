@@ -19,9 +19,11 @@
 (prelude-require-packages '(buffer-move paredit underwater-theme
                                         rubocop rvm rinari ruby-block
                                         ruby-refactor rspec-mode rails-log-mode
-                                        slime web-mode ))
+                                        ido-ubiquitous helm-projectile
+                                        slime web-mode
+                                        rainbow-delimiters
+                                        helm-descbinds))
 
-(require 'helm-descbinds)
 (helm-descbinds-mode)
 
 ;; magit warning silencing
