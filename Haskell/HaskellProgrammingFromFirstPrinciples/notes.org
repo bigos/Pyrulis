@@ -158,4 +158,5 @@ Everything after the :: is about our types, not our values.
 *** Intermission: Exercises
 ** 3.5 An example of concatenation and scoping
 ** 3.6 More list functions
-p 58
+** 3.7 Chapter Exercises
+p 59
