@@ -1,12 +1,12 @@
 -- print3broken.hs
 module Print3Broken where
 
-printSecond :: IO ()
-printSecond = do
+printSecond :: String -> IO ()
+printSecond greeting = do
   putStrLn greeting
-  main :: IO ()
 
+main :: IO ()
 main = do
   putStrLn greeting
-  printSecond
+  printSecond greeting
   where greeting = "Yarrrrr"

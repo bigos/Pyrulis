@@ -157,4 +157,5 @@ to show you how in case you need to.
 Everything after the :: is about our types, not our values.
 *** Intermission: Exercises
 ** 3.5 An example of concatenation and scoping
-p 56
+** 3.6 More list functions
+p 58
