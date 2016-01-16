@@ -20,8 +20,7 @@
                                         rubocop rvm rinari ruby-block
                                         ruby-refactor rspec-mode rails-log-mode
                                         ido-ubiquitous helm-projectile
-                                        slime web-mode
-                                        rainbow-delimiters
+                                        slime web-mode switch-window
                                         helm-descbinds))
 
 (helm-descbinds-mode)
@@ -49,6 +48,9 @@
 ;;; MacOSX F keys
 (global-set-key (kbd "s-3") 'kmacro-start-macro-or-insert-counter)
 (global-set-key (kbd "s-4") 'kmacro-end-or-call-macro)
+
+;;; switch-window
+(global-set-key (kbd "C-x o") 'switch-window)
 
 ;;; web mode
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
