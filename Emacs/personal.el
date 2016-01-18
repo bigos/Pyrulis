@@ -57,8 +57,10 @@
 (setq web-mode-code-indent-offset 2)
 (setq web-mode-markup-indent-offset 2)
 (setq web-mode-css-indent-offset 2)
+(add-hook 'web-mode-hook #'(lambda () (smartparens-mode -1)))
 
-(fset 'insert-rails-erb-tag [?< ?% ?% ?> left left])
+;;; insert only <% side of erb tag, autopairing wi
+(fset 'insert-rails-erb-tag [?< ?% ])
 (global-set-key (kbd "s-=") 'insert-rails-erb-tag)
 
 ;;; get rid of utf-8 warning in Ruby mode
