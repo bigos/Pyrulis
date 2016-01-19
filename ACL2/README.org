@@ -3,6 +3,6 @@
 ** in the terminal run
 *** ~/Documents/acl2-7.1/saved_acl2
 ** M-x commands
- M-x rainbow-delimiters
- M-x paredit
+ M-x rainbow-delimiters-mode
+ M-x paredit-mode
 ** And you will have some resemblance of REPL
