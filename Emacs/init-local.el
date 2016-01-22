@@ -9,8 +9,13 @@
 (require-package 'rinari)
 (require-package 'helm-descbinds)
 (require-package 'web-mode)
+(require-package 'underwater-theme)
+(require-package 'rubocop)
+(require-package 'rvm)
 
 (helm-descbinds-mode)
+;;; disable paredit everywhere mode
+(paredit-everywhere-mode -1)
 
 (require 'color)
 (defun hsl-to-hex (h s l)
