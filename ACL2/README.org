@@ -1,0 +1,8 @@
+* Starting in Emacs
+** M-x load-acl2
+** in the terminal run
+*** ~/Documents/acl2-7.1/saved_acl2
+** M-x commands
+ M-x rainbow-delimiters-mode
+ M-x paredit-mode
+** And you will have some resemblance of REPL
