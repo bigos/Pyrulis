@@ -15,7 +15,7 @@
 
 (helm-descbinds-mode)
 ;;; disable paredit everywhere mode
-(add-hook 'minibuffer-setup-hook (lambda () (paredit-mode 0)))
+(add-hook 'minibuffer-setup-hook (lambda () (electric-pair-mode 0)))
 
 
 (require 'color)
