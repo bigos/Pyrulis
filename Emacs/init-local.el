@@ -15,7 +15,8 @@
 
 (helm-descbinds-mode)
 ;;; disable paredit everywhere mode
-(paredit-everywhere-mode -1)
+(add-hook 'minibuffer-setup-hook (lambda () (paredit-mode 0)))
+
 
 (require 'color)
 (defun hsl-to-hex (h s l)
