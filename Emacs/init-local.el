@@ -12,11 +12,14 @@
 (require-package 'underwater-theme)
 (require-package 'rubocop)
 (require-package 'rvm)
+(require-package 'neotree)
 
 (helm-descbinds-mode)
 ;;; disable paredit everywhere mode
 (add-hook 'minibuffer-setup-hook (lambda () (electric-pair-mode 0)))
 
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
 
 (require 'color)
 (defun hsl-to-hex (h s l)
