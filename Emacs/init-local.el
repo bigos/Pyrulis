@@ -21,6 +21,14 @@
 (require 'neotree)
 (global-set-key [f8] 'neotree-toggle)
 
+
+;;; MacOSX style shortcuts
+(global-set-key (kbd "s-z") 'undo)
+(global-set-key (kbd "s-x") 'clipboard-kill-region)
+(global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
+(global-set-key (kbd "s-v") 'clipboard-yank)
+
+
 (require 'color)
 (defun hsl-to-hex (h s l)
   (let (rgb)
