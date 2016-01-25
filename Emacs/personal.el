@@ -21,9 +21,12 @@
                                         ruby-refactor rspec-mode rails-log-mode
                                         ido-ubiquitous helm-projectile
                                         slime web-mode switch-window
-                                        helm-descbinds))
+                                        helm-descbinds neotree))
 
 (helm-descbinds-mode)
+
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
 
 ;; magit warning silencing
 (setq magit-auto-revert-mode nil)
