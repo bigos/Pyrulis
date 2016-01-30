@@ -107,7 +107,7 @@ the reduction steps.
 ** 2.15 Follow-up resources
 
 
-* TODO Chapter 3
+* Chapter 3
 ** 3.1 Printing strings
 ** 3.2 A first look at types
 
@@ -160,4 +160,9 @@ Everything after the :: is about our types, not our values.
 ** 3.6 More list functions
 ** 3.7 Chapter Exercises
 ** 3.8 Definitions
-p 64
+
+
+* new book
+
+** 1.1 All you need is Lambda
+finished all you need is lambda
