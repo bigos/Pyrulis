@@ -6,3 +6,12 @@
  M-x rainbow-delimiters-mode
  M-x paredit-mode
 ** And you will have some resemblance of REPL
+
+* Basic terminology
+
+** Axiom
+A basic assumption presumed to be true
+** Theorem
+A theorem is a statement that can be demonstrated to be true
+** Lemma
+A short theorem used in proving a larger theorem
