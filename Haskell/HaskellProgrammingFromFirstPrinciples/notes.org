@@ -168,10 +168,51 @@ Everything after the :: is about our types, not our values.
 finished all you need is lambda
 
 * Chapter 4
-
 ** 4.1 Basic Datatypes
-
 ** 4.2 Anatomy of a data declaration
+** 4.3 Numeric types
 
-exercises
-p122
+*** Integral
+**** Int
+has minimum and maximum
+**** Integer
+arbitrarily large
+
+**** minBound maxBound functions
+*** Fractional
+**** Float
+***** single precision
+***** violates assumptions
+***** generally, not for use in business applications
+
+**** Double
+***** twice as many bits as Float
+
+**** Rational
+***** arbitrarily precise
+***** not as efficient as Scientific
+
+**** Scientific
+***** space efficient
+***** almost arbitrary precision
+***** exponent as Int
+****** potential, though unlikely maximum limit
+
+*** all are instances of typeclass Num
+*** typeclasses add functionality to types
+**** Num tepeclass provides + - * and other operators
+**** any type that is instance of Num can be used with those operators
+*** typeclass constraint =>
+**** (/) :: Fractional a => a -> a -> a
+**** The notation Fractional a => denotes a typeclass constraint
+This type information is telling us that whatever type of number a turns
+out to be, it must be a type that has an instance of the Fractional typeclass.
+
+So (+) and other functions
+from the Num typeclass can be used with Fractional numbers, but functions
+from the Fractional typeclass cannot be used with all instances of Num
+
+
+** 4.4 Comparing values
+
+* continue on page 128
