@@ -215,4 +215,5 @@ from the Fractional typeclass cannot be used with all instances of Num
 
 ** 4.4 Comparing values
 
-* continue on page 128
+* continue on page 132
+Go on and Bool me
