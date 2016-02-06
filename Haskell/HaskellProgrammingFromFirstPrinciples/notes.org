@@ -219,4 +219,6 @@ from the Fractional typeclass cannot be used with all instances of Num
 
 ** 4.6 Lists
 
-* continue on page 139
+** 4.7 Exercises
+
+* continue on page 140
