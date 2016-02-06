@@ -217,5 +217,6 @@ from the Fractional typeclass cannot be used with all instances of Num
 
 ** 4.5 Tuples
 
-* continue on page 137
-Tuples
+** 4.6 Lists
+
+* continue on page 139
