@@ -221,4 +221,5 @@ from the Fractional typeclass cannot be used with all instances of Num
 
 ** 4.7 Exercises
 
-* continue on page 140
+* continue on page 143
+excercise 2
