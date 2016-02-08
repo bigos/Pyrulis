@@ -225,5 +225,8 @@ made sense on page 149
 ** 4.8 Definitions
 ** 4.9 Answers
 * Chapter 5
-** 5.1Types
-* continue on page 152
+** 5.1 Types
+** 5.2 What are types
+** 5.3 Querying and Reading Types
+
+* continue on page 155
