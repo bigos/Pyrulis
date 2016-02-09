@@ -228,5 +228,6 @@ made sense on page 149
 ** 5.1 Types
 ** 5.2 What are types
 ** 5.3 Querying and Reading Types
+** 5.4 Typeclass-constrained variables
 
-* continue on page 155
+* continue on page 158
