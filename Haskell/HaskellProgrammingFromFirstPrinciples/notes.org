@@ -231,4 +231,26 @@ made sense on page 149
 ** 5.4 Typeclass-constrained variables
 ** 5.5 Currying
 
+As stated earlier, arguments (plural) is a shorthand for the truth in Haskell.
+All functions in Haskell take one argument and return one result.
+
+(+) :: Num a => a -> a -> a
+      /    1   /   2   / 3 /
+
+1. Typeclass constraint saying that a must have an instance of Num.
+
+2. The boundaries of 2 demarcate what you might call the two “arguments” to
+the function (+), but really, all functions in Haskell take one argument and
+return one result.
+
+This is because functions in Haskell are nested like
+Matryoshka dolls in order to accept “multiple” arguments. The nesting is more
+apparent when one realizes that (->) is the type constructor for functions and
+that a -> a -> a represents successive function applications, each taking one
+argument and returning one result. The difference is that the function at the
+outermost layer is actually returning another function that accepts the next
+argument. This is called currying.
+
+3. The result type for this function.
+
 * continue on page 161
