@@ -253,4 +253,4 @@ argument. This is called currying.
 
 3. The result type for this function.
 
-* continue on page 161
+* continue on page 163
