@@ -230,9 +230,14 @@ made sense on page 149
 ** 5.3 Querying and Reading Types
 ** 5.4 Typeclass-constrained variables
 ** 5.5 Currying
+*** my Haskell clarification notes
+
+-- p161
 
 As stated earlier, arguments (plural) is a shorthand for the truth in Haskell.
 All functions in Haskell take one argument and return one result.
+
+-- p162
 
 (+) :: Num a => a -> a -> a
       /    1   /   2   / 3 /
@@ -253,4 +258,93 @@ argument. This is called currying.
 
 3. The result type for this function.
 
-* continue on page 163
+-- p163
+
+You can nest more lambdas than two, of course, but the process
+is the same: one argument, one result, even though that result may be a
+function awaiting application to another argument.
+
+--
+
+Let’s kick around currying a bit to see what it does for us:
+
+addStuff :: Integer -> Integer -> Integer
+addStuff a b = a + b + 5
+
+So, addStuff appears to take two Integer arguments and return an Integer
+result. But after loading that in GHCi we see that it is taking one argument
+and returning a function that takes one argument and returns one result:
+
+-- p 164
+
+The ability to apply only some of a function’s arguments is described as
+partial application. This lets us reuse addStuff and create a new function
+from it with one of the arguments applied.
+
+When one considers that (->) is a type constructor and associates to the
+right, this becomes more clear.
+
+addStuff :: Integer -> Integer -> Integer
+-- but with explicit parenthesization
+addStuff :: Integer -> (Integer -> Integer)
+
+The way you can read the explicitly parenthesized type for addStuff is, “I
+take an Integer argument and return a function that takes an Integer and
+returns an Integer”. You saw this in action when we partially applied the
+addStuff function above.
+
+*** Binding variables to types
+
+-- p164
+Let’s next look at an example of the effect that binding arguments has on
+types. We will declare a function with a number of arguments that share
+the same type, but don’t get used:
+
+-- p165
+funcIgnoresArgs :: a -> a -> a -> String
+funcIgnoresArgs x y z = "Blah"
+Then we load this and apply the first argument in a few different ways to
+see what happens:
+Prelude> :t funcIgnoresArgs
+
+--
+The function a
+-> a -> a -> String is only conceptually, but not actually one function.
+Technically it’s 3 functions nested one inside another. We could read it as a
+-> (a -> (a -> String)). One way to know how many function objects
+there are is by their type constructors, and (->) is the type constructor for
+functions.
+
+Let’s run this same function through some drills to see what is
+meant.
+-- `undefined' can pretend to be any type
+-- put differently, inhabits all types
+Prelude> :t undefined
+undefined :: t
+Prelude> let u = undefined
+Prelude> :t funcIgnoresArgs u
+funcIgnoresArgs undefined :: a -> a -> String
+Prelude> :t funcIgnoresArgs u u
+funcIgnoresArgs u u :: a -> String
+Prelude> :t funcIgnoresArgs u u u
+funcIgnoresArgs u u u :: String
+Prelude> funcIgnoresArgs u u u
+"Blah"CHAPTER 5.
+
+*** Manual currying and Uncurry
+Haskell is curried by default, but you can uncurry functions. “Uncurrying”
+means un-nesting the functions and replacing the two functions with a tuple
+of two values (these would be the two values you want to use as arguments).
+
+-- p168
+examples on page 168
+
+This means functions
+that seem to accept multiple arguments such as with a -> a -> a -> a
+are really higher-order functions: they yield more function values as each
+argument is applied until there are no more (->) type constructors and it
+terminates in a non-function value.
+
+*** Intermission: Exercises
+
+* continue on page 168
