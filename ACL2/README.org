@@ -6,6 +6,13 @@
  M-x rainbow-delimiters-mode
  M-x paredit-mode
 ** And you will have some resemblance of REPL
+** using The Little Prover
+*** git repo
+https://github.com/the-little-prover/j-bob
+
+*** to load a script
+(ld "~/Programming/j-bob/acl2/j-bob-lang.lisp")
+
 
 * Basic terminology
 
