@@ -348,4 +348,4 @@ terminates in a non-function value.
 *** Intermission: Exercises
 
 ** 5.6 Polymorphism
-* continue on page 171
+* continue on page 173
