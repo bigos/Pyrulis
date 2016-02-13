@@ -13,6 +13,13 @@ https://github.com/the-little-prover/j-bob
 *** to load a script
 (ld "~/Programming/j-bob/acl2/j-bob-lang.lisp")
 
+*** more
+;; Load the J-Bob language:
+(ld "~/Programming/j-bob/acl2/j-bob-lang.lisp")
+;; Load J-Bob, our little proof assistant:
+(ld "~/Programming/j-bob/acl2/j-bob.lisp")
+;; Load the transcript of all proofs in the book:
+(ld "~/Programming/j-bob/acl2/little-prover.lisp")
 
 * Basic terminology
 
