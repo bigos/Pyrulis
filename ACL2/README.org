@@ -24,8 +24,12 @@ https://github.com/the-little-prover/j-bob
 * Basic terminology
 
 ** Axiom
-A basic assumption presumed to be true
+   A basic assumption presumed to be true
 ** Theorem
-A theorem is a statement that can be demonstrated to be true
+   A theorem is a statement that can be demonstrated to be true
 ** Lemma
-A short theorem used in proving a larger theorem
+   A short theorem used in proving a larger theorem
+** Proof
+   A sequence of rewriting steps that ends in 't
+
+   If we can rewrite a claim step by step to 't then the claim is a Theorem.

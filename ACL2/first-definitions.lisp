@@ -8,4 +8,5 @@
 (defun second-of (x)
   (car (cdr x)))
 
-(dethm first-of-pair (a b))
+(dethm first-of-pair (a b)
+       (equal (first-of (pair a b)) a))
