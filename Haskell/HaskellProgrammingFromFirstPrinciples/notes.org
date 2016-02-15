@@ -350,6 +350,8 @@ terminates in a non-function value.
 ** 5.6 Polymorphism
 
 *** Polymorphic constants
+fromIntegral
 
+** 5.7 Type inference
 
-* continue on page 175
+* continue on page 177
