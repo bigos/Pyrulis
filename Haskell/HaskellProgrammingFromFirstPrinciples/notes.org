@@ -353,5 +353,14 @@ terminates in a non-function value.
 fromIntegral
 
 ** 5.7 Type inference
+Haskell will infer the most generally applicable (polymorphic) type that
+is still correct.
 
-* continue on page 177
+As you mature as a Haskell programmer, you’ll find this is principally useful
+for when you’re still figuring out new code rather than for code that is “done”.
+Once your program is “done,” you will certainly know the types of all the
+functions, and it’s considered good practice to explicitly declare them.
+
+*** Intermission: Exercises
+
+* continue on page 179
