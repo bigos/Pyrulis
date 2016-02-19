@@ -363,4 +363,23 @@ functions, and it’s considered good practice to explicitly declare them.
 
 *** Intermission: Exercises
 
-* continue on page 179
+** 5.8 Asserting types for declarations
+
+
+-- normal code type declaration:
+-- declaration of triple's type
+triple :: Integer -> Integer
+-- declaration of the function
+triple x = x * 3
+
+-- where type declaration:
+It is possible, though uncommon, to declare types locally with let and
+where clauses. Here’s an example of assigning a type within a where clause:
+  triple x = tripleItYo x
+    where tripleItYo :: Integer -> Integer
+      tripleItYo y = y * 3
+
+
+** 5.9 Chapter Exercises
+
+* continue on page 183
