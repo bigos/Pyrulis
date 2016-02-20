@@ -11,10 +11,10 @@
               ,@rest)
             (declaim (ftype (function ,(butlast types) ,@(last types)) ,name)))))
 
-(defn my-mod (integer -> integer -> integer) (a b)
+(defn my-mod (integer -> integer -> symbol) (a b)  ;changing result to symbol doesn't warn you
   (mod a b))
 
 (defun call-my-mod ()
-  (my-mod 7 "three"))
+  (my-mod 7 3))                         ;passing correct results
 
 (call-my-mod)
