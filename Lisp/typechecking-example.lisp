@@ -15,6 +15,7 @@
   (princ (one-plus-x "two")))
 
 ;; also check
+;;; first following example misses result type errors
 ;; http://ahungry.com/blog/2015-07-10-Type-Safety-and-Lack-Thereof.html
 ;; and
 ;; http://nklein.com/2009/06/optimizing-lisp-some-more/

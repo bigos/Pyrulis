@@ -1,6 +1,7 @@
 ;; compilation stage type warnings
 ;; $ sbcl --eval '(compile-file "./mod-safety.lisp")'
 
+;;; this macro does not handle result types well
 ;; (defmacro defn (name types args &rest rest)
 ;;   "Type safe defun"
 ;;   (let ((types (remove-if
