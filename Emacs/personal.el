@@ -32,7 +32,7 @@
 (setq magit-auto-revert-mode nil)
 (setq magit-last-seen-setup-instructions "1.4.0")
 
-(setq whitespace-line '(t (:background "gray16")))
+(setq whitespace-line '(t (:background "gray13")))
 
 ;; Allow hash to be entered on MacOSX
 (fset 'insertPound "#")
@@ -98,17 +98,21 @@
                       (nth 2 rgb))))
 
 (defun bracket-colors ()
-  (let (hexcolors)
+  (let ((hexcolors)
+        (dark-val (cons 0.65 0.55))
+        (light-val (cons 0.35 0.40)))
+
     (concatenate 'list
                  (dolist (n'(.71 .3 .11 .01))
-                   (push (hsl-to-hex (+ n 0.0) 1.0 0.45) hexcolors))
+                   (push (hsl-to-hex (+ n 0.0) 1.0 (car dark-val)) hexcolors))
                  (dolist (n '(.81 .49 .17 .05))
-                   (push (hsl-to-hex (+ n 0.0) 1.0 0.35) hexcolors)))
+                   (push (hsl-to-hex (+ n 0.0) 1.0 (cdr dark-val)) hexcolors)))
     (reverse hexcolors)))
 
 
 (defun colorise-brackets ()
   (require 'rainbow-delimiters)
+  (print (bracket-colors))
   (custom-set-faces
    ;; emacs colours
    ;; http://raebear.net/comp/emacscolors.html
