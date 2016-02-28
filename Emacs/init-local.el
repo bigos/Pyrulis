@@ -28,6 +28,17 @@
 (global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
 (global-set-key (kbd "s-v") 'clipboard-yank)
 
+(load (expand-file-name "C:/Users/Jacek/quicklisp/slime-helper.el"))
+;; (setq inferior-lisp-program "sbcl")
+(slime-setup '(slime-repl slime-fancy))
+
+;; (setq slime-default-lisp 'sbcl)
+(setq slime-lisp-implementations
+      '((ccl ("~/path/to/ccl/wx86cl"))
+        (sbcl ("c:/Program Files/Steel Bank Common Lisp/1.3.2/sbcl.exe"))) ; giving a command arg
+      slime-default-lisp 'sbcl)
+
+;; (setq slime-default-lisp "C:/Program Files/Steel Bank Common Lisp/1.3.2/sbcl.exe --core sbcl.core")
 
 (require 'color)
 (defun hsl-to-hex (h s l)
@@ -66,7 +77,7 @@
    `(highlight ((t (:foreground "#ff0000" :background "grey"))))
    ))
 
-;; (colorise-brackets)
+(colorise-brackets)
 
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'prog-mode-hook 'linum-mode)
