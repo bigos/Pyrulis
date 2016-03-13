@@ -382,6 +382,5 @@ where clauses. Here’s an example of assigning a type within a where clause:
 
 ** 5.9 Chapter Exercises
 
-*** page 185 Does it compile?
-
-* continue on page 185
+*** page 188 Fix it
+* continue on page 188

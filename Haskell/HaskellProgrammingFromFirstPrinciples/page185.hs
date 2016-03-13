@@ -28,3 +28,28 @@
 
 -- page 187
 -- Given a type, write a function
+
+-- have no idea how to write these exercices
+i :: a -> a
+i x = x
+
+c :: a -> b -> a
+c a b = concat [a, [b]]
+
+c'' :: b -> a -> b
+c'' b a = concat [b, [a]]
+
+c' :: a -> b -> b
+c' = undefined
+
+r :: [a] -> [a]
+r = undefined
+
+co :: (b -> c) -> (a -> b) -> (a -> c)
+co = undefined
+
+a :: (a -> c) -> a -> a
+a = undefined
+
+a' :: (a -> b) -> a -> b
+a' = undefined
