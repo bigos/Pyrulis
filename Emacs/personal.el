@@ -25,14 +25,14 @@
 
 (helm-descbinds-mode)
 
-(require 'neotree)
+
 (global-set-key [f8] 'neotree-toggle)
 
 ;; magit warning silencing
 (setq magit-auto-revert-mode nil)
 (setq magit-last-seen-setup-instructions "1.4.0")
 
-(setq whitespace-line '(t (:background "gray16")))
+(setq whitespace-line '(t (:background "gray13")))
 
 ;; Allow hash to be entered on MacOSX
 (fset 'insertPound "#")
@@ -98,17 +98,21 @@
                       (nth 2 rgb))))
 
 (defun bracket-colors ()
-  (let (hexcolors)
+  (let ((hexcolors)
+        (dark-val (cons 0.65 0.55))
+        (light-val (cons 0.35 0.40)))
+
     (concatenate 'list
                  (dolist (n'(.71 .3 .11 .01))
-                   (push (hsl-to-hex (+ n 0.0) 1.0 0.65) hexcolors))
+                   (push (hsl-to-hex (+ n 0.0) 1.0 (car dark-val)) hexcolors))
                  (dolist (n '(.81 .49 .17 .05))
-                   (push (hsl-to-hex (+ n 0.0) 1.0 0.55) hexcolors)))
+                   (push (hsl-to-hex (+ n 0.0) 1.0 (cdr dark-val)) hexcolors)))
     (reverse hexcolors)))
 
 
 (defun colorise-brackets ()
   (require 'rainbow-delimiters)
+  (print (bracket-colors))
   (custom-set-faces
    ;; emacs colours
    ;; http://raebear.net/comp/emacscolors.html
@@ -134,7 +138,7 @@
 ;; moving buffers
 (require 'buffer-move)
 ;; need to find unused shortcuts for moving up and down
-(global-set-key (kbd "<M-s-up>")     'buf-move-up)
+(global-set-key (kbd "<M-globalhls-up>")     'buf-move-up)
 (global-set-key (kbd "<M-s-down>")   'buf-move-down)
 (global-set-key (kbd "<M-s-left>")   'buf-move-left)
 (global-set-key (kbd "<M-s-right>")  'buf-move-right)
