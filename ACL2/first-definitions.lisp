@@ -1,4 +1,7 @@
 ;;; definitions on page 33
+
+(in-package "ACL2")
+
 (defun pair (x y)
   (cons x (cons y '())))
 
