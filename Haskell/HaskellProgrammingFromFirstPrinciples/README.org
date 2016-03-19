@@ -1,7 +1,1 @@
 Haskell Programming from first principles
-
-* Exercises
-
-* Bookmarks
-page 17
-Troubleshooting

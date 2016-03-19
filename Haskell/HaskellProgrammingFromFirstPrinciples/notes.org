@@ -379,8 +379,7 @@ where clauses. Here’s an example of assigning a type within a where clause:
     where tripleItYo :: Integer -> Integer
       tripleItYo y = y * 3
 
-
 ** 5.9 Chapter Exercises
+** 5.10 Definitions
 
-*** page 189 Type-Kwon-Do
-* continue on page 189
+* continue on page 192
