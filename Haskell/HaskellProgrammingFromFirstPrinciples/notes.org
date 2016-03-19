@@ -381,5 +381,7 @@ where clauses. Here’s an example of assigning a type within a where clause:
 
 ** 5.9 Chapter Exercises
 ** 5.10 Definitions
+* Chapter 6
+** 6.1 Typeclasses
 
-* continue on page 192
+* continue on page 197
