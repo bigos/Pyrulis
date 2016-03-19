@@ -1,19 +1,22 @@
 * Starting in Emacs
 ** M-x load-acl2
 ** in the terminal run
-*** ~/Documents/acl2-7.1/saved_acl2
+*** ~/Documents/acl2-7.2/saved_acl2
 ** M-x commands
  M-x rainbow-delimiters-mode
  M-x paredit-mode
 ** And you will have some resemblance of REPL
-** using The Little Prover
-*** git repo
+* using The Little Prover
+** git repo
 https://github.com/the-little-prover/j-bob
 
-*** to load a script
+** to load a script
 (ld "~/Programming/j-bob/acl2/j-bob-lang.lisp")
 
-*** more
+** to load my example code
+(ld "~/Programming/Pyrulis/ACL2/first-definitions.lisp")
+
+** more
 ;; Load the J-Bob language:
 (ld "~/Programming/j-bob/acl2/j-bob-lang.lisp")
 ;; Load J-Bob, our little proof assistant:

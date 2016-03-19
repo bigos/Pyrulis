@@ -1,5 +1,5 @@
 ;;; even with safety set to 0 sbcl gives warning
-(declaim (optimize (speed 3) (safety 0) (space 0) (debug 0)))
+(declaim (optimize (speed 3) (safety 3) (space 0) (debug 0)))
 
 ;;; lisp version of type signature
 (declaim (ftype (function (integer) (integer))
