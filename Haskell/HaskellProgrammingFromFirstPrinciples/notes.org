@@ -383,5 +383,20 @@ where clauses. Here’s an example of assigning a type within a where clause:
 ** 5.10 Definitions
 * Chapter 6
 ** 6.1 Typeclasses
+Eq, Num, Ord, Enum, Show
+** 6.2 What are typeclasses?
+Typeclasses and types in Haskell are, in a sense, opposites. Where a declara-
+tion of a type defines how that type in particular is created, a declaration of
+a typeclass defines how a set of types are *consumed* or used in computations.
 
-* continue on page 197
+Simply put, typeclasses allow us to generalize over a set of types in order to
+define and execute a standard set of features for those types. For example,
+the ability to test values for equality is useful, and we’d want to be able to
+use that function for data of various types. In fact, we can test any data
+that has a type that implements the typeclass known as Eq for equality. We
+do not need separate equality functions for each different type of data; as
+long as our datatype implements, or instantiates, the Eq typeclass, we can
+use the standard functions.
+** 6.3 Back to Bool
+** 6.4 Eq
+* continue on page 199
