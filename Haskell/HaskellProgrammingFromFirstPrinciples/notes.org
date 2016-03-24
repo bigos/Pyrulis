@@ -399,4 +399,6 @@ long as our datatype implements, or instantiates, the Eq typeclass, we can
 use the standard functions.
 ** 6.3 Back to Bool
 ** 6.4 Eq
-* continue on page 199
+** 6.5 Num
+** 6.6 Type-defaulting typeclasses
+* continue on page 182
