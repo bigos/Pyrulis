@@ -401,4 +401,21 @@ use the standard functions.
 ** 6.4 Eq
 ** 6.5 Num
 ** 6.6 Type-defaulting typeclasses
-* continue on page 182
+Using the type assignment operator :: we can assign a more specific
+type and circumvent the default to Double:
+Prelude> 1 / 2 :: Float
+0.5
+Prelude> 1 / 2 :: Double
+0.5
+Prelude> 1 / 2 :: Rational
+1 % 2
+
+some gap
+
+The “Expected type” and the “Actual type” don’t match, and the actual
+type is more concrete than the expected type. Types can be made
+more specific, but not more general or polymorphic.
+
+** 6.7 Ord
+
+* continue on page 186 new book version
