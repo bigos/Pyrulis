@@ -418,4 +418,5 @@ more specific, but not more general or polymorphic.
 
 ** 6.7 Ord
 
-* continue on page 186 new book version
+** Intermission: Exercises
+* continue on page 188
