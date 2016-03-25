@@ -417,6 +417,6 @@ type is more concrete than the expected type. Types can be made
 more specific, but not more general or polymorphic.
 
 ** 6.7 Ord
+** 6.8 Enum
 
-** Intermission: Exercises
-* continue on page 188
+* continue on page 189
