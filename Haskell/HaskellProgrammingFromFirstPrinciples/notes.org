@@ -418,5 +418,16 @@ more specific, but not more general or polymorphic.
 
 ** 6.7 Ord
 ** 6.8 Enum
+** 6.9 Show
+Show is a typeclass that provides for the creating of human-readable
+string representations of structured data. GHCi uses Show to create
+String values it can print in the terminal.
 
-* continue on page 189
+Show is not a serialization format. Serialization is how data is rendered
+to a textual or binary format for persistence or communicating with
+other computers over a network. An example of persistence would
+be saving data to a file on disk. Show is not suitable for any of these
+purposes; it’s expressly for human readability.
+
+*** Printing and side effects
+* continue on page 191
