@@ -430,4 +430,29 @@ be saving data to a file on disk. Show is not suitable for any of these
 purposes; it’s expressly for human readability.
 
 *** Printing and side effects
-* continue on page 191
+
+empty tuple result of IO action
+
+there. The simplest way to think about the difference between a value
+with a typical type like String and the same type but from IO such
+as with IO String is that IO actions are formulas. When you have
+a value of type IO String it’s more of a means of producing a String,
+which may require performing side effects along the way before you
+get your String value.
+
+*** Working with Show
+
+Prelude> data Mood = Blah deriving Show
+
+*** Typeclass deriving
+
+Typeclass instances we can magically derive are
+Eq , Ord , Enum , Bounded , Read , and Show , though there are some con-
+straints on deriving some of these. Deriving means you don’t have to
+manually write instances of these typeclasses for each new datatype
+you create. We’ll address this a bit more in the chapter on Algebraic
+Datatypes.
+
+** 6.Read
+
+* continue on page 194
