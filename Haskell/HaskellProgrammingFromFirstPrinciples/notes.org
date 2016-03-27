@@ -453,6 +453,15 @@ manually write instances of these typeclasses for each new datatype
 you create. We’ll address this a bit more in the chapter on Algebraic
 Datatypes.
 
-** 6.Read
+** 6.10 Read
 
-* continue on page 194
+Read takes strings and turns them into things.
+Like Show, it’s not a serialization format. So, what’s the problem? We
+gave that dire warning against using Read earlier in the chapter, but
+this doesn’t seem like a big deal, right?
+The problem is in the String type. A String is a list, which could be
+empty in some cases, or stretch on to infinity in other cases.
+
+** 6.11 Instances are dispatched by type
+
+* continue on page 195
