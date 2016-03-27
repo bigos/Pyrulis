@@ -464,4 +464,35 @@ empty in some cases, or stretch on to infinity in other cases.
 
 ** 6.11 Instances are dispatched by type
 
-* continue on page 195
+We’ve said a few times, without explaining it, that typeclasses are
+dispatched by type, but it’s an important thing to understand. Type-
+classes are defined by the set of operations and values all instances will
+provide. The typeclass instances are unique pairings of the typeclass
+an instance is being defined for and the type it’s for.
+
+** 6.12 Writing typeclass instances
+
+*** definition of trivial
+with numbered explanation
+
+Partial functions — not so strange danger
+We need to take care to avoid partial functions in general in Haskell,
+but this must be especially kept in mind when we have a type with
+multiple “cases” such as DayOf Week.
+
+Runtime Exception!!!
+
+Well, that sucks. We definitely didn’t start learning Haskell because
+we wanted stuff to blow up at runtime. So what gives?
+The good news is there is something you can do to get more help
+from GHC on this. If we turn all warnings on with the Wall flag in
+our REPL or in our build configuration (such as with Cabal — more
+on that later), then GHC will let us know when we’re not handling all cases
+
+
+all warnings in REPL
+Prelude> :set -Wall
+
+*** Intermission: Exercises
+
+* continue on page 206
