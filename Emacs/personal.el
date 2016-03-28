@@ -2,8 +2,8 @@
 
 (defun load-acl2 ()
   (interactive)
-  (load "~/Documents/acl2-7.1/emacs/emacs-acl2.el")
-  (setq inferior-acl2-program "~/Documents/acl2-7.1/saved_acl2"))
+  (load "~/Documents/acl2-7.2/emacs/emacs-acl2.el")
+  (setq inferior-acl2-program "~/Documents/acl2-7.2/saved_acl2"))
 
  (setq prelude-guru nil) ;; better for slime
 ;; (setq guru-warn-only t) ;; not suitable for slime
@@ -21,18 +21,17 @@
                                         ruby-refactor rspec-mode rails-log-mode
                                         ido-ubiquitous helm-projectile
                                         slime web-mode switch-window
-                                        helm-descbinds neotree))
+                                        helm-descbinds load-theme-buffer-local))
 
 (helm-descbinds-mode)
-
-
-(global-set-key [f8] 'neotree-toggle)
+(require 'rubocop)
+(require 'load-theme-buffer-local)
 
 ;; magit warning silencing
 (setq magit-auto-revert-mode nil)
 (setq magit-last-seen-setup-instructions "1.4.0")
 
-(setq whitespace-line '(t (:background "gray13")))
+(setq whitespace-line '(t (:background "gray16")))
 
 ;; Allow hash to be entered on MacOSX
 (fset 'insertPound "#")
@@ -71,12 +70,22 @@
 
 (load (expand-file-name "~/quicklisp/slime-helper.el"))
 (setq inferior-lisp-program "sbcl")
+
+;; (setq inferior-lisp-program "sbcl  --dynamic-space-size 16000 --control-stack-size 64 --core \"/home/jacek/Documents/acl2-7.2/saved_acl2.core\" --end-runtime-options --no-userinit --eval '(acl2::sbcl-restart)'  ")
+
 (slime-setup '(slime-repl slime-fancy))
-(setq slime-default-lisp 'sbcl)
+;; (setq slime-default-lisp 'sbcl)
+
+(defun repl-theme-fix ()
+  "Fix REPL theme issues concerning the red annoying text."
+  (interactive)
+  (print "going to change repl buffer")
+  (print (current-buffer))
+  (load-theme-buffer-local 'hamburg (current-buffer)))
 
 (defun swap-paredit ()
-  (paredit-mode +1)
-  (smartparens-mode -1))
+  (smartparens-mode -1)
+  (paredit-mode +1))
 
 (autoload 'paredit-mode "paredit"
   "Minor mode for pseudo-structurally editing Lisp code." t)
@@ -89,6 +98,7 @@
 (add-hook 'lfe-mode-hook (lambda () (swap-paredit)))
 (add-hook 'lfe-mode-hook (lambda () (rainbow-delimiters-mode +1)))
 
+
 (require 'color)
 (defun hsl-to-hex (h s l)
   (let (rgb)
@@ -98,21 +108,17 @@
                       (nth 2 rgb))))
 
 (defun bracket-colors ()
-  (let ((hexcolors)
-        (dark-val (cons 0.65 0.55))
-        (light-val (cons 0.35 0.40)))
-
+  (let (hexcolors)
     (concatenate 'list
                  (dolist (n'(.71 .3 .11 .01))
-                   (push (hsl-to-hex (+ n 0.0) 1.0 (car dark-val)) hexcolors))
+                   (push (hsl-to-hex (+ n 0.0) 1.0 0.65) hexcolors))
                  (dolist (n '(.81 .49 .17 .05))
-                   (push (hsl-to-hex (+ n 0.0) 1.0 (cdr dark-val)) hexcolors)))
+                   (push (hsl-to-hex (+ n 0.0) 1.0 0.55) hexcolors)))
     (reverse hexcolors)))
 
 
 (defun colorise-brackets ()
   (require 'rainbow-delimiters)
-  (print (bracket-colors))
   (custom-set-faces
    ;; emacs colours
    ;; http://raebear.net/comp/emacscolors.html
@@ -138,7 +144,7 @@
 ;; moving buffers
 (require 'buffer-move)
 ;; need to find unused shortcuts for moving up and down
-(global-set-key (kbd "<M-globalhls-up>")     'buf-move-up)
+(global-set-key (kbd "<M-s-up>")     'buf-move-up)
 (global-set-key (kbd "<M-s-down>")   'buf-move-down)
 (global-set-key (kbd "<M-s-left>")   'buf-move-left)
 (global-set-key (kbd "<M-s-right>")  'buf-move-right)
