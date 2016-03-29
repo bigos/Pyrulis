@@ -71,17 +71,8 @@
 (load (expand-file-name "~/quicklisp/slime-helper.el"))
 (setq inferior-lisp-program "sbcl")
 
-;; (setq inferior-lisp-program "sbcl  --dynamic-space-size 16000 --control-stack-size 64 --core \"/home/jacek/Documents/acl2-7.2/saved_acl2.core\" --end-runtime-options --no-userinit --eval '(acl2::sbcl-restart)'  ")
-
 (slime-setup '(slime-repl slime-fancy))
 ;; (setq slime-default-lisp 'sbcl)
-
-(defun repl-theme-fix ()
-  "Fix REPL theme issues concerning the red annoying text."
-  (interactive)
-  (print "going to change repl buffer")
-  (print (current-buffer))
-  (load-theme-buffer-local 'hamburg (current-buffer)))
 
 (defun swap-paredit ()
   (smartparens-mode -1)
@@ -108,22 +99,28 @@
                       (nth 2 rgb))))
 
 (defun bracket-colors ()
-  (let (hexcolors)
+  (let (hexcolors lightvals)
+    (if (>= (color-distance  "white"
+                             (face-attribute 'default :background))
+            (color-distance  "black"
+                             (face-attribute 'default :background)))
+
+        (setq lightvals (list 0.65 0.55))
+      (setq lightvals (list 0.35 0.30)))
+
     (concatenate 'list
                  (dolist (n'(.71 .3 .11 .01))
-                   (push (hsl-to-hex (+ n 0.0) 1.0 0.65) hexcolors))
+                   (push (hsl-to-hex (+ n 0.0) 1.0 (nth 0 lightvals)) hexcolors))
                  (dolist (n '(.81 .49 .17 .05))
-                   (push (hsl-to-hex (+ n 0.0) 1.0 0.55) hexcolors)))
+                   (push (hsl-to-hex (+ n 0.0) 1.0 (nth 1 lightvals)) hexcolors)))
     (reverse hexcolors)))
 
 
 (defun colorise-brackets ()
   (require 'rainbow-delimiters)
   (custom-set-faces
-   ;; emacs colours
-   ;; http://raebear.net/comp/emacscolors.html
    ;; or use (list-colors-display)
-   `(rainbow-delimiters-depth-1-face ((t (:foreground "grey"))))
+   `(rainbow-delimiters-depth-1-face ((t (:foreground "#888"))))
    `(rainbow-delimiters-depth-2-face ((t (:foreground ,(nth 0 (bracket-colors))))))
    `(rainbow-delimiters-depth-3-face ((t (:foreground ,(nth 1 (bracket-colors))))))
    `(rainbow-delimiters-depth-4-face ((t (:foreground ,(nth 2 (bracket-colors))))))
@@ -133,7 +130,7 @@
    `(rainbow-delimiters-depth-8-face ((t (:foreground ,(nth 6 (bracket-colors))))))
    `(rainbow-delimiters-depth-9-face ((t (:foreground ,(nth 7 (bracket-colors))))))
    `(rainbow-delimiters-unmatched-face ((t (:foreground "white" :background "red"))))
-   `(highlight ((t (:foreground "#ff0000" :background "grey"))))
+   `(highlight ((t (:foreground "#ff0000" :background "#888"))))
    ))
 
 (colorise-brackets)
