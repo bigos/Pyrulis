@@ -2,13 +2,18 @@
 
 
 data TisAnInteger =
-  TisAn Integer
+  TisAnInteger'
+
 instance Eq TisAnInteger where
   (==) TisAnInteger' TisAnInteger' = True
 -- or
 -- (==) TisAnInteger' TisAnInteger' = True
--- data TwoIntegers =
--- Two Integer Integer
+
+data TwoIntegers =
+  TwoIntegers' Integer
+instance Eq TwoIntegers where
+  (==) TwoIntegers' TwoIntegers' = True
+  (==) _ _ = False
 -- data StringOrInt =
 -- TisAnInt Int
 -- | TisAString String
