@@ -6,14 +6,14 @@ data TisAnInteger =
 
 instance Eq TisAnInteger where
   (==) TisAnInteger' TisAnInteger' = True
--- or
--- (==) TisAnInteger' TisAnInteger' = True
+
 
 data TwoIntegers =
-  TwoIntegers' Integer
-instance Eq TwoIntegers where
-  (==) TwoIntegers' TwoIntegers' = True
-  (==) _ _ = False
+  Two Integer Integer
+  deriving (Eq)
+-- instance Eq TwoIntegers where
+--   (==) TwoIntegers' TwoIntegers' = True
+--   (==) _ _ = False
 -- data StringOrInt =
 -- TisAnInt Int
 -- | TisAString String
