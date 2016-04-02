@@ -540,4 +540,8 @@ Now this should typecheck
 
 *** Type-Kwon-Do
 
-* continue on page 216
+** 6.15 Capter Definitions
+
+** Typeclass inheritance, partial
+
+* continue on page 219
