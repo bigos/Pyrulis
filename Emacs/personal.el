@@ -78,6 +78,12 @@
   (smartparens-mode -1)
   (paredit-mode +1))
 
+(add-hook 'lfe-mode-hook (lambda () (swap-paredit)))
+(add-hook 'lfe-mode-hook 'rainbow-delimiters-mode)
+
+(add-hook 'inferior-lfe-mode-hook (lambda () (swap-paredit)))
+(add-hook 'inferior-lfe-mode-hook 'rainbow-delimiters-mode)
+
 (autoload 'paredit-mode "paredit"
   "Minor mode for pseudo-structurally editing Lisp code." t)
 (add-hook 'emacs-lisp-mode-hook (lambda () (swap-paredit)))
@@ -86,12 +92,16 @@
 (add-hook 'scheme-mode-hook (lambda () (swap-paredit)))
 (add-hook 'slime-repl-mode-hook (lambda () (swap-paredit)))
 (add-hook 'slime-repl-mode-hook 'rainbow-delimiters-mode)
-(add-hook 'lfe-mode-hook (lambda () (swap-paredit)))
-(add-hook 'lfe-mode-hook (lambda () (rainbow-delimiters-mode +1)))
 
+;; LFE mode.
+;; Set lfe-dir to point to where the lfe emacs files are.
+(defvar lfe-dir (concat (getenv "HOME") "/Programming/lfe/emacs"))
+(setq load-path (cons lfe-dir load-path))
+(require 'lfe-start)
 
 (require 'color)
 (defun hsl-to-hex (h s l)
+  "Convert H S L to hex colours."
   (let (rgb)
     (setq rgb (color-hsl-to-rgb h s l))
     (color-rgb-to-hex (nth 0 rgb)
@@ -99,12 +109,12 @@
                       (nth 2 rgb))))
 
 (defun bracket-colors ()
+  "Calculate the bracket colours based on background."
   (let (hexcolors lightvals)
     (if (>= (color-distance  "white"
                              (face-attribute 'default :background))
             (color-distance  "black"
                              (face-attribute 'default :background)))
-
         (setq lightvals (list 0.65 0.55))
       (setq lightvals (list 0.35 0.30)))
 
@@ -117,6 +127,7 @@
 
 
 (defun colorise-brackets ()
+  "Apply my own colours to rainbow delimiters."
   (require 'rainbow-delimiters)
   (custom-set-faces
    ;; or use (list-colors-display)
