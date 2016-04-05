@@ -547,6 +547,8 @@ Now this should typecheck
 ** 6.17 Follow-up resources
 
 * Chapter 7
-
 ** 7.1 Make it func-y
+
+** 7.2 Arguments and parameters
+
 * continue on page 221
