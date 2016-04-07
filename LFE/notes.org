@@ -1,0 +1,4 @@
+* LFE from Common Lisp perspective
+* Differences
+** lists:nth
+in LFE index starts from 1
