@@ -72,6 +72,8 @@
 (setq inferior-lisp-program "sbcl")
 
 (slime-setup '(slime-repl slime-fancy))
+(setq common-lisp-hyperspec-root
+      "file:/home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/")
 ;; (setq slime-default-lisp 'sbcl)
 
 (defun swap-paredit ()
