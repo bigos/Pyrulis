@@ -34,9 +34,7 @@
 
 (defun freq ()
   (let ((ht (make-hash-table))
-        (codes)
-        (codes2)
-        (uniq))
+        (codes))
     ;; get character frequency
     (loop for c in *code* do
          (setf (gethash c ht) (1+ (gethash c ht 0))))
@@ -46,16 +44,7 @@
     (format t
             "sorted by freq ~A~%"
             (sort codes (lambda ( x y) (> (cdr x) (cdr y)))))
-    ;; prepare guess table
-    ;; convert hash to list
-    (maphash (lambda (k v) (push (cons k v) codes2)) ht)
-    (format T
-            "guess me ~A~%"
-            (loop for c in (sort codes2 (lambda ( x y) (> (cdr x) (cdr y))))
-               collect (car c) )
-            )
-    ;; unique codes
-    (setf uniq (loop for key being the hash-keys of ht collect key))))
+    ht))
 
 
 (defun guess ()
