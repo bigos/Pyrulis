@@ -9,22 +9,27 @@
                        248 29 180 247 38 165 247 242 98 248 30 120 243 234 117
                        202 239 121 248 230))
 
-(defparameter *guess*
-  '((178 . "e") (38 . "a") (177 . "t") (247 . "n") (98 . "I") (167 . "o") (29 . "s")
-    (165 . "r") (255 . "h") (171 . "d") (248 . "l") (6 . "u") (163 . "c") (7 . "m")
-    (216 . "f") (243 . "y") (42 . "w") (174 . "g") (39 . "p") (25 . "b") (1 . "v")
-    (254 . "k") (0 . "I") (27 . "q") (251 . "j") (44 . "z") (5 . "*") (166 . "*")
-    (181 . "*") (26 . "*") (31 . "*") (180 . "*") (43 . "*") (33 . "*") (182 . "*")
-    (4 . "*") (169 . "*") (36 . "*") (230 . "*") (121 . "*") (239 . "*") (202 . "*")
-    (117 . "*") (234 . "*") (120 . "*") (30 . "*") (242 . "*") (179 . "*") (192 . "*")
-    (170 . "*") (210 . "*") (28 . "*") (152 . "*") (49 . "*") (8 . "*") (112 . "*")
-    (249 . "*") (176 . "*") (250 . "*") (32 . "*") (46 . "*") (133 . "*") (190 . "*")))
+(defparameter *guess-numbers*
+  '(178 38 177 247 98 167 29 165 255 171 248 6 163 7 216 243 42 174 39 25 1 254
+    0 27 251 44 5 166 181 26 31 180 43 33 182 4 169 36 230 121 239 202 117 234
+    120 30 242 179 192 170 210 28 152 49 8 112 249 176 250 32 46 133 190))
+
+;;; are they using a polyalphabetic cipher?
+(defparameter *guess-letters*
+  '( "E" "t" "e" "T" "a" "o" "i" "s" "n" "r" "h" "l" "d" "c" "m" "u" "g" "f" "p" "w" "y"
+    "b" "v" "k" "*" "q" "j" "z" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*"
+    "*" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*"
+    "*" "*" "*" "*" ))
 
 (defun check-guess ()
-  (let ((ht (make-hash-table :test 'equalp)))
+  (let ((ht (make-hash-table :test 'equal))
+        (ht2 (make-hash-table :test 'equal)))
     (loop for k in *guess* do
-                  (setf (gethash (cdr k) ht) (1+ (gethash (cdr k) ht 0))))
+         (setf (gethash (cdr k) ht) (1+ (gethash (cdr k) ht 0))))
+    (loop for k in *guess-letters* do
+         (setf (gethash k ht2) (1+ (gethash k ht2 0))))
     (maphash (lambda (k v) (when (> v 1) (format t "~&~a is used ~a times~%" k v))) ht)
+    (maphash (lambda (k v) (when (> v 1) (format t "~&~a IS USED ~A TIMES~%" k v))) ht2)
     ht))
 
 (defun freq ()
@@ -44,23 +49,22 @@
     ;; prepare guess table
     ;; convert hash to list
     (maphash (lambda (k v) (push (cons k v) codes2)) ht)
-    (format nil
+    (format T
             "guess me ~A~%"
             (loop for c in (sort codes2 (lambda ( x y) (> (cdr x) (cdr y))))
-               collect (cons (car c) "*"))
+               collect (car c) )
             )
     ;; unique codes
-    (setf uniq (loop for key being the hash-keys of ht collect key))
-
-    ))
+    (setf uniq (loop for key being the hash-keys of ht collect key))))
 
 
 (defun guess ()
   (let ((guess-ht (make-hash-table)))
     ;; set hash for guessing
-    (loop for g in *guess* do (setf (gethash (car g) guess-ht) (cdr g)))
-    ;; print guesses
-    (print (loop for c in *code* collect (if (equalp "*" (gethash c guess-ht))
-                                             c
-                                             (gethash c guess-ht))))
-    guess-ht))
+    (loop for gn in *guess-numbers*
+       for i = 0 then (1+ i)
+       for g = (elt *guess-letters* i)
+       do (setf (gethash gn guess-ht) g))
+    (loop for x in *code* do (format t "~a" (gethash x guess-ht)))
+    ;;guess-ht
+    ))
