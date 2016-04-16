@@ -69,12 +69,9 @@
 (setq ruby-insert-encoding-magic-comment nil)
 
 (load (expand-file-name "~/quicklisp/slime-helper.el"))
+;; Set your lisp system and, optionally, some contribs
 (setq inferior-lisp-program "sbcl")
-
-(slime-setup '(slime-repl slime-fancy))
-(setq common-lisp-hyperspec-root
-      "file:/home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/")
-;; (setq slime-default-lisp 'sbcl)
+(setq slime-contribs '(slime-fancy))
 
 (defun swap-paredit ()
   (smartparens-mode -1)

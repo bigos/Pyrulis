@@ -16,9 +16,9 @@
 
 ;;; are they using a polyalphabetic cipher?
 (defparameter *guess-letters*
-  '( "E" "t" "e" "T" "a" "o" "i" "s" "n" "r" "h" "l" "d" "c" "m" "u" "g" "f" "p" "w" "y"
-    "b" "v" "k" "*" "q" "j" "z" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*"
-    "*" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*" "*"
+  '( " " "e" "t" "T" "a" "A" "o" "O" "i" "I" "n" "N" "s" "S" "r" "R" "h" "H" "d" "D" "l"
+    "L" "u" "U" "c" "C" "M" "m" "f" "F" "y" "Y" "w" "W" "G" "g" "p" "P" "b" "B"
+    "v" "V" "K" "k" "x" "X" "q" "Q" "j" "J" "z" "Z" "*" "*" "*" "*" "*" "*" "*"
     "*" "*" "*" "*" ))
 
 (defun check-guess ()
