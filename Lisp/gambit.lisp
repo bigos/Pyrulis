@@ -1,3 +1,5 @@
+;; https://github.com/first20hours/google-10000-english/blob/master/20k.txt
+
 (defparameter *code* '(0 167 254 36 177 190 216 133 1 38 169 4 25 182 7 36 163
                        6 33 177 0 43 98 248 39 180 178 43 177 254 46 171 0 31
                        98 6 32 167 178 255 163 255 26 171 6 216 165 250 25 174
@@ -16,9 +18,10 @@
 
 ;;; are they using a polyalphabetic cipher?
 (defparameter *guess-letters*
-  '( " " "e" "t" "T" "a" "A" "o" "O" "i" "I" "n" "N" "s" "S" "r" "R" "h" "H" "d" "D" "l"
-    "L" "u" "U" "c" "C" "M" "m" "f" "F" "y" "Y" "w" "W" "G" "g" "p" "P" "b" "B"
-    "v" "V" "K" "k" "x" "X" "q" "Q" "j" "J" "z" "Z" "*" "*" "*" "*" "*" "*" "*"
+  '( "the" "be" "to" "of" "and" "A" "in" "that" "have" "I" "it" "for" "not" "on"
+    "with" "he" "as" "you" "do" "at" "this" "but" "his" "by" "from" "they" "we"
+    "say" "her" "she" "or" "an" "will" "my" "one" "all" "would" "there" "their" "what"
+    "so" "up" "out" "if" "about" "who" "get" "which" "go" "me" "when" "Z" "*" "*" "*" "*" "*" "*" "*"
     "*" "*" "*" "*" ))
 
 (defun check-guess ()
