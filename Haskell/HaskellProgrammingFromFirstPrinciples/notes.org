@@ -551,6 +551,8 @@ Now this should typecheck
 
 ** 7.2 Arguments and parameters
 
-* continue on page 221
+** 7.3 Anonymous functions
 
-page 221
+* continue on page 226
+
+page 226
