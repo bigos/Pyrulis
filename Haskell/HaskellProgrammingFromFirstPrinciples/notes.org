@@ -552,7 +552,18 @@ Now this should typecheck
 ** 7.2 Arguments and parameters
 
 ** 7.3 Anonymous functions
+calling lambda with arguments in Prelude
 
-* continue on page 226
+correct
+Prelude> (\x -> x * 3) 1
+3
 
-page 226
+wrong
+Prelude> \x -> x * 3 1
+error message goes here
+
+** Intermission: Exercises
+
+* continue on page
+
+  page 228
