@@ -564,6 +564,8 @@ error message goes here
 
 ** Intermission: Exercises
 
+** 7.4 Pattern matching
+
 * continue on page
 
-  page 228
+  page 229
