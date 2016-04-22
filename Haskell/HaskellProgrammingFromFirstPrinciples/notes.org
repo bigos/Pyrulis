@@ -558,7 +558,7 @@ correct
 Prelude> (\x -> x * 3) 1
 3
 
-wrong
+wrong - no brackets
 Prelude> \x -> x * 3 1
 error message goes here
 
@@ -581,6 +581,7 @@ Prelude> :{
 ***** prelude set all warnings
 Prelude> :set -Wall
 *** Pattern matching against all constructors
+*** Intermission: Exercises
 
 * continue on page
-  page 231
+  page 237
