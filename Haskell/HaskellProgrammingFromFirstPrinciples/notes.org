@@ -566,6 +566,21 @@ error message goes here
 
 ** 7.4 Pattern matching
 
-* continue on page
+*** Prelude entering several lines as one expression piece
+Prelude> :{
+*Main | let isItTwo :: Integer -> Bool
+*Main |   isItTwo 2 = True
+*Main |   isItTwo _ = False
+*Main | :}
 
-  page 229
+*** Handling all the cases
+**** overlapping cases
+***** form most to least specific
+***** problem with underscore case first
+***** non exhaustive pattern
+***** prelude set all warnings
+Prelude> :set -Wall
+*** Pattern matching against all constructors
+
+* continue on page
+  page 231
