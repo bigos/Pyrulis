@@ -583,6 +583,6 @@ Prelude> :set -Wall
 *** Pattern matching against all constructors
 *** Intermission: Exercises
 ** 7.5 Case expressions
-
+*** Intermission: Exercises
 * continue on page
-  page 237
+  page 239
