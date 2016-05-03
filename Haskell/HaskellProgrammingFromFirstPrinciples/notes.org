@@ -584,5 +584,6 @@ Prelude> :set -Wall
 *** Intermission: Exercises
 ** 7.5 Case expressions
 *** Intermission: Exercises
+** 7.6 Higher-order functions
 * continue on page
   page 239
