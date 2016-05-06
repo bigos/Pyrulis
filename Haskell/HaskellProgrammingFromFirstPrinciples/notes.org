@@ -586,5 +586,7 @@ Prelude> :set -Wall
 *** Intermission: Exercises
 ** 7.6 Higher-order functions
 *** Intermission: Exercises
+** 7.7 Guards
+
 * continue on page
-  page 245
+  page 246
