@@ -1,4 +1,5 @@
 * main link
 http://www.cs.utexas.edu/users/moore/acl2/v7-2/combined-manual/?topic=ACL2____INTRODUCTION-TO-THE-THEOREM-PROVER
 * read to
-link about logic knowledge taken for granted
+
+(1) See introduction-to-rewrite-rules-part-1 to read about the use and design of rewrite
