@@ -567,7 +567,7 @@ error message goes here
 ** 7.4 Pattern matching
 
 *** Prelude entering several lines as one expression piece
-Prelude> :{
+Prelude> :
 *Main | let isItTwo :: Integer -> Bool
 *Main |   isItTwo 2 = True
 *Main |   isItTwo _ = False
@@ -587,6 +587,29 @@ Prelude> :set -Wall
 ** 7.6 Higher-order functions
 *** Intermission: Exercises
 ** 7.7 Guards
+*** Writing guard blocks
+**** if-then-else version
+#+BEGIN_SRC haskell
+myAbs :: Integer -> Integer
+myAbs x = if x < 0 then (-x) else x
+#+END_SRC
+**** guards block version
+#+BEGIN_SRC haskell
+myAbs :: Integer -> Integer
+myAbs x
+   | x < 0     = (-x)
+   | otherwise = x
+#+END_SRC
+**** order of evaluation
+Guards always evaluate sequentially, so your guards should be
+ordered from the case that is most restrictive to the case that is least
+restrictive.
+**** otherwise
+It is important to note
+that GHCi cannot always tell you when you haven’t accounted for all
+possible cases, and it can be very difficult to reason about it, so it is
+wise to use otherwise in your final guard.
 
+*** Intermission: Exercises
 * continue on page
-  page 246
+  page 250
