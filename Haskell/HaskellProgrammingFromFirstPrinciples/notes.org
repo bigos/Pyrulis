@@ -611,5 +611,7 @@ possible cases, and it can be very difficult to reason about it, so it is
 wise to use otherwise in your final guard.
 
 *** Intermission: Exercises
+
+** 7.8 Function composition
 * continue on page
-  page 250
+  page 251
