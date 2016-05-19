@@ -127,6 +127,7 @@
 
 (defun colorise-brackets ()
   "Apply my own colours to rainbow delimiters."
+  (interactive)
   (require 'rainbow-delimiters)
   (custom-set-faces
    ;; or use (list-colors-display)
