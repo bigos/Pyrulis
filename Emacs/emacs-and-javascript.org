@@ -1,0 +1,8 @@
+You can edit JavaScript code in Emacs and run it in associated browser.
+
+Skewer seems to be easiest:
+https://github.com/skeeto/skewer-mode
+
+* directions
+install from melpa
+follow directions on Github page in Quick version
