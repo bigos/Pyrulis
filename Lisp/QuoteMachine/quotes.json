@@ -1,6 +1,14 @@
 [
     {"text": "In the beginning God created heaven and earth",
-     "ref": "Gen 11"},
-    {"text": "Happy is the man...",
-     "ref": "Ps 11"}
+     "ref": "Gen 1:1"},
+    {"text": "Happy are the peacemakers, since they will be called sons of God.", "ref": "Mt 4:9"},
+    {"text": "Stop storing up for yourselves treasures on the earth, where moth and rust consume and where thieves break in and steal. Rather, store up for yourselves treasures in heaven, where neither moth nor rust consumes, and where thieves do not break in and steal. For where your treasure is, there your heart will be also.", "ref": "Mt 6:19-21"},
+    {"text": "Moses now stretched out his hand over the sea; and Jehovah drove the sea back with a strong east wind all night long, turning the sea basin into dry ground, and the waters divided. So the Israelites went through the midst of the sea on dry ground, while the waters formed a wall on their right hand and on their left. ", "ref": "Ex 14:21-22"},
+    {"text": "The wolf will reside for a while with the lamb, And with the young goat the leopard will lie down, And the calf and the lion and the fattened animal will all be together; And a little boy will lead them. The cow and the bear will feed together, And their young will lie down together. The lion will eat straw like the bull.", "ref": "Is 11:6-7"},
+    {"text": "With that I heard a loud voice from the throne say: “Look! The tent of God is with mankind, and he will reside with them, and they will be his people. And God himself will be with them. And he will wipe out every tear from their eyes, and death will be no more, neither will mourning nor outcry nor pain be anymore. The former things have passed away.”", "ref": "Rev 21:3-4"},
+    {"text": "How can you say to your brother, ‘Brother, allow me to remove the straw that is in your eye,’ while you yourself do not see the rafter in your own eye? Hypocrite! First remove the rafter from your own eye, and then you will see clearly how to remove the straw that is in your brother’s eye.", "ref": "Lk 6:42"},
+    {"text": "Trust in Jehovah with all your heart, And do not rely on your own understanding. In all your ways take notice of him, And he will make your paths straight.", "ref": "Pr 3:5-6"},
+
+    {"text": "Happy is the man who does not walk according to the advice of the wicked And does not stand on the path of sinners And does not sit in the seat of scoffers. But his delight is in the law of Jehovah, And he reads His law in an undertone day and night. He will be like a tree planted by streams of water, A tree that produces fruit in its season, The foliage of which does not wither. And everything he does will succeed.",
+     "ref": "Ps 1:1-3"}
 ]

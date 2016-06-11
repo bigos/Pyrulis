@@ -62,21 +62,33 @@
       (:title "Quote machine")
       (:link :href "https://fonts.googleapis.com/css?family=Puritan"
              :type "text/css" :rel "stylesheet")
-      (:link :href "https://fonts.googleapis.com/css?family=Passion One"
+      (:link :href "https://fonts.googleapis.com/css?family=Open Sans"
              :type "text/css" :rel "stylesheet")
       (:link :href "http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"
              :type "text/css" :rel "stylesheet")
       (:link :href "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
              :type "text/css" :rel "stylesheet prefetch")
       (:style (str  (css-lite:css
-                      (("body") (:background "#ffffe0"))
+                      (("h2") (:margin-bottom "1em"))
+                      (("body") (:background "#ffffe0"
+                                             :font-family "Open Sans, Sans-serif" ))
+                      (("#message") (
+                                                  :font-size "32px;"
+                                                  :padding "1.5 em"
+                                                  ))
+                      (("#message span")
+                       (:color "#844"
+                               :font-family "Puritan, Sans-serif"
+                               :font-size "26px"
+                               :text-align "right") )
+                      (("footer") (:margin-top "3em"
+                                               :color "#888"))
+                       )
                       )))
       )
      (:body
-      (:h1 :class "text-center" "Quote machine")
-      (:hr)
       (who:fmt "~A" content)            ;page specific content
-      (:footer "built by Jacek")
+      (:footer :class "text-center" "built by Jacek")
       (:script :src "https://code.jquery.com/jquery-3.0.0.min.js")
 
 
@@ -89,34 +101,46 @@
                                              max))))
 
                       (defun show-data (data)
+                        (let* ((data-length (chain |Object| (keys data) length ))
+                               (random-index (random-below data-length))
+                               (random-data (getprop data random-index)))
+                          (chain console (log "+++++++++++++++" ))
+                          (chain console (log data))
+                          (chain console (log "----------------" ))
+                          (chain console (log  data-length))
+                          (chain console (log  (getprop  random-data  'text)))
+                          (chain console (log  (getprop  random-data  'ref)))
+                          (chain console (log "^^^^^^^^^" ))
+                          (chain ($ "#message") (html (+  (getprop random-data 'text)
+                                                          "<br><br><span >"
+                                                          (getprop random-data 'ref)
+                                                          "</span>")))
+                          (chain ($ "#message") (slide-down))
+                          )
 
-                        (chain console (log (chain data |responseJSON| length )))
-                        ;;(chain console (log (chain data |responseJSON|)));;
-                           ;; (chain *json* ; *all capitals*
-                        ;;        (stringify data))
+                        undefined)
 
-                        data)
-
-                      (defun fetch-json (source)
-                        (chain $
-                               (|getJSON| source ; |mixedCASE|
-                                          (lambda (data)
-                                            data))))
+                      (defun fetch-and-show-json (source)
+                        (chain $ (when
+                                     (chain $ (|getJSON| source))
+                                   ) (done (lambda (json)
+                                             (show-data json)))))
 
                       (chain ($ document)
                              (ready (lambda ()
                                       (chain ($ "#getquote")
                                              (on "click"
                                                  (lambda ()
-                                                   (show-data
-                                                    (fetch-json "/quotes.json"))))))
-                                    )))))))))
+                                                   (fetch-and-show-json "/quotes.json")
+                                                   undefined)))
+                                      undefined) ; overrides parenscipt returns
+                                    ))))))))
 
 (defun home-page-view ()
   (who:with-html-output-to-string (out)
     (:h2  :class "msg text-center" "Bible Quotes")
-    (:div :class "row text-center"
-          (:div :class "col-xs-12 well message" :id "message"))
+    (:div :class "row"
+          (:div :class "col-xs-10 col-xs-offset-1 well" :id "message" :style "display:none"))
 
     (:div :class "row text-center"
           (:div :class "col-xs-12"
