@@ -89,26 +89,27 @@
                                              max))))
 
                       (defun show-data (data)
-                        (+  (chain console (log (chain |Object| (keys (chain data quotes)) length)))
-                           (chain *json* ; *all capitals*
-                                  (stringify data))))
+
+                        (chain console (log (chain data |responseJSON| length )))
+                        ;;(chain console (log (chain data |responseJSON|)));;
+                           ;; (chain *json* ; *all capitals*
+                        ;;        (stringify data))
+
+                        data)
 
                       (defun fetch-json (source)
-                          (chain $
-                           (|getJSON| source ; |mixedCASE|
-                                      (lambda (data)
-                                        (progn
-                                          (chain
-                                           ($ "#message")
-                                           (html
-                                            (show-data data))))))))
+                        (chain $
+                               (|getJSON| source ; |mixedCASE|
+                                          (lambda (data)
+                                            data))))
 
                       (chain ($ document)
                              (ready (lambda ()
                                       (chain ($ "#getquote")
                                              (on "click"
                                                  (lambda ()
-                                                   (fetch-json "/quotes.json")))))
+                                                   (show-data
+                                                    (fetch-json "/quotes.json"))))))
                                     )))))))))
 
 (defun home-page-view ()
