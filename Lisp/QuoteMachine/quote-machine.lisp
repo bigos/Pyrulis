@@ -2,7 +2,14 @@
 
 (defvar *application-directory* (asdf:system-source-directory :quote-machine))
 
+;;; make parenscript work nicely with cl-who
+(setf parenscript:*js-string-delimiter* #\")
+
+;;; make css indent nicely
 (setf css-lite:*indent-css* 4)
+
+;;; cl-who config
+(setf cl-who:html-mode :html5)
 
 ;;; Instantiate VHOSTs
 (defvar vhost1 (make-instance 'hunchentoot:easy-acceptor :port 5000))
@@ -14,8 +21,6 @@
 (defun stop ()
   (hunchentoot:stop vhost1))
 
-;;; make parenscript work nicely with cl-who
-(setf parenscript:*js-string-delimiter* #\")
 
 ;;; helpers --------------------------------------------------------------------
 (defmacro escaped-string (string)
@@ -42,10 +47,16 @@
 (hunchentoot:define-easy-handler (uri1 :uri "/") ()
   (default-layout (home-page-view)))   ; create default layout with embedded home page
 
+(push                                   ; route for static json file
+ (hunchentoot:create-static-file-dispatcher-and-handler
+  "/quotes.json" (merge-pathnames *application-directory* "quotes.json"))
+ hunchentoot:*dispatch-table*)
+
+;;; ----------------------------------------------------------------------------
 ;;; default layout for embedding page views
 (defun default-layout (content)
 
-  (who:with-html-output-to-string (out)
+  (who:with-html-output-to-string (out nil :indent T)
     (:html
      (:head
       (:title "Quote machine")
@@ -58,29 +69,55 @@
       (:link :href "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
              :type "text/css" :rel "stylesheet prefetch")
       (:style (str  (css-lite:css
-                      (("body") (:background "#ffffc0"))
+                      (("body") (:background "#ffffe0"))
                       )))
       )
      (:body
-      (:h1 "Quote machine")
+      (:h1 :class "text-center" "Quote machine")
       (:hr)
       (who:fmt "~A" content)            ;page specific content
       (:footer "built by Jacek")
-      (:script :src "https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js")
+      (:script :src "https://code.jquery.com/jquery-3.0.0.min.js")
+
+
       (:script :type "text/javascript"
                (str (ps
-                      (chain ($ document)
-                             (ready
-                              (lambda () (chain ($ ".msg")
-                                                (text "loaded"))
-                                      (return false)
-                                      )))
+                      (defun random-below (max)
+                        "random number from  0 to max-1"
+                         (chain |Math| (floor
+                                          (* (chain |Math| (random))
+                                             max))))
 
-                      )
-                    ))))))
+                      (defun show-data (data)
+                        (+  (chain console (log (chain |Object| (keys (chain data quotes)) length)))
+                           (chain *json* ; *all capitals*
+                                  (stringify data))))
+
+                      (defun fetch-json (source)
+                          (chain $
+                           (|getJSON| source ; |mixedCASE|
+                                      (lambda (data)
+                                        (progn
+                                          (chain
+                                           ($ "#message")
+                                           (html
+                                            (show-data data))))))))
+
+                      (chain ($ document)
+                             (ready (lambda ()
+                                      (chain ($ "#getquote")
+                                             (on "click"
+                                                 (lambda ()
+                                                   (fetch-json "/quotes.json")))))
+                                    )))))))))
 
 (defun home-page-view ()
   (who:with-html-output-to-string (out)
-    (:h2  :class "msg" "xyz")
-    (:p "This is Home Page" )
-    (:a :href "/faa" "More")))
+    (:h2  :class "msg text-center" "Bible Quotes")
+    (:div :class "row text-center"
+          (:div :class "col-xs-12 well message" :id "message"))
+
+    (:div :class "row text-center"
+          (:div :class "col-xs-12"
+                (:button :id "getquote" :class "btn btn-primary"
+                         "Get Quote")))))

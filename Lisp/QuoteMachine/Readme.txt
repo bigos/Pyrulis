@@ -7,3 +7,5 @@ To run web app trial please type following in repl:
 
 To refresh the web content after editing the source run:
 (ql:quickload :quote-machine)
+
+and see it on: http://localhost:5000/
