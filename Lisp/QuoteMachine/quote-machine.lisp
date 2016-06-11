@@ -100,6 +100,13 @@
                                           (* (chain |Math| (random))
                                              max))))
 
+                      (defun generate-a-link (text)
+                        (+ "http://twitter.com/home/?status=" text))
+
+                      (defun twitterlink (text prompt)
+                        (chain (list "<a class='btn btn-primary' href='" (generate-a-link text) "'>" prompt "</a>") (join "")))
+
+
                       (defun show-data (data)
                         (let* ((data-length (chain |Object| (keys data) length ))
                                (random-index (random-below data-length))
@@ -114,7 +121,11 @@
                           (chain ($ "#message") (html (+  (getprop random-data 'text)
                                                           "<br><br><span >"
                                                           (getprop random-data 'ref)
-                                                          "</span>")))
+                                                          "</span><br><br>"
+                                                          "<div class='text-center'>"
+                                                          (twitterlink (getprop random-data 'text)
+                                                                       "Tweet this quote")
+                                                          "</div>")))
                           (chain ($ "#message") (slide-down))
                           )
 
@@ -144,5 +155,5 @@
 
     (:div :class "row text-center"
           (:div :class "col-xs-12"
-                (:button :id "getquote" :class "btn btn-primary"
+                (:button :id "getquote" :class "btn btn-warning"
                          "Get Quote")))))
