@@ -661,5 +661,20 @@ Prelude> (negate . sum) [1, 2, 3, 4, 5]
 
 ** 7.9 Pointfree style
 
+*** explanation
+Pointfree refers to a style of composing functions without specifying
+their arguments.
+** 7.10 Demonstrating composition
+** 7.11 Chapter Exercises
+** 7.12 Chapter Definitions
+*** currying
+f a b = a + b
+-- is equivalent to
+f = \a -> (\b -> a + b)
+*** Bottom
+*** Poitfree
+** 7.13 Follow-up resources
+* Chapter 8
+
 * continue on page
-  page 254
+  page 269
