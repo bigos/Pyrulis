@@ -91,54 +91,80 @@
                            (chain navigator geolocation (get-current-position show-position-weather))
                            (chain console (log "geolocation not supported here"))))
 
+                     (defun change-temp-units (t)
+                       (chain ($ "#temp-celsius") (toggle))
+                       (chain ($ "#temp-fahrenheit") (toggle))
+                       (let* ((button-text (chain ($ "#change-tempunits") (text))))
+                         (chain ($ "#change-tempunits") (text
+                                                        (if (= button-text "Fahrenheit")
+                                                            "Celsius"
+                                                            "Fahrenheit")))))
+
+                     (defun convert-to-fehrenheit (temp)
+                       (+ (* temp (/ 9 5)) 32))
+
                      (defun show-position-weather (position)
                        (let* ((coords (getprop position 'coords))
                               (lat (getprop position 'coords 'latitude))
                               (lon (getprop position 'coords 'longitude))
+                              (current-temp)
                               ;; real data
-                              ;; (weather-data (fetch-and-show-json (generate-api-link lat lon)))
+                              ;;(weather-data (fetch-and-show-json (generate-api-link lat lon "metric")))
                               ;; dummy data
                               (weather-data (example-response))
                               (wether-details ""))
-                         ;; (chain console (log position))
-                         ;; (chain console (log coords))
-                         ;; (chain console (log lat ))
-                         ;; (chain console (log lon))
+                         (chain console (log this))
                          (chain console (log weather-data))
-                         (chain ($ "h1") (text (+ "Weather in " (getprop weather-data 'name))))
-                         (chain ($ ".weather-data")
-                                (text
-                                 (concatenate 'string
-                                              (+ "Weather in " (getprop weather-data 'name) "  ")
-                                              (+ "humidity " (getprop weather-data 'main 'humidity) "  ")
-                                              (+ "pressure " (getprop weather-data 'main 'pressure) "  ")
-                                              (+ "temp " (getprop weather-data 'main 'temp) "  ")
-                                              (+ "weather " (getprop weather-data 'weather 0 'description) "  ")
-                                              )))
+                         (chain console (log (getprop weather-data 'main)))
+                         ;; temp in celsius
+                         (setf current-temp (getprop weather-data 'main 'temp))
+
+                         (chain ($ "#name")
+                                (html (who-ps-html (:h2 (getprop weather-data 'name)))))
+                         (chain ($ "#humidity")
+                                (html (+ "humidity: " (getprop weather-data 'main 'humidity))))
+                         (chain ($ "#pressure")
+                                (html (+ "pressure: " (getprop weather-data 'main 'pressure))))
+                         (chain ($ "#temp-celsius")
+                                (html (+ "temperature: " current-temp " celsius")))
+                         (chain ($ "#temp-fahrenheit")
+                                (html (+ "temperature: " (convert-to-fehrenheit current-temp) " fahrenheit")))
+                         (chain ($ "#weather")
+                                (html (+ "weather: " (getprop weather-data 'weather 0 'description))))
+                         (chain ($ "#icon")
+                                (html (who-ps-html (:img :src
+                                                         (+ "http://openweathermap.org/img/w/"
+                                                            (getprop weather-data 'weather 0 'icon)
+                                                            ".png")))))
+
 
                          ))
 
-                     (defun generate-api-link (lat lon )
+                     (defun generate-api-link (lat lon temp-units )
                        (+ "http://api.openweathermap.org/data/2.5/weather?APPID=493ec6b326a457dd9e2abc23eb587ac6"
                           "&lat="
                           lat
                           "&lon="
-                          lon ))
+                          lon
+                          "&units="
+                          temp-units ;metric or imperial
+                          ))
 
                      (defun example-response ()
                        "we do not need to keep asking the api for the weather data"
                        (chain *json* (parse
                                       "{\"coord\":{\"lon\":-2.29,\"lat\":53.49},\"weather\":[{\"id\":500,\"main\":\"Rain\",\"description\":\"light rain\",\"icon\"
-                       :\"10n\"}],\"base\":\"stations\",\"main\":{\"temp\":286.33,\"pressure\":1006,\"humidity\":98,\"temp_min\":285.37,\"temp_max\"
-                       :287.45},\"wind\":{\"speed\":1.81,\"deg\":241.004},\"rain\":{\"3h\":0.96},\"clouds\":{\"all\":92},\"dt\":1465702384,\"sys\"
-                       :{\"type\":3,\"id\":28022,\"message\":0.034,\"country\":\"GB\",\"sunrise\":1465702809,\"sunset\":1465763907},\"id\":2638671
-                       ,\"name\":\"Salford\",\"cod\":200}"))
+                       :\"10d\"}],\"base\":\"cmc stations\",\"main\":{\"temp\":16.09,\"pressure\":1003.49,\"humidity\":96,\"temp_min\":15.56
+                       ,\"temp_max\":16.67},\"wind\":{\"speed\":1.4,\"deg\":271},\"rain\":{\"3h\":0.6925},\"clouds\":{\"all\":100},\"dt\":1465758605
+                       ,\"sys\":{\"type\":3,\"id\":1461056386,\"message\":0.0049,\"country\":\"GB\",\"sunrise\":1465702799,\"sunset\":1465763932
+                       },\"id\":2638671,\"name\":\"Salford\",\"cod\":200}"))
                        )
 
                      (defun show-data (json)
                        ;; data will be shown here
                        (chain console (log "json data --------------------"))
                        (chain console (log json))
+                       (return json)
                        )
 
                      (defun fetch-and-show-json (source)
@@ -149,17 +175,23 @@
 
                      (chain ($ document)
                             (ready (lambda ()
-                                     (chain ($ "#get-weather")
-                                            (on "click"
-                                                (lambda ()
-                                                  (get-location)
-                                                  undefined)))
+                                     (get-location)
                                      undefined) ; overrides parenscipt returns
                                    ))))))))
 
+
+
+
 (defun home-page-view ()
   (who:with-html-output-to-string (out)
-    (:h1  :class "text-center" "Weather")
-    (:div :class "weather-data" )
+    (:div :class "weather-data"
+          (:div :id "name")
+          (:div :id "humidity")
+          (:div :id "pressure")
+          (:div :id "temp-celsius")
+          (:div :id "temp-fahrenheit" :style "display:none")
+          (:div :id "weather")
+          (:div :id "icon"))
     (:div :class "row text-center"
-          (:button :id "get-weather" :class "btn btn-primary" "Get Weather"))))
+          (:button :id "change-tempunits" :class "btn btn-primary" :onclick "changeTempUnits(this)" "Fahrenheit" )
+          )))
