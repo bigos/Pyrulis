@@ -95,12 +95,26 @@
                        (let* ((coords (getprop position 'coords))
                               (lat (getprop position 'coords 'latitude))
                               (lon (getprop position 'coords 'longitude))
-                              (weather-data (fetch-and-show-json (generate-api-link lat lon))))
-                         (chain console (log position))
-                         (chain console (log coords))
-                         (chain console (log lat ))
-                         (chain console (log lon))
+                              ;; real data
+                              ;; (weather-data (fetch-and-show-json (generate-api-link lat lon)))
+                              ;; dummy data
+                              (weather-data (example-response))
+                              (wether-details ""))
+                         ;; (chain console (log position))
+                         ;; (chain console (log coords))
+                         ;; (chain console (log lat ))
+                         ;; (chain console (log lon))
                          (chain console (log weather-data))
+                         (chain ($ "h1") (text (+ "Weather in " (getprop weather-data 'name))))
+                         (chain ($ ".weather-data")
+                                (text
+                                 (concatenate 'string
+                                              (+ "Weather in " (getprop weather-data 'name) "  ")
+                                              (+ "humidity " (getprop weather-data 'main 'humidity) "  ")
+                                              (+ "pressure " (getprop weather-data 'main 'pressure) "  ")
+                                              (+ "temp " (getprop weather-data 'main 'temp) "  ")
+                                              (+ "weather " (getprop weather-data 'weather 0 'description) "  ")
+                                              )))
 
                          ))
 
@@ -110,6 +124,16 @@
                           lat
                           "&lon="
                           lon ))
+
+                     (defun example-response ()
+                       "we do not need to keep asking the api for the weather data"
+                       (chain *json* (parse
+                                      "{\"coord\":{\"lon\":-2.29,\"lat\":53.49},\"weather\":[{\"id\":500,\"main\":\"Rain\",\"description\":\"light rain\",\"icon\"
+                       :\"10n\"}],\"base\":\"stations\",\"main\":{\"temp\":286.33,\"pressure\":1006,\"humidity\":98,\"temp_min\":285.37,\"temp_max\"
+                       :287.45},\"wind\":{\"speed\":1.81,\"deg\":241.004},\"rain\":{\"3h\":0.96},\"clouds\":{\"all\":92},\"dt\":1465702384,\"sys\"
+                       :{\"type\":3,\"id\":28022,\"message\":0.034,\"country\":\"GB\",\"sunrise\":1465702809,\"sunset\":1465763907},\"id\":2638671
+                       ,\"name\":\"Salford\",\"cod\":200}"))
+                       )
 
                      (defun show-data (json)
                        ;; data will be shown here
@@ -136,4 +160,6 @@
 (defun home-page-view ()
   (who:with-html-output-to-string (out)
     (:h1  :class "text-center" "Weather")
-    (:button :id "get-weather" "Get Weather")))
+    (:div :class "weather-data" )
+    (:div :class "row text-center"
+          (:button :id "get-weather" :class "btn btn-primary" "Get Weather"))))
