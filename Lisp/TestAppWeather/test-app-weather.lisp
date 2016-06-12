@@ -103,42 +103,42 @@
                      (defun convert-to-fehrenheit (temp)
                        (+ (* temp (/ 9 5)) 32))
 
+
                      (defun show-position-weather (position)
                        (let* ((coords (getprop position 'coords))
                               (lat (getprop position 'coords 'latitude))
                               (lon (getprop position 'coords 'longitude))
-                              (current-temp)
-                              ;; real data
-                              ;;(weather-data (fetch-and-show-json (generate-api-link lat lon "metric")))
-                              ;; dummy data
-                              (weather-data (example-response))
-                              (wether-details ""))
-                         (chain console (log this))
-                         (chain console (log weather-data))
-                         (chain console (log (getprop weather-data 'main)))
-                         ;; temp in celsius
-                         (setf current-temp (getprop weather-data 'main 'temp))
+                              (data-link (generate-api-link lat lon "metric")))
+                         (fetch-and-show-json data-link)))
 
-                         (chain ($ "#name")
-                                (html (who-ps-html (:h2 (getprop weather-data 'name)))))
-                         (chain ($ "#humidity")
-                                (html (+ "humidity: " (getprop weather-data 'main 'humidity))))
-                         (chain ($ "#pressure")
-                                (html (+ "pressure: " (getprop weather-data 'main 'pressure))))
-                         (chain ($ "#temp-celsius")
-                                (html (+ "temperature: " current-temp " celsius")))
-                         (chain ($ "#temp-fahrenheit")
-                                (html (+ "temperature: " (convert-to-fehrenheit current-temp) " fahrenheit")))
-                         (chain ($ "#weather")
-                                (html (+ "weather: " (getprop weather-data 'weather 0 'description))))
-                         (chain ($ "#icon")
-                                (html (who-ps-html (:img :src
-                                                         (+ "http://openweathermap.org/img/w/"
-                                                            (getprop weather-data 'weather 0 'icon)
-                                                            ".png")))))
+                     (defun show-weather-data (weather-data)
+                       (chain console (log "weather data"))
+                       (chain console (log weather-data))
+                       (chain console (log (getprop weather-data 'main)))
+                       ;; temp in celsius
+
+                       (setf current-temp (getprop weather-data 'main 'temp))
+
+                       (chain ($ "#name")
+                              (html (who-ps-html (:h2 (getprop weather-data 'name)))))
+                       (chain ($ "#humidity")
+                              (html (+ "humidity: " (getprop weather-data 'main 'humidity))))
+                       (chain ($ "#pressure")
+                              (html (+ "pressure: " (getprop weather-data 'main 'pressure))))
+                       (chain ($ "#temp-celsius")
+                              (html (+ "temperature: " current-temp " celsius")))
+                       (chain ($ "#temp-fahrenheit")
+                              (html (+ "temperature: " (convert-to-fehrenheit current-temp) " fahrenheit")))
+                       (chain ($ "#weather")
+                              (html (+ "weather: " (getprop weather-data 'weather 0 'description))))
+                       (chain ($ "#icon")
+                              (html (who-ps-html (:img :src
+                                                       (+ "http://openweathermap.org/img/w/"
+                                                          (getprop weather-data 'weather 0 'icon)
+                                                          ".png")))))
 
 
-                         ))
+                       )
 
                      (defun generate-api-link (lat lon temp-units )
                        (+ "http://api.openweathermap.org/data/2.5/weather?APPID=493ec6b326a457dd9e2abc23eb587ac6"
@@ -171,7 +171,7 @@
                        (chain $ (when
                                     (chain $ (|getJSON| source))
                                   ) (done (lambda (json)
-                                            (show-data json)))))
+                                            (show-weather-data json)))))
 
                      (chain ($ document)
                             (ready (lambda ()
