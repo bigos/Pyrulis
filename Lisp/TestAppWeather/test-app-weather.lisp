@@ -73,57 +73,65 @@
                       (("body") (:background "#ffffe0"
                                              :font-family "Open Sans, Sans-serif" ))
                       ))))
-      )
-     (:body
-      (who:fmt "~A" content)            ;page specific content
-      (:footer :class "text-center" "built by Jacek")
-      (:script :src "https://code.jquery.com/jquery-3.0.0.min.js")
+     )
+    (:body
+     (who:fmt "~A" content)             ;page specific content
+     (:footer :class "text-center" "built by Jacek")
+     (:script :src "https://code.jquery.com/jquery-3.0.0.min.js")
 
 
-      (:script :type "text/javascript"
-               (str (ps
-                      (defun random-below (max)
-                        "random number from  0 to max-1"
-                        (chain |Math| (floor (* (chain |Math| (random)) max))))
+     (:script :type "text/javascript"
+              (str (ps
+                     (defun random-below (max)
+                       "random number from  0 to max-1"
+                       (chain |Math| (floor (* (chain |Math| (random)) max))))
 
-                      (defun get-location ()
-                        (if (@ navigator geolocation)
-                            (chain navigator geolocation (get-current-position show-position))
-                            (chain console (log "geolocation not supported here"))))
+                     (defun get-location ()
+                       (if (@ navigator geolocation)
+                           (chain navigator geolocation (get-current-position show-position-weather))
+                           (chain console (log "geolocation not supported here"))))
 
-                      (defun show-position (position)
-                        (let* ((coords (getprop position 'coords))
-                               (lat (getprop position 'coords 'latitude))
-                               (lon (getprop position 'coords 'longitude))
-                               )
-                          (chain console (log position))
-                          (chain console (log coords))
-                          (chain console (log lat ))
-                          (chain console (log lon))
-                          ))
+                     (defun show-position-weather (position)
+                       (let* ((coords (getprop position 'coords))
+                              (lat (getprop position 'coords 'latitude))
+                              (lon (getprop position 'coords 'longitude))
+                              (weather-data (fetch-and-show-json (generate-api-link lat lon))))
+                         (chain console (log position))
+                         (chain console (log coords))
+                         (chain console (log lat ))
+                         (chain console (log lon))
+                         (chain console (log weather-data))
 
-                      (defun generate-a-link (text)
-                        (+ "http://twitter.com/home/?status=" text))
+                         ))
 
-                      (defun show-data (json)
-                        ;; data will be shown here
-                        )
+                     (defun generate-api-link (lat lon )
+                       (+ "http://api.openweathermap.org/data/2.5/weather?APPID=493ec6b326a457dd9e2abc23eb587ac6"
+                          "&lat="
+                          lat
+                          "&lon="
+                          lon ))
 
-                      (defun fetch-and-show-json (source)
-                        (chain $ (when
-                                     (chain $ (|getJSON| source))
-                                   ) (done (lambda (json)
-                                             (show-data json)))))
+                     (defun show-data (json)
+                       ;; data will be shown here
+                       (chain console (log "json data --------------------"))
+                       (chain console (log json))
+                       )
 
-                      (chain ($ document)
-                             (ready (lambda ()
-                                      (chain ($ "#get-weather")
-                                             (on "click"
-                                                 (lambda ()
-                                                   (fetch-and-show-json "url-to-the-weather-data-service")
-                                                   undefined)))
-                                      undefined) ; overrides parenscipt returns
-                                    ))))))))
+                     (defun fetch-and-show-json (source)
+                       (chain $ (when
+                                    (chain $ (|getJSON| source))
+                                  ) (done (lambda (json)
+                                            (show-data json)))))
+
+                     (chain ($ document)
+                            (ready (lambda ()
+                                     (chain ($ "#get-weather")
+                                            (on "click"
+                                                (lambda ()
+                                                  (get-location)
+                                                  undefined)))
+                                     undefined) ; overrides parenscipt returns
+                                   ))))))))
 
 (defun home-page-view ()
   (who:with-html-output-to-string (out)
