@@ -1,5 +1,5 @@
 ;;;; package.lisp
 
 (defpackage #:testappwikipediaviewer
-  (:use #:cl))
-
+  (:use #:cl #:cl-who #:hunchentoot #:parenscript)
+  (:export :run :stop))
