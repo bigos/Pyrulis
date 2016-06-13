@@ -4,7 +4,7 @@
 
 ;;; "wikiview" goes here. Hacks and glory await!
 
-(defvar *application-directory* (asdf:system-source-directory :quote-machine))
+(defvar *application-directory* (asdf:system-source-directory :wikiview))
 ;;; make css indent nicely
 (setf css-lite:*indent-css* 4)
 
@@ -51,7 +51,7 @@
   (who:with-html-output-to-string (out nil :indent T)
     (:html
      (:head
-      (:title "Quote machine")
+      (:title "Wiki Viewer")
       (:link :href "https://fonts.googleapis.com/css?family=Puritan"
              :type "text/css" :rel "stylesheet")
       (:link :href "https://fonts.googleapis.com/css?family=Open Sans"
@@ -90,9 +90,50 @@
                         "random number from  0 to max-1"
                          (chain |Math| (floor
                                           (* (chain |Math| (random))
-                                             max))))))))))
+                                             max))))
+
+
+                      (defun fetch-and-show-json (source callback)
+                        (chain $ (when
+                                     (chain $ (|getJSON| source))
+                                   ) (done (lambda (json)
+                                             (callback json)))))
+                      (defun show-random ()
+                        (alert "going to show random")
+                        (setf (chain window location href) "https://en.wikipedia.org/wiki/Special:Random")
+                        )
+
+                      (defun show-search ()
+                        (alert (+ "going to show search "
+                                  (chain ($ "#search-input") text)
+                                  ))
+
+                        )
+
+                      (chain ($ document)
+                             (ready (lambda ()
+                                      (chain ($ "#search")
+                                             (on "click"
+                                                 (lambda ()
+                                                   (show-search)
+                                                   undefined
+                                                   )))
+                                      (chain ($ "#random-entry")
+                                             (on "click"
+                                                 (lambda ()
+                                                   (show-random)
+                                                   undefined
+                                                   )))
+                                      undefined)
+                                    ))
+                      ))))))
 
 (defun home-page-view ()
   (who:with-html-output-to-string (out)
     (:div :class "row"
-          )))
+     (:input :id "search-input" :type "text")
+     (:button :id "search"  "Search"))
+    (:div
+          (:button :id "random-entry" "random entry"))
+
+    ))
