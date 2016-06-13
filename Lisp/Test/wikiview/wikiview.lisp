@@ -131,7 +131,7 @@
 (defun home-page-view ()
   (who:with-html-output-to-string (out)
     (:div :class "row"
-     (:input :id "search-input" :type "text")
+     (:input :id "search-input" :type "text" :name "search-input")
      (:button :id "search"  "Search"))
     (:div
           (:button :id "random-entry" "random entry"))
