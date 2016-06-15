@@ -130,10 +130,14 @@
 
 (defun home-page-view ()
   (who:with-html-output-to-string (out)
-    (:div :class "row"
-     (:input :id "search-input" :type "text" :name "search-input")
-     (:button :id "search"  "Search"))
     (:div
-          (:button :id "random-entry" "random entry"))
-
-    ))
+     (:div :class "input-group"
+           (:input :id "search-input"
+                   :class "form-control"
+                   :type "text"
+                   :placeholder "Search Wkikipedia"
+                   :aria-describedby "basic-addon2")
+           (:span :class "input-group-addon" :id "basic-addon2" "Search")))
+    (:div
+     (:button :id "random-entry" :type "button" :class "btn btn-default"
+              "random entry"))))
