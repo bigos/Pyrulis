@@ -1,6 +1,6 @@
 To run web app trial please type following in repl:
 
-(push #p "/home/jacek/Programming/Pyrulis/Lisp/Test/Wikiview" asdf:*central-registry*)
+(push "/home/jacek/Programming/Pyrulis/Lisp/Test/wikiview" asdf:*central-registry*)
 (ql:quickload :wikiview)
 (in-package :wikiview)
 (run)
