@@ -104,9 +104,10 @@
                         )
 
                       (defun show-search ()
-                        (alert (+ "going to show search "
-                                  (chain ($ "#search-input") text)
-                                  ))
+                        (let ((input-value (chain (@ ($ "#search-input") 0) value)))
+                            (alert (+ "going to show search "
+                                      input-value
+                                     )))
 
                         )
 
@@ -124,20 +125,23 @@
                                                    (show-random)
                                                    undefined
                                                    )))
-                                      undefined)
-                                    ))
+                                      undefined)))
                       ))))))
 
 (defun home-page-view ()
   (who:with-html-output-to-string (out)
     (:div
-     (:div :class "input-group"
+     (:button :id "random-entry" :type "button"
+              :class "btn btn-default  col-xs-4" "random entry")
+     (:div :class "col-xs-4 col-xs-offset-0 text-center"
+           :style "padding-top:0.25em;"
+           (:h5 "Wikipedia Viewer"))
+     (:div :class "input-group col-xs-4 col-xs-offset-8"
            (:input :id "search-input"
                    :class "form-control"
                    :type "text"
                    :placeholder "Search Wkikipedia"
                    :aria-describedby "basic-addon2")
-           (:span :class "input-group-addon" :id "basic-addon2" "Search")))
-    (:div
-     (:button :id "random-entry" :type "button" :class "btn btn-default"
-              "random entry"))))
+           (:span :class "input-group-addon " :id "search" :class "basic-addon2" "Search"))
+
+     )))
