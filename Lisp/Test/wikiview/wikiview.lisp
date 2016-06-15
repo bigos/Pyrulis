@@ -18,7 +18,7 @@
 (defun run ()
   (hunchentoot:start vhost1))
 
-(defun stop ()
+(Defun stop ()
   (hunchentoot:stop vhost1))
 
 ;;; helpers --------------------------------------------------------------------
