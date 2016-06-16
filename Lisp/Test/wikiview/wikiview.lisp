@@ -100,13 +100,16 @@
                                              (callback json)))))
                       (defun show-random ()
                         (alert "going to show random")
-                        (setf (chain window location href) "https://en.wikipedia.org/wiki/Special:Random")
-                        )
+                        (setf (chain window location href) "https://en.wikipedia.org/wiki/Special:Random"))
 
                       (defun show-search ()
                         (let ((input-value (chain (@ ($ "#search-input") 0) value)))
                           (alert (+ "going to show search "
-                                    (search-api-link input-value)))))
+                                    (fetch-and-show-json (search-api-link input-value) ; probem with browser security exception
+                                                         show-search-results)))))
+                      (defun show-search-results (data)
+                        (chain console (log "????????????????"))
+                        (chain console (log data)))
 
                       (defun search-api-link (titles)
                         (+ "https://en.wikipedia.org/w/api.php?"
