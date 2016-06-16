@@ -105,11 +105,17 @@
 
                       (defun show-search ()
                         (let ((input-value (chain (@ ($ "#search-input") 0) value)))
-                            (alert (+ "going to show search "
-                                      input-value
-                                     )))
+                          (alert (+ "going to show search "
+                                    (search-api-link input-value)))))
 
-                        )
+                      (defun search-api-link (titles)
+                        (+ "https://en.wikipedia.org/w/api.php?"
+                           "action=query"
+                           "&titles="
+                           (uri-encode titles) ;it's uri not url
+                           "&prop=revisions"
+                           "&rvprop=content"
+                           "&format=json"))
 
                       (chain ($ document)
                              (ready (lambda ()
