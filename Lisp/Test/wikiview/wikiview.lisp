@@ -103,9 +103,11 @@
                         (setf (chain window location href) "https://en.wikipedia.org/wiki/Special:Random"))
 
                       (defun show-search ()
-                        (let ((input-value (chain (@ ($ "#search-input") 0) value)))
+                        (let* ((input-value (chain (@ ($ "#search-input") 0) value))
+                               (sl  (search-api-link input-value)))
+                          (chain console (log sl))
                           (alert (+ "going to show search "
-                                    (fetch-and-show-json (search-api-link input-value) ; probem with browser security exception
+                                    (fetch-and-show-json sl ; probem with browser security exception
                                                          show-search-results)))))
                       (defun show-search-results (data)
                         (chain console (log "????????????????"))

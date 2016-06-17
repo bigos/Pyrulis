@@ -675,6 +675,10 @@ f = \a -> (\b -> a + b)
 *** Poitfree
 ** 7.13 Follow-up resources
 * Chapter 8
+** 8.1 Recursion
+** 8.2 Factorial
+*** Another way to look at recursion
+*** Intermission: Exercise
 
 * continue on page
-  page 269
+  page 276
