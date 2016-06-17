@@ -679,6 +679,27 @@ f = \a -> (\b -> a + b)
 ** 8.2 Factorial
 *** Another way to look at recursion
 *** Intermission: Exercise
+** 8.3 Bottom
+The two main varieties of bottom are
+computations that failed with an error or
+those that failed to terminate.
+
+*** an example
+Prelude> let x = x in x
+ Exception: <<loo
+Prelude>
+
+Here GHCi detected that let x = x in x was never going to return
+and short-circuited the never-ending computation. This is an example
+of bottom because it was never going to return a result.
+
+*** partial vs total
+A partial function is one which does not handle all of its inputs. A
+total function is one that does. How do we make our f into a total
+function?
+One way is with the use of the datatype Maybe .
+
+** 8.4 Fibonacci numbers
 
 * continue on page
-  page 276
+  page 279
