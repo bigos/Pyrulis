@@ -708,6 +708,11 @@ the top-level function takes two arguments, num and denom , but we
 need a third argument in order to keep track of how many times
 we do the subtraction.
 ** 8.6 Chapter Exercises
+*** Review currying
+*** Recursion
+*** Fixing dividedBy
+*** McCarthy 91 function
+** 8.7 Definitions
 
 * continue on page
-  page 286
+  page 291
