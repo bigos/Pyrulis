@@ -713,6 +713,7 @@ we do the subtraction.
 *** Fixing dividedBy
 *** McCarthy 91 function
 ** 8.7 Definitions
+* Chapter 9
 
 * continue on page
-  page 291
+  page 292
