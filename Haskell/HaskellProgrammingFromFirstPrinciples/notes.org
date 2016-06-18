@@ -700,6 +700,14 @@ function?
 One way is with the use of the datatype Maybe .
 
 ** 8.4 Fibonacci numbers
+** 8.5 Integral division from scratch
+Here we used a common Haskell idiom called a go function. This
+allows us to define a function via a where clause that can accept more
+arguments than the top-level function dividedBy does. In this case,
+the top-level function takes two arguments, num and denom , but we
+need a third argument in order to keep track of how many times
+we do the subtraction.
+** 8.6 Chapter Exercises
 
 * continue on page
-  page 279
+  page 286
