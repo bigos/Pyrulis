@@ -1,3 +1,4 @@
+;;; 1.1 -----------------------------------------
 (defun separatorp (c)
   (notevery 'null (mapcar (lambda (x) (eq x c))
                           '(#\Space #\. #\, #\?))))
@@ -17,7 +18,6 @@
             (split str from (1+ cursor)
                    acc)))))
 
-
 (defun titlep (s)
   (notevery 'null
        (mapcar (lambda (x) (equalp s x)) '("MD" "Jr"))))
@@ -28,6 +28,16 @@
                       (titlep (car (last l))))
                  (last-name-inner (butlast l))
                  (last l))))
-    (last-name-inner (split str))))
+    (car (last-name-inner (split str)))))
 
-(princ (last-name "Rex Morgan MD,"))
+(format t "~A~%" (last-name "Rex Morgan MD,"))
+
+;;; 1.2 -----------------------------------------
+(defun power (x p)
+  (cond ((= p 0) 1)
+        (T (apply '* (loop for i from 1 to p collect x)))))
+
+
+(format t "~A~%" (power 3 2))
+
+;;; 1.3 -----------------------------------------
