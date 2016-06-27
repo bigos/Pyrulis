@@ -1,0 +1,47 @@
+* Notes
+** Book outline
+*** Part I
+introduces the Common Lisp
+
+*** Part II
+covers four early A1 programs that all use rule-based pattern-matching
+techniques.
+
+*** Part III
+detours from AI for a moment to present some general tools for more
+efficient programming. The reader who masters the material in this part can be
+considered an advanced Lisp programmer.
+
+*** Part IV
+covers some advanced AI programs.
+
+*** Part V
+includes material that is peripheral to AI but important for any serious
+Lisp programmer.
+
+** Most Important For me
+For the Professional Lisp Programmer: Read as much of the book as possible, and
+refer back to it often. Part III and chapter 25 are particularly important.
+
+** A Note on Exercises
+Sample exercises are provided throughout. Readers can test their level of under-
+standing by faithfully doing the exercises. The exercises are graded on the scale [s],
+[m], [h], [dl, which can be interpreted either as a level of difficulty or as an expected
+time it will take to do the exercise:
+
+| Code | Difficulty | Time to do |
+|------+------------+------------|
+| [s]  | Simple     | Seconds    |
+| [m]  | Medium     | Minutes    |
+| [h]  | Hard       | Hours      |
+| [d]  | Difficult  | Days       |
+
+The time to do the exercise is measured from the point that the concepts have
+been well understood. If the reader is unclear on the underlying concepts, it might
+take hours of review to understand a [m] problem. Answers to the exercises can be
+found in a separate section at the end of each chapter.
+
+** THE INDEX
+PDF page 13
+** last page
+13
