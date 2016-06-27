@@ -41,3 +41,28 @@
 (format t "~A~%" (power 3 2))
 
 ;;; 1.3 -----------------------------------------
+(defun count-atoms (l)
+  (cond ((null l) 0)
+        ((atom l) 1)
+        (T (+ (count-atoms (car l))
+              (count-atoms (cdr l))))))
+
+(format t "~A~%" (count-atoms '(a (b) c)))
+
+;;; 1.4 -----------------------------------------
+(defun count-anywhere (e l)
+  (cond ((null l) 0)
+        ((equalp e l) 1)
+        ((atom l) 0)
+        (T (+ (count-anywhere e (car l))
+              (count-anywhere e (cdr l))))))
+
+(format t "~A~%" (count-anywhere 'a '(a ((a) b) a)))
+
+;;; 1.5 -----------------------------------------
+(defun dot-product (a b &optional (acc 0))
+  (if (not (and a b))
+      acc
+      (dot-product (cdr a)
+                   (cdr b)
+                   (+ acc (* (car a) (car b))))))
