@@ -3,20 +3,18 @@
                           '(#\Space #\. #\, #\?))))
 
 (defun split (str &optional (from 0) (cursor 0) acc)
-  (labels ((at-cursor ()
-             (elt str cursor))
-           (acc-apend ()
-             (append acc (list (subseq str from cursor)))))
+  (labels ((at-cursor () (elt str cursor))
+           (acc-apend () (append acc (list (subseq str from cursor)))))
     (if (>= cursor (length str))
         (if (>= from (length str))
             acc
             (acc-apend) )
         (if (separatorp (at-cursor))
-            (split str (1+ cursor) (1+ cursor )
+            (split str (1+ cursor) (1+ cursor)
                    (if (eq from cursor)
                        acc
                        (acc-apend)))
-            (split str from (1+ cursor )
+            (split str from (1+ cursor)
                    acc)))))
 
 
