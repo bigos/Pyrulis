@@ -49,6 +49,6 @@ book page = pdf page - 24
 ** chapter 1
 (last list n) last n items
 
-1.7
+
 ** last page
-42
+55
