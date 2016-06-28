@@ -49,5 +49,9 @@ book page = pdf page - 24
 ** chapter 1
 (last list n) last n items
 ** chapter 2
+trace on pdf page 61
+(trace list of functions)
+(trace)
+visited functions listed
 ** last page
-58
+61
