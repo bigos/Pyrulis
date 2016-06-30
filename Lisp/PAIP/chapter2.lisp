@@ -96,3 +96,20 @@
 (defun non-terminal-p (category)
   "True if this is a grammar category"
   (not (null (rewrites category))))
+
+(defparameter *bigger-grammar*
+  '((sentence -> (noun-phrase verb-phrase))
+    (noun-phrase -> (article adj* noun pp*) (name) (pronoun))
+    (verb-phrase -> (verb noun-phrase pp*))
+    (pp* -> () (pp pp*))
+    (adj* -> () (adj adj*))
+    (pp -> (prep noun-phrase))
+    (prep -> to in by with on)
+    (adj -> big little blue green adiabatic)
+    (article -> the a)
+    (name -> pat kim terry robin)
+    (noun -> man ball woman table)
+    (verb -> hit took saw liked)
+    (pronoun -> he she it these those that)))
+
+(setf *grammar* *bigger-grammar*)
