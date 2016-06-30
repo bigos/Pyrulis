@@ -73,11 +73,13 @@ CL-USER> (assoc 2 '((1 a) (2 b) (3 c)))
 ***** most straightforward mapping of the problem to code
 ***** most natural notation available to solve the problem
 then write interpreter for the notation
-****** involves extra step
-****** more work for small problems
-****** usually easier to modify
-****** work as much of the problem as possible in its own terms
-****** minimise solution written directly in Lisp
+****** cons
+******* involves extra step
+******* more work for small problems
+****** pros
+******* usually easier to modify
+******* work as much of the problem as possible in its own terms
+******* minimise solution written directly in Lisp
 *** 2.5
 
 ** last page
