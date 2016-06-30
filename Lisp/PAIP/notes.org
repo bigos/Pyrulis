@@ -81,6 +81,14 @@ then write interpreter for the notation
 ******* work as much of the problem as possible in its own terms
 ******* minimise solution written directly in Lisp
 *** 2.5
-
+*** 2.6
+**** rules and facts representation is easier for multiple purpose use
+**** nested sentence structure
+**** using STRAIGHTFORWARD FUNCTIONS we would be stuck
+we would have to rewrite every function to generate additional structure
+**** with new notation we can keep grammar and rewrite just generate function
+to produce nested lists.
+***** cons the category onto the front of each rewrite
+***** do not append results
 ** last page
-67
+68
