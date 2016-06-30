@@ -68,5 +68,7 @@ not a change by the program.
 CL-USER> (assoc 2 '((1 a) (2 b) (3 c)))
 (2 B)
 
+*** 2.4
+
 ** last page
-65
+66

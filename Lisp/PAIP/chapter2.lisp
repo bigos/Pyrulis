@@ -64,3 +64,35 @@
         ((rewrites phrase)
          (generate (random-elt (rewrites phrase))))
         (T (list phrase))))
+
+(defun generate (phrase)
+  "Generate a random sentence or phrase"
+  (if (listp phrase)
+      (mappend #'generate phrase)
+      (let ((choices (rewrites phrase)))
+        (if (null choices)
+            (list phrase)
+            (generate (random-elt choices))))))
+
+;;; exercise 2.1 p 66
+(defun generate (phrase)
+  "generate random sentence or phrase"
+  (let ((rewritten (rewrites phrase)))
+    (cond ((listp phrase)
+           (mappend #'generate phrase))
+          (rewritten
+           (generate (random-elt rewritten)))
+          (T (list phrase)))))
+
+;;; exercise 2.2 p 66
+(defun generate (phrase)
+  "generate random sentence or phrase"
+  (cond ((listp phrase)
+         (mappend #'generate phrase))
+        ((non-terminal-p phrase)
+         (generate (random-elt (rewrites phrase))))
+        (T (list phrase))))
+
+(defun non-terminal-p (category)
+  "True if this is a grammar category"
+  (not (null (rewrites category))))
