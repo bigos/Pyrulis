@@ -113,3 +113,7 @@
     (pronoun -> he she it these those that)))
 
 (setf *grammar* *bigger-grammar*)
+
+(defun generate-tree (phrase)
+  ;; TODO: page 68
+  )
