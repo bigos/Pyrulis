@@ -112,8 +112,33 @@
     (verb -> hit took saw liked)
     (pronoun -> he she it these those that)))
 
-(setf *grammar* *bigger-grammar*)
+;; (setf *grammar* *bigger-grammar*)
+(setf *grammar* *simple-grammar*)
 
 (defun generate-tree (phrase)
-  ;; TODO: page 68
-  )
+  "Generate a random sentence or phrase
+  with a complete parse tree"
+  (cond ((listp phrase)
+         (mapcar #'generate-tree phrase))
+        ((rewrites phrase)
+         (cons phrase
+               (generate-tree (random-elt (rewrites phrase)))))
+        (T (list phrase))))
+
+(defun generate-all (phrase)
+  "Generate list of all possible expansions of this phrase"
+  (cond ((null phrase) (list nil))
+        ((listp phrase)
+         (combine-all (generate-all (first phrase))
+                      (generate-all (rest phrase))))
+        ((rewrites phrase)
+         (mappend #'generate-all (rewrites phrase)))
+        (T (list (list phrase)))))
+
+(defun combine-all (xlist ylist)
+  "Return a list of lists formed by appending a y to an x.
+  e.g. (combine-all '((a) (b)) '((1) (2)))
+  -> ((A 1) (B 1) (A 2) (B 2))"
+  (mappend #'(lambda (y)
+               (mapcar #'(lambda (x) (append x y)) xlist))
+           ylist))
