@@ -142,3 +142,5 @@
   (mappend #'(lambda (y)
                (mapcar #'(lambda (x) (append x y)) xlist))
            ylist))
+
+;;; 2.7 Exercises

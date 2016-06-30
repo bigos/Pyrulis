@@ -90,5 +90,7 @@ we would have to rewrite every function to generate additional structure
 to produce nested lists.
 ***** cons the category onto the front of each rewrite
 ***** do not append results
+*** 2.7 Exercises
+
 ** last page
-68
+70
