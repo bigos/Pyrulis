@@ -56,6 +56,32 @@ then switched to uppercase version of lambda Λ,
 because it was confused with A he eventually switched to lowercase λ,
 John McCarthy was student of Church, when he invented Lisp there was
 no λ character on the keyboard, so we have lambda
+*** sharp-quote
+When a function appears at cdr part ot a list use of #' tells lisp evaluator
+to treat is a a function instead of eveluating it using normal rules.
+you could think of it as #'fn == (function fn)
+*** lambda expressions can create functions at runtime
+see section 3.16 about closures
+*** 1.9 Lisp evaluation
+**** expression
+***** list
+evaluated as:
+****** special form expression
+a list whose first element is operator
+eg. (+ 1 2) 'john (quote john) #'fn (function fn)
++, ', quote, #', and function are operators
+****** function application
+is evaluated by first evaluating the arguments (the rest of list)
+and then finding the functionvnamed by the first element of the list
+and applying it to the evaluated arguments
+eg. (+ a b)
+here we first evaluate variables a & b, then we apply + to them
+***** atom
+****** symbol
+evaluates to most recent value assigned to the variable named by symbol
+****** non symbol
+evaluates to itself, numbers, strings etc.
+**** distinction between reading and evaluating
 ** chapter 2
 *** 2.1
 *** 2.2
