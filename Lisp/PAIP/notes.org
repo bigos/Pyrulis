@@ -48,6 +48,14 @@ PDF page 13
 book page = pdf page - 24
 ** chapter 1
 (last list n) last n items
+*** the story of lambda
+pdf page 44
+Russell used ^ above a symbol for bound variables in his Principia Mathematica
+Church initially moved ^ to the front of a symbol,
+then switched to uppercase version of lambda Λ,
+because it was confused with A he eventually switched to lowercase λ,
+John McCarthy was student of Church, when he invented Lisp there was
+no λ character on the keyboard, so we have lambda
 ** chapter 2
 *** 2.1
 *** 2.2
@@ -73,6 +81,7 @@ CL-USER> (assoc 2 '((1 a) (2 b) (3 c)))
 ***** most straightforward mapping of the problem to code
 ***** most natural notation available to solve the problem
 then write interpreter for the notation
+
 ****** cons
 ******* involves extra step
 ******* more work for small problems

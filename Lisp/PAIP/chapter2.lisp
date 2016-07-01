@@ -54,7 +54,9 @@
   (rule-rhs (assoc category *grammar*)))
 
 (defun mappend (fn the-list)
-  "Apply fn to each element of list and append the results"
+  "Apply fn to each element of list and append the resulting lists
+  into one list"
+   (format t "~&mappend ~A ~A~%" fn the-list)
   (apply #'append (mapcar fn the-list)))
 
 (defun generate (phrase)
