@@ -126,6 +126,54 @@ to produce nested lists.
 ***** cons the category onto the front of each rewrite
 ***** do not append results
 *** 2.7 Exercises
+** chapter 3
+*** 3.1
+**** six programming maxims
+***** be specific
+for example when is more specific than if
+***** use abstractions
+You should not make mistake of invoking primitive functions directly
+
+If you define a list of names:
+(defvar *names*
+ '((Robert E. Lee) ... ))
+then you should also define functions to get at the components of each name.
+To get Lee use (last-name (car *names*)) not (caddar *names*)
+
+Use find or find if instead of loop, find is more specific, it is an abstraction.
+It is more concise it's built in and it's easier to understand.
+****** maxim conflicts
+sometimes maxims are in conflict and experience will tell you which one to prefer
+in such case remember rule 6: be consistent
+***** be concise
+***** use the provided tools
+***** do not be obscure
+***** be consistent
+*** 3.2
+**** defvar vs defparameter
+defvar will be assigned initial value only if it does not have any value
+defparameter will always assign supplied value
+**** defstruct and default values
+**** conditionals
+it is considered poor style to use and & or for anything other than testing
+a logical condition
+
+When the main purpose is to return value rather than take action
+cond & if (with explicit nil) are preferred over when & unless.
+
+| action   | possibilities |
+|----------+---------------|
+| when     |             1 |
+| if, cond |             2 |
+| cond     |            3+ |
+
+If there are several tests comparing an expression to constant then case is
+appropriate
+***** typecase
+***** errors
+****** ecase etypecase
+****** ccase ctypecase
+**** variables and places
 
 ** last page
-70
+79
