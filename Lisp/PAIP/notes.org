@@ -184,5 +184,24 @@ reading effort
 ****** try to copy established macros
 ****** backquote
 *** 3.3
+*** 3.4
+*** 3.5
+*** 3.6
+*** 3.7
+**** tree-equal
+*** 3.8
+*** 3.9
+*** 3.10
+*** 3.11
+*** 3.12
+*** 3.13
+**** trace
+**** describe, inspect, documentation, apropos
+*** 3.14
+**** error, cerror
+**** timing
+*** 3.15
+*** 3.16
+
 ** last page
-91
+114
