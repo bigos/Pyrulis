@@ -174,6 +174,15 @@ appropriate
 ****** ecase etypecase
 ****** ccase ctypecase
 **** variables and places
-
+**** repetition
+***** some, every
+loop over elements until condition
+***** common idioms
+***** recursion
+***** macros
+reading effort
+****** try to copy established macros
+****** backquote
+*** 3.3
 ** last page
-79
+91
