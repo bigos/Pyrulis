@@ -201,7 +201,30 @@ reading effort
 **** error, cerror
 **** timing
 *** 3.15
-*** 3.16
+*** 3.16 Closures
+**** OOP
+#+BEGIN_SRC lisp
+(defun adder (c)
+  "Return a function that adds c to its arguments"
+  #'(lambda (x) (+ x c)))
+#+END_SRC
+
+> (mapcar (adder 3 ) ' ( 1 3 1 0 ) )
+> (mapcar (adder 10) ' ( 1 3 1 0 ) )
+each time we call edder with different c, it creates a different function
+
+#+BEGIN_SRC lisp
+(defun bank-account (balance)
+           "Open a bank account starting with given balance."
+           #'(lambda (action amount
+                      (case action
+                        (deposit (setf balance (+ balance amount)))
+                        (withdraw (setf balance (- balance amount)))))))
+#+END_SRC
+
+now you can do OOP
+> (setf my-account (bank-account 500.00)) => function
+> (funcall my-account 'withdraw 75.00) => 425
 
 ** last page
 114
