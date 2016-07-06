@@ -225,6 +225,23 @@ each time we call edder with different c, it creates a different function
 now you can do OOP
 > (setf my-account (bank-account 500.00)) => function
 > (funcall my-account 'withdraw 75.00) => 425
+*** 3.17
+**** lexical variables
+lexical variables can be accesses outside their scope if a function
+returns lambda, as in example in section 3.16. we can still call lambda
+that has access to the lexical variable
+**** special variables
+special variables != global variables
+created by defvar defparameter
+can be shadowed by local variables
+can be bound both locally and globally
 
+example of counter and report
+
+this only works with special variables
+(setf (symbol-value var) value)
+(set var value)
+**** exercise 3.6
+*** 3.18
 ** last page
-114
+117
