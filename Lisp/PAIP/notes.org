@@ -254,5 +254,21 @@ function alias in Lisp
 (setf (symbol-function 'new-alias) #'old-function)
 *** 3.20
 *** 3.21 Exercises
+**** formatting of a list of symbols as string
+(format T "~@(~{~A~^ ~}.~)" '( this is a test))
+***** explanation
+~@( str ~) - tilde left-paren: case conversion
+@ capitalizes
+
+~{ iteration
+here, based on the list length we create "~A ~A ~A"
+
+~} iteration end
+
+~^ - tilde circumflex: escape upward
+terminates list processing, so we do not print last space before .
+
+** chapter 4
+
 ** last page
-125
+131
