@@ -243,5 +243,16 @@ this only works with special variables
 (set var value)
 **** exercise 3.6
 *** 3.18
+(multiple-value-bind (a b)
+  (round 5.1)
+  (format t "rounding values a ~a  b~a" a b))
+
+return multiple values
+(values 1 2 3)
+*** 3.19
+function alias in Lisp
+(setf (symbol-function 'new-alias) #'old-function)
+*** 3.20
+*** 3.21 Exercises
 ** last page
-117
+125
