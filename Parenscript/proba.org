@@ -1,0 +1,15 @@
+* trident
+
+** installation
+trident-mode
+
+** running
+M-x slime
+
+*** slime
+(ql:quickload :parenscript)
+(use-package :parenscript)
+
+M-x trident-mode
+M-x run-skewer
+m-x trident-eval-sexp
