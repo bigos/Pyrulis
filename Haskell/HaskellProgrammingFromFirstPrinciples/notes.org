@@ -795,5 +795,40 @@ instance of the Enum typeclass
 
 ** 9.7 List comprehensions
 
+*** description
+generate a new list
+from a list or lists
+
+*** origin
+they come from set comprehensions in mathematics
+
+*** example
+?   1 2       3
+[ x^2 | x <- [1..10]]
+**** 1. the output function
+that will apply to the members of the list
+**** 2. pipe
+separation of output and input
+**** 3. generator list
+a generator list [1..10] and a variable x that represents the elements that
+will be drawn from the list.
+*** Adding predicates
+optional predicates can limit the elements drawn from the generator list
+**** example
+same like above example but this time we ignore odd numbers
+[ x^2 | x <- [1..10], rem x 2 ==0 ]
+
+*** multiple generators
+[ x^y | x <- [1..5], y <- [2, 3] ]
+
+*** multiple generators with predicate
+[ x^y | x <- [1..5], y <- [2, 3], x^y < 200 ]
+
+*** like a loop within loop
+[(x,y) | x <- [1,2,3], y <- ['a', 'b']]
+=> [(1,'a'),(1,'b'),(2,'a'),(2,'b'),(3,'a'),(3,'b')]
+
+*** Intermission: Exercises
+
 * continue on page
-  page 303
+  page 305
