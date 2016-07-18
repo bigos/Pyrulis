@@ -791,8 +791,9 @@ instance of the Enum typeclass
 *** Exercise
 
 ** 9.6 Extracting portions of lists
-
 *** Intermission: Exercises
 
+** 9.7 List comprehensions
+
 * continue on page
-  page 302
+  page 303

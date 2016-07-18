@@ -1,29 +1,9 @@
 -- chapter 6 scribbling
 
 
-data TisAnInteger =
-  TisAnInteger'
 
-instance Eq TisAnInteger where
-  (==) TisAnInteger' TisAnInteger' = True
+myWords' "" sep acc = acc
+myWords' s sep acc = myWords' (dropWhile (== sep) $ dropWhile (/= sep) s) sep (acc ++ [ takeWhile (/= sep) s])
 
-
-data TwoIntegers =
-  Two Integer Integer
-  deriving (Eq)
--- instance Eq TwoIntegers where
---   (==) TwoIntegers' TwoIntegers' = True
---   (==) _ _ = False
--- data StringOrInt =
--- TisAnInt Int
--- | TisAString String
--- data Pair a =
--- Pair a a
--- data Tuple a b =
--- Tuple a b
--- data Which a =
--- ThisOne a
--- | ThatOne a
--- data EitherOr a b =
--- Hello a
--- | Goodbye b
+myWords s = myWords' s ' ' []
+myLines s = myWords' s '\n' []
