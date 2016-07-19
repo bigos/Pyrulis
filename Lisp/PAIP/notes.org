@@ -328,5 +328,22 @@ see next heading - closely related
 ******** definition of appropriateness
 
 *** 4.2 Stage 2: Specification
+
+**** at this point we have vague idea what we need to solve the problem
+
+**** now we refine it
+
+***** represent CURRENT STATE and GOAL STATE as sets of conditions
+typical current state (hungry underweight) <- 2 conditions
+typical goal (eaten overweight)
+
+***** list allowable operators
+****** constant for the problem duration
+****** changeable to tackle new problems
+***** operator -> a structure ((actions) (preconditions) (effects))
+****** limit possible effects
+****** effects ADD or DELETE conditions of current state
+
+
 ** last page
 134
