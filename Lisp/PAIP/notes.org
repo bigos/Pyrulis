@@ -270,5 +270,23 @@ terminates list processing, so we do not print last space before .
 
 ** chapter 4
 
+*** 5 stages of developing AI program
+**** description
+***** rough idea
+***** prose
+***** what we want to do
+**** specification
+***** redescribing problem closer to a computable procedure
+**** implementation
+**** testing
+**** debugging & analysis
+***** IMPORTANT remarks
+***** fluid boundaries between stages
+***** above order not important
+****** TDD may have tests before implementation
+***** problems at any stage may require redesign at previous stages
+***** you can get away with partial description or specification
+****** and then complete the specification based on better understanding
+*** 4.1 not read yet
 ** last page
-131
+133
