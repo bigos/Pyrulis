@@ -270,5 +270,63 @@ terminates list processing, so we do not print last space before .
 
 ** chapter 4
 
+*** 5 stages of developing AI program
+**** 1 description
+***** rough idea
+***** prose
+***** what we want to do
+**** 2 specification
+***** redescribing problem closer to a computable procedure
+**** 3 implementation
+**** 4 testing
+**** 5 debugging & analysis
+**** IMPORTANT remarks
+***** fluid boundaries between stages
+***** above order not important
+****** TDD may have tests before implementation
+***** problems at any stage may require redesign at previous stages
+***** you can get away with partial description or specification
+****** and then complete the specification based on better understanding
+*** 4.1 Stage 1: Description
+**** means ends analysis
+***** example
+| means                         | ends         |
+|-------------------------------+--------------|
+| need to go to the city centre | distance     |
+| need to take bus              | ticket money |
+| need to borrow                | from X       |
+| need to ask X                 | phone call   |
+| need to plan journey          | memory       |
+| need to get on the bus        | walk         |
+| need to got to go to the city | ride         |
+**** theory of means ends
+***** Aristotle
+The nature of deliberation and its objects
+***** the gist
+the X does not deliberate whether he will achieve target Y
+he assumes Y tries to attain it
+he considers many ways to attain Y and considers the best
+then he decides how and by what means
+till he finds the first cause
+if he comes on impossibility (eg. no money) then he gives up
+otherwise he will try to do it
+**** having theory write a program
+***** understand more fully the Aristotle's principle
+****** means ends analysis
+******* describing what we want to happen
+******* eliminate
+******** difference between what I have and what I want
+******* example - bus eliminates the difference
+******** for going to town bus may be a solution
+******** bus changes location
+******* need
+******** description
+********* of allowable actions
+********** can't bring city centre to my house
+see next heading - closely related
+********* and their preconditions and effects
+******** definition of appropriateness
+
+*** 4.2 Stage 2: Specification
 ** last page
-131
+134
