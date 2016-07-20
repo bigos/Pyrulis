@@ -340,10 +340,34 @@ typical goal (eaten overweight)
 ***** list allowable operators
 ****** constant for the problem duration
 ****** changeable to tackle new problems
-***** operator -> a structure ((actions) (preconditions) (effects))
+***** operator -> a structure ((action) (preconditions) (effects))
 ****** limit possible effects
-****** effects ADD or DELETE conditions of current state
+******* effects ADD or DELETE conditions of current state
+***** complete problem described in terms
+****** starting state
+****** known operators
+****** goal state
+****** example
+(gps '(hungry underweight) '(eaten overweight) list-of-operators )
 
+Starting from '(hungry underweight) achieve '(eaten overweight)
+using any combination of known operators and record actions taken
+
+***** single goal condition
+
+****** if already in the state
+******* achieved trivially, no effort
+****** otherwise find appropriate operator
+***** operator is appropriate  if
+****** on of the effects is to
+add the goal in question
+in other words if the goal is in the operators add-list
+***** we can apply an operator if
+****** achieve all preconditions
+****** execute action and
+******* update current state
+in terms of operators add-list and delete-list
+*** Stage 3: Implementation
 
 ** last page
 134
