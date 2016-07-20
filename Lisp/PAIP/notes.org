@@ -408,6 +408,6 @@ an operator is appropriate for achieving a goal
 **** potential combinatorics issue
 **** defparameter
 *school-ops*
-
+*** 4.5 Stage 5: Analysis, or G issue
 ** last page
-137
+139
