@@ -401,5 +401,13 @@ an operator is appropriate for achieving a goal
 ******* returns T only if applied
 
 *** 4.4 Stage 4: test
+**** solving domain problems
+***** define operators
+***** pose and solve problems
+**** make-op
+**** potential combinatorics issue
+**** defparameter
+*school-ops*
+
 ** last page
-136
+137
