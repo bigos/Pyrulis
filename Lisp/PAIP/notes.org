@@ -365,11 +365,41 @@ in other words if the goal is in the operators add-list
 ******** add-list
 ******** delete-list
 
-*** Stage 3: Implementation
+*** 4.3 Stage 3: Implementation
 **** specification complete enough
 ***** to lead directly to complete program
 ***** we already have variables, data types and functions
 
+**** four function definitions
 
+***** gps
+****** 3 arguments
+current state, goal state, allowed operators
+****** body
+says if we can achieve every goal the problem is solved
+***** achieve
+****** argument
+single goal
+****** succeds if one of
+******* the goal is already true in current state
+******* we can apply appropriate operator
+******** build list of appropriate operators
+******** test each until one can be applied
+****** calls find-all defined on book page 101
+******* which uses appropriate-p
+***** appropriate-p
+****** tests if
+an operator is appropriate for achieving a goal
+***** apply-op
+****** if we can achieve all preconditions
+******* apply the operator
+******** print message
+******** change state of the world
+********* delete from delete list
+********* add to add list
+****** a predicate
+******* returns T only if applied
+
+*** 4.4 Stage 4: test
 ** last page
-135
+136
