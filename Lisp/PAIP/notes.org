@@ -269,7 +269,6 @@ here, based on the list length we create "~A ~A ~A"
 terminates list processing, so we do not print last space before .
 
 ** chapter 4
-
 *** 5 stages of developing AI program
 **** 1 description
 ***** rough idea
@@ -328,9 +327,7 @@ see next heading - closely related
 ******** definition of appropriateness
 
 *** 4.2 Stage 2: Specification
-
 **** at this point we have vague idea what we need to solve the problem
-
 **** now we refine it
 
 ***** represent CURRENT STATE and GOAL STATE as sets of conditions
@@ -354,10 +351,9 @@ Starting from '(hungry underweight) achieve '(eaten overweight)
 using any combination of known operators and record actions taken
 
 ***** single goal condition
-
-****** if already in the state
-******* achieved trivially, no effort
+****** if already in the state DONE - trivially, no effort
 ****** otherwise find appropriate operator
+
 ***** operator is appropriate  if
 ****** on of the effects is to
 add the goal in question
@@ -365,9 +361,15 @@ in other words if the goal is in the operators add-list
 ***** we can apply an operator if
 ****** achieve all preconditions
 ****** execute action and
-******* update current state
-in terms of operators add-list and delete-list
+******* update current state in terms of
+******** add-list
+******** delete-list
+
 *** Stage 3: Implementation
+**** specification complete enough
+***** to lead directly to complete program
+***** we already have variables, data types and functions
+
 
 ** last page
-134
+135
