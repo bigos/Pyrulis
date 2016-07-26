@@ -829,6 +829,8 @@ same like above example but this time we ignore odd numbers
 => [(1,'a'),(1,'b'),(2,'a'),(2,'b'),(3,'a'),(3,'b')]
 
 *** Intermission: Exercises
-
+*** List comprehensions with  Strings
+**** elements
+** 9.8 Spines and non-strict evaluation
 * continue on page
-  page 305
+  page 307
