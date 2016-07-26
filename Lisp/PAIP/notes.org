@@ -409,5 +409,18 @@ an operator is appropriate for achieving a goal
 **** defparameter
 *school-ops*
 *** 4.5 Stage 5: Analysis, or G issue
+**** limitations/bugs
+***** no clear answer
+**** discover more about the problem area
+*** 4.6 The Running Around the Block Problem
+**** interesting question
+*** 4.7 The Clobbered Sibling Goal Problem
+**** running out of money example
+**** unresolved in this chapter
+*** 4.8 The Leaping before You Look Problem
+**** another solution to 4.7 problem
+*** 4.9 The Recursive Subgoal Problem
+*** 4.10 The Lack of Intermediate Information Problem
+
 ** last page
-139
+143
