@@ -832,5 +832,20 @@ same like above example but this time we ignore odd numbers
 *** List comprehensions with  Strings
 **** elements
 ** 9.8 Spines and non-strict evaluation
+*** problem
+The problem with the 1 : (2 : (3 : [])) representation we used
+earlier is that it makes it seem like the value 1 exists “before” the cons
+(:) cell that contains it, but actually, the cons cells contain the values.
+*** explanation
+Because of this and the way non-strict evaluation works, you can
+evaluate cons cells independently of what they contain. It is possible
+to evaluate just the spine of the list without evaluating individual
+values. It is also possible to evaluate only part of the spine of a list and
+not the rest of it.
+*** sprint
+quirks on page 309
+*** mySum
+** 9.9 Transforming lists of values
+
 * continue on page
-  page 307
+  page 315
