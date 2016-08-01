@@ -146,7 +146,22 @@ bit like connascence
 ***** go further and apply the same principles to
 ****** algorithms
 ****** data structures
-**** the superficiality of structure
+*** the superficiality of structure
+**** criteria for decomposition
+***** possible reuse
+***** possible change
+*** looking back and forth
+**** implicit calls
+**** implicit data passing
+*** component programming
+*** hide from whom
+*** hiding the construction of data
+*** but is it a high level language
+*** the language of design
+*** the language of performance
+**** speed
+**** capability
+**** size
 
 ** 2
 ** 3
@@ -158,4 +173,4 @@ bit like connascence
 ** Epilogue
 
 * last page
-28
+35 looking back and forth
