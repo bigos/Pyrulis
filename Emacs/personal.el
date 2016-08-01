@@ -23,6 +23,8 @@
                                         slime web-mode switch-window
                                         helm-descbinds load-theme-buffer-local))
 
+(setq org-src-fontify-natively t)
+
 (helm-descbinds-mode)
 (require 'rubocop)
 (require 'load-theme-buffer-local)
