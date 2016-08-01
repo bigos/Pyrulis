@@ -1,0 +1,161 @@
+* book
+** preface
+*** programming
+- crazy-making
+- invisible, imagination
+*** mental tools
+**** consistent and practical methodology
+*** book layout
+**** imitates software development cycle
+from initial specification up through implementation
+** 1
+*** armchair history of software elegance
+**** demands
+- correctness
+- speed of development
+- ease of maintenance
+- elegance
+**** memorability
+translate bit patterns to memorable abbreviations!
+**** power
+assembler has one to one correspondence between
+bit patterns/machine instructions and programmer commands
+***** assembler macros
+names for common sequences of commands!
+
+**** abstraction
+***** high level language
+no correspondence between source and machine instructions!
+****** actual instructions
+depend on the entire statement
+symbol + can mean different things in different places
+nonlinear syntax dependent correspondence
+******* considered big progress
+******* authors think it's a restriction
+**** manageability
+***** jumps and loops
+spaghetti code
+***** flow charts
+****** not so useful
+****** need for manual conversion to/from code
+**** modularity
+***** structured programming
+****** splitting big problems into smaller ones
+****** elimination of spaghetti
+by insisting jumps only within module
+****** 3 premises
+******* linear sequence of functions/modules
+******* one entry, one exit
+******* module can contain
+******** operations or other modules/functions
+******** if then else
+******** loops
+**** writeability
+***** high level languages
+****** include control structures in their command sets
+****** Pascal
+**** designing from the top
+***** requires very detailed ahead planning
+***** danger of time waste
+***** programs difficult to change
+**** subroutines
+***** discrete units that can be
+****** named
+****** invoked from other code
+***** easier testing
+***** performance penalty
+****** saving registers
+***** can be fussy about passed arguments
+****** tests
+**** successive refinement
+***** can't run until low level code written
+***** forces you to work out all details before
+****** proceeding to lower level
+**** structured design
+***** difficulties of software maintenance
+****** keeping up with change
+****** incomplete analysis
+****** poorly thought out designs
+****** anticipating unforeseen
+***** solution, structured design
+Simplicity is the primary measurement recommended for evaluating alternative
+designs relative to reduced debugging and modification time. Simplicity can be
+enhanced by dividing the system into separate pieces in such a way that pieces
+can be considered, implemented, fixed and changed with minimal consideration
+or effect on the other pieces of the system.
+***** but how to divide modules? 3 factors
+****** functional strength
+****** coupling
+****** hierarchical input-process-output design
+**** FUNCTIONAL STRENGTH
+***** measure of uniformity of purpose
+****** single task
+***** questions to ask
+1. Does the description have to be a compound sentence?
+2. Does it use words involving time, such as “first”, “next”, “then,” etc.?
+3. Does it use a general or nonspecific object following the verb?
+4. Does it use words like “initialize” which imply a lot of different functions being done at the same time?
+****** if answer to any of these questions is yes
+then we have less cohesive type of binding than functional binding. these include
+******* coincidental binding
+just happens to appear in the same module
+******* logical binding
+has several related functions requiring a parameter to decide which one to perform
+******* temporal binding
+all happens to occur at the same time
+******* communication binding
+all refer to the same data
+
+**** COUPLING
+***** measure how behaviour of other modules is influenced
+bit like connascence
+***** strong considered bad
+***** data coupling
+****** acceptable
+******* passing local variables as arguments
+****** danger of side effects
+******* global variables
+******** strong coupling
+
+**** HIERARCHICAL INPUT-PROCESS-OUTPUT DESIGN
+***** early design stage
+****** use top down approach
+******* ignore
+******** control structures
+******** decision design
+******* focus on
+******** program hierarchy / system components
+******** passing data between components
+****** charts
+******* structure kind of similar to org mode
+****** most important
+******* details of control flow should not dominate emerging design
+******* change of plan should not have disastrous effects
+
+**** information hiding
+***** dividing problems into modules
+****** should not be about
+******* steps in the process
+****** but rather
+******* pieces of information that might possibly change
+****** should hide information that can change
+****** avoid obsolescence
+******* maintain correctness in changing environment
+******* keep changeable stuff at single location
+******* do not use magic numbers
+***** go further and apply the same principles to
+****** algorithms
+****** data structures
+**** the superficiality of structure
+
+** 2
+** 3
+** 4
+** 5
+** 6
+** 7
+** 8
+** Epilogue
+
+* last page
+28
