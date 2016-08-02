@@ -846,6 +846,26 @@ not the rest of it.
 quirks on page 309
 *** mySum
 ** 9.9 Transforming lists of values
+*** map and fmap
+*** performance mantra
+lazy in the spine strict in the leaves
+*** Intermission: Exercises
+** 9.10 Filtering lists of values
+#+BEGIN_EXAMPLE
+Prelude> filter even [1..10]
+[2,4,6,8,10]
+#+END_EXAMPLE
+** 9.11 Zipping lists
+#+BEGIN_EXAMPLE
+Prelude> zip [1, 2, 3] [4, 5, 6]
+[(1,4),(2,5),(3,6)]
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+Prelude> zipWith (+) [1, 2, 3] [10, 11, 12]
+[11,13,15]
+#+END_EXAMPLE
+** 9.12 Chapter Exercises
 
 * continue on page
   page 315
