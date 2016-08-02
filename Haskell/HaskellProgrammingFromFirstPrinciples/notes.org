@@ -868,4 +868,4 @@ Prelude> zipWith (+) [1, 2, 3] [10, 11, 12]
 ** 9.12 Chapter Exercises
 
 * continue on page
-  page 315
+  page 325
