@@ -381,7 +381,7 @@ where clauses. Here’s an example of assigning a type within a where clause:
 
 ** 5.9 Chapter Exercises
 ** 5.10 Definitions
-* Chapter 6 - Stuck
+*Chapter 6 - Stuck
 ** 6.1 Typeclasses
 Eq, Num, Ord, Enum, Show
 ** 6.2 What are typeclasses?
@@ -868,6 +868,11 @@ Prelude> zipWith (+) [1, 2, 3] [10, 11, 12]
 ** 9.12 Chapter Exercises
 
 squish function
+page 329
+
+the rest after squish skipped
+* Chapter 10
+** 10.1 Folds
 
 * continue on page
-  page 329
+337

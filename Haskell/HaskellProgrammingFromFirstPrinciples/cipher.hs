@@ -31,10 +31,9 @@ myReverse :: [a] -> [a]
 myReverse [] = []
 myReverse (x:xs) = myReverse xs ++ [x]
 
--- TODO:
-
--- squish :: [[a]] -> [a]
--- squish = undefined
+squish :: [[a]] -> [a]
+squish [] = []
+squish [[a]]
 
 -- squishMap :: (a -> [b]) -> [a] [b]
 -- squishMap = undefined
