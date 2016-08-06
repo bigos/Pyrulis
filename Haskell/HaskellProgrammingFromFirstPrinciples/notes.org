@@ -867,5 +867,7 @@ Prelude> zipWith (+) [1, 2, 3] [10, 11, 12]
 #+END_EXAMPLE
 ** 9.12 Chapter Exercises
 
+squish function
+
 * continue on page
-  page 325
+  page 329

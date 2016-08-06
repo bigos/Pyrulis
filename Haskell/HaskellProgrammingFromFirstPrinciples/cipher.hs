@@ -17,34 +17,39 @@ myAnd (x:xs) = if x == False then False else myAnd xs
 -- myAnd (x:xs) = x && myAnd xs
 
 myOr :: [Bool] -> Bool
-myOr = undefined
+myOr [] = False
+myOr (x:xs) = if x == True then True else myOr xs
 
 myAny :: (a -> Bool) -> [a] -> Bool
-myAny = undefined
+myAny fn [] = False
+myAny fn (x:xs) = if (fn x) == True then True else myAny fn xs
 
 myElem :: Eq a => a -> [a] -> Bool
-myElem = undefined
+myElem e a = myAny (\x -> e == x) a
 
 myReverse :: [a] -> [a]
-myReverse = undefined
+myReverse [] = []
+myReverse (x:xs) = myReverse xs ++ [x]
 
-squish :: [[a]] -> [a]
-squish = undefined
+-- TODO:
 
-squishMap :: (a -> [b]) -> [a] [b]
-squishMap = undefined
+-- squish :: [[a]] -> [a]
+-- squish = undefined
 
-squishAgain :: [[a]] -> [a]
-squishAgain = undefined
+-- squishMap :: (a -> [b]) -> [a] [b]
+-- squishMap = undefined
 
-myMaximumBy :: (a -> a -> Ordering) -> [a] -> a
-myMaximumBy = undefined
+-- squishAgain :: [[a]] -> [a]
+-- squishAgain = undefined
 
-myMinimumBy :: (a -> a -> Ordering) -> [a] -> a
-myMinimumBy = undefined
+-- myMaximumBy :: (a -> a -> Ordering) -> [a] -> a
+-- myMaximumBy = undefined
 
-myMaximum :: (Ord a) => [a] -> a
-myMaximum = undefined
+-- myMinimumBy :: (a -> a -> Ordering) -> [a] -> a
+-- myMinimumBy = undefined
 
-myMinimum :: (Ord a) => [a] -> a
-myMinimum = undefined
+-- myMaximum :: (Ord a) => [a] -> a
+-- myMaximum = undefined
+
+-- myMinimum :: (Ord a) => [a] -> a
+-- myMinimum = undefined
