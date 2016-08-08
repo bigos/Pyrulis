@@ -870,6 +870,46 @@ Prelude> zipWith (+) [1, 2, 3] [10, 11, 12]
 * Chapter 10
 ** 10.1 Folds
 ** 10.2 Bringing you into the fold
+** 10.3 Recursive patterns
+*** structural similarity
+
+#+BEGIN_SRC haskell
+sum :: [Integer] -> Integer
+sum [] = 0
+sum (x:xs) = x + sum xs
+#+END_SRC
+
+#+BEGIN_SRC haskell
+length :: [a] -> Integer
+length [] = 0
+length (_:xs) = 1 + length xs
+#+END_SRC
+** 10.4 Fold right
+We call foldr the “right fold” because the fold is right associative;
+The similarities between this and the recursive patterns we saw above
+should be clear.
+*** How foldr evaluates
+**** trick showing how it works
+We can also use a trick popularized by some helpful users in the
+Haskell IRC community to see how the fold associates. 2
+#+BEGIN_EXAMPLE
+Prelude> let xs = map show [1..5]
+Prelude> :{
+*Prelude| foldr (\x y -> concat ["(",x,"+",y,")"])
+*Prelude|        "0" xs
+*Prelude| :}
+"(1+(2+(3+(4+(5+0)))))"
+#+END_EXAMPLE
+**** two stages
+***** traversal
+recurses over spine, all folds do it in the same direction
+***** folding
+****** lazy
+** 10.5 Fold left
+*** Associativity and folding
+*** Intermission exercises
+
+
 
 * continue on page
-  page 337
+  page 351
