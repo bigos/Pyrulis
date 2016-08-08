@@ -866,14 +866,10 @@ Prelude> zipWith (+) [1, 2, 3] [10, 11, 12]
 [11,13,15]
 #+END_EXAMPLE
 ** 9.12 Chapter Exercises
-finish writing own standard functions
 
-squish function
-page 329
-
-the rest after squish skipped
 * Chapter 10
 ** 10.1 Folds
+** 10.2 Bringing you into the fold
 
 * continue on page
-  page 328
+  page 337
