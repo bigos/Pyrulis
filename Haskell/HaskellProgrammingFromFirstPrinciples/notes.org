@@ -908,8 +908,8 @@ recurses over spine, all folds do it in the same direction
 ** 10.5 Fold left
 *** Associativity and folding
 *** Intermission exercises
-
+*** Unconditional spine recursion
 
 
 * continue on page
-  page 351
+  page 352
