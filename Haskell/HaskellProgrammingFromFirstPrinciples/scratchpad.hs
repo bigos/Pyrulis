@@ -1,1 +1,1 @@
-func x y = x ++ y
+adder a b = a + b
