@@ -876,8 +876,4 @@ the rest after squish skipped
 ** 10.1 Folds
 
 * continue on page
-<<<<<<< HEAD
   page 328
-=======
-337
->>>>>>> c082edd201e02725ac3e1ea599186d6ab7432b47

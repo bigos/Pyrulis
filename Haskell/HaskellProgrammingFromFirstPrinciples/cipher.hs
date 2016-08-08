@@ -33,7 +33,7 @@ myReverse (x:xs) = myReverse xs ++ [x]
 
 squish :: [[a]] -> [a]
 squish [] = []
-squish [[a]]
+squish xss = foldr (++) [] xss
 
 -- squishMap :: (a -> [b]) -> [a] [b]
 -- squishMap = undefined
