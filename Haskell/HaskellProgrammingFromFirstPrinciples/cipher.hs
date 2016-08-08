@@ -32,22 +32,23 @@ myReverse [] = []
 myReverse (x:xs) = myReverse xs ++ [x]
 
 squish :: [[a]] -> [a]
-squish xss = foldr (++) [] xss
+squish = concat
 
--- squishMap :: (a -> [b]) -> [a] [b]
--- squishMap = undefined
+squishMap :: (a -> [b]) -> [a] -> [b]
+squishMap fn a = squish (map fn a)
 
--- squishAgain :: [[a]] -> [a]
--- squishAgain = undefined
+squishAgain :: [[a]] -> [a]
+squishAgain = squishMap id
 
+-- λ> scanr (\x a -> max x a) 1 [1,2,3,2]
 -- myMaximumBy :: (a -> a -> Ordering) -> [a] -> a
 -- myMaximumBy = undefined
 
 -- myMinimumBy :: (a -> a -> Ordering) -> [a] -> a
 -- myMinimumBy = undefined
 
--- myMaximum :: (Ord a) => [a] -> a
--- myMaximum = undefined
+myMaximum :: (Ord a) => [a] -> a
+myMaximum = maximum
 
--- myMinimum :: (Ord a) => [a] -> a
--- myMinimum = undefined
+myMinimum :: (Ord a) => [a] -> a
+myMinimum = minimum
