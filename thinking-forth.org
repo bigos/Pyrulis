@@ -155,15 +155,19 @@ bit like connascence
 **** implicit data passing
 *** component programming
 *** hide from whom
+The purpose of hiding information, as we mean it, is simply to minimize the effects of a possible design-change
 *** hiding the construction of data
 *** but is it a high level language
 *** the language of design
+too much planning is counterproductive
+
 *** the language of performance
 **** speed
 **** capability
 **** size
 
 ** 2
+*** The Nine Phases of the Programming Cycle
 ** 3
 ** 4
 ** 5
@@ -173,4 +177,4 @@ bit like connascence
 ** Epilogue
 
 * last page
-35 looking back and forth
+54
