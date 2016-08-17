@@ -909,7 +909,10 @@ recurses over spine, all folds do it in the same direction
 *** Associativity and folding
 *** Intermission exercises
 *** Unconditional spine recursion
-
+for performance reasons foldl usually not appropriate for infinite lists, or
+long lists, because it has to evaluate spine before evaluating the cells
+foldl' being strict is good replacement
+** 10.6 How to write fold functions
 
 * continue on page
-  page 352
+  page 353
