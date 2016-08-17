@@ -912,7 +912,11 @@ recurses over spine, all folds do it in the same direction
 for performance reasons foldl usually not appropriate for infinite lists, or
 long lists, because it has to evaluate spine before evaluating the cells
 foldl' being strict is good replacement
+
 ** 10.6 How to write fold functions
+*** start value
+*** arguments
+*** Intermission: Exercises
 
 * continue on page
-  page 353
+  page 356
