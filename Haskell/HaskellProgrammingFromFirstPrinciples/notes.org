@@ -917,6 +917,18 @@ foldl' being strict is good replacement
 *** start value
 *** arguments
 *** Intermission: Exercises
+** 10.7 Folding and evaluation
+** 10.8 Summary
+*** foldr
++ associates to the right
++ works with infinite lists
++ good choice for transformation of data structures
+*** foldl
++ self calls through the list to the end and then goes back producing values
++ associates to the right
++ nearly useless - replace it with foldl'
+** 10.9 Scans
+
 
 * continue on page
-  page 356
+  page 360
