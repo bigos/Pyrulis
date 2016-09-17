@@ -928,7 +928,7 @@ foldl' being strict is good replacement
 + associates to the right
 + nearly useless - replace it with foldl'
 ** 10.9 Scans
-Scans Exercises
+** 10.10 Chapter Exercises
 
 * continue on page
-  page 362
+  page 374 new book
