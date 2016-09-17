@@ -930,5 +930,22 @@ foldl' being strict is good replacement
 ** 10.9 Scans
 ** 10.10 Chapter Exercises
 ** 10.11 Definitions
+** 10.12 Follow-up resources
+* Chapter 11
+** 11.1 Algebraic datatypes
+This chapter’s purpose is ultimately to explain how to construct your
+own datatypes in Haskell. Writing your own datatypes can help
+you leverage some of Haskell’s most powerful features — pattern
+matching, type checking, and inference — in a way that makes your
+code more concise and safer.
+*** a type
+can be thought as an enumeration of constructors
+*** haskell types
+**** sum types
+**** product types
+**** product with record syntax types
+**** type aliases
+
+
 * continue on page
-  page 378 new book
+  page 382 new book
