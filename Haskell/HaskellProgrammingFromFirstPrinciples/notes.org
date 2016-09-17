@@ -945,7 +945,8 @@ can be thought as an enumeration of constructors
 **** product types
 **** product with record syntax types
 **** type aliases
-
+**** newtype
+*** we will explain i this chapter
 
 * continue on page
   page 382 new book
