@@ -929,6 +929,7 @@ foldl' being strict is good replacement
 + nearly useless - replace it with foldl'
 ** 10.9 Scans
 ** 10.10 Chapter Exercises
+Rewriting functions using folds
 
 * continue on page
   page 374 new book
