@@ -949,8 +949,10 @@ can be thought as an enumeration of constructors
 *** we will explain i this chapter
 **** explain the algebra
 **** analyse the construction of data constructors
-and 3 more
-
+**** tell when and how write your own datatypes
+**** clarify use of type synonyms and *newtype*
+**** introduce kinds
+** 11.2 Data declarations review
 
 * continue on page
-  page 382 new book
+  page 382
