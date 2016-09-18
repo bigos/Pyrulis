@@ -947,6 +947,10 @@ can be thought as an enumeration of constructors
 **** type aliases
 **** newtype
 *** we will explain i this chapter
+**** explain the algebra
+**** analyse the construction of data constructors
+and 3 more
+
 
 * continue on page
   page 382 new book
