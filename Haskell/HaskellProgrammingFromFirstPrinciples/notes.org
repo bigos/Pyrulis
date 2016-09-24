@@ -954,5 +954,42 @@ can be thought as an enumeration of constructors
 **** introduce kinds
 ** 11.2 Data declarations review
 
+*** to structure and describe the data
+**** we often create datatypes
+***** help analyse problem
+***** focus on modelling domain
+****** before implementation
+***** make code more readable
+
+*** review of datatypes
+
+**** without arguments
+#+BEGIN_EXAMPLE
+data Bool = False | True
+#+END_EXAMPLE
+***** data - keyword
+***** Bool - type constructor w/o arguments
+***** = - divider
+***** False - data constructor w/o arguments
+***** '|' = in sum type it divides possible values
+***** True - type constructor w/o arguments
+
+**** with arguments
+#+BEGIN_EXAMPLE
+data [] a = [ ] | a : [a]
+#+END_EXAMPLE
+***** [] a - data constructor for an empty list
+***** [] - data constructor for empty list
+***** a : [a] - data constructor with 2 arguments: a & [a]
+
+**** data declaration define entire type
+***** enumeration of constructors with 0+ arguments
+**** Haskell types
+***** sum type
+has 1+ data constructor
+***** product type
+constructors take 1+ parameter
+
+** 11.3 Data and type constructors
 * continue on page
-  page 382
+  page 384
