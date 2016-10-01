@@ -1038,5 +1038,70 @@ Each of these datatypes only enumerates one data constructor.
 
 ** 11.04 Type constructors and kinds
 
+*** list datatype
+#+BEGIN_SRC haskell
+data [] a = [] | a : [a]
+#+END_SRC
+
+*** kinds
+**** are
+types of types
+**** represented with asterix ~*~
+- fully applied ~*~
+- awaiting application ~* -> *~
+**** kind signatures
+#+BEGIN_EXAMPLE
+Prelude> :k Bool
+Bool :: *
+Prelude> :k [Int]
+[Int] :: *
+Prelude> :k []   -- [] has to be applied to be fully realised
+[] :: * -> *     -- example of type constructor
+#+END_EXAMPLE
+
+** 11.5 Data constructors and values
+
+*** distinctions
+**** types
+***** type constants
+***** type constructors
+**** values
+***** constant values
+***** data constructors
+
+**** example
+#+BEGIN_SRC haskell
+  data PugType = PugData
+  --   [1]       [2]
+  data HuskyType a = HuskyData
+  --   [3]           [4]
+  data DogueDeBordeaux doge = DogueDeBordeaux doge
+  --   [5]                    [6]
+#+END_SRC
+
+1. PugType is the type constructor
+2. PugData is the only data constructor for the type of PugType, it's constant
+3. HuskyType is a type constructor with one parametrically polymorphic argument
+4. phantom data constructor, HuskyData is constant
+5. DogueDeBordeaux is a type constructor, we can use doge argument instead of traditional a
+6. Data constructor. It has the same name as type constructor, but it is not the same thing.
+Type argument doge also occurs in the data constructor. They are the same type variable.
+- must be applied before becomes concrete value
+
+#+BEGIN_EXAMPLE
+Prelude> :t DogueDeBordeaux
+#+END_EXAMPLE
+We can query type of the data constructor value
+
+**** function signatures
+#+BEGIN_SRC haskell
+myHusky :: HuskyType a
+myHusky = HuskyData
+#+END_SRC
+in function signature we use type constructors
+in function body we use data constructors
+
+** 11.6 What's type and what's data?
+
 * continue on page
-  page 386
+  page 390
