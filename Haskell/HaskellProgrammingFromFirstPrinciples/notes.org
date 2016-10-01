@@ -991,5 +991,52 @@ has 1+ data constructor
 constructors take 1+ parameter
 
 ** 11.3 Data and type constructors
+
+*** Haskell constructors
+Define means of creating a type or a value
+**** data
+***** used only on type level
+****** type signatures
+****** typeclass declarations
+****** typeclass instances
+***** construct values
+****** type level
+****** can access at runtime
+
+**** type
+***** static
+***** resolve at compile time
+
+**** Kinds of constructors
+***** constants
+****** take no arguments
+****** store fixed
+- type
+- amount of data
+Example of Bool type
+***** regular constructors
+****** can take parameters
+****** must be applied to become
+******* type or
+******* value
+
+****** Evample
+#+BEGIN_SRC haskell
+  data Trivial = Trivial'
+  --     [1]      [2]
+  data UnaryTypeCon a = UnaryValueCon a
+  --       [3]              [4]
+#+END_SRC
+
+1. type constructor of constant type
+2. data constructor of constant value
+3. type constructor awaiting a type constant to be applied to
+4. data constructor awaiting a value to be applied to
+
+****** continued
+Each of these datatypes only enumerates one data constructor.
+
+** 11.04 Type constructors and kinds
+
 * continue on page
-  page 384
+  page 386
