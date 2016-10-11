@@ -1138,7 +1138,13 @@ in function body we use data constructors
 
 ** 11.9 newtype
 ** 11.10 Sum types
+** 11.11 Product types
+*** 2 or more arguments to data constructor
+*** tuple is an anonymous product
+*** record syntax
+
+** 11.12 Normal form
 
 * continue on page
 
-  page 404
+  page 410
