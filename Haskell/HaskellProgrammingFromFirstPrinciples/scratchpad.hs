@@ -1,11 +1,28 @@
-stops = "pbtdkg"
-vovels = "aeiou"
+data Price = Price Integer deriving (Eq, Show)
 
-nouns = ["cat", "dog", "mouse"]
-verbs = ["saw", "chased"]
+data Manufacturer = Mini | Mazda | Tata deriving (Eq, Show)
 
-firstTup (a,_,_) = a
+data Airline = PapuAir | CatapultsR'Us | TakeYourChancesUnited deriving (Eq, Show)
 
-combinations stops vovels = [(i,j,k) | i <- stops, j <-vovels, k <- stops]
+data Vehicle = Car Manufacturer Price
+             | Plane Airline
+             deriving (Eq, Show)
 
-res s v = filter (\x -> firstTup x == 'p') $ combinations s v
+myCar = Car Mini (Price 14000)
+urCar = Car Mazda (Price 20000)
+clownCar = Car Tata (Price 7000)
+doge = Plane PapuAir
+
+
+isCar :: Vehicle -> Bool
+isCar c = c == myCar || c == urCar || c == clownCar
+
+
+isPlane :: Vehicle -> Bool
+isPlane d = d == doge
+
+areCars :: [Vehicle] -> [Bool]
+areCars av = map isCar av
+
+getManu :: Vehicle -> Manufacturer
+getManu (Car m _) = m
