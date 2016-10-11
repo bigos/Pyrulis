@@ -1134,8 +1134,9 @@ in function body we use data constructors
 *** Exercises: Vehicles
 
 ** 11.7 Data constructor arities
+** 11.8 What makes datatype algebraic?
 
-** What makes datatype algebraic?
+** 11.9 newtype
 
 * continue on page
-  page 394
+  page 403
