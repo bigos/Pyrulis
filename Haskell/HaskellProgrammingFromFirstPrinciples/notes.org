@@ -1137,7 +1137,8 @@ in function body we use data constructors
 ** 11.8 What makes datatype algebraic?
 
 ** 11.9 newtype
+** 11.10 Sum types
 
 * continue on page
 
-  page 403
+  page 404
