@@ -1145,5 +1145,6 @@ in function body we use data constructors
 
 ** 11.12 Normal form
 
+** 11.13 Constructing and deconstructing values
 * continue on page
-  page 410
+  page 414
