@@ -1146,5 +1146,12 @@ in function body we use data constructors
 ** 11.12 Normal form
 
 ** 11.13 Constructing and deconstructing values
+
+*** Sum and Product
+
+*** Constructing values
+
+*** Exercise: Programmers
+
 * continue on page
-  page 414
+  page 423
