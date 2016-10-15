@@ -1155,6 +1155,7 @@ in function body we use data constructors
 
 ** 11.14 Function type is exponential
 ** 11.16 Lists are polymorphic
+** 11.17 Binary Tree
 
 * continue on page
-  page 435
+  page 438
