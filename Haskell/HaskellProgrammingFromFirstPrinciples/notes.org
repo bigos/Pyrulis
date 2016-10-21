@@ -1157,5 +1157,7 @@ in function body we use data constructors
 ** 11.16 Lists are polymorphic
 ** 11.17 Binary Tree
 ** 11.18 Chapter Exercises
+* Chapter 12
+** 12.1 Signalling adversity
 * continue on page
-  page 444
+  page 454
