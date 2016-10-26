@@ -12,6 +12,8 @@
 ;; (setq prelude-flyspell nil)
 ;;(smartparens-global-mode -1)
 
+(global-set-key (kbd "M-s-g") 'vc-git-grep)
+
 (require 'magit)
 ;; (require 'key-bindings-lister)
 
@@ -32,8 +34,6 @@
 ;; magit warning silencing
 (setq magit-auto-revert-mode nil)
 (setq magit-last-seen-setup-instructions "1.4.0")
-
-(setq whitespace-line '(t (:background "gray16")))
 
 ;; Allow hash to be entered on MacOSX
 (fset 'insertPound "#")
@@ -70,8 +70,8 @@
 ;;; get rid of utf-8 warning in Ruby mode
 (setq ruby-insert-encoding-magic-comment nil)
 
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
-;; Set your lisp system and, optionally, some contribs
+(load (expand-file-name "~/.quicklisp/slime-helper.el"))
+;; ;; Set your lisp system and, optionally, some contribs
 (setq inferior-lisp-program "sbcl")
 (setq slime-contribs '(slime-fancy))
 
@@ -79,11 +79,11 @@
   (smartparens-mode -1)
   (paredit-mode +1))
 
-(add-hook 'lfe-mode-hook (lambda () (swap-paredit)))
-(add-hook 'lfe-mode-hook 'rainbow-delimiters-mode)
+;; (add-hook 'lfe-mode-hook (lambda () (swap-paredit)))
+;; (add-hook 'lfe-mode-hook 'rainbow-delimiters-mode)
 
-(add-hook 'inferior-lfe-mode-hook (lambda () (swap-paredit)))
-(add-hook 'inferior-lfe-mode-hook 'rainbow-delimiters-mode)
+;; (add-hook 'inferior-lfe-mode-hook (lambda () (swap-paredit)))
+;; (add-hook 'inferior-lfe-mode-hook 'rainbow-delimiters-mode)
 
 (autoload 'paredit-mode "paredit"
   "Minor mode for pseudo-structurally editing Lisp code." t)
@@ -96,9 +96,9 @@
 
 ;; LFE mode.
 ;; Set lfe-dir to point to where the lfe emacs files are.
-(defvar lfe-dir (concat (getenv "HOME") "/Programming/lfe/emacs"))
-(setq load-path (cons lfe-dir load-path))
-(require 'lfe-start)
+;; (defvar lfe-dir (concat (getenv "HOME") "/Programming/lfe/emacs"))
+;; (setq load-path (cons lfe-dir load-path))
+;; (require 'lfe-start)
 
 (require 'color)
 (defun hsl-to-hex (h s l)
@@ -109,15 +109,25 @@
                       (nth 1 rgb)
                       (nth 2 rgb))))
 
+(defun bg-light ()
+  (if (< (color-distance  "white"
+                          (face-attribute 'default :background))
+         (color-distance  "black"
+                          (face-attribute 'default :background)))
+      t
+    nil))
+
+(if (bg-light)
+    (setq whitespace-line '(t (:background "#ffffe8")))
+  (setq whitespace-line '(t (:background "gray16"))))
+
 (defun bracket-colors ()
   "Calculate the bracket colours based on background."
   (let (hexcolors lightvals)
-    (if (>= (color-distance  "white"
-                             (face-attribute 'default :background))
-            (color-distance  "black"
-                             (face-attribute 'default :background)))
-        (setq lightvals (list 0.65 0.55))
-      (setq lightvals (list 0.35 0.30)))
+
+    (if (bg-light)
+        (setq lightvals (list 0.35 0.25))
+      (setq lightvals (list 0.65 0.45)))
 
     (concatenate 'list
                  (dolist (n'(.71 .3 .11 .01))
