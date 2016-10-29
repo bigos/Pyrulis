@@ -1161,5 +1161,6 @@ in function body we use data constructors
 ** 12.1 Signalling adversity
 ** 12.2 How I learned to stop worrying and love Nothing
 ** 12.3 Bleating either
+** 12.4 Kinds, a thousand stars in your types
 * continue on page
-  page 456
+  page 462
