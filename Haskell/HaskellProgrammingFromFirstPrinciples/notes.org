@@ -1145,6 +1145,21 @@ in function body we use data constructors
 
 ** 11.12 Normal form
 
-* continue on page
+** 11.13 Constructing and deconstructing values
 
-  page 410
+*** Sum and Product
+
+*** Constructing values
+
+*** Exercise: Programmers
+
+** 11.14 Function type is exponential
+** 11.16 Lists are polymorphic
+** 11.17 Binary Tree
+** 11.18 Chapter Exercises
+* Chapter 12
+** 12.1 Signalling adversity
+** 12.2 How I learned to stop worrying and love Nothing
+
+* continue on page
+  page 454
