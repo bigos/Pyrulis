@@ -1159,5 +1159,7 @@ in function body we use data constructors
 ** 11.18 Chapter Exercises
 * Chapter 12
 ** 12.1 Signalling adversity
+** 12.2 How I learned to stop worrying and love Nothing
+
 * continue on page
   page 454
