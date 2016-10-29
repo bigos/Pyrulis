@@ -16,12 +16,13 @@
 ;; (require 'key-bindings-lister)
 
 
-(prelude-require-packages '(buffer-move paredit underwater-theme
-                                        rubocop rvm rinari ruby-block
+(prelude-require-packages '(buffer-move paredit underwater-theme projectile
+                                        rubocop rvm ruby-block
                                         ruby-refactor rspec-mode rails-log-mode
                                         ido-ubiquitous helm-projectile
                                         slime web-mode switch-window
-                                        helm-descbinds load-theme-buffer-local))
+                                        helm-descbinds load-theme-buffer-local
+                                        projectile-rails))
 
 (setq org-src-fontify-natively t)
 
