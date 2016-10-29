@@ -71,8 +71,8 @@
 ;;; get rid of utf-8 warning in Ruby mode
 (setq ruby-insert-encoding-magic-comment nil)
 
-(load (expand-file-name "~/.quicklisp/slime-helper.el"))
-;; ;; Set your lisp system and, optionally, some contribs
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
+;; Set your lisp system and, optionally, some contribs
 (setq inferior-lisp-program "sbcl")
 (setq slime-contribs '(slime-fancy))
 
@@ -80,11 +80,11 @@
   (smartparens-mode -1)
   (paredit-mode +1))
 
-;; (add-hook 'lfe-mode-hook (lambda () (swap-paredit)))
-;; (add-hook 'lfe-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'lfe-mode-hook (lambda () (swap-paredit)))
+(add-hook 'lfe-mode-hook 'rainbow-delimiters-mode)
 
-;; (add-hook 'inferior-lfe-mode-hook (lambda () (swap-paredit)))
-;; (add-hook 'inferior-lfe-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'inferior-lfe-mode-hook (lambda () (swap-paredit)))
+(add-hook 'inferior-lfe-mode-hook 'rainbow-delimiters-mode)
 
 (autoload 'paredit-mode "paredit"
   "Minor mode for pseudo-structurally editing Lisp code." t)
@@ -97,9 +97,9 @@
 
 ;; LFE mode.
 ;; Set lfe-dir to point to where the lfe emacs files are.
-;; (defvar lfe-dir (concat (getenv "HOME") "/Programming/lfe/emacs"))
-;; (setq load-path (cons lfe-dir load-path))
-;; (require 'lfe-start)
+(defvar lfe-dir (concat (getenv "HOME") "/Programming/lfe/emacs"))
+(setq load-path (cons lfe-dir load-path))
+(require 'lfe-start)
 
 (require 'color)
 (defun hsl-to-hex (h s l)
@@ -118,17 +118,17 @@
       t
     nil))
 
-(if (bg-light)
-    (setq whitespace-line '(t (:background "#ffffe8")))
-  (setq whitespace-line '(t (:background "gray16"))))
+(defun whitespace-line-bg ()
+  (if (bg-light)
+      "#ffffe8"
+    "black"))
 
 (defun bracket-colors ()
   "Calculate the bracket colours based on background."
   (let (hexcolors lightvals)
-
     (if (bg-light)
-        (setq lightvals (list 0.35 0.25))
-      (setq lightvals (list 0.65 0.45)))
+        (setq lightvals (list 0.65 0.55))
+      (setq lightvals (list 0.35 0.30)))
 
     (concatenate 'list
                  (dolist (n'(.71 .3 .11 .01))
@@ -143,6 +143,8 @@
   (interactive)
   (require 'rainbow-delimiters)
   (custom-set-faces
+   ;; change the background but do not let theme to interfere with the foreground
+   `(whitespace-line ((t (:background ,(whitespace-line-bg) :foreground ,nil))))
    ;; or use (list-colors-display)
    `(rainbow-delimiters-depth-1-face ((t (:foreground "#888"))))
    `(rainbow-delimiters-depth-2-face ((t (:foreground ,(nth 0 (bracket-colors))))))
