@@ -1,0 +1,8 @@
+* Log Parser
+`
+** running
+Make sure the file is executable and run it
+
+#+BEGIN_EXAMPLE
+./log-parser.lisp
+#+END_EXAMPLE
