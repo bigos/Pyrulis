@@ -1,6 +1,8 @@
 * Log Parser
 `
-** running
+This is a toy project for searching through the log file
+
+** Running
 Make sure the file is executable and run it
 
 #+BEGIN_EXAMPLE
