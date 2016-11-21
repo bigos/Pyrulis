@@ -3,8 +3,16 @@
 This is a toy project for searching through the log file
 
 ** Running
-Make sure the file is executable and run it
+Make sure the loader file is executable and run it
 
+In terminal, the loader will process the command line arguments and load the main file.
 #+BEGIN_EXAMPLE
-./log-parser.lisp
+./log-parser-loader.lisp
+#+END_EXAMPLE
+
+In REPL, you have to load the main source and call it directly
+#+BEGIN_EXAMPLE
+CL-USER> (load "~/Programming/Pyrulis/Lisp/LogParer/log-parser.lisp")
+T
+CL-USER> (main '(2 3 4))
 #+END_EXAMPLE

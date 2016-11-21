@@ -1,4 +1,11 @@
-#! /usr/local/bin/sbcl --script
+(defun show-file (fn)
+  (with-open-file (s fn)
+    (loop for line = (read-line s nil)
+       until (eq line nil)
+       do
+         (format t "~A~%" line))))
 
-(format t "log parser~%")
-(format t "args ~A~%" *posix-argv*)
+(defun main (load-args)
+  (format t "log parser ~A~%" load-args)
+
+  (show-file load-args))
