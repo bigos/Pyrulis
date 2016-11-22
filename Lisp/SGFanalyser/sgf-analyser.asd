@@ -1,11 +1,11 @@
-
 (defsystem #:sgf-analyser
   :serial t
   :version "0.0.1"
   :author "Jacek Podkanski"
   :licence "GPLv3"
-  :components ((:file "packages") 
-	       (:module "libraries" 
+  :depends-on (:esrap)
+  :components ((:file "packages")
+	       (:module "libraries"
 			:components ((:file "sgf-importer")
 				     (:file "board-coordinates")))
 	       (:file "sgf-analyser"))
