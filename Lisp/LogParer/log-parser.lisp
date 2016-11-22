@@ -1,3 +1,5 @@
+(in-package :log-parser)
+
 (defun show-file (fn)
   (with-open-file (s fn)
     (loop for line = (read-line s nil)

@@ -10,9 +10,20 @@ In terminal, the loader will process the command line arguments and load the mai
 ./log-parser-loader.lisp
 #+END_EXAMPLE
 
+*** REPL old version
 In REPL, you have to load the main source and call it directly
 #+BEGIN_EXAMPLE
 CL-USER> (load "~/Programming/Pyrulis/Lisp/LogParer/log-parser.lisp")
 T
 CL-USER> (main '(2 3 4))
+#+END_EXAMPLE
+
+*** REPL new version
+Once your project is added to quicklisp/local projects you can
+#+BEGIN_EXAMPLE
+(ql:quickload :log-parser)
+
+(in-package :log-parser)
+
+(main "path/to/a/file")
 #+END_EXAMPLE
