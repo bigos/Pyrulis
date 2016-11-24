@@ -1162,5 +1162,21 @@ in function body we use data constructors
 ** 12.2 How I learned to stop worrying and love Nothing
 ** 12.3 Bleating either
 ** 12.4 Kinds, a thousand stars in your types
+*** type constant
+no arguments, already a type
+*** type constructor
+needs an argument to become a type
+*** lifted and unlifted types
+*** asterisks and hashes
+~* lifted type~
+represented by a pointer
+~# unlifted type~
+can not be inhabited at the bottom
+native machine types
+raw pointers
+*** data constructors are functions
+**** chance of macros?
+** 12.5 Chapter Exercises
+
 * continue on page
   page 462
