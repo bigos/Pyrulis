@@ -11,3 +11,5 @@
   (cond ((divides k n) k)
         ((> (expt k 2) n) n)
         (T (ldf (1+ k) n))))
+
+;;; exercise 1.4 p 8
