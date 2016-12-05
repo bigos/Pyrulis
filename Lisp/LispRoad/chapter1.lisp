@@ -22,3 +22,16 @@
 ;;; skipped lots of irrelevant stuff
 
 ;;; page 13 playing the Haskell game
+
+(defun min-int (a)
+  (cond ((null a) (error "empty list"))
+        ((null (cdr a)) (car a))
+        (T (min (car a) (min-int (cdr a))) )))
+
+;;; exercise 1.9
+(defun max-int (a)
+  (cond ((null a) (error "empty list"))
+        ((null (cdr a)) (car a))
+        (T (max (car a) (max-int (cdr a))) )))
+
+;;; exercise 1.10 p 14
