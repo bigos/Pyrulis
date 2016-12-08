@@ -1179,5 +1179,8 @@ raw pointers
 ** 12.5 Chapter Exercises
 * Chapter 13
 ** 13.1 Modules
+** 13.2 Making packages with Stack
+Package hs many modules.
+** 13/3 Working with a basic project
 * continue on page
-  page 482
+  page 484
