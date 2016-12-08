@@ -1177,6 +1177,7 @@ raw pointers
 *** data constructors are functions
 **** chance of macros?
 ** 12.5 Chapter Exercises
-
+* Chapter 13
+** 13.1 Modules
 * continue on page
-  page 471
+  page 482
