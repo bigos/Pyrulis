@@ -1181,6 +1181,11 @@ raw pointers
 ** 13.1 Modules
 ** 13.2 Making packages with Stack
 Package hs many modules.
-** 13/3 Working with a basic project
+** 13.3 Working with a basic project
+*** git repo
+https://github.com/haskellbook/hello.
+*** Building the project
+
+
 * continue on page
   page 484
