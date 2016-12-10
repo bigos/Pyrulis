@@ -3,3 +3,4 @@
 Assumptions
 
 + Every chapter should have associated package
+** read chapter 2
