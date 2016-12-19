@@ -14,8 +14,9 @@
         ((> (* k k)
             n)
          n)
-        (T (ldf (1+ k)
-                n))))
+        (T
+         (ldf (1+ k)
+              n))))
 
 ;;; exercise 1.4 p 8
 
@@ -46,8 +47,9 @@ exercise 1.9
          (error "empty list"))
         ((null (cdr a))
          (car a))
-        (T (max (car a)
-                (max-int (cdr a))))))
+        (T
+         (max (car a)
+              (max-int (cdr a))))))
 
 ;;;
 exercise 1.10 p 14
