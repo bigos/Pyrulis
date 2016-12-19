@@ -25,7 +25,8 @@
          (error "not a positive integer"))
         ((eq n 1)
          nil)
-        (T (eq (ld n)
+        (T
+         (eq (ld n)
                n))))
 
 ;;; skipped lots of irrelevant stuff
@@ -37,8 +38,9 @@
          (error "empty list"))
         ((null (cdr a))
          (car a))
-        (T (min (car a)
-                (min-int (cdr a))))))
+        (T
+         (min (car a)
+              (min-int (cdr a))))))
 
 ;;;
 exercise 1.9
