@@ -28,16 +28,17 @@
 
 (defun sgf-to-i (coordinates)
   (labels ((coord (i)
-             (position (char coordinates i) *sgf-letters*)))
-    (cons (coord 0) (coord 1))))
+             (position (char coordinates i)
+                       *sgf-letters*)))
+    (cons (coord 0)
+          (coord 1))))
 
 (defun board-edge-p (coordinate)
-  (or (eq coordinate
-          0)
-      (eq coordinate
-          (1- *board-size*))))
+  (or (eq coordinate 0)
+      (eq coordinate (1- *board-size*))))
 
-(defun valid-coordinate-p (coordinate)
+(defun
+    valid-coordinate-p (coordinate)
   (and (>= coordinate 0)
        (<= coordinate (1- *board-size*))))
 
@@ -60,31 +61,26 @@
       :outside))
 
 (defmethod add-handicaps ((self goban))
-  (dolist (handis `(("B" ,(header-value "AB")) ("W" ,(header-value "AW"))))
+  (dolist (handis `(("B" ,(header-value "AB"))
+                    ("W" ,(header-value "AW"))))
     (dolist (pos (cadr handis))
       (format t "#### going to place ~A at ~A ~A~%" (car handis) pos (sgf-to-i pos))
-      (place-stone self (car handis) (sgf-to-i pos)))))
+      (place-stone self (car handis)
+                   (sgf-to-i pos)))))
 
 (defmethod print-board ((self goban))
   (format t "in print-board")
-  (let ((size (car (array-dimensions (board self)))) (stone))
+  (let ((size (car (array-dimensions (board self))))
+        (stone))
     (format t "~%    ")
     (dotimes (c (length *board-column-letters*))
       (format t "~a " (char *board-column-letters* c )))
     (dotimes (r size)
-      (format T
-              "~&~2d  "
-              (- size
-                 r ))
+      (format T "~&~2d  " (- size r ))
       (dotimes (c size)
-        (setf stone
-              (aref (board self)
-                    c
-                    r))
-        (format t "~2a"
-                (if stone
-                    stone
-                    "."))))
+        (setf stone (aref (board self)
+                          c r))
+        (format t "~2a" (if stone stone "."))))
     (format t
             "~%~%")))
 
@@ -95,9 +91,14 @@
   (format t "~&will try to find neighbours for ~s     edges ~s:~s   ~%"
           coordinates (board-edge-p (car coordinates)) (board-edge-p (cdr coordinates)))
   (let ((lives) (whites) (blacks))
-    (dolist (neighbour '((0 . -1)(1 . 0)(0 . 1)(-1 . 0)))
-      (format t "~s ~s~%" neighbour (stone-at self (cons (+ (car neighbour) (car coordinates))
-                                                         (+ (cdr neighbour) (cdr coordinates))))))))
+    (dolist (neighbour '((0 . -1)
+                         (1 . 0)
+                         (0 . 1)
+                         (-1 . 0)))
+      (format t "~s ~s~%" neighbour (stone-at self (cons (+ (car neighbour)
+                                                            (car coordinates))
+                                                         (+ (cdr neighbour)
+                                                            (cdr coordinates))))))))
 
 (defmethod each-neighbour ((self goban) coordinates func)
   (let ((neighbour-coord-offsets '((0 . -1) (1 . 0) (0 . 1) (-1 . 0)))
@@ -125,21 +126,20 @@
                                  :size *board-size*
                                  :board (make-array `(,*board-size* ,*board-size*)
                                                     :initial-element nil)))
-
     (add-handicaps *goban*)
-
-    (dolist (move (subseq (cdr *game-record*) 0 20))
-      (format t "color ~S coordinates ~S~%" (caar move) (sgf-to-i (cdar move)))
-      (place-stone *goban* (caar move) (sgf-to-i (cdar move))))
-
+    (dolist (move (subseq (cdr *game-record*)
+                          0 20))
+      (format t "color ~S coordinates ~S~%" (caar move)
+              (sgf-to-i (cdar move)))
+      (place-stone *goban* (caar move)
+                   (sgf-to-i (cdar move))))
     (print-board *goban*)
-
     (setq coordinates (enter-coordinates))
     (format t "the coordinates are: ~A~%"  coordinates)
-
     (format t "stone at given coordinates >~A<"  (stone-at *goban* coordinates))
     (each-neighbour *goban* coordinates 'stone-at)
-    ;(format t ">>>>>>>> ~S" *goban*)
+                                        ;(format t ">>>>>>>> ~S" *goban*)
+
     ))
 
 ;;;==================================================
