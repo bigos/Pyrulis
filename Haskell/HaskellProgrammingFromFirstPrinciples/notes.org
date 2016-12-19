@@ -1177,6 +1177,15 @@ raw pointers
 *** data constructors are functions
 **** chance of macros?
 ** 12.5 Chapter Exercises
+* Chapter 13
+** 13.1 Modules
+** 13.2 Making packages with Stack
+Package hs many modules.
+** 13.3 Working with a basic project
+*** git repo
+https://github.com/haskellbook/hello.
+*** Building the project
+
 
 * continue on page
-  page 471
+  page 484

@@ -32,8 +32,10 @@
     (cons (coord 0) (coord 1))))
 
 (defun board-edge-p (coordinate)
-  (or (eq coordinate 0)
-      (eq coordinate (1- *board-size*))))
+  (or (eq coordinate
+          0)
+      (eq coordinate
+          (1- *board-size*))))
 
 (defun valid-coordinate-p (coordinate)
   (and (>= coordinate 0)
@@ -70,14 +72,21 @@
     (dotimes (c (length *board-column-letters*))
       (format t "~a " (char *board-column-letters* c )))
     (dotimes (r size)
-      (format T "~&~2d  " (- size r ))
+      (format T
+              "~&~2d  "
+              (- size
+                 r ))
       (dotimes (c size)
-        (setf stone (aref (board self) c r))
+        (setf stone
+              (aref (board self)
+                    c
+                    r))
         (format t "~2a"
                 (if stone
                     stone
                     "."))))
-    (format t "~%~%")))
+    (format t
+            "~%~%")))
 
 (defmethod place-stone ((self goban) colour coordinates)
   (setf (aref (slot-value self 'board) (car coordinates) (cdr coordinates)) colour))
@@ -94,16 +103,16 @@
   (let ((neighbour-coord-offsets '((0 . -1) (1 . 0) (0 . 1) (-1 . 0)))
         (coord)
         (result))
-    (format t "~&~S <<<<~%" 
-            (mapcar 
-             #'(lambda (offset)                  
-                 (progn 
-                   (setf coord (cons (+ (car offset) (car coordinates)) 
+    (format t "~&~S <<<<~%"
+            (mapcar
+             #'(lambda (offset)
+                 (progn
+                   (setf coord (cons (+ (car offset) (car coordinates))
                                      (+ (cdr offset) (cdr coordinates))))
                    (setf result (stone-at *goban* coord))
                    (if (eq result :outside)
                        (list result)
-                       (list coord result))))              
+                       (list coord result))))
              neighbour-coord-offsets ))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -112,9 +121,9 @@
     (format T "~%~%~A <<<<<<<<<<~%" *game-record*)
     (game-stats )
     (format t "~%~d <<< board size ~%" *board-size*)
-    (setf *goban* (make-instance 'goban 
-                                 :size *board-size* 
-                                 :board (make-array `(,*board-size* ,*board-size*) 
+    (setf *goban* (make-instance 'goban
+                                 :size *board-size*
+                                 :board (make-array `(,*board-size* ,*board-size*)
                                                     :initial-element nil)))
 
     (add-handicaps *goban*)
