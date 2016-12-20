@@ -1185,7 +1185,13 @@ Package hs many modules.
 *** git repo
 https://github.com/haskellbook/hello.
 *** Building the project
-
+**** stack commands
++ stack build
++ stack ghci
++ stack exec
+*** Executable stanzas in Cabal files
+**** stanzas in a cabal file
+** 13.04 Making our project a library
 
 * continue on page
-  page 484
+  page 487
