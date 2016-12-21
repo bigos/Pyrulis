@@ -1192,6 +1192,6 @@ https://github.com/haskellbook/hello.
 *** Executable stanzas in Cabal files
 **** stanzas in a cabal file
 ** 13.04 Making our project a library
-
+** 13.5 Module exports
 * continue on page
-  page 487
+  page 489
