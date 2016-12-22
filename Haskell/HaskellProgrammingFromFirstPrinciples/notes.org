@@ -1193,5 +1193,11 @@ https://github.com/haskellbook/hello.
 **** stanzas in a cabal file
 ** 13.04 Making our project a library
 ** 13.5 Module exports
+*** no exports specified
+**** all top-level bindings exported
+*** export list present but empty
+**** nothing exported
+*** Exposing modules
+** 13.6 More on importing modules
 * continue on page
-  page 489
+  page 491
