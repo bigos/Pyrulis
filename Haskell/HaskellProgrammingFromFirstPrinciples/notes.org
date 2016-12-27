@@ -1199,5 +1199,19 @@ https://github.com/haskellbook/hello.
 **** nothing exported
 *** Exposing modules
 ** 13.6 More on importing modules
+*** first part
+**** import order irrelevant
+**** command to see functions in a module
+~:browse~
+**** importing only selected functions
+*** Qualified imports
+**** avoid function name clashes
+**** syntax for qualified imports
+***** function call
+***** type signatures
+**** Prelude prompt
+*** Intermission: Check your understanding
+** 13.7 Making our program interactive
+
 * continue on page
-  page 491
+  page 496
