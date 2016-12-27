@@ -1212,6 +1212,21 @@ https://github.com/haskellbook/hello.
 **** Prelude prompt
 *** Intermission: Check your understanding
 ** 13.7 Making our program interactive
+*** do syntax
+We use do inside functions that return IO in order to sequence side effects in
+a convenient syntax.
+**** explanation of binding
+We have to use <- to bind over the IO to get the string that we want to pass to
+sayHello
+
+*** Adding a prompt
+**** use of hSetBuffering
+print immediately
+
+** 13.8 do syntax and IO
+main must always have the type IO
+
+*** return
 
 * continue on page
-  page 496
+  page 501
