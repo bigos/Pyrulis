@@ -43,6 +43,7 @@
                                     :name "image"
                                     :type "png")
                      :direction :output
+                     :if-exists :supersede
                      :if-does-not-exist :create)
     (drawing s)))
 
