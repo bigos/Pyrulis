@@ -1225,8 +1225,9 @@ print immediately
 
 ** 13.8 do syntax and IO
 main must always have the type IO
-
 *** return
+Various remarks about using return to put value into IO
+** 13.9 Hangman game
 
 * continue on page
-  page 501
+  page 503
