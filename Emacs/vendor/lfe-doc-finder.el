@@ -3,6 +3,7 @@
 ;;; Commentary:
 
 ;;; This is supposed to make easier to look up documentation
+;;; downside of this approach is reliance on paredit
 
 ;;; Usage:
 
@@ -10,40 +11,74 @@
 
 ;;; Code:
 
+(require 'browse-url)
+
 (defun lfedoc ()
   "Find LFE documentation."
   (interactive)
-  (princ "going to look for LFE documentation")
-  (terpri)
+  (let ((sexp-str (sexp-at-point)))
+    (princ sexp-str)))
+
+(defun sexp-at-point ()
+  "Find the s-exp string using paredit."
   ;; paredit-backward-up goes to the left of the opening bracket
   ;; paredit-forward-up goes to the right of the closing bracket
   (let ((original-buffer (current-buffer))
         (original-marker (point-marker))
         (opening-bracket)
-        (closing-bracket)
-        (bracketed))
-    (princ "original marker ")
-    (princ original-marker)
-    (princ " - ")
-    (princ (current-buffer))
-    (terpri)
-    (princ "zzzz")
+        (closing-bracket))
+    ;; find opening bracket
     (paredit-backward-up)
     (setq opening-bracket (point-marker))
     (forward-char)
+    ;; find closing bracket
     (paredit-forward-up)
-    ;(backward-char)
     (setq closing-bracket (point-marker))
-    (terpri)
-    (princ (cons opening-bracket closing-bracket))
-    (terpri)
-    (setq bracketed
-          (buffer-substring (marker-position opening-bracket)  (marker-position closing-bracket)))
-
-    (princ bracketed)
+    ;; return to the original position
     (goto-char (marker-position original-marker))
-    )
-  )
+    ;; and finally return the string containing the s-exp
+    (buffer-substring (marker-position opening-bracket) (marker-position closing-bracket))))
+
+(defun helpme ()
+  "Go to Erlang website for help."
+  (interactive)
+  (let ((my-sexp (read (sexp-at-point)))
+        (help-url))
+    (setq help-url
+     (apply 'format
+              (cons "http://erlang.org/doc/man/%s.html#%s-%d"
+                    (cond ((new-erlang-callp my-sexp)
+                           (new-erlang-call-args my-sexp))
+                          ((old-erlang-callp my-sexp)
+                           (old-erlang-call-args my-sexp))
+                          (t (unknown-code my-sexp))))))
+    (princ "+++++++++++++++++")
+    (browse-url help-url)))
+
+(defun new-erlang-callp (sl)
+  "Check id the SL is the new Erlang call syntax."
+  (eql (car sl) :))
+
+(defun new-erlang-call-args (sl)
+  "Get new Erlang call info for the documentation look-up list SL."
+  (list (nth 1 sl) (nth 2 sl) (- (length sl) 3)))
+
+(defun old-erlang-callp (sl)
+  "Check id the SL is the old Erlang call syntax."
+  (eql (length (split-string (symbol-name (car sl))
+                             ":"))
+       2))
+
+(defun old-erlang-call-args (sl)
+  "Get old Erlang call info for the documentation look-up list SL."
+  (let ((call-str (split-string (symbol-name (car sl)) ":")))
+    (list (nth 0 call-str)
+          (nth 1 call-str)
+          (- (length sl) 1))))
+
+(defun unknown-code (sl)
+  "Provide unrecognised information from SL."
+  (list nil nil nil))
 
 (provide 'lfe-doc-finder)
 ;;; lfe-doc-finder.el ends here
