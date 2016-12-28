@@ -52,7 +52,6 @@
                           ((old-erlang-callp my-sexp)
                            (old-erlang-call-args my-sexp))
                           (t (unknown-code my-sexp))))))
-    (princ "+++++++++++++++++")
     (browse-url help-url)))
 
 (defun new-erlang-callp (sl)
