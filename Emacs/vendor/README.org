@@ -1,0 +1,9 @@
+* Folder for custom Elisp code
+To use it in your Emacs link the *.el files in this folder to a folder that is
+in your *load-path*. I use *Emacs Prelude*, so vendor folder is a good choice, but
+if you use different method to configure Emacs other appropriate folder that
+that is in the *load-path* will do.
+
+#+BEGIN_EXAMPLE
+ln -s ./lfe-doc-finder.el ~/.emacs.d/vendor/
+#+END_EXAMPLE
