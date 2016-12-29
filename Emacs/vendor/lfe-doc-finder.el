@@ -7,7 +7,15 @@
 
 ;;; Usage:
 
+;;; Load this file by adding it in the load-path and running:
+;;; (load "lfe-doc-finder.el")
+
+
+;;; M-x helpme
+;;; Will hopefully take you to a relevant page in Erlang documentation.
+
 ;;; M-x lfedoc
+;;; Will print to the mini buffer the sexp at the cursor.
 
 ;;; Code:
 
