@@ -102,11 +102,14 @@
 
 (defun lfedoc-sanitise (str)
   "Sanitise the string STR for reading."
-  ;; now lfedoc helpme does not trip over vectors
+  ;; now lfedoc helpme does not trip over some lfe specific constructs
 
   ;; TODO: Elisp read might trip over other constructs, I need to find them
-
-  (replace-regexp-in-string "#(" " (" str))
+  (replace-regexp-in-string "#("        ;vector
+                            " ("
+                            (replace-regexp-in-string "#B(" ;binary string
+                                                      "  ("
+                                                      str)))
 
 (defun lfedoc-new-erlang-callp (sl)
   "Check id the SL is the new Erlang call syntax."
