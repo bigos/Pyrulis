@@ -21,7 +21,6 @@
 ;;; Code:
 
 (require 'browse-url)
-(require 'paredit)
 
 (defun lfedoc-inspect ()
   "Print sexp."
@@ -30,16 +29,7 @@
     (princ sexp-str)))
 
 (defun sexp-at-point ()
-  "find the sexp string"
-  (sexp-at-point-emacs)
-  ;; (sexp-at-point-paredit)
-  )
-
-(defun sexp-at-point-emacs ()
-  "Find the sexp string using smartparens."
-  ;; sp-backward-up-sexp goes to the left of the opening bracket
-  ;; sp-forward-sexp goes to the right of the closing bracket, provided you are
-  ;; to the left of the opening bracket
+  "Find the sexp string."
   (let ((original-buffer (current-buffer))
         (original-marker (point-marker))
         (opening-bracket)
@@ -53,26 +43,6 @@
     ;; return to the original position
     (goto-char (marker-position original-marker))
     ;; and finally return the string containing the sexp
-    (buffer-substring (marker-position opening-bracket) (marker-position closing-bracket))))
-
-(defun sexp-at-point-paredit ()
-  "Find the sexp string using paredit."
-  ;; paredit-backward-up goes to the left of the opening bracket
-  ;; paredit-forward-up goes to the right of the closing bracket
-  (let ((original-buffer (current-buffer))
-        (original-marker (point-marker))
-        (opening-bracket)
-        (closing-bracket))
-    ;; find opening bracket
-    (paredit-backward-up)
-    (setq opening-bracket (point-marker))
-    (forward-char)
-    ;; find closing bracket
-    (paredit-forward-up)
-    (setq closing-bracket (point-marker))
-    ;; return to the original position
-    (goto-char (marker-position original-marker))
-    ;; and finally return the string containing the s-exp
     (buffer-substring (marker-position opening-bracket) (marker-position closing-bracket))))
 
 (defun lfedoc-helpme ()
