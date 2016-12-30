@@ -78,15 +78,25 @@
   "Go to Erlang website for help."
   (interactive)
   ;; Read sanitised sexp and extract model and function for browse-url look-up
-  (let ((my-sexp (read (lfedoc-sanitise (sexp-at-point)))))
-    (browse-url
-     (apply 'format
-              (cons "http://erlang.org/doc/man/%s.html#%s-%d"
-                    (cond ((lfedoc-new-erlang-callp my-sexp)
-                           (lfedoc-new-erlang-call-args my-sexp))
-                          ((lfedoc-old-erlang-callp my-sexp)
-                           (lfedoc-old-erlang-call-args my-sexp))
-                          (t (lfedoc-unknown-code my-sexp))))))))
+  (let ((call-struct (lfedoc-call-struct (read
+                                          (lfedoc-sanitise
+                                           (sexp-at-point))))))
+    (if (car call-struct)
+        (browse-url
+         (apply 'format
+                (cons "http://erlang.org/doc/man/%s.html#%s-%d"
+                      call-struct)))
+      (princ (list "search LFE specific documentation for"
+                   'function (nth 1 call-struct)
+                   'arity (nth 2 call-struct))))))
+
+(defun lfedoc-call-struct (my-sexp)
+  "Examine MY-SEXP and return a structure representing module function and arity."
+  (cond ((lfedoc-new-erlang-callp my-sexp)
+         (lfedoc-new-erlang-call-args my-sexp))
+        ((lfedoc-old-erlang-callp my-sexp)
+         (lfedoc-old-erlang-call-args my-sexp))
+        (t (lfedoc-unknown-code my-sexp))))
 
 (defun lfedoc-sanitise (str)
   "Sanitise the string STR for reading."
@@ -118,8 +128,10 @@
           (- (length sl) 1))))
 
 (defun lfedoc-unknown-code (sl)
-  "Provide unrecognised information from SL."
-  (list nil nil nil))
+  "Provide unrecognised module information from SL."
+  ;; because it's not a module:function of : module function
+  ;; we returm nil as module but still return the function and arity
+  (list nil (car sl) (- (length sl) 1)))
 
 (provide 'lfedoc)
 ;;; lfe-doc-finder.el ends here
