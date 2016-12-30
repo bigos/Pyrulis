@@ -31,12 +31,11 @@
 
 (defun sexp-at-point ()
   "find the sexp string"
-  ;; select if you want to use smartparens or paredit
-  ;; looks like sp-backward-up-sexp has a bug and sometimes returns to enclosing progn when the code is in lfe file
-  ;; (sexp-at-point-smartparens)
-  (sexp-at-point-paredit))
+  (sexp-at-point-emacs)
+  ;; (sexp-at-point-paredit)
+  )
 
-(defun sexp-at-point-smartparens ()
+(defun sexp-at-point-emacs ()
   "Find the sexp string using smartparens."
   ;; sp-backward-up-sexp goes to the left of the opening bracket
   ;; sp-forward-sexp goes to the right of the closing bracket, provided you are
@@ -46,10 +45,10 @@
         (opening-bracket)
         (closing-bracket))
     ;; find opening bracket
-    (sp-backward-up-sexp)
+    (backward-up-list)
     (setq opening-bracket (point-marker))
     ;; find closing bracket
-    (sp-forward-sexp)
+    (forward-list)
     (setq closing-bracket (point-marker))
     ;; return to the original position
     (goto-char (marker-position original-marker))
