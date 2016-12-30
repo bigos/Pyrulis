@@ -77,6 +77,7 @@
 (defun lfedoc-helpme ()
   "Go to Erlang website for help."
   (interactive)
+  ;; Read sanitised sexp and extract model and function for browse-url look-up
   (let ((my-sexp (read (lfedoc-sanitise (sexp-at-point)))))
     (browse-url
      (apply 'format
@@ -90,6 +91,9 @@
 (defun lfedoc-sanitise (str)
   "Sanitise the string STR for reading."
   ;; now lfedoc helpme does not trip over vectors
+
+  ;; TODO: Elisp read might trip over other constructs, I need to find them
+
   (replace-regexp-in-string "#(" " (" str))
 
 (defun lfedoc-new-erlang-callp (sl)
