@@ -21,6 +21,7 @@
 ;;; Code:
 
 (require 'browse-url)
+(require 'paredit)
 
 (defun lfedoc-inspect ()
   "Print sexp."
@@ -31,8 +32,8 @@
 (defun sexp-at-point ()
   "find the sexp string"
   ;; select if you want to use smartparens or paredit
+  ;; looks like sp-backward-up-sexp has a bug and sometimes returns to enclosing progn when the code is in lfe file
   ;; (sexp-at-point-smartparens)
-  ;; looks like sp-backward-up-sexp has a bug and sometimes returns to enclosing progn
   (sexp-at-point-paredit))
 
 (defun sexp-at-point-smartparens ()
