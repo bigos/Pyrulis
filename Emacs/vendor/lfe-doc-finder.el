@@ -76,11 +76,9 @@
   ;; TODO: Elisp read might trip over other constructs, I need to find them
   (replace-regexp-in-string "#("        ;vector
                             " ("
-                            (replace-regexp-in-string "#B(" ;binary string
+                            (replace-regexp-in-string "#[BM](" ;binary string or map
                                                       "  ("
-                                                      (replace-regexp-in-string "#M(" ;map
-                                                                                "  ("
-                                                                                str))))
+                                                      str)))
 
 (defun lfedoc-new-erlang-callp (sl)
   "Check id the SL is the new Erlang call syntax."
