@@ -109,7 +109,9 @@
                             " ("
                             (replace-regexp-in-string "#B(" ;binary string
                                                       "  ("
-                                                      str)))
+                                                      (replace-regexp-in-string "#M(" ;map
+                                                                                "  ("
+                                                                                str))))
 
 (defun lfedoc-new-erlang-callp (sl)
   "Check id the SL is the new Erlang call syntax."
