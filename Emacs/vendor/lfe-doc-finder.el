@@ -77,17 +77,20 @@
 (defun lfedoc-helpme ()
   "Go to Erlang website for help."
   (interactive)
-  (let ((my-sexp (read (sexp-at-point)))
-        (help-url))
-    (setq help-url
+  (let ((my-sexp (read (lfedoc-sanitise (sexp-at-point)))))
+    (browse-url
      (apply 'format
               (cons "http://erlang.org/doc/man/%s.html#%s-%d"
                     (cond ((lfedoc-new-erlang-callp my-sexp)
                            (lfedoc-new-erlang-call-args my-sexp))
                           ((lfedoc-old-erlang-callp my-sexp)
                            (lfedoc-old-erlang-call-args my-sexp))
-                          (t (lfedoc-unknown-code my-sexp))))))
-    (browse-url help-url)))
+                          (t (lfedoc-unknown-code my-sexp))))))))
+
+(defun lfedoc-sanitise (str)
+  "Sanitise the string STR for reading."
+  ;; now lfedoc helpme does not trip over vectors
+  (replace-regexp-in-string "#(" " (" str))
 
 (defun lfedoc-new-erlang-callp (sl)
   "Check id the SL is the new Erlang call syntax."
