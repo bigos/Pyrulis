@@ -31,8 +31,9 @@
 (defun sexp-at-point ()
   "find the sexp string"
   ;; select if you want to use smartparens or paredit
-  ;; (sexp-at-point-paredit)
-  (sexp-at-point-smartparens))
+  ;; (sexp-at-point-smartparens)
+  ;; looks like sp-backward-up-sexp has a bug and sometimes returns to enclosing progn
+  (sexp-at-point-paredit))
 
 (defun sexp-at-point-smartparens ()
   "Find the sexp string using smartparens."
