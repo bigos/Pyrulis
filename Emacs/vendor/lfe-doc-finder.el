@@ -112,7 +112,8 @@
 
 (defun lfedoc-known-symbols ()
   "Collection of various kinds of predefined symbols."
-  (let ((core-forms)
+  (let (
+        (core-forms)
         (basic-macro-forms)
         (common-lisp-inspired-macros)
         (older-scheme-inspired-macros)
@@ -124,6 +125,22 @@
         )
     ))
 
+(defun lfedoc-find-symbol-functions (symb)
+  "Find symbol SYMB in known symbols and return the function names that return it."
+  ;; example (lfedoc-find-symbol-functions  (quote car))
+  (let ((symbol-function-names '(lfedoc-data-core-forms
+                                 lfedoc-data-basic-macro-forms
+                                 lfedoc-data-common-lisp-inspired-macros
+                                 lfedoc-data-older-scheme-inspired-macros
+                                 lfedoc-data-module-definition
+                                 lfedoc-data-standard-operators
+                                 lfedoc-data-predefined-lfe-functions
+                                 lfedoc-data-supplemental-common-lisp-functions
+                                 lfedoc-data-common-lisp-predicates)))
+    (-reject 'null
+             (-map (lambda (f) (when (-contains? (funcall f) symb) f))
+                   symbol-function-names))))
+
 (defun lfedoc-data-core-forms ()
   "Core forms."
   '(quote cons car cdr list tuple binary map map-get map-set map-update lambda
@@ -134,7 +151,8 @@
 (defun lfedoc-data-basic-macro-forms ()
   "Basic macro forms."
   ;; except (: mod fun) and (mod:fun)
-  '(? ++ list* let* flet flet* fletrec cond andalso orelse fun fun lc list-comp
+  ;; ? and ++
+  '(list* let* flet flet* fletrec cond andalso orelse fun fun lc list-comp
       bc binary-comp match-spec))
 
 (defun lfedoc-data-common-lisp-inspired-macros ()
