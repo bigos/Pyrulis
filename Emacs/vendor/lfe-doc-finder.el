@@ -110,5 +110,74 @@
   ;; we returm nil as module but still return the function and arity
   (list nil (car sl) (- (length sl) 1)))
 
+(defun lfedoc-known-symbols ()
+  "Collection of various kinds of predefined symbols."
+  (let ((core-forms)
+        (basic-macro-forms)
+        (common-lisp-inspired-macros)
+        (older-scheme-inspired-macros)
+        (module-definition)
+        (standard-operators)
+        (predefined-lfe-functions)
+        (supplemental-common-lisp-functions)
+        (common-lisp-predicates)
+        )
+    ))
+
+(defun lfedoc-data-core-forms ()
+  "Core forms."
+  '(quote cons car cdr list tuple binary map map-get map-set map-update lambda
+          match-lambda let let-function letrec-function let-macro progn if case receive
+          catch try case catch when after funcall call define-module extend-module
+          define-function define-macro type-test guard-bif))
+
+(defun lfedoc-data-basic-macro-forms ()
+  "Basic macro forms."
+  ;; except (: mod fun) and (mod:fun)
+  '(? ++ list* let* flet flet* fletrec cond andalso orelse fun fun lc list-comp
+      bc binary-comp match-spec))
+
+(defun lfedoc-data-common-lisp-inspired-macros ()
+  "Common Lisp inspired macros."
+  '(defun defmacro defsyntax macrole syntaxlet prog1 prog2 defmodule defrecord))
+
+(defun lfedoc-data-older-scheme-inspired-macros ()
+  "Older scheme inspired macros."
+  '(define define define-syntax let-syntax begin define-record))
+
+(defun lfedoc-data-module-definition ()
+  "Symbols used in module definition."
+  '(defmodule export import))
+
+(defun lfedoc-data-standard-operators ()
+  "Standard operators."
+  '(+ - * / > >= < =< == /= =:= =/=))
+
+(defun lfedoc-data-predefined-lfe-functions ()
+  "Predefined LFE functions."
+  '(acons pairlis assoc assoc-if assoc-if-not rassoc rassoc-if rassoc-if-not
+          subst subst-if subst-if-not sublis macroexpand-1 macroexpand
+          macroexpand-all eval))
+
+(defun lfedoc-data-supplemental-common-lisp-functions ()
+  "Macros that closely mirror Hyperspec."
+  ;; excluding make-lfe-bool, make-cl-bool and putf
+  '(mapcar maplist mapc mapl symbol-plist symbol-name get get getl putprop
+           remprop getf getf remf get-properties elt length reverse some every
+           notany notevery reduce reduce reduce reduce remove remove-if
+           remove-if-not remove-duplicates find find-if find-if-not
+           find-duplicates position position-if position-if-not
+           position-duplicates count count-if count-if-not count-duplicates car
+           first cdr rest nth nthcdr last butlast subst subst-if subst-if-not
+           sublis member member-if member-if-not adjoin union intersection
+           set-difference set-exclusive-or subsetp acons pairlis pairlis assoc
+           assoc-if assoc-if-not rassoc rassoc-if rassoc-if-not type-of coerce))
+
+(defun lfedoc-data-common-lisp-predicates ()
+  "Predefied predicates, equivalent of Erlang is_* function."
+  '(alivep atomp binaryp bitstringp boolp booleanp builtinp floatp funcp
+           functionp intp integerp listp mapp numberp pidp process-alive-p
+           recordp recordp refp referencep tuplep))
+
 (provide 'lfedoc)
 ;;; lfe-doc-finder.el ends here
