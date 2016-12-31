@@ -56,19 +56,24 @@
                                           (lfedoc-sanitise
                                            (sexp-at-point))))))
     (if (car call-struct)
-        (browse-url
-         (apply 'format
-                (cons "http://erlang.org/doc/man/%s.html#%s-%d"
-                      call-struct)))
+        (progn
+          (if (or (equalp "cl" (car call-struct)) ; different forms are read differently
+                  (equalp 'cl (car call-struct)))
+              ;; browse Hyperspec
+              (browse-url
+               (format "http://clhs.lisp.se/Body/f_%s.htm" (nth 1 call-struct)))
+            ;; browse Erlang documentation
+            (browse-url
+             (apply 'format
+                    (cons "http://erlang.org/doc/man/%s.html#%s-%d"
+                          call-struct)))))
       (princ (list "search LFE specific documentation for"
                    'function (nth 1 call-struct)
                    'arity (nth 2 call-struct))))))
 
 (defun lfedoc-call-struct (my-sexp)
   "Examine MY-SEXP and return a structure representing module function and arity."
-  (cond ((lfedoc-cl-function-callp my-sexp)
-         (lfedoc-cl-function-call-args my-sexp))
-        ((lfedoc-new-erlang-callp my-sexp)
+  (cond ((lfedoc-new-erlang-callp my-sexp)
          (lfedoc-new-erlang-call-args my-sexp))
         ((lfedoc-old-erlang-callp my-sexp)
          (lfedoc-old-erlang-call-args my-sexp))
