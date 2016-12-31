@@ -1,10 +1,10 @@
-;;; lfedoc-finder --- Code for finding LFE documentation
+;;; lfedoc --- Code for finding LFE documentation
 
 ;;; Commentary:
 
 ;;; This is supposed to make easier to look up documentation.
-;;; Now you can select smartparens or paredit to search for sexp boundaries.
-;;; Reading still breaks on LFE vector syntax.
+;;; To make it useful I need to study following file
+;;; https://github.com/rvirding/lfe/blob/develop/doc/user_guide.txt
 
 ;;; Usage:
 
@@ -44,6 +44,9 @@
     (goto-char (marker-position original-marker))
     ;; and finally return the string containing the sexp
     (buffer-substring (marker-position opening-bracket) (marker-position closing-bracket))))
+
+;;; hopefully at some point I will be able to extract more info using
+;;; (: lfe_scan tokens), or similar, but i need a way of passing text from Emacs to the lfe process
 
 (defun lfedoc-helpme ()
   "Go to Erlang website for help."
