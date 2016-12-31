@@ -66,7 +66,9 @@
 
 (defun lfedoc-call-struct (my-sexp)
   "Examine MY-SEXP and return a structure representing module function and arity."
-  (cond ((lfedoc-new-erlang-callp my-sexp)
+  (cond ((lfedoc-cl-function-callp my-sexp)
+         (lfedoc-cl-function-call-args my-sexp))
+        ((lfedoc-new-erlang-callp my-sexp)
          (lfedoc-new-erlang-call-args my-sexp))
         ((lfedoc-old-erlang-callp my-sexp)
          (lfedoc-old-erlang-call-args my-sexp))
@@ -75,13 +77,17 @@
 (defun lfedoc-sanitise (str)
   "Sanitise the string STR for reading."
   ;; now lfedoc helpme does not trip over some lfe specific constructs
-
   ;; TODO: Elisp read might trip over other constructs, I need to find them
   (replace-regexp-in-string "#("        ;vector
                             " ("
                             (replace-regexp-in-string "#[BM](" ;binary string or map
                                                       "  ("
                                                       str)))
+(defun lfedoc-cl-function-callp (sl)
+  "Check if the SL is a supplemental Lisp function.")
+
+(defun lfedoc-cl-function-call-args (sl)
+  "Try to loop up for SL using the Hyperspec equivalent.")
 
 (defun lfedoc-new-erlang-callp (sl)
   "Check id the SL is the new Erlang call syntax."
@@ -109,21 +115,6 @@
   ;; because it's not a module:function of : module function
   ;; we returm nil as module but still return the function and arity
   (list nil (car sl) (- (length sl) 1)))
-
-(defun lfedoc-known-symbols ()
-  "Collection of various kinds of predefined symbols."
-  (let (
-        (core-forms)
-        (basic-macro-forms)
-        (common-lisp-inspired-macros)
-        (older-scheme-inspired-macros)
-        (module-definition)
-        (standard-operators)
-        (predefined-lfe-functions)
-        (supplemental-common-lisp-functions)
-        (common-lisp-predicates)
-        )
-    ))
 
 (defun lfedoc-find-symbol-functions (symb)
   "Find symbol SYMB in known symbols and return the function names that return it."
