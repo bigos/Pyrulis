@@ -198,7 +198,7 @@
 
 (defun lfedoc-data-common-lisp-inspired-macros ()
   "Common Lisp inspired macros."
-  '(defun defmacro defsyntax macrole syntaxlet prog1 prog2 defmodule defrecord))
+  '(defun defmacro defsyntax macrolet syntaxlet prog1 prog2 defmodule defrecord))
 
 (defun lfedoc-data-older-scheme-inspired-macros ()
   "Older scheme inspired macros."
