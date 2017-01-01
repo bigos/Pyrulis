@@ -26,7 +26,8 @@
   "Print sexp."
   (interactive)
   (let ((sexp-str (sexp-at-point)))
-    (princ sexp-str)))
+    ;; show read source and the sanitised version used for reading by Emacs
+    (princ (list sexp-str 'sanitised-version (lfedoc-sanitise sexp-str)))))
 
 (defun sexp-at-point ()
   "Find the sexp string."
@@ -67,8 +68,10 @@
              (apply 'format
                     (cons "http://erlang.org/doc/man/%s.html#%s-%d"
                           call-struct)))))
-      (princ (list "search LFE specific documentation for"
-                   'function (nth 1 call-struct)
+      (princ (list "search"
+                   (lfedoc-find-symbol-functions (nth 1 call-struct))
+                   "for"
+                   (nth 1 call-struct)
                    'arity (nth 2 call-struct))))))
 
 (defun lfedoc-call-struct (my-sexp)
@@ -85,7 +88,7 @@
   ;; TODO: Elisp read might trip over other constructs, I need to find them
   (replace-regexp-in-string "#("        ;vector
                             " ("
-                            (replace-regexp-in-string "#[BM](" ;binary string or map
+                            (replace-regexp-in-string "#[.BM](" ;binary string or map
                                                       "  ("
                                                       str)))
 (defun lfedoc-cl-function-callp (sl)
