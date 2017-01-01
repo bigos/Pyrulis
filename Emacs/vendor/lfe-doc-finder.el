@@ -22,6 +22,21 @@
 
 (require 'browse-url)
 
+(defun lfedoc-functions ()
+  "Get list of known functions that start with character."
+  (interactive)
+  ;; we get the character from the call struct
+  (let ((call-struct (lfedoc-call-struct (read
+                                          (lfedoc-sanitise
+                                           (sexp-at-point))))))
+    (if (nth 1 call-struct)
+        (princ
+         (-distinct
+          (-sort 'string<
+                 (-flatten
+                  (-map 'cdr
+                        (lfedoc-find-symbol-autocompletions (nth 1 call-struct))))))))))
+
 (defun lfedoc-autocomplete ()
   "Autocomplete the function or module."
   ;; This is very much work in progress.
@@ -42,27 +57,29 @@
          (string-equal (substring s 0 (length begins)) begins))
         (t nil)))
 
+(defun lfedoc-get-symbol-functions ()
+  "Get the list of functions that return function symbols."
+  '(lfedoc-data-core-forms
+    lfedoc-data-basic-macro-forms
+    lfedoc-data-common-lisp-inspired-macros
+    lfedoc-data-older-scheme-inspired-macros
+    lfedoc-data-module-definition
+    lfedoc-data-standard-operators
+    lfedoc-data-predefined-lfe-functions
+    lfedoc-data-supplemental-common-lisp-functions
+    lfedoc-data-common-lisp-predicates))
+
 (defun lfedoc-find-symbol-autocompletions (symb)
   "Find symbol SYMB in known symbols and return the function names that return it."
   ;; example (lfedoc-find-symbol-functions  (quote car))
-  (let ((symbol-function-names '(lfedoc-data-core-forms
-                                 lfedoc-data-basic-macro-forms
-                                 lfedoc-data-common-lisp-inspired-macros
-                                 lfedoc-data-older-scheme-inspired-macros
-                                 lfedoc-data-module-definition
-                                 lfedoc-data-standard-operators
-                                 lfedoc-data-predefined-lfe-functions
-                                 lfedoc-data-supplemental-common-lisp-functions
-                                 lfedoc-data-common-lisp-predicates)))
-    (-filter (lambda (x) (not (null (nth 1 x))))
-     (-map (lambda (f) (list f
-                                         (-filter (lambda (sf)
-                                                    (lfedoc-string/starts-with
-                                                     (symbol-name sf)
-                                                     (symbol-name symb)))
-                                                  (funcall f))))
-                       symbol-function-names))))
-
+  (-filter (lambda (x) (not (null (nth 1 x))))
+           (-map (lambda (f) (list f
+                                   (-filter (lambda (sf)
+                                              (lfedoc-string/starts-with
+                                               (symbol-name sf)
+                                               (symbol-name symb)))
+                                            (funcall f))))
+                 (lfedoc-get-symbol-functions))))
 
 (defun lfedoc-inspect ()
   "Print sexp."
@@ -169,18 +186,9 @@
 (defun lfedoc-find-symbol-functions (symb)
   "Find symbol SYMB in known symbols and return the function names that return it."
   ;; example (lfedoc-find-symbol-functions  (quote car))
-  (let ((symbol-function-names '(lfedoc-data-core-forms
-                                 lfedoc-data-basic-macro-forms
-                                 lfedoc-data-common-lisp-inspired-macros
-                                 lfedoc-data-older-scheme-inspired-macros
-                                 lfedoc-data-module-definition
-                                 lfedoc-data-standard-operators
-                                 lfedoc-data-predefined-lfe-functions
-                                 lfedoc-data-supplemental-common-lisp-functions
-                                 lfedoc-data-common-lisp-predicates)))
-    (-reject 'null
-             (-map (lambda (f) (when (-contains? (funcall f) symb) f))
-                   symbol-function-names))))
+  (-reject 'null
+           (-map (lambda (f) (when (-contains? (funcall f) symb) f))
+                 (lfedoc-get-symbol-functions))))
 
 (defun lfedoc-data-core-forms ()
   "Core forms."
