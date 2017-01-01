@@ -22,6 +22,19 @@
 
 (require 'browse-url)
 
+(defun lfedoc-autocomplete ()
+  "Autocomplete the function or module."
+  ;; This is very much work in progress.
+  ;; Correct work would rely on better cooperation with lfe
+  ;; somewhat similar to CL swank & slime
+  (interactive)
+  (let ((call-struct (lfedoc-call-struct (read
+                                          (lfedoc-sanitise
+                                           (sexp-at-point))))))
+    (if (nth 1 call-struct)
+      (princ (list 'autocompleting 'function (nth 1 call-struct) call-struct))
+        (princ (list 'autocompleting 'module (nth 0 call-struct) call-struct)))))
+
 (defun lfedoc-inspect ()
   "Print sexp."
   (interactive)
