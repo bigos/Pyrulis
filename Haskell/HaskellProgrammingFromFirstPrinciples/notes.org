@@ -1228,6 +1228,7 @@ main must always have the type IO
 *** return
 Various remarks about using return to put value into IO
 ** 13.9 Hangman game
+** 13.10 Step One: Importing modules
 
 * continue on page
-  page 503
+  page 505
