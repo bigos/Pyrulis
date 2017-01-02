@@ -77,14 +77,9 @@
 (setq slime-contribs '(slime-fancy))
 
 (defun swap-paredit ()
+  "Replace smartparens with superior paredit."
   (smartparens-mode -1)
   (paredit-mode +1))
-
-(add-hook 'lfe-mode-hook (lambda () (swap-paredit)))
-(add-hook 'lfe-mode-hook 'rainbow-delimiters-mode)
-
-(add-hook 'inferior-lfe-mode-hook (lambda () (swap-paredit)))
-(add-hook 'inferior-lfe-mode-hook 'rainbow-delimiters-mode)
 
 (autoload 'paredit-mode "paredit"
   "Minor mode for pseudo-structurally editing Lisp code." t)
@@ -99,6 +94,18 @@
 ;; Set lfe-dir to point to where the lfe emacs files are.
 (defvar lfe-dir (concat (getenv "HOME") "/Programming/lfe/emacs"))
 (setq load-path (cons lfe-dir load-path))
+;;; clean-up the LFE REPL
+(global-set-key (kbd "s-q") 'inferior-lfe-clear-buffer)
+
+
+(add-hook 'lfe-mode-hook (lambda ()
+                           (swap-paredit)
+                           (rainbow-delimiters-mode)))
+
+(add-hook 'inferior-lfe-mode-hook (lambda ()
+                                    (swap-paredit)
+                                    (rainbow-delimiters-mode)))
+
 (require 'lfe-start)
 
 (defun unfold-lisp ()
