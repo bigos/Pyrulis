@@ -35,10 +35,25 @@
 
 (defun lfedoc-module-functions (m)
   "Get information about loaded module M."
-  (let ((command (format "lfe -e \"(m (quote %s))\"" m)))
-    ;; hardcoded value
-    (pp (nthcdr 10 (butlast (lfedoc-string-to-lines
-                            (shell-command-to-string command)))))))
+  (let ((command-str (shell-command-to-string
+                      (format "lfe -e \"(m (quote %s))\"" m)))
+        (exports-found))
+    (-flatten
+     (-map 'lfedoc-split-string-on-spaces
+           (cdr
+            (-reject 'null ; reject everything before "Exports: " line
+                     (-map
+                      (lambda (x) ; return nil if "Exports: " has not been found yet
+                        (progn
+                          (setq exports-found
+                                (if (equal x "Exports: ")
+                                    t
+                                  exports-found))
+                          (if exports-found
+                              x
+                            nil))) ; end of lambda that needs refactoring
+                      (lfedoc-string-to-lines
+                       command-str))))))))
 
 (defun lfedoc-refresh-loaded-modules ()
   "Refresh the list of loaded modules."
