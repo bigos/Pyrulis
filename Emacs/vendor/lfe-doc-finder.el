@@ -11,12 +11,31 @@
 ;;; Load this file by adding it in the load-path and running:
 ;;; (load "lfe-doc-finder.el")
 
+;;; LOOK-UP
 
 ;;; M-x lfedoc-helpme
 ;;; Will hopefully take you to a relevant page in Erlang documentation.
 
 ;;; M-x lfedoc-inspect
 ;;; Will print to the mini buffer the sexp at the cursor.
+
+;;; AUTO-COMPLETION FUNCTIONS
+
+;;; placing your cursor anywhere between ( and ) in the following sexps
+;;; and running Emacs functions will give you a data that can be used in
+;;; creation of a plugin that could help with LFE
+
+;;; M-x lfedoc-modules
+;; (: ) ; will give all loaded modules
+;; (: a ) ; only modules that start with a
+
+;;; M-x lfedoc-module-functions
+;; (: io  ) ; will give all exported functions in io module
+;; (: io p) ; only functions that start with p
+
+;;; M-x lfedoc-functions
+;; (a ) ; will give all user guide functions that start with a
+;; () ; will give you nothing
 
 ;;; Code:
 
