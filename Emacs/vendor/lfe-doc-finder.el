@@ -21,19 +21,21 @@
 ;;; Code:
 
 (require 'browse-url)
-(require 'dash)
 
 ;;; ----------------------------------------------------------------------------
 
-;;; define globar variable for loaded modules
-
-(setq lfedoc-global-loaded-modules (list 'empty))
+;;; define global variable for loaded modules
+(setq lfedoc-global-loaded-modules (list nil))
 
 (defun lfedoc-query-loaded-modules ()
   "Get loaded module names."
   ;; TODO add some error checking for empty list of modules
-  (-map 'car
-        lfedoc-global-loaded-modules))
+  (if (car lfedoc-global-loaded-modules)
+      (-map 'car
+            lfedoc-global-loaded-modules)
+    ;; refresh if not loaded
+    (-map 'car
+          (lfedoc-refresh-loaded-modules))))
 
 (defun lfedoc-query-module-functions (module)
   "Get Exports information about loaded MODULE."
@@ -54,6 +56,7 @@
                                (format "lfe -e \"(m (quote %s))\""
                                        module)))))))))))
 
+;;; You need to run it after every reload of this file.
 (defun lfedoc-refresh-loaded-modules ()
   "Refresh the list of loaded modules."
   (interactive)
@@ -64,7 +67,7 @@
                      (shell-command-to-string (format "lfe -e \"%s\" "
                                                       "(m)")))))))
   (princ "Modules have been refreshed.")
-  nil)
+  lfedoc-global-loaded-modules)
 
 ;;; ----------------------------------------------------------------------------
 
@@ -91,8 +94,8 @@ or all functions if no function characters are given."
          (-filter
           (lambda (x)
             (if (nth 1 call-struct)
-                ;; if any character of the function given show possible conpletions
-                ;; oterwise show all available functions
+                ;; if any character of the function given show possible completions
+                ;; otherwise show all available functions
                 (lfedoc-string/starts-with
                  x
                  (format "%s"  (nth 1 call-struct)))
@@ -105,13 +108,14 @@ or all functions if no function characters are given."
   (let ((call-struct (lfedoc-call-struct (read
                                           (lfedoc-sanitise
                                            (sexp-at-point))))))
-    (when (nth 0 call-struct)
-      (pp
-       (-filter (lambda (x)
-                  (lfedoc-string/starts-with
-                   x
-                   (format "%s"  (nth 0 call-struct))))
-                (lfedoc-query-loaded-modules))))))
+    (pp (if (nth 0 call-struct)
+            (-filter (lambda (x) t
+                       (lfedoc-string/starts-with
+                         x
+                        (format "%s" (nth 0 call-struct)))
+                       )
+                     (lfedoc-query-loaded-modules))
+          (lfedoc-query-loaded-modules)))))
 
 (defun lfedoc-functions ()
   "Get list of known user guide functions that start with given character(s)."
@@ -230,7 +234,8 @@ or all functions if no function characters are given."
          (lfedoc-new-erlang-call-args my-sexp))
         ((lfedoc-old-erlang-callp my-sexp)
          (lfedoc-old-erlang-call-args my-sexp))
-        (t (lfedoc-unknown-code my-sexp))))
+        (t
+         (lfedoc-unknown-code my-sexp))))
 
 (defun lfedoc-sanitise (str)
   "Sanitise the string STR for reading."
@@ -253,7 +258,13 @@ or all functions if no function characters are given."
 
 (defun lfedoc-new-erlang-call-args (sl)
   "Get new Erlang call info for the documentation look-up list SL."
-  (list (nth 1 sl) (nth 2 sl) (- (length sl) 3)))
+  (cond ((and (nth 1 sl)
+              (nth 2 sl))
+         (list (nth 1 sl) (nth 2 sl) (- (length sl) 3)))
+        ((nth 1 sl)
+         (list (nth 1 sl) nil nil))
+        (t
+         (list nil nil nil))))
 
 (defun lfedoc-old-erlang-callp (sl)
   "Check id the SL is the old Erlang call syntax."
