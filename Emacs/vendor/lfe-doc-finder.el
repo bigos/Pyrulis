@@ -33,27 +33,23 @@
   (-map 'car
         lfedoc-global-loaded-modules))
 
-(defun lfedoc-module-functions (m)
-  "Get information about loaded module M."
-  (let ((command-str (shell-command-to-string
-                      (format "lfe -e \"(m (quote %s))\"" m)))
-        (exports-found))
+(defun lfedoc-module-functions (module)
+  "Get Exports information about loaded MODULE."
+  (let ((exports-seen))
     (-flatten
      (-map 'lfedoc-split-string-on-spaces
            (cdr
-            (-reject 'null ; reject everything before "Exports: " line
+            (-reject 'null ; reject everything before the "Exports: " line
                      (-map
-                      (lambda (x) ; return nil if "Exports: " has not been found yet
-                        (progn
-                          (setq exports-found
-                                (if (equal x "Exports: ")
-                                    t
-                                  exports-found))
-                          (if exports-found
-                              x
-                            nil))) ; end of lambda that needs refactoring
+                      (lambda (x)
+                        (when (equal "Exports: " x)
+                          (setq exports-seen t))
+                        (when exports-seen
+                          x))
                       (lfedoc-string-to-lines
-                       command-str))))))))
+                       (shell-command-to-string
+                        (format "lfe -e \"(m (quote %s))\""
+                                module))))))))))
 
 (defun lfedoc-refresh-loaded-modules ()
   "Refresh the list of loaded modules."
