@@ -21,6 +21,7 @@
 ;;; Code:
 
 (require 'browse-url)
+(require 'dash)
 
 ;;; ----------------------------------------------------------------------------
 
@@ -28,28 +29,30 @@
 
 (setq lfedoc-global-loaded-modules (list 'empty))
 
-(defun lfedoc-loaded_modules ()
+(defun lfedoc-query-loaded-modules ()
   "Get loaded module names."
+  ;; TODO add some error checking for empty list of modules
   (-map 'car
         lfedoc-global-loaded-modules))
 
-(defun lfedoc-module-functions (module)
+(defun lfedoc-query-module-functions (module)
   "Get Exports information about loaded MODULE."
   (let ((exports-seen))
-    (-flatten
-     (-map 'lfedoc-split-string-on-spaces
-           (cdr
-            (-reject 'null ; reject everything before the "Exports: " line
-                     (-map
-                      (lambda (x)
-                        (when (equal "Exports: " x)
-                          (setq exports-seen t))
-                        (when exports-seen
-                          x))
-                      (lfedoc-string-to-lines
-                       (shell-command-to-string
-                        (format "lfe -e \"(m (quote %s))\""
-                                module))))))))))
+    (-sort 'string<
+           (-flatten
+            (-map 'lfedoc-split-string-on-spaces
+                  (cdr
+                   (-reject 'null ; reject everything before the "Exports: " line
+                            (-map
+                             (lambda (x)
+                               (when (equal "Exports: " x)
+                                 (setq exports-seen t))
+                               (when exports-seen
+                                 x))
+                             (lfedoc-string-to-lines
+                              (shell-command-to-string
+                               (format "lfe -e \"(m (quote %s))\""
+                                       module)))))))))))
 
 (defun lfedoc-refresh-loaded-modules ()
   "Refresh the list of loaded modules."
@@ -63,6 +66,8 @@
   (princ "Modules have been refreshed.")
   nil)
 
+;;; ----------------------------------------------------------------------------
+
 (defun lfedoc-string-to-lines (str)
   "Split STR into a list of lines."
   (-reject 'null
@@ -74,24 +79,57 @@
            (split-string str " ")))
 
 ;;; ----------------------------------------------------------------------------
+(defun lfedoc-module-functions ()
+  "Get a list of module exported functions that start with given character(s)
+or all functions if no function characters are given."
+  (interactive)
+  (let ((call-struct (lfedoc-call-struct (read
+                                          (lfedoc-sanitise
+                                           (sexp-at-point))))))
+    (if (nth 0 call-struct)
+        (pp
+         (-filter
+          (lambda (x)
+            (if (nth 1 call-struct)
+                ;; if any character of the function given show possible conpletions
+                ;; oterwise show all available functions
+                (lfedoc-string/starts-with
+                 x
+                 (format "%s"  (nth 1 call-struct)))
+              t))
+          (lfedoc-query-module-functions (nth 0 call-struct)))))))
+
+(defun lfedoc-modules ()
+  "Get list of loaded modules that start with given character(s)."
+  (interactive)
+  (let ((call-struct (lfedoc-call-struct (read
+                                          (lfedoc-sanitise
+                                           (sexp-at-point))))))
+    (when (nth 0 call-struct)
+      (pp
+       (-filter (lambda (x)
+                  (lfedoc-string/starts-with
+                   x
+                   (format "%s"  (nth 0 call-struct))))
+                (lfedoc-query-loaded-modules))))))
 
 (defun lfedoc-functions ()
-  "Get list of known functions that start with character."
+  "Get list of known user guide functions that start with given character(s)."
   (interactive)
   ;; we get the character from the call struct
   (let ((call-struct (lfedoc-call-struct (read
                                           (lfedoc-sanitise
                                            (sexp-at-point))))))
-    (if (nth 1 call-struct)
-        (princ
-         (-distinct
-          (-sort 'string<
-                 (-flatten
-                  (-map 'cdr
-                        (lfedoc-find-symbol-autocompletions (nth 1 call-struct))))))))))
+    (when (nth 1 call-struct)
+      (princ
+       (-distinct
+        (-sort 'string<
+               (-flatten
+                (-map 'cdr
+                      (lfedoc-find-symbol-autocompletions (nth 1 call-struct))))))))))
 
-(defun lfedoc-autocomplete ()
-  "Autocomplete the function or module."
+(defun lfedoc-autocomplete-function ()
+  "Autocomplete the function."
   ;; This is very much work in progress.
   ;; Correct work would rely on better cooperation with lfe
   ;; somewhat similar to CL swank & slime
@@ -242,6 +280,8 @@
   (-reject 'null
            (-map (lambda (f) (when (-contains? (funcall f) symb) f))
                  (lfedoc-get-symbol-functions))))
+
+;;; ----------------------------------------------------------------------------
 
 (defun lfedoc-data-core-forms ()
   "Core forms."
