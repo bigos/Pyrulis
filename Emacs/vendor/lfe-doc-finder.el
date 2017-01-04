@@ -48,7 +48,6 @@
 
 (defun lfedoc-query-loaded-modules ()
   "Get loaded module names."
-  ;; TODO add some error checking for empty list of modules
   (if (car lfedoc-global-loaded-modules)
       (-map 'car
             lfedoc-global-loaded-modules)
@@ -152,10 +151,7 @@ or all functions if no function characters are given."
                       (lfedoc-find-symbol-autocompletions (nth 1 call-struct))))))))))
 
 (defun lfedoc-autocomplete-function ()
-  "Autocomplete the function."
-  ;; This is very much work in progress.
-  ;; Correct work would rely on better cooperation with lfe
-  ;; somewhat similar to CL swank & slime
+  "Autocomplete the function divided into user guide sections."
   (interactive)
   (let ((call-struct (lfedoc-call-struct (read
                                           (lfedoc-sanitise
@@ -218,9 +214,6 @@ or all functions if no function characters are given."
     (goto-char (marker-position original-marker))
     ;; and finally return the string containing the sexp
     (buffer-substring (marker-position opening-bracket) (marker-position closing-bracket))))
-
-;;; hopefully at some point I will be able to extract more info using
-;;; (: lfe_scan tokens), or similar, but i need a way of passing text from Emacs to the lfe process
 
 (defun lfedoc-helpme ()
   "Go to Erlang website for help."
