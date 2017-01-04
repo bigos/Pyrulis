@@ -22,6 +22,48 @@
 
 (require 'browse-url)
 
+;;; ----------------------------------------------------------------------------
+
+;;; define globar variable for loaded modules
+
+(setq lfedoc-global-loaded-modules (list 'empty))
+
+(defun lfedoc-loaded_modules ()
+  "Get loaded module names."
+  (-map 'car
+        lfedoc-global-loaded-modules))
+
+(defun lfedoc-module-functions (m)
+  "Get information about loaded module M."
+  (let ((command (format "lfe -e \"(m (quote %s))\"" m)))
+    ;; hardcoded value
+    (pp (nthcdr 10 (butlast (lfedoc-string-to-lines
+                            (shell-command-to-string command)))))))
+
+(defun lfedoc-refresh-loaded-modules ()
+  "Refresh the list of loaded modules."
+  (interactive)
+  (setq lfedoc-global-loaded-modules
+        (-map 'lfedoc-split-string-on-spaces
+              (cdr (butlast
+                    (lfedoc-string-to-lines
+                     (shell-command-to-string (format "lfe -e \"%s\" "
+                                                      "(m)")))))))
+  (princ "Modules have been refreshed.")
+  nil)
+
+(defun lfedoc-string-to-lines (str)
+  "Split STR into a list of lines."
+  (-reject 'null
+           (split-string str (format "%c" 10))))
+
+(defun lfedoc-split-string-on-spaces (str)
+  "Split STR on spaces."
+  (-filter (lambda (x) (> (length x) 0))
+           (split-string str " ")))
+
+;;; ----------------------------------------------------------------------------
+
 (defun lfedoc-functions ()
   "Get list of known functions that start with character."
   (interactive)
