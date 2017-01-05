@@ -25,17 +25,32 @@
 ;;; and running Emacs functions will give you a data that can be used in
 ;;; creation of a plugin that could help with LFE
 
-;;; M-x lfedoc-modules
+;;; M-x lfedoc-modules =========================================================
 ;; (: ) ; will give all loaded modules
 ;; (: a ) ; only modules that start with a
+;; () list of all loaded modules
+;; (i ) despite initial letter you will get all loaded modules
 
-;;; M-x lfedoc-module-functions
+;;; M-x lfedoc-module-functions ================================================
 ;; (: io  ) ; will give all exported functions in io module
 ;; (: io p) ; only functions that start with p
 
-;;; M-x lfedoc-functions
+;;; old style module and function syntax
+;;; (zlib: ) will give all exported functions in zlib module
+;;; (zlib:a ) only functions that start with a
+
+;;; old syntax errors with lfedoc-module-functions
+;;; (zlib : a ) nothing
+;;; (zlib : ) nothing
+
+;;; M-x lfedoc-functions =======================================================
 ;; (a ) ; will give all user guide functions that start with a
 ;; () ; will give you nothing
+
+;;; old syntax errors with lfedoc-functions
+;;; (zlib : a) will give nothing
+;;; (zlib:a) wrong type argument error
+;;; (zlib: a) wrong type argument error
 
 ;;; Code:
 
@@ -148,7 +163,8 @@ or all functions if no function characters are given."
         (-sort 'string<
                (-flatten
                 (-map 'cdr
-                      (lfedoc-find-symbol-autocompletions (nth 1 call-struct))))))))))
+                      (lfedoc-find-symbol-autocompletions
+                       (nth 1 call-struct))))))))))
 
 (defun lfedoc-autocomplete-function ()
   "Autocomplete the function divided into user guide sections."
