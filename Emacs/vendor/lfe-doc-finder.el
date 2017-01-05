@@ -262,12 +262,20 @@ or all functions if no function characters are given."
 
 (defun lfedoc-call-struct (my-sexp)
   "Examine MY-SEXP and return a structure representing module function and arity."
+  (princ (format "%c==== %s%c" 10 my-sexp 10))
+
   (cond ((lfedoc-new-erlang-callp my-sexp)
-         (lfedoc-new-erlang-call-args my-sexp))
+         (progn
+           (princ "nnnnnnnnew") ; (: m f a)
+           (lfedoc-new-erlang-call-args my-sexp)))
         ((lfedoc-old-erlang-callp my-sexp)
-         (lfedoc-old-erlang-call-args my-sexp))
+         (progn
+           (princ "ollllld")  ;(m:f a)
+           (lfedoc-old-erlang-call-args my-sexp)))
         (t
-         (lfedoc-unknown-code my-sexp))))
+         (progn
+           (princ "ttttt")
+           (lfedoc-unknown-code my-sexp)))))
 
 (defun lfedoc-sanitise (str)
   "Sanitise the string STR for reading."
@@ -307,15 +315,32 @@ or all functions if no function characters are given."
 (defun lfedoc-old-erlang-call-args (sl)
   "Get old Erlang call info for the documentation look-up list SL."
   (let ((call-str (split-string (symbol-name (car sl)) ":")))
-    (list (nth 0 call-str)
-          (nth 1 call-str)
+    (princ (format "0000 %S" (nth 1 call-str)))
+    (list (make-symbol (nth 0 call-str))
+          (if (equal (nth 1 call-str) "")
+              nil
+            (make-symbol (nth 1 call-str)))
           (- (length sl) 1))))
 
 (defun lfedoc-unknown-code (sl)
   "Provide unrecognised module information from SL."
   ;; because it's not a module:function of : module function
   ;; we returm nil as module but still return the function and arity
-  (list nil (car sl) (- (length sl) 1)))
+  (princ (format "77777 %S  %S%c"
+                 sl
+                 (type-of (nth 1 sl))
+                 10))
+  (cond ((equal (symbol-name (nth 1 sl)) ?:)
+        (list (car sl) (nth 2 sl)) (- (length sl) 2))
+        ((equal (elt (symbol-name (nth 1 sl)) 1) ?:)
+         (list (car sl)
+               (make-symbol
+                (substring
+                 (symbol-name (nth 1 sl))
+                 1))
+               (- (length sl 2))))
+        (t
+         (list nil (car sl) (- (length sl) 1)))))
 
 (defun lfedoc-find-symbol-functions (symb)
   "Find symbol SYMB in known symbols and return the function names that return it."
@@ -400,6 +425,7 @@ or all functions if no function characters are given."
       (funcall test-case (equal (length (lfedoc-query-loaded-modules)) 74))
       (funcall test-case (equal (nth 0  (lfedoc-query-loaded-modules)) "application"))
       (funcall test-case (equal (nth 73 (lfedoc-query-loaded-modules)) "zlib"))
+      (funcall test-case (equal (lfedoc-sexp "(: mod fun 1)") '(mod fun 1)))
       ;; conclusion
       (princ (format "%cerror count %s%c" 10 error-count 10)))
     nil))
