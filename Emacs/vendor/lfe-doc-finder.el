@@ -428,7 +428,24 @@ or all functions if no function characters are given."
       (funcall test-case (equal (length (lfedoc-query-loaded-modules)) 74))
       (funcall test-case (equal (nth 0  (lfedoc-query-loaded-modules)) "application"))
       (funcall test-case (equal (nth 73 (lfedoc-query-loaded-modules)) "zlib"))
+      ;;
+      (funcall test-case (equal (lfedoc-sexp "()") '(ni nil 0)))
+      (funcall test-case (equal (lfedoc-sexp "( )") '(ni nil 0)))
+      ;;
+      (funcall test-case (equal (lfedoc-sexp "(: mod )") '(mod nil 0)))
+      (funcall test-case (equal (lfedoc-sexp "(: mod fun)") '(mod fun 0)))
       (funcall test-case (equal (lfedoc-sexp "(: mod fun 1)") '(mod fun 1)))
+      (funcall test-case (equal (lfedoc-sexp "(:mod fun)") 'syntax-error))
+      (funcall test-case (equal (lfedoc-sexp "(:mod fun 1)") 'syntax-error))
+      ;;
+      (funcall test-case (equal (lfedoc-sexp "(mod:)") '(mod nil 0)))
+      (funcall test-case (equal (lfedoc-sexp "(mod :)") 'syntax-error))
+      (funcall test-case (equal (lfedoc-sexp "(mod:fun)") '(mod fun 0)))
+      (funcall test-case (equal (lfedoc-sexp "(mod :fun)") 'syntax-error))
+      (funcall test-case (equal (lfedoc-sexp "(mod : fun)") 'syntax-error))
+      (funcall test-case (equal (lfedoc-sexp "(mod:fun 1)") '(mod fun 1)))
+      (funcall test-case (equal (lfedoc-sexp "(mod :fun 1)") 'syntax-error))
+      (funcall test-case (equal (lfedoc-sexp "(mod : fun 1)") 'syntax-error))
       ;; conclusion
       (princ (format "%cerror count %s%c" 10 error-count 10)))
     nil))
