@@ -59,7 +59,9 @@
 
 (global-set-key (kbd "s-6") 'lfedoc-modules)
 (global-set-key (kbd "s-7") 'lfedoc-module-functions)
+
 (global-set-key (kbd "s-9") 'lfedoc-functions)
+
 (global-set-key (kbd "s-/") 'lfedoc-helpme)
 ;;; ----------------------------------------------------------------------------
 
