@@ -129,9 +129,7 @@
   "Get a list of module exported functions that start with given character(s)
 or all functions if no function characters are given."
   (interactive)
-  (let ((call-struct (lfedoc-call-struct (read
-                                          (lfedoc-sanitise
-                                           (sexp-at-point))))))
+  (let ((call-struct (lfedoc-sexp (sexp-at-point))))
     (if (nth 0 call-struct)
         (pp
          (-filter
@@ -148,9 +146,7 @@ or all functions if no function characters are given."
 (defun lfedoc-modules ()
   "Get list of loaded modules that start with given character(s)."
   (interactive)
-  (let ((call-struct (lfedoc-call-struct (read
-                                          (lfedoc-sanitise
-                                           (sexp-at-point))))))
+  (let ((call-struct (lfedoc-sexp (sexp-at-point))))
     (pp (if (nth 0 call-struct)
             (-filter (lambda (x) t
                        (lfedoc-string/starts-with
@@ -164,9 +160,7 @@ or all functions if no function characters are given."
   "Get list of known user guide functions that start with given character(s)."
   (interactive)
   ;; we get the character from the call struct
-  (let ((call-struct (lfedoc-call-struct (read
-                                          (lfedoc-sanitise
-                                           (sexp-at-point))))))
+  (let ((call-struct (lfedoc-sexp (sexp-at-point))))
     (when (nth 1 call-struct)
       (princ
        (-distinct
@@ -179,9 +173,7 @@ or all functions if no function characters are given."
 (defun lfedoc-autocomplete-function ()
   "Autocomplete the function divided into user guide sections."
   (interactive)
-  (let ((call-struct (lfedoc-call-struct (read
-                                          (lfedoc-sanitise
-                                           (sexp-at-point))))))
+  (let ((call-struct (lfedoc-sexp (sexp-at-point))))
     (if (nth 1 call-struct)
         (princ (list 'autocompleting 'function (nth 1 call-struct)
                      call-struct
@@ -245,9 +237,7 @@ or all functions if no function characters are given."
   "Go to Erlang website for help."
   (interactive)
   ;; Read sanitised sexp and extract model and function for browse-url look-up
-  (let ((call-struct (lfedoc-call-struct (read
-                                          (lfedoc-sanitise
-                                           (sexp-at-point))))))
+  (let ((call-struct (lfedoc-sexp (sexp-at-point))))
     (if (car call-struct)
         (progn
           (if (or (equalp "cl" (car call-struct)) ; different forms are read differently
@@ -265,6 +255,10 @@ or all functions if no function characters are given."
                    "for"
                    (nth 1 call-struct)
                    'arity (nth 2 call-struct))))))
+
+(defun lfedoc-sexp (str)
+  "Convert STR to sexp."
+  (lfedoc-call-struct (read (lfedoc-sanitise str))))
 
 (defun lfedoc-call-struct (my-sexp)
   "Examine MY-SEXP and return a structure representing module function and arity."
