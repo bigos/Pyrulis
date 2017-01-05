@@ -331,16 +331,19 @@ or all functions if no function characters are given."
                  (type-of (nth 1 sl))
                  10))
   (cond ((equal (symbol-name (nth 1 sl)) ?:)
-        (list (car sl) (nth 2 sl)) (- (length sl) 2))
-        ((equal (elt (symbol-name (nth 1 sl)) 1) ?:)
-         (list (car sl)
-               (make-symbol
-                (substring
-                 (symbol-name (nth 1 sl))
-                 1))
-               (- (length sl 2))))
-        (t
-         (list nil (car sl) (- (length sl) 1)))))
+         (progn
+           (princ "111777")
+           (list (car sl) (nth 2 sl)
+                 (- (length sl) 2))))
+        ((equal  (substring (symbol-name (nth 1 sl)) 0 1) ":")
+         (progn
+           (princ "222777")
+           (list (car sl)
+                 (substring (symbol-name (nth 1 sl)) 1)
+                 (- (length sl) 2))))
+        (t (progn
+             (princ "333777")
+             (list nil (car sl) (- (length sl) 1))))))
 
 (defun lfedoc-find-symbol-functions (symb)
   "Find symbol SYMB in known symbols and return the function names that return it."
