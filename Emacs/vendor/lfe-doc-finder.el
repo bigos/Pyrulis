@@ -388,5 +388,27 @@ or all functions if no function characters are given."
            functionp intp integerp listp mapp numberp pidp process-alive-p
            recordp recordp refp referencep tuplep))
 
+;;; ----------------------------------------------------------------------------
+
+;;; in scratch buffer evaluate (lfedoc-test-all)
+(defun lfedoc-test-all ()
+  "Test all test cases."
+  (let ((error-count 0))
+    (let ((test-case (lambda (tc)
+                       (if tc
+                           (princ "Y")
+                         (progn
+                           (incf error-count)
+                           (princ "E"))))))
+      (princ (format "%ctesting%c" 10 10))
+      ;; my test cases
+      (funcall test-case (not (>= 1 2)))
+      (funcall test-case (equal (length (lfedoc-query-loaded-modules)) 74))
+      (funcall test-case (equal (nth 0  (lfedoc-query-loaded-modules)) "application"))
+      (funcall test-case (equal (nth 73 (lfedoc-query-loaded-modules)) "zlib"))
+      ;; conclusion
+      (princ (format "%cerror count %s%c" 10 error-count 10)))
+    nil))
+
 (provide 'lfedoc)
 ;;; lfe-doc-finder.el ends here
