@@ -2,6 +2,9 @@
 
 ;;; Commentary:
 
+;;; WARNING: I made a big mistake calling the new syntax the old syntax
+;;; correct new syntax is (module:function) not (: module function)
+
 ;;; This is supposed to make easier to look up documentation.
 ;;; To make it useful I need to study following file
 ;;; https://github.com/rvirding/lfe/blob/develop/doc/user_guide.txt
