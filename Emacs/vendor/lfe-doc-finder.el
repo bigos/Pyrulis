@@ -388,5 +388,24 @@ or all functions if no function characters are given."
            functionp intp integerp listp mapp numberp pidp process-alive-p
            recordp recordp refp referencep tuplep))
 
+
+;;; in scratch buffer evaluate (lfedoc-test-all)
+(defun lfedoc-test-all ()
+  "Test all test cases."
+  (let ((error-count 0))
+    (let ((test-case (lambda (tc)
+                       (if tc
+                           (princ "Y")
+                         (progn
+                           (incf error-count)
+                           (princ "E"))))))
+      (princ (format "%ctesting%c" 10 10))
+      ;; my test cases
+      (funcall test-case (not (>= 1 2)))
+      ;;
+      ;; conclusion
+      (princ (format "%cerror count %s%c" 10 error-count 10)))
+    nil))
+
 (provide 'lfedoc)
 ;;; lfe-doc-finder.el ends here
