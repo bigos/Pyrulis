@@ -264,14 +264,25 @@ or all functions if no function characters are given."
   "Examine MY-SEXP and return a structure representing module function and arity."
   (princ (format "%c==== %s%c" 10 my-sexp 10))
 
-  (cond ((lfedoc-new-erlang-callp my-sexp)
+  (cond ((lfedoc-old-erlang-callp my-sexp)
          (progn
-           (princ "nnnnnnnnew") ; (: m f a)
-           (lfedoc-new-erlang-call-args my-sexp)))
-        ((lfedoc-old-erlang-callp my-sexp)
-         (progn
-           (princ "ollllld")  ;(m:f a)
+           (princ "ollllld")            ; (m:f a)
            (lfedoc-old-erlang-call-args my-sexp)))
+        ((and (and
+               (eql (type-of (car my-sexp)) 'symbol)
+               (not (eql 2 (length (split-string (symbol-name (car my-sexp)) ":")))))
+              (equal (substring  (symbol-name (nth 0 my-sexp)) 0 1) ":")
+              (> (length (symbol-name (nth 0 my-sexp))) 1))
+         'syntax-error)
+
+        ((and (eql (type-of (nth 1 my-sexp)) 'symbol)
+              (equal (substring  (symbol-name (nth 1 my-sexp)) 0 1) ":"))
+         'syntax-error)
+        ((lfedoc-new-erlang-callp my-sexp)
+         (progn
+           (princ "nnnnnnnnew")         ; (: m f a)
+           (lfedoc-new-erlang-call-args my-sexp)))
+
         (t
          (progn
            (princ "ttttt")
@@ -302,24 +313,27 @@ or all functions if no function characters are given."
               (nth 2 sl))
          (list (nth 1 sl) (nth 2 sl) (- (length sl) 3)))
         ((nth 1 sl)
-         (list (nth 1 sl) nil nil))
+         (list (nth 1 sl) nil 0))
         (t
-         (list nil nil nil))))
+         (list nil nil 0))))
 
 (defun lfedoc-old-erlang-callp (sl)
   "Check id the SL is the old Erlang call syntax."
-  (eql (length (split-string (symbol-name (car sl))
-                             ":"))
-       2))
+  (let ((my-split (split-string (symbol-name (car sl))
+                                ":")))
+    (and (equal (length my-split) 2)
+         (not (equal (nth 0 my-split) ""))
+         (not (equal (nth 1 my-split) "")))))
 
 (defun lfedoc-old-erlang-call-args (sl)
   "Get old Erlang call info for the documentation look-up list SL."
   (let ((call-str (split-string (symbol-name (car sl)) ":")))
-    (princ (format "0000 %S" (nth 1 call-str)))
-    (list (make-symbol (nth 0 call-str))
+    (princ (format "0000 %S" (list '--- (nth 0 call-str) (nth 1 call-str))))
+
+    (list (intern (nth 0 call-str))
           (if (equal (nth 1 call-str) "")
               nil
-            (make-symbol (nth 1 call-str)))
+            (intern (nth 1 call-str)))
           (- (length sl) 1))))
 
 (defun lfedoc-unknown-code (sl)
@@ -341,9 +355,17 @@ or all functions if no function characters are given."
            (list (car sl)
                  (substring (symbol-name (nth 1 sl)) 1)
                  (- (length sl) 2))))
+        ((null sl)
+         (progn
+           (princ "333777")
+           (list nil nil 0)))
+        ((equal (substring (symbol-name (nth 0 sl)) -1) ":")
+         (progn
+           (princ "444777")
+           (list (intern (substring (symbol-name (nth 0 sl)) 0 -1)) nil 0)))
         (t (progn
-             (princ "333777")
-             (list nil (car sl) (- (length sl) 1))))))
+             (princ "555777")
+             'syntax-error))))
 
 (defun lfedoc-find-symbol-functions (symb)
   "Find symbol SYMB in known symbols and return the function names that return it."
@@ -429,23 +451,24 @@ or all functions if no function characters are given."
       (funcall test-case (equal (nth 0  (lfedoc-query-loaded-modules)) "application"))
       (funcall test-case (equal (nth 73 (lfedoc-query-loaded-modules)) "zlib"))
       ;;
-      (funcall test-case (equal (lfedoc-sexp "()") '(ni nil 0)))
-      (funcall test-case (equal (lfedoc-sexp "( )") '(ni nil 0)))
+      (funcall test-case (equal (lfedoc-sexp "()") '(nil nil 0)))
+      (funcall test-case (equal (lfedoc-sexp "( )") '(nil nil 0)))
       ;;
       (funcall test-case (equal (lfedoc-sexp "(: mod )") '(mod nil 0)))
       (funcall test-case (equal (lfedoc-sexp "(: mod fun)") '(mod fun 0)))
       (funcall test-case (equal (lfedoc-sexp "(: mod fun 1)") '(mod fun 1)))
+      (funcall test-case (equal (lfedoc-sexp "(:mod)") 'syntax-error))
       (funcall test-case (equal (lfedoc-sexp "(:mod fun)") 'syntax-error))
       (funcall test-case (equal (lfedoc-sexp "(:mod fun 1)") 'syntax-error))
-      ;;
-      (funcall test-case (equal (lfedoc-sexp "(mod:)") '(mod nil 0)))
-      (funcall test-case (equal (lfedoc-sexp "(mod :)") 'syntax-error))
-      (funcall test-case (equal (lfedoc-sexp "(mod:fun)") '(mod fun 0)))
-      (funcall test-case (equal (lfedoc-sexp "(mod :fun)") 'syntax-error))
-      (funcall test-case (equal (lfedoc-sexp "(mod : fun)") 'syntax-error))
-      (funcall test-case (equal (lfedoc-sexp "(mod:fun 1)") '(mod fun 1)))
-      (funcall test-case (equal (lfedoc-sexp "(mod :fun 1)") 'syntax-error))
-      (funcall test-case (equal (lfedoc-sexp "(mod : fun 1)") 'syntax-error))
+      ;; ;;
+       (funcall test-case (equal (lfedoc-sexp "(mod:)") '(mod nil 0)))
+       (funcall test-case (equal (lfedoc-sexp "(mod :)") 'syntax-error))
+       (funcall test-case (equal (lfedoc-sexp "(mod:fun)") '(mod fun 0)))
+       (funcall test-case (equal (lfedoc-sexp "(mod :fun)") 'syntax-error))
+       (funcall test-case (equal (lfedoc-sexp "(mod : fun)") 'syntax-error))
+       (funcall test-case (equal (lfedoc-sexp "(mod:fun 1)") '(mod fun 1)))
+       ;(funcall test-case (equal (lfedoc-sexp "(mod :fun 1)") 'syntax-error))
+      ;; (funcall test-case (equal (lfedoc-sexp "(mod : fun 1)") 'syntax-error))
       ;; conclusion
       (princ (format "%cerror count %s%c" 10 error-count 10)))
     nil))
