@@ -388,6 +388,18 @@ or all functions if no function characters are given."
            functionp intp integerp listp mapp numberp pidp process-alive-p
            recordp recordp refp referencep tuplep))
 
+;; Trying another set of correct values. for which we should have working
+;; auto-completion
+;;
+;; () all modules and user_guide functions
+;; (: ) all modules
+;; (: a) all modules trarting with a
+;; (: mod) all mod functions
+;; (: mod f) all mod functions starting with f
+;; (a) all modules and user_guide functions starting with a
+;; (mod:) all mod functions
+;; (mod:f) all mod functions starting with f
+;; otherwise nothing
 
 ;;; in scratch buffer evaluate (lfedoc-test-all)
 (defun lfedoc-test-all ()
