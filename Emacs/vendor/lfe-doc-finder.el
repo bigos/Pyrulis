@@ -217,7 +217,11 @@ or all functions if no function characters are given."
   (interactive)
   (let ((sexp-str (sexp-at-point)))
     ;; show read source and the sanitised version used for reading by Emacs
-    (princ (list sexp-str 'sanitised-version (lfedoc-sanitise sexp-str)))))
+    (princ (list sexp-str
+                 'sanitised-version (lfedoc-sanitise sexp-str)
+                 'macroexpanded
+                 (format "lfe -e \"(io:format (macroexpand-all (quote %s )))\""
+                         sexp-str)))))
 
 (defun sexp-at-point ()
   "Find the sexp string."
