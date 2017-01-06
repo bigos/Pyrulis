@@ -1,6 +1,9 @@
 ;;; lfedoc --- Code for finding LFE documentation
 
 ;;; Commentary:
+;;; At the bottom of the file I have a simple test proving that my idea works.
+;;; I have made a mistake of not converting module and function to strings
+;;; before the verification.That is a big smell and begs for refactoring.
 
 ;;; WARNING: I made a big mistake calling the new syntax the old syntax
 ;;; correct new syntax is (module:function) not (: module function)
