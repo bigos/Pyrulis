@@ -262,12 +262,8 @@ or all functions if no function characters are given."
 
 (defun lfedoc-call-struct (my-sexp)
   "Examine MY-SEXP and return a structure representing module function and arity."
-  (princ (format "%c==== %s%c" 10 my-sexp 10))
-
   (cond ((lfedoc-old-erlang-callp my-sexp)
-         (progn
-           (princ "ollllld")            ; (m:f a)
-           (lfedoc-old-erlang-call-args my-sexp)))
+         (lfedoc-old-erlang-call-args my-sexp))
         ((and (and
                (eql (type-of (car my-sexp)) 'symbol)
                (not (eql 2 (length (split-string (symbol-name (car my-sexp)) ":")))))
@@ -279,14 +275,9 @@ or all functions if no function characters are given."
               (equal (substring  (symbol-name (nth 1 my-sexp)) 0 1) ":"))
          'syntax-error)
         ((lfedoc-new-erlang-callp my-sexp)
-         (progn
-           (princ "nnnnnnnnew")         ; (: m f a)
-           (lfedoc-new-erlang-call-args my-sexp)))
-
+         (lfedoc-new-erlang-call-args my-sexp))
         (t
-         (progn
-           (princ "ttttt")
-           (lfedoc-unknown-code my-sexp)))))
+         (lfedoc-unknown-code my-sexp))))
 
 (defun lfedoc-sanitise (str)
   "Sanitise the string STR for reading."
@@ -328,8 +319,6 @@ or all functions if no function characters are given."
 (defun lfedoc-old-erlang-call-args (sl)
   "Get old Erlang call info for the documentation look-up list SL."
   (let ((call-str (split-string (symbol-name (car sl)) ":")))
-    (princ (format "0000 %S" (list '--- (nth 0 call-str) (nth 1 call-str))))
-
     (list (intern (nth 0 call-str))
           (if (equal (nth 1 call-str) "")
               nil
@@ -340,32 +329,19 @@ or all functions if no function characters are given."
   "Provide unrecognised module information from SL."
   ;; because it's not a module:function of : module function
   ;; we returm nil as module but still return the function and arity
-  (princ (format "77777 %S  %S%c"
-                 sl
-                 (type-of (nth 1 sl))
-                 10))
   (cond ((equal (symbol-name (nth 1 sl)) ?:)
-         (progn
-           (princ "111777")
-           (list (car sl) (nth 2 sl)
-                 (- (length sl) 2))))
+         (list (car sl) (nth 2 sl)
+               (- (length sl) 2)))
         ((equal  (substring (symbol-name (nth 1 sl)) 0 1) ":")
-         (progn
-           (princ "222777")
-           (list (car sl)
-                 (substring (symbol-name (nth 1 sl)) 1)
-                 (- (length sl) 2))))
+         (list (car sl)
+               (substring (symbol-name (nth 1 sl)) 1)
+               (- (length sl) 2)))
         ((null sl)
-         (progn
-           (princ "333777")
-           (list nil nil 0)))
+         (list nil nil 0))
         ((equal (substring (symbol-name (nth 0 sl)) -1) ":")
-         (progn
-           (princ "444777")
-           (list (intern (substring (symbol-name (nth 0 sl)) 0 -1)) nil 0)))
-        (t (progn
-             (princ "555777")
-             'syntax-error))))
+         (list (intern (substring (symbol-name (nth 0 sl)) 0 -1)) nil 0))
+        (t
+         'syntax-error)))
 
 (defun lfedoc-find-symbol-functions (symb)
   "Find symbol SYMB in known symbols and return the function names that return it."
