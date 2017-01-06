@@ -133,28 +133,28 @@
 or all functions if no function characters are given."
   (interactive)
   (let ((call-struct (lfedoc-sexp (sexp-at-point))))
-    (if (nth 0 call-struct)
+    (if (first call-struct)
         (pp
          (-filter
           (lambda (x)
-            (if (nth 1 call-struct)
+            (if (second call-struct)
                 ;; if any character of the function given show possible completions
                 ;; otherwise show all available functions
                 (lfedoc-string/starts-with
                  x
-                 (format "%s"  (nth 1 call-struct)))
+                 (format "%s"  (second call-struct)))
               t))
-          (lfedoc-query-module-functions (nth 0 call-struct)))))))
+          (lfedoc-query-module-functions (first call-struct)))))))
 
 (defun lfedoc-modules ()
   "Get list of loaded modules that start with given character(s)."
   (interactive)
   (let ((call-struct (lfedoc-sexp (sexp-at-point))))
-    (pp (if (nth 0 call-struct)
+    (pp (if (first call-struct)
             (-filter (lambda (x) t
                        (lfedoc-string/starts-with
                          x
-                        (format "%s" (nth 0 call-struct)))
+                        (format "%s" (first call-struct)))
                        )
                      (lfedoc-query-loaded-modules))
           (lfedoc-query-loaded-modules)))))
@@ -164,23 +164,23 @@ or all functions if no function characters are given."
   (interactive)
   ;; we get the character from the call struct
   (let ((call-struct (lfedoc-sexp (sexp-at-point))))
-    (when (nth 1 call-struct)
+    (when (second call-struct)
       (princ
        (-distinct
         (-sort 'string<
                (-flatten
                 (-map 'cdr
                       (lfedoc-find-symbol-autocompletions
-                       (nth 1 call-struct))))))))))
+                       (second call-struct))))))))))
 
 (defun lfedoc-autocomplete-function ()
   "Autocomplete the function divided into user guide sections."
   (interactive)
   (let ((call-struct (lfedoc-sexp (sexp-at-point))))
-    (if (nth 1 call-struct)
-        (princ (list 'autocompleting 'function (nth 1 call-struct)
+    (if (second call-struct)
+        (princ (list 'autocompleting 'function (second call-struct)
                      call-struct
-                     (lfedoc-find-symbol-autocompletions (nth 1 call-struct)))))))
+                     (lfedoc-find-symbol-autocompletions (second call-struct)))))))
 
 (defun lfedoc-string/starts-with (s begins)
   "Return non-nil if string S start with BEGINS."
@@ -203,7 +203,7 @@ or all functions if no function characters are given."
 (defun lfedoc-find-symbol-autocompletions (symb)
   "Find symbol SYMB in known symbols and return the function names that return it."
   ;; example (lfedoc-find-symbol-functions  (quote car))
-  (-filter (lambda (x) (not (null (nth 1 x))))
+  (-filter (lambda (x) (not (null (second x))))
            (-map (lambda (f) (list f
                                    (-filter (lambda (sf)
                                               (lfedoc-string/starts-with
@@ -247,16 +247,16 @@ or all functions if no function characters are given."
                   (equalp 'cl (car call-struct)))
               ;; browse Hyperspec
               (browse-url
-               (format "http://clhs.lisp.se/Body/f_%s.htm" (nth 1 call-struct)))
+               (format "http://clhs.lisp.se/Body/f_%s.htm" (second call-struct)))
             ;; browse Erlang documentation
             (browse-url
              (apply 'format
                     (cons "http://erlang.org/doc/man/%s.html#%s-%d"
                           call-struct)))))
       (princ (list "search"
-                   (lfedoc-find-symbol-functions (nth 1 call-struct))
+                   (lfedoc-find-symbol-functions (second call-struct))
                    "for"
-                   (nth 1 call-struct)
+                   (second call-struct)
                    'arity (nth 2 call-struct))))))
 
 (defun lfedoc-sexp (str)
@@ -270,12 +270,12 @@ or all functions if no function characters are given."
         ((and (and
                (eql (type-of (car my-sexp)) 'symbol)
                (not (eql 2 (length (split-string (symbol-name (car my-sexp)) ":")))))
-              (equal (substring  (symbol-name (nth 0 my-sexp)) 0 1) ":")
-              (> (length (symbol-name (nth 0 my-sexp))) 1))
+              (equal (substring  (symbol-name (first my-sexp)) 0 1) ":")
+              (> (length (symbol-name (first my-sexp))) 1))
          'syntax-error)
 
-        ((and (eql (type-of (nth 1 my-sexp)) 'symbol)
-              (equal (substring  (symbol-name (nth 1 my-sexp)) 0 1) ":"))
+        ((and (eql (type-of (second my-sexp)) 'symbol)
+              (equal (substring  (symbol-name (second my-sexp)) 0 1) ":"))
          'syntax-error)
         ((lfedoc-new-erlang-callp my-sexp)
          (lfedoc-new-erlang-call-args my-sexp))
@@ -303,11 +303,11 @@ or all functions if no function characters are given."
 
 (defun lfedoc-new-erlang-call-args (sl)
   "Get new Erlang call info for the documentation look-up list SL."
-  (cond ((and (nth 1 sl)
+  (cond ((and (second sl)
               (nth 2 sl))
-         (list (nth 1 sl) (nth 2 sl) (- (length sl) 3)))
-        ((nth 1 sl)
-         (list (nth 1 sl) nil 0))
+         (list (second sl) (nth 2 sl) (- (length sl) 3)))
+        ((second sl)
+         (list (second sl) nil 0))
         (t
          (list nil nil 0))))
 
@@ -316,33 +316,33 @@ or all functions if no function characters are given."
   (let ((my-split (split-string (symbol-name (car sl))
                                 ":")))
     (and (equal (length my-split) 2)
-         (not (equal (nth 0 my-split) ""))
-         (not (equal (nth 1 my-split) "")))))
+         (not (equal (first my-split) ""))
+         (not (equal (second my-split) "")))))
 
 (defun lfedoc-old-erlang-call-args (sl)
   "Get old Erlang call info for the documentation look-up list SL."
   (let ((call-str (split-string (symbol-name (car sl)) ":")))
-    (list (intern (nth 0 call-str))
-          (if (equal (nth 1 call-str) "")
+    (list (intern (first call-str))
+          (if (equal (second call-str) "")
               nil
-            (intern (nth 1 call-str)))
+            (intern (second call-str)))
           (- (length sl) 1))))
 
 (defun lfedoc-unknown-code (sl)
   "Provide unrecognised module information from SL."
   ;; because it's not a module:function of : module function
   ;; we returm nil as module but still return the function and arity
-  (cond ((equal (symbol-name (nth 1 sl)) ?:)
+  (cond ((equal (symbol-name (second sl)) ?:)
          (list (car sl) (nth 2 sl)
                (- (length sl) 2)))
-        ((equal  (substring (symbol-name (nth 1 sl)) 0 1) ":")
+        ((equal  (substring (symbol-name (second sl)) 0 1) ":")
          (list (car sl)
-               (substring (symbol-name (nth 1 sl)) 1)
+               (substring (symbol-name (second sl)) 1)
                (- (length sl) 2)))
         ((null sl)
          (list nil nil 0))
-        ((equal (substring (symbol-name (nth 0 sl)) -1) ":")
-         (list (intern (substring (symbol-name (nth 0 sl)) 0 -1)) nil 0))
+        ((equal (substring (symbol-name (first sl)) -1) ":")
+         (list (intern (substring (symbol-name (first sl)) 0 -1)) nil 0))
         (t
          'syntax-error)))
 
@@ -427,7 +427,7 @@ or all functions if no function characters are given."
       ;; my test cases
       (funcall test-case (not (>= 1 2)))
       (funcall test-case (equal (length (lfedoc-query-loaded-modules)) 74))
-      (funcall test-case (equal (nth 0  (lfedoc-query-loaded-modules)) "application"))
+      (funcall test-case (equal (first  (lfedoc-query-loaded-modules)) "application"))
       (funcall test-case (equal (nth 73 (lfedoc-query-loaded-modules)) "zlib"))
       ;;
       (funcall test-case (equal (lfedoc-sexp "()") '(nil nil 0)))
@@ -439,14 +439,14 @@ or all functions if no function characters are given."
       (funcall test-case (equal (lfedoc-sexp "(:mod)") 'syntax-error))
       (funcall test-case (equal (lfedoc-sexp "(:mod fun)") 'syntax-error))
       (funcall test-case (equal (lfedoc-sexp "(:mod fun 1)") 'syntax-error))
-      ;; ;;
-       (funcall test-case (equal (lfedoc-sexp "(mod:)") '(mod nil 0)))
-       (funcall test-case (equal (lfedoc-sexp "(mod :)") 'syntax-error))
-       (funcall test-case (equal (lfedoc-sexp "(mod:fun)") '(mod fun 0)))
-       (funcall test-case (equal (lfedoc-sexp "(mod :fun)") 'syntax-error))
-       (funcall test-case (equal (lfedoc-sexp "(mod : fun)") 'syntax-error))
-       (funcall test-case (equal (lfedoc-sexp "(mod:fun 1)") '(mod fun 1)))
-       ;(funcall test-case (equal (lfedoc-sexp "(mod :fun 1)") 'syntax-error))
+      ;; (mod:) doesn't count as an error because we expect the user to complete the code
+      (funcall test-case (equal (lfedoc-sexp "(mod:)") '(mod nil 0)))
+      (funcall test-case (equal (lfedoc-sexp "(mod :)") 'syntax-error))
+      (funcall test-case (equal (lfedoc-sexp "(mod:fun)") '(mod fun 0)))
+      (funcall test-case (equal (lfedoc-sexp "(mod :fun)") 'syntax-error))
+      (funcall test-case (equal (lfedoc-sexp "(mod : fun)") 'syntax-error))
+      (funcall test-case (equal (lfedoc-sexp "(mod:fun 1)") '(mod fun 1)))
+                                        ;(funcall test-case (equal (lfedoc-sexp "(mod :fun 1)") 'syntax-error))
       ;; (funcall test-case (equal (lfedoc-sexp "(mod : fun 1)") 'syntax-error))
       ;; conclusion
       (princ (format "%cerror count %s%c" 10 error-count 10)))
