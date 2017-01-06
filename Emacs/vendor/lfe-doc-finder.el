@@ -267,15 +267,12 @@ or all functions if no function characters are given."
   "Examine MY-SEXP and return a structure representing module function and arity."
   (cond ((lfedoc-old-erlang-callp my-sexp)
          (lfedoc-old-erlang-call-args my-sexp))
-        ((and (and
-               (eql (type-of (car my-sexp)) 'symbol)
-               (not (eql 2 (length (split-string (symbol-name (car my-sexp)) ":")))))
-              (equal (substring  (symbol-name (first my-sexp)) 0 1) ":")
+        ((and (equal (substring (symbol-name (first my-sexp)) 0 1) ":")
               (> (length (symbol-name (first my-sexp))) 1))
+         ;; (: ) allowed, but not (:mod)
          'syntax-error)
-
-        ((and (eql (type-of (second my-sexp)) 'symbol)
-              (equal (substring  (symbol-name (second my-sexp)) 0 1) ":"))
+        ((equal (substring (symbol-name (second my-sexp)) 0 1) ":")
+         ;; disallow ( mod :func) or (mod : func)
          'syntax-error)
         ((lfedoc-new-erlang-callp my-sexp)
          (lfedoc-new-erlang-call-args my-sexp))
@@ -330,19 +327,12 @@ or all functions if no function characters are given."
 
 (defun lfedoc-unknown-code (sl)
   "Provide unrecognised module information from SL."
-  ;; because it's not a module:function of : module function
-  ;; we returm nil as module but still return the function and arity
-  (cond ((equal (symbol-name (second sl)) ?:)
-         (list (car sl) (nth 2 sl)
-               (- (length sl) 2)))
-        ((equal  (substring (symbol-name (second sl)) 0 1) ":")
-         (list (car sl)
-               (substring (symbol-name (second sl)) 1)
-               (- (length sl) 2)))
+  ;; because it's not a module:function
+  (cond ((equal (substring (symbol-name (first sl)) -1) ":")
+         ;; (mod: ) give user chance to enter func
+         (list (intern (substring (symbol-name (first sl)) 0 -1)) nil 0))
         ((null sl)
          (list nil nil 0))
-        ((equal (substring (symbol-name (first sl)) -1) ":")
-         (list (intern (substring (symbol-name (first sl)) 0 -1)) nil 0))
         (t
          'syntax-error)))
 
@@ -432,6 +422,7 @@ or all functions if no function characters are given."
       ;;
       (funcall test-case (equal (lfedoc-sexp "()") '(nil nil 0)))
       (funcall test-case (equal (lfedoc-sexp "( )") '(nil nil 0)))
+      (funcall test-case (equal (lfedoc-sexp "(: )") '(nil nil 0)))
       ;;
       (funcall test-case (equal (lfedoc-sexp "(: mod )") '(mod nil 0)))
       (funcall test-case (equal (lfedoc-sexp "(: mod fun)") '(mod fun 0)))
