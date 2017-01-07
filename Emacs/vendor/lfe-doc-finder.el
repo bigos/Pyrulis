@@ -517,11 +517,12 @@ or all functions if no function characters are given."
                 (equal (length rs)
                        2))
            (lfedoc-module-or-module-functions-autocompletions (cadr rs)))
-          ((and (equal (car rs)  ;;; this one fails
+          ((and (equal (car rs)
                        :)
                 (equal (length rs)
                        3))
-           (lfedoc-module-functions-2 (cadr rs) (caddr rs)))
+           (lfedoc-module-functions-2 (symbol-name (cadr rs))
+                                      (symbol-name (caddr rs))))
 
           ;; ((mod:  first-el 1colon split1) 'all-mod-functions)
           ;; ((mod:f first-el 1colon split2) 'all-mod-functions-starting-with-f)
