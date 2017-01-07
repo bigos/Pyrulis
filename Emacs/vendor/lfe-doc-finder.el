@@ -234,6 +234,13 @@ or all functions if no function characters are given."
                                             (funcall f))))
                  (lfedoc-get-symbol-functions))))
 
+(defun lfedoc-module-or-module-functions-autocompletions (s)
+  "Get auto-completions for modules starting with symbol S, or functions of module S."
+  (list (list 'modules
+              (lfedoc-modules-2 s))
+        (list 'module-functions
+              (lfedoc-module-functions-2 (symbol-name s) ""))))
+
 (defun lfedoc-inspect ()
   "Print sexp."
   (interactive)
@@ -434,7 +441,7 @@ or all functions if no function characters are given."
 ;; module name completions and module functions
 
 ;; (: mod f) all mod functions starting with f
-;; (a) all modules and user_guide functions starting with a
+;; (a) all modules and user_guide functions starting with a - (pp (lfedoc-find-symbol-autocompletions 'a))
 ;; (mod:) all mod functions
 ;; (mod:f) all mod functions starting with f
 ;; otherwise nothing
