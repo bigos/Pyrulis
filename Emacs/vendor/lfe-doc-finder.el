@@ -422,8 +422,13 @@ or all functions if no function characters are given."
 ;; () all modules and user_guide functions in groups
 ;; () alternatively all modules or all functions in groups
 ;; (: ) all modules
-;; (: a) all modules trarting with a
-;; (: mod) all mod functions
+
+;; (: m) all modules starting with m, m is the incomplete name
+;; (: mod) all mod functions, mod is the full name of the module
+;; if mod is a full name of the module but at the same time is a
+;; prefix/incomplete name of other modules we might have show both possible
+;; module name completions and module functions
+
 ;; (: mod f) all mod functions starting with f
 ;; (a) all modules and user_guide functions starting with a
 ;; (mod:) all mod functions
