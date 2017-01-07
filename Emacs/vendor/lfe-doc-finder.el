@@ -504,16 +504,29 @@ or all functions if no function characters are given."
       (princ (format "%cerror count %s%c" 10 error-count 10))
       nil)))
 
+(defun lfedoc-sexp-autocompletion (sexp-str)
+  "Read SEXP-STR and get autocompletion."
+  (let ((rs (lfedoc-read-sexp sexp-str))
+        )
+    (cond ((equal rs nil)
+           (lfedoc-find-symbol-autocompletions nil))
+          ((equal rs '(:))
+           (lfedoc-data-loaded-modules))
+          ((and (equal (car rs)
+                       :)
+                (equal (length rs)
+                       2))
+           (lfedoc-module-or-module-functions-autocompletions (cadr rs)))
+          ((and (equal (car rs)  ;;; this one fails
+                       :)
+                (equal (length rs)
+                       3))
+           (lfedoc-module-functions-2 (cadr rs) (caddr rs)))
 
-;; ;;; think about it tomorrow
-;; (cond ((null) (lfedoc-find-symbol-autocompletions nil))
-;;       (('(:)) (lfedoc-data-loaded-modules))
-;;       (('(: m)) (lfedoc-module-or-module-functions-autocompletions m))
-;;       (('(: mod f)) (lfedoc-module-functions-2 mod f))
-;;       ((mod:  first-el 1colon split1) 'all-mod-functions)
-;;       ((mod:f first-el 1colon split2) 'all-mod-functions-starting-with-f)
-;;       ((a) 'all-modules-and-user-guide-functions-starting-with-a)
-
+          ;; ((mod:  first-el 1colon split1) 'all-mod-functions)
+          ;; ((mod:f first-el 1colon split2) 'all-mod-functions-starting-with-f)
+          ;; ((a) 'all-modules-and-user-guide-functions-starting-with-a)
+          )))
 
 (provide 'lfedoc)
 ;;; lfe-doc-finder.el ends here
