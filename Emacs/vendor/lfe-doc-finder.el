@@ -471,13 +471,16 @@ or all functions if no function characters are given."
 
       (funcall test-case (equal  '(("()" nil 0) ("(: )" (:) 1) ("(: a)" (: a) 2)
                                    ("(: mod)" (: mod) 2) ("(: mod f)" (: mod f) 3)
-                                   ("(a)" (a) 1) ("(mod:)" (mod:) 1) ("(mod:f)" (mod:f) 1))
+                                   ("(: mod f 1)"  (: mod f 1) 4)
+                                   ("(a)" (a) 1) ("(mod:)" (mod:) 1)
+                                   ("(mod:f)" (mod:f) 1) ("(mod:f 1)" (mod:f 1) 2))
                                  (-map (lambda (x) (list x
                                                          (lfedoc-read-sexp x)
                                                          (length (lfedoc-read-sexp x))
                                                          ))
                                        (list "()" "(: )" "(: a)" "(: mod)"
-                                             "(: mod f)" "(a)" "(mod:)" "(mod:f)"))))
+                                             "(: mod f)" "(: mod f 1)" "(a)"
+                                             "(mod:)" "(mod:f)" "(mod:f 1)"))))
       ;; conclusion
 
       (princ (format "%cerror count %s%c" 10 error-count 10))
