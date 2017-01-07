@@ -505,14 +505,14 @@ or all functions if no function characters are given."
       nil)))
 
 
-;;; think about it tomorrow
-;; (cond ((null) 'all-modules-and-user-guide-functions)
-;;       (('(:)) 'all-modules)
-;;       (('(: m)) 'module-m-functions-or-all-modules-starting-with-m)
-;;       (('(: mod f)) 'all-mod-functions-starting-with-f)
+;; ;;; think about it tomorrow
+;; (cond ((null) (lfedoc-find-symbol-autocompletions nil))
+;;       (('(:)) (lfedoc-data-loaded-modules))
+;;       (('(: m)) (lfedoc-module-or-module-functions-autocompletions m))
+;;       (('(: mod f)) (lfedoc-module-functions-2 mod f))
 ;;       ((mod:  first-el 1colon split1) 'all-mod-functions)
 ;;       ((mod:f first-el 1colon split2) 'all-mod-functions-starting-with-f)
-;;       ((a) 'all-modules-and-user-guide-functions-starting-with-a))
+;;       ((a) 'all-modules-and-user-guide-functions-starting-with-a)
 
 
 (provide 'lfedoc)
