@@ -457,7 +457,7 @@ or all functions if no function characters are given."
       ;; all functions in module io that start with p
       (funcall test-case (equal '(parse_erl_exprs parse_erl_form put_chars printable_range)
                                 (lfedoc-module-functions-2 "io" "p")))
-      ;; test string representations of sexps
+      ;; test reading string representations of sexps and resulting lengths
       (funcall test-case (equal  '(("()" nil 0) ("(: )" (:) 1) ("(: a)" (: a) 2)
                                    ("(: mod)" (: mod) 2) ("(: mod f)" (: mod f) 3)
                                    ("(a)" (a) 1) ("(mod:)" (mod:) 1) ("(mod:f)" (mod:f) 1))
