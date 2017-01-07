@@ -282,6 +282,9 @@ or all functions if no function characters are given."
                    (nth 1 call-struct)
                    'arity (nth 2 call-struct))))))
 
+(defun lfedoc-read-sexp (str)
+  "Convert STR to sexp."
+  (read (lfedoc-sanitise str)))
 
 (defun lfedoc-sexp (str)
   "Convert STR to sexp."
@@ -441,7 +444,7 @@ or all functions if no function characters are given."
       (princ (format "%ctesting%c" 10 10))
       ;; my test cases
       (funcall test-case (not (>= 1 2)))
-      ;;
+      ;; all modules
       (funcall test-case (equal 74 (length (lfedoc-query-loaded-modules))))
       (funcall test-case (equal "application" (car (lfedoc-query-loaded-modules))))
       (funcall test-case (equal "zlib" (car (last (lfedoc-query-loaded-modules)))))
@@ -454,6 +457,16 @@ or all functions if no function characters are given."
       ;; all functions in module io that start with p
       (funcall test-case (equal '(parse_erl_exprs parse_erl_form put_chars printable_range)
                                 (lfedoc-module-functions-2 "io" "p")))
+      ;; test string representations of sexps
+      (funcall test-case (equal  '(("()" nil 0) ("(: )" (:) 1) ("(: a)" (: a) 2)
+                                   ("(: mod)" (: mod) 2) ("(: mod f)" (: mod f) 3)
+                                   ("(a)" (a) 1) ("(mod:)" (mod:) 1) ("(mod:f)" (mod:f) 1))
+                                 (-map (lambda (x) (list x
+                                                         (lfedoc-read-sexp x)
+                                                         (length (lfedoc-read-sexp x))
+                                                         ))
+                                       (list "()" "(: )" "(: a)" "(: mod)"
+                                             "(: mod f)" "(a)" "(mod:)" "(mod:f)"))))
       ;; conclusion
 
       (princ (format "%cerror count %s%c" 10 error-count 10))
