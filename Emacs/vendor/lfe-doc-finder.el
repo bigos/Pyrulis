@@ -169,10 +169,13 @@ or all functions if no function characters are given."
 
 (defun lfedoc-modules-2 (symb)
   "Get modules that start with SYMB."
-  (-map 'intern
-        (-filter (lambda (x)
-                   (lfedoc-string/starts-with x (symbol-name symb)))
-                 (lfedoc-query-loaded-modules))))
+  ;; all modules if symb is nil
+  (if symb
+      (-map 'intern
+            (-filter (lambda (x)
+                       (lfedoc-string/starts-with x (symbol-name symb)))
+                     (lfedoc-query-loaded-modules)))
+    (lfedoc-query-loaded-modules)))
 
 (defun lfedoc-functions ()
   "Get list of known user guide functions that start with given character(s)."
@@ -418,7 +421,8 @@ or all functions if no function characters are given."
 
 ;; Trying another set of correct values. for which we should have working
 ;; auto-completion
-;;
+
+;; using (lfedoc-find-symbol-autocompletions nil)
 ;; () all modules and user_guide functions in groups
 ;; () alternatively all modules or all functions in groups
 ;; (: ) all modules
@@ -455,6 +459,8 @@ or all functions if no function characters are given."
       (funcall test-case (equal "zlib" (car (last (lfedoc-query-loaded-modules)))))
       (funcall test-case (equal 'application (car (lfedoc-data-loaded-modules))))
       (funcall test-case (equal 'zlib (car (last (lfedoc-data-loaded-modules)))))
+      ;; all modules
+      (funcall test-case (equal 74 (length (lfedoc-modules-2 nil))))
       ;; all modules starting with c
       (funcall test-case (equal '(c code code_server) (lfedoc-modules-2 'c)))
       ;; all functions in module io
