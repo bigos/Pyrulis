@@ -220,7 +220,7 @@ or all functions if no function characters are given."
   "Find symbol SYMB in known symbols and return the function names that return it."
   ;; example (lfedoc-find-symbol-functions  (quote car))
   ;; when symb is nil return everything
-  (-filter (lambda (x) (not (null (nth 1 x))))
+  (-filter (lambda (x) (not (null (second x))))
            (-map (lambda (f) (list f
                                    (-filter (lambda (sf)
                                               (if symb
