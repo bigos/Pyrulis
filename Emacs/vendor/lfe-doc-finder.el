@@ -523,11 +523,16 @@ or all functions if no function characters are given."
                        3))
            (lfedoc-module-functions-2 (symbol-name (cadr rs))
                                       (symbol-name (caddr rs))))
-
-          ;; ((mod:  first-el 1colon split1) 'all-mod-functions)
-          ;; ((mod:f first-el 1colon split2) 'all-mod-functions-starting-with-f)
-          ;; ((a) 'all-modules-and-user-guide-functions-starting-with-a)
-          )))
+          ((and (equal (length (split-string (symbol-name (car rs)) ":"))
+                       2)
+                (equal (length rs)
+                       1))
+           (let ((split-symbol (split-string (symbol-name (car rs)) ":")))
+             (lfedoc-module-functions-2 (car split-symbol)
+                                        (cadr split-symbol))))
+          ((equal (length rs)
+                  1)
+           (lfedoc-find-symbol-autocompletions (car rs))))))
 
 (provide 'lfedoc)
 ;;; lfe-doc-finder.el ends here
