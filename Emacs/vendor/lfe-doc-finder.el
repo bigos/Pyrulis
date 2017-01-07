@@ -143,18 +143,36 @@ or all functions if no function characters are given."
               t))
           (lfedoc-query-module-functions (nth 0 call-struct)))))))
 
+(defun lfedoc-module-functions-2 (m f)
+  "Get a list of functions exported from the module M that start with F."
+  ;; all module functions if F is an empty string
+  (-distinct
+   (-filter (lambda (x)
+              (lfedoc-string/starts-with (symbol-name x) f))
+            (-map (lambda (x) (car x))
+                  (cadadr
+                   (read (lfedoc-sanitise
+                          (shell-command-to-string (format "lfe -e \"%s\" "
+                                                           (format "(pp (%s:module_info))" m))))))))))
+
 (defun lfedoc-modules ()
   "Get list of loaded modules that start with given character(s)."
   (interactive)
   (let ((call-struct (lfedoc-sexp (sexp-at-point))))
     (pp (if (nth 0 call-struct)
-            (-filter (lambda (x) t
+            (-filter (lambda (x)
                        (lfedoc-string/starts-with
                          x
-                        (format "%s" (nth 0 call-struct)))
-                       )
+                        (format "%s" (nth 0 call-struct))))
                      (lfedoc-query-loaded-modules))
           (lfedoc-query-loaded-modules)))))
+
+(defun lfedoc-modules-2 (symb)
+  "Get modules that start with SYMB."
+  (-map 'intern
+        (-filter (lambda (x)
+                   (lfedoc-string/starts-with x (symbol-name symb)))
+                 (lfedoc-query-loaded-modules))))
 
 (defun lfedoc-functions ()
   "Get list of known user guide functions that start with given character(s)."
@@ -398,7 +416,8 @@ or all functions if no function characters are given."
 ;; Trying another set of correct values. for which we should have working
 ;; auto-completion
 ;;
-;; () all modules and user_guide functions
+;; () all modules and user_guide functions in groups
+;; () alternatively all modules or all functions in groups
 ;; (: ) all modules
 ;; (: a) all modules trarting with a
 ;; (: mod) all mod functions
@@ -424,9 +443,21 @@ or all functions if no function characters are given."
       (funcall test-case (not (>= 1 2)))
       ;;
       (funcall test-case (equal 74 (length (lfedoc-query-loaded-modules))))
+      (funcall test-case (equal "application" (car (lfedoc-query-loaded-modules))))
+      (funcall test-case (equal "zlib" (car (last (lfedoc-query-loaded-modules)))))
+      (funcall test-case (equal 'application (car (lfedoc-data-loaded-modules))))
+      (funcall test-case (equal 'zlib (car (last (lfedoc-data-loaded-modules)))))
+      ;; all modules starting with c
+      (funcall test-case (equal '(c code code_server) (lfedoc-modules-2 'c)))
+      ;; all functions in module io
+      (funcall test-case (equal 22 (length (lfedoc-module-functions-2 "io" ""))))
+      ;; all functions in module io that start with p
+      (funcall test-case (equal '(parse_erl_exprs parse_erl_form put_chars printable_range)
+                                (lfedoc-module-functions-2 "io" "p")))
       ;; conclusion
-      (princ (format "%cerror count %s%c" 10 error-count 10)))
-    nil))
+
+      (princ (format "%cerror count %s%c" 10 error-count 10))
+      nil)))
 
 (provide 'lfedoc)
 ;;; lfe-doc-finder.el ends here
