@@ -236,10 +236,15 @@ or all functions if no function characters are given."
 
 (defun lfedoc-module-or-module-functions-autocompletions (s)
   "Get auto-completions for modules starting with symbol S, or functions of module S."
-  (list (list 'modules
-              (lfedoc-modules-2 s))
-        (list 'module-functions
-              (lfedoc-module-functions-2 (symbol-name s) ""))))
+  (let ((found-modules (lfedoc-modules-2 s)))
+    (if (-any (lambda (x)
+                (equal x s))
+              found-modules)
+        (list (list 'modules found-modules)
+              (list 'module-functions (lfedoc-module-functions-2 (symbol-name s)
+                                                                 "")))
+      (list (list
+             'modules found-modules)))))
 
 (defun lfedoc-inspect ()
   "Print sexp."
