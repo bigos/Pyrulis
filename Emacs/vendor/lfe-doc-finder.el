@@ -463,6 +463,12 @@ or all functions if no function characters are given."
       (funcall test-case (equal '(parse_erl_exprs parse_erl_form put_chars printable_range)
                                 (lfedoc-module-functions-2 "io" "p")))
       ;; test reading string representations of sexps and resulting lengths
+      ;; note that (:), (a), (mod:) and (mod:f) all have length 1, so we will
+      ;; have to check if it is a colon, contains a colon (hopefully only 1),
+      ;; or is a list containing a symbol
+      ;; $ lfe -e "(pp (macroexpand-all '(mo:d:fu:n)))"
+      ;; $ lfe -e "(pp (macroexpand-all '(mod:fun)))"
+
       (funcall test-case (equal  '(("()" nil 0) ("(: )" (:) 1) ("(: a)" (: a) 2)
                                    ("(: mod)" (: mod) 2) ("(: mod f)" (: mod f) 3)
                                    ("(a)" (a) 1) ("(mod:)" (mod:) 1) ("(mod:f)" (mod:f) 1))
