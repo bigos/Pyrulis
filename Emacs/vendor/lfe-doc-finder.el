@@ -58,14 +58,9 @@
 ;;; Code:
 
 (require 'browse-url)
-
-
-(global-set-key (kbd "s-6") 'lfedoc-modules)
-(global-set-key (kbd "s-7") 'lfedoc-module-functions)
-
-(global-set-key (kbd "s-9") 'lfedoc-functions)
-
-(global-set-key (kbd "s-/") 'lfedoc-helpme)
+(global-set-key (kbd "s-1") 'lfedoc-sexp-autocompletion-at-point) ; without arity
+(global-set-key (kbd "s-7") 'lfedoc-module-functions) ; with arity
+(global-set-key (kbd "s-/") 'lfedoc-helpme) ; works with complete sexps and arity
 ;;; ----------------------------------------------------------------------------
 
 ;;; define global variable for loaded modules
@@ -146,14 +141,15 @@ or all functions if no function characters are given."
 (defun lfedoc-module-functions-2 (m f)
   "Get a list of functions exported from the module M that start with F."
   ;; all module functions if F is an empty string
-  (-distinct
-   (-filter (lambda (x)
-              (lfedoc-string/starts-with (symbol-name x) f))
-            (-map (lambda (x) (car x))
-                  (cadadr
-                   (read (lfedoc-sanitise
-                          (shell-command-to-string (format "lfe -e \"%s\" "
-                                                           (format "(pp (%s:module_info))" m))))))))))
+  (-sort 'string<
+         (-distinct
+          (-filter (lambda (x)
+                     (lfedoc-string/starts-with (symbol-name x) f))
+                   (-map (lambda (x) (car x))
+                         (cadadr
+                          (read (lfedoc-sanitise
+                                 (shell-command-to-string (format "lfe -e \"%s\" "
+                                                                  (format "(pp (%s:module_info))" m)))))))))))
 
 (defun lfedoc-modules ()
   "Get list of loaded modules that start with given character(s)."
@@ -245,6 +241,15 @@ or all functions if no function characters are given."
                                                                  "")))
       (list (list
              'modules found-modules)))))
+
+(defun lfedoc-sexp-autocompletion-at-point ()
+  "Auto complete sexp at point."
+  (interactive)
+  (let ((se  (sexp-at-point)))
+    ;; at the moment we print the result, in future we will pass it to future
+    ;; completion UI
+    (pp
+     (lfedoc-sexp-autocompletion se))))
 
 ;;; autocompletion for various sexp forms
 (defun lfedoc-sexp-autocompletion (sexp-str)
@@ -509,7 +514,7 @@ or all functions if no function characters are given."
       ;; all functions in module io
       (funcall test-case (equal 22 (length (lfedoc-module-functions-2 "io" ""))))
       ;; all functions in module io that start with p
-      (funcall test-case (equal '(parse_erl_exprs parse_erl_form put_chars printable_range)
+      (funcall test-case (equal '(parse_erl_exprs parse_erl_form printable_range put_chars)
                                 (lfedoc-module-functions-2 "io" "p")))
       ;; test reading string representations of sexps and resulting lengths
       ;; note that (:), (a), (mod:) and (mod:f) all have length 1, so we will
@@ -543,6 +548,12 @@ or all functions if no function characters are given."
                           (lfedoc-module-or-module-functions-autocompletions 'i)))
       (funcall test-case (equal
                           (lfedoc-sexp-autocompletion "(: io f)")
+                          (lfedoc-module-functions-2 "io" "f")))
+      (funcall test-case (equal
+                          (lfedoc-sexp-autocompletion "(io:)")
+                          (lfedoc-module-functions-2 "io" "")))
+      (funcall test-case (equal
+                          (lfedoc-sexp-autocompletion "(io:f)")
                           (lfedoc-module-functions-2 "io" "f")))
       (funcall test-case (equal
                           (lfedoc-sexp-autocompletion "(a)")
