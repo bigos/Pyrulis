@@ -16,48 +16,27 @@
 
 ;;; LOOK-UP
 
-;;; M-x lfedoc-helpme
+;;; M-x lfedoc-helpme s-/
 ;;; Will hopefully take you to a relevant page in Erlang documentation.
 
 ;;; M-x lfedoc-inspect
 ;;; Will print to the mini buffer the sexp at the cursor.
 
-;;; AUTO-COMPLETION FUNCTIONS
+;;; AUTO-COMPLETION s-1
+;;; Placing cursor in various LFE sexps and pressing s-1 will give you various
+;;; auto completion options that later hopefully will be integrated with Emacs.
+;;; Even not it will give you a list of modules available by default and explore
+;;; their exported functions.
 
-;;; placing your cursor anywhere between ( and ) in the following sexps
-;;; and running Emacs functions will give you a data that can be used in
-;;; creation of a plugin that could help with LFE
+;;; Testing:
 
-;;; M-x lfedoc-modules =========================================================
-;; (: ) ; will give all loaded modules
-;; (: a ) ; only modules that start with a
-;; () list of all loaded modules
-;; (i ) despite initial letter you will get all loaded modules
-
-;;; M-x lfedoc-module-functions ================================================
-;; (: io  ) ; will give all exported functions in io module
-;; (: io p) ; only functions that start with p
-
-;;; old style module and function syntax
-;;; (zlib: ) will give all exported functions in zlib module
-;;; (zlib:a ) only functions that start with a
-
-;;; old syntax errors with lfedoc-module-functions
-;;; (zlib : a ) nothing
-;;; (zlib : ) nothing
-
-;;; M-x lfedoc-functions =======================================================
-;; (a ) ; will give all user guide functions that start with a
-;; () ; will give you nothing
-
-;;; old syntax errors with lfedoc-functions
-;;; (zlib : a) will give nothing
-;;; (zlib:a) wrong type argument error
-;;; (zlib: a) wrong type argument error
+;;; At the bottom of the file I have tests that also explain how the code is
+;;; supposed to behave in various contexts.
 
 ;;; Code:
 
 (require 'browse-url)
+
 (global-set-key (kbd "s-1") 'lfedoc-sexp-autocompletion-at-point) ; without arity
 (global-set-key (kbd "s-7") 'lfedoc-module-functions) ; with arity
 (global-set-key (kbd "s-/") 'lfedoc-helpme) ; works with complete sexps and arity
