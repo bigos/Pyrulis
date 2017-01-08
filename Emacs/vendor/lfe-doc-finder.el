@@ -249,33 +249,33 @@ or all functions if no function characters are given."
 ;;; autocompletion for various sexp forms
 (defun lfedoc-sexp-autocompletion (sexp-str)
   "Read SEXP-STR and get autocompletion."
-  (let ((rs (lfedoc-read-sexp sexp-str))
-        )
-    (cond ((equal rs nil)               ; ()
-           (lfedoc-find-symbol-autocompletions nil))
-          ((equal rs '(:))              ; (:)
-           (lfedoc-data-loaded-modules))
-          ((and (equal (car rs)         ; (: m) or (: mod)
-                       :)
-                (equal (length rs)
-                       2))
-           (lfedoc-module-or-module-functions-autocompletions (cadr rs)))
-          ((and (equal (car rs)         ; (: mod f)
-                       :)
-                (equal (length rs)
-                       3))
-           (lfedoc-module-functions-2 (symbol-name (cadr rs))
-                                      (symbol-name (caddr rs))))
-          ((and (equal (length (split-string (symbol-name (car rs)) ":"))
-                       2)               ; (mod:) or (mod:f)
-                (equal (length rs)
-                       1))
-           (let ((split-symbol (split-string (symbol-name (car rs)) ":")))
-             (lfedoc-module-functions-2 (car split-symbol)
-                                        (cadr split-symbol))))
-          ((equal (length rs)           ; (a) any
-                  1)
-           (lfedoc-find-symbol-autocompletions (car rs))))))
+  (let ((rs (lfedoc-read-sexp sexp-str)))
+    (let  ((split-symbol (when (car rs)
+                           (split-string (symbol-name (car rs)) ":"))))
+        (cond ((equal rs nil)               ; ()
+               (lfedoc-find-symbol-autocompletions nil))
+              ((equal rs '(:))              ; (:)
+               (lfedoc-data-loaded-modules))
+              ((and (equal (car rs)         ; (: m) or (: mod)
+                           :)
+                    (equal (length rs)
+                           2))
+               (lfedoc-module-or-module-functions-autocompletions (cadr rs)))
+              ((and (equal (car rs)         ; (: mod f)
+                           :)
+                    (equal (length rs)
+                           3))
+               (lfedoc-module-functions-2 (symbol-name (cadr rs))
+                                          (symbol-name (caddr rs))))
+              ((and (equal (length split-symbol)
+                           2)               ; (mod:) or (mod:f)
+                    (equal (length rs)
+                           1))
+               (lfedoc-module-functions-2 (car split-symbol)
+                                          (cadr split-symbol)))
+              ((equal (length rs)           ; (a) any
+                      1)
+               (lfedoc-find-symbol-autocompletions (car rs)))))))
 
 (defun lfedoc-inspect ()
   "Print sexp."
@@ -518,6 +518,7 @@ or all functions if no function characters are given."
       ;; $ lfe -e "(pp (macroexpand-all '(mo:d:fu:n)))"
       ;; $ lfe -e "(pp (macroexpand-all '(mod:fun)))"
 
+      ;; test parsing and reading
       (funcall test-case (equal  '(("()" nil 0) ("(: )" (:) 1) ("(: a)" (: a) 2)
                                    ("(: mod)" (: mod) 2) ("(: mod f)" (: mod f) 3)
                                    ("(: mod f 1)"  (: mod f 1) 4)
@@ -530,6 +531,22 @@ or all functions if no function characters are given."
                                        (list "()" "(: )" "(: a)" "(: mod)"
                                              "(: mod f)" "(: mod f 1)" "(a)"
                                              "(mod:)" "(mod:f)" "(mod:f 1)"))))
+      ;; test back-end function invocation
+      (funcall test-case (equal
+                          (lfedoc-sexp-autocompletion "()")
+                          (lfedoc-find-symbol-autocompletions nil)))
+      (funcall test-case (equal
+                          (lfedoc-sexp-autocompletion "(:)")
+                          (lfedoc-data-loaded-modules)))
+      (funcall test-case (equal
+                          (lfedoc-sexp-autocompletion "(: i)")
+                          (lfedoc-module-or-module-functions-autocompletions 'i)))
+      (funcall test-case (equal
+                          (lfedoc-sexp-autocompletion "(: io f)")
+                          (lfedoc-module-functions-2 "io" "f")))
+      (funcall test-case (equal
+                          (lfedoc-sexp-autocompletion "(a)")
+                          (lfedoc-find-symbol-autocompletions 'a)))
       ;; conclusion
 
       (princ (format "%cerror count %s%c" 10 error-count 10))
