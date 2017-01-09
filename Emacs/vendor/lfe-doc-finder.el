@@ -39,12 +39,14 @@
 (require 'cl-lib)
 (require 'company)
 
+(global-set-key (kbd "s-<f1>") 'company-lfe-backend)
 (global-set-key (kbd "s-1") 'lfedoc-sexp-autocompletion-at-point) ; without arity
 (global-set-key (kbd "s-7") 'lfedoc-module-functions) ; with arity
 (global-set-key (kbd "s-/") 'lfedoc-helpme) ; works with complete sexps and arity
 ;;; ----------------------------------------------------------------------------
 
 (defun company-lfe-backend (command &optional arg &rest ignored)
+  "Get auto completion COMMAND for ARG and IGNORED."
   (interactive (list 'interactive))
   (case command
     (interactive (company-begin-backend 'company-lfe-backend))
