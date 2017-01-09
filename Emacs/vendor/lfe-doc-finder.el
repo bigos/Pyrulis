@@ -35,6 +35,14 @@
 
 ;;; Code:
 
+;;; useful for debugging
+;; (load "lfe-doc-finder.el")
+;; (pp (lfedoc-data-loaded-modules))
+;; (pp (lfedoc-data-loaded-modules-with-fnseparator))
+;; (pp (lfedoc-sexp-autocompletion "()"))
+;; (pp (lfedoc-find-symbol-autocompletions 'i))
+
+
 (require 'browse-url)
 (require 'cl-lib)
 (require 'company)
@@ -220,16 +228,17 @@ or all functions if no function characters are given."
   "Find symbol SYMB in known symbols and return the function names that return it."
   ;; example (lfedoc-find-symbol-functions  (quote car))
   ;; when symb is nil return everything
-  (-filter (lambda (x) (not (null (second x))))
-           (-map (lambda (f) (list f
-                                   (-filter (lambda (sf)
-                                              (if symb
-                                                  (lfedoc-string/starts-with
-                                                   (symbol-name sf)
-                                                   (symbol-name symb))
-                                                t))
-                                            (funcall f))))
-                 (lfedoc-get-symbol-functions))))
+
+  ;; (-filter (lambda (x) (not (null (second x)))))
+  (pp (-map (lambda (f) (list f
+                              (-filter (lambda (sf)
+                                         (if symb
+                                             (lfedoc-string/starts-with
+                                              (symbol-name sf)
+                                              (symbol-name symb))
+                                           t))
+                                       (funcall f))))
+            (lfedoc-get-symbol-functions))))
 
 (defun lfedoc-module-or-module-functions-autocompletions (s)
   "Get auto-completions for modules starting with symbol S, or functions of module S."
@@ -469,6 +478,7 @@ or all functions if no function characters are given."
 
 (defun lfedoc-data-loaded-modules-with-fnseparator ()
   "List of loaded modules with function separator."
+  (interactive)
   (-map (lambda (x) (intern (concatenate 'string x ":")))
         (lfedoc-query-loaded-modules)))
 
