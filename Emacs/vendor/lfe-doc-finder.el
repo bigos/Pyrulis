@@ -223,6 +223,8 @@ or all functions if no function characters are given."
       (list (list
              'modules found-modules)))))
 
+;;; ############################################################################
+
 (defun lfedoc-new-ac-at-point (arg)
   (interactive)
   "Get ne auto completions at point."
@@ -231,8 +233,24 @@ or all functions if no function characters are given."
 
 (defun lfedoc-new-autocompletions (sexp-str arg)
   "New auto completion for SEXP-STR and ARG."
-  (list (format "===>> %s  ===  %s  " sexp-str arg)
-        "ala" "ma" "kota"))
+  (pp (format " >++ %s ++ %s ++< " sexp-str arg))
+  (let ((ss (split-string arg ":")))
+      (if (equal 1 (length ss))
+          (lfedoc-ac-symbols-and-modules)
+        (lfedoc-ac-module-functions (car ss)))))
+
+(defun lfedoc-ac-symbols-and-modules ()
+  "Write me."
+  (-map (lambda (x) (format "%s" x))
+           (-flatten (list (-map (lambda (x) (funcall x)) (butlast (lfedoc-get-symbol-functions)))
+                           (-map (lambda (x) (intern (format "%s:" x))) (funcall 'lfedoc-data-loaded-modules))))))
+
+(defun lfedoc-ac-module-functions (m)
+  "Module M functions."
+  (pp (format "444 %S 444" m))
+  (-map (lambda (f) (format "%s:%s" m f))  (lfedoc-module-functions-2 m "")))
+
+;;; ############################################################################
 
 (defun lfedoc-sexp-autocompletion-at-point ()
   "Auto complete sexp at point."
@@ -557,7 +575,7 @@ or all functions if no function characters are given."
 
 
 ;; (load "/home/jacek/Programming/Pyrulis/Emacs/vendor/lfe-doc-finder.el")
-;; (pp (lfedoc-data-loaded-modules))
+;; (pp (lfedoc-data-loaded-modules)
 ;; (pp (lfedoc-data-loaded-modules))
 ;; (pp (lfedoc-sexp-autocompletion "()"))
 ;; (pp (lfedoc-find-symbol-autocompletions 'i))
