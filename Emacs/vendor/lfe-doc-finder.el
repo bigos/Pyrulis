@@ -35,7 +35,7 @@
 
 ;;; Code:
 
-
+( : zlib zip  )
 
 (require 'browse-url)
 (require 'cl-lib)
@@ -54,10 +54,9 @@
     (prefix (and (or t (eq major-mode 'fundamental-mode))
                  (company-grab-symbol)))
     (candidates
-     (remove-if-not
-      (lambda (c)
-        (string-prefix-p arg c))
-      (sample-completions)))))
+     (-map 'symbol-name
+           (-flatten
+            (lfedoc-sexp-autocompletion-at-point))))))
 
 (add-to-list 'company-backends 'company-lfe-backend)
 
@@ -254,8 +253,7 @@ or all functions if no function characters are given."
   (let ((se  (sexp-at-point)))
     ;; at the moment we print the result, in future we will pass it to future
     ;; completion UI
-    (pp
-     (lfedoc-sexp-autocompletion se))))
+    (lfedoc-sexp-autocompletion se)))
 
 ;;; autocompletion for various sexp forms
 (defun lfedoc-sexp-autocompletion (sexp-str)
