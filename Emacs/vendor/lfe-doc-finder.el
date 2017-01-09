@@ -36,10 +36,34 @@
 ;;; Code:
 
 (require 'browse-url)
+(require 'cl-lib)
+(require 'company)
 
 (global-set-key (kbd "s-1") 'lfedoc-sexp-autocompletion-at-point) ; without arity
 (global-set-key (kbd "s-7") 'lfedoc-module-functions) ; with arity
 (global-set-key (kbd "s-/") 'lfedoc-helpme) ; works with complete sexps and arity
+;;; ----------------------------------------------------------------------------
+
+(defun company-lfe-backend (command &optional arg &rest ignored)
+  (interactive (list 'interactive))
+
+  (case command
+    (interactive (company-begin-backend 'company-lfe-backend))
+    (prefix (and (or (eq major-mode 'fundamental-mode)
+                     (eq major-mode 'inferior-lfe-mode)
+                     (eq major-mode 'lfe-mode))
+                 (company-grab-symbol)))
+    (candidates
+     (remove-if-not
+      (lambda (c) (string-prefix-p arg c))
+      (-map 'symbol-name   (-sort 'string< (-flatten (-map (lambda (x) (funcall x)) (lfedoc-get-symbol-functions)))))
+      )
+     )))
+
+(add-to-list 'company-backends 'company-lfe-backend)
+
+;; (-sort 'string< (-flatten (-map (lambda (x) (funcall x)) (lfedoc-get-symbol-functions))))
+;; (stringp "")
 ;;; ----------------------------------------------------------------------------
 
 ;;; define global variable for loaded modules
