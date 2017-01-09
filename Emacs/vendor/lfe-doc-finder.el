@@ -42,6 +42,31 @@
 (global-set-key (kbd "s-/") 'lfedoc-helpme) ; works with complete sexps and arity
 ;;; ----------------------------------------------------------------------------
 
+;; (load "lfe-doc-finder.el")
+;; (pp (lfedoc-data-loaded-modules))
+;; (pp (lfedoc-data-loaded-modules))
+;; (pp (lfedoc-sexp-autocompletion "()"))
+;; (pp (lfedoc-find-symbol-autocompletions 'i))
+;;; run following to refresh company back-end after editing the code
+;; (pop company-backends)
+
+(defun company-lfe-backend (command &optional arg &rest ignored)
+  "Get auto completion COMMAND for ARG and IGNORED."
+  (interactive (list 'interactive))
+  (case command
+    (interactive (company-begin-backend 'company-lfe-backend))
+    (prefix (and (or t
+                     (eq major-mode 'fundamental-mode)
+                     (eq major-mode 'lfe-mode)
+                     (eq major-mode 'inferior-lfe-mode))
+                 (company-grab-symbol)))
+    (candidates
+     (lfedoc-new-ac-at-point arg))))
+
+(add-to-list 'company-backends 'company-lfe-backend)
+
+;;; ----------------------------------------------------------------------------
+
 ;;; define global variable for loaded modules
 (setq lfedoc-global-loaded-modules (list nil))
 
@@ -221,9 +246,20 @@ or all functions if no function characters are given."
       (list (list
              'modules found-modules)))))
 
+(defun lfedoc-new-ac-at-point (arg)
+  (interactive)
+  "Get ne auto completions at point."
+  (princ (format "running new autocompletions with arg %S %S " arg (type-of arg)))
+  (let ((se (sexp-at-point)))
+    (lfedoc-new-autocompletions se (substring-no-properties arg))))
+
+(defun lfedoc-new-autocompletions (sexp-str arg)
+  "New auto completion for SEXP-STR and ARG."
+  (list (format "===>> %s    %s  " sexp-str arg )
+        "ala" "ma" "kota"))
+
 (defun lfedoc-sexp-autocompletion-at-point ()
   "Auto complete sexp at point."
-  (interactive)
   (let ((se  (sexp-at-point)))
     ;; at the moment we print the result, in future we will pass it to future
     ;; completion UI
@@ -287,7 +323,8 @@ or all functions if no function characters are given."
     ;; return to the original position
     (goto-char (marker-position original-marker))
     ;; and finally return the string containing the sexp
-    (buffer-substring (marker-position opening-bracket) (marker-position closing-bracket))))
+    (buffer-substring-no-properties (marker-position opening-bracket)
+                                    (marker-position closing-bracket))))
 
 (defun lfedoc-helpme ()
   "Go to Erlang website for help."
