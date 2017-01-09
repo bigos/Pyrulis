@@ -12,7 +12,7 @@
 ;;; Usage:
 
 ;;; Load this file by adding it in the load-path and running:
-;;; (load "lfe-doc-finder.el")
+;;; (load "/home/jacek/Programming/Pyrulis/Emacs/vendor/lfe-doc-finder.el")
 
 ;;; LOOK-UP
 
@@ -41,29 +41,6 @@
 (global-set-key (kbd "s-7") 'lfedoc-module-functions) ; with arity
 (global-set-key (kbd "s-/") 'lfedoc-helpme) ; works with complete sexps and arity
 ;;; ----------------------------------------------------------------------------
-
-;; (load "lfe-doc-finder.el")
-;; (pp (lfedoc-data-loaded-modules))
-;; (pp (lfedoc-data-loaded-modules))
-;; (pp (lfedoc-sexp-autocompletion "()"))
-;; (pp (lfedoc-find-symbol-autocompletions 'i))
-;;; run following to refresh company back-end after editing the code
-;; (pop company-backends)
-
-(defun company-lfe-backend (command &optional arg &rest ignored)
-  "Get auto completion COMMAND for ARG and IGNORED."
-  (interactive (list 'interactive))
-  (case command
-    (interactive (company-begin-backend 'company-lfe-backend))
-    (prefix (and (or t
-                     (eq major-mode 'fundamental-mode)
-                     (eq major-mode 'lfe-mode)
-                     (eq major-mode 'inferior-lfe-mode))
-                 (company-grab-symbol)))
-    (candidates
-     (lfedoc-new-ac-at-point arg))))
-
-(add-to-list 'company-backends 'company-lfe-backend)
 
 ;;; ----------------------------------------------------------------------------
 
@@ -249,13 +226,12 @@ or all functions if no function characters are given."
 (defun lfedoc-new-ac-at-point (arg)
   (interactive)
   "Get ne auto completions at point."
-  (princ (format "running new autocompletions with arg %S %S " arg (type-of arg)))
   (let ((se (sexp-at-point)))
-    (lfedoc-new-autocompletions se (substring-no-properties arg))))
+    (lfedoc-new-autocompletions se arg)))
 
 (defun lfedoc-new-autocompletions (sexp-str arg)
   "New auto completion for SEXP-STR and ARG."
-  (list (format "===>> %s    %s  " sexp-str arg )
+  (list (format "===>> %s  ===  %s  " sexp-str arg)
         "ala" "ma" "kota"))
 
 (defun lfedoc-sexp-autocompletion-at-point ()
@@ -578,6 +554,31 @@ or all functions if no function characters are given."
 
       (princ (format "%cerror count %s%c" 10 error-count 10))
       nil)))
+
+
+;; (load "/home/jacek/Programming/Pyrulis/Emacs/vendor/lfe-doc-finder.el")
+;; (pp (lfedoc-data-loaded-modules))
+;; (pp (lfedoc-data-loaded-modules))
+;; (pp (lfedoc-sexp-autocompletion "()"))
+;; (pp (lfedoc-find-symbol-autocompletions 'i))
+;;; run following to refresh company back-end after editing the code
+;; (pop company-backends)
+
+(defun company-lfe-backend (command &optional arg &rest ignored)
+  "Get auto completion COMMAND for ARG and IGNORED."
+  (interactive (list 'interactive))
+  (case command
+    (interactive (company-begin-backend 'company-lfe-backend))
+    (prefix (and (or t
+                     (eq major-mode 'fundamental-mode)
+                     (eq major-mode 'lfe-mode)
+                     (eq major-mode 'inferior-lfe-mode))
+                 (company-grab-symbol)))
+    (candidates
+     (lfedoc-new-ac-at-point arg))))
+
+(add-to-list 'company-backends 'company-lfe-backend)
+
 
 (provide 'lfedoc)
 ;;; lfe-doc-finder.el ends here
