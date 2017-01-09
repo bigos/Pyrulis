@@ -35,6 +35,8 @@
 
 ;;; Code:
 
+
+
 (require 'browse-url)
 (require 'cl-lib)
 (require 'company)
@@ -49,21 +51,22 @@
 
   (case command
     (interactive (company-begin-backend 'company-lfe-backend))
-    (prefix (and (or (eq major-mode 'fundamental-mode)
-                     (eq major-mode 'inferior-lfe-mode)
-                     (eq major-mode 'lfe-mode))
+    (prefix (and (or t (eq major-mode 'fundamental-mode))
                  (company-grab-symbol)))
     (candidates
      (remove-if-not
-      (lambda (c) (string-prefix-p arg c))
-      (-map 'symbol-name   (-sort 'string< (-flatten (-map (lambda (x) (funcall x)) (lfedoc-get-symbol-functions)))))
-      )
-     )))
+      (lambda (c)
+        (string-prefix-p arg c))
+      (sample-completions)))))
 
 (add-to-list 'company-backends 'company-lfe-backend)
 
-;; (-sort 'string< (-flatten (-map (lambda (x) (funcall x)) (lfedoc-get-symbol-functions))))
-;; (stringp "")
+(defun sample-completions ()
+  (-map (lambda (x) (concat x (format "%s" (sexp-at-point))))
+        '("alan" "john" "ada" "don")))
+
+
+
 ;;; ----------------------------------------------------------------------------
 
 ;;; define global variable for loaded modules
