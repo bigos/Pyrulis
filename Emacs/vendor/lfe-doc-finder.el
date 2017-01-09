@@ -37,7 +37,7 @@
 
 (require 'browse-url)
 
-(global-set-key (kbd "s-1") 'lfedoc-sexp-autocompletion-at-point) ; without arity
+(global-set-key (kbd "s-1") 'company-lfe-backend)
 (global-set-key (kbd "s-7") 'lfedoc-module-functions) ; with arity
 (global-set-key (kbd "s-/") 'lfedoc-helpme) ; works with complete sexps and arity
 ;;; ----------------------------------------------------------------------------
@@ -233,11 +233,10 @@ or all functions if no function characters are given."
 
 (defun lfedoc-new-autocompletions (sexp-str arg)
   "New auto completion for SEXP-STR and ARG."
-  (pp (format " >++ %s ++ %s ++< " sexp-str arg))
   (let ((ss (split-string arg ":")))
       (if (equal 1 (length ss))
           (lfedoc-ac-symbols-and-modules)
-        (lfedoc-ac-module-functions (car ss)))))
+        (lfedoc-ac-module-functions (car ss) (cadr ss)))))
 
 (defun lfedoc-ac-symbols-and-modules ()
   "Write me."
@@ -245,10 +244,9 @@ or all functions if no function characters are given."
            (-flatten (list (-map (lambda (x) (funcall x)) (butlast (lfedoc-get-symbol-functions)))
                            (-map (lambda (x) (intern (format "%s:" x))) (funcall 'lfedoc-data-loaded-modules))))))
 
-(defun lfedoc-ac-module-functions (m)
+(defun lfedoc-ac-module-functions (m a)
   "Module M functions."
-  (pp (format "444 %S 444" m))
-  (-map (lambda (f) (format "%s:%s" m f))  (lfedoc-module-functions-2 m "")))
+  (-map (lambda (f) (format "%s:%s" m f))  (lfedoc-module-functions-2 m a)))
 
 ;;; ############################################################################
 
@@ -587,9 +585,7 @@ or all functions if no function characters are given."
   (interactive (list 'interactive))
   (case command
     (interactive (company-begin-backend 'company-lfe-backend))
-    (prefix (and (or t
-                     (eq major-mode 'fundamental-mode)
-                     (eq major-mode 'lfe-mode)
+    (prefix (and (or (eq major-mode 'lfe-mode)
                      (eq major-mode 'inferior-lfe-mode))
                  (company-grab-symbol)))
     (candidates
