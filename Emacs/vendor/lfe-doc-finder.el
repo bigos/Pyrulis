@@ -35,8 +35,6 @@
 
 ;;; Code:
 
-( : zlib zip  )
-
 (require 'browse-url)
 (require 'cl-lib)
 (require 'company)
@@ -48,10 +46,12 @@
 
 (defun company-lfe-backend (command &optional arg &rest ignored)
   (interactive (list 'interactive))
-
   (case command
     (interactive (company-begin-backend 'company-lfe-backend))
-    (prefix (and (or t (eq major-mode 'fundamental-mode))
+    (prefix (and (or t
+                     (eq major-mode 'fundamental-mode)
+                     (eq major-mode 'lfe-mode)
+                     (eq major-mode 'inferior-lfe-mode))
                  (company-grab-symbol)))
     (candidates
      (-map 'symbol-name
@@ -59,12 +59,6 @@
             (lfedoc-sexp-autocompletion-at-point))))))
 
 (add-to-list 'company-backends 'company-lfe-backend)
-
-(defun sample-completions ()
-  (-map (lambda (x) (concat x (format "%s" (sexp-at-point))))
-        '("alan" "john" "ada" "don")))
-
-
 
 ;;; ----------------------------------------------------------------------------
 
@@ -218,7 +212,7 @@ or all functions if no function characters are given."
     lfedoc-data-predefined-lfe-functions
     lfedoc-data-supplemental-common-lisp-functions
     lfedoc-data-common-lisp-predicates
-    lfedoc-data-loaded-modules))
+    lfedoc-data-loaded-modules-with-fnseparator))
 
 (defun lfedoc-find-symbol-autocompletions (symb)
   "Find symbol SYMB in known symbols and return the function names that return it."
@@ -470,6 +464,11 @@ or all functions if no function characters are given."
 (defun lfedoc-data-loaded-modules ()
   "List of loaded modules."
   (-map 'intern (lfedoc-query-loaded-modules)))
+
+(defun lfedoc-data-loaded-modules-with-fnseparator ()
+  "List of loaded modules with function separator."
+  (-map (lambda (x) (intern (concatenate 'string x ":")))
+        (lfedoc-query-loaded-modules)))
 
 ;; Trying another set of correct values. for which we should have working
 ;; auto-completion
