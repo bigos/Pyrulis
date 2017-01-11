@@ -3,4 +3,4 @@
 
 (defun hello ()
   "Experiment with LFE."
-  (io:put_chars "Hello my little LFE/n"))
+  (io:format "Hello my little code written in LFE~n"))

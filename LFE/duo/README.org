@@ -9,10 +9,10 @@ $ rebar3 new app duo
 ** edit rebar.config
 see the file
 
-** edit src file
-~src/duo.app.src~ where line 5 looks like this
+** edit duo.app.src file
+~src/duo.app.src~ so that line 11 looks like this
 #+BEGIN_EXAMPLE
-{mod, { duo_app, [hi]}},
+{modules, [hi]},
 #+END_EXAMPLE
 
 ** create LFE file
@@ -24,7 +24,7 @@ see the file
 
 (defun hello ()
   "Experiment with LFE."
-  (io:put_chars "Hello my little LFE/n"))
+  (io:put_chars "Hello my little code written inLFE  ~n"))
 #+END_SRC
 
 ** compile

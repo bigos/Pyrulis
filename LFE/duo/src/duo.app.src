@@ -2,13 +2,13 @@
  [{description, "An OTP application"},
   {vsn, "0.1.0"},
   {registered, []},
-  {mod, { duo_app, [hi]}},
+  {mod, { duo_app, []}},
   {applications,
    [kernel,
     stdlib
    ]},
   {env,[]},
-  {modules, []},
+  {modules, [hi]},
 
   {maintainers, []},
   {licenses, []},
