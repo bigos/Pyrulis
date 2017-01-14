@@ -1,0 +1,40 @@
+* Experiment with rebar3 LFE code
+I have made following steps to get the example working
+
+** create app
+#+BEGIN_EXAMPLE
+$ rebar3 new app duo
+#+END_EXAMPLE
+
+** edit rebar.config
+see the file
+
+** edit duo.app.src file
+~src/duo.app.src~ so that line 11 looks like this
+#+BEGIN_EXAMPLE
+{modules, [hi]},
+#+END_EXAMPLE
+
+** create LFE file
+~src/hi.lfe~
+
+#+BEGIN_SRC lisp
+(defmodule hi
+  (export all))
+
+(defun hello ()
+  "Experiment with LFE."
+  (io:put_chars "Hello my little code written inLFE  ~n"))
+#+END_SRC
+
+** compile
+#+BEGIN_EXAMPLE
+rebar3 lfe compile
+#+END_EXAMPLE
+
+** run shell
+#+BEGIN_EXAMPLE
+rebar3 shell
+
+hi:hello().
+#+END_EXAMPLE
