@@ -7,9 +7,14 @@ https://www.cis.upenn.edu/~matuszek/Concise%20Guides/Concise%20Clojure.html
 http://softwareengineering.stackexchange.com/questions/195090/are-square-brackets-and-curly-braces-in-clojure-still-s-expressions
 Different bracket shapes are a syntax sugar. But the convention is to use:
 
-#+BEGIN_EXAMPLE
-[1 2 3] for vectors
-(1 2 3) for lists
-{:a 1 :b 2} for hashes
-#{1 2 3} for sets
-#+END_EXAMPLE
+
+|----------------+----------------------+----------------------|
+| kind           | literal              | dynamic              |
+|----------------+----------------------+----------------------|
+| string         | "string"             | (string 'string)     |
+| list           | '(1 2 3)             | (list 1 2 3)         |
+| vector         | [1 2 3]              | (vec '(1 2 3))       |
+| set            | #{1 2 3}             | (set '(1 2 3))       |
+| map            | {:a 1 :b 2}          | (hash-map :a 1 :b 2) |
+| function => 10 | ((fn [n] (* 5 n)) 2) | (#(* 5 %1) 2)        |
+|----------------+----------------------+----------------------|
