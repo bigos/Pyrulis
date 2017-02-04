@@ -3,6 +3,13 @@
 http://hyperpolyglot.org/lisp
 https://www.cis.upenn.edu/~matuszek/Concise%20Guides/Concise%20Clojure.html
 
+*** other links
+http://www.lispcast.com/ultimate-guide-to-learning-clojure-for-free
+https://clojure.org/api/cheatsheet
+https://github.com/clojure-cookbook/clojure-cookbook
+http://www.fullstackclojure.com/best-clojure-resources.html
+
+
 ** Brackets
 http://softwareengineering.stackexchange.com/questions/195090/are-square-brackets-and-curly-braces-in-clojure-still-s-expressions
 Different bracket shapes are a syntax sugar. But the convention is to use:

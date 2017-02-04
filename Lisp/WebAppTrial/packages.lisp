@@ -1,4 +1,4 @@
-(defpackage #:web-app-trial
+ (defpackage #:web-app-trial
   (:use :cl :asdf)
   (:export :run :stop))
 
