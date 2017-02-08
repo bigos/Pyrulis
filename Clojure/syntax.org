@@ -10,6 +10,7 @@ https://github.com/clojure-cookbook/clojure-cookbook
 http://www.fullstackclojure.com/best-clojure-resources.html
 https://www.conj.io/
 
+https://randomseed.pl/pl/poczytaj-mi-clojure/
 
 ** Brackets
 http://softwareengineering.stackexchange.com/questions/195090/are-square-brackets-and-curly-braces-in-clojure-still-s-expressions
