@@ -37,8 +37,7 @@
   (or (eq coordinate 0)
       (eq coordinate (1- *board-size*))))
 
-(defun
-    valid-coordinate-p (coordinate)
+(defun valid-coordinate-p (coordinate)
   (and (>= coordinate 0)
        (<= coordinate (1- *board-size*))))
 

@@ -1,0 +1,8 @@
+* Coq notes
+This file is for my Coq notes.
+
+* Tutorial
+index http://www.cis.upenn.edu/~bcpierce/sf/current/toc.html
+
+my reading
+http://www.cis.upenn.edu/~bcpierce/sf/current/Preface.html#lab6
