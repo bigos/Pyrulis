@@ -24,7 +24,8 @@
                                         ido-ubiquitous helm-projectile
                                         slime web-mode switch-window
                                         helm-descbinds load-theme-buffer-local
-                                        projectile-rails))
+                                        projectile-rails
+                                        redshank))
 
 (setq org-src-fontify-natively t)
 
@@ -107,6 +108,14 @@
                                     (rainbow-delimiters-mode)))
 
 (require 'lfe-start)
+
+(require 'lfe-doc-finder)
+
+(require 'redshank-loader)
+(eval-after-load "redshank-loader"
+  `(redshank-setup '(lisp-mode-hook
+                     slime-repl-mode-hook)
+                   t))
 
 (defun unfold-lisp ()
     "Unfold lisp code."
