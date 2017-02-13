@@ -27,3 +27,4 @@ type systems
 http://www.cis.upenn.edu/~bcpierce/sf/current/deps.html
 
 ** Basics
+introduces basics of the coq language and solving tactics
