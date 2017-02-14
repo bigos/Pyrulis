@@ -75,10 +75,12 @@ Proof. simpl. reflexivity. Qed.
 Example test_nandb4: (nandb true true) = false.
 Proof. simpl. reflexivity. Qed. 
 
-☐
+(* huh ? *)
 
-Definition nandb3 (b1:bool) (b2:bool) : bool :=
-match b with
-| true => false
-| false => true
-end.
+Definition andb3 (b1:bool) (b2:bool) (b3:bool) : bool :=
+(b1 && b2 && b3).
+Example test_andb3_1: (andb3 true true true) = true.
+Example test_andb3_2: (andb3 true true true) = false.
+Example test_andb3_3: (andb3 true true true) = false.
+Example test_andb3_4: (andb3 true true true) = false.
+
