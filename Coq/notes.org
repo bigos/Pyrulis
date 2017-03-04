@@ -6,3 +6,25 @@ index http://www.cis.upenn.edu/~bcpierce/sf/current/toc.html
 
 my reading
 http://www.cis.upenn.edu/~bcpierce/sf/current/Preface.html#lab6
+
+** Preface
+
+*** divisions
+
+**** one third
+developing conceptual the framework of logic and functional programming
+gaining fluency with Coq to use it for modelling and reasoning
+proving programs
+proving programming languages
+
+**** two third
+program verification and Hoare logic
+
+**** three third
+type systems
+
+*** chapter dependencies
+http://www.cis.upenn.edu/~bcpierce/sf/current/deps.html
+
+** Basics
+introduces basics of the coq language and solving tactics
