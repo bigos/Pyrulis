@@ -1,0 +1,312 @@
+<!--?xml version="1.0" encoding="UTF-8" standalone="no"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" class="gr__labs_ariel-networks_com" lang="ja"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta property="og:image" content="img/logo-180x180.png">
+  <title>Common Lisp Style Guide - Ariel Networks Labs</title>
+  <link rel="stylesheet" href="Common%20Lisp%20Style%20Guide%20-%20Ariel%20Networks%20Labs_files/main.css" type="text/css" media="screen, tv, print" charset="UTF-8">
+</head>
+<body data-gr-c-s-loaded="true">
+<div id="header">
+  <h1>Ariel Labs<div class="title">Common Lisp Style Guide</div></h1>
+  <br>
+</div>
+
+<br>
+
+<p>
+This is just a draft.
+</p>
+
+<h2>Package</h2>
+
+<h3>One package per one file</h3>
+
+<p>
+Strangely enough, in case of legacy CL programs, their packages are 
+declared in one file (maybe named "package.lisp"). In other hand, we 
+recommend to declare each packages in each files.
+</p>
+
+<p>
+You should always put like following code at the top of each Lisp files.
+</p>
+
+<pre>(in-package :cl-user)
+(defpackage style-guide.core
+  (:use :cl))
+(in-package :style-guide.core)
+
+;; body
+</pre>
+
+<p>
+If you adopt this style on your programs, you will notice you think 
+about dependence of each components. It is a good signal. This style 
+keeps a program to be loosely coupled.
+</p>
+
+<h3>Avoid :use</h3>
+
+<p>
+Don't use <code>:use</code> unnecessarily. It is often hard to understand where a function came from. We recommend using <code>:import-from</code> for instead.
+</p>
+
+<pre>(in-package :cl-user)
+(defpackage style-guide.core
+  (:use :cl)
+  (:import-from :style-guide.util
+                :funky-feature))
+(in-package :style-guide.core)
+</pre>
+
+<p>
+We allow you to use <code>:use</code> only if most of symbols are needed or it is obvious.
+</p>
+
+<pre>(in-package :cl-user)
+(defpackage style-guide.core
+  (:use :cl
+        :anaphora)
+  (:import-from :style-guide.util
+                :funky-feature))
+(in-package :style-guide.core)
+</pre>
+
+
+<p>
+Why we recommend such a complicated rule is from our thoughts. We think 
+codes are also documents, and furthermore if we say, they are also 
+novels. If we say from the point, importing symbols are introducing 
+characters. We think it might help readers.
+</p>
+
+<h2>Annotation</h2>
+
+<h3>Use "cl-annot" positively</h3>
+
+<p>
+Though "Annotation" is not supported in Common Lisp, "<a href="https://github.com/arielnetworks/cl-annot">cl-annot</a>"
+ provides the feature. We recommend using it almost always. For example,
+ "@export" annotation means exporting the following function or 
+something.
+</p>
+
+<pre>@export
+(defun plus-ten (x)
+  (+ x 10))
+</pre>
+
+<p>
+If you want to know the truth, that is just a macro actually. So, you 
+can say that just a shorthand. Of course, you can define your own 
+annotations.
+</p>
+
+<p>
+Why we recommend such an ugly syntax? Because it provides transparency to our code.
+</p>
+
+<p>
+For example, <code>defwidget</code> is one of macros in <a href="http://common-lisp.net/project/cl-weblocks/">Weblocks</a>. It is just a <code>defclass</code>, actually. Well, really? You have to expand the macro to know that. It is not transparent.
+</p>
+
+<p>
+If I write Weblocks from scratch now, I will provide "@widget" annotation, for instead of <code>defwidget</code>. You can use familiar <code>defclass</code> to define a widget. It makes you be relieved.
+</p>
+
+<p>
+In that way, we can represent the will we won't disturb your code by using annotations. This is another expression we can use.
+</p>
+
+<h2>Naming</h2>
+
+<h3>Surround class name with "&lt;" and "&gt;"</h3>
+
+<pre>(defclass &lt;aluminium&gt; (&lt;metal&gt;)
+    (color solidity cost))
+</pre>
+
+<h3>Surround constants with "+"</h3>
+
+<pre>(defconstant +kikuko-inoue-age+ 17)
+</pre>
+
+<h3>Surround special vars with "*"</h3>
+
+<pre>(defvar *cache-table* (make-hash-table))
+(defparameter *debug* t)
+</pre>
+
+<h3>Hierarchical Package Name</h3>
+
+<pre>;; in core.lisp
+(in-package :cl-user)
+(defpackage style-guide.core
+  (:use :cl))
+(in-package :style-guide.core)
+
+;; in util.lisp
+(in-package :cl-user)
+(defpackage style-guide.util
+  (:use :cl))
+(in-package :style-guide.util)
+
+;; in class/metal.lisp
+(in-package :cl-user)
+(defpackage style-guide.class.metal
+  (:use :cl))
+(in-package :style-guide.class.metal)
+</pre>
+
+<h2>Comment</h2>
+
+<h3>Comments are Optional</h3>
+
+<p>
+All comments are optional. Usually, comments are for writer of the 
+program and it is you in most of the times. If you think that it should 
+be known by users, it must be included in docstring, not comment.
+</p>
+
+<h3>Comments should end with period</h3>
+
+<p>
+This is just a rule.
+</p>
+
+<pre>;; TODO: rewrite to recursive at tail position.
+(defun factorial (n)
+  (if (&lt;= n 1)
+    1
+    (* n (factorial (1- n))))))
+</pre>
+
+<h2>Docstring</h2>
+
+<h3>Required (almost always)</h3>
+
+<p>
+Docstring is always needed for every parts. Don't forget Packages and ASDF Systems.
+</p>
+
+<p>
+You can omit only if it is obvious what to do.
+</p>
+
+<h2>Class</h2>
+
+<h3>Add :type to each slots</h3>
+
+<pre>(defclass &lt;aluminium&gt; (&lt;metal&gt;)
+    ((color :type string
+            :initarg :color
+            :initform "white")
+     (solidity :type (or integer &lt;solidity&gt;)
+               :initarg :solidity
+               :initform (make-instance '&lt;solidity&gt;))
+     (cost :type (or integer null)
+           :initarg :cost))
+  (:documentation "A class represents Aluminium."))
+</pre>
+
+<p>
+Don't forget a type "null" for optional slots.
+</p>
+
+<h2>Macro</h2>
+
+<h3>Avoid Macros in really meaning</h3>
+
+<p>
+You know Macro is one of the strongest feature in Common Lisp. But it is
+ also a dangerous thing. You should avoid using Macro if it is possible.
+</p>
+
+<p>
+This is a really important warning. If you feel it is needed once, you should think this well again. <strong>How do other languages manage it?</strong> They really manage the problems without macros.
+</p>
+
+<p>
+For example, it is often used that defines something specialized type 
+(like "defwidget"). Must it be a macro, not an annotation? Why don't you
+ use <code>defclass</code> for instead. There are more choices than you think. Macro is the last one to choose.
+</p>
+
+<h2>Conditional Flow</h2>
+
+<h3>Use WHEN, UNLESS if possible</h3>
+
+<p>
+Don't use <code>if</code> without "else" expression. <code>when</code> is more precise for it.
+</p>
+
+<h3>Use ETYPECASE, ECASE if possible</h3>
+
+<p>
+<code>etypecase</code> and <code>ecase</code> are a strict version of <code>typecase</code> and <code>case</code>. If you don't expect other types specified, you should use <code>etypecase</code> or <code>ecase</code> for safety.
+</p>
+
+<h3>Don't nest conditional flow</h3>
+
+<p>
+However <code>if</code> is a simple feature and most of languages have it, it could make a program hard to understand.
+</p>
+
+<pre>;; Hard to understand
+(defun count-all-numbers (alist)
+  (if (null alist)
+    0
+    (+ (if (listp (first alist))
+         (count-all-numbers (first alist))
+         (if (numberp (first alist)) 1 0))
+       (count-all-numbers (rest alist)))))
+</pre>
+
+<p>
+Above example should be rewritten as following.
+</p>
+
+<pre>;; quoted from "Good Lisp Style"
+(defun count-all-numbers (exp)
+  (typecase exp
+    (cons   (+ (count-all-numbers (first exp))
+               (count-all-numbers (rest exp))))
+    (number 1)
+    (t      0)))
+</pre>
+
+<p>
+A large <code>typecase</code> may be rewritten with <code>defmethod</code> or Polymorphism.
+</p>
+
+<h3>Keep the condition expression short</h3>
+
+<p>
+Large condition expressions makes the codes hard to read. If you felt 
+the condition will be larger, you should separate them into another 
+function or method.
+</p>
+
+<pre>(if (and (person-name user)
+         (&lt;= 20 (person-age user)))
+  (write-line "this person is valid.")
+  (error "Invalid person."))
+</pre>
+
+<pre>(defmethod valid-person-p ((person &lt;person&gt;))
+  (and (person-name person)
+       (&lt;= 20 (person-age person))))
+
+(if (valid-person-p person)
+  (write-line "this person is valid.")
+  (error "Invalid person."))
+</pre>
+
+<div id="footer">
+  <div class="copyright">© Copyright 2011 <img src="Common%20Lisp%20Style%20Guide%20-%20Ariel%20Networks%20Labs_files/logo-100x30.png" class="small-logo" alt="Ariel Labs"></div>
+</div>
+
+
+
+</body></html>
