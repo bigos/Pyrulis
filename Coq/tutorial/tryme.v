@@ -87,3 +87,14 @@ Example test_andb3_3: (andb3 true false true) = false.
 Proof. simpl. reflexivity. Qed.
 Example test_andb3_4: (andb3 false true true) = false.
 Proof. simpl. reflexivity. Qed.
+
+(* function types *)
+
+Check true.
+Check (negb true).
+Check negb.
+
+(* modules *)
+
+(* numbers *)
+
