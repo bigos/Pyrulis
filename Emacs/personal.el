@@ -4,29 +4,30 @@
   (interactive)
   (load "~/Documents/acl2-7.2/emacs/emacs-acl2.el")
   (setq inferior-acl2-program "~/Documents/acl2-7.2/saved_acl2"))
-;;; run M-x lisp mode when you see the prompt to get paredit and the rest
 
  (setq prelude-guru nil) ;; better for slime
 ;; (setq guru-warn-only t) ;; not suitable for slime
 
-(global-set-key (kbd "M-s-g") 'vc-git-grep)
-
 (global-hl-line-mode -1)
-(menu-bar-mode 1)
 ;; (setq prelude-flyspell nil)
 ;;(smartparens-global-mode -1)
 
-(require 'magit)
+(global-set-key (kbd "M-s-g") 'vc-git-grep)
 
-(prelude-require-packages '(buffer-move paredit underwater-theme
-                                        rubocop rvm rinari ruby-block
+(require 'magit)
+;; (require 'key-bindings-lister)
+
+
+(prelude-require-packages '(buffer-move paredit underwater-theme projectile
+                                        rubocop rvm ruby-block
                                         ruby-refactor rspec-mode rails-log-mode
-                                        ruby-hash-syntax
                                         ido-ubiquitous helm-projectile
                                         slime web-mode switch-window
                                         helm-descbinds load-theme-buffer-local
                                         projectile-rails
                                         redshank))
+
+(setq org-src-fontify-natively t)
 
 (helm-descbinds-mode)
 (require 'rubocop)
@@ -35,8 +36,6 @@
 ;; magit warning silencing
 (setq magit-auto-revert-mode nil)
 (setq magit-last-seen-setup-instructions "1.4.0")
-
-(setq whitespace-line '(t (:background "gray16")))
 
 ;; Allow hash to be entered on MacOSX
 (fset 'insertPound "#")
@@ -67,34 +66,21 @@
 (add-hook 'web-mode-hook #'(lambda () (smartparens-mode -1)))
 
 ;;; insert only <% side of erb tag, autopairing wi
-(fset 'insert-rails-erb-tag [?< ?%  ?% ?>])
+(fset 'insert-rails-erb-tag [?< ?% ])
 (global-set-key (kbd "s-=") 'insert-rails-erb-tag)
-
-;; Open .v files with Proof General's Coq mode
-(load "~/.emacs.d/lisp/PG/generic/proof-site")
 
 ;;; get rid of utf-8 warning in Ruby mode
 (setq ruby-insert-encoding-magic-comment nil)
 
 (load (expand-file-name "~/quicklisp/slime-helper.el"))
 ;; Set your lisp system and, optionally, some contribs
-;;(setq inferior-lisp-program "sbcl")
+(setq inferior-lisp-program "sbcl")
 (setq slime-contribs '(slime-fancy))
 
-;; (setq slime-default-lisp 'sbcl)
-(setq slime-lisp-implementations
-      '((sbcl ("/usr/local/bin/sbcl")))
-      slime-default-lisp 'sbcl)
-
 (defun swap-paredit ()
+  "Replace smartparens with superior paredit."
   (smartparens-mode -1)
   (paredit-mode +1))
-
-(add-hook 'lfe-mode-hook (lambda () (swap-paredit)))
-(add-hook 'lfe-mode-hook 'rainbow-delimiters-mode)
-
-(add-hook 'inferior-lfe-mode-hook (lambda () (swap-paredit)))
-(add-hook 'inferior-lfe-mode-hook 'rainbow-delimiters-mode)
 
 (autoload 'paredit-mode "paredit"
   "Minor mode for pseudo-structurally editing Lisp code." t)
@@ -104,7 +90,26 @@
 (add-hook 'scheme-mode-hook (lambda () (swap-paredit)))
 (add-hook 'slime-repl-mode-hook (lambda () (swap-paredit)))
 (add-hook 'slime-repl-mode-hook 'rainbow-delimiters-mode)
-(add-hook 'clojure-mode-hook #'paredit-mode)
+
+;; LFE mode.
+;; Set lfe-dir to point to where the lfe emacs files are.
+(defvar lfe-dir (concat (getenv "HOME") "/Programming/lfe/emacs"))
+(setq load-path (cons lfe-dir load-path))
+;;; clean-up the LFE REPL
+(global-set-key (kbd "s-q") 'inferior-lfe-clear-buffer)
+
+
+(add-hook 'lfe-mode-hook (lambda ()
+                           (swap-paredit)
+                           (rainbow-delimiters-mode)))
+
+(add-hook 'inferior-lfe-mode-hook (lambda ()
+                                    (swap-paredit)
+                                    (rainbow-delimiters-mode)))
+
+(require 'lfe-start)
+
+(require 'lfe-doc-finder)
 
 (require 'redshank-loader)
 (eval-after-load "redshank-loader"
@@ -112,19 +117,80 @@
                      slime-repl-mode-hook)
                    t))
 
+(defun unfold-lisp ()
+    "Unfold lisp code."
+  (interactive)
+  (search-forward ")")
+  (backward-char)
+  (search-forward " ")
+  (newline-and-indent))
 
-;; LFE mode.
-;; Set lfe-dir to point to where the lfe emacs files are.
-(defvar lfe-dir (concat (getenv "HOME") "/Programming/lfe/emacs"))
-(setq load-path (cons lfe-dir load-path))
-(require 'lfe-start)
+(global-set-key (kbd "s-0") 'unfold-lisp)
 
-;;; bracket colorization done in elpa module
-(obvious-parentheses-colorize)
+(require 'color)
+(defun hsl-to-hex (h s l)
+  "Convert H S L to hex colours."
+  (let (rgb)
+    (setq rgb (color-hsl-to-rgb h s l))
+    (color-rgb-to-hex (nth 0 rgb)
+                      (nth 1 rgb)
+                      (nth 2 rgb))))
+
+(defun bg-light ()
+  "Calculate background brightness."
+  (if (< (color-distance  "white"
+                          (face-attribute 'default :background))
+         (color-distance  "black"
+                          (face-attribute 'default :background)))
+      t
+    nil))
+
+(defun whitespace-line-bg ()
+  "Calculate long line highlight depending on background brightness."
+  (if (bg-light)
+      "#ffffe8"
+    "black"))
+
+(defun bracket-colors ()
+  "Calculate the bracket colours based on background."
+  (let (hexcolors lightvals)
+    (if (bg-light)
+        (setq lightvals (list 0.65 0.55))
+      (setq lightvals (list 0.50 0.45)))
+
+    (concatenate 'list
+                 (dolist (n'(.71 .3 .11 .01))
+                   (push (hsl-to-hex (+ n 0.0) 1.0 (nth 0 lightvals)) hexcolors))
+                 (dolist (n '(.81 .49 .17 .05))
+                   (push (hsl-to-hex (+ n 0.0) 1.0 (nth 1 lightvals)) hexcolors)))
+    (reverse hexcolors)))
+
+
+(defun colorise-brackets ()
+  "Apply my own colours to rainbow delimiters."
+  (interactive)
+  (require 'rainbow-delimiters)
+  (custom-set-faces
+   ;; change the background but do not let theme to interfere with the foreground
+   `(whitespace-line ((t (:background ,(whitespace-line-bg)))))
+   ;; or use (list-colors-display)
+   `(rainbow-delimiters-depth-1-face ((t (:foreground "#888"))))
+   `(rainbow-delimiters-depth-2-face ((t (:foreground ,(nth 0 (bracket-colors))))))
+   `(rainbow-delimiters-depth-3-face ((t (:foreground ,(nth 1 (bracket-colors))))))
+   `(rainbow-delimiters-depth-4-face ((t (:foreground ,(nth 2 (bracket-colors))))))
+   `(rainbow-delimiters-depth-5-face ((t (:foreground ,(nth 3 (bracket-colors))))))
+   `(rainbow-delimiters-depth-6-face ((t (:foreground ,(nth 4 (bracket-colors))))))
+   `(rainbow-delimiters-depth-7-face ((t (:foreground ,(nth 5 (bracket-colors))))))
+   `(rainbow-delimiters-depth-8-face ((t (:foreground ,(nth 6 (bracket-colors))))))
+   `(rainbow-delimiters-depth-9-face ((t (:foreground ,(nth 7 (bracket-colors))))))
+   `(rainbow-delimiters-unmatched-face ((t (:foreground "white" :background "red"))))
+   `(highlight ((t (:foreground "#ff0000" :background "#888"))))
+   ))
+
+(colorise-brackets)
 
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'prog-mode-hook 'linum-mode)
-(add-hook 'prog-mode-hook 'magit-wip-after-save-local-mode)
 
 ;; moving buffers
 (require 'buffer-move)
@@ -134,18 +200,6 @@
 (global-set-key (kbd "<M-s-left>")   'buf-move-left)
 (global-set-key (kbd "<M-s-right>")  'buf-move-right)
 
-(defun unfold-lisp ()
-       "Unfold lisp code."
-     (interactive)
-     (search-forward ")")
-     (backward-char)
-     (search-forward " ")
-     (newline-and-indent))
-
-(global-set-key (kbd "s-0") 'unfold-lisp)
-
-(load "server")
-(unless (server-running-p) (server-start))
 
 (provide 'personal)
 ;;; personal ends here
