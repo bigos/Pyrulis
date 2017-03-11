@@ -4,10 +4,12 @@
   (interactive)
   (load "~/Documents/acl2-7.2/emacs/emacs-acl2.el")
   (setq inferior-acl2-program "~/Documents/acl2-7.2/saved_acl2"))
+;;; run M-x lisp-mode when you see the prompt to get paredit and the rest
 
  (setq prelude-guru nil) ;; better for slime
 ;; (setq guru-warn-only t) ;; not suitable for slime
 
+(menu-bar-mode 1)
 (global-hl-line-mode -1)
 ;; (setq prelude-flyspell nil)
 ;;(smartparens-global-mode -1)
@@ -15,11 +17,10 @@
 (global-set-key (kbd "M-s-g") 'vc-git-grep)
 
 (require 'magit)
-;; (require 'key-bindings-lister)
-
 
 (prelude-require-packages '(buffer-move paredit underwater-theme projectile
-                                        rubocop rvm ruby-block
+                                        rubocop rvm rinari ruby-block
+                                        ruby-hash-syntax
                                         ruby-refactor rspec-mode rails-log-mode
                                         ido-ubiquitous helm-projectile
                                         slime web-mode switch-window
@@ -90,6 +91,7 @@
 (add-hook 'scheme-mode-hook (lambda () (swap-paredit)))
 (add-hook 'slime-repl-mode-hook (lambda () (swap-paredit)))
 (add-hook 'slime-repl-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'clojure-mode-hook #'paredit-mode)
 
 ;; LFE mode.
 ;; Set lfe-dir to point to where the lfe emacs files are.
@@ -138,12 +140,10 @@
 
 (defun bg-light ()
   "Calculate background brightness."
-  (if (< (color-distance  "white"
-                          (face-attribute 'default :background))
-         (color-distance  "black"
-                          (face-attribute 'default :background)))
-      t
-    nil))
+  (< (color-distance  "white"
+                      (face-attribute 'default :background))
+     (color-distance  "black"
+                      (face-attribute 'default :background))))
 
 (defun whitespace-line-bg ()
   "Calculate long line highlight depending on background brightness."
@@ -159,10 +159,10 @@
       (setq lightvals (list 0.50 0.45)))
 
     (concatenate 'list
-                 (dolist (n'(.71 .3 .11 .01))
+                 (dolist (n'(.74 .3 .11 .01))
                    (push (hsl-to-hex (+ n 0.0) 1.0 (nth 0 lightvals)) hexcolors))
                  (dolist (n '(.81 .49 .17 .05))
-                   (push (hsl-to-hex (+ n 0.0) 1.0 (nth 1 lightvals)) hexcolors)))
+                   (push (hsl-to-hex (+ n 0.0) 0.9 (nth 1 lightvals)) hexcolors)))
     (reverse hexcolors)))
 
 
