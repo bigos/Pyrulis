@@ -25,7 +25,7 @@
                                         ido-ubiquitous helm-projectile
                                         slime web-mode switch-window
                                         helm-descbinds load-theme-buffer-local
-                                        projectile-rails
+                                        projectile-rails kurecolor
                                         redshank))
 
 (setq org-src-fontify-natively t)
@@ -138,6 +138,14 @@
                       (nth 1 rgb)
                       (nth 2 rgb))))
 
+(defun kurecolor-hex-to-rgb (hex)
+  "Convert a 6 digit HEX color to r g b."
+  (setq hex (replace-regexp-in-string "#" "" hex))
+  (mapcar #'(lambda (s) (/ (string-to-number s 16) 255.0))
+          (list (substring hex 0 2)
+                (substring hex 2 4)
+                (substring hex 4 6))))
+
 (defun bg-light ()
   "Calculate background brightness."
   (< (color-distance  "white"
@@ -147,9 +155,14 @@
 
 (defun whitespace-line-bg ()
   "Calculate long line highlight depending on background brightness."
-  (if (bg-light)
-      "#ffffe8"
-    "black"))
+  (apply 'color-rgb-to-hex
+   (apply 'color-hsl-to-rgb
+          (apply (if (bg-light) 'color-darken-hsl 'color-lighten-hsl)
+           (append
+            (apply 'color-rgb-to-hsl
+                   (kurecolor-hex-to-rgb
+                    (face-attribute 'default :background)))
+            '(10))))))
 
 (defun bracket-colors ()
   "Calculate the bracket colours based on background."
@@ -174,7 +187,6 @@
    ;; change the background but do not let theme to interfere with the foreground
    `(whitespace-line ((t (:background ,(whitespace-line-bg)))))
    ;; or use (list-colors-display)
-   `(rainbow-delimiters-depth-1-face ((t (:foreground "#888"))))
    `(rainbow-delimiters-depth-2-face ((t (:foreground ,(nth 0 (bracket-colors))))))
    `(rainbow-delimiters-depth-3-face ((t (:foreground ,(nth 1 (bracket-colors))))))
    `(rainbow-delimiters-depth-4-face ((t (:foreground ,(nth 2 (bracket-colors))))))
@@ -184,8 +196,7 @@
    `(rainbow-delimiters-depth-8-face ((t (:foreground ,(nth 6 (bracket-colors))))))
    `(rainbow-delimiters-depth-9-face ((t (:foreground ,(nth 7 (bracket-colors))))))
    `(rainbow-delimiters-unmatched-face ((t (:foreground "white" :background "red"))))
-   `(highlight ((t (:foreground "#ff0000" :background "#888"))))
-   ))
+   `(highlight ((t (:foreground "#ff0000" :background "#888"))))))
 
 (colorise-brackets)
 
