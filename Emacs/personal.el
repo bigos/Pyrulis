@@ -131,6 +131,13 @@
 (unless (server-running-p)
   (server-start))
 
+;;; this add capability to define your own hook for responding to theme changes
+(defvar after-load-theme-hook nil
+  "Hook run after a color theme is loaded using `load-theme'.")
+(defadvice load-theme (after run-after-load-theme-hook activate)
+  "Run `after-load-theme-hook'."
+  (run-hooks 'after-load-theme-hook))
+
 (require 'color)
 (defun hsl-to-hex (h s l)
   "Convert H S L to hex colours."
@@ -148,12 +155,21 @@
                 (substring hex 2 4)
                 (substring hex 4 6))))
 
+(defun bg-color ()
+  "Return COLOR or it's hexvalue."
+  (let ((color (face-attribute 'default :background)))
+    ;; we should check if is is a hexcolor starting with #
+    ;; if not we should use (color-rgb-to-hex (color-name-to-rgb))
+    (cond ((equalp color "black") "#000000")
+          ((equalp color "white") "#ffffff")
+          (t color))))
+
 (defun bg-light ()
   "Calculate background brightness."
   (< (color-distance  "white"
-                      (face-attribute 'default :background))
+                      (bg-color))
      (color-distance  "black"
-                      (face-attribute 'default :background))))
+                      (bg-color))))
 
 (defun whitespace-line-bg ()
   "Calculate long line highlight depending on background brightness."
@@ -163,7 +179,7 @@
            (append
             (apply 'color-rgb-to-hsl
                    (kurecolor-hex-to-rgb
-                    (face-attribute 'default :background)))
+                    (bg-color)))
             '(10))))))
 
 (defun bracket-colors ()
@@ -204,7 +220,7 @@
 
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'prog-mode-hook 'linum-mode)
-
+(add-hook 'after-load-theme-hook 'colorise-brackets)
 
 ;; moving buffers
 (require 'buffer-move)
