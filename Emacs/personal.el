@@ -158,11 +158,9 @@
 (defun bg-color ()
   "Return COLOR or it's hexvalue."
   (let ((color (face-attribute 'default :background)))
-    ;; we should check if is is a hexcolor starting with #
-    ;; if not we should use (color-rgb-to-hex (color-name-to-rgb))
-    (cond ((equalp color "black") "#000000")
-          ((equalp color "white") "#ffffff")
-          (t color))))
+    (if (equal (substring color 0 1) "#")
+        color
+      (apply 'color-rgb-to-hex (color-name-to-rgb color)))))
 
 (defun bg-light ()
   "Calculate background brightness."
