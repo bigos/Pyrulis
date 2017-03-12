@@ -88,7 +88,8 @@
 (add-hook 'scheme-mode-hook (lambda () (swap-paredit)))
 (add-hook 'slime-repl-mode-hook (lambda () (swap-paredit)))
 (add-hook 'slime-repl-mode-hook 'rainbow-delimiters-mode)
-(add-hook 'clojure-mode-hook #'paredit-mode)
+(add-hook 'clojure-mode-hook (lambda () (swap-paredit)))
+(add-hook 'cider-repl-mode-hook (lambda () (swap-paredit)))
 
 ;; LFE mode.
 ;; Set lfe-dir to point to where the lfe emacs files are.
