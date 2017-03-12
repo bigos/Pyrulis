@@ -16,8 +16,6 @@
 
 (global-set-key (kbd "M-s-g") 'vc-git-grep)
 
-(require 'magit)
-
 (prelude-require-packages '(buffer-move paredit underwater-theme projectile
                                         rubocop rvm rinari ruby-block
                                         ruby-hash-syntax
@@ -25,13 +23,12 @@
                                         ido-ubiquitous helm-projectile
                                         slime web-mode switch-window
                                         helm-descbinds load-theme-buffer-local
-                                        projectile-rails kurecolor
+                                        projectile-rails magit kurecolor
                                         redshank))
 
 (setq org-src-fontify-natively t)
 
 (helm-descbinds-mode)
-(require 'rubocop)
 (require 'load-theme-buffer-local)
 
 ;; magit warning silencing
@@ -206,7 +203,7 @@
 
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'prog-mode-hook 'linum-mode)
-(add-hook 'prog-mode-hook 'magit-wip-after-save-local-mode)
+
 
 ;; moving buffers
 (require 'buffer-move)
