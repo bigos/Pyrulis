@@ -147,13 +147,12 @@
                       (nth 1 rgb)
                       (nth 2 rgb))))
 
-(defun kurecolor-hex-to-rgb (hex)
+(defun hex-to-rgb (hex)
   "Convert a 6 digit HEX color to r g b."
-  (setq hex (replace-regexp-in-string "#" "" hex))
   (mapcar #'(lambda (s) (/ (string-to-number s 16) 255.0))
-          (list (substring hex 0 2)
-                (substring hex 2 4)
-                (substring hex 4 6))))
+          (list (substring hex 1 3)
+                (substring hex 3 5)
+                (substring hex 5 7))))
 
 (defun bg-color ()
   "Return COLOR or it's hexvalue."
@@ -176,22 +175,32 @@
           (apply (if (bg-light) 'color-darken-hsl 'color-lighten-hsl)
            (append
             (apply 'color-rgb-to-hsl
-                   (kurecolor-hex-to-rgb
+                   (hex-to-rgb
                     (bg-color)))
-            '(10))))))
+            '(7))))))
 
 (defun bracket-colors ()
   "Calculate the bracket colours based on background."
   (let (hexcolors lightvals)
-    (if (bg-light)
-        (setq lightvals (list 0.65 0.55))
-      (setq lightvals (list 0.50 0.45)))
-
-    (concatenate 'list
-                 (dolist (n'(.74 .3 .11 .01))
-                   (push (hsl-to-hex (+ n 0.0) 1.0 (nth 0 lightvals)) hexcolors))
-                 (dolist (n '(.81 .49 .17 .05))
-                   (push (hsl-to-hex (+ n 0.0) 0.9 (nth 1 lightvals)) hexcolors)))
+    (setq lightvals (if (bg-light)
+                        (list (list .65 1.0 0.75) ; H S L
+                              (list .30 1.0 0.40)
+                              (list .11 1.0 0.55)
+                              (list .01 1.0 0.65)
+                              (list .75 0.9 0.55) ; H S L
+                              (list .49 0.9 0.40)
+                              (list .17 0.9 0.47)
+                              (list .05 0.9 0.55))
+                      (list (list .70 1.0 0.68) ; H S L
+                            (list .30 1.0 0.40)
+                            (list .11 1.0 0.50)
+                            (list .01 1.0 0.50)
+                            (list .81 0.9 0.55) ; H S L
+                            (list .49 0.9 0.40)
+                            (list .17 0.9 0.45)
+                            (list .05 0.9 0.45))))
+    (dolist (n lightvals)
+      (push (apply 'hsl-to-hex n) hexcolors))
     (reverse hexcolors)))
 
 
