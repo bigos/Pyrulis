@@ -129,6 +129,10 @@
 
 (global-set-key (kbd "s-0") 'unfold-lisp)
 
+(load "server")
+(unless (server-running-p)
+  (server-start))
+
 (require 'color)
 (defun hsl-to-hex (h s l)
   "Convert H S L to hex colours."
@@ -202,6 +206,7 @@
 
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'prog-mode-hook 'linum-mode)
+(add-hook 'prog-mode-hook 'magit-wip-after-save-local-mode)
 
 ;; moving buffers
 (require 'buffer-move)
