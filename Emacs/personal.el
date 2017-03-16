@@ -183,7 +183,7 @@
   "Calculate the bracket colours based on background."
   (let (hexcolors lightvals)
     (setq lightvals (if (bg-light)
-                        (list (list .65 1.0 0.75) ; H S L
+                        (list (list .60 1.0 0.55) ; H S L
                               (list .30 1.0 0.40)
                               (list .11 1.0 0.55)
                               (list .01 1.0 0.65)
