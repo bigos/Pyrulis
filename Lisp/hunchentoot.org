@@ -1,0 +1,4 @@
+* example of defining routes
+http://weitz.de/hunchentoot/#subclassing-acceptors
+
+dispatch-table is a list of routes
