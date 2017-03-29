@@ -1,5 +1,5 @@
 * Current chapter
-Tutorial 6 - Modern ClojureScript
+Tutorial 7 - Modern ClojureScript
 
 section
 from the beginning
