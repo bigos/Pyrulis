@@ -53,11 +53,18 @@ But it would be wrong to think that ACL2 knows the mathematical content of a
 formula just because it has proved it. What ACL2 knows — all ACL2 knows — is
 what is encoded in its rules.
 
-The user interacts with the theorem prover by giving it definitions, theorems and advice. Most often the advice is about how to store each proved theorem as a rule. Sometimes the advice is about how to prove a specific theorem.
+The user interacts with the theorem prover by giving it definitions, theorems
+and advice. Most often the advice is about how to store each proved theorem as
+a rule. Sometimes the advice is about how to prove a specific theorem.
 
-The database consists of all the rules ACL2 “knows.” It is possible to include in the database all of the rules in some certified file of other events. Such certified files are called books .
+The database consists of all the rules ACL2 “knows.” It is possible to include
+in the database all of the rules in some certified file of other events. Such
+certified files are called books .
 
 *** bad news
-The bad news is that when you command ACL2 to prove a theorem you must give some thought to how that theorem is to be used as a rule!
+The bad news is that when you command ACL2 to prove a theorem you must give
+some thought to how that theorem is to be used as a rule!
 
-For example, if after proving associativity-of-app as previously shown, you engaged in the mathematically trivial act of proving it again but with the equality reversed, you would have programmed ACL2’s rewriter to loop forever.
+For example, if after proving associativity-of-app as previously shown, you
+engaged in the mathematically trivial act of proving it again but with the
+equality reversed, you would have programmed ACL2’s rewriter to loop forever.
