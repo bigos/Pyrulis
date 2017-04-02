@@ -19,10 +19,8 @@ https://github.com/the-little-prover/j-bob
 ** more
 ;; Load the J-Bob language:
 (ld "~/Programming/j-bob/acl2/j-bob-lang.lisp")
-;; Load J-Bob, our little proof assistant:
-(ld "~/Programming/j-bob/acl2/j-bob.lisp")
-;; Load the transcript of all proofs in the book:
-(ld "~/Programming/j-bob/acl2/little-prover.lisp")
+This will allow to run examples in *The Little Prover*
+
 
 * Basic terminology
 
