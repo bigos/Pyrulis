@@ -1,5 +1,5 @@
 * Current chapter
-Tutorial 8 - Modern ClojureScript
+Tutorial 10 - A Deeper Understanding of Domina Events
 
 section
 from the beginning
