@@ -1,5 +1,5 @@
 * Current chapter
-Tutorial 10 - A Deeper Understanding of Domina Events
+Tutorial 11 - HTML on Top, Clojure on the Bottom
 
 section
 from the beginning
