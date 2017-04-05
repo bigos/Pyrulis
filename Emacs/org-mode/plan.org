@@ -1,0 +1,55 @@
+* Literate coding
+Literate coding in org mode https://www.youtube.com/watch?v=dljNabciEGg&t=215s
+
+** beautification
++ org-bullets-mode - Replaces asterisks with icons
++ org-beautify theme - Enlarges font of top level headings
+
+** code blocks
+http://orgmode.org/worg/org-contrib/babel/intro.html#source-code-blocks
+*** configuration
+To make possible to execute the code blocks I had to permit it explicitly.
+I could add it to the configuration in '~/.emacs.d/' or paste it to *scratch*
+buffer and execute it with C-e
+
+#+BEGIN_EXAMPLE
+(org-babel-do-load-languages 'org-babel-load-languages
+                             '((sh . t)
+                               (ruby . t)))
+#+END_EXAMPLE
+
+Syntax highliting will not work unless you install htmlize library. You can
+do it by running M-x package-install and selecting htmlize.
+
+*** inserting
+Type '<s' and press TAB.
+
+*** execution
+Pressing C-c C-c inside those code blocks
+
+#+BEGIN_SRC sh
+  # lists the files
+  ls /tmp
+#+END_SRC
+
+I can modify behaviour of the results
+#+BEGIN_SRC ruby :results output
+    # returns results of running Ruby code
+    puts "going to assign the variables"
+    a=1
+    b=2
+    puts "Hello! " + (a + b).to_s
+#+END_SRC
+
+** Literate Programming
+http://orgmode.org/worg/org-contrib/babel/intro.html#literate-programming
+
+Knuth quote
+#+BEGIN_EXAMPLE
+Let us change our traditional attitude to the construction of programs: Instead
+of imagining that our main task is to instruct a computer what to do, let us
+concentrate rather on explaining to human beings what we want a computer to do.
+#+END_EXAMPLE
+*** weaving and tangling
+Weaving exports human readable documentation for example HTML, while tangling
+exports the executable code to a file.
