@@ -1,5 +1,7 @@
 * Literate coding
-Literate coding in org mode https://www.youtube.com/watch?v=dljNabciEGg&t=215s
+Literate coding in org mode
+https://www.youtube.com/watch?v=dljNabciEGg&t=215s
+http://howardism.org/Technical/Emacs/literate-programming-tutorial.html
 
 ** beautification
 + org-bullets-mode - Replaces asterisks with icons
@@ -7,6 +9,7 @@ Literate coding in org mode https://www.youtube.com/watch?v=dljNabciEGg&t=215s
 
 ** code blocks
 http://orgmode.org/worg/org-contrib/babel/intro.html#source-code-blocks
+
 *** configuration
 To make possible to execute the code blocks I had to permit it explicitly.
 I could add it to the configuration in '~/.emacs.d/' or paste it to *scratch*
@@ -25,6 +28,10 @@ do it by running M-x package-install and selecting htmlize.
 Type '<s' and press TAB.
 
 *** execution
+Various options can affect the execution. At the bottom of the following page
+you can find links to detailed reference.
+http://orgmode.org/manual/Working-with-source-code.html#Working-with-source-code
+
 Pressing C-c C-c inside those code blocks executes the code
 
 #+BEGIN_SRC sh
@@ -51,5 +58,37 @@ of imagining that our main task is to instruct a computer what to do, let us
 concentrate rather on explaining to human beings what we want a computer to do.
 #+END_EXAMPLE
 *** weaving and tangling
-Weaving exports human readable documentation for example HTML, while tangling
-exports the executable code to a file.
+Weaving exports prose (human readable documentation) for example HTML, while
+tangling exports the executable code to a file.
+
+Typing C-c C-v renders source of code blocks to a specified file.
+*** tangling options
+**** rendered file arguments
+*****  in code block header
+#+BEGIN_EXAMPLE
+#+BEGIN_SRC ruby :tangle double-space.rb
+  while s = gets
+    print s ; puts
+  end
+#+END_SRC
+#+END_EXAMPLE
+***** at the top of the file in PROPERTY
+#+BEGIN_EXAMPLE
+#+PROPERTY:    tangle ~/Ruby/double-space.rb
+#+END_EXAMPLE
+**** turning prose to comments
+you can use PROPERTY option
+#+BEGIN_EXAMPLE
+Precede each line in the text from standard in (or file) with the
+current line number.
+See [[http://benoithamelin.tumblr.com/ruby1line][one liners]].
+
+#+BEGIN_SRC ruby
+  while s = gets
+    puts "#{$<.file.lineno}: #{s}"
+  end
+#+END_SRC
+
+#+PROPERTY: tangle lineno.rb
+#+PROPERTY: comments org
+#+END_EXAMPLE
