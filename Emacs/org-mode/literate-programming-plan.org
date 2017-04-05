@@ -25,16 +25,16 @@ do it by running M-x package-install and selecting htmlize.
 Type '<s' and press TAB.
 
 *** execution
-Pressing C-c C-c inside those code blocks
+Pressing C-c C-c inside those code blocks executes the code
 
 #+BEGIN_SRC sh
   # lists the files
   ls /tmp
 #+END_SRC
 
-I can modify behaviour of the results
+I can modify behaviour of the results with additional options
 #+BEGIN_SRC ruby :results output
-    # returns results of running Ruby code
+    # returns results as output of running Ruby code
     puts "going to assign the variables"
     a=1
     b=2
@@ -44,7 +44,7 @@ I can modify behaviour of the results
 ** Literate Programming
 http://orgmode.org/worg/org-contrib/babel/intro.html#literate-programming
 
-Knuth quote
+*** Knuth quote
 #+BEGIN_EXAMPLE
 Let us change our traditional attitude to the construction of programs: Instead
 of imagining that our main task is to instruct a computer what to do, let us
