@@ -1,5 +1,5 @@
 * Current chapter
-Tutorial 11 - HTML on Top, Clojure on the Bottom
+Tutorial 12: Don't Repeat Yourself
 
 section
 from the beginning
