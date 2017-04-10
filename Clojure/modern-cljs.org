@@ -1,5 +1,5 @@
 * Current chapter
-Tutorial 12: Don't Repeat Yourself
+Tutorial 13: It's better to be safe than sorry
 
 section
 from the beginning
