@@ -1,0 +1,29 @@
+* Tangling Ruby code example
+:PROPERTIES:
+:header-args:ruby:    :tangle ./hello.rb :comments org
+:END:
+
+This is an example of using the org comments added to the tangled file. This
+paragraph is no added to tangled file when you press C-c C-v C-t.
+
+**  The first heading above the source block
+It is added to the tangled file comments.
+
+Text before the source block is added as comment.
+
+#+BEGIN_SRC ruby
+  # going to greet
+  def hello
+    # actual greet
+    puts "Hello Everyone"
+  end
+#+END_SRC
+
+Text between the source blocks is added as a comment.
+
+#+BEGIN_SRC ruby
+  # now call hello
+  hello
+#+END_SRC
+
+Text after the last source block is not added to tangled file.
