@@ -1,6 +1,0 @@
-(ns hello-world.test.core
-  (:use [hello-world.core])
-  (:use [clojure.test]))
-
-(deftest replace-me ;; FIXME: write
-  (is false "No tests have been written."))
