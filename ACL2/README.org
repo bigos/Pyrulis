@@ -1,6 +1,8 @@
 * Starting in Emacs
 ** M-x load-acl2
 ** in the terminal run
+*** cd ~/Programming/j-bob/acl2/
+The above will allow to load j-bob examples
 *** ~/Documents/acl2-7.2/saved_acl2
 ** M-x commands
  M-x rainbow-delimiters-mode
@@ -17,10 +19,36 @@ https://github.com/the-little-prover/j-bob
 (ld "~/Programming/Pyrulis/ACL2/first-definitions.lisp")
 
 ** more
-;; Load the J-Bob language:
-(ld "~/Programming/j-bob/acl2/j-bob-lang.lisp")
-This will allow to run examples in *The Little Prover*
+page at https://github.com/the-little-prover/j-bob
+gives examples of loading the book once you followed the steps in
+*Starting in Emacs* and changed to the right directory in the j-bob folder
 
+*** fix
+In j-bob.lisp file, you need to comment out the measure to have the book accepted.
+#+BEGIN_EXAMPLE
+(defun rewrite/define+ (defs pfs)
+  ;; (declare (xargs :measure (size pfs)))
+  (if (atom pfs)
+    defs
+    (rewrite/define+1 defs
+      (rewrite/define defs
+        (elem1 (car pfs))
+        (elem2 (car pfs))
+        (cdr (cdr (car pfs))))
+      (cdr pfs))))
+
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+;; Load the J-Bob language:
+(include-book "j-bob-lang")
+;; Load J-Bob, our little proof assistant:
+(include-book "j-bob")
+;; Load the transcript of all proofs in the book:
+(include-book "little-prover")
+;; Run every proof in the book, up to and including the proof of align/align:
+(dethm.align/align)
+#+END_EXAMPLE
 
 * Basic terminology
 
