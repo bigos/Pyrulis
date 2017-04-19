@@ -12,18 +12,12 @@ The above will allow to load j-bob examples
 ** git repo
 https://github.com/the-little-prover/j-bob
 
-** to load a script
-(ld "~/Programming/j-bob/acl2/j-bob-lang.lisp")
-
-** to load my example code
-(ld "~/Programming/Pyrulis/ACL2/first-definitions.lisp")
-
 ** more
 page at https://github.com/the-little-prover/j-bob
 gives examples of loading the book once you followed the steps in
 *Starting in Emacs* and changed to the right directory in the j-bob folder
 
-*** fix
+*** included file fix
 In j-bob.lisp file, you need to comment out the measure to have the book accepted.
 #+BEGIN_EXAMPLE
 (defun rewrite/define+ (defs pfs)
@@ -39,6 +33,7 @@ In j-bob.lisp file, you need to comment out the measure to have the book accepte
 
 #+END_EXAMPLE
 
+*** including books
 #+BEGIN_EXAMPLE
 ;; Load the J-Bob language:
 (include-book "j-bob-lang")
@@ -49,6 +44,10 @@ In j-bob.lisp file, you need to comment out the measure to have the book accepte
 ;; Run every proof in the book, up to and including the proof of align/align:
 (dethm.align/align)
 #+END_EXAMPLE
+
+*** loading my example code
+(ld "~/Programming/Pyrulis/ACL2/first-definitions.lisp")
+
 
 * Basic terminology
 
