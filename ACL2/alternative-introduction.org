@@ -1,0 +1,81 @@
+* Alternative Introduction
+http://www.cs.utexas.edu/users/moore/acl2/v7-4/combined-manual/index.html?topic=ACL2____ALTERNATIVE-INTRODUCTION
+
+** Tutorial goals
+
+*** familiarise with
+
+**** most basic
+
+***** features
+
+***** modes of interaction
+
+**** work through examples
+
+** Getting started
+
+*** starting
+#+BEGIN_EXAMPLE
+# start with Emacs key shortcut
+M-x load-acl2
+
+# then, in newly opened shell type
+~/Documents/acl2-7.4/saved_acl2
+#+END_EXAMPLE
+
+*** modes of operation
+
+**** logic
+ACL starts in :logic mode.
+Any new function besides being executable is also axiomatically defined.
+
+**** program
+For using ACL as a programming language without burdens of formal reasoning.
+This tutorial doesn't use it.
+
+*** Repl
+
+**** define new functions
+
+**** execute functions with concrete data
+
+**** pose attempt to prove conjectures about functions
+defthm
+**** query ACL
+
+**** other
+
+*** Interacting with ACL2
+
+**** Function definition
+Shell and work buffer with the source code.
+Order of definitions important. New functions are usually defined with defun.
+
+Then they are verified and recursive functions are checked for termination with
+use of :measure. Successfully defined function among others returns information
+about the result type.
+
+Such function can be checked with :pe, which returns mode
+name eg. L processing number eg 73: and the function definition.
+
+We can just execute a new function with some sample data, or prove it
+formulating a conjecture using defthm.
+
+**** Proof hints and sub-goals
+
+**** Undoing
+
+***** undo previous event
+:u
+
+***** undo back to
+:ubt
+
+***** current event
+:pe
+
+***** previous event back to
+:pbt
+
+* end of page
