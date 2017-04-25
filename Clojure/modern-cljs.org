@@ -1,5 +1,5 @@
 * Current chapter
-Tutorial 14: It's better to be safe than sorry 2
+Tutorial 15: It's better to be safe than sorry 2
 
 section
 from the beginning
