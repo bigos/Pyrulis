@@ -1230,5 +1230,6 @@ Various remarks about using return to put value into IO
 ** 13.9 Hangman game
 ** 13.10 Step One: Importing modules
 ** 13.11 Step two Generating a word list
+** 13.12 Step Three: Making a puzzle
 * continue on page
-  page 508
+  page 511
