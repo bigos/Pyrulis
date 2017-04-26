@@ -616,8 +616,10 @@ wise to use otherwise in your final guard.
 
 *** type signature
 Then with the addition of one set of parentheses:
+#+BEGIN_SRC haskell
 (.) :: (b -> c) -> (a -> b) -> (a -> c)
 --        [1]         [2]         [3]
+#+END_SRC
 In English:
 1. given a function b to c
 2. given a function a to b
@@ -1231,5 +1233,50 @@ Various remarks about using return to put value into IO
 ** 13.10 Step One: Importing modules
 ** 13.11 Step two Generating a word list
 ** 13.12 Step Three: Making a puzzle
+*** defining the datatype
+We need to define a datatype for the puzzle.
+#+BEGIN_SRC haskell
+  data Puzzle = Puzzle String [Maybe Char] [Char]
+  --                   1             2      3
+#+END_SRC
+It will hold the following
+1. the word we a trying to guess
+2. the characters discovered so far
+3. the guessed letters
+
+*** defining the instance of typeclass Show
+We need an instance of typeclass Show for our datatype. So we can print the data
+represented by datatype.
+
+Note that the arguments to Show match with our datatype definition.
+#+BEGIN_SRC haskell
+  instance Show Puzzle where
+    show (Puzzle _ discovered guessed) =
+      (intersperse ' ' $ fmap renderedPuzzleChar discovered)
+      ++ " Guessed so far " ++ guessed
+#+END_SRC
+
+*** implementation
+
+**** fresh puzzle
+
+**** char in word
+
+**** already guessed
+
+**** rendered  puzzle char
+
+**** filled in character
+
+**** game over
+
+**** game win
+
+**** run game
+
+**** main function
+
+** 13.13 Adding a new type
+
 * continue on page
-  page 511
+  page 519
