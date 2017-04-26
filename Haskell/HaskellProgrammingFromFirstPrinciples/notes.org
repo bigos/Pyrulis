@@ -1276,7 +1276,25 @@ Note that the arguments to Show match with our datatype definition.
 
 **** main function
 
-** 13.13 Adding a new type
+** 13.13 Adding a newtype
+Modification of the puzzle from section 13.12 with use of newtype
+
+** 13.14 Chapter exercises
+
+* Chapter 14
+
+** 14.1 Testing
+** 14.2 A quick tour of testing for the uninitiated
+*** QuickCheck property tests
+**** test edge cases
+**** random data
+**** relies on the type system
+**** checks if the code satisfies the laws
+
+** 14.3 Conventional testing
+repo in ~/Programming/Haskell/addition
+
+** 14.4 Enter QuickCheck
 
 * continue on page
-  page 519
+  page 533
