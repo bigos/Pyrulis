@@ -3,5 +3,5 @@
   (:export :run))
 
 (defpackage #:sgf-importer
-  (:use :common-lisp)
+  (:use :common-lisp :esrap)
   (:export :get-move-list))

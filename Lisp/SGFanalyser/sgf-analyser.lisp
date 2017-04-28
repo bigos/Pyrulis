@@ -1,20 +1,8 @@
 (in-package :sgf-analyser)
 
-(defparameter *goban* 1)
-(defvar *app-path* (asdf:system-source-directory :sgf-analyser))
-(defvar *sgf-data-filename* (merge-pathnames "game_records/jacekpod-coalburner.sgf" *app-path*))
-(defparameter *game-record* (sgf-importer:get-move-list *sgf-data-filename*))
-
-(defun header-value (key)
-  (let ((kv (assoc key (car *game-record*) :test #'equalp)))
-    (if (listp (cdr kv))
-        (cadr kv)
-        (cdr kv))))
-
 (defvar *board-column-letters* "abcdefghjklmnopqrst")
 (defvar *sgf-letters* "abcdefghijklmnopqrs")
-(defvar *board-size* (parse-integer (header-value "SZ")))
-(defvar *last-column-letter* (subseq *board-column-letters* (1- *board-size*)))
+(defparameter *board-size* 19)
 
 (defun game-stats ()
   (let ((stats `(("white" . "PW") ("white rank" . "WR") ("black" . "PB")
@@ -117,21 +105,15 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun run ()
-  (let ((coordinates))
-    (format T "~%~%~A <<<<<<<<<<~%" *game-record*)
-    (game-stats )
-    (format t "~%~d <<< board size ~%" *board-size*)
+  (let ((a 1))
+
+
     (setf *goban* (make-instance 'goban
                                  :size *board-size*
                                  :board (make-array `(,*board-size* ,*board-size*)
                                                     :initial-element nil)))
     (add-handicaps *goban*)
-    (dolist (move (subseq (cdr *game-record*)
-                          0 20))
-      (format t "color ~S coordinates ~S~%" (caar move)
-              (sgf-to-i (cdar move)))
-      (place-stone *goban* (caar move)
-                   (sgf-to-i (cdar move))))
+
     (print-board *goban*)
     (setq coordinates (enter-coordinates))
     (format t "the coordinates are: ~A~%"  coordinates)
