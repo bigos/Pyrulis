@@ -1295,6 +1295,17 @@ Modification of the puzzle from section 13.12 with use of newtype
 repo in ~/Programming/Haskell/addition
 
 ** 14.4 Enter QuickCheck
+*** examples
+**** property
+**** sample
+***** random
+***** arbitrary
+****** element probability
+**** choose
+**** elements
+**** GenTuple
+
+*** Using QuickCheck without Hspec
 
 * continue on page
-  page 533
+  page 541
