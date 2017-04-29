@@ -1,0 +1,10 @@
+* Starting the project
+#+BEGIN_EXAMPLE
+CL-USER> (push #p"~/Programming/Pyrulis/Lisp/SGFanalyser/" asdf:*central-registry*)
+
+CL-USER> (ql:quickload :sgf-analyser)
+
+CL-USER> (in-package :sgf-importer)
+
+SGF-IMPORTER>  (cdar  (parseme) )
+#+END_EXAMPLE
