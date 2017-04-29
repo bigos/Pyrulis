@@ -5,6 +5,4 @@ CL-USER> (push #p"~/Programming/Pyrulis/Lisp/SGFanalyser/" asdf:*central-registr
 CL-USER> (ql:quickload :sgf-analyser)
 
 CL-USER> (in-package :sgf-importer)
-
-SGF-IMPORTER>  (cdar  (parseme) )
 #+END_EXAMPLE

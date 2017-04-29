@@ -44,7 +44,8 @@
 
 (defun import-sgf (&optional (filename "~/Documents/Go/Pro_collection/Cao Dayuan/cao_001.sgf"))
   (let* ((parsed-tree (cdar (parse 's (get-move-list filename))))
-         (stats (car (cdaadr parsed-tree)))
+         (game-tree (cadr parsed-tree))
+         (stats (cadar game-tree))
          (stats-kv (loop for s in stats
                       collect (cons (car s)
                                     (elt (cadr s) 1)))))
