@@ -51,5 +51,9 @@
 ;;;-----------------------------------------------------------------------------
 
 (defun get-move-list (filename)
-  (let ((buffer (alexandria:read-file-into-string filename)))
+  (let ((buffer (alexandria:read-file-into-string filename
+                                                  :external-format :latin-1)))
     buffer))
+
+(defun parseme ()
+  (parse 's (get-move-list "~/Documents/Go/Pro_collection/Cao Dayuan/cao_001.sgf")))
