@@ -43,17 +43,14 @@
     buffer))
 
 (defun import-sgf (&optional (filename "~/Documents/Go/Pro_collection/Cao Dayuan/cao_001.sgf"))
-  (let* ((nodes
-          (destructuring-bind ((ign1 ign2 nodes ign3 ign4 ign5 ))
-              (parse 's (get-move-list filename))
-            nodes))
-         (first-node
-          (destructuring-bind ((colon node &rest ign1) &rest ign2)
-              nodes
-            node))
-         (game-stats (loop for en in first-node
-                        collect (cons (car en)
-                                      (destructuring-bind ((ob v cb &rest ign1))
-                                          (cdr en)
-                                        v)))))
-    game-stats))
+  (let* ((nodes      (third  (car (parse 's (get-move-list filename)))))
+         (first-node (second (car nodes)))
+         (game-stats (loop for ne in first-node
+                        collect (cons (car ne)
+                                      (second (cadr ne)))))
+         (move-nodes (loop for ne in (cdr nodes)
+                        collect (destructuring-bind (_x ((m &rest n  )) &rest _c)
+                                      ne
+                                  (list  m  (cadr n))))
+           ))
+    (list game-stats move-nodes)))
