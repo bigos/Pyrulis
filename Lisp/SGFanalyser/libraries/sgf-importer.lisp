@@ -21,9 +21,9 @@
 (defrule move (and (or "B" "W") val-start (or coordinates "") val-end)
   (:destructure (c ob cc cb &rest d)
                 (list c (if (equalp "" cc)
-                            'pass
+                            'PASS
                             (cons (car cc)
-                                  (cadr cc))))))
+                                  (cadr cc) )))))
 
 (defrule key (and uc-letter (? uc-letter))
   (:text T))
@@ -59,4 +59,7 @@
     buffer))
 
 (defun parseme (&optional (filename "~/Documents/Go/Pro_collection/Cao Dayuan/cao_001.sgf"))
-  (parse 's (get-move-list filename)))
+  (car (parse 's (get-move-list filename))))
+
+;; this game has handicaps and parsing error
+;; (parseme "~/Documents/Go/Pro_collection/Go Seigen/seigen002.sgf")
