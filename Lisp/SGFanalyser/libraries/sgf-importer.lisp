@@ -9,13 +9,28 @@
 
 ;;;-----------------------------------------------------------------------------
 (defrule s (+ game-tree))
-(defrule game-tree (and (* new-line) "(" (+ node) (* game-tree) ")" (* new-line)))
-(defrule node (and ";" (* (or move (and  key val ) comment)) (* new-line)))
+
+(defrule game-tree (and (* new-line) "(" (+ node) (* game-tree) ")" (* new-line))
+  (:destructure (nl1 ob nodes gt cb nl2 ) nodes))
+
+(defrule node (and ";" (* (or move (and  key val ) comment)) (* new-line))
+  (:destructure (cl n nl) n))
 
 (defrule comment (and "C" val-start text val-end))
-(defrule move (and (or "B" "W") val-start coordinates val-end))
-(defrule key (and uc-letter (? uc-letter)) (:text T))
-(defrule val (and val-start c-value-type val-end (* new-line)))
+
+(defrule move (and (or "B" "W") val-start (or coordinates "") val-end)
+  (:destructure (c ob cc cb &rest d)
+                (list c (if (equalp "" cc)
+                            'pass
+                            (cons (car cc)
+                                  (cadr cc))))))
+
+(defrule key (and uc-letter (? uc-letter))
+  (:text T))
+
+(defrule val (and val-start c-value-type val-end (* new-line))
+  (:destructure (ob v cb nl) v))
+
 (defrule val-start "[")
 (defrule val-end "]")
 (defrule c-value-type (or value-type compose))
@@ -29,7 +44,8 @@
 (defrule escaped-newline (and #\\ new-line))
 (defrule number (and (? (or "-" "+")) (+ integer)))
 
-(defrule text (+  (not (or "[" "]"))) (:text T))
+(defrule text (+  (not (or "[" "]")))
+  (:text T))
 
 (defrule coordinate (or "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n"
                         "o" "p" "q" "r" "s"))
@@ -42,15 +58,5 @@
                                                   :external-format :latin-1)))
     buffer))
 
-(defun import-sgf (&optional (filename "~/Documents/Go/Pro_collection/Cao Dayuan/cao_001.sgf"))
-  (let* ((nodes      (third  (car (parse 's (get-move-list filename)))))
-         (first-node (second (car nodes)))
-         (game-stats (loop for ne in first-node
-                        collect (cons (car ne)
-                                      (second (cadr ne)))))
-         (move-nodes (loop for ne in (cdr nodes)
-                        collect (destructuring-bind (_x ((m &rest n  )) &rest _c)
-                                      ne
-                                  (list  m  (cadr n))))
-           ))
-    (list game-stats move-nodes)))
+(defun parseme (&optional (filename "~/Documents/Go/Pro_collection/Cao Dayuan/cao_001.sgf"))
+  (parse 's (get-move-list filename)))
