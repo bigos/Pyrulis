@@ -1311,6 +1311,7 @@ failing example
 ** 14.5 Morse code
 *** Turning words into code
 *** Make sure it's all working
+** 14.6 Kicking around QuickCheck
 
 * continue on page
-  page 550
+  page 553
