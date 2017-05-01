@@ -132,10 +132,16 @@
   "Go back to nearest space and capitalise following string."
   (interactive)
   (let ((original-buffer (current-buffer))
-        (original-marker (point-marker)))
+        (original-marker (point-marker))
+        (start-marker)
+        (end-marker))
     (search-backward " ")
     (delete-char 1)
-    (capitalize-word 1)))
+    (setf start-marker (point-marker))
+    (forward-char)
+    (setf end-marker (point-marker))
+    (capitalize-region start-marker end-marker)
+    (goto-char original-marker)))
 
 (global-set-key (kbd "s-2") 'capitalise-backwards)
 
