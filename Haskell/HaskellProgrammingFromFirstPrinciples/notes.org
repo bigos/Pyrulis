@@ -1304,8 +1304,11 @@ repo in ~/Programming/Haskell/addition
 **** choose
 **** elements
 **** GenTuple
+generating sample values
 
 *** Using QuickCheck without Hspec
+failing example
+** 14.5 Morse code
 
 * continue on page
-  page 541
+  page 542

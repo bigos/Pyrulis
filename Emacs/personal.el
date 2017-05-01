@@ -2,8 +2,8 @@
 
 (defun load-acl2 ()
   (interactive)
-  (load "~/Documents/acl2-7.2/emacs/emacs-acl2.el")
-  (setq inferior-acl2-program "~/Documents/acl2-7.2/saved_acl2"))
+  (load "~/Documents/acl2-7.4/emacs/emacs-acl2.el")
+  (setq inferior-acl2-program "~/Documents/acl2-7.4/saved_acl2"))
 ;;; run M-x lisp-mode when you see the prompt to get paredit and the rest
 
  (setq prelude-guru nil) ;; better for slime
@@ -75,6 +75,7 @@
 (setq inferior-lisp-program "sbcl")
 (setq slime-contribs '(slime-fancy))
 
+
 (defun swap-paredit ()
   "Replace smartparens with superior paredit."
   (smartparens-mode -1)
@@ -126,6 +127,17 @@
   (newline-and-indent))
 
 (global-set-key (kbd "s-0") 'unfold-lisp)
+
+(defun capitalise-backwards ()
+  "Go back to nearest space and capitalise following string."
+  (interactive)
+  (let ((original-buffer (current-buffer))
+        (original-marker (point-marker)))
+    (search-backward " ")
+    (delete-char 1)
+    (capitalize-word 1)))
+
+(global-set-key (kbd "s-2") 'capitalise-backwards)
 
 (load "server")
 (unless (server-running-p)
