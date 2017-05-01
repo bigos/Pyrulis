@@ -1309,6 +1309,7 @@ generating sample values
 *** Using QuickCheck without Hspec
 failing example
 ** 14.5 Morse code
+*** Turning words into code
 
 * continue on page
-  page 542
+  page 545
