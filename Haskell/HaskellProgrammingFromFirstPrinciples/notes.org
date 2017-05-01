@@ -1310,6 +1310,7 @@ generating sample values
 failing example
 ** 14.5 Morse code
 *** Turning words into code
+*** Make sure it's all working
 
 * continue on page
-  page 545
+  page 550
