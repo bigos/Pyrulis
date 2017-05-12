@@ -45,6 +45,11 @@ In j-bob.lisp file, you need to comment out the measure to have the book accepte
 (dethm.align/align)
 #+END_EXAMPLE
 
+*** example
+#+BEGIN_EXAMPLE
+(defthm my-doubler (equal (+ x x) (* 2 x)))
+#+END_EXAMPLE
+
 *** loading my example code
 (ld "~/Programming/Pyrulis/ACL2/first-definitions.lisp")
 
