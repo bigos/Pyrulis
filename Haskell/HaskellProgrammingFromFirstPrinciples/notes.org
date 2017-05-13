@@ -1312,6 +1312,7 @@ failing example
 *** Turning words into code
 *** Make sure it's all working
 ** 14.6 Kicking around QuickCheck
+*** Greater than the sum of its parts
 
 * continue on page
-  page 553
+  page 557
