@@ -1313,6 +1313,7 @@ failing example
 *** Make sure it's all working
 ** 14.6 Kicking around QuickCheck
 *** Greater than the sum of its parts
+** 14.7 Chapter Exercises
 
 * continue on page
-  page 557
+  page 561
