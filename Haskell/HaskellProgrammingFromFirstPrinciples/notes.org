@@ -1353,6 +1353,7 @@ In distributed processing computing in different order will not matter.
 ** 15.9 Different instance, same representation
 ** 15.10 Reusing algebras by asking for algebras
 ** 15.11 Madness
-
+** 15.12
+** 15.13 Semigroup
 * continue on page
-  page 591
+  page 598
