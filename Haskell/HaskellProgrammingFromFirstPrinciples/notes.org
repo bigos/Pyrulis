@@ -1355,5 +1355,8 @@ In distributed processing computing in different order will not matter.
 ** 15.11 Madness
 ** 15.12
 ** 15.13 Semigroup
+* Chapter 16
+** 16.1 Functor
+
 * continue on page
-  page 598
+  page 613
