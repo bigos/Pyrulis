@@ -1,0 +1,48 @@
+* Functional programming in Lisp
+
+Based on *On Lisp*, chapeter 3.1 Functional Design pages 31-32
+
+** Functions to avoid
+
+Avoiding these functions goes surprisingly far in improving your list style.
+Functions are grouped by families.
+
+
+*** set
+file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/f_set.htm
+*** setq
+file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/s_setq.htm
+*** setf
+file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/m_setf_.htm
+*** psetq
+file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/m_psetq.htm
+*** psetf
+file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/m_setf_.htm
+same as setf, but does not return the result
+*** incf
+file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/m_incf_.htm
+*** decf
+file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/m_incf_.htm
+*** push
+file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/m_push.htm
+*** pushnew
+file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/m_pshnew.htm
+*** pop
+file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/m_pop.htm
+*** rplaca
+file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/f_rplaca.htm
+*** rplacd
+file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/f_rplaca.htm
+*** rotatef
+file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/m_rotate.htm
+*** shiftf
+file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/m_shiftf.htm
+*** remf
+file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/m_remf.htm
+*** remprop
+file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/f_rempro.htm
+*** remhash
+file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/f_remhas.htm
+*** let*
+file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/s_let_l.htm
+In let* imperative programs often lie concealed, because it executes sequentially.
