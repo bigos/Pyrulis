@@ -10,39 +10,63 @@ Functions are grouped by families.
 
 *** set
 file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/f_set.htm
+has side-effects
 *** setq
 file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/s_setq.htm
+has side-effects
 *** setf
 file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/m_setf_.htm
+changes the value
+
+If more than one pair is supplied, the pairs are processed sequentially
 *** psetq
 file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/m_psetq.htm
+has side-effects
+parallel version of setq
 *** psetf
 file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/m_setf_.htm
+changes the value
+
 same as setf, but does not return the result
+
+For psetf, if more than one pair is supplied then the assignments of new values
+to places are done in parallel.
 *** incf
 file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/m_incf_.htm
+has side-effects
 *** decf
 file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/m_incf_.htm
+has side-effects
 *** push
 file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/m_push.htm
+has side-effects
 *** pushnew
 file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/m_pshnew.htm
+has side-effects
 *** pop
 file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/m_pop.htm
+has side-effects
 *** rplaca
 file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/f_rplaca.htm
+has side-effects
 *** rplacd
 file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/f_rplaca.htm
+has side-effects
 *** rotatef
 file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/m_rotate.htm
+modifies values
 *** shiftf
 file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/m_shiftf.htm
+modifies values
 *** remf
 file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/m_remf.htm
+has side-effects
 *** remprop
 file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/f_rempro.htm
+has side-effects
 *** remhash
 file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/f_remhas.htm
+has side-effects
 *** let*
 file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/s_let_l.htm
 In let* imperative programs often lie concealed, because it executes sequentially.
