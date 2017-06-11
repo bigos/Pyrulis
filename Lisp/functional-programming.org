@@ -70,3 +70,12 @@ has side-effects
 *** let*
 file:///home/jacek/Documents/Manuals/Lisp/HyperSpec-7-0/HyperSpec/Body/s_let_l.htm
 In let* imperative programs often lie concealed, because it executes sequentially.
+
+** Other destructive functions
+
+Many destructive functions are not on the above list. But their descriptions
+list side effects. One such example is FILL, which in it's description has
+section Side Effects explicitly describing side effects.
+
+Other functions do not have Side Effects section, but their description states
+it's a destructive operation. MERGE is such example.
