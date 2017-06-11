@@ -1314,6 +1314,49 @@ failing example
 ** 14.6 Kicking around QuickCheck
 *** Greater than the sum of its parts
 ** 14.7 Chapter Exercises
+* Chapter 15
+** 15.1 Monoids and semigroups
+*** interesting comments about Haskell and Mathematics
+One of the finer points of the Haskell community has been its propen-
+sity for recognizing abstract patterns in code which have well-defined,
+lawful representations in mathematics. A word frequently used to
+describe these abstractions is algebra, by which we mean one or more
+operations and the set they operate over. By set, we mean the type they
+operate over.
+
+** 15.2 What we talk about when we talk about algebras
+In Haskell, these algebras can be implemented with typeclasses;
+the typeclasses define the set of operations. When we talk about
+operations over a set, the set is the type the operations are for. The
+instance defines how each operation will perform for a given type
+or set. One of those algebras we use in Haskell is Monoid.
+
+** 15.3 Monoid
+A monoid is a binary associative operation with an identity.
+
+A function that takes two arguments whose order does not matter and will always
+return one of the arguments unchanged. (add 1 0) => 1
+
+Monoid is the typeclass that generalises these laws across types.
+
+** 15.4 How Monoid is defined in Haskell
+
+** 15.5 Examples of using Monoid
+
+** 15.6
+
+** 15.7 Why bother?
+In distributed processing computing in different order will not matter.
+
+** 15.8 Laws
+
+** 15.9 Different instance, same representation
+** 15.10 Reusing algebras by asking for algebras
+** 15.11 Madness
+** 15.12
+** 15.13 Semigroup
+* Chapter 16
+** 16.1 Functor
 
 * continue on page
-  page 561
+  page 613
