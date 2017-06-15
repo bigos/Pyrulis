@@ -1357,6 +1357,7 @@ In distributed processing computing in different order will not matter.
 ** 15.13 Semigroup
 * Chapter 16
 ** 16.1 Functor
-
+*** 16.5 Functor Laws
+*** 16.8 Transforming the unapplied argument
 * continue on page
-  page 613
+  page 641
