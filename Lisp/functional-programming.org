@@ -79,3 +79,10 @@ section Side Effects explicitly describing side effects.
 
 Other functions do not have Side Effects section, but their description states
 it's a destructive operation. MERGE is such example.
+
+** Interesting list
+C Baggers has compiled the list.
+https://github.com/cbaggers/tamei
+
+which, I have forked and git cloned cloned at
+~/Programming/Lisp/tamei
