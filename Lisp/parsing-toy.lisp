@@ -32,7 +32,7 @@
 (defun operator (c)
   (char-in c (tokenize "+-*/")))
 
-;;; string consumers
+;;; token consumers
 
 (defun consume-1 (token-list character-predicate)
   "Consume 1 character from the TOKEN-LIST, examine it with the
@@ -61,3 +61,15 @@ return nil."
   (if (consume-1 token-list character-predicate)
       (consume-0-or-more (cdr token-list) character-predicate)
       token-list))
+
+;;; rule types
+
+(defun alt (token-list alt-predicates)
+  (some (lambda (x) (funcall x (car token-list))) alt-predicates))
+;; (alt (tokenize "1") '(num whitespace))
+
+(defun succ (token-list succ-predicates)
+  (loop for tk in token-list
+     for p in succ-predicates
+     collect (funcall p tk)))
+;; (succ (tokenize "1 a") '(num whitespace letter-lower))
