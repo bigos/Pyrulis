@@ -61,3 +61,11 @@ return nil."
   (if (consume-1 token-list character-predicate)
       (consume-0-or-more (cdr token-list) character-predicate)
       token-list))
+
+;;; rule predicates
+
+(defun successionp (elements))
+
+(defun alternativep (elements))
+
+(defun sequencep (element start end))
