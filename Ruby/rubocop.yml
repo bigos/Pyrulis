@@ -1,0 +1,30 @@
+AllCops:
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - !ruby/regexp /old_and_unused\.rb$/
+
+# other configuration
+# explained at: https://github.com/bbatsov/rubocop/blob/master/config/default.yml
+
+# warning about too long lines increased to silence most warnings
+Metrics/LineLength:
+  Max: 280
+
+# Disable complaints about commenting classes.
+Documentation:
+  Enabled: false
+
+# We do not care if we use old or new syntax, just enforce consistency. This
+# option does not work with older versions of Rubocop, make sure you use the
+# latest version.
+Style/HashSyntax:
+  EnforcedStyle: no_mixed_keys
+
+# use Emacs style indentation
+Layout/MultilineMethodCallIndentation:
+EnforcedStyle: indented
