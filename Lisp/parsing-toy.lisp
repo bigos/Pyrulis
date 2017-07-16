@@ -78,3 +78,8 @@ return nil."
                           for p in succ-predicates
                           collect (funcall p tk)))))
 ;; (succ (tokenize "1 a") '(num whitespace letter-lower))
+
+;;; rule predicates
+;; (defun successionp (elements))
+;; (defun alternativep (elements))
+;; (defun sequencep (element start end))
