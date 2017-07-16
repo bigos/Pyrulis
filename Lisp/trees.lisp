@@ -1,7 +1,11 @@
 ;;; example from: http://shrager.org/llisp/13.html
 
-;;; cons versions
+;;; tree example
 
+;;; list version
+'((MARY HAD A) (LITTLE (LAMBDA)))
+
+;;; cons versions
 (cons (cons 'mary
             (cons 'had
                   (cons 'a
@@ -10,4 +14,14 @@
                   (cons (cons 'lambda
                               nil)
                         nil))
+            nil))
+
+;;; simple list
+
+;;; list version
+'(a list)
+
+;;; cons version
+(cons 'a
+      (cons 'list
             nil))
