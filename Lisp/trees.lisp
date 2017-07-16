@@ -28,9 +28,11 @@
 
 ;;; list to cons
 (defun list-conser (list)
-  `(cons ,(if (atom (car list))
-              (car list)
-              (list-conser (car list)))
-         ,(if (atom (cdr list))
-              (cdr list)
-              (list-conser (cdr list)))))
+  (labels
+      ((conser (fn l)
+         (let ((el (funcall fn l)))
+           (if (atom el)
+               el
+               (list-conser el)))))
+    `(cons ,(conser 'car list)
+           ,(conser 'cdr list))))
