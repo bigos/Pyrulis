@@ -25,3 +25,12 @@
 (cons 'a
       (cons 'list
             nil))
+
+;;; list to cons
+(defun list-conser (list)
+  `(cons ,(if (atom (car list))
+              (car list)
+              (list-conser (car list)))
+         ,(if (atom (cdr list))
+              (cdr list)
+              (list-conser (cdr list)))))
