@@ -26,6 +26,10 @@
       (cons 'list
             nil))
 
+;;; parsing links
+;; https://github.com/vsedach/Vacietis/blob/master/compiler/reader.lisp
+;; https://stackoverflow.com/questions/21185879/writing-a-formal-language-parser-with-lisp
+
 ;;; list to cons
 (defun list-conser (list)
   (labels
