@@ -36,7 +36,10 @@
       ((conser (fn l)
          (let ((el (funcall fn l)))
            (if (atom el)
-               el
+               (if (symbolp el)
+                   (list 'quote el)
+                   el)
                (list-conser el)))))
-    `(cons ,(conser 'car list)
-           ,(conser 'cdr list))))
+    (list 'cons
+          (conser 'car list)
+          (conser 'cdr list))))
