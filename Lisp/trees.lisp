@@ -43,3 +43,29 @@
     (list 'cons
           (conser 'car list)
           (conser 'cdr list))))
+
+;;; visualising cons structures
+(ql:quickload :draw-cons-tree)
+(draw-cons-tree:draw-tree '(if (> 1 2) :gt  :lt))
+(draw-cons-tree:draw-tree '(1 . (2 . 3)))
+
+
+;;; probably simplest grammar
+(defparameter source "1+2=3")
+
+(defun num (cursor)
+  (let ((ch (subseq source cursor (+ cursor 1))))
+    (when (or (equal "1" ch)
+              (equal "2" ch)
+              (equal "3" ch))
+      (+ cursor 1))))
+
+(defun op (cursor)
+  (let ((ch (subseq source cursor (+ cursor 1))))
+    (when (or (equal "+" ch)
+              (equal "=" ch))
+      (+ cursor 1))))
+
+(defun gram ()
+  (when (integerp (num (op (num (op (num 0))))))
+      'success))
