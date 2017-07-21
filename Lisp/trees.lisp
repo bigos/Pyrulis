@@ -51,7 +51,7 @@
 
 
 ;;; probably simplest grammar
-(defparameter source "1+2=3")
+(defparameter source "111+2=3")
 
 (defun num (cursor)
   (let ((ch (subseq source cursor (+ cursor 1))))
@@ -67,5 +67,8 @@
       (+ cursor 1))))
 
 (defun gram ()
-  (when (integerp (num (op (num (op (num 0))))))
+  (when (integerp (num (op (num (op
+                                 (num
+                                  (num
+                                   (num 0))))))))
       'success))
