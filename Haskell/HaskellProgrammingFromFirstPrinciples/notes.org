@@ -1371,5 +1371,13 @@ list, so the structures themselves have been joined. However, the
 core operation of Functor, fmap applies a function to a value that is
 within some structure while leaving that structure unaltered.
 
+Applicative is a monoidal functor.
+
+*** 17.2 Defining Applicative
+
+*** 17.3 Functor vs. Applicative
+
+*** 17.4 Applicative functors are monoidal functors
+
 * continue on page
-  page 670
+  page 673
