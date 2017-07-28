@@ -1,17 +1,38 @@
-http://emacs.stackexchange.com/questions/21275/looking-for-a-better-theme-fix-in-slime
+This page has the answer:
 
-easiest way:
+https://emacs.stackexchange.com/questions/21275/looking-for-a-better-theme-fix-in-slime
 
-just edit relevant file
+M-x customize-face
 
-replacing version 2.14 with current one
-~/quicklisp/dists/quicklisp/software/slime-2.14/contrib/slime-presentations.el
+then enter the argument
 
-so that relevant part reads like
+slime-repl-inputed-output-face
 
-(defface slime-repl-inputed-output-face
-  '((((class color) (background light)) (:foreground "Red"))
-    (((class color) (background dark)) (:foreground "Yellow"))
-    (t (:slant italic)))
-  "Face for the result of an evaluation in the SLIME REPL."
-  :group 'slime-repl)
+On the button 'State' select 'For All Kinds of Displays'
+
+Then you will see two sections for for two different screen classes. The second
+section has Dark selected [X]. make sure you change the foreground color to
+yellow and save your changes.
+
+Slime Repl Inputed Output Face:[sample]
+   [ State ]: EDITED, shown value does not take effect until you set or save it.
+   Face for the result of an evaluation in the SLIME REPL.
+[INS] [DEL] Display: [ ] Type: [ ] X [ ] PM [ ] W32 [ ] NS [ ] DOS [ ] TTY
+                     [X] Class: [X] Color [ ] Grayscale [ ] Monochrome
+                     [ ] Minimum number of colors: 0
+                     [X] Background brightness: [X] Light [ ] Dark
+                     [ ] Supports attributes:
+                           -- Empty face --
+                        Show All Attributes
+               [X] Foreground: red        [ Choose ]  (sample)
+               Show All Attributes
+[INS] [DEL] Display: [ ] Type: [ ] X [ ] PM [ ] W32 [ ] NS [ ] DOS [ ] TTY
+                     [X] Class: [X] Color [ ] Grayscale [ ] Monochrome
+                     [ ] Minimum number of colors: 0
+                     [X] Background brightness: [ ] Light [X] Dark
+                     [ ] Supports attributes:
+                           -- Empty face --
+                        Show All Attributes
+               [X] Foreground: red      [ Choose ]  (sample)
+               Show All Attributes
+[INS]
