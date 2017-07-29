@@ -1,3 +1,9 @@
+finding used font
+on the colourised slime output
+use menu
+Edit / Text Properties / Describe Properties
+---------------------
+
 http://emacs.stackexchange.com/questions/21275/looking-for-a-better-theme-fix-in-slime
 
 easiest way:
