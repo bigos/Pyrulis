@@ -1382,5 +1382,10 @@ Applicative is a monoidal functor.
 ** 17.5 Applicative in use
 
 ** 17.7 You knew this was coming
+
+* Chapter 18
+
+** 18.1 Monad
+
 * continue on page
-  page 707
+  page 723
