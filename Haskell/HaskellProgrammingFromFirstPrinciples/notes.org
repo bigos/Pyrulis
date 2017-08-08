@@ -1359,5 +1359,33 @@ In distributed processing computing in different order will not matter.
 ** 16.1 Functor
 *** 16.5 Functor Laws
 *** 16.8 Transforming the unapplied argument
+* Chapter 17
+** 17.1 Applicative
+In the previous chapters, we’ve seen two common algebras that are
+used as typeclasses in Haskell. Monoid gives us a means of mashing
+two values of the same type together. Functor, on the other hand,
+is for function application over some structure we don’t want to
+have to think about. Monoid’s core operation, mappend smashes the
+structures together — when you mappend two lists, they become one
+list, so the structures themselves have been joined. However, the
+core operation of Functor, fmap applies a function to a value that is
+within some structure while leaving that structure unaltered.
+
+Applicative is a monoidal functor.
+
+** 17.2 Defining Applicative
+
+** 17.3 Functor vs. Applicative
+
+** 17.4 Applicative functors are monoidal functors
+
+** 17.5 Applicative in use
+
+** 17.7 You knew this was coming
+
+* Chapter 18
+
+** 18.1 Monad
+
 * continue on page
-  page 641
+  page 723

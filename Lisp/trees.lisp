@@ -51,33 +51,39 @@
 
 
 ;;; probably simplest grammar
-(defparameter source "111+2=113 ")
+(defparameter source "111+12=123 ")
 
 (defun num (cursor)
   (let ((ch (subseq source cursor (+ cursor 1))))
-    (when (or (equal "1" ch)
-              (equal "2" ch)
-              (equal "3" ch))
-      (+ cursor 1))))
+    (if (or (equal "1" ch)
+            (equal "2" ch)
+            (equal "3" ch))
+        (+ cursor 1)
+        nil)))
 
 (defun op (cursor)
   (let ((ch (subseq source cursor (+ cursor 1))))
-    (when (or (equal "+" ch)
-              (equal "=" ch))
-      (+ cursor 1))))
+    (if (or (equal "+" ch)
+            (equal "=" ch))
+        (+ cursor 1)
+        nil)))
 
 (defun iter1+ (fn cursor &optional acc)
   (if (integerp (funcall fn cursor))
-      (progn
-        (iter1+ fn (1+ cursor) (1+ cursor)))
-      (progn
-        acc)))
+      (iter1+ fn (1+ cursor) (1+ cursor))
+      acc))
+
+(defun alternat (fns cursor)
+  (loop for fn in fns
+        for r = (funcall fn cursor)
+        until (integerp r)
+        finally (return r)))
 
 (defun gram ()
   (when (integerp
          (iter1+ 'num
-          (op
-           (num
-            (op
-             (iter1+ 'num 0))))))
+                 (op
+                  (iter1+ 'num
+                          (op
+                           (iter1+ 'num 0))))))
     'success))
