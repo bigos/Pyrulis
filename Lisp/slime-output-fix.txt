@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-This page has the answer:
-=======
 finding used font
 on the colourised slime output
 use menu
@@ -8,9 +5,6 @@ Edit / Text Properties / Describe Properties
 ---------------------
 
 http://emacs.stackexchange.com/questions/21275/looking-for-a-better-theme-fix-in-slime
->>>>>>> b72fdf0abe865fd9c991fc44696e140d30df861f
-
-https://emacs.stackexchange.com/questions/21275/looking-for-a-better-theme-fix-in-slime
 
 M-x customize-face
 
