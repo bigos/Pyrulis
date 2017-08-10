@@ -42,4 +42,4 @@
   (let ((ii (rfs seq 0 nil)))
     (loop for a in ii
           for b in (cdr ii)
-          collect (subseq seq a (or b (1+ a))))))
+          collect (subseq seq a (or b (1- (length seq)))))))
