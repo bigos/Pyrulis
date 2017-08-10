@@ -6,8 +6,22 @@
 
 (draw-cons-tree:draw-tree '(sentence
                             (i i)
+                            (word-separator)
                             (like l i k e)
-                            (lisp l i s p)))
+                            (word-separator)
+                            (either
+                             (lisp l i s p)
+                             (other-language 1+chars))))
+
+(defparameter zzz
+  '(sentence
+    (sequence
+     (i
+      (chars #\i))
+     (like
+      (chars #\l #\i #\k #\e))
+     (other-language
+      (chars #\r #\u #\b #\y)))))
 
 (defun findnext (seq start)
   (loop for c across (subseq seq start)
@@ -25,7 +39,7 @@
         until res
         finally (return (when res index))))
 
-;;; mutually recursive functions
+;;; mutually recursive functions--------------------------------------
 (defun rfs (seq start acc)
   (format t "rfs ~A ~A~%" start acc)
   (if (null start)
@@ -43,3 +57,4 @@
     (loop for a in ii
           for b in (cdr ii)
           collect (subseq seq a (or b (1- (length seq)))))))
+;;; ------------------------------------------------------------------
