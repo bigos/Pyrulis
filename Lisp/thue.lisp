@@ -30,3 +30,18 @@ is replaced with replacement."
                            :end (or pos (length string)))
           when pos do (write-string replacement out)
             while pos)))
+
+(defun replace-substring (str pat replacement)
+  (let ((patpos (search pat str)))
+    (when patpos
+      (let ((pre (subseq str 0 patpos))
+            (post (subseq str (+ patpos (length pat) 0))))
+        (concatenate 'string pre replacement post)))))
+
+(defun replace-all-ng (str pat replacement)
+  (let ((patpos (search pat str)))
+    (if (null patpos)
+        str
+        (let ((pre (subseq str 0 patpos))
+              (post (subseq str (+ patpos (length pat)))))
+          (concatenate 'string pre replacement (replace-all-ng post pat replacement))))))
