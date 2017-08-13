@@ -17,17 +17,19 @@
 
 (defvar *data* "_111_")
 
-(defun matching-rules (data)
-  (loop for r in *rules*
-        when (search (car r) data) collect r))
+(defun matching-rule (data)
+  (car
+   (loop for r in *rules*
+         when (search (car r) data)
+           collect r)))
 
 ;;; this is different from Thue language, because we apply the first rule found
 ;;; the original uses random selected from possibly multiple matched rules
 (defun execute (data)
   (format t "data ~s~%" data)
-  (let ((m (matching-rules data)))
+  (let ((m (matching-rule data)))
     (when m
       (execute
        (replace-all data
-                    (caar (matching-rules data))
-                    (cdar (matching-rules data)))))))
+                    (car m)
+                    (cdr m))))))
