@@ -8,28 +8,31 @@
               (post (subseq str (+ patpos (length pat)))))
           (concatenate 'string pre replacement (replace-all post pat replacement))))))
 
-(defvar *rules* '(("1_" . "1++")
-                  ("0_" . "1")
-                  ("01++" . "10")
-                  ("11++" . "1++0")
-                  ("_0" . "_")
-                  ("_1++" . "10")))
+(defparameter *rules* '(("1_" . "1++")
+                        ("0_" . "1")
+                        ("01++" . "10")
+                        ("11++" . "1++0")
+                        ("_0" . "_")
+                        ("_1++" . "10")))
 
-(defvar *data* "_111_")
+(defparameter *data* "_111_")
 
 (defun matching-rule (data)
-  (car
-   (loop for r in *rules*
-         when (search (car r) data)
-           collect r)))
+  (let ((rules (loop for r in *rules*
+                     when (search (car r) data)
+                       collect r)))
+    (when rules
+      (elt rules (random (length rules))))))
 
-;;; this is different from Thue language, because we apply the first rule found
-;;; the original uses random selected from possibly multiple matched rules
-(defun execute (data)
-  (format t "data ~s~%" data)
-  (let ((m (matching-rule data)))
-    (when m
-      (execute
-       (replace-all data
-                    (car m)
-                    (cdr m))))))
+(defun execute (data &optional (count 0))
+  (if (>= count 20)
+      (format t "~&warning: end of stack protection reached")
+      (progn
+        (format t "data ~s~%" data)
+        (let ((m (matching-rule data)))
+          (when m
+            (execute
+             (replace-all data
+                          (car m)
+                          (cdr m))
+             (1+ count)))))))
