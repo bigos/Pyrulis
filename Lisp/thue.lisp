@@ -6,16 +6,16 @@
         str
         (let ((pre (subseq str 0 patpos))
               (post (subseq str (+ patpos (length pat)))))
-          (concatenate 'string pre replacement (replace-all post pat replacement))))))
+          (concatenate 'list pre replacement (replace-all post pat replacement))))))
 
-(defparameter *rules* '(("1_" . "1++")
-                        ("0_" . "1")
-                        ("01++" . "10")
-                        ("11++" . "1++0")
-                        ("_0" . "_")
-                        ("_1++" . "10")))
+(defparameter *rules* '(((1 _) (1 + +))
+                        ((0 _) (1))
+                        ((0 1 + +) (1 0))
+                        ((1 1 + +) (1 + + 0))
+                        ((_ 0) (_))
+                        ((_ 1 + +) (1 0))))
 
-(defparameter *data* "_111_")
+(defparameter *data* '(_ 1 1 1 _))
 
 (defun matching-rule (data)
   (let ((rules (loop for r in *rules*
@@ -34,5 +34,5 @@
             (execute
              (replace-all data
                           (car m)
-                          (cdr m))
+                          (cadr m))
              (1+ count)))))))
