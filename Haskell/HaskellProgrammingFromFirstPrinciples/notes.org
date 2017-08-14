@@ -1386,6 +1386,18 @@ Applicative is a monoidal functor.
 * Chapter 18
 
 ** 18.1 Monad
+Monads are applicative functors, but they have something special
+about them that makes them different from and more powerful than
+either <*> or fmap alone.
+
+** 18.2 Sorry --- Monad is not a burrito
+A functor maps a function over some structure; an applicative maps
+a function that is contained in some structure over some other struc-
+ture and then combines the two layers of structure like mappend.
+So you can think of monads as just another way of applying func-
+tions over structure, with a couple of additional features.
+
+*** Applicative m
 
 * continue on page
   page 723
