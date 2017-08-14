@@ -10,37 +10,17 @@
 (defparameter *data* '(_ 1 1 1 _))
 
 ;;; semi-thue version of 10 saussages
-(defparameter *my-rules* '(((start) (10 saussages frying in the pan))
-
-                           ((10 saussages frying in the pan) (10 saussages one goes bang))
-                           ((10 saussages one goes bang) (9 saussages frying in the pan))
-
-                           ((9 saussages frying in the pan) (9 saussages one goes bang))
-                           ((9 saussages one goes bang) (8 saussages frying in the pan))
-
-                           ((8 saussages frying in the pan) (8 saussages one goes bang))
-                           ((8 saussages one goes bang) (7 saussages frying in the pan))
-
-                           ((7 saussages frying in the pan) (7 saussages one goes bang))
-                           ((7 saussages one goes bang) (6 saussages frying in the pan))
-
-                           ((6 saussages frying in the pan) (6 saussages one goes bang))
-                           ((6 saussages one goes bang) (5 saussages frying in the pan))
-
-                           ((5 saussages frying in the pan) (5 saussages one goes bang))
-                           ((5 saussages one goes bang) (4 saussages frying in the pan))
-
-                           ((4 saussages frying in the pan) (4 saussages one goes bang))
-                           ((4 saussages one goes bang) (3 saussages frying in the pan))
-
-                           ((3 saussages frying in the pan) (3 saussages one goes bang))
-                           ((3 saussages one goes bang) (2 saussages frying in the pan))
-
-                           ((2 saussages frying in the pan) (2 saussages one goes bang))
-                           ((2 saussages one goes bang) (1 saussages frying in the pan))
-
-                           ((1 saussages frying in the pan) (1 saussages one goes bang))
-                           ((1 saussages one goes bang) (no saussages left))))
+(defparameter *my-rules* '(((start) (10 saussages frying in the pan 10 saussages one goes bang))
+                           ((10)(9))
+                           ((9) (8))
+                           ((8) (7))
+                           ((7) (6))
+                           ((6) (5))
+                           ((5) (4))
+                           ((4) (3))
+                           ((3) (2))
+                           ((2) (1))
+                           ((1 saussages frying in the pan 1 saussages one goes bang) (no saussages left))))
 
 (defparameter *my-data* '(start))
 ;; run
