@@ -1399,5 +1399,108 @@ tions over structure, with a couple of additional features.
 
 *** Applicative m
 
+Whenever you’ve implemented an instance of Monad for a type
+you necessarily have an Applicative and a Functor as well.
+
+*** Core operations
+
+The Monad typeclass defines three core operations, although you only
+need to define >>= for a minimally complete Monad instance. Let’s
+look at all three:
+
+(>>=) :: m a -> (a -> m b) -> m b
+(>>) :: m a -> m b -> m b
+return :: a -> m a
+
+We can dispense with the last of those, return, pretty easily: it’s just
+the same as pure. All it does is take a value and return it inside your
+structure, whether that structure is a list or Just or IO. We talked about
+it a bit, and used it, back in the Modules chapter, and we covered pure
+in the Applicative chapter, so there isn’t much else to say about it.
+
+The next operator, >> doesn’t have an official English-language
+name, but we like to call it Mr. Pointy. Some people do refer to it as
+the sequencing operator, which we must admit is more informative
+than Mr. Pointy. Basically Mr. Pointy sequences two actions while
+discarding any resulting value of the first action. Applicative has
+a similar operator as well, although we didn’t talk about it in that
+chapter. We will see examples of this operator in the upcoming
+section on do syntax.
+
+Finally, the big bind! The >>= operator is called bind and is
+
+*** The novel part of Monad
+
+Conventionally when we use monads, we use the bind function, >>=.
+Sometimes we use it directly, sometimes indirectly via do syntax.
+
+We already saw that it’s not return; that’s just another name for
+pure from Applicative.
+
+We also noted (and will see more clearly soon) that it also isn’t >>
+which has a counterpart in Applicative.
+
+The type of concat, fully generalized:
+
+concat :: Foldable t => t [a] -> [a]
+
+-- we can assert a less general type for our purposes here
+
+concat :: [[[[a]]]] -> [a]
+
+Monad, in a sense, is a generalization of concat! The unique part of
+Monad is the following function:
+
+import Control.Monad (join)
+join :: Monad m => m (m a) -> m a
+
+-- compare concat :: [[[[a]]]] -> [a]
+
+It’s also somewhat novel that we can inject more structure via our
+function application, where applicatives and fmaps have to leave
+the structure untouched.
+
+*** What Monad is not
+Since Monad is somewhat abstract and can be quite slippery, many
+people talk about it from one or two perspectives that they feel most
+comfortable with. Quite often, they address what Monad is from the
+perspective of the IO Monad. IO does have a Monad instance, and it is a
+very common use of monads. However, understanding monads only
+through that instance leads to limited intuitions for what monads
+are and can do, and to a lesser extent, a wrong notion of what IO is
+all about.
+
+Monad is not:
+
+1. Impure. Monadic functions are pure functions. IO is an abstract
+datatype that allows for impure, or effectful, actions, and it has
+a Monad instance. But there’s nothing impure about monads.
+
+2. An embedded language for imperative programming. Simon
+Peyton-Jones, one of the lead developers and researchers of
+Haskell and its implementation in GHC, has famously said,
+“Haskell is the world’s finest imperative programming language,”
+and he was talking about the way monads handle effectful pro-
+gramming. While monads are often used for sequencing actions
+in a way that looks like imperative programming, there are com-
+mutative monads that do not order actions. We’ll see one a few
+chapters down the line when we talk about Reader.
+
+3. A value. The typeclass describes a specific relationship between
+elements in a domain and defines some operations over them.
+When we refer to something as “a monad,” we’re using that the
+same way we talk about “a monoid,” or “a functor.” None of
+those are values.
+
+4. About strictness. The monadic operations of bind and return are
+nonstrict. Some operations can be made strict within a specific
+instance. We’ll talk more about this later in the book.
+
+Using monads also doesn’t require knowing math. Or category
+theory. It does not require mystical trips to the tops of mountains or
+starving oneself in a desert somewhere.
+
+*** Monad also lifts!
+
 * continue on page
-  page 723
+  page 729
