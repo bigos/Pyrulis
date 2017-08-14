@@ -1,13 +1,21 @@
 ;;; thue grammar toy
 
-(defparameter *rules* '(((1 _) (1 + +))
-                        ((0 _) (1))
-                        ((0 1 + +) (1 0))
-                        ((1 1 + +) (1 + + 0))
-                        ((_ 0) (_))
-                        ((_ 1 + +) (1 0))))
+(defun replace-all (str pat replacement)
+  (let ((patpos (search pat str)))
+    (if (null patpos)
+        str
+        (let ((pre (subseq str 0 patpos))
+              (post (subseq str (+ patpos (length pat)))))
+          (concatenate 'list pre replacement (replace-all post pat replacement))))))
 
-(defparameter *data* '(_ 1 1 1 _))
+(defparameter *rules* '(((1 _) (1 ++))
+                        ((0 _) (1))
+                        ((0 1 ++) (1 0))
+                        ((1 1 ++) (1 ++ 0))
+                        ((start 0) (start))
+                        ((start 1 ++) (1 0))))
+
+(defparameter *data* '(start 1 1 1 _))
 
 ;;; semi-thue version of 10 saussages
 (defparameter *my-rules* '(((start) (10 saussages frying in the pan 10 saussages one goes bang))
