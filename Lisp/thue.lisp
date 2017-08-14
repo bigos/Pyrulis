@@ -8,14 +8,14 @@
               (post (subseq str (+ patpos (length pat)))))
           (concatenate 'list pre replacement (replace-all post pat replacement))))))
 
-(defparameter *rules* '(((1 _) (1 + +))
+(defparameter *rules* '(((1 _) (1 ++))
                         ((0 _) (1))
-                        ((0 1 + +) (1 0))
-                        ((1 1 + +) (1 + + 0))
-                        ((_ 0) (_))
-                        ((_ 1 + +) (1 0))))
+                        ((0 1 ++) (1 0))
+                        ((1 1 ++) (1 ++ 0))
+                        ((start 0) (start))
+                        ((start 1 ++) (1 0))))
 
-(defparameter *data* '(_ 1 1 1 _))
+(defparameter *data* '(start 1 1 1 _))
 
 (defun matching-rule (data)
   (let ((rules (loop for r in *rules*
