@@ -9,7 +9,6 @@
 
 (defparameter *data* '(_ 1 1 1 _))
 
-
 ;;; semi-thue version of 10 saussages
 (defparameter *my-rules* '(((start) (10 saussages frying in the pan))
 
@@ -44,7 +43,8 @@
                            ((1 saussages one goes bang) (no saussages left))))
 
 (defparameter *my-data* '(start))
-
+;; run
+;; (execute *my-data* *my-rules*)
 
 (defun replace-all (str pat replacement)
   (let ((patpos (search pat str)))
@@ -60,8 +60,8 @@
                        collect r)))
     (when rules
       ;; (format t "rules ~A~%" rules)
-      (first rules)
-      ;; (elt rules (random (length rules)))
+      ;; (first rules)
+      (elt rules (random (length rules)))
       )))
 
 (defun execute (data rules &optional (count 0))
