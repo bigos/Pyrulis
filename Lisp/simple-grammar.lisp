@@ -14,7 +14,8 @@
                                      #\6
                                      #\7
                                      #\8
-                                     #\9))))
+                                     #\9
+                                     #\.))))
 
 (defun invalid-nodes (grammar)
   (loop for p in grammar
@@ -35,9 +36,25 @@
 (defun node-value-type (grammar node)
   (car (node-value grammar node)))
 
-(defun find-character (grammar character)
+(defun find-rhs (grammar character)
   (loop for p in grammar
         for res = (cadr p)
         when (some (lambda (x) (eq x character)) res)
           collect (list (car p)
                         (caadr p))))
+
+(defun find-ancestors (grammar character &optional acc)
+  "Get non ambiguous ancestors of the CHARACTER."
+  (let ((rhs (find-rhs grammar character)))
+    (if (eq (length rhs) 1)
+        (find-ancestors grammar (caar rhs) (cons character acc))
+        (cons character  acc))))
+
+(defun ambiguous-p (grammar character)
+  (not (eq 's (car (find-ancestors grammar character)))))
+
+(defun ambiguities (grammar character)
+  (let ((d (find-ancestors grammar character)))
+    (if (eq 's (car d))
+        nil
+        (find-rhs grammar character))))
