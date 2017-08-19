@@ -34,14 +34,16 @@
         for res = (cadr p)
         when (some (lambda (x) (eq x character)) res)
           collect (list (car p)
-                        (caadr p))))
+                        (caadr p)
+                        (1- (length (cadr p))))))
 
 (defun find-ancestors (grammar character &optional acc)
   "Get non ambiguous ancestors of the CHARACTER."
   (let ((rhs (find-rhs grammar character)))
     (if (eq (length rhs) 1)
-        (find-ancestors grammar (caar rhs) (cons character acc))
-        (cons character  acc))))
+        (find-ancestors grammar (caar rhs)
+                        (cons (list character (car rhs)) acc))
+          acc)))
 
 (defun ambiguous-p (grammar character)
   (not (eq 's (car (find-ancestors grammar character)))))
