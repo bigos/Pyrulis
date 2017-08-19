@@ -14,8 +14,7 @@
                                      #\6
                                      #\7
                                      #\8
-                                     #\9
-                                     #\.))))
+                                     #\9))))
 
 (defun invalid-nodes (grammar)
   (loop for p in grammar
@@ -29,12 +28,6 @@
         for res = (equalp (car p) node)
         until res
         finally (return (when res p))))
-
-(defun node-value (grammar node)
-  (cadr (find-node grammar node)))
-
-(defun node-value-type (grammar node)
-  (car (node-value grammar node)))
 
 (defun find-rhs (grammar character)
   (loop for p in grammar
@@ -58,3 +51,13 @@
     (if (eq 's (car d))
         nil
         (find-rhs grammar character))))
+
+(defun parse (grammar string)
+  (loop for zn across string collect (find-ancestors grammar zn)))
+
+;;; parsed representation of valid ip
+(defun main ()
+  (print
+   (parse better-grammar "123.456.789.000")))
+
+(main)
