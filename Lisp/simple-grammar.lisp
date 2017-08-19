@@ -16,6 +16,12 @@
                                      #\8
                                      #\9))))
 
+(defstruct node
+  name
+  kind
+  values
+  prev)
+
 (defun invalid-nodes (grammar)
   (loop for p in grammar
         for res = (and (symbolp (car p))
