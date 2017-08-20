@@ -16,12 +16,6 @@
                                      #\8
                                      #\9))))
 
-(defstruct node
-  name
-  kind
-  values
-  prev)
-
 (defun invalid-nodes (grammar)
   (loop for p in grammar
         for res = (and (symbolp (car p))
@@ -43,13 +37,11 @@
                         (caadr p)
                         (1- (length (cadr p))))))
 
-(defun find-ancestors (grammar character prev &optional acc)
+(defun find-ancestors (grammar character &optional acc)
   "Get non ambiguous ancestors of the CHARACTER."
   (let ((rhs (find-rhs grammar character)))
     (if (eq (length rhs) 1)
-        (find-ancestors grammar
-                        (caar rhs)
-                        prev
+        (find-ancestors grammar (caar rhs)
                         (cons (list character (car rhs)) acc))
           acc)))
 
@@ -63,11 +55,7 @@
         (find-rhs grammar character))))
 
 (defun parse (grammar string)
-  (loop
-    for prev = nil then res
-    for zn across string
-    for res = (find-ancestors grammar zn prev)
-    collect res))
+  (loop for zn across string collect (find-ancestors grammar zn)))
 
 ;;; parsed representation of valid ip
 (defun main ()
