@@ -18,5 +18,8 @@
 (defun rule-match (rules data)
    (loop for r in rules
          for res = (replace-all (or res data) (car r) (cadr r))
+         do (format t "~A ~A~%" r res)
          while (equalp res data)
-         finally (return res)))
+         finally (return (if (equalp res data)
+                             nil
+                             res))))
