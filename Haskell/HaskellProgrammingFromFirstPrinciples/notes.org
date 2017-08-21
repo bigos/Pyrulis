@@ -1501,6 +1501,17 @@ theory. It does not require mystical trips to the tops of mountains or
 starving oneself in a desert somewhere.
 
 *** Monad also lifts!
+** 18.3 Do syntax and monads
+Interesting examples of do on p 732
+
+Putting IO actions in a structure to be evaluated later.
+
+Example of do syntax and a monad with variable on p 736
+
+** 18.4 Examples of Monad use
+
+** 18.5 Monad laws
+
 
 * continue on page
-  page 729
+  page 752
