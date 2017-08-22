@@ -9,14 +9,13 @@
 (defun rep (sequence start min max element)
   "Check if the SEQUENCE at START contains ELEMENT repeated from MIN to MAX times."
   (let ((found (loop
-                 for seen = 0 then (1+ seen)
+                 for seen from 0 to (1+ max)
                  for i from start below (length sequence)
-                 while (and (<= seen max)
-                            (equalp (elt sequence i) element))
+                 while (equalp (elt sequence i) element)
                  finally (return seen))))
-    (if (and (>= min found)
-             (<= max found))
-        found)))
+    (when (and (>= found min)
+               (<= found max))
+      found)))
 
 (defun alt (sequence start elements)
   "Check if the SEQUENCE at START is one of the ELEMENTS."
