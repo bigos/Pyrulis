@@ -18,6 +18,8 @@ class Grammar
     [symb] + find_parents(symb)
   end
 
+  private
+
   def symbol_parent(symb)
     @data.select { |_, val| val.index symb }.keys
   end
@@ -25,8 +27,7 @@ class Grammar
   def find_parents(symb)
     parents = symbol_parent symb
     seen = []
-    loop do
-      break if parents.empty?
+    while (not parents.empty?)
       psym = parents.first
       seen << psym
       parents = symbol_parent psym
@@ -44,14 +45,6 @@ class ParseTree
     @tree = parse
   end
 
-  def classify(char)
-    matches = []
-    @grammar.data.each do |key, rhs|
-      matches << @grammar.path(key).reverse unless rhs.reject { |elx| elx != char }.empty?
-    end
-    matches
-  end
-
   def parse
     classified_chars = []
     @str.each_char do |char|
@@ -60,6 +53,17 @@ class ParseTree
 
     classified_chars
   end
+
+  private
+
+  def classify(char)
+    matches = []
+    @grammar.data.each do |key, rhs|
+      matches << @grammar.path(key).reverse unless rhs.reject { |elx| elx != char }.empty?
+    end
+    matches
+  end
+
 end
 
 str = "123 + 456 "
