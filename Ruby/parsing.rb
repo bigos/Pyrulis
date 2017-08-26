@@ -4,7 +4,6 @@
 
 # a class for grammar data
 class Grammar
-  $count = 0
   attr_reader :data
   def initialize
     @data = { s: [:seq, :num, :op, :num],
@@ -27,12 +26,24 @@ class Grammar
   def find_parents(symb)
     parents = symbol_parent symb
     seen = []
-    while (not parents.empty?)
+    until parents.empty?
       psym = parents.first
       seen << psym
       parents = symbol_parent psym
     end
     seen
+  end
+end
+
+# class for parse tree nodes
+class Node
+  def initialize(char, path)
+    @char = char if path.length == 1
+    @dir = path.first
+  end
+
+  def add_node(char, path)
+    # finish me
   end
 end
 
@@ -42,15 +53,18 @@ class ParseTree
   def initialize(str)
     @grammar = Grammar.new
     @str = str
-    @tree = parse
+    @tree = Node.new nil, [:s]
+    parse
+    @tree
   end
 
   def parse
     classified_chars = []
     @str.each_char do |char|
-      classified_chars << [char, classify(char)]
+      path = classify char
+      classified_chars << [char, path]
+      @tree.add_node char, path
     end
-
     classified_chars
   end
 
@@ -63,10 +77,9 @@ class ParseTree
     end
     matches
   end
-
 end
 
-str = "123 + 456 "
+str = '123 + 456 '
 tree = ParseTree.new(str)
 
 p tree
