@@ -1511,7 +1511,12 @@ Example of do syntax and a monad with variable on p 736
 ** 18.4 Examples of Monad use
 
 ** 18.5 Monad laws
+It can be easy at times to accidentally write an invalid Monad that typechecks,
+so it’s important to use QuickCheck to validate your Monoid, Functor,
+Applicative, and Monad instances.
+
+** 18.6 Application and composition
 
 
 * continue on page
-  page 752
+  page 759
