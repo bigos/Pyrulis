@@ -1,0 +1,20 @@
+* Dijkstra quotes
+
+** Simplicity
+
+#+BEGIN_QUOTE
+Simplicity is a great virtue but it requires hard work to achieve it and
+education to appreciate it. And to make matters worse: complexity sells better.
+#+END_QUOTE
+
+https://www.cs.utexas.edu/users/EWD/transcriptions/EWD08xx/EWD896.html
+
+** Truth hurts
+
+#+BEGIN_QUOTE
+Sometimes we discover unpleasant truths. Whenever we do so, we are in
+difficulties: suppressing them is scientifically dishonest, so we must tell
+them, but telling them, however, will fire back on us.
+#+END_QUOTE
+
+https://www.cs.virginia.edu/~evans/cs655/readings/ewd498.html
