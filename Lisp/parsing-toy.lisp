@@ -1,9 +1,9 @@
 ;;; simple lisp parser
 
 (defparameter grammar '((s     seq num op num )
-                        (op    alt + - * /)
+                        (op    alt #\+ #\- #\* #\/)
                         (num   seq digit)
-                        (digit alt 0 1 2 3 4 5 6 7 8 9)))
+                        (digit alt #\0 #\1 #\2 #\3 #\4 #\5 #\6 #\7 #\8 #\9)))
 (defparameter ast '(s
                     (num
                      (digit 1)
@@ -59,11 +59,16 @@
           grammar)
     definitions))
 
-(defun terminal-path (v &optional acc)
+(defun terminal-path-inner (v &optional acc)
   (let ((td (terminal-definitions v)))
     (if (null td)
         acc
-        (terminal-path (caar td) (cons td acc)))))
+        (terminal-path-inner (caar td)
+                       (cons (caar td)
+                             acc)))))
+
+(defun terminal-path (v)
+  (terminal-path-inner v (list v)))
 
 ;;; basic utilities
 
@@ -76,6 +81,10 @@
 
 (defun char-within-range (c c-from c-to)
   (char<= c-from c c-to))
+
+(defun string-to-paths (str)
+  "Convert STR to a list of grammar paths"
+  (loop for c across str collect (terminal-path c)))
 
 ;;; character predicates
 
