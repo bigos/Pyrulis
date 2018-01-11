@@ -1,5 +1,75 @@
 ;;; simple lisp parser
 
+(defparameter grammar '((s     seq num op num )
+                        (op    alt #\+ #\- #\* #\/)
+                        (num   seq digit)
+                        (digit alt #\0 #\1 #\2 #\3 #\4 #\5 #\6 #\7 #\8 #\9)))
+(defparameter ast '(s
+                    (num
+                     (digit 1)
+                     (digit 2))
+                    (op +)
+                    (num
+                     (digit 2)
+                     (digit 3))))
+
+(defun grammar-elements ()
+  (let ((keys)
+        (types)
+        (values))
+    (mapcar (lambda (x)
+              (push (car  x) keys)
+              (push (cadr x) types)
+              (push (cddr x) values))
+            grammar)
+    (list
+     'keys keys
+     'types (remove-duplicates types)
+     'values values)))
+
+(defun valid-types ()
+  (let ((known-types '(alt seq)))
+    (every (lambda (x)
+             (member x known-types))
+           (getf (grammar-elements)
+                 'types))))
+
+(defun terminal-values ()
+  (let ((elements (grammar-elements))
+        (terminal)
+        (keys))
+    (mapcar (lambda (vl)
+              (mapcar (lambda (v)
+                        (if (member v (getf elements 'keys))
+                            (push v keys)
+                            (push v terminal)))
+                      vl))
+            (getf elements 'values))
+    (list 'terminal (remove-duplicates terminal)
+          'keys (remove-duplicates keys))))
+
+(defun key-definition (k)
+  (find k grammar :key 'car))
+
+(defun terminal-definitions (v)
+  (let ((definitions))
+    (mapc (lambda (vl)
+            (when (member v (cddr vl))
+              (push vl definitions)))
+          grammar)
+    definitions))
+
+(defun terminal-path-inner (v &optional acc)
+  (let ((td (terminal-definitions v)))
+    (if (null td)
+        acc
+        (terminal-path-inner (caar td)
+                       (cons (caar td)
+                             acc)))))
+
+(defun terminal-path (v)
+  (terminal-path-inner v (list v)))
+
 ;;; basic utilities
 
 (defun tokenize (str)
@@ -7,13 +77,14 @@
 
 (defun char-in (c cl)
   "Check if the character C belongs to CL."
-  (loop for cc in cl
-     for r = (eq cc c) ; consider different test
-     until r
-     finally (return r)))
+  (member c cl))
 
-(defun char-within (c c-from c-to)
+(defun char-within-range (c c-from c-to)
   (char<= c-from c c-to))
+
+(defun string-to-paths (str)
+  "Convert STR to a list of grammar paths"
+  (loop for c across str collect (terminal-path c)))
 
 ;;; character predicates
 
@@ -24,62 +95,12 @@
   (char-in c (tokenize "0123456789")))
 
 (defun letter-lower (c)
-  (char-within c #\a #\z))
+  (char-within-range c #\a #\z))
 
 (defun letter-upper (c)
-  (char-within c #\A #\Z))
+  (char-within-range c #\A #\Z))
 
 (defun operator (c)
   (char-in c (tokenize "+-*/")))
 
 ;;; token consumers
-
-(defun consume-1 (token-list character-predicate)
-  "Consume 1 character from the TOKEN-LIST, examine it with the
-CHARACTER-PREDICATE and return either nil for no match or unconsumed TOKEN-LIST
-remainder."
-  (when (funcall character-predicate (car token-list))
-    (subseq token-list 1)))
-
-(defun consume-0-1 (token-list character-predicate)
-  "Allow 0 or 1 matches and return unconsumed TOKEN-LIST, if more matches found
-return nil."
-  (if (consume-1 token-list character-predicate)
-      ;; 1st found try to see the 2nd can be found
-      (if (consume-1 (cdr token-list) character-predicate)
-          nil
-          (cdr token-list))
-      token-list))
-
-(defun consume-1-or-more (token-list character-predicate)
-  "Allow 1 or more matches, when 0 found return nil"
-  (when (consume-1 token-list character-predicate)
-    (consume-0-or-more (cdr token-list) character-predicate)))
-
-(defun consume-0-or-more (token-list character-predicate)
-  "Allow 0 or more matches, always return unconsumed list stop when no more matches"
-  (if (consume-1 token-list character-predicate)
-      (consume-0-or-more (cdr token-list) character-predicate)
-      token-list))
-
-;;; rule types
-
-(defun alt (token-list alt-predicates)
-  "Check if first of the TOKEN-LIST matches one of ALT-PREDICATES."
-  (some (lambda (x) (funcall x (car token-list))) alt-predicates))
-;; (alt (tokenize "1") '(num whitespace))
-
-(defun succ (token-list succ-predicates)
-  "Check if all successive SUCC-PREDICATES match successive TOKEN-LIST elements."
-  (if (< (length token-list)
-         (length succ-predicates))
-      (error "Succ-predicates is longer than remaining token-list.")
-      (every 'identity (loop for tk in token-list
-                          for p in succ-predicates
-                          collect (funcall p tk)))))
-;; (succ (tokenize "1 a") '(num whitespace letter-lower))
-
-;;; rule predicates
-;; (defun successionp (elements))
-;; (defun alternativep (elements))
-;; (defun sequencep (element start end))
