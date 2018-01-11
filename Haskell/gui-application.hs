@@ -1,4 +1,6 @@
 -- from https://www.stackbuilders.com/tutorials/haskell/gui-application/
+-- looks like i need: stack setup --upgrade-cabal
+
 import Control.Monad
 import Control.Monad.IO.Class
 import Data.IORef
