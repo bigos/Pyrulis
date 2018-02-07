@@ -1520,7 +1520,11 @@ We used return composed with read to turn it into something that
 provides monadic structure after being bound over the output of
 sayHi.
 
-** 18.7 Chapter Exercises
+It can be easy at times to accidentally write an invalid Monad that typechecks,
+so it’s important to use QuickCheck to validate your Monoid, Functor,
+Applicative, and Monad instances.
+
+** TODO 18.7 Chapter Exercises
 not done
 
 ** 18.8 Definition
@@ -1529,5 +1533,24 @@ not done
 
 * Chapter 19
 
+** 19.1 Applied structure
+No more explaining everything. from now on I have to figure out things myself.
+
+** 19.2 Monoid
+Start looking for monoid pattern.
+
+*** Templating content with Scotty
+
+*** Concatenating connection parameters
+
+*** Concatenating key configurations
+First explanation of strictness
+#+BEGIN_SRC haskell
+keys :: !(XConfig Layout -> Map (ButtonMask, KeySym) (X ()))
+#+END_SRC
+
+** 19.3 Functor
+** 19.4 Applicative
+
 * continue on page
-  page 768
+  page 776
