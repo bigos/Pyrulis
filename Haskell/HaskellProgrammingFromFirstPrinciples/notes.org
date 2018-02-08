@@ -1551,6 +1551,13 @@ keys :: !(XConfig Layout -> Map (ButtonMask, KeySym) (X ()))
 
 ** 19.3 Functor
 ** 19.4 Applicative
+*** hgrev
+*** More parsing
+*** And now for something different
+** 19/5 Monad
+*** Binding over failure in initialization
+** An end-to-end example: URL shortener
+
 
 * continue on page
-  page 776
+  page 782
