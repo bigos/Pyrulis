@@ -1560,5 +1560,7 @@ keys :: !(XConfig Layout -> Map (ButtonMask, KeySym) (X ()))
 
 after the imports on p 787
 
+app function on page 790
+
 * continue on page
-  page 787
+  page 790
