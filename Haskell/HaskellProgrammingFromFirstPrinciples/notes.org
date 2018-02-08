@@ -1554,10 +1554,11 @@ keys :: !(XConfig Layout -> Map (ButtonMask, KeySym) (X ()))
 *** hgrev
 *** More parsing
 *** And now for something different
-** 19/5 Monad
+** 19.5 Monad
 *** Binding over failure in initialization
-** An end-to-end example: URL shortener
+** 19.6 An end-to-end example: URL shortener
 
+after the imports on p 787
 
 * continue on page
-  page 782
+  page 787
