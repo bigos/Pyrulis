@@ -1561,6 +1561,20 @@ keys :: !(XConfig Layout -> Map (ButtonMask, KeySym) (X ()))
 ** 19.8 Follow-up resources
 * Chapter 20
 ** 20.1 Foldable
+Lists are not the only foldable data structures.
+
+A list fold is a way to reduce the values inside a list to one summary
+value by recursively applying some function.
+
+The folding function is always dependent on some Monoid instance. The folds we
+wrote previously mostly relied on implicit monoidal operations.
+
+** 20.2 The Foldable class
+
+** 20.3 Revenge of the monoids
+Folding necessarily implies a binary
+associative operation that has an identity value.
+
 
 * continue on page
-  page 797
+  page 799
