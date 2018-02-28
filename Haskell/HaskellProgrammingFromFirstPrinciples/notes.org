@@ -1575,6 +1575,7 @@ wrote previously mostly relied on implicit monoidal operations.
 Folding necessarily implies a binary
 associative operation that has an identity value.
 
+** 20.4 Demonstrating Foldable instances
 
 * continue on page
-  page 799
+  page 802
