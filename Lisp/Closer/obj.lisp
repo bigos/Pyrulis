@@ -1,5 +1,19 @@
+;;; example of basic usage of CLOS
+
+(defun slot-values (obj)
+  (loop for the-slot in (mapcar #'sb-pcl:slot-definition-name
+                                (sb-pcl:class-slots (class-of obj)))
+        collect (if (slot-boundp obj the-slot)
+                    (cons the-slot
+                          (slot-value obj the-slot))
+                    (cons the-slot
+                          'not-bound-yet))))
+;;; generic
+
 (defgeneric boo (value)
   (:documentation "display a value with comment"))
+
+;;; methods
 
 (defmethod boo ((value integer))
   (format t "integer ~a~%" value))
@@ -10,13 +24,18 @@
 (defmethod boo ((value T))
   (format t "other ~a - ~a~%" value (type-of value)))
 
+;;; classes
+
 (defclass baa ()
   ((value)))
 
 (defclass buu ()
   ((value
      :initarg :value
-     :accessor value)))
+     :accessor value)
+   (another-value)))
+
+;;; usage example
 
 (format t "trying normal values~%")
 
@@ -34,3 +53,11 @@
 (boo baaobj)
 
 (boo buuobj)
+
+(format t "~&You can inspect objects in REPL by right clicking on the result and selecting Inspect~%")
+
+(format t "slots of object buuobj ~A~%" (slot-values buuobj))
+
+(setf (slot-value buuobj 'another-value) 11111111111)
+
+(format t "slots of object buuobj after setting the another-value ~A~%" (slot-values buuobj))
