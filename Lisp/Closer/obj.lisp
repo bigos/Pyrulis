@@ -6,8 +6,7 @@
         collect (if (slot-boundp obj the-slot)
                     (cons the-slot
                           (slot-value obj the-slot))
-                    (cons the-slot
-                          'not-bound-yet))))
+                    the-slot)))
 ;;; generic
 
 (defgeneric boo (value)
@@ -17,6 +16,10 @@
 
 (defmethod boo ((value integer))
   (format t "integer ~a~%" value))
+
+(defmethod boo ((value (eql 2)))
+  (format t "integer number two ~a~%" value))
+
 
 (defmethod boo ((value single-float))
   (format t "float ~a~%" value))
@@ -40,6 +43,8 @@
 (format t "trying normal values~%")
 
 (boo 1)
+
+(boo 2)
 
 (boo 3.14)
 

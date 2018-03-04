@@ -1,0 +1,7 @@
+* Closer
+
+Common Lisp Object System Experimentation and Research code will go here.
+
+** Interesting links
+
+https://www.xach.com/naggum/articles/3243735416407529@naggum.no.html
