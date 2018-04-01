@@ -29,7 +29,8 @@
 
 (defun valid-types ()
   (let ((known-types '(alt seq)))
-    (every (lambda (x)
+    (every (lambda (x)good
+
              (member x known-types))
            (getf (grammar-elements)
                  'types))))

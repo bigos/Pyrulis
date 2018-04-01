@@ -1,0 +1,10 @@
+* Category Theory for Programmers
+** url
+https://github.com/hmemcpy/milewski-ctfp-pdf
+*** another interesting book
+https://arxiv.org/pdf/1803.05316.pdf
+
+** Part One
+*** Category: The Essence of Composition
+** last page
+11
