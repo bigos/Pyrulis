@@ -5,7 +5,8 @@ https://github.com/hmemcpy/milewski-ctfp-pdf
 https://arxiv.org/pdf/1803.05316.pdf
 
 ** Part One
-*** Category: The Essence of Composition
-**** Types and Functions 13
+*** Category: The Essence of Composition 3
+*** Types and Functions 13
+*** Categories Great and Small 29
 ** last page
-26
+29
