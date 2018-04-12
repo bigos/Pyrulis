@@ -8,5 +8,6 @@ https://arxiv.org/pdf/1803.05316.pdf
 *** Category: The Essence of Composition 3
 *** Types and Functions 13
 *** Categories Great and Small 29
+challenges 38
 ** last page
-29
+38
