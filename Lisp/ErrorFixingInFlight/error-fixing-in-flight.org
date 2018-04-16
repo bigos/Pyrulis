@@ -8,7 +8,7 @@ Check the file in this directory called error-fixing.lisp
 
 * Error Fixing in Flight
 
-Load the file and you will get the error.
+In your Emacs REPL, load the file and you will get the error.
 
 #+BEGIN_EXAMPLE
 The value
