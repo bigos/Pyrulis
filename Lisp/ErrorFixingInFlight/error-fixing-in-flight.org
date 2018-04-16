@@ -6,58 +6,71 @@ http://malisper.me/category/debugging-common-lisp/
 
 Check the file in this directory called error-fixing.lisp
 
-* Error Fixing in Flight
+* Erro Fixing in Flight
+** Approach A
 
-In your Emacs REPL, load the file and you will get the error.
+ In your Emacs REPL, load the file and you will get the error.
 
-#+BEGIN_EXAMPLE
-The value
-  #\2
-is not of type
-  NUMBER
-when binding SB-KERNEL::Y
-   [Condition of type TYPE-ERROR]
+ #+BEGIN_EXAMPLE
+ The value
+   #\2
+ is not of type
+   NUMBER
+ when binding SB-KERNEL::Y
+    [Condition of type TYPE-ERROR]
 
-Restarts:
- 0: [RETRY] Retry EVAL of current toplevel form.
- 1: [CONTINUE] Ignore error and continue loading file "/home/jacek/Programming/Pyrulis/Lisp/ErrorFixingInFlight/error-fixing.lisp".
- 2: [ABORT] Abort loading file "/home/jacek/Programming/Pyrulis/Lisp/ErrorFixingInFlight/error-fixing.lisp".
- 3: [RETRY] Retry SLIME REPL evaluation request.
- 4: [*ABORT] Return to SLIME's top level.
- 5: [ABORT] abort thread (#<THREAD "repl-thread" RUNNING {10028683E3}>)
+ Restarts:
+  0: [RETRY] Retry EVAL of current toplevel form.
+  1: [CONTINUE] Ignore error and continue loading file "/home/jacek/Programming/Pyrulis/Lisp/ErrorFixingInFlight/error-fixing.lisp".
+  2: [ABORT] Abort loading file "/home/jacek/Programming/Pyrulis/Lisp/ErrorFixingInFlight/error-fixing.lisp".
+  3: [RETRY] Retry SLIME REPL evaluation request.
+  4: [*ABORT] Return to SLIME's top level.
+  5: [ABORT] abort thread (#<THREAD "repl-thread" RUNNING {10028683E3}>)
 
-Backtrace:
-  0: (SB-KERNEL:TWO-ARG-+ 1 #\2) [external]
-  1: (ERR-ME 1 #\2)
-  2: (MAIN)
-#+END_EXAMPLE
+ Backtrace:
+   0: (SB-KERNEL:TWO-ARG-+ 1 #\2) [external]
+   1: (ERR-ME 1 #\2)
+   2: (MAIN)
+ #+END_EXAMPLE
 
-It tells you about a character used where a number was expected.
+ It tells you about a character used where a number was expected.
 
-You can Fix it following way:
-Go to the backtrace item number 1 and press t. It will unfold the frame
-information and will show variables used.
+ You can Fix it following way:
+ Go to the backtrace item number 1 and press t. It will unfold the frame
+ information and will show variables used.
 
-#+BEGIN_EXAMPLE
-Backtrace:
-  0: (SB-KERNEL:TWO-ARG-+ 1 #\2) [external]
-  1: (ERR-ME 1 #\2)
-      Locals:
-        A = 1
-        B = #\2
-  2: (MAIN)
-#+END_EXAMPLE
+ #+BEGIN_EXAMPLE
+ Backtrace:
+   0: (SB-KERNEL:TWO-ARG-+ 1 #\2) [external]
+   1: (ERR-ME 1 #\2)
+       Locals:
+         A = 1
+         B = #\2
+   2: (MAIN)
+ #+END_EXAMPLE
 
-We need to fix the value of variable b and resume the computation. Press e and
-evaluate the following code
+ We need to fix the value of variable b and resume the computation. Press e and
+ evaluate the following code
 
-#+BEGIN_EXAMPLE
-(setf b 2)
-#+END_EXAMPLE
+ #+BEGIN_EXAMPLE
+ (setf b 2)
+ #+END_EXAMPLE
 
-and press r to restart the computation.
+ and press r to restart the computation.
 
-When you check the REPL you will see the expected result printed under the error
-information.
+ When you check the REPL you will see the expected result printed under the error
+ information.
 
-So the error fixing in flight has worked.
+ So the error fixing in flight has worked.
+
+** Approach B
+Again, as in previous approach you will get the error information and the
+backtrace.
+
+Got to backtrace item 2 and press t to unfold it.
+
+Edit the error-fixing.lisp file, replaccing ~#\2~ with ~2~, press the C-M-x to
+redefine the main function and press r in the buffer where you have the
+backtrace.
+
+Again, the result will show the expected correct value.
