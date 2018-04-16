@@ -6,7 +6,7 @@ http://malisper.me/category/debugging-common-lisp/
 
 Check the file in this directory called error-fixing.lisp
 
-* Erro Fixing in Flight
+* Error Fixing in Flight
 ** Approach A
 
  In your Emacs REPL, load the file and you will get the error.
@@ -69,7 +69,7 @@ backtrace.
 
 Got to backtrace item 2 and press t to unfold it.
 
-Edit the error-fixing.lisp file, replaccing ~#\2~ with ~2~, press the C-M-x to
+Edit the error-fixing.lisp file, replacing ~#\2~ with ~2~, press the C-M-x to
 redefine the main function and press r in the buffer where you have the
 backtrace.
 
