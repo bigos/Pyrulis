@@ -1,4 +1,9 @@
 * Category Theory for Programmers
+** Language Used
+*** Morphism
+TODO
+*** Object
+
 ** url
 https://github.com/hmemcpy/milewski-ctfp-pdf
 *** another interesting book
@@ -9,5 +14,6 @@ https://arxiv.org/pdf/1803.05316.pdf
 *** Types and Functions 13
 *** Categories Great and Small 29
 Kleisli Categories 52
+Products and Coproducts 55
 ** last page
-58
+Duality 59
