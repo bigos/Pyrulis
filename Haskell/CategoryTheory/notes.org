@@ -1,8 +1,17 @@
 * Category Theory for Programmers
 ** Language Used
+Explained in part one
+*** Category
+A category is an embarrassingly simple concept. A category consists of objects
+and arrows that go between them. That’s why categories are so easy to represent
+pictorially. An object can be drawn as a circle or a point, and an arrow.
 *** Morphism
 TODO
+Let’s talk concretes. Think of arrows, which are also called morphisms, as
+functions.
+
 *** Object
+
 
 ** url
 https://github.com/hmemcpy/milewski-ctfp-pdf
