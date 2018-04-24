@@ -1,0 +1,38 @@
+* Using Haskell with Emacs
+
+** Emacs config
+Add following to your Emacs config to switch off auto-completion down casing.
+#+BEGIN_EXAMPLE
+  (add-hook 'haskell-mode-hook (lambda () (setq-local company-dabbrev-downcase nil)))
+#+END_EXAMPLE
+
+** On Linux with eshell
+*** open eshell
+*** run ghci
+*** load the file
+#+BEGIN_EXAMPLE
+:load /absolute/path/to/file.hs
+#+END_EXAMPLE
+*** see that auto-completion works
+Enter first two letters of a function an you will see possible auto-completions.
+The downside is that Emacs down cases the possible candidates.
+
+** On Linux with terminal
+*** open terminal
+*** run ghci
+*** load the file
+#+BEGIN_EXAMPLE
+:load /absolute/path/to/file.hs
+#+END_EXAMPLE
+*** see that auto-completion works
+Enter first two letters of a function and press Tab.
+Completion candidates are shown using the correct case.
+** On Linux with Emacs Haskell REPL
+*** open Haskell file
+*** In Haskell menu select *Start Interpreter*
+*** load the file in newly opened REPL
+#+BEGIN_EXAMPLE
+:load /absolute/path/to/file.hs
+#+END_EXAMPLE
+*** test your auto-completion
+after entering two characters of the function name auto-completion should work
