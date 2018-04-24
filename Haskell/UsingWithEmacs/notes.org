@@ -35,4 +35,5 @@ Completion candidates are shown using the correct case.
 :load /absolute/path/to/file.hs
 #+END_EXAMPLE
 *** test your auto-completion
-after entering two characters of the function name auto-completion should work
+After entering two characters of the function name auto-completion should work.
+Completion candidates are shown using the correct case.
