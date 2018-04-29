@@ -1,3 +1,5 @@
 * React
 ** Good introduction
 https://www.lullabot.com/articles/how-to-learn-react
+*** warnings
+Points to paid for tutorials
