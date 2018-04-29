@@ -4,5 +4,34 @@ https://www.lullabot.com/articles/how-to-learn-react
 *** warnings
 Points to paid for tutorials
 
-** 8 minutes introduction
-https://medium.com/learning-new-stuff/learn-react-js-in-7-min-92a1ef023003
+
+** create-react-app
+
+https://github.com/facebook/create-react-app
+
+#+BEGIN_EXAMPLE
+npx create-react-app my-app
+cd my-app
+npm start
+#+END_EXAMPLE
+
+** Elements
+*** jsx
+ https://reactjs.org/docs/introducing-jsx.html
+
+*** minimal HTML template
+ https://raw.githubusercontent.com/reactjs/reactjs.org/master/static/html/single-file-example.html
+
+*** Try React
+ https://reactjs.org/docs/try-react.html
+
+** Tutorials
+
+*** React Fundamentals
+ https://egghead.io/courses/start-learning-react
+
+*** YouTube
+https://www.youtube.com/playlist?list=PLoYCgNOIyGABj2GQSlDRjgvXtqfDxKm5b
+
+*** React Bits
+https://vasanthk.gitbooks.io/react-bits/
