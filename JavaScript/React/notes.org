@@ -1,5 +1,8 @@
 * React
-** Good introduction
+** Good overview
 https://www.lullabot.com/articles/how-to-learn-react
 *** warnings
 Points to paid for tutorials
+
+** 8 minutes introduction
+https://medium.com/learning-new-stuff/learn-react-js-in-7-min-92a1ef023003
