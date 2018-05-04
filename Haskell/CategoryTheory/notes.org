@@ -25,4 +25,4 @@ https://arxiv.org/pdf/1803.05316.pdf
 Kleisli Categories 52
 Products and Coproducts 55
 ** last page
-Duality 59
+Coproduct 68
