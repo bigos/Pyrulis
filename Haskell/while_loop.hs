@@ -2,6 +2,7 @@ module Main where
 
 import Control.Monad
 import Data.IORef
+import System.IO
 
 initGlobal :: IO (IORef Integer)
 initGlobal = newIORef 1
@@ -20,7 +21,13 @@ main = do
   global <- initGlobal
   readIORef global >>= (\x-> putStrLn ("initial " ++ (show x)))
   while (liftM (< 10) (readIORef global)) $ do
-    readIORef global >>= (\x-> putStrLn ("doing " ++ (show x)))
-    modifyIORef global (+1)
+    x <- readIORef global
+    putStrLn ("doing " ++ (show x))
+    putStr "enter  diff "
+    hFlush stdout               -- make sure prompt displays at the right time
+    diff <- getLine
+    let diffInteger = read diff :: Integer
+    readIORef global >>= (\m -> writeIORef global (m + diffInteger))
+    -- modifyIORef global (\y -> y + diffInteger)
   putStrLn "finished"
   readIORef global >>= (\x-> putStrLn (show x))
