@@ -45,6 +45,24 @@ finish me
 **** User Guide
  https://www.haskell.org/cabal/users-guide/
 
+**** paths
+#+BEGIN_EXAMPLE
+~/.cabal
+~/.cabal-sandbox
+#+END_EXAMPLE
+**** cleanup
+remove paths, ~/.ghc ,
+
 *** Stack
 **** User Guide
 https://docs.haskellstack.org/en/stable/GUIDE/
+
+**** paths
+#+BEGIN_EXAMPLE
+~/.stack
+
+# compiled binaries
+~/.local/bin
+#+END_EXAMPLE
+
+**** cleanup
