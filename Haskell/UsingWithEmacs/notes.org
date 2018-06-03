@@ -39,3 +39,12 @@ Add following to your Emacs config to switch off auto-completion down casing.
 
 ** Stack and Cabal
 finish me
+
+*** Cabal
+
+**** User Guide
+ https://www.haskell.org/cabal/users-guide/
+
+*** Stack
+**** User Guide
+https://docs.haskellstack.org/en/stable/GUIDE/
