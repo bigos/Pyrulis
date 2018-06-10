@@ -8,6 +8,12 @@
 ;; draw-fun
 ;; key-press-fun
 
+(defun timer-fun (gm canvas)
+  nil)
+
+
+(defparameter global-model T)
+
 (defun main ()
   "Run the program"
   (within-main-loop
