@@ -3,7 +3,7 @@
 ** Using with Quicklisp
 
 #+BEGIN_EXAMPLE
-(push #p"~/Programming/Lisp/cairo-snake/" asdf:*central-registry*)
+(push #p"~/Programming/PATH/cairo-snake/" asdf:*central-registry*)
 (ql:quickload :cairo-snake)
 #+END_EXAMPLE
 
