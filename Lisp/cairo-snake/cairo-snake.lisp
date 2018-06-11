@@ -2,14 +2,9 @@
 
 (in-package #:cairo-snake)
 
-;; add
-;; timer-fun
-;; global-model
-;; draw-fun
-;; key-press-fun
-
 (defun timer-fun (gm canvas)
   (format *o* "timer fun ~A ~A~%" gm canvas)
+  (update-global-model 'tick)
   (not nil))
 
 (defun draw-fun (gm canvas context)
@@ -17,6 +12,8 @@
 
 (defun key-press-fun (gm canvas rkv)
   (format *o* "key press fun ~A ~A~%" canvas rkv)
+  (update-global-model 'keypress)
+  (gtk-widget-queue-draw canvas)
   (format *o* "key value ~A~%" (gdk-event-key-keyval rkv)))
 
 (defparameter global-model T)
