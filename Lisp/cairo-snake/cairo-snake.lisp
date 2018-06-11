@@ -8,17 +8,18 @@
 ;; draw-fun
 ;; key-press-fun
 
-(defun timer-fun (gm canvas)
-  T)
+(defun timer-fun ()
+  (format *o* "timer fun~%" )
+  (not nil))
 
 (defun draw-fun (gm canvas context)
   (format *o* "draw fun ~A ~A~%" canvas context)
-  T)
+  )
 
 (defun key-press-fun (gm canvas rkv)
   (format *o* "key press fun ~A ~A~%" canvas rkv)
   (format *o* "key value ~A~%" (gdk-event-key-keyval rkv))
-  T)
+  )
 
 (defparameter global-model T)
 (defparameter *o* *standard-output*)
@@ -33,7 +34,8 @@
       (setf (gtk-window-default-size win) (list 300 200))
       (gtk-container-add win canvas)
 
-      ;; (g-timeout-add 500 (timer-fun global-model canvas) :priority +g-priority-default+)
+      (g-timeout-add 1000 #'timer-fun
+                     :priority +g-priority-default+)
 
       ;; how do i use context here?
       (g-signal-connect canvas "draw"
