@@ -11,6 +11,11 @@
 (defun timer-fun (gm canvas)
   nil)
 
+(defun draw-fun (gm canvas context)
+  nil)
+
+(defun key-press-fun (gm canvas rkv)
+  nil)
 
 (defparameter global-model T)
 
@@ -22,7 +27,7 @@
       (setf (gtk-window-default-size win) (list 300 200))
       (gtk-container-add win canvas)
 
-      (g-timeout-add 500 (timer-fun global-model canvas) +g-priority-default+)
+      (g-timeout-add 500 (timer-fun global-model canvas) :priority +g-priority-default+)
 
       ;; how do i use context here?
       (g-signal-connect canvas "draw"
