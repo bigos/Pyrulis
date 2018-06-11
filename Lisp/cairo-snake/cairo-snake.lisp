@@ -12,10 +12,12 @@
   T)
 
 (defun draw-fun (gm canvas context)
+  (format *o* "draw fun ~A ~A~%" canvas context)
   T)
 
 (defun key-press-fun (gm canvas rkv)
   (format *o* "key press fun ~A ~A~%" canvas rkv)
+  (format *o* "key value ~A~%" (gdk-event-key-keyval rkv))
   T)
 
 (defparameter global-model T)
@@ -36,12 +38,11 @@
       ;; how do i use context here?
       (g-signal-connect canvas "draw"
                         (lambda (canvas context)
-                          (draw-fun global-model canvas (pointer context))))
+                          (draw-fun global-model canvas context)))
 
       ;; another untested copy
       (g-signal-connect win "key-press-event"
                         (lambda (win rkv)
-                          (format *o* "key pressed")
                           (key-press-fun global-model win rkv)))
 
       (g-signal-connect win "destroy"
