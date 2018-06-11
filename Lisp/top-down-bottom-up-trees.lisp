@@ -16,7 +16,7 @@
                       (3))))))
 
 ;;; bottom up - (bu tr)
-(defun bu(tr)
+(defun bu (tr)
   (if (consp (car tr))
       (bu (car tr) ))
   (if (consp (cdr tr))
