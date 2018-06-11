@@ -10,3 +10,8 @@
 ** Tutorial
 
 http://www.crategus.com/books/cl-gtk/gtk-tutorial_2.html
+
+
+** Github project with demos
+
+https://github.com/crategus/cl-cffi-gtk

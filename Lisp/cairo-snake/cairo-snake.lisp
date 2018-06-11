@@ -15,13 +15,15 @@
   T)
 
 (defun key-press-fun (gm canvas rkv)
-
+  (format *o* "key press fun ~A ~A~%" canvas rkv)
   T)
 
 (defparameter global-model T)
+(defparameter *o* *standard-output*)
 
 (defun main ()
   "Run the program"
+  (format *o* "boooo~%")
   (format t "entering main loop~%")
   (within-main-loop
     (let ((win (gtk-window-new :toplevel))
@@ -39,11 +41,13 @@
       ;; another untested copy
       (g-signal-connect win "key-press-event"
                         (lambda (win rkv)
+                          (format *o* "key pressed")
                           (key-press-fun global-model win rkv)))
 
       (g-signal-connect win "destroy"
                         (lambda (win)
                           (declare (ignore win))
+                          (format *o* "~&going to leave")
                           (leave-gtk-main)))
 
       (gtk-widget-show-all win)))
