@@ -15,7 +15,7 @@
   (height 400)
   (last-key 32)
   (scale 25)
-  (snake '((6.7) (5.7)))
+  (snake '((6 . 7) (5 . 7)))
   (tick-interval 500)
   (seed 1)
   (width 600))
@@ -37,6 +37,21 @@
    ;; :width 600
    ))
 
+
+(defun init-global-model ()
+  (setf *global* (initial-model)))
+
+(defun shrink (n)
+  (if (> (1- n) 0)
+      (1- n)
+      0))
+
+(defun food-under-head (c model)
+  ;; TODO: finnish me
+  (or  (map 'list (lambda (x)
+                    (equalp  x c))
+            (subseq (model-snake  *global*)
+                    0 2))))
 
 ;;; view --------------------------------------------------
 ;;; update ------------------------------------------------
