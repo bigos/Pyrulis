@@ -2,7 +2,42 @@
 
 (in-package #:cairo-snake)
 
+(defparameter *global* nil)
+
 ;;; model -------------------------------------------------
+(defstruct model
+  (debug-data '() :type null)
+  (eaten 0        :type integer)
+  (food-items '() :type null)
+  (game-field 'move :type symbol)
+  (grow-by 1)
+  (heading 'heading-right)
+  (height 400)
+  (last-key 32)
+  (scale 25)
+  (snake '((6.7) (5.7)))
+  (tick-interval 500)
+  (seed 1)
+  (width 600))
+
+(defun initial-model ()
+  (make-model
+                                        ;:debug-data '()
+   ;; :eaten 0
+   ;; :food-items 0
+   ;; :game-field 'move
+   ;; :grow-by 1
+   ;; :heading 'heading-right
+   ;; :height 400
+   ;; :last-key 32
+   ;; :scale 25
+   ;; :snake '((6 . 7) (5 . 7))
+   ;; :tick-interval 500
+   ;; :seed 1
+   ;; :width 600
+   ))
+
+
 ;;; view --------------------------------------------------
 ;;; update ------------------------------------------------
 ;;; main --------------------------------------------------
