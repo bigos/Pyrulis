@@ -8,7 +8,7 @@
 (defstruct model
   (debug-data '() :type null)
   (eaten 0        :type integer)
-  (food-items '() :type null)
+  (food-items)
   (game-field 'move :type symbol)
   (grow-by 1)
   (heading 'heading-right)
@@ -24,7 +24,7 @@
   (make-model
                                         ;:debug-data '()
    ;; :eaten 0
-   ;; :food-items 0
+   :food-items '()
    ;; :game-field 'move
    ;; :grow-by 1
    ;; :heading 'heading-right
@@ -42,7 +42,8 @@
   (setf *global* (initial-model)))
 
 (defun shrink (n)
-  (if (> (1- n) 0)
+  (if (> (1- n)
+         0)
       (1- n)
       0))
 
@@ -50,6 +51,14 @@
   (some 'identity (map 'list (lambda (x)
                                (equalp  x c))
                        (subseq (model-snake model) 0 1))))
+
+(defun food-eaten (model)
+  (some 'identity
+        (loop for fi in (model-food-items model)
+              collect (car (member fi
+                                   (subseq (model-snake model) 0 2)
+                                   :test 'equal)))))
+;;; note member and members in Haskell version
 
 ;;; view --------------------------------------------------
 ;;; update ------------------------------------------------
