@@ -47,11 +47,9 @@
       0))
 
 (defun food-under-head (c model)
-  ;; TODO: finnish me
-  (or  (map 'list (lambda (x)
-                    (equalp  x c))
-            (subseq (model-snake  *global*)
-                    0 2))))
+  (some 'identity (map 'list (lambda (x)
+                               (equalp  x c))
+                       (subseq (model-snake model) 0 1))))
 
 ;;; view --------------------------------------------------
 ;;; update ------------------------------------------------
