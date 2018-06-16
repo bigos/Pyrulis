@@ -70,6 +70,15 @@
                (lambda (c) (equal c (hsm)))
                (subseq (model-snake model) 1)))))
 
+(defun head-hit-wall (x)
+  (nil))                                ;finish me
+
+(defun detect-collision (model)
+  (if (or (head-hit-wall model)
+          (head-bit-snake model))
+      'collision
+      (model-game-field model)))
+
 ;;; view --------------------------------------------------
 ;;; update ------------------------------------------------
 ;;; main --------------------------------------------------
