@@ -48,24 +48,27 @@
       0))
 
 (defun food-under-head (c model)
-<<<<<<< HEAD
-  (some 'identity
-        (map 'list
-             (lambda (x) (equalp  x c))
-             (subseq (model-snake  *global*) 0 2))))
-=======
   (some 'identity (map 'list (lambda (x)
                                (equalp  x c))
                        (subseq (model-snake model) 0 1))))
 
 (defun food-eaten (model)
-  (some 'identity
-        (loop for fi in (model-food-items model)
-              collect (car (member fi
-                                   (subseq (model-snake model) 0 2)
-                                   :test 'equal)))))
-;;; note member and members in Haskell version
->>>>>>> 820187ca78069e0da3c29ff6d90117222ec31cad
+  (members (model-food-items model)
+           (subseq (model-snake model) 0 2)))
+
+;;; member is already defined in lisp
+
+(defun members (ee l)
+  (some 'identity (map 'list (lambda (e) (member e l :test 'equal)) ee)))
+
+(defun head-bit-snake (model)
+  (labels
+      ((hsm ()
+         (car (model-snake model))))
+    (some 'identity
+          (map 'list
+               (lambda (c) (equal c (hsm)))
+               (subseq (model-snake model) 1)))))
 
 ;;; view --------------------------------------------------
 ;;; update ------------------------------------------------
