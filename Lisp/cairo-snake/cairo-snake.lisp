@@ -33,7 +33,7 @@
    ;; :height 400
    ;; :last-key 32
    ;; :scale 25
-   :snake '((6 . 7) (5 . 7))
+   ;; :snake nil
    ;; :tick-interval 500
    ;; :seed 1
    ;; :width 600
@@ -41,7 +41,8 @@
 
 
 (defun init-global-model ()
-  (setf *global* (initial-model)))
+  (setf *global* (initial-model))
+  (setf (model-snake *global*) '((6 . 7) (5 . 7))))
 
 (defun shrink (n)
   (let ((res (1- n)))
@@ -55,8 +56,10 @@
                        (subseq (model-snake model) 0 1))))
 
 (defun food-eaten (model)
-  (members (model-food-items model)
-           (subseq (model-snake model) 0 2)))
+  (when
+      model
+    (members (model-food-items model)
+             (subseq (model-snake model) 0 2))))
 
 ;;; member is already defined in lisp
 
@@ -100,10 +103,11 @@
 (defun random-coord (size seedn)
   (declare (ignore seedn))
   (loop for x from 1 to 1
-        collect (cons (random size )
-                      (random size ))))
+        collect (cons (1+ (random (car size) ))
+                      (1+ (random (cdr size) )))))
 
 (defun cook (model)
+  (format *o* "going to cook ~A~%" model)
   (if (food-eaten model)
       (setf
        (model-game-field model) (detect-collision model)
@@ -118,7 +122,7 @@
   model)
 
 (defun update-global-model (arg model)
-  (format *o* "the ARG is ~a~%" arg)
+  (format *o* "the ARG is ~a ~A~%" arg model)
   (if (eq arg 'tick)
       (update-global-model-tick model)
       (update-global-model-keypress arg model)))
@@ -165,8 +169,8 @@
 
 ;;; main --------------------------------------------------
 (defun timer-fun (gm canvas)
-  (format *o* "timer fun ~A ~A~%" gm canvas)
-  (update-global-model 'tick *global*)
+  (format *o* "timer fun ~A ~A ~a~%" gm canvas *global*)
+  (update-global-model 'tick gm)
   (not nil))
 
 (defun draw-fun (gm canvas context)
@@ -177,15 +181,18 @@
   (let ((kv (gdk-event-key-keyval rkv)))
     (update-global-model kv *global*)
     (gtk-widget-queue-draw canvas)
-    (format *o* "key value ~A ~A~%" kv *global*)))
+    (format *o* "key value ~A ~A~%" kv gm)))
 
-(defparameter global-model T)
+(defparameter global-model nil)
 (defparameter *o* *standard-output*)
 
 (defun main ()
   "Run the program"
   (format *o* "boooo~%")
   (format t "entering main loop~%")
+  (init-global-model)
+  (setf global-model *global*)
+  (format t "global model is ~A~%" global-model)
   (within-main-loop
     (let ((win (gtk-window-new :toplevel))
           (canvas (gtk-drawing-area-new)))
