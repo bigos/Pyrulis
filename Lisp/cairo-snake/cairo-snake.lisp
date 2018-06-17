@@ -109,20 +109,24 @@
 (defun cook (model)
   (format *o* "going to cook ~A~%" model)
   (if (food-eaten model)
-      (setf
-       (model-game-field model) (detect-collision model)
-       (model-grow-by model) (1+ (model-grow-by model))
-       (model-food-items model) (remove-if (lambda (c) (not (food-under-head c model))) (model-food-items model))
-       (model-debug-data model) (format nil "debugging")
-       (model-eaten model) (1+ (model-eaten model)))
-      (setf
-       (model-game-field model) (detect-collision model)
-       (model-grow-by model) (shrink (model-grow-by model))
-       (model-debug-data model) (format nil "-")))
+      (progn
+        (format *o* "going to cook in THEN~%")
+        (setf
+         (model-game-field model) (detect-collision model)
+         (model-grow-by model) (1+ (model-grow-by model))
+         (model-food-items model) (remove-if (lambda (c) (not (food-under-head c model))) (model-food-items model))
+         (model-debug-data model) (format nil "debugging")
+         (model-eaten model) (1+ (model-eaten model))))
+      (progn
+        (format *o* "going to cook in ELSE~%")
+        (setf
+         (model-game-field model) (detect-collision model)
+         (model-grow-by model) (shrink (model-grow-by model))
+         (model-debug-data model) (format nil "-"))))
+  (format *o* "after cooking ~A~%" model)
   model)
 
 (defun update-global-model (arg model)
-  (format *o* "the ARG is ~a ~A~%" arg model)
   (if (eq arg 'tick)
       (update-global-model-tick model)
       (update-global-model-keypress arg model)))
@@ -169,8 +173,9 @@
 
 ;;; main --------------------------------------------------
 (defun timer-fun (gm canvas)
-  (format *o* "timer fun ~A ~A ~a~%" gm canvas *global*)
+  (format *o* "timer fun ~A ~A~%" gm canvas)
   (update-global-model 'tick gm)
+  (format *o* "AFTER timer fun ~A ~A~%" gm)  ;problem here
   (not nil))
 
 (defun draw-fun (gm canvas context)
@@ -192,7 +197,7 @@
   (format t "entering main loop~%")
   (init-global-model)
   (setf global-model *global*)
-  (format t "global model is ~A~%" global-model)
+  (format *o* "global model is ~A~%" global-model)
   (within-main-loop
     (let ((win (gtk-window-new :toplevel))
           (canvas (gtk-drawing-area-new)))
