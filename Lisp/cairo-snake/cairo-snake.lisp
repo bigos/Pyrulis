@@ -84,6 +84,7 @@
 ;;; view --------------------------------------------------
 
 (defun draw-canvas (canvas model)
+  (format *o* "drawing~%" model)
   (finish-me))
 
 ;;; update ------------------------------------------------
@@ -108,10 +109,45 @@
        (model-debug-data model) (format nil "-")))
   model)
 
+(defun update-global-model (arg model)
+  (format *o* "the ARG is ~a~%" arg)
+  (if (eq arg 'tick)
+      (update-global-model-tick model)
+      (update-global-model-keypress arg model)))
+
+(defun update-global-model-tick (raw-model)
+  (format *o* "doing tick~%")
+  (let ((model (cook raw-model)))
+    (labels
+        ((more-food (model1) (if (equal (model-food-items model1) nil)
+                                 (random-coord (cons 13 13) (model-seed model))
+                                 (model-food-items model1)))
+         (update-tick-fields (m) (setf
+                                  (model-game-field m) (update-game-field nil model (model-last-key model))
+                                  (model-food-items m) (more-food model)
+                                  (model-snake m) (move-snake model (model-heading model)))))
+      (update-tick-fields model))))
+
+(defun update-global-model-keypress (kv old-model)
+  (format *o* "doing keypress~%"))
+
+(defun update-game-field (key-event model kk)
+  ;; finish me
+  (model-game-field model))
+
+(defun snake-grower (growth snakecc)
+  ;; finish me
+  nil)
+
+(defun move-snake (model headingv)
+  ;; finish me
+  nil)
+
+
 ;;; main --------------------------------------------------
 (defun timer-fun (gm canvas)
   (format *o* "timer fun ~A ~A~%" gm canvas)
-  (update-global-model 'tick)
+  (update-global-model 'tick *global*)
   (not nil))
 
 (defun draw-fun (gm canvas context)
@@ -119,9 +155,10 @@
 
 (defun key-press-fun (gm canvas rkv)
   (format *o* "key press fun ~A ~A~%" canvas rkv)
-  (update-global-model 'keypress)
-  (gtk-widget-queue-draw canvas)
-  (format *o* "key value ~A~%" (gdk-event-key-keyval rkv)))
+  (let ((kv (gdk-event-key-keyval rkv)))
+    (update-global-model kv *global*)
+    (gtk-widget-queue-draw canvas)
+    (format *o* "key value ~A ~A~%" kv *global*)))
 
 (defparameter global-model T)
 (defparameter *o* *standard-output*)
