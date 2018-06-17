@@ -81,6 +81,14 @@
       'collision
       (model-game-field model)))
 
+;;; helpers -----------------------------------------------
+(defun key-to-heading (lk)
+  (cond
+    ((eq lk 65361) 'heading-left)
+    ((eq lk 65362) 'heading-up)
+    ((eq lk 65363) 'heading-right)
+    ((eq lk 65364) 'heading-down)
+    (T 'none)))
 ;;; view --------------------------------------------------
 
 (defun draw-canvas (canvas model)
@@ -129,7 +137,18 @@
       (update-tick-fields model))))
 
 (defun update-global-model-keypress (kv old-model)
-  (format *o* "doing keypress~%"))
+  (format *o* "doing keypress~%")
+  (let ((model (cook old-model)))
+    (labels
+        ((new-kv () kv)
+         (new-heading () (if (eq (new-kv) 'none) (model-heading model) (new-kv)))
+         (update-fields (m) (setf
+                             (model-seed m) (1+ (model-seed m))
+                             (model-last-key m) (new-kv)
+                             (model-heading m) (new-heading)
+                             (model-game-field m) (update-game-field T model kv)
+                             (model-snake m) (move-snake model (heading model)))))
+      (update-fields old-model))))
 
 (defun update-game-field (key-event model kk)
   ;; finish me
