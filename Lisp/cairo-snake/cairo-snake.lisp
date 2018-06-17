@@ -1,12 +1,14 @@
 ;;;; cairo-snake.lisp
 
+(declaim (optimize (speed 0) (safety 3) (debug 3)))
+
 (in-package #:cairo-snake)
 
 (defparameter *global* nil)
 
 ;;; model -------------------------------------------------
 (defstruct model
-  (debug-data '() :type null)
+  (debug-data)
   (eaten 0        :type integer)
   (food-items)
   (game-field 'move :type symbol)
@@ -15,7 +17,7 @@
   (height 400)
   (last-key 32)
   (scale 25)
-  (snake '((6 . 7) (5 . 7)))
+  (snake)
   (tick-interval 500)
   (seed 1)
   (width 600))
@@ -31,7 +33,7 @@
    ;; :height 400
    ;; :last-key 32
    ;; :scale 25
-   ;; :snake '((6 . 7) (5 . 7))
+   :snake '((6 . 7) (5 . 7))
    ;; :tick-interval 500
    ;; :seed 1
    ;; :width 600
@@ -42,10 +44,10 @@
   (setf *global* (initial-model)))
 
 (defun shrink (n)
-  (if (> (1- n)
-         0)
-      (1- n)
-      0))
+  (let ((res (1- n)))
+    (if (> res 0)
+        res
+        0)))
 
 (defun food-under-head (c model)
   (some 'identity (map 'list (lambda (x)
@@ -71,7 +73,7 @@
                (subseq (model-snake model) 1)))))
 
 (defun head-hit-wall (x)
-  (nil))                                ;finish me
+  nil)                                ;finish me
 
 (defun detect-collision (model)
   (if (or (head-hit-wall model)
@@ -80,7 +82,32 @@
       (model-game-field model)))
 
 ;;; view --------------------------------------------------
+
+(defun draw-canvas (canvas model)
+  (finish-me))
+
 ;;; update ------------------------------------------------
+
+(defun random-coord (size seedn)
+  (declare (ignore seedn))
+  (loop for x from 1 to 1
+        collect (cons (random size )
+                      (random size ))))
+
+(defun cook (model)
+  (if (food-eaten model)
+      (setf
+       (model-game-field model) (detect-collision model)
+       (model-grow-by model) (1+ (model-grow-by model))
+       (model-food-items model) (remove-if (lambda (c) (not (food-under-head c model))) (model-food-items model))
+       (model-debug-data model) (format nil "debugging")
+       (model-eaten model) (1+ (model-eaten model)))
+      (setf
+       (model-game-field model) (detect-collision model)
+       (model-grow-by model) (shrink (model-grow-by model))
+       (model-debug-data model) (format nil "-")))
+  model)
+
 ;;; main --------------------------------------------------
 (defun timer-fun (gm canvas)
   (format *o* "timer fun ~A ~A~%" gm canvas)
