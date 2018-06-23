@@ -53,13 +53,13 @@
 (defun food-under-head (c model)
   (some 'identity (map 'list (lambda (x)
                                (equalp  x c))
-                       (subseq (model-snake model) 0 1))))
+                       (take 1 (model-snake model)))))
 
 (defun food-eaten (model)
   (when
       model
     (members (model-food-items model)
-             (subseq (model-snake model) 0 2))))
+             (take 1 (model-snake model)))))
 
 ;;; member is already defined in lisp
 
@@ -73,7 +73,12 @@
     (some 'identity
           (map 'list
                (lambda (c) (equal c (hsm)))
-               (subseq (model-snake model) 1)))))
+               (take 1 (model-snake model))))))
+
+(defun take (n l)
+  (if (> (length l) n)
+      (subseq l 0 n)
+      l))
 
 (defun head-hit-wall (x)
   nil)                                ;finish me
@@ -96,7 +101,9 @@
 
 (defun draw-canvas (canvas model)
   (format *o* "drawing~%" model)
-  (finish-me))
+  (let ((size (gtk-widget-size-request canvas)))
+    (format *o* "canvas size is ~A~%" size)
+    ))
 
 ;;; update ------------------------------------------------
 
@@ -175,7 +182,7 @@
 (defun timer-fun (gm canvas)
   (format *o* "timer fun ~A ~A~%" gm canvas)
   (update-global-model 'tick gm)
-  (format *o* "AFTER timer fun ~A ~A~%" gm)  ;problem here
+  (format *o* "AFTER timer fun ~A~%" gm)  ;problem here
   (not nil))
 
 (defun draw-fun (gm canvas context)
