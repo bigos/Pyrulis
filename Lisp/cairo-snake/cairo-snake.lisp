@@ -166,17 +166,38 @@
       (update-fields old-model))))
 
 (defun update-game-field (key-event model kk)
-  ;; finish me
-  (model-game-field model))
+  (if key-event
+      (cond
+        ((eq (model-game-field model) 'pause) 'move)
+        ((eq (model-game-field model) 'move) (if (eq kk 32)
+                                                 'pause
+                                                 (model-game-field model)))
+        (T (model-game-field model)))
+      (model-game-field model)))
 
 (defun snake-grower (growth snakecc)
-  ;; finish me
-  nil)
+  (cond ((>  growth 0) snakecc)
+        ((eq growth 0) (butlast snakecc))
+        ((<  growth 0) (butlast (butlast snakecc)))))
 
 (defun move-snake (model headingv)
   ;; finish me
-  nil)
+  (if (or (eq (model-game-field model) 'pause)
+          (eq (model-game-field model) 'collision))
+      (model-snake model)
+      (move-snake2 model headingv)))
 
+(defun move-snake2 (model headingv)
+  (let* ((snake1 (model-snake model))
+         (growth (model-grow-by model))
+         (uhs (car snake1))
+         (sgs (snake-grower growth snake1)))
+    (case headingv
+      (heading-left  (cons (cons (1- (car uhs)) (cdr uhs))      sgs))
+      (heading-up    (cons (cons (car uhs)      (1- (cdr uhs))) sgs))
+      (heading-right (cons (cons (1+ (car uhs)) (cdr uhs))      sgs))
+      (heading-down  (cons (cons (car uhs)      (1+ (cdr uhs))) sgs))
+      (none sgs))))
 
 ;;; main --------------------------------------------------
 (defun timer-fun (gm canvas)
