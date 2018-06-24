@@ -101,7 +101,7 @@
 
 (defun draw-canvas (canvas model)
   (format *o* "drawing~%" model)
-  (let ((size (gtk-widget-size-request canvas)))
+  (let* ((size (gtk-widget-size-request canvas)))
     (format *o* "canvas size is ~A~%" size)
     ))
 
@@ -208,6 +208,7 @@
   (not nil))
 
 (defun draw-fun (gm canvas context)
+  ;; TODO: finish me
   (format *o* "draw fun ~A ~A~%" canvas context))
 
 (defun key-press-fun (gm canvas rkv)
