@@ -114,14 +114,31 @@
     (cairo-set-line-width cr 25)
     (cairo-set-line-cap cr :round)
     (cairo-set-line-join cr :round)
+
     ;; draw snakes food
     (cairo-set-source-rgb cr 0.4 0.6 0.1)
     (cairo-set-line-width cr 13)
     (loop for c in (model-food-items model)
-          do (cairo-move-to cr (car c) (cdr c))
-             (cairo-line-to cr (car c) (cdr c)))
+          do (cairo-move-to cr (* 10 (car c)) (* 10 (cdr c)))
+             (cairo-line-to cr (* 10 (car c)) (* 10 (cdr c))))
     (cairo-stroke cr)
+
     ;; draw snake
+    (case (model-game-field model)
+      (move (cairo-set-source-rgb cr 0 0.5 1))
+      (collision (cairo-set-source-rgb cr 1 1 0.5))
+      (otherwise (cairo-set-source-rgb cr 0.4 0.4 0.4)))
+    (cairo-set-line-width cr 5)
+    (cairo-move-to cr
+                   (* 10 (car (car (model-snake model))))
+                   (* 10 (cdr (car (model-snake model)))))
+    (loop for c in (model-snake model)
+          do (cairo-line-to cr
+                            (* 10 (car c))
+                            (* 10 (cdr c))))
+    (cairo-stroke cr)
+
+    ;; cleanup
     (cairo-destroy cr)
     +gdk-event-propagate+))
 
@@ -129,7 +146,7 @@
 
 (defun random-coord (size seedn)
   (declare (ignore seedn))
-  (loop for x from 1 to 1
+  (loop for x from 1 to 3
         collect (cons (1+ (random (car size) ))
                       (1+ (random (cdr size) )))))
 
