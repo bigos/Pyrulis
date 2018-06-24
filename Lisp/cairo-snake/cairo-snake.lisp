@@ -203,6 +203,7 @@
 (defun timer-fun (gm canvas)
   (format *o* "timer fun ~A ~A~%" gm canvas)
   (update-global-model 'tick gm)
+  (gtk-widget-queue-draw canvas)
   (format *o* "AFTER timer fun ~A~%" gm)  ;problem here
   (not nil))
 
