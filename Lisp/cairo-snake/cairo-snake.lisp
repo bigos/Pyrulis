@@ -104,9 +104,10 @@
          (h (gtk-widget-get-allocated-height canvas))
          (size (cons w h))
          (s (floor (/ (min h w) 15)))
-         (cr (cairo-create (pointer context))))
+         (cr (pointer context)))
     ;; TODO: finish the source business
-    (cairo-set-source cr)
+    ;; http://www.crategus.com/books/cl-gtk/gtk-tutorial_2.html
+
     (format *o* "canvas size is ~A --- ~A ~A === ~A~%" size w h s)
 
     (cairo-set-source-rgb cr 0.6 0.9 0)
