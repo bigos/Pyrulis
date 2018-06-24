@@ -99,11 +99,30 @@
     (T 'none)))
 ;;; view --------------------------------------------------
 
-(defun draw-canvas (canvas model)
-  (format *o* "drawing~%" model)
-  (let* ((size (gtk-widget-size-request canvas)))
-    (format *o* "canvas size is ~A~%" size)
-    ))
+(defun draw-canvas (canvas model context)
+  (let* ((w (gtk-widget-get-allocated-width canvas))
+         (h (gtk-widget-get-allocated-height canvas))
+         (size (cons w h))
+         (s (floor (/ (min h w) 15)))
+         (cr (cairo-create (pointer context))))
+    ;; TODO: finish the source business
+    (cairo-set-source cr)
+    (format *o* "canvas size is ~A --- ~A ~A === ~A~%" size w h s)
+
+    (cairo-set-source-rgb cr 0.6 0.9 0)
+    (cairo-set-line-width cr 25)
+    (cairo-set-line-cap cr :round)
+    (cairo-set-line-join cr :round)
+    ;; draw snakes food
+    (cairo-set-source-rgb cr 0.4 0.6 0.1)
+    (cairo-set-line-width cr 13)
+    (loop for c in (model-food-items model)
+          do (cairo-move-to cr (car c) (cdr c))
+             (cairo-line-to cr (car c) (cdr c)))
+    (cairo-stroke cr)
+    ;; draw snake
+    (cairo-destroy cr)
+    +gdk-event-propagate+))
 
 ;;; update ------------------------------------------------
 
@@ -208,8 +227,8 @@
   (not nil))
 
 (defun draw-fun (gm canvas context)
-  ;; TODO: finish me
-  (format *o* "draw fun ~A ~A~%" canvas context))
+  (let ((model gm))
+      (draw-canvas canvas model context)))
 
 (defun key-press-fun (gm canvas rkv)
   (format *o* "key press fun ~A ~A~%" canvas rkv)
