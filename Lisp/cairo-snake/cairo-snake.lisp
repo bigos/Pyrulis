@@ -19,6 +19,7 @@
   (scale 25)
   (snake)
   (tick-interval 500)
+  (tick-counter 0)
   (seed 1)
   (width 600))
 
@@ -67,13 +68,16 @@
   (some 'identity (map 'list (lambda (e) (member e l :test 'equal)) ee)))
 
 (defun head-bit-snake (model)
-  (labels
-      ((hsm ()
-         (car (model-snake model))))
-    (some 'identity
-          (map 'list
-               (lambda (c) (equal c (hsm)))
-               (take 1 (model-snake model))))))
+  ;; TODO: fix me
+  (if T
+      nil
+      (labels
+          ((hsm ()
+             (car (model-snake model))))
+        (some 'identity
+              (map 'list
+                   (lambda (c) (equal c (hsm)))
+                   (take 1 (model-snake model)))))))
 
 (defun take (n l)
   (if (> (length l) n)
@@ -185,8 +189,11 @@
          (update-tick-fields (m) (setf
                                   (model-game-field m) (update-game-field nil model (model-last-key model))
                                   (model-food-items m) (more-food model)
+                                  (model-tick-counter m) (1+ (model-tick-counter m))
                                   (model-snake m) (move-snake model (model-heading model)))))
-      (update-tick-fields model))))
+      (progn
+        (format t "~&going to update fields~%")
+        (update-tick-fields model)))))
 
 (defun update-global-model-keypress (kv old-model)
   (format *o* "doing keypress~%")
@@ -199,7 +206,7 @@
                              (model-last-key m) (new-kv)
                              (model-heading m) (new-heading)
                              (model-game-field m) (update-game-field T model kv)
-                             (model-snake m) (move-snake model (heading model)))))
+                             (model-snake m) (move-snake model (model-heading model)))))
       (update-fields old-model))))
 
 (defun update-game-field (key-event model kk)
@@ -219,10 +226,15 @@
 
 (defun move-snake (model headingv)
   ;; finish me
+  (format *o* "~&going to move snakw~%")
   (if (or (eq (model-game-field model) 'pause)
           (eq (model-game-field model) 'collision))
-      (model-snake model)
-      (move-snake2 model headingv)))
+      (progn
+        (format *o* "paused~%")
+        (model-snake model))
+      (progn
+        (format *o* "moving snake~%")
+        (move-snake2 model headingv))))
 
 (defun move-snake2 (model headingv)
   (let* ((snake1 (model-snake model))
@@ -241,7 +253,7 @@
   (format *o* "timer fun ~A ~A~%" gm canvas)
   (update-global-model 'tick gm)
   (gtk-widget-queue-draw canvas)
-  (format *o* "AFTER timer fun ~A~%" gm)  ;problem here
+  ;; (format *o* "AFTER timer fun ~A~%" gm)  ;problem here
   (not nil))
 
 (defun draw-fun (gm canvas context)
