@@ -69,15 +69,14 @@
 
 (defun head-bit-snake (model)
   ;; TODO: fix me
-  (if T
-      nil
-      (labels
-          ((hsm ()
-             (car (model-snake model))))
-        (some 'identity
-              (map 'list
-                   (lambda (c) (equal c (hsm)))
-                   (take 1 (model-snake model)))))))
+
+  (let ((hsm (car (model-snake model)))
+        (t1 (cdr (model-snake model))))
+    (format t "hsm is ~A~%~A~%" hsm t1)
+    (some 'identity
+          (map 'list
+               (lambda (c) (equal c hsm))
+               t1))))
 
 (defun take (n l)
   (if (> (length l) n)
