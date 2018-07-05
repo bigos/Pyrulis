@@ -68,15 +68,12 @@
   (some 'identity (map 'list (lambda (e) (member e l :test 'equal)) ee)))
 
 (defun head-bit-snake (model)
-  ;; TODO: fix me
-
-  (let ((hsm (car (model-snake model)))
-        (t1 (cdr (model-snake model))))
-    (format t "hsm is ~A~%~A~%" hsm t1)
+  (let ((hsm (car (model-snake model))))
     (some 'identity
           (map 'list
-               (lambda (c) (equal c hsm))
-               t1))))
+               (lambda (c)
+                 (equal c hsm))
+               (cdr (model-snake model))))))
 
 (defun take (n l)
   (if (> (length l) n)
