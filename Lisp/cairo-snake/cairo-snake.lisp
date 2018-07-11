@@ -130,15 +130,14 @@
       (collision (cairo-set-source-rgb cr 1 1 0.5))
       (otherwise (cairo-set-source-rgb cr 0.4 0.4 0.4)))
     (cairo-set-line-width cr 5)
-    ;; snake disappears on keypress
-    (when (caar (model-snake model))
-          (cairo-move-to cr
-                         (* 10 (car (car (model-snake model))))
-                         (* 10 (cdr (car (model-snake model)))))
-          (loop for c in (model-snake model)
-                do (cairo-line-to cr
-                                  (* 10 (car c))
-                                  (* 10 (cdr c)))))
+
+    (cairo-move-to cr
+                   (* 10 (car (car (model-snake model))))
+                   (* 10 (cdr (car (model-snake model)))))
+    (loop for c in (model-snake model)
+          do (cairo-line-to cr
+                            (* 10 (car c))
+                            (* 10 (cdr c))))
     (cairo-stroke cr)
 
     ;; cleanup
