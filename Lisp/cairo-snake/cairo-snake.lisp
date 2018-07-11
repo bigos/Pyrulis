@@ -131,14 +131,14 @@
       (otherwise (cairo-set-source-rgb cr 0.4 0.4 0.4)))
     (cairo-set-line-width cr 5)
     ;; snake disappears on keypress
-    (when (model-snake model)
+    (when (caar (model-snake model))
           (cairo-move-to cr
                          (* 10 (car (car (model-snake model))))
-                         (* 10 (cdr (car (model-snake model))))))
-    (loop for c in (model-snake model)
-          do (cairo-line-to cr
-                            (* 10 (car c))
-                            (* 10 (cdr c))))
+                         (* 10 (cdr (car (model-snake model)))))
+          (loop for c in (model-snake model)
+                do (cairo-line-to cr
+                                  (* 10 (car c))
+                                  (* 10 (cdr c)))))
     (cairo-stroke cr)
 
     ;; cleanup
@@ -198,11 +198,16 @@
   (format *o* "doing keypress~%")
   (let ((model (cook old-model)))
     (labels
-        ((new-kv () kv)
-         (new-heading () (if (eq (new-kv) 'none) (model-heading model) (new-kv)))
+        ((new-kv ()
+           (key-to-heading kv))
+         (new-heading ()
+           (if (eq (new-kv)
+                   'none)
+               (model-heading model)
+               (new-kv)))
          (update-fields (m) (setf
                              (model-seed m) (1+ (model-seed m))
-                             (model-last-key m) (new-kv)
+                             (model-last-key m) kv
                              (model-heading m) (new-heading)
                              (model-game-field m) (update-game-field T model kv)
                              (model-snake m) (move-snake model (model-heading model)))))
@@ -225,7 +230,7 @@
 
 (defun move-snake (model headingv)
   ;; finish me
-  (format *o* "~&going to move snakw~%")
+  (format *o* "~&going to move snake ~A ~A~%" model headingv)
   (if (or (eq (model-game-field model) 'pause)
           (eq (model-game-field model) 'collision))
       (progn
