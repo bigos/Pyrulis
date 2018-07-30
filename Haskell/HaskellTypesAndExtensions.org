@@ -1,9 +1,12 @@
 * Haskell Types and Extensions
 
 ** Links
+
 [[http://www.parsonsmatt.org/2017/04/26/basic_type_level_programming_in_haskell.html][Link to tutorial]]
 
-[[https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/flags.html][language flags and extensions]]
+[[https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/flags.html][Language flags and extensions]]
+
+[[https://downloads.haskell.org/~ghc/latest/docs/html/libraries/Cabal-2.2.0.1/Language-Haskell-Extension.html][Extensions documentation]]
 
 ** DataKinds
 ** KindSignatures
