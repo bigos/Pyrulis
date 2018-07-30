@@ -1,0 +1,17 @@
+* Haskell Types and Extensions
+
+** Links
+[[http://www.parsonsmatt.org/2017/04/26/basic_type_level_programming_in_haskell.html][Link to tutorial]]
+
+[[https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/flags.html][language flags and extensions]]
+
+** DataKinds
+** KindSignatures
+** TypeFamilies
+** UndecidableInstances
+** TypeOperators
+** FlexibleInstances
+** FlexibleContexts
+** PolyKinds
+** TypeApplications
+** ScopedTypeVariables
