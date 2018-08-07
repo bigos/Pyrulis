@@ -161,7 +161,8 @@
         (setf
          (model-game-field model) (detect-collision model)
          (model-grow-by model) (1+ (model-grow-by model))
-         (model-food-items model) (remove-if (lambda (c) (not (food-under-head c model))) (model-food-items model))
+         (model-food-items model) (remove-if (lambda (c) (food-under-head c model))
+                                             (model-food-items model))
          (model-debug-data model) (format nil "debugging")
          (model-eaten model) (1+ (model-eaten model))))
       (progn
