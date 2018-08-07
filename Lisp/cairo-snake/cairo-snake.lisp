@@ -157,12 +157,13 @@
       (format *o* "going to cook ~A~%" model))
   (if (food-eaten model)
       (progn
-        ;; (format *o* "going to cook in THEN~%")
+        (format *o* "going to cook in THEN~%")
         (setf
          (model-game-field model) (detect-collision model)
          (model-grow-by model) (1+ (model-grow-by model))
          ;; other than food under head items are removed
-         (model-food-items model) (remove-if (lambda (c) (not (food-under-head c model)))
+         (model-food-items model) (remove-if (lambda (c)
+                                               (food-under-head c model))
                                              (model-food-items model))
          (model-debug-data model) (format nil "debugging")
          (model-eaten model) (1+ (model-eaten model))))
