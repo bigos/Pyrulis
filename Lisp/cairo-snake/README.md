@@ -7,3 +7,10 @@ This is a project to do ... something.
 
 Specify license here
 
+### REPL
+
+(push #p "/tmp/Pyrulis/Lisp/cairo-snake/" asdf:*central-registry*)
+(ql:quickload :cairo-snake)
+
+(in-package :cairo-snake)
+(main)
