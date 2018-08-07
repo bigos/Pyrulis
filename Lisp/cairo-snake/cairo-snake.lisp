@@ -109,7 +109,7 @@
     ;; TODO: finish the source business
     ;; http://www.crategus.com/books/cl-gtk/gtk-tutorial_2.html
 
-    (format *o* "canvas size is ~A --- ~A ~A === ~A~%" size w h s)
+    ;; (format *o* "canvas size is ~A --- ~A ~A === ~A~%" size w h s)
 
     (cairo-set-source-rgb cr 0.6 0.9 0)
     (cairo-set-line-width cr 25)
@@ -153,10 +153,11 @@
                       (1+ (random (cdr size) )))))
 
 (defun cook (model)
-  (format *o* "going to cook ~A~%" model)
+  (unless (equalp (model-game-field model) 'pause)
+      (format *o* "going to cook ~A~%" model))
   (if (food-eaten model)
       (progn
-        (format *o* "going to cook in THEN~%")
+        ;; (format *o* "going to cook in THEN~%")
         (setf
          (model-game-field model) (detect-collision model)
          (model-grow-by model) (1+ (model-grow-by model))
@@ -164,12 +165,13 @@
          (model-debug-data model) (format nil "debugging")
          (model-eaten model) (1+ (model-eaten model))))
       (progn
-        (format *o* "going to cook in ELSE~%")
+        ;; (format *o* "going to cook in ELSE~%")
         (setf
          (model-game-field model) (detect-collision model)
          (model-grow-by model) (shrink (model-grow-by model))
          (model-debug-data model) (format nil "-"))))
-  (format *o* "after cooking ~A~%" model)
+  (unless (equalp (model-game-field model) 'pause)
+      (format *o* "after cooking ~A~%" model))
   model)
 
 (defun update-global-model (arg model)
@@ -178,7 +180,7 @@
       (update-global-model-keypress arg model)))
 
 (defun update-global-model-tick (raw-model)
-  (format *o* "doing tick~%")
+  ;; (format *o* "doing tick~%")
   (let ((model (cook raw-model)))
     (labels
         ((more-food (model1) (if (equal (model-food-items model1) nil)
@@ -229,14 +231,16 @@
 
 (defun move-snake (model headingv)
   ;; finish me
-  (format *o* "~&going to move snake ~A ~A~%" model headingv)
+  (unless (equalp (model-game-field model) 'pause)
+    (format *o* "~&going to move snake ~A ~A~%" model headingv))
+
   (if (or (eq (model-game-field model) 'pause)
           (eq (model-game-field model) 'collision))
       (progn
-        (format *o* "paused~%")
+        ;; (format *o* "paused~%")
         (model-snake model))
       (progn
-        (format *o* "moving snake~%")
+        ;; (format *o* "moving snake~%")
         (move-snake2 model headingv))))
 
 (defun move-snake2 (model headingv)
@@ -253,7 +257,8 @@
 
 ;;; main --------------------------------------------------
 (defun timer-fun (gm canvas)
-  (format *o* "timer fun ~A ~A~%" gm canvas)
+  (unless (equalp (model-game-field gm) 'pause)
+      (format *o* "timer fun ~A ~A~%" gm canvas))
   (update-global-model 'tick gm)
   (gtk-widget-queue-draw canvas)
   ;; (format *o* "AFTER timer fun ~A~%" gm)  ;problem here
