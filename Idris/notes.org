@@ -19,7 +19,7 @@ We can use the to specify returned type.
 
 ****** escape sequences
 
-***** Boleans
+***** Booleans
 > == /= < || &&
 
 ***** Functions
@@ -42,18 +42,44 @@ id 'a'
 (\x -> x + x)
 
 ****** let and where
-Let doesn't have corresponding in
+Let does have corresponding in
 
-****** composite types
+***** composite types
 
-******* tuples
+****** tuples
 
-******* Lists
+****** Lists
 
 Nil is empty list.
 head :: tail has consing
 1..5 ranges
 
+***** A complete Idris program
+
+****** Whitespace significance
+
+****** Comments
+Like in Elm Idris has -- comments and {- comments -}
+
+******* Documentation comments
+Idris also has comments for documentation reading with :doc
+#+BEGIN_EXAMPLE
+||| Documentaion comment
+#+END_EXAMPLE
+
+***** Interactive programs
+Main module and main function
+
+putStrLn
+
+repl - possibly has problems with Emacs
+start with :exec, end with Ctrl-C
+
+show
+works with Show interface, true for all types in Prelude
+
+***** Excercises
+
 ** netxt to read
 chapter 2
-p 45
+p 50
