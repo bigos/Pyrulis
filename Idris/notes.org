@@ -1,5 +1,59 @@
 * reading the book
 
+** Part 1 Introduction
+
+*** Getting Started with Idris
+
+**** Basic types
+
+Double is the Idris name for Float.
+
+***** casting
+We can use the to specify returned type.
+  #+BEGIN_EXAMPLE
+  λΠ> the Integer (cast 3.14)
+  3 : Integer
+  #+END_EXAMPLE
+***** Strings and characters
+"String" and char 'a'
+
+****** escape sequences
+
+***** Boleans
+> == /= < || &&
+
+***** Functions
+Variables in function types
+
+left side = right side
+
+Evaluation of innermost expression first
+
+Explicit types and lazy evaluation
+
+****** partial application
+
+****** generic functions
+id 'a'
+
+****** constrained types
+
+****** lambdas
+(\x -> x + x)
+
+****** let and where
+Let doesn't have corresponding in
+
+****** composite types
+
+******* tuples
+
+******* Lists
+
+Nil is empty list.
+head :: tail has consing
+1..5 ranges
+
 ** netxt to read
 chapter 2
-p 25
+p 45
