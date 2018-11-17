@@ -22,7 +22,7 @@ We can use the to specify returned type.
 ***** Booleans
 > == /= < || &&
 
-***** Functions
+**** Functions
 Variables in function types
 
 left side = right side
@@ -31,37 +31,37 @@ Evaluation of innermost expression first
 
 Explicit types and lazy evaluation
 
-****** partial application
+***** partial application
 
-****** generic functions
+***** generic functions
 id 'a'
 
-****** constrained types
+***** constrained types
 
-****** lambdas
+***** lambdas
 (\x -> x + x)
 
-****** let and where
+***** let and where
 Let does have corresponding in
 
-***** composite types
+**** Composite types
 
-****** tuples
+***** tuples
 
-****** Lists
+***** Lists
 
 Nil is empty list.
 head :: tail has consing
 1..5 ranges
 
-***** A complete Idris program
+**** A complete Idris program
 
-****** Whitespace significance
+***** Whitespace significance
 
-****** Comments
+***** Comments
 Like in Elm Idris has -- comments and {- comments -}
 
-******* Documentation comments
+****** Documentation comments
 Idris also has comments for documentation reading with :doc
 #+BEGIN_EXAMPLE
 ||| Documentaion comment
@@ -80,6 +80,7 @@ works with Show interface, true for all types in Prelude
 
 ***** Excercises
 
+** Core Idris
 ** netxt to read
 chapter 2
-p 50
+p 53
