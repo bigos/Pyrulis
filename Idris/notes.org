@@ -82,6 +82,14 @@ works with Show interface, true for all types in Prelude
 
 ** Core Idris
 
+*** initial tip
+How to build programs interactively, via a process of type, define, refine.
+**** Type
+Write a type for a function.
+**** Define
+Create an initial definition, possibly containing holes.
+**** Refine
+Complete the definition by filling in holes, possibly modifying the type as your understanding of the problem develops.
 *** Interactive development
 
 ** next to read
