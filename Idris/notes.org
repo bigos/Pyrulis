@@ -81,6 +81,9 @@ works with Show interface, true for all types in Prelude
 ***** Excercises
 
 ** Core Idris
-** netxt to read
+
+*** Interactive development
+
+** next to read
 chapter 2
 p 53
