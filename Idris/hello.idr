@@ -1,8 +1,8 @@
 module Main
 {- colours
   Types are blue.
-  Data constructors (values)  are red.
-  Functions are green.
+  Data constructors (values) are red.
+  Plain functions are green.
   Variables are magenta.
 -}
 
