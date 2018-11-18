@@ -167,6 +167,9 @@ xor True y = not y
 Functions defined in terms of each other must be marked as mutual
 
 *** Adding precision to types: working with vectors
+In Idris a List with defined length and type of elements is called vector or
+Vect.
+
 ** next to read
 chapter 2
 p 64
