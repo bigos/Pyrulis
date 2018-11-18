@@ -115,7 +115,8 @@ MI - menu Idris
 | Ctrl-Alt-S    | Search          |                                                             | Searches for an expression that satisfies the type of the hole name under the cursor |
 | Ctrl-Alt-T    | Type-check name | MI - Display type - C-c C-t                                 | Displays the type of the name under the cursor                                       |
 
-**** Commands used
+**** Definig functions by pattern matching
+
 
 Write type declaration
 
@@ -125,6 +126,47 @@ Write type declaration
 
 Running partially refined/incomplete function in REPL
 
+Checking if the finished definition is total
+#+BEGIN_EXAMPLE
+λΠ> :total allLengths
+Main.allLengths is Total
+#+END_EXAMPLE
+
+**** Data types and patterns
+Case split takes the data on possible patterns from constructors
+
+#+BEGIN_EXAMPLE
+:doc List
+#+END_EXAMPLE
+Also right clicking on the Type and selecting Get doc does the same
+
+***** Refinement steps
+
+For example, to write the exclusive OR operator, you could follow these steps:
+1
+Type—Start by giving a type:
+xor : Bool -> Bool -> Bool
+2
+Define—Press Ctrl-Alt-A with the cursor over xor to add a skeleton definition:
+In Emacs it's C-c C-s
+xor : Bool -> Bool -> Bool
+xor x y = ?xor_rhs
+3
+Define—Press Ctrl-Alt-C over the x to give the two possible cases for x :
+In emacs menu Case split pattern variable
+xor : Bool -> Bool -> Bool
+xor False y = ?xor_rhs_1
+xor True y = ?xor_rhs_2
+4
+Refine—Complete the definition by filling in the right sides:
+xor : Bool -> Bool -> Bool
+xor False y = y
+xor True y = not y
+
+***** mutual functions
+Functions defined in terms of each other must be marked as mutual
+
+*** Adding precision to types: working with vectors
 ** next to read
 chapter 2
-p 60
+p 64
