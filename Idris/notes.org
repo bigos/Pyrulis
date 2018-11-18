@@ -131,8 +131,8 @@ MI - menu Idris
 |---------------+-----------------+-------------------------------------------------------------+--------------------------------------------------------------------------------------|
 | Ctrl-Alt-A    | Add definition  | MI - Add initial match clause to type declaration - C-c C-s | Adds a skeleton definition for the name under the cursor                             |
 | Ctrl-Alt-C    | Case split      | MI - Case split pattern variable                            | Splits a definition into pattern-matching clauses for the name under the cursor      |
-| Ctrl-Alt-D    | Documentation   | MI- Extract lemma from hole - C-c C-e                       | Displays documentation for the name under the cursor                                 |
-| Ctrl-Alt-L    | Lift hole       |                                                             | Lifts a hole to the top level as a new function declaration                          |
+| Ctrl-Alt-D    | Documentation   |                                                             | Displays documentation for the name under the cursor                                 |
+| Ctrl-Alt-L    | Lift hole       | MI- Extract lemma from hole - C-c C-e                       | Lifts a hole to the top level as a new function declaration                          |
 | Ctrl-Alt-M    | Match           |                                                             | Replaces a hole with a case expression that matches on an intermediate result        |
 | Ctrl-Alt-R    | Reload          |                                                             | Reloads and type-checks the current buffer                                           |
 | Ctrl-Alt-S    | Search          | Attempt to solve hole                                       | Searches for an expression that satisfies the type of the hole name under the cursor |
@@ -197,9 +197,14 @@ box - Totality annotations
 
 *** Type-directed search: automatic refining
 
+after implementing insSort
+
+REMEMEBR TO DO TOTALITY CHECK!!! after you implement your function
+
+Do the excercises on page 75 and possibly review the sort implementation
 
 *** Example: type-driven development of matrix functions
-p 73 not read yet
+p 75 not read yet
 
 ** next to read
 chapter 2
