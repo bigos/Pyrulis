@@ -127,4 +127,4 @@ Running partially refined/incomplete function in REPL
 
 ** next to read
 chapter 2
-p 53
+p 60
