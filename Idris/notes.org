@@ -90,7 +90,40 @@ Write a type for a function.
 Create an initial definition, possibly containing holes.
 **** Refine
 Complete the definition by filling in holes, possibly modifying the type as your understanding of the problem develops.
-*** Interactive development
+*** Interactive development with types
+**** Interactive editing
+***** Add definitions
+Given a type declaration, Idris can add a skeleton definition of a function that
+satisfies that type.
+***** Case analysis
+Given a skeleton function definition with arguments, Idris can use the types of
+those arguments to help define the function by pattern matching.
+***** Expression search
+Given a hole with a precise enough type, Idris can try to find an expression
+that satisfies the hole’s type, refining the definition.
+**** Interactive command summary
+MI - menu Idris
+
+| Atom Shortcut | Command         | Emacs command                                               | Description                                                                          |
+|---------------+-----------------+-------------------------------------------------------------+--------------------------------------------------------------------------------------|
+| Ctrl-Alt-A    | Add definition  | MI - Add initial match clause to type declaration - C-c C-s | Adds a skeleton definition for the name under the cursor                             |
+| Ctrl-Alt-C    | Case split      | MI - Case split pattern variable                            | Splits a definition into pattern-matching clauses for the name under the cursor      |
+| Ctrl-Alt-D    | Documentation   |                                                             | Displays documentation for the name under the cursor                                 |
+| Ctrl-Alt-L    | Lift hole       |                                                             | Lifts a hole to the top level as a new function declaration                          |
+| Ctrl-Alt-M    | Match           |                                                             | Replaces a hole with a case expression that matches on an intermediate result        |
+| Ctrl-Alt-R    | Reload          |                                                             | Reloads and type-checks the current buffer                                           |
+| Ctrl-Alt-S    | Search          |                                                             | Searches for an expression that satisfies the type of the hole name under the cursor |
+| Ctrl-Alt-T    | Type-check name | MI - Display type - C-c C-t                                 | Displays the type of the name under the cursor                                       |
+
+**** Commands used
+
+Write type declaration
+
+| Ctrl-Alt-A    | Add definition  | MI - Add initial match clause to type declaration - C-c C-s |
+| Ctrl-Alt-T    | Type-check name | MI - Display type - C-c C-t                                 |
+| Ctrl-Alt-C    | Case split      | MI - Case split pattern variable                            |
+
+Running partially refined/incomplete function in REPL
 
 ** next to read
 chapter 2
