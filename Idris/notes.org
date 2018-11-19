@@ -3,21 +3,21 @@
 *** Refinement steps
 
 For example, to write the exclusive OR operator, you could follow these steps:
-1
++ 1
 Type—Start by giving a type:
 xor : Bool -> Bool -> Bool
-2
++ 2
 Define—Press Ctrl-Alt-A with the cursor over xor to add a skeleton definition:
 In Emacs it's C-c C-s
 xor : Bool -> Bool -> Bool
 xor x y = ?xor_rhs
-3
++ 3
 Define—Press Ctrl-Alt-C over the x to give the two possible cases for x :
 In emacs menu Case split pattern variable
 xor : Bool -> Bool -> Bool
 xor False y = ?xor_rhs_1
 xor True y = ?xor_rhs_2
-4
++ 4
 Refine—Complete the definition by filling in the right sides:
 xor : Bool -> Bool -> Bool
 xor False y = y
