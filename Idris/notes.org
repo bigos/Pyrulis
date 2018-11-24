@@ -206,6 +206,6 @@ Do the excercises on page 75 and possibly review the sort implementation
 *** Example: type-driven development of matrix functions
 p 75 not read yet
 
-** next to read
+* next to read
 chapter 2
 p 64
