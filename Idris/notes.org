@@ -8,12 +8,16 @@ Type—Start by giving a type:
 xor : Bool -> Bool -> Bool
 + 2
 Define—Press Ctrl-Alt-A with the cursor over xor to add a skeleton definition:
+#+BEGIN_EXAMPLE
 In Emacs it's C-c C-s
+#+END_EXAMPLE
 xor : Bool -> Bool -> Bool
 xor x y = ?xor_rhs
 + 3
 Define—Press Ctrl-Alt-C over the x to give the two possible cases for x :
-In emacs menu Case split pattern variable
+#+BEGIN_EXAMPLE
+In Emacs menu Case split pattern variable
+#+END_EXAMPLE
 xor : Bool -> Bool -> Bool
 xor False y = ?xor_rhs_1
 xor True y = ?xor_rhs_2
@@ -208,4 +212,4 @@ p 75 not read yet
 
 * next to read
 chapter 2
-p 64
+p 69
