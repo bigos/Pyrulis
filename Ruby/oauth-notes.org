@@ -1,0 +1,15 @@
+* Oauth notes
+
+** Debugging
+
+https://github.com/oauth-xx/oauth2#debugging
+
+#+BEGIN_EXAMPLE
+  # will log both request and response, including bodies
+  ENV['OAUTH_DEBUG'] = 'true'
+#+END_EXAMPLE
+
+This gem is a dependency of omni-auth2, so we can get the ever so helpful
+debugging.
+
+** omni-auth2
