@@ -13,3 +13,7 @@ This gem is a dependency of omni-auth2, so we can get the ever so helpful
 debugging.
 
 ** omni-auth2
+
+Consider ditching omni-auth2 for client applications. It seems that
+https://github.com/oauth-xx/oauth2
+is a simpler solution
