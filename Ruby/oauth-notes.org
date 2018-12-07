@@ -17,3 +17,30 @@ debugging.
 Consider ditching omni-auth2 for client applications. It seems that
 https://github.com/oauth-xx/oauth2
 is a simpler solution
+
+** example application translation
+
+Possible source of confusion
+
+https://github.com/webgoal/spike-oauth-rails52
+says:
+
+#+BEGIN_EXAMPLE
+Since you're using Docker, communication between apps is tricky. In short, they
+are known by the names of the accounts and client services. Each has a specific
+port.
+
+For everything to be standard and less messy, put it in the / etc / hosts of
+your host machine:
+
+127.0.0.1 accounts client
+
+And be careful to always access in the browser:
+
+http: // accounts: 3001
+
+http: // client: 3002
+
+Register the application on accounts and update docker-compose.yml before you
+start!
+#+END_EXAMPLE
