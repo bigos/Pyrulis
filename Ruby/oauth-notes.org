@@ -53,3 +53,7 @@ http: // client: 3002
 Register the application on accounts and update docker-compose.yml before you
 start!
 #+END_EXAMPLE
+
+** doorkeeper
+
+https://github.com/doorkeeper-gem/doorkeeper/wiki
