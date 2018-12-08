@@ -57,3 +57,18 @@ start!
 ** doorkeeper
 
 https://github.com/doorkeeper-gem/doorkeeper/wiki
+
+*** setup
+
+initial app setup tutorial
+https://dev.mikamai.com/2015/02/11/oauth2-on-rails/
+
+example app
+https://github.com/doorkeeper-gem/doorkeeper-provider-app
+
+basically it is migrations and config/initializers
+
+*** client
+https://github.com/doorkeeper-gem/doorkeeper-devise-client
+
+seems to be an old application, I wonder how much of it is still true
