@@ -14,9 +14,16 @@ debugging.
 
 ** omni-auth2
 
-Consider ditching omni-auth2 for client applications. It seems that
-https://github.com/oauth-xx/oauth2
-is a simpler solution
+*** Documentation
+
+https://github.com/omniauth/omniauth/wiki
+
+https://github.com/omniauth/omniauth/wiki/External-Resources
+
+*** Possible alternative
+ Consider ditching omni-auth2 for client applications. It seems that
+ https://github.com/oauth-xx/oauth2
+ is a simpler solution
 
 ** example application translation
 
