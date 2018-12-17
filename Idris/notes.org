@@ -208,8 +208,10 @@ REMEMEBR TO DO TOTALITY CHECK!!! after you implement your function
 Do the excercises on page 75 and possibly review the sort implementation
 
 *** Example: type-driven development of matrix functions
-p 75 not read yet
+
+*** skimmmed the rest of the chapter
+It contains variations of the previous that better wait for the second reading
 
 * next to read
-chapter 2
-p 69
+chapter 4
+p 87
