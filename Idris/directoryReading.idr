@@ -3,18 +3,20 @@ module Main
 dirName : String
 dirName = "/home/jacek/Documents/"
 
-dodir : Directory -> IO ()
-dodir d = do
+listDir : Directory -> List String -> IO (List String)
+listDir d  ls = do
   dx <- dirEntry d
   case dx of
-    Left  de => putStrLn "err de"
-    Right sn => putStrLn sn
+    Left  de => pure ls         --no more entries, return the list
+    Right sn => listDir d (sn :: ls)
 
 main : IO ()
 main = do
-  putStrLn "Dir list"
-  dhx <- dirOpen dirName
-  case dhx of
-    Left er => putStrLn "error dhx"
-    Right d => dodir d
-  putStrLn "the end"
+  putStrLn ("Listing directory " ++ dirName)
+  dh <- dirOpen dirName
+  case dh of
+    Left er => putStrLn "directory not found"
+    Right d => do
+      entries <- listDir d []
+      putStrLn (show entries)
+      putStrLn "done"
