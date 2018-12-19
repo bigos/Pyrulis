@@ -24,18 +24,22 @@
 (define-alien-routine gtk_window_set_default_size void
   (win (* t)) (x int) (y int))
 
+(define-alien-routine g_object_unref void
+  (win (* t)))
+
 (define-alien-routine gtk_widget_show_all void (win (* t)))
 
 (sb-alien::define-alien-callback mycallback void ((app (* t)) (u (* t)))
                                  (with-alien ((win (* t)))
                                    (setf win (gtk_application_window_new app))
-                                   (gtk_window_set_title win "This")
-                                   (gtk_window_set_default_size win 100 100)
+                                   (gtk_window_set_title win "That")
+                                   (gtk_window_set_default_size win 400 300)
                                    (gtk_widget_show_all win)))
 
 (with-alien ((app (* t)) (status int))
   (setf app (gtk_application_new "org.gtk.example" 0))
   (g_signal_connect_data app "activate" mycallback nil nil 0)
-  (g_application_run app 0 nil))
+  (g_application_run app 0 nil)
+  (g_object_unref app))
 
 (format t "finished~%")
