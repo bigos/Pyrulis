@@ -284,6 +284,9 @@
   "Run the program"
   (format *o* "boooo~%")
   (format t "entering main loop~%")
+
+  (sb-int:set-floating-point-modes :traps '(:overflow :invalid))
+
   (init-global-model)
   (setf global-model *global*)
   (format *o* "global model is ~A~%" global-model)
