@@ -1,5 +1,5 @@
-#include<gtk/gtk.h>
-#include<glade/glade.h>
+#include <gtk/gtk.h>
+#include <gladeui/glade.h>
 
 void some_signal_handler_func(GtkWidget *widget, gpointer user_data) {
     /* do something useful here */
