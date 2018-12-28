@@ -1,0 +1,85 @@
+* Oauth notes
+
+** Debugging
+
+https://github.com/oauth-xx/oauth2#debugging
+
+#+BEGIN_EXAMPLE
+  # will log both request and response, including bodies
+  ENV['OAUTH_DEBUG'] = 'true'
+#+END_EXAMPLE
+
+This gem is a dependency of omni-auth2, so we can get the ever so helpful
+debugging.
+
+** omni-auth2
+
+*** Documentation
+
+https://github.com/omniauth/omniauth/wiki
+
+https://github.com/omniauth/omniauth/wiki/External-Resources
+
+https://www.digitalocean.com/community/tutorials/how-to-configure-devise-and-omniauth-for-your-rails-application
+
+*** Possible alternative
+ Consider ditching omni-auth2 for client applications. It seems that
+ https://github.com/oauth-xx/oauth2
+ is a simpler solution
+
+** example application translation
+
+Possible source of confusion
+
+https://github.com/webgoal/spike-oauth-rails52
+says:
+
+#+BEGIN_EXAMPLE
+Since you're using Docker, communication between apps is tricky. In short, they
+are known by the names of the accounts and client services. Each has a specific
+port.
+
+For everything to be standard and less messy, put it in the / etc / hosts of
+your host machine:
+
+127.0.0.1 accounts client
+
+And be careful to always access in the browser:
+
+http: // accounts: 3001
+
+http: // client: 3002
+
+Register the application on accounts and update docker-compose.yml before you
+start!
+#+END_EXAMPLE
+
+** doorkeeper
+
+https://github.com/doorkeeper-gem/doorkeeper/wiki
+
+*** setup
+
+initial app setup tutorial
+https://dev.mikamai.com/2015/02/11/oauth2-on-rails/
+
+https://share.atelie.software/creating-an-oauth-provider-16109c6229dd
+
+example app
+https://github.com/doorkeeper-gem/doorkeeper-provider-app
+
+basically it is migrations and config/initializers
+
+*** client
+https://github.com/doorkeeper-gem/doorkeeper-devise-client
+
+seems to be an old application, I wonder how much of it is still true
+
+**** strategy
+https://github.com/doorkeeper-gem/doorkeeper-devise-client/commit/1a4f61b28126a27f74fb1490971c5260698b5748#diff-88ee2eeda8992730dda0bbd625da5415
+
+this commit shows needed changes
+
+
+another link
+https://gist.github.com/poteto/3728497

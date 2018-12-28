@@ -1,0 +1,11 @@
+#! /bin/bash
+
+cd /tmp
+
+# A find executables in the current folder
+# B having name containing idris
+# C get the last one
+# D and execute it
+
+# A                                   | B          | C         | D
+find . -maxdepth 1 -perm -111 -type f | grep idris | tail -n 1 | sh

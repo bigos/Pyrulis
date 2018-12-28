@@ -1,0 +1,217 @@
+* reading the book
+** quick links
+*** Refinement steps
+
+For example, to write the exclusive OR operator, you could follow these steps:
++ 1
+Type—Start by giving a type:
+xor : Bool -> Bool -> Bool
++ 2
+Define—Press Ctrl-Alt-A with the cursor over xor to add a skeleton definition:
+#+BEGIN_EXAMPLE
+In Emacs it's C-c C-s
+#+END_EXAMPLE
+xor : Bool -> Bool -> Bool
+xor x y = ?xor_rhs
++ 3
+Define—Press Ctrl-Alt-C over the x to give the two possible cases for x :
+#+BEGIN_EXAMPLE
+In Emacs menu Case split pattern variable
+#+END_EXAMPLE
+xor : Bool -> Bool -> Bool
+xor False y = ?xor_rhs_1
+xor True y = ?xor_rhs_2
++ 4
+Refine—Complete the definition by filling in the right sides:
+xor : Bool -> Bool -> Bool
+xor False y = y
+xor True y = not y
+
+** Part 1 Introduction
+
+*** Getting Started with Idris
+
+**** Basic types
+
+Double is the Idris name for Float.
+
+***** casting
+We can use the to specify returned type.
+  #+BEGIN_EXAMPLE
+  λΠ> the Integer (cast 3.14)
+  3 : Integer
+  #+END_EXAMPLE
+***** Strings and characters
+"String" and char 'a'
+
+****** escape sequences
+
+***** Booleans
+> == /= < || &&
+
+**** Functions
+Variables in function types
+
+left side = right side
+
+Evaluation of innermost expression first
+
+Explicit types and lazy evaluation
+
+***** partial application
+
+***** generic functions
+id 'a'
+
+***** constrained types
+
+***** lambdas
+(\x -> x + x)
+
+***** let and where
+Let does have corresponding in
+
+**** Composite types
+
+***** tuples
+
+***** Lists
+
+Nil is empty list.
+head :: tail has consing
+1..5 ranges
+
+**** A complete Idris program
+
+***** Whitespace significance
+
+***** Comments
+Like in Elm Idris has -- comments and {- comments -}
+
+****** Documentation comments
+Idris also has comments for documentation reading with :doc
+#+BEGIN_EXAMPLE
+||| Documentaion comment
+#+END_EXAMPLE
+
+***** Interactive programs
+Main module and main function
+
+putStrLn
+
+repl - possibly has problems with Emacs
+start with :exec, end with Ctrl-C
+
+show
+works with Show interface, true for all types in Prelude
+
+***** Excercises
+
+** Core Idris
+
+*** initial tip
+How to build programs interactively, via a process of type, define, refine.
+**** Type
+Write a type for a function.
+**** Define
+Create an initial definition, possibly containing holes.
+**** Refine
+Complete the definition by filling in holes, possibly modifying the type as your understanding of the problem develops.
+*** Interactive development with types
+**** Interactive editing
+***** Add definitions
+Given a type declaration, Idris can add a skeleton definition of a function that
+satisfies that type.
+***** Case analysis
+Given a skeleton function definition with arguments, Idris can use the types of
+those arguments to help define the function by pattern matching.
+***** Expression search
+Given a hole with a precise enough type, Idris can try to find an expression
+that satisfies the hole’s type, refining the definition.
+**** Interactive command summary
+MI - menu Idris
+
+| Atom Shortcut | Command         | Emacs command                                               | Description                                                                          |
+|---------------+-----------------+-------------------------------------------------------------+--------------------------------------------------------------------------------------|
+| Ctrl-Alt-A    | Add definition  | MI - Add initial match clause to type declaration - C-c C-s | Adds a skeleton definition for the name under the cursor                             |
+| Ctrl-Alt-C    | Case split      | MI - Case split pattern variable                            | Splits a definition into pattern-matching clauses for the name under the cursor      |
+| Ctrl-Alt-D    | Documentation   | Get documentaion C-c C-d d                                  | Displays documentation for the name under the cursor                                 |
+| Ctrl-Alt-L    | Lift hole       | MI- Extract lemma from hole - C-c C-e                       | Lifts a hole to the top level as a new function declaration                          |
+| Ctrl-Alt-M    | Match           | Solve hole with case expression                             | Replaces a hole with a case expression that matches on an intermediate result        |
+| Ctrl-Alt-R    | Reload          | Load file C-c C-l                                           | Reloads and type-checks the current buffer                                           |
+| Ctrl-Alt-S    | Search          | Attempt to solve hole                                       | Searches for an expression that satisfies the type of the hole name under the cursor |
+| Ctrl-Alt-T    | Type-check name | MI - Display type - C-c C-t                                 | Displays the type of the name under the cursor                                       |
+
+**** Definig functions by pattern matching
+
+
+Write type declaration
+
+| Ctrl-Alt-A    | Add definition  | MI - Add initial match clause to type declaration - C-c C-s |
+| Ctrl-Alt-T    | Type-check name | MI - Display type - C-c C-t                                 |
+| Ctrl-Alt-C    | Case split      | MI - Case split pattern variable                            |
+
+Running partially refined/incomplete function in REPL
+
+Checking if the finished definition is total
+#+BEGIN_EXAMPLE
+λΠ> :total allLengths
+Main.allLengths is Total
+#+END_EXAMPLE
+
+**** Data types and patterns
+Case split takes the data on possible patterns from constructors
+
+#+BEGIN_EXAMPLE
+:doc List
+#+END_EXAMPLE
+Also right clicking on the Type and selecting Get doc does the same
+
+***** Refinement steps
+
+For example, to write the exclusive OR operator, you could follow these steps:
+1
+Type—Start by giving a type:
+xor : Bool -> Bool -> Bool
+2
+Define—Press Ctrl-Alt-A with the cursor over xor to add a skeleton definition:
+In Emacs it's C-c C-s
+xor : Bool -> Bool -> Bool
+xor x y = ?xor_rhs
+3
+Define—Press Ctrl-Alt-C over the x to give the two possible cases for x :
+In emacs menu Case split pattern variable
+xor : Bool -> Bool -> Bool
+xor False y = ?xor_rhs_1
+xor True y = ?xor_rhs_2
+4
+Refine—Complete the definition by filling in the right sides:
+xor : Bool -> Bool -> Bool
+xor False y = y
+xor True y = not y
+
+***** mutual functions
+Functions defined in terms of each other must be marked as mutual
+
+*** Adding precision to types: working with vectors
+In Idris a List with defined length and type of elements is called vector or
+Vect.
+
+box - Totality annotations
+
+*** Type-directed search: automatic refining
+
+after implementing insSort
+
+REMEMEBR TO DO TOTALITY CHECK!!! after you implement your function
+
+Do the excercises on page 75 and possibly review the sort implementation
+
+*** Example: type-driven development of matrix functions
+
+*** skimmmed the rest of the chapter
+It contains variations of the previous that better wait for the second reading
+
+* next to read
+chapter 4
+p 87

@@ -1,0 +1,715 @@
+* CLOS
+** different object systems
+**** message passing
+***** Ruby
+classes have methods and attributes
+**** generic function based
+*****  CLOS
+generic functions have methods
+classes have attributes
+
+** generic functions
+
+A generic function defines an abstract operation, specifying its name and a
+parameter list but no implementation.
+
+#+BEGIN_SRC lisp
+  (defgeneric draw (shape)
+    (:documentation "Draw the given shape on the screen."))
+#+END_SRC
+
+A generic function is generic in the sense that it can *at least in theory*
+accept any objects as arguments.
+
+The actual implementation of a generic function is provided by methods. Each
+method provides an implementation of the generic function for particular classes
+of arguments.
+
+*** defgeneric
+
+In the place of the body, a DEFGENERIC can contain various options. One option
+you should always include is :documentation, which you use to provide a string
+describing the purpose of the generic function. Because a generic function is
+purely abstract, it's important to be clear to both users and implementers what
+it's for.
+
+** methods
+
+Methods indicate what kinds of arguments they can handle by specializing the
+required parameters defined by the generic function.
+
+#+BEGIN_SRC lisp
+  (defmethod draw ((shape circle))
+    ...)
+
+  (defmethod draw ((shape triangle))
+    ...)
+#+END_SRC
+
+When a generic function is invoked, it compares the actual arguments it was
+passed with the specializers of each of its methods to find the applicable
+methods.
+
+In more complex cases, there may be multiple methods that apply; they're then
+combined
+
+*** specialization
+
+You can specialize a parameter in two ways--usually you'll specify a class that
+the argument must be an instance of. Because instances of a class are also
+considered instances of that class's superclasses, a method with a parameter
+specialized on a particular class can be applicable whenever the corresponding
+argument is a direct instance of the specializing class or of any of its
+subclasses. The other kind of specializer is a so-called EQL specializer, which
+specifies a particular object to which the method applies.
+
+When a generic function has only methods specialized on a single parameter and
+all the specializers are class specializers, the result of invoking a generic
+function is quite similar to the result of invoking a method in a
+message-passing system--the combination of the name of the operation and the
+class of the object on which it's invoked determines what method to run.
+
+However, reversing the order of lookup opens up possibilities not found in
+message-passing systems. Generic functions support methods that specialize on
+multiple parameters, provide a framework that makes multiple inheritance much
+more manageable, and let you use declarative constructs to control how methods
+are combined into an effective method, supporting several common usage patterns
+without a lot of boilerplate code. I'll discuss those topics in a moment. But
+first you need to look at the basics of the two macros used to define the
+generic functions DEFGENERIC and DEFMETHOD.
+
+
+*** defmethod
+
+A method's parameter list must be congruent with its generic function's. More
+generally, methods must have the same number of required and optional
+parameters and must be capable of accepting any arguments corresponding to any
+&rest or &key parameters specified by the generic function.
+
+As this code suggests, the form of DEFMETHOD is even more like that of DEFUN
+than DEFGENERIC's is. The only difference is that the required parameters can
+be specialized by replacing the parameter name with a two-element list. The
+first element is the name of the parameter, and the second element is the
+specializer, either the name of a class or an EQL specializer.
+
+The parameter name can be anything--it doesn't have to match the name used in
+the generic function, though it often will.
+
+**** eql specializer
+
+For example, suppose the banking app is going to be deployed in a particularly
+corrupt bank. Suppose the variable *account-of-bank-president* holds a
+reference to a particular bank account that belongs--as the name suggests--to
+the bank's president. Further suppose the variable *bank* represents the bank
+as a whole, and the function embezzle steals money from the bank. The bank
+president might ask you to "fix" withdraw to handle his account specially.
+#+BEGIN_SRC lisp
+  (defmethod withdraw ((account (eql *account-of-bank-president*)) amount)
+    (let ((overdraft (- amount (balance account))))
+      (when (plusp overdraft)
+        (incf (balance account) (embezzle *bank* overdraft)))
+      (call-next-method)))
+#+END_SRC
+
+
+Note, however, that the form in the EQL specializer that provides the object to
+specialize on--*account-of-bank-president* in this case--is evaluated once,
+when the DEFMETHOD is evaluated. This method will be specialized on the value
+of *account-of-bank-president* at the time the method is defined; changing the
+variable later won't change the method.
+
+**** call-next method
+
+The function CALL-NEXT-METHOD is part of the generic function machinery used to
+combine applicable methods. It indicates that control should be passed from
+this method to the method specialized on parent class. When it's called with
+no arguments, as it is here, the next method is invoked with whatever arguments
+were originally passed to the generic function. It can also be called with
+arguments, which will then be passed onto the next method.
+
+You aren't required to invoke CALL-NEXT-METHOD in every method. However, if you
+don't, the new method is then responsible for completely implementing the
+desired behavior of the generic function.
+
+*** Method Combination
+
+Outside the body of a method, CALL-NEXT-METHOD has no meaning. Within a method,
+it's given a meaning by the generic function machinery that builds an effective
+method each time the generic function is invoked using all the methods
+applicable to that particular invocation. This notion of building an effective
+method by combining applicable methods is the heart of the generic function
+concept and is the thing that allows generic functions to support facilities
+not found in message-passing systems.
+
+Folks with the message-passing model deeply ingrained in their consciousness
+should pay particular attention because generic functions turn method
+dispatching inside out compared to message passing, making the generic
+function, rather than the class, the prime mover.
+
+Conceptually, the effective method is built in three steps:
++ First, the generic function builds a list of applicable methods based on the
+actual arguments it was passed.
++ Second, the list of applicable methods is sorted according to the specificity
+of their parameter specializers.
++ Finally, methods are taken in order from the sorted list and their code
+combined to produce the effective method.
+
+Subclasses are more specific than their superclasses. An EQL specializer is
+always more specific than any class specializer.
+
+**** The Standard Method Combination
+
+***** Primary methods
+
+Primary methods are responsible for providing the primary implementation of a
+generic function.
+
+The most specific method runs first, and each method can pass control to the
+next most specific method via CALL-NEXT-METHOD.
+
+***** Secondary methods
+
+The standard method combination also supports three kinds of auxiliary methods:
+:before, :after, and :around methods. An auxiliary method definition is written
+with DEFMETHOD like a primary method but with a method qualifier.
+
+#+BEGIN_SRC lisp
+  (defmethod withdraw :before ((account bank-account) amount) ...)
+#+END_SRC
+
+Each kind of auxiliary method is combined into the effective method in a
+different way.
+
+All the applicable :before methods--not just the most specific--are run as part
+of the effective method. They run, as their name suggests, before the most
+specific primary method and are run in most-specific-first order.
+
+****** before
+
+Thus, :before methods can be used to do any preparation needed to ensure that
+the primary method can run.
+
+******* advantages
+
+This :before method has three advantages over a primary method. One is that it
+makes it immediately obvious how the method changes the overall behavior of the
+withdraw function--it's not going to interfere with the main behavior or change
+the result returned.
+
+The next advantage is that a primary method specialized on a class more
+specific than checking-account won't interfere with this :before method, making
+it easier for an author of a subclass of checking-account to extend the
+behavior of withdraw while keeping part of the old behavior.
+
+Lastly, since a :before method doesn't have to call CALL-NEXT-METHOD to pass
+control to the remaining methods, it's impossible to introduce a bug by
+forgetting to.
+
+****** after
+
+All the :after methods run after the primary methods in most-specific-last
+order, that is, the reverse of the :before methods.
+
+Each more-specific :after method will get a chance to clean up after all the
+primary methods and less-specific :after methods.
+
+****** around
+
+Finally, :around methods are combined much like primary methods except they're
+run "around" all the other methods. That is, the code from the most specific
+:around method is run before anything else. Within the body of an :around
+method, CALL-NEXT-METHOD will lead to the code of the next most specific
+:around method or, in the least specific :around method, to the complex of
+:before, primary, and :after methods. Almost all :around methods will contain
+such a call to CALL-NEXT-METHOD because an :around method that doesn't will
+completely hijack the implementation of the generic function from all the
+methods except for more-specific :around methods.
+
+***** Usefulness of secondary/auxiliary methods
+
+Auxiliary methods are just a convenient way to express certain common patterns
+more concisely and concretely. They don't actually allow you to do anything you
+couldn't do by combining primary methods with diligent adherence to a few
+coding conventions and some extra typing. Perhaps their biggest benefit is that
+they provide a uniform framework for extending generic functions. Often a
+library will define a generic function and provide a default primary method,
+allowing users of the library to customize its behavior by defining appropriate
+auxiliary methods.
+
+*** Other Method Combinations
+
+In addition to the standard method combination, the language specifies nine
+other built-in method combinations known as the simple built-in method
+combinations. You can also define custom method combinations, though that's a
+fairly esoteric feature.
+
+All the simple combinations follow the same pattern: instead of invoking the
+most specific primary method and letting it invoke less-specific primary
+methods via CALL-NEXT-METHOD, the simple method combinations produce an
+effective method that contains the code of all the primary methods, one after
+another, all wrapped in a call to the function, macro, or special operator that
+gives the method combination its name.
+
+The nine combinations are named for the
+operators: +, AND, OR, LIST, APPEND, NCONC, MIN, MAX, and PROGN. The simple
+combinations also support only two kinds of methods, primary methods, which are
+combined as just described, and :around methods, which work like :around
+methods in the standard method combination.
+
+To define a generic function that uses a particular method combination, you
+include a :method-combination option in the DEFGENERIC form. The value supplied
+with this option is the name of the method combination you want to use.
+
+In most cases standard method combination will do. In rare cases you might use
+simple built-in method combinations. In most rare cases, when it's not enough
+you can look up DEFINE-METHOD-COMBINATION on Hyperspec.
+
+*** Multimethods
+
+Methods that explicitly specialize more than one of the generic function's
+required parameters are called multimethods.
+
+Multimethods don't fit into message-passing languages because they don't belong
+to a particular class
+
+Multimethods are perfect for all those situations where, in a message-passing
+language, you struggle to decide to which class a certain behavior ought to
+belong. Is the sound a drum makes when it's hit with a drumstick a function of
+what kind of drum it is or what kind of stick you use to hit it? Both, of
+course.
+
+**** Combinatorial explosion
+
+Multimethods don't help with the combinatorial explosion--if you need to model
+five kinds of drums and six kinds of sticks, and every combination makes a
+different sound, there's no way around it; you need thirty different methods to
+implement all the combinations, with or without multimethods. What multimethods
+do save you from is having to write a bunch of dispatching code by letting you
+use the same built-in polymorphic dispatching that's so useful when dealing
+with methods specialized on a single parameter.
+
+**** OO Abominations cure
+
+Multimethods also save you from having to tightly couple one set of classes
+with the other. In the drum/stick example, nothing requires the implementation
+of the drum classes to know about the various classes of drumstick, and nothing
+requires the drumstick classes to know anything about the various classes of
+drum. The multimethods connect the otherwise independent classes to describe
+their joint behavior without requiring any cooperation from the classes
+themselves.
+
+** classes
+
+If generic functions are the verbs of the object system, classes are the nouns.
+As I mentioned in the previous chapter, all values in a Common Lisp program are
+instances of some class. Furthermore, all classes are organized into a single
+hierarchy rooted at the class T.
+
+The class hierarchy consists of two major families of classes, built-in and
+user-defined classes.
+
+Classes that represent the data types you've been learning about up until now,
+classes such as INTEGER, STRING, and LIST, are all built-in. They live in their
+own section of the class hierarchy, arranged into appropriate sub- and
+superclass relationships, and are manipulated by the functions I've been
+discussing for much of the book up until now. You can't subclass these classes,
+but, as you saw in the previous chapter, you can define methods that specialize
+on them, effectively extending the behavior of those classes.
+
+*** defclass
+
+DEFCLASS is responsible only for defining the class as a data type.
+
+The three facets of the class as a data type are
+
++ name,
++ relation to other classes,
++ names of the slots that make up instances of the class.
+
+The basic form of a DEFCLASS is quite simple.
+
+#+BEGIN_SRC lisp
+  (defclass name (direct-superclass-name*)
+    (slot-specifier*))
+#+END_SRC
+
+As with functions and variables, you can use any symbol as the name of a new
+class.3 Class names are in a separate namespace from both functions and
+variables, so you can have a class, function, and variable all with the same
+name.
+
+**** superclasses
+
+The direct-superclass-names specify the classes of which the new class is a
+subclass. If no superclasses are listed, the new class will directly subclass
+STANDARD-OBJECT.
+
+Any classes listed must be other user-defined classes, which ensures that each
+new class is ultimately descended from STANDARD-OBJECT.
+
+STANDARD-OBJECT in turn subclasses T, so all user-defined classes are part of
+the single class hierarchy that also contains all the built-in classes.
+
+**** slot specifiers
+
+Each slot specifier defines a slot that will be part of each instance of the
+class. Each slot in an instance is a place that can hold a value, which can be
+accessed using the SLOT-VALUE function.
+
+A class also inherits slot specifiers from its superclasses, so the set of
+slots actually present in any object is the union of all the slots specified in
+a class's DEFCLASS form and those specified in all its superclasses.
+
+**** Object initialization
+
+Three ways to control initial value of slots
+
+***** :initarg
+
+Used if DEFCLASS to define argument used by MAKE-INSTANCE.
+
+***** :initform
+
+Used in DEFCLASS to define default value if MAKE-INSTANCE did not use the
+relevant :initarg defined argument.
+
+Also can be used to signal error if the relevant argument was not supplied.
+
+Has no access to the initialized object.
+
+***** INITIALIZE-INSTANCE
+
+Generic function called by MAKE-INSTANCE. Can access initialized object.
+
+Takes care of initializing slots based on their :initarg and :initform options.
+
+Then you can define an :after method on INITIALIZE-INSTANCE that sets the
+values that were not set either by :initarg or :initform.
+
+#+BEGIN_SRC lisp
+  (defmethod initialize-instance :after ((account bank-account) &key)
+    (let ((balance (slot-value account 'balance)))
+      (setf (slot-value account 'account-type)
+            (cond
+              ((>= balance 100000) :gold)
+              ((>= balance 50000) :silver)
+              (t :bronze)))))
+#+END_SRC
+
+The &key in the parameter list is required to keep the method's parameter list
+congruent with the generic function's
+
+The parameter list specified for the INITIALIZE-INSTANCE generic function
+includes &key in order to allow individual methods to supply their own keyword
+parameters.
+
+But, if an INITIALIZE-INSTANCE method specialized on a particular class does
+specify a &key parameter, that parameter becomes a legal parameter to
+MAKE-INSTANCE when creating an instance of that class.
+
+*** accessor functions
+
+Between MAKE-INSTANCE and SLOT-VALUE, you have all the tools you need for
+creating and manipulating instances of your classes. Everything else you might
+want to do can be implemented in terms of those two functions.
+
+However, as anyone familiar with the principles of good object-oriented
+programming practices knows, directly accessing the slots of an object can lead
+to fragile code.
+
+If you define a function, that accesses the slot, you can redefine it later to
+preserve its behavior even if the internal representation changes.
+
+Another advantage to using accessor functions rather than direct access to
+slots via SLOT-VALUE is that they let you limit the ways outside code can
+modify a slot.
+
+Finally, using accessor functions makes your code tidier since it helps you
+avoid lots of uses of the rather verbose SLOT-VALUE function.
+
+**** custom setter
+
+***** function style
+
+A SETF function is a way to extend SETF, defining a new kind of place that it
+knows how to set. The name of a SETF function is a two-item list whose first
+element is the symbol setf and whose second element is a symbol, typically the
+name of a function used to access the place the SETF function will set.
+
+A SETF function can take any number of arguments, but the first argument is
+always the value to be assigned to the place.
+
+You could, for instance, define a SETF function to set the customer-name slot
+in a bank-account like this:
+
+#+BEGIN_SRC lisp
+  (defun (setf customer-name) (name account)
+    (setf (slot-value account 'customer-name) name))
+#+END_SRC
+
+After evaluating that definition, an expression like the following one:
+
+#+BEGIN_SRC lisp
+  (setf (customer-name my-account) "Sally Sue")
+#+END_SRC
+
+will be compiled as a call to the SETF function with "Sally Sue" as the first
+argument and the value of my-account as the second argument.
+
+***** method style
+
+Of course, as with reader functions, you'll probably want your SETF function to
+be generic, so you'd actually define it like this:
+
+#+BEGIN_SRC lisp
+  (defgeneric (setf customer-name) (value account))
+
+  (defmethod (setf customer-name) (value (account bank-account))
+    (setf (slot-value account 'customer-name) value))
+#+END_SRC
+
+**** custom getter
+
+And of course you'll also want to define a reader function for customer-name.
+
+#+BEGIN_SRC lisp
+  (defgeneric customer-name (account))
+
+  (defmethod customer-name ((account bank-account))
+    (slot-value account 'customer-name))
+#+END_SRC
+
+This allows you to write the following:
+#+BEGIN_SRC lisp
+  (setf (customer-name *account*) "Sally Sue") ; ==> "Sally Sue"
+
+  (customer-name *account*)                    ; ==> "Sally Sue"
+#+END_SRC
+
+There's nothing hard about writing these accessor functions, but it wouldn't be
+in keeping with The Lisp Way to have to write them all by hand.
+
+**** DEFCLASS defined functions
+
+DEFCLASS supports three slot options that allow you to automatically create
+reader and writer functions for a specific slot.
+
+***** :reader
+
+The :reader option specifies a name to be used as the name of a generic
+function that accepts an object as its single argument.
+
+***** :writer
+
+The :writer option is used to create a generic function and method for setting
+the value of a slot.
+
+You could provide reader and writer methods for customer-name equivalent to the
+ones you just wrote by changing the slot specifier to this:
+
+#+BEGIN_SRC lisp
+  (customer-name
+   :initarg :customer-name
+   :initform (error "Must supply a customer name.")
+   :reader customer-name
+   :writer (setf customer-name))
+#+END_SRC
+
+***** :accessor
+
+Since it's quite common to want both reader and writer functions, DEFCLASS also
+provides an option, :accessor, that creates both a reader function and the
+corresponding SETF function. So instead of the slot specifier just shown, you'd
+typically write this:
+
+#+BEGIN_SRC lisp
+  (customer-name
+   :initarg :customer-name
+   :initform (error "Must supply a customer name.")
+   :accessor customer-name)
+#+END_SRC
+
+***** :documentation
+
+Finally, one last slot option you should know about is the :documentation
+option, which you can use to provide a string that documents the purpose of the
+slot.
+
+**** WITH-SLOTS and WITH-ACCESSORS
+
+While using accessor functions will make your code easier to maintain, they can
+still be a bit verbose.
+
+Two standard macros, WITH-SLOTS and WITH-ACCESSORS, can help tidy up this
+clutter. Both macros create a block of code in which simple variable names can
+be used to refer to slots on a particular object. WITH-SLOTS provides direct
+access to the slots, as if by SLOT-VALUE, while WITH-ACCESSORS provides a
+shorthand for accessor methods.
+
+***** verbose SLOT-VALUE version
+
+#+BEGIN_SRC lisp
+  (defmethod assess-low-balance-penalty ((account bank-account))
+    (when (< (slot-value account 'balance) *minimum-balance*)
+      (decf (slot-value account 'balance) (* (slot-value account 'balance) .01))))
+#+END_SRC
+
+***** with-slots 1
+
+Within the body, each occurrence of one of the variable names is translated to
+a call to SLOT-VALUE with the object and the appropriate slot name as
+arguments.10 Thus, you can write assess-low-balance-penalty like this:
+
+#+BEGIN_SRC lisp
+  (defmethod assess-low-balance-penalty ((account bank-account))
+    (with-slots (balance) account
+      (when (< balance *minimum-balance*)
+        (decf balance (* balance .01)))))
+#+END_SRC
+
+or, using the two-item list form, like this:
+
+***** with-slots 2
+
+#+BEGIN_SRC lisp
+  (defmethod assess-low-balance-penalty ((account bank-account))
+    (with-slots ((bal balance)) account
+      (when (< bal *minimum-balance*)
+        (decf bal (* bal .01)))))
+#+END_SRC
+
+***** with-accessors
+
+If you had defined balance with an :accessor rather than just a :reader, then
+you could also use WITH-ACCESSORS. The form of WITH-ACCESSORS is the same as
+WITH-SLOTS except each element of the slot list is a two-item list containing a
+variable name and the name of an accessor function. Within the body of
+WITH-ACCESSORS, a reference to one of the variables is equivalent to a call to
+the corresponding accessor function. If the accessor function is SETFable, then
+so is the variable.
+
+#+BEGIN_SRC lisp
+  (defmethod assess-low-balance-penalty ((account bank-account))
+    (with-accessors ((balance balance)) account
+      (when (< balance *minimum-balance*)
+        (decf balance (* balance .01)))))
+#+END_SRC
+
+The first balance is the name of the variable, and the second is the name of
+the accessor function; they don't have to be the same.
+
+***** one or the other
+
+WITH-SLOTS can directly manipulate slots in ways not supported by accessor
+functions or to explicitly avoid the effects of auxiliary methods that may have
+been defined on the accessor functions.
+
+You should generally use accessor functions or WITH-ACCESSORS unless you have a
+specific reason not to.
+
+*** class-allocated slots
+
+The last slot option you need to know about is :allocation. The value of
+:allocation can be either :instance or :class and defaults to :instance if not
+specified.
+
+When a slot has :class allocation, the slot has only a single value, which is
+stored in the class and shared by all instances.
+
+However, :class slots are accessed the same as :instance slots--they're
+accessed with SLOT-VALUE or an accessor function, which means you can access
+the slot value only through an instance of the class even though it isn't
+actually stored in the instance.
+
+Because you can't get at a class-allocated slot without an instance of the
+class, class-allocated slots aren't really equivalent to static or class fields
+in languages such as Java, C++, and Python. Rather, class-allocated slots are
+used primarily to save space.
+
+*** Slots and inheritance
+
+As I discussed in the previous chapter, classes inherit behavior from their
+superclasses thanks to the generic function machinery--a method specialized on
+class A is applicable not only to direct instances of A but also to instances
+of A's subclasses. Classes also inherit slots from their superclasses, but the
+mechanism is slightly different.
+
+In Common Lisp a given object can have only one slot with a particular name.
+However, it's possible that more than one class in the inheritance hierarchy of
+a given class will specify a slot with a particular name.
+
+Common Lisp resolves these situations by merging all the specifiers with the
+same name from the new class and all its superclasses to create a single
+specifier for each unique slot name. When merging specifiers, different slot
+options are treated differently. For instance, since a slot can have only a
+single default value, if multiple classes specify an :initform, the new class
+uses the one from the most specific class. This allows a subclass to specify a
+different default value than the one it would otherwise inherit.
+
+On the other hand, :initargs needn't be exclusive--each :initarg option in a
+slot specifier creates a keyword parameter that can be used to initialize the
+slot; multiple parameters don't create a conflict, so the new slot specifier
+contains all the :initargs. Callers of MAKE-INSTANCE can use any of the
+:initargs to initialize the slot. If a caller passes multiple keyword arguments
+that initialize the same slot, then the leftmost argument in the call to
+MAKE-INSTANCE is used.
+
+Inherited :reader, :writer, and :accessor options aren't included in the merged
+slot specifier since the methods created by the superclass's DEFCLASS will
+already apply to the new class. The new class can, however, create its own
+accessor functions by supplying its own :reader, :writer, or :accessor options.
+
+Finally, the :allocation option is, like :initform, determined by the most
+specific class that specifies the slot. Thus, it's possible for all instances
+of one class to share a :class slot while instances of a subclass may each have
+their own :instance slot of the same name. And a sub-subclass may then redefine
+it back to :class slot, so all instances of that class will again share a
+single slot. In the latter case, the slot shared by instances of the
+sub-subclass is different than the slot shared by the original superclass.
+
+Usually merging slot definitions works quite nicely. However, it's important to
+be aware when using multiple inheritance that two unrelated slots that happen
+to have the same name can be merged into a single slot in the new class. Thus,
+methods specialized on different classes could end up manipulating the same
+slot when applied to a class that extends those classes.
+
+** Multiple Inheritance
+
+Common Lisp also supports multiple inheritance--a class can have multiple
+direct superclasses, inheriting applicable methods and slot specifiers from all
+of them.
+
+Every user-defined class already has multiple superclasses since they all
+extend STANDARD-OBJECT, which extends T, and so have at least two superclasses.
+The wrinkle that multiple inheritance adds is that a class can have more than
+one direct superclass. This complicates the notion of class specificity that's
+used both when building the effective methods for a generic function and when
+merging inherited slot specifiers.
+
+The rule that subclasses are more specific than their superclasses isn't enough
+to order all the superclasses. So Common Lisp uses a second rule that sorts
+unrelated superclasses according to the order they're listed in the DEFCLASS's
+direct superclass list--classes earlier in the list are considered more
+specific than classes later in the list. This rule is admittedly somewhat
+arbitrary but does allow every class to have a linear class precedence list,
+which can be used to determine which superclasses should be considered more
+specific than others.
+
+Note, however, there's no global ordering of classes--each class has its own
+class precedence list, and the same classes can appear in different orders in
+different classes' class precedence lists.
+
+If you find yourself twiddling the order of the direct superclass list as a way
+of fine-tuning the behavior of specific methods, you probably need to step back
+and rethink your approach.
+
+On the other hand, if you don't care exactly what the order is but want it to
+be consistent across several generic functions, then using auxiliary methods
+may be just the thing.
+
+** Good Object-Oriented Design
+
+That's about it for the main features of Common Lisp's object system. If you
+have lots of experience with object-oriented programming, you can probably see
+how Common Lisp's features can be used to implement good object-oriented
+designs.

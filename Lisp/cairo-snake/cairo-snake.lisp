@@ -4,6 +4,8 @@
 
 (in-package #:cairo-snake)
 
+(sb-int:set-floating-point-modes :traps '(:overflow :invalid))
+
 (defparameter *global* nil)
 
 ;;; model -------------------------------------------------
@@ -25,7 +27,7 @@
 
 (defun initial-model ()
   (make-model
-                                        ;:debug-data '()
+   ;; debug-data '()
    ;; :eaten 0
    :food-items '()
    ;; :game-field 'move
@@ -40,10 +42,9 @@
    ;; :width 600
    ))
 
-
 (defun init-global-model ()
-  (setf *global* (initial-model))
-  (setf (model-snake *global*) '((6 . 7) (5 . 7))))
+  (setf *global* (initial-model)
+        (model-snake *global*) '((6 . 7) (5 . 7))))
 
 (defun shrink (n)
   (let ((res (1- n)))
@@ -52,8 +53,8 @@
         0)))
 
 (defun food-under-head (c model)
-  (some 'identity (map 'list (lambda (x)
-                               (equalp  x c))
+  (some 'identity (map 'list
+                       (lambda (x) (equalp  x c))
                        (take 1 (model-snake model)))))
 
 (defun food-eaten (model)
@@ -62,10 +63,10 @@
     (members (model-food-items model)
              (take 1 (model-snake model)))))
 
-;;; member is already defined in lisp
-
 (defun members (ee l)
-  (some 'identity (map 'list (lambda (e) (member e l :test 'equal)) ee)))
+  (some 'identity (map 'list
+                       (lambda (e) (member e l :test 'equal))
+                       ee)))
 
 (defun head-bit-snake (model)
   (let ((hsm (car (model-snake model))))
@@ -285,6 +286,7 @@
   "Run the program"
   (format *o* "boooo~%")
   (format t "entering main loop~%")
+
   (init-global-model)
   (setf global-model *global*)
   (format *o* "global model is ~A~%" global-model)
