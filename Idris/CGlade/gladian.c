@@ -11,17 +11,18 @@ main (int   argc,
       char *argv[])
 {
   GtkBuilder *builder;
-  GObject *window;
+  GtkWidget *window;
 
   gtk_init (&argc, &argv);
 
   /* Construct a GtkBuilder instance and load our UI description */
   builder = gtk_builder_new_from_file("/home/jacek/Programming/Pyrulis/Idris/CGlade/gladian.glade");
-  window = gtk_builder_get_object(builder, "main-window");
+
+  window = GTK_WIDGET(gtk_builder_get_object (builder, "main-window"));
   gtk_builder_connect_signals(builder, NULL);
   g_object_unref(builder);
 
-  gtk_widget_show(window);
+  gtk_widget_show_all(window);
   gtk_main ();
   return 0;
 }
