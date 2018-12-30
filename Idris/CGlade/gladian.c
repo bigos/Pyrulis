@@ -1,9 +1,8 @@
 #include <gtk/gtk.h>
 
 /*
-   https://developer.gnome.org/gtk3/stable/ch01s03.html
+   https://developer.gnome.org/gtk3/stable/GtkBuilder.html
 */
-
 
 int
 main (int   argc,
