@@ -2,6 +2,8 @@
 
 /*
    https://developer.gnome.org/gtk3/stable/GtkBuilder.html
+   https://de.wikibooks.org/wiki/GTK_mit_Builder:_Builder
+   https://developer.gnome.org/gnome-devel-demos/stable/c.html.en
 */
 
 int
