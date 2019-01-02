@@ -8,7 +8,7 @@
 
 int
 foo (int   argc,
-      char *argv[])
+      char *)
 {
   GtkBuilder *builder;
 
