@@ -9,3 +9,8 @@ Build system
 
 Old web documentation
 https://developer.gnome.org/libglade/2.6/libglade-notes.html#libglade-basics
+
+
+** Linux looking for libraries
+
+https://serverfault.com/a/699902
