@@ -23,7 +23,12 @@
 (define-foreign-library libgladian
   (t (:default "libgladian")))
 
-(use-foreign-library libgladian)
+;; (use-foreign-library libgladian)
+
+(pushnew #P"/home/jacek/Programming/Pyrulis/Idris/CGlade/builddir/" *foreign-library-directories*
+         :test #'equal)
+
+(load-foreign-library '(:default "libgladian"))
 
 (sb-int:set-floating-point-modes :traps '(:overflow :invalid))
 
