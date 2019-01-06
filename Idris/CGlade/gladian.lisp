@@ -1,3 +1,5 @@
+(declaim (optimize (safety 3) (debug 3)))
+
 ;;; gladian lisp
 
 (let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
