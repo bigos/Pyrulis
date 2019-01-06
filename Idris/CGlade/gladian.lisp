@@ -2,6 +2,9 @@
 
 ;;; gladian lisp
 
+;; in the directory where you find the compiled library execute
+;; LD_LIBRARY_PATH=. sbcl --load ../gladian.lisp
+
 (let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
                                        (user-homedir-pathname))))
   (when (probe-file quicklisp-init)
@@ -22,6 +25,8 @@
 
 (use-foreign-library libgladian)
 
+(sb-int:set-floating-point-modes :traps '(:overflow :invalid))
+
 (defcfun ("foo" c-foo) :int
   (a :int)
   (b :string))
@@ -32,3 +37,5 @@
                    :void))
 
 (format t "~&quitting~%")
+
+(sb-ext:exit)
