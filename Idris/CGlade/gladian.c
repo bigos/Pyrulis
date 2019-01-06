@@ -8,7 +8,7 @@
 
 int
 foo (int   argc,
-      char *)
+      char ** argv)
 {
   GtkBuilder *builder;
 
@@ -24,6 +24,7 @@ foo (int   argc,
   g_object_unref(builder);
 
   gtk_widget_show_all(window);
+
   gtk_main ();
   return 0;
 }
