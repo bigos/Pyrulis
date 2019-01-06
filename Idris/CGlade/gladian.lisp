@@ -43,4 +43,5 @@
 
 (format t "~&quitting~%")
 
-(sb-ext:exit)
+;;; this is perfect for lisp scripts but will kill the repl
+;; (sb-ext:exit)
