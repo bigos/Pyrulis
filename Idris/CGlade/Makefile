@@ -3,3 +3,10 @@ DEFAULT: ./builddir/libgladian.so gladian.idr
 
 clean:
 	rm -f myExecFile gladian.ibc
+
+
+# reinstalling Idris
+
+# $ cabal install cabal-uninstall
+# $ cabal-uninstall idris
+# $ cabal install -f ffi idris
