@@ -1,5 +1,5 @@
-DEFAULT: mylib.o main.idr
-	idris main.idr -o myExecFile
+DEFAULT: ./builddir/libgladian.so gladian.idr
+	idris gladian.idr -o myExecFile
 
 clean:
-	rm -f myExecFile mylib.o main.ibc
+	rm -f myExecFile gladian.ibc
