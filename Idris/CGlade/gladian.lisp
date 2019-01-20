@@ -2,8 +2,9 @@
 
 ;;; gladian lisp
 
-;; in the directory where you find the compiled library execute
-;; LD_LIBRARY_PATH=. sbcl --load ../gladian.lisp
+;; in the directory where you find the compiled library start emacs
+;; LD_LIBRARY_PATH=. emacs &
+;; and load the file
 
 (let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
                                        (user-homedir-pathname))))
