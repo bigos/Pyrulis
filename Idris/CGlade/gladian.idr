@@ -1,8 +1,9 @@
 module Main
 
--- %include C "/home/jacek/Programming/Pyrulis/Idris/CGlade/gladian.h"
+%include C "/home/jacek/Programming/Pyrulis/Idris/CGlade/gladian.h"
 --%link C "/home/jacek/Programming/Pyrulis/Idris/CGlade/builddir/gladian@exe/gladian.c.o"
 
+%include C "gladian.h"
 %dynamic "/home/jacek/Programming/Pyrulis/Idris/CGlade/builddir/libgladian.so"
 
 gui_main : Int -> String -> IO ()
