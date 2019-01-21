@@ -1,0 +1,12 @@
+* lisp-c-gtk
+
+This is a project to experiment with C and Gtk
+
+** loading
+
+#+BEGIN_EXAMPLE
+(push #p "/home/jacek/Programming/Pyrulis/Lisp/lisp-c-gtk/" asdf:*central-registry*)
+(ql:quickload :lisp-c-gtk)
+(in-package :lisp-c-gtk)
+(main)
+#+END_EXAMPLE

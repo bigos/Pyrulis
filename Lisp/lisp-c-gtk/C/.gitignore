@@ -1,0 +1,8 @@
+ 
+builddir/.ninja_log              
+builddir/build.ninja             
+builddir/compile_commands.json   
+builddir/gladian@sha/*
+builddir/libgladian.so           
+builddir/meson-logs/*
+builddir/meson-private/*

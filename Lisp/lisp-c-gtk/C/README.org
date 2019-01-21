@@ -1,0 +1,4 @@
+I have started wit the C files ans meson.build.
+Then I have ran: meson builddir
+After that, I have entered the builddir and ran: ninja
+libgladian.so as expected has appeared in the builddir
