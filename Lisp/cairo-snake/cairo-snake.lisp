@@ -4,8 +4,6 @@
 
 (in-package #:cairo-snake)
 
-(sb-int:set-floating-point-modes :traps '(:overflow :invalid))
-
 (defparameter *global* nil)
 
 ;;; model -------------------------------------------------
@@ -293,6 +291,7 @@
   (within-main-loop
     (let ((win (gtk-window-new :toplevel))
           (canvas (gtk-drawing-area-new)))
+
       (setf (gtk-window-default-size win) (list 300 200))
       (gtk-container-add win canvas)
 

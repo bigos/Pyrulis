@@ -17,7 +17,8 @@ foo (int   argc,
   gtk_init (&argc, &argv);
 
   /* Construct a GtkBuilder instance and load our UI description */
-  builder = gtk_builder_new_from_file("/home/jacek/Programming/Pyrulis/Idris/CGlade/gladian.glade");
+  builder = gtk_builder_new_from_file("/home/jacek/Programming/Pyrulis/Lisp/lisp-c-gtk/C/Glade.glade");
+
 
   window = GTK_WIDGET(gtk_builder_get_object (builder, "main-window"));
   gtk_builder_connect_signals(builder, NULL);
