@@ -6,6 +6,8 @@
    https://developer.gnome.org/gnome-devel-demos/stable/c.html.en
 */
 
+
+
 int
 foo (int   argc,
       char ** argv)
