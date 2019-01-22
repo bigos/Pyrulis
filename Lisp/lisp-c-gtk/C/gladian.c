@@ -23,6 +23,10 @@ foo (int   argc,
   window = GTK_WIDGET(gtk_builder_get_object (builder, "main-window"));
   gtk_builder_connect_signals(builder, NULL);
 
+  quit_button = GTK_WIDGET(gtk_builder_get_object (builder, "quit"));
+
+  g_signal_connect (button, "clicked", G_CALLBACK(on_button_clicked), NULL);
+
   g_object_unref(builder);
 
   gtk_widget_show_all(window);
