@@ -3,10 +3,11 @@
 ** in the terminal run
 *** cd ~/Programming/j-bob/acl2/
 The above will allow to load j-bob examples
-*** ~/Documents/acl2-7.2/saved_acl2
+*** ~/Documents/acl2-8.1/saved_acl2
 ** M-x commands
  M-x rainbow-delimiters-mode
  M-x paredit-mode
+ M-x acl2-doc
 ** And you will have some resemblance of REPL
 * using The Little Prover
 ** git repo
