@@ -1,13 +1,12 @@
 * Starting in Emacs
 ** M-x load-acl2
 ** in the terminal run
-*** cd ~/Programming/j-bob/acl2/
-The above will allow to load j-bob examples
-*** ~/Documents/acl2-7.2/saved_acl2
+*** cd ~/Documents/acl2-8.1/
+*** ./saved_acl2
 ** M-x commands
  M-x rainbow-delimiters-mode
  M-x paredit-mode
-** And you will have some resemblance of REPL
+*** And you will have some resemblance of REPL
 * using The Little Prover
 ** git repo
 https://github.com/the-little-prover/j-bob
@@ -17,30 +16,20 @@ page at https://github.com/the-little-prover/j-bob
 gives examples of loading the book once you followed the steps in
 *Starting in Emacs* and changed to the right directory in the j-bob folder
 
-*** included file fix
-In j-bob.lisp file, you need to comment out the measure to have the book accepted.
-#+BEGIN_EXAMPLE
-(defun rewrite/define+ (defs pfs)
-  ;; (declare (xargs :measure (size pfs)))
-  (if (atom pfs)
-    defs
-    (rewrite/define+1 defs
-      (rewrite/define defs
-        (elem1 (car pfs))
-        (elem2 (car pfs))
-        (cdr (cdr (car pfs))))
-      (cdr pfs))))
-
-#+END_EXAMPLE
-
 *** including books
+This modified version loads acl2 from the standard location and uses modified
+paths to load the book files.
+
 #+BEGIN_EXAMPLE
 ;; Load the J-Bob language:
-(include-book "j-bob-lang")
+(include-book "~/Programming/j-bob/acl2/j-bob-lang" :uncertified-okp t)
+
 ;; Load J-Bob, our little proof assistant:
-(include-book "j-bob")
+(include-book "~/Programming/j-bob/acl2/j-bob" :uncertified-okp t)
+
 ;; Load the transcript of all proofs in the book:
-(include-book "little-prover")
+(include-book "~/Programming/j-bob/acl2/little-prover" :uncertified-okp t)
+
 ;; Run every proof in the book, up to and including the proof of align/align:
 (dethm.align/align)
 #+END_EXAMPLE
