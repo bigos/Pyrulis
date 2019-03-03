@@ -11,20 +11,18 @@
 (defun main ()
   (format t "starting lisp")
 
-  (pushnew #P"/home/jacek/Programming/Pyrulis/Lisp/lisp-c-gtk/C/builddir/" cffi:*foreign-library-directories*
-           :test #'equal)
-  (cffi:define-foreign-library libgladian (t (:default "libgladian")))
-  (cffi:load-foreign-library '(:default "libgladian"))
+  (cffi:define-foreign-library libgtk (t (:default "libgtk-3")))
+  (cffi:use-foreign-library libgtk)
 
-  (sb-int:set-floating-point-modes :traps '(:overflow :invalid))
+  ;; (sb-int:set-floating-point-modes :traps '(:overflow :invalid))
 
-  (cffi:defcfun ("foo" c-foo) :int
-    (a :int)
-    (b :string))
+  ;; (cffi:defcfun ("foo" c-foo) :int
+  ;;   (a :int)
+  ;;   (b :string))
 
-  (progn
-    (cffi:foreign-funcall "foo"
-                          :int 0
-                          :void))
+  ;; (progn
+  ;;   (cffi:foreign-funcall "foo"
+  ;;                         :int 0
+  ;;                         :void))
 
   (format t "~&quitting~%"))
