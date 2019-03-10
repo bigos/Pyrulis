@@ -1,12 +1,23 @@
 * Starting in Emacs
 ** M-x load-acl2
 ** in the terminal run
+<<<<<<< HEAD
+*** cd ~/Programming/j-bob/acl2/
+The above will allow to load j-bob examples
+*** ~/Documents/acl2-8.1/saved_acl2
+** M-x commands
+ M-x rainbow-delimiters-mode
+ M-x paredit-mode
+ M-x acl2-doc
+** And you will have some resemblance of REPL
+=======
 *** cd ~/Documents/acl2-8.1/
 *** ./saved_acl2
 ** M-x commands
  M-x rainbow-delimiters-mode
  M-x paredit-mode
 *** And you will have some resemblance of REPL
+>>>>>>> 08cb1c3d56dc1829c0fbb0e408c9c2e421cecdc6
 * using The Little Prover
 ** git repo
 https://github.com/the-little-prover/j-bob
