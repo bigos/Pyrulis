@@ -1,6 +1,6 @@
 ;;;; cairo-snake.lisp
 
-;(declaim (optimize (speed 0) (safety 3) (debug 3)))
+(declaim (optimize (speed 0) (safety 3) (debug 3)))
 
 (in-package #:cairo-snake)
 
@@ -108,7 +108,8 @@
     ;; TODO: finish the source business
     ;; http://www.crategus.com/books/cl-gtk/gtk-tutorial_2.html
 
-    ;; (format *o* "canvas size is ~A --- ~A ~A === ~A~%" size w h s)
+    (format *o* "canvas size is ~A --- ~A ~A === ~A~%" size w h s)
+    (format *o* "pointer context ~A~%" cr)
 
     (cairo-set-source-rgb cr 0.6 0.9 0)
     (cairo-set-line-width cr 25)
@@ -140,8 +141,10 @@
     (cairo-stroke cr)
 
     ;; cleanup
-    (cairo-destroy cr)
-    +gdk-event-propagate+))
+    ;; (cairo-destroy cr)
+    ;;; +gdk-event-propagate+
+    nil
+    ))
 
 ;;; update ------------------------------------------------
 
@@ -268,7 +271,7 @@
 
 (defun draw-fun (gm canvas context)
   (let ((model gm))
-      (draw-canvas canvas model context)))
+    (draw-canvas canvas model context)))
 
 (defun key-press-fun (gm canvas rkv)
   (format *o* "key press fun ~A ~A~%" canvas rkv)
@@ -300,10 +303,9 @@
                      (lambda () (timer-fun global-model canvas))
                      :priority +g-priority-default+)
 
-      ;; THIS PIECE OF CODE CRASHES SBCL
-      ;; (g-signal-connect canvas "draw"
-      ;;                   (lambda (canvas context)
-      ;;                     (draw-fun global-model canvas context)))
+      (g-signal-connect canvas "draw"
+                        (lambda (canvas context)
+                          (draw-fun global-model canvas context)))
 
       (g-signal-connect win "key-press-event"
                         (lambda (win rkv)
@@ -315,4 +317,4 @@
                           (leave-gtk-main)))
 
       (gtk-widget-show-all win)))
-  (format t "~&after the main loop~%"))
+  (format *o* "~&after the main loop~%"))
