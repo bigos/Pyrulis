@@ -105,8 +105,9 @@
          (s (floor (/ (min h w) 15)))
          (fitms (model-food-items model))
          (cr (pointer context)))
-    ;; TODO: finish the source business
-    ;; http://www.crategus.com/books/cl-gtk/gtk-tutorial_2.html
+
+    ;; prevent cr being destroyed improperly
+    (cairo-reference cr)
 
     (format *o* "canvas size is ~A --- ~A ~A === ~A~%" size w h s)
     (format *o* "pointer context ~A~%" cr)
@@ -141,9 +142,8 @@
     (cairo-stroke cr)
 
     ;; cleanup
-    ;;  for some reason the following line freezes the program
-    ;; (cairo-destroy cr)
-
+    ;; cairo destroy must have matching cairo-reference
+    (cairo-destroy cr)
     +gdk-event-propagate+))
 
 ;;; update ------------------------------------------------
