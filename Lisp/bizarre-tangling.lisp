@@ -8,6 +8,7 @@ function.
 (defun bizarro-tangle (comment-string)
   "Comment out every line but src blocks in chosen syntax"
   (interactive "sComment string: ")
+  (outline-show-all)
   (beginning-of-buffer)
   (while (not (eobp))
     (unless (org-in-src-block-p t)   ; comment out BEGIN and END lines
