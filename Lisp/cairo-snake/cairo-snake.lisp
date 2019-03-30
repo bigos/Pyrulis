@@ -141,10 +141,10 @@
     (cairo-stroke cr)
 
     ;; cleanup
+    ;;  for some reason the following line freezes the program
     ;; (cairo-destroy cr)
-    ;;; +gdk-event-propagate+
-    nil
-    ))
+
+    +gdk-event-propagate+))
 
 ;;; update ------------------------------------------------
 
