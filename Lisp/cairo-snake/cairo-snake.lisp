@@ -144,6 +144,8 @@
     ;; cleanup
     ;; cairo destroy must have matching cairo-reference
     (cairo-destroy cr)
+
+    ;; continue propagation of the event handler
     +gdk-event-propagate+))
 
 ;;; update ------------------------------------------------
