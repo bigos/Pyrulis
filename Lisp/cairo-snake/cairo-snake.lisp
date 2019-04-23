@@ -294,29 +294,30 @@
   (setf global-model *global*)
   (format *o* "global model is ~A~%" global-model)
   (within-main-loop
-    (let ((win (gtk-window-new :toplevel))
-          (canvas (gtk-drawing-area-new))
-          )
+   (let ((win (gtk-window-new :toplevel))
+         (canvas (gtk-drawing-area-new))
+         )
 
-      (setf (gtk-window-default-size win) (list 300 200))
-      (gtk-container-add win canvas)
+     (setf (gtk-window-default-size win) (list 300 200))
+     (gtk-container-add win canvas)
 
-      (g-timeout-add 1000
-                     (lambda () (timer-fun global-model canvas))
-                     :priority +g-priority-default+)
+     (g-timeout-add 1000
+                    (lambda () (timer-fun global-model canvas))
+                    :priority +g-priority-default+)
 
-      (g-signal-connect canvas "draw"
-                        (lambda (canvas context)
-                          (draw-fun global-model canvas context)))
+     (g-signal-connect canvas "draw"
+                       (lambda (canvas context)
+                         (draw-fun global-model canvas context)))
 
-      (g-signal-connect win "key-press-event"
-                        (lambda (win rkv)
-                          (key-press-fun global-model win rkv)))
+     (g-signal-connect win "key-press-event"
+                       (lambda (win rkv)
+                         (key-press-fun global-model win rkv)))
 
-      (g-signal-connect win "destroy"
-                        (lambda (win)
-                          (declare (ignore win))
-                          (leave-gtk-main)))
+     (g-signal-connect win "destroy"
+                       (lambda (win)
+                         (declare (ignore win))
+                         (leave-gtk-main)))
 
-      (gtk-widget-show-all win)))
+     (gtk-widget-show-all win)))
+  (join-gtk-main)
   (format *o* "~&after the main loop~%"))
