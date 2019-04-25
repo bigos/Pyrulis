@@ -319,4 +319,5 @@
                           (leave-gtk-main)))
 
       (gtk-widget-show-all win)))
+  (join-gtk-main)
   (format *o* "~&after the main loop~%"))
