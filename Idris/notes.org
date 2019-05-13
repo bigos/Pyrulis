@@ -3,9 +3,11 @@
 *** Refinement steps
 
 For example, to write the exclusive OR operator, you could follow these steps:
+
 + 1
 Type—Start by giving a type:
 xor : Bool -> Bool -> Bool
+
 + 2
 Define—Press Ctrl-Alt-A with the cursor over xor to add a skeleton definition:
 #+BEGIN_EXAMPLE
@@ -13,6 +15,7 @@ In Emacs it's C-c C-s
 #+END_EXAMPLE
 xor : Bool -> Bool -> Bool
 xor x y = ?xor_rhs
+
 + 3
 Define—Press Ctrl-Alt-C over the x to give the two possible cases for x :
 #+BEGIN_EXAMPLE
@@ -21,6 +24,7 @@ In Emacs menu Case split pattern variable
 xor : Bool -> Bool -> Bool
 xor False y = ?xor_rhs_1
 xor True y = ?xor_rhs_2
+
 + 4
 Refine—Complete the definition by filling in the right sides:
 xor : Bool -> Bool -> Bool
@@ -117,7 +121,7 @@ Write a type for a function.
 Create an initial definition, possibly containing holes.
 **** Refine
 Complete the definition by filling in holes, possibly modifying the type as your understanding of the problem develops.
-*** Interactive development with types
+*** Interactive development with types and interactive commands
 **** Interactive editing
 ***** Add definitions
 Given a type declaration, Idris can add a skeleton definition of a function that
