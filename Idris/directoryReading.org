@@ -26,3 +26,18 @@ Using found functions in REPL
 λΠ> :exec Prelude.File.currentDir
 #+END_EXAMPLE
 will start a process that will print current directory
+
+* Documentation
+https://www.idris-lang.org/documentation/
+
+** prelude
+https://www.idris-lang.org/docs/current/prelude_doc/
+
+** base
+https://www.idris-lang.org/docs/current/base_doc/
+
+** contrib
+https://www.idris-lang.org/docs/current/contrib_doc/
+
+** effects
+https://www.idris-lang.org/docs/current/effects_doc/
