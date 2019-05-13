@@ -1,0 +1,28 @@
+* directory reading search
+** module Main
+Move cursor over Main in ~module Main~
+menu Idris / Browse namespace
+echo area will show
+#+BEGIN_EXAMPLE
+Browse namespace: Main
+#+END_EXAMPLE
+that will show defined functions and their types
+
+** function listDir
+
+*** Directory
+Move cursor over ~Directory~
+menu Idris / Browse namespace
+echo are will show
+Prelude.File
+press enter and you will see many file related functions
+
+*** List String
+The same will work with ~List String~
+
+** repl
+Using found functions in REPL
+#+BEGIN_EXAMPLE
+λΠ> :exec Prelude.File.currentDir
+#+END_EXAMPLE
+will start a process that will print current directory
