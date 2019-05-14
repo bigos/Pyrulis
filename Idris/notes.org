@@ -1,5 +1,18 @@
 * reading the book
 ** quick links
+*** colour meaning
+http://docs.idris-lang.org/en/latest/reference/semantic-highlighting.html#legend
+
+| Idris Term     | HTML          | Latex          |
+|----------------+---------------+----------------|
+| Bound Variable | Purple        | Magenta        |
+| Keyword        | Bold          | Underlined     |
+| Function       | Green         | Green          |
+| Type           | Blue          | Blue           |
+| Data           | Red           | Red            |
+| Implicit       | Italic Purple | Italic Magenta |
+
+
 *** Refinement steps
 
 For example, to write the exclusive OR operator, you could follow these steps:
