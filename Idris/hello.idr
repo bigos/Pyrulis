@@ -6,8 +6,9 @@ module Main
   Variables are magenta.
 -}
 
-enterownia : String -> String
-enterownia a = ("you have entered " ++ a ++ "\n")
+import System
 
 main : IO ()
-main = repl "Enter something " enterownia
+main = do
+  returnCode <- System.system "echo 'this is echo'"
+  putStrLn (show returnCode)
