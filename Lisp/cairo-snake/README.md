@@ -14,3 +14,7 @@ Specify license here
 
 (in-package :cairo-snake)
 (main)
+
+
+# libraries on windows
+https://github.com/ceramic/ceramic/issues/50#issuecomment-315584480
