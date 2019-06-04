@@ -6,6 +6,9 @@ module Main
   Variables are magenta.
 -}
 
+-- running from the terminal
+-- idris --exec main ./hello.idr
+
 import System
 
 main : IO ()
