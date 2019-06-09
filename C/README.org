@@ -7,6 +7,8 @@
 
 https://fresh2refresh.com/c-programming/c-basic-program/
 
+https://www.w3schools.in/c-tutorial/
+
 *** the rest
 
 https://www.geeksforgeeks.org/c-language-set-1-introduction/
@@ -18,3 +20,25 @@ https://www.w3resource.com/c-programming-exercises/
 ** Emacs environment
 
 *** gdb
+
+
+** Standards
+
+https://en.wikipedia.org/wiki/C_(programming_language)
+
+*** GCC support
+
+Ansi C94 C99 C11 C17
+
+https://gcc.gnu.org/onlinedocs/gcc/Standards.html
+
+*** C99
+
+https://www.w3schools.in/c-tutorial/c99/
+
+*** C11 standard pdf
+
+http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf
+
+*** C18 in GCC
+https://en.wikipedia.org/wiki/C18_(C_standard_revision)
