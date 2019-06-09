@@ -1,0 +1,20 @@
+* C programming
+
+
+** Introduction
+
+*** the basics
+
+https://fresh2refresh.com/c-programming/c-basic-program/
+
+*** the rest
+
+https://www.geeksforgeeks.org/c-language-set-1-introduction/
+
+** Exercises
+
+https://www.w3resource.com/c-programming-exercises/
+
+** Emacs environment
+
+*** gdb
