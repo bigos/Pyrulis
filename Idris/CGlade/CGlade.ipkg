@@ -1,0 +1,8 @@
+package CGlade
+
+modules = Main
+executable = cglade
+main = Main
+
+makefile = Makefile
+objs = myc.o, myc.h
