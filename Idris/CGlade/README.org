@@ -1,14 +1,9 @@
 * C Glade
 
-** meson
-Build system
-
 ** Libglade
 
-[[file:/usr/share/doc/libgladeui-doc/html/index.html][Local documentation]]
-
-Old web documentation
-https://developer.gnome.org/libglade/2.6/libglade-notes.html#libglade-basics
+web documentation
+http://blog.borovsak.si/2009/09/glade3-tutorial-2-constructing.html
 
 
 ** Linux looking for libraries
