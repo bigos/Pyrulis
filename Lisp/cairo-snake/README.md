@@ -16,5 +16,11 @@ Specify license here
 (main)
 
 
+### Loader
+
+cd to directory
+sbcl --load cairo-loader.lisp
+
+
 # libraries on windows
 https://github.com/ceramic/ceramic/issues/50#issuecomment-315584480
