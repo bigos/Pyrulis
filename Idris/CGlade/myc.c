@@ -9,9 +9,14 @@ int myMult(int x, int y, int (* cba)()) {
     return (res * 2);
 }
 
-
 void b2_quit(a, b) {
+    printf("this is proper quit\n");
     gtk_main_quit ();
+}
+
+void bt1_click(a, b) {
+    printf("\nyou have clicked button 1 - good bye\n\n\n");
+
 }
 
 int zzz ()
@@ -41,6 +46,8 @@ int zzz ()
 
     /* Get main window pointer from UI */
     window = GTK_WIDGET( gtk_builder_get_object( builder, "w1" ) );
+    g_signal_connect(G_OBJECT(window),
+                     "destroy", b2_quit, NULL);
 
     /* Connect signals */
     gtk_builder_connect_signals( builder, NULL );
