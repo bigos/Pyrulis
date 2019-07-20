@@ -9,12 +9,6 @@ int myMult(int x, int y, int (* cba)()) {
     return (res * 2);
 }
 
-void b2_quit(__attribute__((unused)) GtkWidget *widget,
-             __attribute__((unused)) gpointer data)
-{
-    g_print("Quit Clicked\n");
-    gtk_main_quit();
-}
 
 int zzz ()
 {
