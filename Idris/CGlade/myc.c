@@ -15,7 +15,7 @@ void b2_quit(a, b) {
 }
 
 void bt1_click(a, b) {
-    printf("\nyou have clicked button 1 - good bye\n\n\n");
+    printf("\nyou have clicked button 1 - well done\n\n\n");
 
 }
 
