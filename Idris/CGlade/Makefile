@@ -8,7 +8,7 @@ myc.o: myc.c myc.h
 	gcc $(CFLAGS) $(GTKFLAGS1) myc.c -c -o myc.o
 
 clean:
-	rm -f cglade myc.o main.ibc a.out *.ibc
+	rm -f cglade myc.o myc.c.* main.ibc a.out *.ibc
 
 
 hmm: myc.o
