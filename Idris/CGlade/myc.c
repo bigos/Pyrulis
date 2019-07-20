@@ -10,6 +10,10 @@ int myMult(int x, int y, int (* cba)()) {
 }
 
 
+void b2_quit(a, b) {
+    gtk_main_quit ();
+}
+
 int zzz ()
 {
     int status = 0;

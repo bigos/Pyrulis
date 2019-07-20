@@ -1,4 +1,4 @@
-CFLAGS = -g -Wall
+CFLAGS =  -g -Wall -rdynamic
 GTKFLAGS1 = `pkg-config --cflags gtk+-3.0`
 
 # output of the following needed in %flag C in Main.idr

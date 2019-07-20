@@ -1,7 +1,7 @@
 module Main
 
 -- same as " `pkg-config --libs gtk+-3.0`
-%flag C "-lgtk-3 -lgdk-3 -lpangocairo-1.0 -lpango-1.0 -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0"
+%flag C "-lgtk-3 -lgdk-3 -lpangocairo-1.0 -lpango-1.0 -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -rdynamic"
 %include C "myc.h"
 %link C "myc.o"
 
