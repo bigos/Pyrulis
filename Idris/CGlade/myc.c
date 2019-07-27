@@ -9,12 +9,12 @@ int myMult(int x, int y, int (* cba)()) {
     return (res * 2);
 }
 
-void b2_quit(a, b) {
+void b2_quit(GtkWidget *widget, gpointer data) {
     printf("this is proper quit\n");
     gtk_main_quit ();
 }
 
-void bt1_click(a, b) {
+void bt1_click(GtkWidget *widget, gpointer data) {
     printf("\nyou have clicked button 1 - well done\n\n\n");
 
 }
@@ -50,15 +50,16 @@ int zzz ()
     /* Get main window pointer from UI */
     w1 = GTK_WIDGET( gtk_builder_get_object( builder, "w1" ) );
     g_signal_connect(G_OBJECT(w1),
-                     "destroy", b2_quit, NULL);
+                     "destroy", G_CALLBACK(b2_quit), NULL);
+
 
     b1 =  GTK_WIDGET( gtk_builder_get_object( builder, "b1" ) );
     g_signal_connect(G_OBJECT(b1),
-                     "clicked", bt1_click, NULL);
+                     "clicked", G_CALLBACK(bt1_click), NULL);
 
     b2 =  GTK_WIDGET( gtk_builder_get_object( builder, "b2" ) );
     g_signal_connect(G_OBJECT(b2),
-                     "clicked", b2_quit, NULL);
+                     "clicked", G_CALLBACK(b2_quit), NULL);
 
     /* Destroy builder, since we don't need it anymore */
     g_object_unref( G_OBJECT( builder ) );
