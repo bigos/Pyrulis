@@ -19,6 +19,19 @@ void bt1_click(GtkWidget *widget, gpointer data) {
 
 }
 
+void tryUI(GtkBuilder *builder) {
+    GtkWidget  *b1;
+    GtkWidget  *b2;
+    /* hmm */
+    b1 =  GTK_WIDGET( gtk_builder_get_object( builder, "b1" ) );
+    g_signal_connect(G_OBJECT(b1),
+                     "clicked", G_CALLBACK(bt1_click), NULL);
+
+    b2 =  GTK_WIDGET( gtk_builder_get_object( builder, "b2" ) );
+    g_signal_connect(G_OBJECT(b2),
+                     "clicked", G_CALLBACK(b2_quit), NULL);
+}
+
 int zzz ()
 {
     int status = 0;
@@ -30,8 +43,6 @@ int zzz ()
     GError     *error = NULL;
 
     GtkWidget  *w1;
-    GtkWidget  *b1;
-    GtkWidget  *b2;
 
     /* Init Gtk3 */
     gtk_init( &argc, &argv);
@@ -52,14 +63,7 @@ int zzz ()
     g_signal_connect(G_OBJECT(w1),
                      "destroy", G_CALLBACK(b2_quit), NULL);
 
-
-    b1 =  GTK_WIDGET( gtk_builder_get_object( builder, "b1" ) );
-    g_signal_connect(G_OBJECT(b1),
-                     "clicked", G_CALLBACK(bt1_click), NULL);
-
-    b2 =  GTK_WIDGET( gtk_builder_get_object( builder, "b2" ) );
-    g_signal_connect(G_OBJECT(b2),
-                     "clicked", G_CALLBACK(b2_quit), NULL);
+    tryUI(builder);
 
     /* Destroy builder, since we don't need it anymore */
     g_object_unref( G_OBJECT( builder ) );
