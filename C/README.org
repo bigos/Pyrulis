@@ -9,6 +9,23 @@ https://fresh2refresh.com/c-programming/c-basic-program/
 
 https://www.w3schools.in/c-tutorial/
 
+*** pointers
+
+**** simple example
+#+BEGIN_SRC c
+  #include <stdio.h>
+  int main()
+  {
+      int *ptr, q;
+      q = 50;
+      /* address of q is assigned to ptr */
+      ptr = &q;
+      /* display q's value using ptr variable */
+      printf("%d", *ptr);
+      return 0;
+  }
+#+END_SRC
+
 *** the rest
 
 https://www.geeksforgeeks.org/c-language-set-1-introduction/
