@@ -9,3 +9,17 @@ http://blog.borovsak.si/2009/09/glade3-tutorial-2-constructing.html
 ** Linux looking for libraries
 
 https://serverfault.com/a/699902
+
+* Idris usage with myc.o
+
+cd to directory
+
+run ~make myc.o~
+
+that will compile file myc.c creating ~myc.o~
+
+in Emacs open Main.idr
+
+menu Idris / Load file
+
+REPL will appear and ~:exec main~ will work
