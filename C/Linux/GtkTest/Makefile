@@ -1,12 +1,13 @@
 CFLAGS = -g -Wall
-GTKFLAGS1 = `pkg-config --cflags gtk+-3.0`
+GTKCFLAGS = `pkg-config --cflags gtk+-3.0`
+GTKLIBS =   `pkg-config --libs   gtk+-3.0`
 
 clean:
 	rm -f a.out test foo.o libfoo.so
 
 # compile C library
 step1: foo.h foo.c
-	gcc -c -Wall -Werror -fpic foo.c
+	gcc $(GTKCFLAGS) -c -fpic foo.c $(GTKLIBS)
 
 # create shared library
 step2: step1
@@ -14,7 +15,7 @@ step2: step1
 
 # create executable using the library
 step3: step2
-	gcc -L. -Wall -o test main.c -lfoo
+	gcc -L. -Wall -o test main.c -lfoo $(GTKLIBS)
 
 # run the executable
 run: step3
