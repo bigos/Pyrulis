@@ -22,7 +22,7 @@ void bt1_click(GtkWidget *widget, gpointer data) {
 void tryUI(GtkBuilder *builder) {
     GtkWidget  *b1;
     GtkWidget  *b2;
-    /* hmm */
+
     b1 =  GTK_WIDGET( gtk_builder_get_object( builder, "b1" ) );
     g_signal_connect(G_OBJECT(b1),
                      "clicked", G_CALLBACK(bt1_click), NULL);
