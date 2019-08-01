@@ -1,0 +1,9 @@
+* Readme
+
+https://www.cprogramming.com/tutorial/shared-libraries-linux-gcc.html
+ LD_LIBRARY_PATH=`pwd`/foo::$LD_LIBRARY_PATH ./test
+
+
+
+* running it
+LD_LIBRARY_PATH=`pwd`/foo::$LD_LIBRARY_PATH ./test
