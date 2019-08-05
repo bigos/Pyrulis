@@ -293,31 +293,33 @@
   (init-global-model)
   (setf global-model *global*)
   (format *o* "global model is ~A~%" global-model)
-  (within-main-loop
-   (let ((win (gtk-window-new :toplevel))
-         (canvas (gtk-drawing-area-new))
-         )
 
-     (setf (gtk-window-default-size win) (list 300 200))
-     (gtk-container-add win canvas)
+  (sb-int:with-float-traps-masked (:divide-by-zero)
+    (within-main-loop
+     (let ((win (gtk-window-new :toplevel))
+           (canvas (gtk-drawing-area-new))
+           )
 
-     (g-timeout-add 1000
-                    (lambda () (timer-fun global-model canvas))
-                    :priority +g-priority-default+)
+       (setf (gtk-window-default-size win) (list 300 200))
+       (gtk-container-add win canvas)
 
-     (g-signal-connect canvas "draw"
-                       (lambda (canvas context)
-                         (draw-fun global-model canvas context)))
+       (g-timeout-add 1000
+                      (lambda () (timer-fun global-model canvas))
+                      :priority +g-priority-default+)
 
-     (g-signal-connect win "key-press-event"
-                       (lambda (win rkv)
-                         (key-press-fun global-model win rkv)))
+       (g-signal-connect canvas "draw"
+                         (lambda (canvas context)
+                           (draw-fun global-model canvas context)))
 
-     (g-signal-connect win "destroy"
-                       (lambda (win)
-                         (declare (ignore win))
-                         (leave-gtk-main)))
+       (g-signal-connect win "key-press-event"
+                         (lambda (win rkv)
+                           (key-press-fun global-model win rkv)))
 
-     (gtk-widget-show-all win)))
-  (join-gtk-main)
-  (format *o* "~&after the main loop~%"))
+       (g-signal-connect win "destroy"
+                         (lambda (win)
+                           (declare (ignore win))
+                           (leave-gtk-main)))
+
+       (gtk-widget-show-all win)))
+    (join-gtk-main)
+    (format *o* "~&after the main loop~%")))
