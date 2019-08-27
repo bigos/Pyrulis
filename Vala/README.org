@@ -4,6 +4,16 @@
 
 https://wiki.gnome.org/Projects/Vala/Tutorial
 
+*** Debugging
+
+seems to be broken
+
+ https://wiki.gnome.org/Projects/Vala/Tutorial#Debugging
+
+#+BEGIN_EXAMPLE
+valac -g --save-temps debug-demo.vala
+nemiver debug-demo
+#+END_EXAMPLE
 
 ** reference
 
@@ -12,13 +22,6 @@ https://valadoc.org/index.htm
 https://www.vala-project.org/doc/vala
 
 https://valadoc.org/glib-2.0/string.html
-
-*** Googling
-
-To search for ~strip~ enter the following in the search input
-#+BEGIN_EXAMPLE
-site:https://www.vala-project.org/doc/vala/ strip
-#+END_EXAMPLE
 
 *** crosscompiling on Windows
 
