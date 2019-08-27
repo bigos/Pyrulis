@@ -4,6 +4,23 @@
 
 https://wiki.gnome.org/Projects/Vala/Tutorial
 
+
+** reference
+https://www.vala-project.org/doc/vala
+
+https://valadoc.org/glib-2.0/string.html
+
+*** Googling
+
+To search for ~strip~ enter the following in the search input
+#+BEGIN_EXAMPLE
+site:https://www.vala-project.org/doc/vala/ strip
+#+END_EXAMPLE
+
+*** crosscompiling on Windows
+
+ https://wiki.gnome.org/Projects/Vala/Win32CrossBuildSample
+
 ** installing
 
 on Ubuntu
@@ -11,6 +28,10 @@ on Ubuntu
 #+BEGIN_EXAMPLE
 sudo apt install vala-0.40-doc valabind valac valac-0.40-vapi valadoc gobject-introspection
 #+END_EXAMPLE
+
+PPA
+
+https://wiki.gnome.org/Projects/Vala/ValaOnLinux
 
 ** Emacs
 
