@@ -1,0 +1,18 @@
+* Vala
+
+** tutorials
+
+https://wiki.gnome.org/Projects/Vala/Tutorial
+
+** installing
+
+on Ubuntu
+
+#+BEGIN_EXAMPLE
+sudo apt install vala-0.40-doc valabind valac valac-0.40-vapi valadoc gobject-introspection
+#+END_EXAMPLE
+
+** Emacs
+
+flymake-vala
+vala-mode
