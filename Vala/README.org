@@ -6,6 +6,9 @@ https://wiki.gnome.org/Projects/Vala/Tutorial
 
 
 ** reference
+
+https://valadoc.org/index.htm
+
 https://www.vala-project.org/doc/vala
 
 https://valadoc.org/glib-2.0/string.html
