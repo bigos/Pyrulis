@@ -11,6 +11,9 @@ public class MyApp : Gtk.Application {
 		main_window.default_height = 300;
 		main_window.default_width = 300;
 		main_window.title = "Hello World";
+
+		Gtk.Label label = new Gtk.Label ("Hello GTK");
+		main_window.add (label);
 		main_window.show_all ();
 	}
 
