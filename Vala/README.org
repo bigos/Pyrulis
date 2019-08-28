@@ -46,3 +46,9 @@ https://wiki.gnome.org/Projects/Vala/ValaOnLinux
 
 flymake-vala
 vala-mode
+
+** Googling
+
+#+BEGIN_EXAMPLE
+site:https://valadoc.org activate
+#+END_EXAMPLE
