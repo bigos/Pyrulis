@@ -4,6 +4,9 @@
 
 https://wiki.gnome.org/Projects/Vala/Tutorial
 
+Elementary OS tutorial
+https://elementary.io/docs/code/getting-started/#getting-started
+
 *** Debugging
 
 seems to be broken
