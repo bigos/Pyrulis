@@ -26,6 +26,9 @@ https://www.vala-project.org/doc/vala
 
 https://valadoc.org/glib-2.0/string.html
 
+cheat sheet
+https://learnxinyminutes.com/docs/vala/
+
 *** crosscompiling on Windows
 
  https://wiki.gnome.org/Projects/Vala/Win32CrossBuildSample
