@@ -29,6 +29,12 @@ https://valadoc.org/glib-2.0/string.html
 cheat sheet
 https://learnxinyminutes.com/docs/vala/
 
+*** VAPI
+
+inter-operation with C files
+
+https://wiki.gnome.org/Projects/Vala/ManualBindings
+
 *** crosscompiling on Windows
 
  https://wiki.gnome.org/Projects/Vala/Win32CrossBuildSample
