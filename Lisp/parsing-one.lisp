@@ -9,7 +9,13 @@
 
 (in-package #:parsing-one)              ;---------------------------------------
 
-(defparameter parsed (format nil " 123 + 456 # comment~% \"a string\"  # end comment"))
+(defparameter parsed (format nil " 123 + 456 # comment~% \"a String\"  # end comment"))
+
+(defun char-within (c char-from char-to)
+  (declare (type base-char c char-from char-to))
+  (<= (char-code char-from)
+      (char-code c)
+      (char-code char-to)))
 
 (defun what (c)
   (declare (type (base-char) c))
@@ -17,9 +23,9 @@
        (cond
          ((eq c #\Space) 'space)
          ((eq c #\Newline) 'newline)
-         ((and
-           (>= (char-code c) (char-code #\0))
-           (<= (char-code c) (char-code #\9))) 'digit)
+         ((char-within c #\0 #\9) 'digit)
+         ((char-within c #\a #\z) 'letter-lower)
+         ((char-within c #\A #\Z) 'letter-upper)
          (T 'unknown))))
 
 (defun classify (prev c next)
