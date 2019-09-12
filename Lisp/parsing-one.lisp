@@ -9,7 +9,8 @@
 
 (in-package #:parsing-one)              ;---------------------------------------
 
-(defparameter parsed (format nil " 123 + 456 # comment~% \"a String\"  # end comment"))
+(defparameter parsed (format nil
+                             " 123 + 456 # comment~% \"a \\\"quoted\\\" String\"  # end comment"))
 
 (defun char-within (c char-from char-to)
   (declare (type base-char c char-from char-to))
@@ -22,7 +23,6 @@
   (the symbol
        (cond
          ((eq c #\Space) 'space)
-         ((eq c #\Newline) 'newline)
          ((char-within c #\0 #\9) 'digit)
          ((char-within c #\a #\z) 'letter-lower)
          ((char-within c #\A #\Z) 'letter-upper)
@@ -32,7 +32,22 @@
   (declare (type standard-char c)
            (type (or standard-char null) prev next))
   (let ((a (what c)))
-    a))
+    (cond
+      ((and (eq c    #\Return)
+            (eq next #\Newline))
+       (list a 'windows-newline))
+      ((and (eq c #\Newline)
+            (not (eq prev #\Return)))
+       (list a 'unix-newline))
+      ((and (eq c #\")
+            (not (eq prev #\\)))
+       (list a 'string-quote))
+      ((and (eq c #\")
+            (eq prev #\\))
+       (list a 'escaped-quote))
+
+      (T
+       (list a)))))
 
 (defun pc (parsed i acc)
   (declare (type string parsed) (type (integer 0 255) i) (type (or null list) acc))
