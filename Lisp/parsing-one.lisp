@@ -36,16 +36,15 @@
       ((and (eq c    #\Return)
             (eq next #\Newline))
        (list a 'windows-newline))
-      ((and (eq c #\Newline)
+      ((and (eq c         #\Newline)
             (not (eq prev #\Return)))
        (list a 'unix-newline))
-      ((and (eq c #\")
+      ((and (eq c         #\")
             (not (eq prev #\\)))
        (list a 'string-quote))
-      ((and (eq c #\")
+      ((and (eq c    #\")
             (eq prev #\\))
        (list a 'escaped-quote))
-
       (T
        (list a)))))
 
