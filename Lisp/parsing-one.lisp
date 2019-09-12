@@ -28,6 +28,14 @@
          ((char-within c #\A #\Z) 'letter-upper)
          (T 'unknown))))
 
+(defun ify (parsed i)
+  (let ((c (aref parsed i))
+        (prev (when (> i 0)
+                (aref parsed (1- i))))
+        (next (when (< i (1- (length parsed)))
+                (aref parsed (1+ i)))))
+    (classify prev c next)))
+
 (defun classify (prev c next)
   (declare (type standard-char c)
            (type (or standard-char null) prev next))
@@ -66,7 +74,7 @@
                    prev
                    next
                    '===
-                   (classify prev c next))
+                   (ify parsed i))
              acc)))))
 
 (defun main ()  (format t "~A~%"
