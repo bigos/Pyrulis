@@ -53,6 +53,11 @@
       ((and (eq c    #\")
             (eq prev #\\))
        (list a 'escaped-quote))
+      ((eq c #\\)
+       (list a 'escape-character))
+      ((eq c #\#)
+       (list a 'comment))
+
       (T
        (list a)))))
 
@@ -71,13 +76,12 @@
              (list i
                    c
                    '---
-                   prev
-                   next
-                   '===
+
+
                    (ify parsed i))
              acc)))))
 
-(defun main ()  (format t "~A~%"
+(defun main ()  (format t "~s~%"
                         (pc parsed 0 nil)))
 
 ;;; ----------------------------------------------------------------------------
