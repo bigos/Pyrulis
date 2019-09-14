@@ -10,7 +10,7 @@
 (in-package #:parsing-one)              ;---------------------------------------
 
 (defparameter parsed (format nil
-                             " 123 + 456 # comment~% \"a \\\"quoted\\\" String\"  # end comment"))
+                             " 123 + 456 # comment~% \"a \\\"quoted\\\" String\" + 777  # end comment"))
 
 (defun char-within (c char-from char-to)
   (declare (type base-char c char-from char-to))
@@ -60,12 +60,33 @@
       (T
        (list a)))))
 
-;;; preparing for better tokenizing
 (defun pc-prim (parsed i acc in-comment in-string)
-  (pc parsed i acc in-comment in-string))
+  (let ((cl (caar (car acc)))
+        (ch (caddr (car acc)))
+        (pch (caddr (cadr acc))))
+    (format t "zzzzzz ~s ~s ~s --- ~s~%" cl ch pch in-string)
+    (cond
+      ;; comments
+      ((eq cl 'comment)
+       (pc parsed i acc T in-string))
+      ((eq ch #\Newline)
+       (pc parsed i acc nil in-string))
+      ;; strings
+      ((eq cl 'string-quote)
+       (pc parsed i acc in-comment T))
+      ((and (eq cl 'stringing)
+            (eq ch #\")
+            (not (eq pch #\\)))
+       (pc parsed i acc in-comment nil))
+      ;; everything else
+      (t (pc parsed i acc in-comment in-string)))))
 
 (defun pc (parsed i acc in-comment in-string)
-  (declare (type string parsed) (type (integer 0 255) i) (type (or null list) acc))
+  (declare (type string parsed)
+           (type (integer 0 255)
+                 i)
+           (type (or null list)
+                 acc))
   (if (>= i (length parsed))
       (list parsed
             (reverse acc))
@@ -75,15 +96,18 @@
             (next (when (< i (1- (length parsed)))
                     (aref parsed (1+ i)))))
         (pc-prim parsed (1+ i)
-            (cons
-             (list i
-                   c
-                   '---
-                   prev next
-                   (ify parsed i))
-             acc)
-            in-comment in-string
-            ))))
+                 (cons (list
+                        (if in-comment
+                            (list 'comenting)
+                            (if in-string
+                                (list 'stringing)
+                                (ify parsed i)))
+                        i
+                        c
+                        '---
+                        prev next)
+                       acc)
+                 in-comment in-string))))
 
 (defun main ()  (format t "~s~%"
                         (pc parsed 0 nil nil nil)))
