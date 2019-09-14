@@ -43,25 +43,28 @@
     (cond
       ((and (eq c    #\Return)
             (eq next #\Newline))
-       (list a 'windows-newline))
+       (list 'windows-newline))
       ((and (eq c         #\Newline)
             (not (eq prev #\Return)))
-       (list a 'unix-newline))
+       (list 'unix-newline))
       ((and (eq c         #\")
             (not (eq prev #\\)))
-       (list a 'string-quote))
+       (list 'string-quote))
       ((and (eq c    #\")
             (eq prev #\\))
-       (list a 'escaped-quote))
+       (list 'escaped-quote))
       ((eq c #\\)
-       (list a 'escape-character))
+       (list 'escape-character))
       ((eq c #\#)
-       (list a 'comment))
-
+       (list 'comment))
       (T
        (list a)))))
 
-(defun pc (parsed i acc)
+;;; preparing for better tokenizing
+(defun pc-prim (parsed i acc in-comment in-string)
+  (pc parsed i acc in-comment in-string))
+
+(defun pc (parsed i acc in-comment in-string)
   (declare (type string parsed) (type (integer 0 255) i) (type (or null list) acc))
   (if (>= i (length parsed))
       (list parsed
@@ -71,18 +74,19 @@
                     (aref parsed (1- i))))
             (next (when (< i (1- (length parsed)))
                     (aref parsed (1+ i)))))
-        (pc parsed (1+ i)
+        (pc-prim parsed (1+ i)
             (cons
              (list i
                    c
                    '---
-
-
+                   prev next
                    (ify parsed i))
-             acc)))))
+             acc)
+            in-comment in-string
+            ))))
 
 (defun main ()  (format t "~s~%"
-                        (pc parsed 0 nil)))
+                        (pc parsed 0 nil nil nil)))
 
 ;;; ----------------------------------------------------------------------------
 (main)
