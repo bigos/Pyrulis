@@ -84,6 +84,9 @@
       ;; everything else
       (t (pc parsed i acc in-comment in-string)))))
 
+;; interesting comments
+;; https://stackoverflow.com/questions/7824809/can-bottom-up-dynamic-programming-be-done-in-lisp?rq=1
+
 (defun pc (parsed i acc in-comment in-string)
   (declare (type string parsed)
            (type (integer 0 255)
