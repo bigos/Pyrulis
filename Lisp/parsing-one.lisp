@@ -72,12 +72,15 @@
       ((eq ch #\Newline)
        (pc parsed i acc nil in-string))
       ;; strings
-      ((eq cl 'string-quote)
+      ((and (eq cl 'string-quote)
+            (eq in-comment nil))
        (pc parsed i acc in-comment T))
       ((and (eq cl 'stringing)
             (eq ch #\")
             (not (eq pch #\\)))
        (pc parsed i acc in-comment nil))
+      ;; brackets
+
       ;; everything else
       (t (pc parsed i acc in-comment in-string)))))
 
