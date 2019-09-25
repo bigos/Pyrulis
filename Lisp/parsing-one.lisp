@@ -10,7 +10,7 @@
 (in-package #:parsing-one)              ;---------------------------------------
 
 (defparameter parsed (format nil
-                             " 123 + 456 # comment~% \"a \\\"quoted\\\" String\" + 777  # end comment"))
+                             " 123 + 456 # comment~% \"a \\\"quoted\\\" String\" ++ \"777\"  # end comment"))
 
 (defun char-within (c char-from char-to)
   (declare (type base-char c char-from char-to))
