@@ -9,11 +9,28 @@
 
 (in-package #:parsing-one)              ;---------------------------------------
 
-(defparameter parsed (format nil
-                             " 123 + 456 # comment~% \"a \\\"quoted\\\" String\" ++ \"777\"  # end comment"))
+(defparameter data (format nil
+                           " 123 + 456 # comment~% \"a \\\"quoted\\\" String\" ++ \"777\"  # end comment"))
+
+(defun at (str i)
+  (aref str i))
+
+(defun prev (str i)
+  (when (> i 0)
+    (at str (1- i))))
+
+(defun next (str i)
+  (when (< i (1- (length str)))
+    (at str (1+ i))))
+
+(defun char-within (c a b)
+  (<= (char-code a) (char-code c) (char-code b)))
+
+(defun char-member (c l)
+  (member c l))
 
 (defun main ()
-  (format t "~s~%" parsed))
+  (format t "~a~%" parsed))
 
 ;;; ----------------------------------------------------------------------------
 (main)
