@@ -12,6 +12,7 @@
 (defparameter data (format nil
                            " 123 + 456 # comment~% \"a \\\"quoted\\\" String\" ++ \"777\"  # end comment"))
 
+;;; for character extraction by position
 (defun at (str i)
   (aref str i))
 
@@ -23,11 +24,16 @@
   (when (< i (1- (length str)))
     (at str (1+ i))))
 
+;;; for character classification
 (defun char-within (c a b)
   (<= (char-code a) (char-code c) (char-code b)))
 
 (defun char-member (c l)
   (member c l))
+
+;;; for distinguishing parser states
+;; https://alhassy.github.io/TypedLisp/
+(deftype parstype () `(member in-code in-comment in-string))
 
 (defun main ()
   (format t "~a~%" parsed))
