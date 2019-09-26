@@ -35,8 +35,21 @@
 ;; https://alhassy.github.io/TypedLisp/
 (deftype parstype () `(member in-code in-comment in-string))
 
+(deftype parsdigit () `(satisfies digit-char-p))
+
+(deftype parschar () `(satisfies alpha-char-p))
+
+;; The form (typep x '(satisfies p)) is equivalent to (if (p x) t nil).
+
+;;; checking strings
+;; PARSING-ONE> (every #'alpha-char-p "abc")
+;; T
+;; PARSING-ONE> (every #'digit-char-p "abc")
+;; NIL
+;; PARSING-ONE> (every #'digit-char-p "123")
+
 (defun main ()
-  (format t "~a~%" parsed))
+  (format t "~a~%" data))
 
 ;;; ----------------------------------------------------------------------------
 (main)
