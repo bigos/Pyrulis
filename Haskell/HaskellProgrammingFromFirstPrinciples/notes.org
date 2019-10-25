@@ -1,4 +1,5 @@
 This link can be opened in pdf viewer on my systems
+
 [[pdf:/home/jacek/Documents/Manuals/Haskell/haskell-programming-0.12.0-screen.pdf#3][Book contents]]
 
 
@@ -1589,3 +1590,5 @@ associative operation that has an identity value.
 
 * continue on page
   page 808
+
+[[pdf:/home/jacek/Documents/Manuals/Haskell/haskell-programming-0.12.0-screen.pdf#840][resume reading]]
