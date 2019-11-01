@@ -1,6 +1,6 @@
 * Starting in Emacs
 ** M-x load-acl2
-** in the terminal run
+** in the eshell terminal run
 *** cd ~/Programming/j-bob/acl2/
 The above will allow to load j-bob examples
 *** ~/Documents/acl2-8.1/saved_acl2
