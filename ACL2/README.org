@@ -1,13 +1,20 @@
 * Starting in Emacs
-** M-x load-acl2
-** in the eshell terminal run
-*** cd ~/Programming/j-bob/acl2/
-The above will allow to load j-bob examples
-*** ~/Documents/acl2-8.1/saved_acl2
-** M-x commands
- M-x acl2-goodies
- M-x acl2-doc
-** And you will have some resemblance of REPL
+M-x load-acl2
+
+in the eshell terminal run
+
+#+BEGIN_EXAMPLE
+cd ~/Programming/j-bob/acl2/
+~/Documents/acl2-8.1/saved_acl2
+#+END_EXAMPLE
+
+when you get acl2 prompt do
+
+M-x acl2-goodies
+M-x acl2-doc
+
+And you will have some resemblance of REPL
+
 * using The Little Prover
 ** git repo
 https://github.com/the-little-prover/j-bob
