@@ -113,3 +113,8 @@ Instead, learn about it.
 Do not breeze through it as you might a blog. Think your way through it.
 Remember what you read. Do not take short cuts. If you start to use ACL2 before
 you really know how, it will only frustrate you.
+
+** reading important links
+
+*** Introduction-to-rewrite-rules-part-1
+http://www.cs.utexas.edu/users/moore/acl2/v8-2/combined-manual/index.html?topic=ACL2____INTRODUCTION-TO-REWRITE-RULES-PART-1
