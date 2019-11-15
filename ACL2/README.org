@@ -97,7 +97,9 @@ equality reversed, you would have programmed ACL2’s rewriter to loop forever.
 
 ** Introduction-to-the-theorem-prover
 
-[[http://www.cs.utexas.edu/users/moore/acl2/v8-2/combined-manual/?topic=ACL2____INTRODUCTION-TO-THE-THEOREM-PROVER][page with initial steps]]
+[[http://www.cs.utexas.edu/users/moore/acl2/v8-2/combined-manual/?topic=ACL2____INTRODUCTION-TO-THE-THEOREM-PROVER][remote page with initial steps]]
+
+[[file:///home/jacek/Documents/acl2-8.2-manual/index.html?topic=ACL2____INTRODUCTION-TO-THE-THEOREM-PROVER][local page with initial steps]]
 
 Furthermore, instead of being limited to static analysis for certain fixed
 properties, ACL2 allows you — indeed, forces you — to formalize the problem and
@@ -117,4 +119,3 @@ you really know how, it will only frustrate you.
 ** reading important links
 
 *** Introduction-to-rewrite-rules-part-1
-http://www.cs.utexas.edu/users/moore/acl2/v8-2/combined-manual/index.html?topic=ACL2____INTRODUCTION-TO-REWRITE-RULES-PART-1
