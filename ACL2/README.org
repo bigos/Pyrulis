@@ -119,3 +119,38 @@ you really know how, it will only frustrate you.
 ** reading important links
 
 *** Introduction-to-rewrite-rules-part-1
+
+**** special-cases-for-rewrite-rules
+**** equivalent-formulas-different-rewrite-rules
+
+*** introduction-to-key-checkpoints
+**** dealing-with-key-combinations-of-function-symbols
+**** generalizing-key-checkpoints
+**** post-induction-key-checkpoints
+
+*** introduction-to-rewrite-rules-part-2
+**** strong-rewrite-rules
+***** practice-formulating-strong-rules
+****** practice-formulating-strong-rules-1
+****** practice-formulating-strong-rules-2
+****** practice-formulating-strong-rules-3
+****** practice-formulating-strong-rules-4
+****** practice-formulating-strong-rules-5
+****** practice-formulating-strong-rules-6
+
+**** specific-kinds-of-formulas-as-rewrite-rules
+**** further-information-on-rewriting
+
+*** introduction-to-the-database
+
+*** introduction-to-hints
+
+*** introduction-to-a-few-system-considerations
+
+*** introductory-challenges
+**** introductory-challenge-problem-1
+**** introductory-challenge-problem-2
+**** introductory-challenge-problem-3
+        (there are others but at least do a few)
+
+*** frequently-asked-questions-by-newcomers
