@@ -1,23 +1,23 @@
-(declaim (optimize (speed 3) (safety 0) (space 0) (debug 0)))
+(declaim (optimize (speed 0) (safety 3) (debug 3)))
 
-;;; this macro misses incorrect result type
-(defmacro defn (name types args &rest rest)
-  "Type safe defun"
-  (let ((types (remove-if
-                (lambda (x) (or (equal '-> x) (equal '→ x))) types)))
-    `(progn (defun ,name ,args
-              ,@(loop for arg in args for type in types
-                   collect `(check-type ,arg ,type))
-              ,@rest)
-            (declaim (ftype (function ,(butlast types) ,@(last types)) ,name)))))
+(defun identical (&rest args)
+  args)
 
-;;; type checked macroized version of defun incorrect handling of result type
-(defn one-plus-x (integer -> integer) (x)
-  (1+ x))
+(defun rewrite (test source rewriter &optional (ignorer 'identical))
+  (apply (if test rewriter ignorer)
+         source))
 
-(defun main ()
-  ;; fine
-  (princ (one-plus-x 2))
-  (terpri)
-  ;; type error
-  (princ (one-plus-x "three")))
+(defun positive (x)
+  (>= x 0))
+
+(defun divisible-by-2 (n)
+  (zerop (rem n 2)))
+
+(deftype poseven ()
+  `(and
+    (satisfies divisible-by-2)
+    (satisfies positive)))
+
+(declaim (ftype (function (fixnum fixnum) poseven)  even-adder))
+(defun even-adder (x y)
+  (+ x y))
