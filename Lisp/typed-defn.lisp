@@ -18,6 +18,6 @@
     (satisfies divisible-by-2)
     (satisfies positive)))
 
-(declaim (ftype (function (fixnum fixnum) poseven)  even-adder))
+(proclaim '(ftype (function (fixnum fixnum) poseven)  even-adder))
 (defun even-adder (x y)
   (+ x y))
