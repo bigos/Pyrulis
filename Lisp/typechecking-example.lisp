@@ -2,9 +2,7 @@
 (declaim (optimize (speed 3) (safety 3) (space 0) (debug 0)))
 
 ;;; lisp version of type signature
-(declaim (ftype (function (integer) (integer))
-                one-plus-x))
-;;; function
+(proclaim `(ftype (function (integer) (integer)) one-plus-x))
 (defun one-plus-x (x) (1+ x))
 
 (defun main ()
