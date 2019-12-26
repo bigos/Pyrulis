@@ -15,6 +15,7 @@
 
 (deftype poseven ()
   `(and
+    fixnum
     (satisfies divisible-by-2)
     (satisfies positive)))
 
