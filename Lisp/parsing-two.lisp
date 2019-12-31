@@ -30,10 +30,10 @@
           (list 'ok (at data index))
           (consume data index (cdr predicates)))))
 
-;; (repeat-consume (data) 13 nil (list 'alpha-char-p) nil)
 ;; (repeat-consume (data) 1    3 (list 'digit-char-p) nil)
+;; (repeat-consume (data) 13 nil (list 'alpha-char-p) nil)
 (defun repeat-consume (data index count predicates acc)
-  "call consume function at most COUNT times or to the end of the DATA
+  "call consume function at most COUNT times or to the end of matching DATA
   if COUNT is nil"
   (if (or (when count (zerop count))
           (>= index (length data)))
@@ -45,4 +45,14 @@
                           predicates
                           (cons (at data index)
                                 acc))
-          (list 'error (at data index)))))
+          (if (null acc)
+              (list 'error (at data index))
+              (list 'error 'incomplete (reverse acc))))))
+
+;;; ----------------- character predicates -------------------------------------
+
+(defun whitespace-p (char)
+  (member char (list #\Space #\Tab)))
+
+(defun operator-p (char)
+  (member char (list #\+ #\-)))
