@@ -31,6 +31,7 @@
           (consume data index (cdr predicates)))))
 
 ;; (repeat-consume (data) 13 nil (list 'alpha-char-p) nil)
+;; (repeat-consume (data) 1    3 (list 'digit-char-p) nil)
 (defun repeat-consume (data index count predicates acc)
   "call consume function at most COUNT times or to the end of the DATA
   if COUNT is nil"
