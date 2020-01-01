@@ -32,12 +32,12 @@
 
 ;; (repeat-consume (data) 1    3 (list 'digit-char-p) nil)
 ;; (repeat-consume (data) 13 nil (list 'alpha-char-p) nil)
-(defun repeat-consume (data index count predicates acc)
-  "call consume function at most COUNT times or to the end of matching DATA
-  if COUNT is nil"
+(defun repeat-consume (data index count predicates &optional acc)
+  "Call consume function exactly COUNT times
+  or to the end of matching DATA if COUNT is nil."
   (if (or (when count (zerop count))
           (>= index (length data)))
-      (list 'ok (reverse acc))
+      (list 'ok 'finished (reverse acc))
       (if (eq 'ok (car (consume data index predicates)))
           (repeat-consume data
                           (1+ index)
@@ -47,7 +47,7 @@
                                 acc))
           (if (null acc)
               (list 'error (at data index))
-              (list 'error 'incomplete (reverse acc))))))
+              (list 'ok 'incomplete (reverse acc))))))
 
 ;;; ----------------- character predicates -------------------------------------
 
