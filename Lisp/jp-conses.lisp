@@ -4,7 +4,7 @@
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (ql:quickload
-   '(:alexandria :draw-cons-tree)))
+   '(:alexandria :draw-cons-tree :tamei)))
 
 (defpackage :jp-conses
   (:use #:cl))
@@ -13,6 +13,9 @@
 (in-package :jp-conses)
 
 (defparameter data " 1 + 2 + (3 - 4) * 5 # comment")
+
+(defun dt (ls)
+  (draw-cons-tree:draw-tree ls))
 
 (defun flatten (lx)
   (labels ((atomize (l &optional a)

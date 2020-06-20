@@ -7,7 +7,7 @@ type MDat = (String, String)
 mr :: Char -> Morse
 mr '.' = Ti
 mr '-' = Ta
-mr _   = error ("Morse can be only " ++ (st Ti) ++ " or " ++ (st Ta))
+mr _   = error ("Morse can be only " ++ st Ti ++ " or " ++ st Ta)
 
 st :: Morse -> String
 st Ti = "."
@@ -25,17 +25,17 @@ word2m str = map (\c-> l2m [c]) str
 mdat :: [(String, MLetter)]
 mdat = map (\z -> (lp z, sp z) ) dat
   where
-    lp z = (words z)!!0
-    sp z = map mr $ (words z)!!1
+    lp z = head $ words z
+    sp z = map mr $ words z!!1
 
 sdat :: [(String, String)]
 sdat = map (\z -> (lp z, sp z) ) dat
   where
-    lp z = (words z)!!0
-    sp z = map id $ (words z)!!1
+    lp z = head $ words z
+    sp z = words z !! 1
 
 ms2cs :: [String] -> String
-ms2cs msa = foldl (++) "" $ map (\z -> m2l (map mr z)) msa
+ms2cs msa = foldl (++) "" $ map (m2l . map mr) msa
 
 dat :: [String]
 dat = ["A .-",      "B -...",   "C -.-.",   "D -..",
@@ -52,5 +52,5 @@ dat = ["A .-",      "B -...",   "C -.-.",   "D -..",
        "\" .-..-.", "@ .--.-.", "= -...-",  "Err ........"]
 
 main :: IO()
-main = do
-  putStrLn $ "SOS is "  ++ (show $ word2m "SOS")
+main =
+  putStrLn $ "SOS is "  ++ show ( word2m "SOS")
