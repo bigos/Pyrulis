@@ -18,3 +18,7 @@ boot -d boot/new new -t app -n simpleapp
 ls
 cd ./simpleapp/
 #+end_example
+
+** templates for boot and leiningen
+
+https://clj-templates.com/
