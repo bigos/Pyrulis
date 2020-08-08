@@ -22,3 +22,42 @@ cd ./simpleapp/
 ** templates for boot and leiningen
 
 https://clj-templates.com/
+
+
+** Using Emacs
+
+*** package
+Make sure package cider is installed
+
+*** starting REPL
+Open build.boot
+
+You will see 2 Clojure menus:
+Sesman and Clojure.
+
+With build.boot selected do
+M-x cider-jack_in
+
+That will open cider REPL
+
+and build.boot buffer will gain 3 additional menus:
+CIDER, CIDER Eval and CIDER Interactions
+
+*** REPL usage
+
+**** running -main function in REPL
+
+At this point typing in REPL (-main) will execute main function
+and putting the cursor over it and pressing M-.
+will open the file with the main function and press cursor over it.
+
+**** menu
+
+menu REPL/Run project
+
+will ask you to select name space and run the program
+
+**** empty prompt
+
+Pressing M-. will show selector letting you enter -main
+and take you to the definition
