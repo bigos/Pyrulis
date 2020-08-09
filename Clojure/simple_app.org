@@ -12,7 +12,11 @@ https://github.com/boot-clj/boot-new
 
 ** creating a simple app
 
-*** simpleapp
+*** command line manual version
+
+https://github.com/boot-clj/boot#build-from-the-command-line
+
+*** boot task app
 
 #+begin_example
 cd /tmp/
