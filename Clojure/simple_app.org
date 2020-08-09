@@ -12,12 +12,19 @@ https://github.com/boot-clj/boot-new
 
 ** creating a simple app
 
+*** simpleapp
+
 #+begin_example
 cd /tmp/
 boot -d boot/new new -t app -n simpleapp
 ls
 cd ./simpleapp/
 #+end_example
+
+*** other simple tasks worth attention
+
+boot -d boot/new new -t boot-app -n my-app
+
 
 ** templates for boot and leiningen
 
