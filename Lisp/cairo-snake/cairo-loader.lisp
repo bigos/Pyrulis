@@ -1,8 +1,10 @@
 ;;; loader for starting from the command line
 
-;;; on Windows it will be different
-
-(defparameter project-system-path #p "~/Programming/Pyrulis/Lisp/cairo-snake/")
+(defparameter project-system-path
+  (if
+   (eq :os-windows (uiop/os:detect-os))
+   #p"c:/Users/Jacek/Documents/Programming/Pyrulis/Lisp/cairo-snake/"
+   #p"~/Programming/Pyrulis/Lisp/cairo-snake/"))
 
 (push project-system-path asdf:*central-registry*)
 (ql:quickload :cairo-snake)
