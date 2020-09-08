@@ -1,0 +1,93 @@
+;; The deps.edn file describes the information needed to build a classpath.
+;;
+;; When using the `clojure` or `clj` script, there are several deps.edn files
+;; that are combined:
+;; - install-level
+;; - user level (this file)
+;; - project level (current directory when invoked)
+;;
+;; For all attributes other than :paths, these config files are merged left to right.
+;; Only the last :paths is kept and others are dropped.
+
+{
+ ;; Paths
+ ;;   Directories in the current project to include in the classpath
+
+ ;; :paths ["src"]
+
+ ;; External dependencies
+
+ ;; :deps {
+ ;;   org.clojure/clojure {:mvn/version "1.10.1"}
+ ;; }
+
+ ;; Aliases
+ ;;   resolve-deps aliases (-R) affect dependency resolution, options:
+ ;;     :extra-deps - specifies extra deps to add to :deps
+ ;;     :override-deps - specifies a coordinate to use instead of that in :deps
+ ;;     :default-deps - specifies a coordinate to use for a lib if one isn't found
+ ;;   make-classpath aliases (-C) affect the classpath generation, options:
+ ;;     :extra-paths - vector of additional paths to add to the classpath
+ ;;     :classpath-overrides - map of lib to path that overrides the result of resolving deps
+
+ :aliases {
+           ;; :deps {:extra-deps {org.clojure/tools.deps.alpha {:mvn/version "0.8.709"}}}
+           ;; :test {:extra-paths ["test"]}
+
+           ;; project creation from templates:
+           ;; - see https://github.com/seancorfield/clj-new
+           ;; - create an application project:
+           ;;   - clj -A:new app myname/myapp
+           ;;   - cd myapp
+           ;;   - clj -m myname.myapp # run it!
+           ;;   - clj -A:test:runner # run the tests!
+           ;; - create a library project:
+           ;;   - clj -A:new lib myname/my-cool-lib
+           ;;   - cd my-cool-lib
+           ;;   - clj -A:test:runner # run the tests!
+           :new {:extra-deps {seancorfield/clj-new {:mvn/version "RELEASE"}}
+                 :exec-fn clj-new/create
+                 :exec-args {:template lib} ; default
+                 :main-opts ["-m" "clj-new.create"]}
+
+           ;; To invoke depify in any folder that contains a Leiningen project.clj:
+           ;; clj -A:depify
+           :depify {:extra-deps {org.clojure/clojure {:mvn/version "1.9.0"}
+                                 depify              {:git/url "https://github.com/hagmonk/depify"
+                                                      :sha     "04329744872890711dbba8939a16e9987dd33bb3"}}
+                    :main-opts  ["-m" "depify.project"]}
+           :zprint {:extra-deps {org.clojure/clojure {:mvn/version "1.9.0"}
+                                 zprint              {:mvn/version "0.4.9"}}
+                    :main-opts  ["-m" "zprint.main"]}
+           }
+
+           ;; Eastwood - classic lint tool
+           ;; https://github.com/jonase/eastwood#running-eastwood-in-a-repl
+
+           :lint-eastwood
+           {:extra-deps {jonase/eastwood {:mvn/version "RELEASE"}}
+            :main-opts  ["-m" "eastwood.lint"
+                         "{:source-paths,[\"src\"],:test-paths,[\"test\"]}"]}
+
+
+
+           ;; Manage versions for maven and git dependencies
+           ;; Report dependencies that have newer versions available
+           ;; Update library versions in this deps.edn file:
+           ;; cd ~/.clojure && clojure -A:outdated
+
+           ;; https://github.com/liquidz/antq
+           :outdated
+           {:extra-deps {antq/antq {:mvn/version "RELEASE"}}
+            :main-opts  ["-m" "antq.core"]}
+
+           ;; end of aliases
+           }
+
+ ;; Provider attributes
+
+ ;; :mvn/repos {
+ ;;   "central" {:url "https://repo1.maven.org/maven2/"}
+ ;;   "clojars" {:url "https://repo.clojars.org/"}
+ ;; }
+ }
