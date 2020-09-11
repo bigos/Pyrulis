@@ -1,29 +1,28 @@
 * Clojure README
-** Deps
 
-*** creating new project and running tests
+** creating new project and running tests
 
- project creation from templates:
- see https://github.com/seancorfield/clj-new
+project creation from templates:
+see https://github.com/seancorfield/clj-new
 
-**** app
+*** app
 
- create an application project:
- clj -A:new app myname/myapp
- cd myapp
- clj -m myname.myapp # run it!
- clj -A:test:runner # run the tests!
+create an application project:
+clj -A:new app myname/myapp
+cd myapp
+clj -m myname.myapp # run it!
+clj -A:test:runner # run the tests!
 
-**** library
+*** library
 
- clj -A:new lib myname/my-cool-lib
- cd my-cool-lib
- clj -A:test:runner # run the tests!
+clj -A:new lib myname/my-cool-lib
+cd my-cool-lib
+clj -A:test:runner # run the tests!
 
-*** running tests
+** running tests
 
- cd my_project
- clj -A:test:runner # run the tests!
+cd my_project
+clj -A:test:runner # run the tests!
 
 ** Cider REPL
 
