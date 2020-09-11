@@ -26,7 +26,6 @@ clj -A:test:runner # run the tests!
 
 ** Cider REPL
 
-
 *** useful Emacs commands
 
 | shortcut | M-x command       | desc                                  |
