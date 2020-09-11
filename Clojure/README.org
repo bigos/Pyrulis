@@ -1,33 +1,40 @@
-* Deps
+* Clojure README
+** Deps
 
-** creating new project and running tests
+*** creating new project and running tests
 
-project creation from templates:
-see https://github.com/seancorfield/clj-new
+ project creation from templates:
+ see https://github.com/seancorfield/clj-new
 
-*** app
+**** app
 
-create an application project:
-clj -A:new app myname/myapp
-cd myapp
-clj -m myname.myapp # run it!
-clj -A:test:runner # run the tests!
+ create an application project:
+ clj -A:new app myname/myapp
+ cd myapp
+ clj -m myname.myapp # run it!
+ clj -A:test:runner # run the tests!
 
-*** library
+**** library
 
-clj -A:new lib myname/my-cool-lib
-cd my-cool-lib
-clj -A:test:runner # run the tests!
+ clj -A:new lib myname/my-cool-lib
+ cd my-cool-lib
+ clj -A:test:runner # run the tests!
 
-** running tests
+*** running tests
 
-cd my_project
-clj -A:test:runner # run the tests!
+ cd my_project
+ clj -A:test:runner # run the tests!
 
-* Cider REPL
+** Cider REPL
 
-** M-x cider-jack-in
 
-** M-x cider-refresh
+*** useful Emacs commands
 
-** C-c M-n ;switch namespace
+| shortcut | M-x command       | desc                                  |
+|----------+-------------------+---------------------------------------|
+|          | cider-jack-in     | start REPL                            |
+|          | cider-refresh     | reload code                           |
+| C-c M-n  | cider-repl-set-ns | switch namespace                      |
+| C-c M-z  |                   | load buffer and switch to REPL        |
+| C-c C-z  |                   | switch between REPL and source buffer |
+|          |                   |                                       |
