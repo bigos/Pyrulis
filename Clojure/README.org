@@ -31,7 +31,7 @@ clj -A:test:runner # run the tests!
 | shortcut | M-x command       | desc                                  |
 |----------+-------------------+---------------------------------------|
 |          | cider-jack-in     | start REPL                            |
-|          | cider-refresh     | reload code                           |
+|          | cider-ns-refresh  | reload code                           |
 | C-c M-n  | cider-repl-set-ns | switch namespace                      |
 | C-c M-z  |                   | load buffer and switch to REPL        |
 | C-c C-z  |                   | switch between REPL and source buffer |
