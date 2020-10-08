@@ -2,7 +2,7 @@
 
 The parent directory has the folder hid-examples-0.5 with examples.
 "../../../../Documents/Manuals/Haskell_in_Depth_v12_MEAP.pdf"
-[[pdf:../../../../Documents/Manuals/Haskell_in_Depth_v12_MEAP.pdf#5][contents]]
+[[pdf:../../../../Documents/Manuals/Haskell/Haskell_in_Depth_v12_MEAP.pdf#5][contents]]
 
 * last read
 
