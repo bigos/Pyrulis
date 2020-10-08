@@ -1,9 +1,9 @@
 * Haskell In Depth
 
 The parent directory has the folder hid-examples-0.5 with examples.
-
-[[pdf:/home/jacekp/Documents/Manuals/Haskell_in_Depth_v12_MEAP.pdf#5][contents]]
+"../../../../Documents/Manuals/Haskell_in_Depth_v12_MEAP.pdf"
+[[pdf:../../../../Documents/Manuals/Haskell_in_Depth_v12_MEAP.pdf#5][contents]]
 
 * last read
 
-[[pdf:/home/jacekp/Documents/Manuals/Haskell_in_Depth_v12_MEAP.pdf#10][page 10]]
+[[pdf:../../../../Documents/Manuals/Haskell_in_Depth_v12_MEAP.pdf#10][page 10]]
