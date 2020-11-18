@@ -8,21 +8,11 @@ see https://github.com/seancorfield/clj-new
 *** app
 
 create an application project:
-clj -A:new app myname/myapp
-cd myapp
-clj -m myname.myapp # run it!
-clj -A:test:runner # run the tests!
 
-*** library
-
-clj -A:new lib myname/my-cool-lib
-cd my-cool-lib
-clj -A:test:runner # run the tests!
-
-** running tests
-
-cd my_project
-clj -A:test:runner # run the tests!
+clj -X:new create :name jac/try
+cd try
+clj -M -m jac.try  # run it!
+clj -M:test:runner # run the tests!
 
 ** Cider REPL
 
