@@ -1,8 +1,0 @@
-* Current chapter
-
-https://github.com/magomimmo/modern-cljs/tree/master/doc/second-edition
-
-Tutorial 15: It's better to be safe than sorry 2
-
-section
-from the beginning
