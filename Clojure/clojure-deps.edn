@@ -45,9 +45,10 @@
            ;;   - clj -A:new lib myname/my-cool-lib
            ;;   - cd my-cool-lib
            ;;   - clj -A:test:runner # run the tests!
-           :new {:extra-deps {seancorfield/clj-new
-                                 {:mvn/version "1.1.216"}}
-                    :main-opts ["-m" "clj-new.create"]}
+           :new { {:extra-deps {seancorfield/clj-new
+                                {:mvn/version "1.1.228"}}
+                   :ns-default clj-new
+                   :exec-args {:template "app"}}}
 
            ;; To invoke depify in any folder that contains a Leiningen project.clj:
            ;; clj -A:depify
