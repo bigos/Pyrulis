@@ -1,3 +1,4 @@
+;;; toy lisp
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (ql:quickload '(draw-cons-tree)))
 
@@ -28,14 +29,20 @@
 
 (defparameter *model* nil)
 
+(defun model-init ()
+  (setf *model* (list 'ala 'ma 'kota)))
+
+(defun model-print ()
+  (format t "=== ~A~%" *model*)
+  *model*)
+
 ;;; === commands ===============================================================
 
 (defun com-init ()
-  (setf *model* (list 'ala 'ma 'kota)))
+  (model-init))
 
 (defun com-print ()
-  (format t "=== ~A~%" *model*)
-  *model*)
+  (model-print))
 
 (defun com-help ()
   (format t "key  command ----~%")
