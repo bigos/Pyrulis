@@ -1,0 +1,37 @@
+digraph fm {
+        node [shape=box, color=yellow,style=filled]; tr12;tr13;
+        node [shape=ellipse, color=black, style="filled", fillcolor="#CCFFCC"]; state3;
+        node [shape=ellipse, color=black, style=""];
+        state1 -> state1 [label = "identity", color=red, fontcolor=red];
+
+        state1 -> tr12 [color=green,arrowhead=none];
+        tr12 -> state2 [color=green];
+
+        edge [color="#224488"]
+        state1 -> tr13 [arrowhead=none];
+        tr13 -> state3;
+        edge [color=""]
+
+        initial -> initial [label="label 1", color=red, fontcolor=red];
+        initial -> initial [label="label 2", color=green, fontcolor=green];
+        initial -> initial [label="label3", color=blue, fontcolor=blue];
+        initial -> foo;
+        bar -> foo;
+        bar -> baz;
+        initial -> nodes;
+        nodes -> add;
+        nodes -> remove;
+        nodes -> selection;
+        selection -> select;
+        selection -> unselect;
+        nodes -> linking;
+        linking -> link;
+        linking -> unlink;
+        /* fsm */
+        baz -> fsm;
+        fsm -> locked [label="initial state"];
+        locked -> locked [label="coin"];
+        locked -> unlocked [label="coin"];
+        unlocked -> locked [label="push"];
+        unlocked -> unlocked [label="coin"];
+}
