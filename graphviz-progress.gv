@@ -1,23 +1,26 @@
 digraph fm {
-        node [shape=box, color=yellow,style=filled]; tr12;tr13;
-        node [shape=ellipse, color=black, style="filled", fillcolor="#CCFFCC"]; state3;
-        node [shape=ellipse, color=black, style=""];
-        state1 -> state1 [label = "identity", color=red, fontcolor=red];
+        state1 [label="stato-uno?"] //custom label for a node
+        state1 -> state1 [label = "identity-?", color=red, fontcolor=red];
 
+        tr12 [shape=box, color=yellow,style=filled];
         state1 -> tr12 [color=green,arrowhead=none];
         tr12 -> state2 [color=green];
 
         edge [color="#224488"]
+        tr13 [shape=box, color=yellow,style=filled];
         state1 -> tr13 [arrowhead=none];
+        state3 [shape=ellipse, color=black, style="filled", fillcolor="#CCFFCC"]
         tr13 -> state3;
         edge [color=""]
 
         initial -> initial [label="label 1", color=red, fontcolor=red];
         initial -> initial [label="label 2", color=green, fontcolor=green];
         initial -> initial [label="label3", color=blue, fontcolor=blue];
-        initial -> foo;
-        bar -> foo;
-        bar -> baz;
+
+        ala [label="A-l-a!", color=yellow,style=filled]
+        initial -> ala;
+        ma -> ala;
+        ma -> kota;
         initial -> nodes;
         nodes -> add;
         nodes -> remove;
@@ -28,10 +31,11 @@ digraph fm {
         linking -> link;
         linking -> unlink;
         /* fsm */
-        baz -> fsm;
+        kota -> fsm;
         fsm -> locked [label="initial state"];
         locked -> locked [label="coin"];
         locked -> unlocked [label="coin"];
         unlocked -> locked [label="push"];
         unlocked -> unlocked [label="coin"];
+
 }
