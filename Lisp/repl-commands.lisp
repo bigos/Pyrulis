@@ -31,6 +31,8 @@
 
 (defparameter *model* nil)
 
+;;; ----- adding nodes
+
 (defun model-init ()
   (setf *model* (list 'ala 'ma 'kota)))
 
@@ -39,9 +41,11 @@
   (let ((nn (read-line)))
     (push nn *model*)))
 
-;; (defun model-print ()
-;;   (format nil "=== ~A~%" *model*)
-;;   *model*)
+;;; ----- printing and redrawing
+
+(defun model-print ()
+  (format T "=== ~A~%" *model*)
+  *model*)
 
 (defun node-print (n)
   (format nil "~A~%" n))
@@ -89,7 +93,7 @@
 ;;; === loop ===================================================================
 
 (defun my-loop ()
-  (let ((prompt "~&~% > "))
+  (let ((prompt "~& > "))
     (format t prompt)
     (loop for input = (read-line)
           until (eq 'quit-main-loop     ;com-quit returns 'quit-main-loop
