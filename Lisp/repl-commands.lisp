@@ -1,4 +1,7 @@
-;;; toy lisp
+;;; https://graphviz.org/documentation/       - index
+;;; https://graphviz.org/doc/info/attrs.html  - attributes
+;;; https://graphviz.org/doc/info/lang.html   - language
+
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (ql:quickload '(draw-cons-tree)))
 
