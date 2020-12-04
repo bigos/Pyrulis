@@ -33,8 +33,26 @@
   (setf *model* (list 'ala 'ma 'kota)))
 
 (defun model-print ()
-  (format t "=== ~A~%" *model*)
+  (format nil "=== ~A~%" *model*)
   *model*)
+
+(defun node-print (n)
+  (format nil "~A~%" n))
+
+(defun model-as-gv ()
+  (format nil "digraph m {~%~A~&}~%"
+          (reduce (lambda (a b) (concatenate 'string a b) )
+                  (loop for n in *model*
+                        collect (node-print n)) :initial-value "")))
+
+(defun graphize ()
+  (let ((filename "my-graph"))
+    (let ((file (format nil "/tmp/~A.gv" filename)))
+      ;; write nodes to gv
+      (with-open-file (stream file :direction :output :if-exists :supersede)
+        (write-sequence (model-as-gv) stream))
+      ;; redraw image
+      (sb-ext:run-program "/usr/bin/dot" (list "-Tpng" file "-o" (format nil "/tmp/~A.png" filename))))))
 
 ;;; === commands ===============================================================
 
