@@ -12,6 +12,8 @@
     (loop for kv in '(("i" . com-init)
                       ("p" . com-print)
                       ("h" . com-help)
+                      ("a" . com-add)
+                      ("r" . com-redraw)
                       ("quit" . com-quit))
 
           do (setf (gethash (car kv) key-hash) (cdr kv)))
@@ -32,9 +34,14 @@
 (defun model-init ()
   (setf *model* (list 'ala 'ma 'kota)))
 
-(defun model-print ()
-  (format nil "=== ~A~%" *model*)
-  *model*)
+(defun model-add ()
+  (format t "enter new node name > ")
+  (let ((nn (read-line)))
+    (push nn *model*)))
+
+;; (defun model-print ()
+;;   (format nil "=== ~A~%" *model*)
+;;   *model*)
 
 (defun node-print (n)
   (format nil "~A~%" n))
@@ -43,21 +50,29 @@
   (format nil "digraph m {~%~A~&}~%"
           (reduce (lambda (a b) (concatenate 'string a b) )
                   (loop for n in *model*
-                        collect (node-print n)) :initial-value "")))
+                        collect (node-print n))
+                  :initial-value "")))
 
-(defun graphize ()
+(defun model-redraw ()
   (let ((filename "my-graph"))
-    (let ((file (format nil "/tmp/~A.gv" filename)))
+    (let ((gv-file  (format nil "/tmp/~A.gv"  filename))
+          (png-file (format nil "/tmp/~A.png" filename)))
       ;; write nodes to gv
-      (with-open-file (stream file :direction :output :if-exists :supersede)
+      (with-open-file (stream gv-file :direction :output :if-exists :supersede)
         (write-sequence (model-as-gv) stream))
       ;; redraw image
-      (sb-ext:run-program "/usr/bin/dot" (list "-Tpng" file "-o" (format nil "/tmp/~A.png" filename))))))
+      (sb-ext:run-program "/usr/bin/dot" (list "-Tpng" gv-file "-o" png-file)))))
 
 ;;; === commands ===============================================================
 
 (defun com-init ()
   (model-init))
+
+(defun com-add ()
+  (model-add))
+
+(defun com-redraw ()
+  (model-redraw))
 
 (defun com-print ()
   (model-print))
