@@ -16,6 +16,7 @@
                       ("p" . com-print)
                       ("h" . com-help)
                       ("a" . com-add)
+                      ("l" . com-link)
                       ("r" . com-redraw)
                       ("quit" . com-quit))
 
@@ -44,6 +45,13 @@
   (let ((nn (read-line)))
     (push nn *model*)))
 
+(defun model-link ()
+  (format t "enter start link node name > ")
+  (let ((ns (read-line)))
+    (format t "enter end link node name > ")
+    (let ((ne (read-line)))
+      (push (list ns ne) *model*))))
+
 ;;; ----- printing and redrawing
 
 (defun model-print ()
@@ -51,7 +59,13 @@
   *model*)
 
 (defun node-print (n)
-  (format nil "~A~%" n))
+  (cond
+    ((atom n)
+     (format nil "~A~%" n))
+    ((consp n)
+     (format nil "~A -> ~A~%" (car n) (cadr n)))
+    (t
+     (format nil "~A~%" n))))
 
 (defun model-as-gv ()
   (format nil "digraph m {~%~A~&}~%"
@@ -77,6 +91,9 @@
 
 (defun com-add ()
   (model-add))
+
+(defun com-link ()
+  (model-link))
 
 (defun com-redraw ()
   (model-redraw))
