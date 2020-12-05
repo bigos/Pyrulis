@@ -18,6 +18,7 @@
                       ("a" . com-add)
                       ("l" . com-link)
                       ("r" . com-redraw)
+                      ("d" . com-delete)
                       ("quit" . com-quit))
 
           do (setf (gethash (car kv) key-hash) (cdr kv)))
@@ -48,9 +49,44 @@
 (defun model-link ()
   (format t "enter start link node name > ")
   (let ((ns (read-line)))
+    ;; remove all atoms matching ns
+    (setf *model* (delete ns *model* :test #'equalp))
     (format t "enter end link node name > ")
     (let ((ne (read-line)))
-      (push (list ns ne) *model*))))
+      ;; remove all atoms matching ne
+      (setf *model* (delete ne *model* :test #'equalp))
+      (format t "enter link label > ")
+      (let ((ll (read-line)))
+        (if (equalp ll "")
+            (push (list ns ne) *model*)
+            (push (list ns ne ll) *model*))))))
+
+(defun delete-node (node model)
+  (if (null (cdr model))
+      (if (equalp node (car model))
+          nil
+          model)
+      (cond ((and (consp (car model))
+                  (equalp node (car model))
+                  (equalp node (cadr model)))
+             (delete-node node (cdr model)))
+            ((and (consp (car model))
+                  (equalp node (caar model)))
+             (cons (cadar model) (delete-node node (cdr model))))
+            ((and (consp (car model))
+                  (equalp node (cadar model)))
+             (cons (caar model) (delete-node node (cdr model))))
+
+            ((and (atom (car model))
+                  (equalp node (car model)))
+             (delete-node node (cdr model)))
+            (t
+             (cons (car model) (delete-node node (cdr model)))))))
+
+(defun model-delete ()
+  (format t "enter DELETED node name > ")
+  (let ((nn (read-line)))
+    (setf *model* (delete-node nn *model*))))
 
 ;;; ----- printing and redrawing
 
@@ -63,7 +99,9 @@
     ((atom n)
      (format nil "~A~%" n))
     ((consp n)
-     (format nil "~A -> ~A~%" (car n) (cadr n)))
+     (if (caddr n)
+         (format nil "~A -> ~A [label=\"~A\"]~%" (car n) (cadr n) (caddr n))
+         (format nil "~A -> ~A~%" (car n) (cadr n))))
     (t
      (format nil "~A~%" n))))
 
@@ -90,10 +128,17 @@
   (model-init))
 
 (defun com-add ()
-  (model-add))
+  (model-add)
+  (model-redraw))
 
 (defun com-link ()
-  (model-link))
+  (model-print)
+  (model-link)
+  (model-redraw))
+
+(defun com-delete ()
+  (model-delete)
+  (model-redraw))
 
 (defun com-redraw ()
   (model-redraw))
