@@ -80,14 +80,15 @@
         (T
          x)))
 
-(defun delete-node (node model)
-  (remove-if #'null
-             (mapcar (lambda (x) (delete-matcher node x)) model)))
-
 (defun model-delete ()
   (format t "enter DELETED node name > ")
-  (let ((nn (read-line)))
-    (setf *model* (delete-node nn *model*))))
+  (let ((node (read-line)))
+    (setf *model* (remove-duplicates
+                   (remove-if #'null
+                              (mapcar (lambda (x)
+                                        (delete-matcher node x))
+                                      *model*))
+                   :test #'equalp))))
 
 ;;; ----- printing and redrawing
 
