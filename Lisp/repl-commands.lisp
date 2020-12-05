@@ -11,19 +11,18 @@
   (draw-cons-tree:draw-tree l))
 
 ;;; === keyboard shortcuts =====================================================
-
+(defparameter keys-shortcuts-list  '(("i" com-init)
+                                     ("p" com-print "print model")
+                                     ("h" com-help)
+                                     ("a" com-add)
+                                     ("l" com-link)
+                                     ("r" com-redraw)
+                                     ("d" com-delete "delete node")
+                                     ("quit" com-quit)))
 (defun keys-shortcuts-hash ()
   (let ((key-hash (make-hash-table :test 'equalp)))
-    (loop for kv in '(("i" . com-init)
-                      ("p" . com-print)
-                      ("h" . com-help)
-                      ("a" . com-add)
-                      ("l" . com-link)
-                      ("r" . com-redraw)
-                      ("d" . com-delete)
-                      ("quit" . com-quit))
-
-          do (setf (gethash (car kv) key-hash) (cdr kv)))
+    (loop for kv in keys-shortcuts-list
+          do (setf (gethash (car kv) key-hash) (cadr kv)))
     key-hash))
 
 (defparameter *keys* (keys-shortcuts-hash))
@@ -151,8 +150,8 @@
 
 (defun com-help ()
   (format t "key  command ----~%")
-  (loop for x being the hash-key in (keys-shortcuts-hash) using (hash-value y)
-        do (format t "~A ~A~%" x y)))
+  (loop for x in keys-shortcuts-list
+        do (format t "~A~%" x)))
 
 (defun com-quit ()
   (format t "quitting now...~%~%")
