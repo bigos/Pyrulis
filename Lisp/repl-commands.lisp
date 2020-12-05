@@ -41,7 +41,7 @@
 ;;; ----- adding nodes
 
 (defun model-init ()
-  (setf *model* (list 'ala 'ma 'kota)))
+  (setf *model* '(("state1" "state2" "transition"))))
 
 (defun model-add ()
   (format t "enter new node name > ")
@@ -66,44 +66,39 @@
 (defun equalp2 (node s)
   (equalp node (format nil "~A" s)))
 
+;;; deleting links
+;; (loop for n in *model*
+;;       for x = 0 then (1+ x)
+;;       collect (list x (caddr n)))
+
+(defun deletex (n model)
+  (if (null model)
+      nil
+      (if (oddp (car model))
+          (cons (CAR model)
+                (deletex n (cdr model)))
+          (deletex n (cdr model)))))
+
+(defun delete-matcher (node x)
+  (cond ((and (atom x)
+              (equalp node x))
+         nil)
+        ((and (consp x)
+              (equalp node (car  x))
+              (equalp node (cadr x)))
+         nil)
+        ((and (consp x)
+              (equalp node (car  x)))
+         (cadr x))
+        ((and (consp x)
+              (equalp node (cadr  x)))
+         (car x))
+        (T
+         x)))
+
 (defun delete-node (node model)
-  (format t "~A~%" model)
-  (let ((cm (car model)))
-    (if (null (cdr model))
-        (progn
-          (if (consp cm)
-              ;; consp
-              (cond ((and (equalp2 node (caar model))
-                          (equalp2 node (cadar model)))
-                     nil)
-                    ((equalp2 node (caar model))
-                     (cons (cadar model) nil))
-                    ((equalp2 node (cadar model))
-                     (cons (caar model) nil))
-                    (t
-                     (error "should not end here")))
-              ;; atom
-              (if (equalp2 node cm)
-                  nil
-                  (cons cm nil))))
-        (cond ((and (atom cm)
-                    (equalp2 node cm))
-               (delete-node node (cdr model)))
-              ((and (consp cm)          ;both
-                    (equalp2 node (caar model))
-                    (equalp2 node (cadar model)))
-               (delete-node node (cdr model)))
-
-              ((and (consp cm)
-                    (equalp2 node (caar model)))
-               (cons (cadar model) (delete-node node (cdr model))))
-              ((and (consp cm)
-                    (equalp2 node (cadar model)))
-               (cons (caar model) (delete-node node (cdr model))))
-
-              (t
-               (format t "warning skipping ~A~%" cm)
-               (cons cm (delete-node node (cdr model))))))))
+  (remove-if #'null
+             (mapcar (lambda (x) (delete-matcher node x)) model)))
 
 (defun model-delete ()
   (format t "enter DELETED node name > ")
@@ -113,7 +108,7 @@
 ;;; ----- printing and redrawing
 
 (defun model-print ()
-  (format T "=== ~A~%" *model*)
+  (format T "=== ~S~%" *model*)
   *model*)
 
 (defun node-print (n)
@@ -147,7 +142,8 @@
 ;;; === commands ===============================================================
 
 (defun com-init ()
-  (model-init))
+  (model-init)
+  (model-redraw))
 
 (defun com-add ()
   (model-add)
