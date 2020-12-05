@@ -63,22 +63,6 @@
             (push (list ns ne) *model*)
             (push (list ns ne ll) *model*))))))
 
-(defun equalp2 (node s)
-  (equalp node (format nil "~A" s)))
-
-;;; deleting links
-;; (loop for n in *model*
-;;       for x = 0 then (1+ x)
-;;       collect (list x (caddr n)))
-
-(defun deletex (n model)
-  (if (null model)
-      nil
-      (if (oddp (car model))
-          (cons (CAR model)
-                (deletex n (cdr model)))
-          (deletex n (cdr model)))))
-
 (defun delete-matcher (node x)
   (cond ((and (atom x)
               (equalp node x))
