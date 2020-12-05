@@ -2,6 +2,8 @@
 ;;; https://graphviz.org/doc/info/attrs.html  - attributes
 ;;; https://graphviz.org/doc/info/lang.html   - language
 
+(declaim (optimize (debug 3) (speed 0)))
+
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (ql:quickload '(draw-cons-tree)))
 
@@ -62,26 +64,42 @@
             (push (list ns ne ll) *model*))))))
 
 (defun delete-node (node model)
-  (if (null (cdr model))
-      (if (equalp node (car model))
-          nil
-          model)
-      (cond ((and (consp (car model))
-                  (equalp node (car model))
-                  (equalp node (cadr model)))
-             (delete-node node (cdr model)))
-            ((and (consp (car model))
-                  (equalp node (caar model)))
-             (cons (cadar model) (delete-node node (cdr model))))
-            ((and (consp (car model))
-                  (equalp node (cadar model)))
-             (cons (caar model) (delete-node node (cdr model))))
+  (format t "~A~%" model)
+  (let ((cm (car model)))
+    (if (null (cdr model))
+        (progn
+          (if (consp cm)
+              ;; consp
+              (cond ((and (equalp node (caar model))
+                          (equalp node (cadar model)))
+                     nil)
+                    ((equalp node (caar model))
+                     (cons (cadar model) nil))
+                    ((equalp node (cadar model))
+                     (cons (caar model) nil))
+                    (t
+                     (error "should not end here")))
+              ;; atom
+              (if (equalp node cm)
+                  nil
+                  cm)))
+        (cond ((and (atom cm)
+                    (equalp node cm))
+               (delete-node node (cdr model)))
+              ((and (consp cm)          ;both
+                    (equalp node (caar model))
+                    (equalp node (cadar model)))
+               (delete-node node (cdr model)))
 
-            ((and (atom (car model))
-                  (equalp node (car model)))
-             (delete-node node (cdr model)))
-            (t
-             (cons (car model) (delete-node node (cdr model)))))))
+              ((and (consp cm)
+                    (equalp node (caar model)))
+               (cons (cadar model) (delete-node node (cdr model))))
+              ((and (consp cm)
+                    (equalp node (cadar model)))
+               (cons (caar model) (delete-node node (cdr model))))
+
+              (t
+               (cons cm (delete-node node (cdr model))))))))
 
 (defun model-delete ()
   (format t "enter DELETED node name > ")
