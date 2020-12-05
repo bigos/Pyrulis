@@ -63,6 +63,9 @@
             (push (list ns ne) *model*)
             (push (list ns ne ll) *model*))))))
 
+(defun equalp2 (node s)
+  (equalp node (format nil "~A" s)))
+
 (defun delete-node (node model)
   (format t "~A~%" model)
   (let ((cm (car model)))
@@ -70,35 +73,36 @@
         (progn
           (if (consp cm)
               ;; consp
-              (cond ((and (equalp node (caar model))
-                          (equalp node (cadar model)))
+              (cond ((and (equalp2 node (caar model))
+                          (equalp2 node (cadar model)))
                      nil)
-                    ((equalp node (caar model))
+                    ((equalp2 node (caar model))
                      (cons (cadar model) nil))
-                    ((equalp node (cadar model))
+                    ((equalp2 node (cadar model))
                      (cons (caar model) nil))
                     (t
                      (error "should not end here")))
               ;; atom
-              (if (equalp node cm)
+              (if (equalp2 node cm)
                   nil
-                  cm)))
+                  (cons cm nil))))
         (cond ((and (atom cm)
-                    (equalp node cm))
+                    (equalp2 node cm))
                (delete-node node (cdr model)))
               ((and (consp cm)          ;both
-                    (equalp node (caar model))
-                    (equalp node (cadar model)))
+                    (equalp2 node (caar model))
+                    (equalp2 node (cadar model)))
                (delete-node node (cdr model)))
 
               ((and (consp cm)
-                    (equalp node (caar model)))
+                    (equalp2 node (caar model)))
                (cons (cadar model) (delete-node node (cdr model))))
               ((and (consp cm)
-                    (equalp node (cadar model)))
+                    (equalp2 node (cadar model)))
                (cons (caar model) (delete-node node (cdr model))))
 
               (t
+               (format t "warning skipping ~A~%" cm)
                (cons cm (delete-node node (cdr model))))))))
 
 (defun model-delete ()
