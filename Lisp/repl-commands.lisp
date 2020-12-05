@@ -18,6 +18,7 @@
                                      ("l" com-link)
                                      ("r" com-redraw)
                                      ("d" com-delete "delete node")
+                                     ("k" com-kill "delete link")
                                      ("quit" com-quit)))
 (defun keys-shortcuts-hash ()
   (let ((key-hash (make-hash-table :test 'equalp)))
@@ -89,6 +90,9 @@
                                       *model*))
                    :test #'equalp))))
 
+(defun model-kill ()
+  (format t "model-kill not implemented~%"))
+
 ;;; ----- printing and redrawing
 
 (defun model-print ()
@@ -140,6 +144,10 @@
 
 (defun com-delete ()
   (model-delete)
+  (model-redraw))
+
+(defun com-kill ()
+  (model-kill)
   (model-redraw))
 
 (defun com-redraw ()
