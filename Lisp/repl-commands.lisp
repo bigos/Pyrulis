@@ -19,6 +19,7 @@
                                      ("r" com-redraw)
                                      ("d" com-delete "delete node")
                                      ("k" com-kill "delete link")
+                                     ("n" com-name "rename node")
                                      ("quit" com-quit)))
 (defun keys-shortcuts-hash ()
   (let ((key-hash (make-hash-table :test 'equalp)))
@@ -117,6 +118,34 @@
                                              *model*)
                                             :test #'equalp)))))))
 
+(defun rename-matcher (node x newname)
+  (format t "==== ~A~%" x)
+  (cond ((and (atom x)
+              (equalp node x))
+         newname)
+        ((and (consp x)
+              (equalp node (car  x))
+              (equalp node (cadr x)))
+         (list newname newname (caddr x)))
+        ((and (consp x)
+              (equalp node (car  x)))
+         (list newname (cadr x) (caddr x)))
+        ((and (consp x)
+              (equalp node (cadr  x)))
+         (list (car x) newname (caddr x)))
+        (T
+         x)))
+
+(defun model-name ()
+  (format t "enter RENAMED node name > ")
+  (let ((node (read-line)))
+    (format t "enter NEW node name > ")
+    (let ((newname (read-line)))
+      (setf *model*
+            (mapcar (lambda (x)
+                      (rename-matcher node x newname))
+                    *model*)))))
+
 ;;; ----- printing and redrawing
 
 (defun model-print ()
@@ -172,6 +201,10 @@
 
 (defun com-kill ()
   (model-kill)
+  (model-redraw))
+
+(defun com-name ()
+  (model-name)
   (model-redraw))
 
 (defun com-redraw ()
