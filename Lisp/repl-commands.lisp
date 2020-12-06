@@ -91,7 +91,27 @@
                    :test #'equalp))))
 
 (defun model-kill ()
-  (format t "model-kill not implemented~%"))
+  (format t "enter name of the link parent node > ")
+  (let* ((node (read-line))
+         (links (loop for n in *model*
+                      when (equalp node (car n))
+                        collect n)))
+    (format t "we can remove following links:~%")
+    (loop for l in links
+          for n = 0 then (1+ n)
+          do (format t "~a ~A~%" n l))
+    (format t "Please enter the NUMBER of the link to delete > ")
+    (let* ((deleted-number (parse-integer (read-line)))
+           (deleted-part (elt links deleted-number)))
+      (format t "we are going to delete ~A~%" deleted-part)
+
+      (remove-if #'null (setf *model* (remove-duplicates (mapcar
+                                                          (lambda (x)
+                                                            (if (equalp deleted-part x)
+                                                                (car x)
+                                                                x))
+                                                          *model*)
+                                                         :test #'equalp))))))
 
 ;;; ----- printing and redrawing
 
