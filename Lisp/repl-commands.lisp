@@ -106,15 +106,16 @@
              (deleted-part (elt links deleted-number)))
         (format t "we are going to delete ~A~%" deleted-part)
 
-        (remove-if #'null (setf *model*
-                                (remove-duplicates (mapcar
-                                                    (lambda (x)
-                                                      (if (and (consp x)
-                                                               (equalp deleted-part x))
-                                                          (car x)
-                                                          x))
-                                                    *model*)
-                                                   :test #'equalp)))))))
+        (remove-if #'null
+                   (setf *model*
+                         (remove-duplicates (mapcar
+                                             (lambda (x)
+                                               (if (and (consp x)
+                                                        (equalp deleted-part x))
+                                                   (car x)
+                                                   x))
+                                             *model*)
+                                            :test #'equalp)))))))
 
 ;;; ----- printing and redrawing
 
