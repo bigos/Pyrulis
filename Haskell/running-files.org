@@ -1,0 +1,7 @@
+* running single files
+
+for example run fizzbuzz.hs
+
+#+begin_example
+stack runghc ./fizzbuzz.hs
+#+end_example
