@@ -20,7 +20,7 @@
   ;; - see https://github.com/seancorfield/depstar for a minimalist approach:
   ;;   - clj -X:uberjar :jar result.jar :main-class mymain.namespace
   ;; - to run it:
-  ;;   - java -jar result.jar 
+  ;;   - java -jar result.jar
   ;; - build a library JAR:
   ;;   - clj -X:jar :jar result-lib.jar
   :uberjar {:extra-deps {seancorfield/depstar {:mvn/version "RELEASE"}}
@@ -81,11 +81,18 @@
   ;; - (require '[clj-memory-meter.core :as mm])
   ;; - (mm/measure (your-expression))
   :measure {:extra-deps {com.clojure-goes-fast/clj-memory-meter {:mvn/version "RELEASE"}}}
-  ;; - see https://github.com/Olical/depot
-  :outdated {:extra-deps {olical/depot {:mvn/version "1.8.4"}}
-             :main-opts ["-m" "depot.outdated.main"]}
+  ;; - see https://github.com/liquidz/antq
+  :outdated {:extra-deps {antq/antq {:mvn/version "RELEASE"}}
+             :main-opts ["-m" "antq.core"]}
+  :j14 ; add (sometimes) useful Java 14 option
+  {:jvm-opts ["-XX:+ShowCodeDetailsInExceptionMessages"]}
 
   ;; REPL-related tools:
+  ;; - start REBL or Reveal or Rebel Readline, with a socket REPL:
+  ;;   - clj -M:rebl:dev OR clj -M:reveal:dev OR clj -M:rebel:dev
+  :dev {:main-opts ["-e" "(load-file,(str,(System/getProperty,\"user.home\"),\"/.clojure/dev.clj\"))"]}
+  ;; - in case you need precompiled code on your classpath:
+  :classes {:extra-paths ["classes"]}
   ;; - start a modern nREPL server on a random available port:
   :nrepl {:extra-deps {nrepl/nrepl {:mvn/version "RELEASE"}}
           :main-opts ["-m" "nrepl.cmdline"]}
@@ -108,6 +115,9 @@
   ;; - start a Rebel Readline REPL:
   :rebel {:extra-deps {com.bhauman/rebel-readline {:mvn/version "RELEASE"}}
           :main-opts ["-m" "rebel-readline.main"]}
+  ;; - see https://github.com/jimpil/jedi-time
+  :jedi-time
+  {:extra-deps {jedi-time/jedi-time {:mvn/version "0.2.0"}}}
   ;; - see https://github.com/stuarthalloway/reflector
   :reflect
   {:extra-deps {com.stuarthalloway/reflector
