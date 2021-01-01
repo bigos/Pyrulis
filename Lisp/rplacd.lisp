@@ -12,21 +12,15 @@
 
 (defparameter gr nil)
 
-(defun link-keys (ls)
-  (remove-duplicates (loop for l in ls collect (elt l 0))))
+(defun push-links (links)
+  (loop for l in links do
+    (let ((av (assoc (car l) gr)))
+      (if av
+          (rplacd av (cons (cdr l)
+                           (cdr av)))
+          (push (list (car l) (cdr l))
+                gr)))))
 
-(defun build-keys (ls)
-  (let ((lk (link-keys ls)))
-    (setf gr (loop for l in lk collect (cons l nil)))))
-
-(defun push-links (ls)
-  (build-keys ls)
-  (let ((k))
-    (loop for l in ls do
-      (setf k (assoc (car l) gr))
-      (rplacd k (cons (cdr l) (cdr k)))
-      ;; (break "gr ~A" gr)
-      (format t "~A~%" k))))
-
-;;; finally do
-;; (assoc 'b3 gr)
+(progn
+  (setf gr nil)
+  (push-links links))
