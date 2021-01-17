@@ -166,12 +166,6 @@ Everything after the :: is about our types, not our values.
 ** 3.7 Chapter Exercises
 ** 3.8 Definitions
 
-
-* new book
-
-** 1.1 All you need is Lambda
-finished all you need is lambda
-
 * Chapter 4
 ** 4.1 Basic Datatypes
 ** 4.2 Anatomy of a data declaration
