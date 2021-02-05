@@ -2,6 +2,10 @@
 
 ** Usage
 
+CL-USER> (push #p"~/Programming/Pyrulis/Lisp/verti/" asdf:*central-registry*)
+CL-USER> (ql:quickload :verti)
+CL-USER> (in-package :verti)
+
 ** Installation
 
 
