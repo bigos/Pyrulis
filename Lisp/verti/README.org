@@ -1,0 +1,9 @@
+* Verti
+
+** Usage
+
+** Installation
+
+
+** Steps so far
+(cl-project:make-project #p"~/Programming/Pyrulis/Lisp/verti/")
