@@ -1,8 +1,8 @@
 (defsystem "verti"
   :version "0.1.0"
-  :author ""
+  :author "Jacek Podkanski"
   :license ""
-  :depends-on ()
+  :depends-on (#:alexandria)
   :components ((:module "src"
                 :components
                 ((:file "main"))))
@@ -10,10 +10,10 @@
   :in-order-to ((test-op (test-op "verti/tests"))))
 
 (defsystem "verti/tests"
-  :author ""
+  :author "Jacek Podkansdki"
   :license ""
-  :depends-on ("verti"
-               "fiveam")
+  :depends-on (#:verti
+               #:fiveam)
   :components ((:module "tests"
                 :components
                 ((:file "main"))))
