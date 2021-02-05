@@ -13,9 +13,9 @@
   :author ""
   :license ""
   :depends-on ("verti"
-               "rove")
+               "fiveam")
   :components ((:module "tests"
                 :components
                 ((:file "main"))))
   :description "Test system for verti"
-  :perform (test-op (op c) (symbol-call :rove :run c)))
+  :perform (test-op (op c) (symbol-call :fiveam :run! c)))
