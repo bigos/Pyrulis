@@ -1,5 +1,0 @@
-# Verti
-
-## Usage
-
-## Installation
