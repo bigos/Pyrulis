@@ -18,4 +18,6 @@
                 :components
                 ((:file "main"))))
   :description "Test system for verti"
-  :perform (test-op (op c) (symbol-call :fiveam :run! c)))
+  :perform (test-op (op c) (symbol-call :fiveam :run! (find-symbol*
+                                                       '#:all-tests
+                                                       '#:verti/tests/main))))

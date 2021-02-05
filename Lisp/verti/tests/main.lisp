@@ -6,6 +6,11 @@
 
 ;; NOTE: To run this test file, execute (asdf:test-system :verti)
 
+(def-suite all-tests
+  :description "The master suite of all tests.")
+
+(in-suite all-tests)
+
 (test test-demo
       "This demonstrates the basic use of test and check."
       (is (listp (list 1 2)))
