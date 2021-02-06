@@ -29,6 +29,7 @@
     (setf v1 (verti::build-vert-collection col))
     (is (= 3 (length v1)))))
 
+;;; TODO finish me
 (test removal-of-verts
   "Prove removing works OK."
   (let* ((col '(("a" "a2b" "b")
@@ -36,5 +37,5 @@
                 ("c" "c2a" "a")))
          (v1 (verti::build-vert-collection col))
          (v2 (verti::remove-node "a" v1)))
-    (format t "~&v2 is ~A~%" v2)
-    (is (= 2 (length v2)))))
+    (is (equalp v2 (verti::build-vert-collection
+                    '(("b" "b2c" "c")))))))
