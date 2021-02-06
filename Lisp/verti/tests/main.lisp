@@ -20,12 +20,21 @@
 
 (test test-creation-of-verts
   "Demonstrates building collection of verts."
-  (let ((v1 nil)
+  (let ((v1)
         (col '(("a" "a2b" "b")
                ("b" "b2c" "c")
                ("c" "c2a" "a"))))
-    (is (equalp v1 nil))
+    (is (zerop (length v1)))
     (is (= 3 (length col)))
     (setf v1 (verti::build-vert-collection col))
-    (list v1 nil)
     (is (= 3 (length v1)))))
+
+(test removal-of-verts
+  "Prove removing works OK."
+  (let* ((col '(("a" "a2b" "b")
+                ("b" "b2c" "c")
+                ("c" "c2a" "a")))
+         (v1 (verti::build-vert-collection col))
+         (v2 (verti::remove-node "a" v1)))
+    (format t "~&v2 is ~A~%" v2)
+    (is (= 2 (length v2)))))

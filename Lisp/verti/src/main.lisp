@@ -14,7 +14,10 @@
   (action)
   (target))
 
-(defparameter *verts* nil)
+(defparameter *col3*
+  '(("a" "a2b" "b")
+    ("b" "b2c" "c")
+    ("c" "c2a" "a")))
 
 (defun build-vert (source action target)
   (make-vert :source source :action action :target target))
@@ -22,3 +25,7 @@
 (defun build-vert-collection (collection)
   (loop for l in collection
         collect (apply #'build-vert l)))
+
+(defun remove-node (node collection)
+  (loop for l in collection
+        unless (equalp node (vert-source l)) collect l))
