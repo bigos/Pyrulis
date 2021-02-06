@@ -4,6 +4,7 @@
         :fiveam))
 (in-package :verti/tests/main)
 
+(declaim (optimize (speed 0) (debug 3)))
 ;; NOTE: To run this test file, execute (asdf:test-system :verti)
 
 (def-suite all-tests
@@ -12,7 +13,19 @@
 (in-suite all-tests)
 
 (test test-demo
-      "This demonstrates the basic use of test and check."
-      (is (listp (list 1 2)))
-      (is (= 5 (+ 2 3)) "This should pass.")  ; &rest reason-args
-      (is (= 4 4.1) "~D and ~D are not = to each other." 4 4.1))
+  "This demonstrates the basic use of test and check."
+  (is (listp (list 1 2)))
+  (is (= 5 (+ 2 3)) "This should pass.")
+  (is (= 4 4.0) "~D and ~D are  = to each other." 4 4.0))
+
+(test test-creation-of-verts
+  "Demonstrates building collection of verts."
+  (let ((v1 nil)
+        (col '(("a" "a2b" "b")
+               ("b" "b2c" "c")
+               ("c" "c2a" "a"))))
+    (is (equalp v1 nil))
+    (is (= 3 (length col)))
+    (setf v1 (verti::build-vert-collection col))
+    (list v1 nil)
+    (is (= 3 (length v1)))))
