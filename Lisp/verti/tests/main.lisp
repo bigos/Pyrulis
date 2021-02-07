@@ -29,8 +29,7 @@
     (setf v1 (verti::build-vert-collection col))
     (is (= 3 (length v1)))))
 
-;;; TODO finish me - (alexandria:map-combinations #'print '(a b c) :length 2)
-
+;;; combinastions for buiding collection come from (verti::build-combinations '(a b c))
 (test removal-of-1
   "removal of 1"
   (let ((v1 (verti::build-vert-collection '(("a" "a2a" "a")))))
@@ -85,7 +84,7 @@
                   v4)))))
 
 (test removal-of-4
-  "Prove removing 4 combibnations works OK."
+  "Prove removing 4 combinations works OK."
   (let ((v1 (verti::build-vert-collection '(("c" "c2d" "d")
                                             ("b" "b2d" "d")
                                             ("b" "b2c" "c")

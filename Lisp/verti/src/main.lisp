@@ -14,11 +14,6 @@
   (action)
   (target))
 
-(defparameter *col3*
-  '(("a" "a2b" "b")
-    ("b" "b2c" "c")
-    ("c" "c2a" "a")))
-
 ;;; usage: (build-combinations '(a b c))
 (defun build-combinations (comb)
   (loop for p in (let ((zebr))
