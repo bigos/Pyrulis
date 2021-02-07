@@ -42,13 +42,14 @@
 ;;                   v2)))))
 
 (test removal-of-1
-  ""
+  "removal of 1"
   (let ((v1 (verti::build-vert-collection '(("a" "a2a" "a")))))
+
     (let ((v2 (verti::remove-node "a" v1)))
-      (is (null v2)))
+      (is (null v2) "Null expected."))
     (let ((v2 (verti::remove-node "b" v1)))
       (is (equalp v2
-                  (verti::build-vert-collection '(("a" "a2a" "a"))))))))
+                  (verti::build-vert-collection '(("a" "a2a" "a"))))))    ))
 
 (test removal-of-2
   ""
