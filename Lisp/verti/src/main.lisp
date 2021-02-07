@@ -48,25 +48,24 @@
                                               (build-vert x "" nil)))
                                           (remove-duplicates singles :test #'equalp))))))
       (let ((l (car collection))
-            (new-acc)
-            (new-singles))
+            (new-acc acc)
+            (new-singles singles))
         (cond
           ((and (not (equalp (vert-source l) node))
                 (not (equalp (vert-target l) node)))
-           (setf new-acc (cons l acc)
-                 new-singles singles))
+           (setf new-acc (cons l acc)))
+
           ((and (equalp (vert-source l) node)
                 (equalp (vert-target l) node))
-           (setf new-acc acc
-                 new-singles singles))  ;skipped
+           (setf #| skipped for both ends matching |#))
+
           ((and (equalp (vert-source l) node)
                 (not (equalp (vert-target l) node)))
-           (setf new-acc acc
-                 new-singles (cons (vert-target l) singles)))
+           (setf new-singles (cons (vert-target l) singles)))
+
           ((and (not (equalp (vert-source l) node))
                 (equalp (vert-target l) node))
-           (setf new-acc acc
-                 new-singles (cons (vert-source l) singles)))
+           (setf new-singles (cons (vert-source l) singles)))
           (t
            (error "we should not end here with ~A" l)))
         (remove-node node (cdr collection) new-acc new-singles))))
