@@ -55,25 +55,25 @@
   ""
   (let ((v1 (verti::build-vert-collection '(("a" "a2a" "a")
                                             ("a" "a2b" "b")))))
-    ;; (let ((v2 (verti::remove-node "a" v1)))
-    ;;   (is (equalp
-    ;;        (verti::build-vert-collection '(("b" "" nil)))
-    ;;        v2)))
+    (let ((v2 (verti::remove-node "a" v1)))
+      (is (equalp
+           (verti::build-vert-collection '(("b" "" nil)))
+           v2)))
     (let ((v2 (verti::remove-node "b" v1)))
       (is (equalp
            (verti::build-vert-collection '(("a" "a2a" "a")))
            v2)))
     ))
 
-;; (test removal-of-2-swapped-b
-;;   ""
-;;   (let ((v1 (verti::build-vert-collection '(("a" "a2a" "a")
-;;                                             ("b" "b2a" "a")))))
-;;     (let ((v2 (verti::remove-node "a" v1)))
-;;       (is (equalp
-;;            (verti::build-vert-collection '(("b" "" nil)))
-;;            v2)))
-;;     (let ((v2 (verti::remove-node "b" v1)))
-;;       (is (equalp
-;;            (verti::build-vert-collection '(("a" "a2a" "a")))
-;;            v2)))))
+(test removal-of-2-swapped-b
+  ""
+  (let ((v1 (verti::build-vert-collection '(("a" "a2a" "a")
+                                            ("b" "b2a" "a")))))
+    (let ((v2 (verti::remove-node "a" v1)))
+      (is (equalp
+           (verti::build-vert-collection '(("b" "" nil)))
+           v2)))
+    (let ((v2 (verti::remove-node "b" v1)))
+      (is (equalp
+           (verti::build-vert-collection '(("a" "a2a" "a")))
+           v2)))))
