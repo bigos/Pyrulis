@@ -39,23 +39,34 @@
   (loop for l in collection
         collect (apply #'build-vert l)))
 
-(defun remove-node (node collection &optional (acc))
+(defun remove-node (node collection &optional (acc) (singles))
   (if (null collection)
-      (remove-duplicates acc :test #'equalp)
+      (progn
+        (let ((sns (loop for ln in acc collect (vert-source ln)))
+              (tns (loop for ln in acc collect (vert-target ln))))
+          (concatenate 'list
+                       acc
+                       (remove-if #'null
+                                  (mapcar (lambda (x)
+                                            (if (or (member x sns :test #'equalp)
+                                                    (member x tns :test #'equalp))
+                                                nil
+                                                (build-vert x "" nil)))
+                                          (remove-duplicates singles :test #'equalp))))))
       (let ((l (car collection)))
         (cond
           ((and (not (equalp (vert-source l) node))
                 (not (equalp (vert-target l) node)))
-           (remove-node node (cdr collection) (cons l acc)))
+           (remove-node node (cdr collection) (cons l acc) singles))
           ((and (equalp (vert-source l) node)
                 (equalp (vert-target l) node))
-           (remove-node node (cdr collection) acc))
+           (remove-node node (cdr collection) acc)) ;skipped
           ((and (equalp (vert-source l) node)
                 (not (equalp (vert-target l) node)))
-           (remove-node node (cdr collection) (cons (build-vert (vert-target l) "" nil) acc)))
+           (remove-node node (cdr collection) acc (cons (vert-target l) singles)))
           ((and (not (equalp (vert-source l) node))
                 (equalp (vert-target l) node))
-           (remove-node node (cdr collection) (cons (build-vert (vert-source l) "" nil) acc)))
+           (remove-node node (cdr collection) acc (cons (vert-source l) singles)))
           (t
            (error "we should not end here with ~A" l))))))
 
@@ -67,7 +78,7 @@
                                       ("c" "c2b" "b")
                                       )))
 
-(remove-node "b"
+(remove-node "a"
              (build-vert-collection '(("a" "a2a" "a")
                                       ("a" "a2b" "b")
                                       ("b" "b2a" "a")
