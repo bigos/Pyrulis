@@ -30,29 +30,18 @@
     (is (= 3 (length v1)))))
 
 ;;; TODO finish me - (alexandria:map-combinations #'print '(a b c) :length 2)
-;; (test removal-of-verts
-;;   "Prove removing works OK."
-;;   (let* ((col '(("a" "a2b" "b")
-;;                 ("b" "b2c" "c")
-;;                 ("c" "c2a" "a")))
-;;         (v1 (verti::build-vert-collection col)))
-;;     (let ((v2 (verti::remove-node "a" v1)))
-;;       (is (equalp (verti::build-vert-collection
-;;                    '(("b" "b2c" "c")))
-;;                   v2)))))
 
 (test removal-of-1
   "removal of 1"
   (let ((v1 (verti::build-vert-collection '(("a" "a2a" "a")))))
 
     (let ((v2 (verti::remove-node "a" v1)))
-      (is (null v2) "Null expected."))
+      (is (null v2)))
     (let ((v2 (verti::remove-node "b" v1)))
       (is (equalp v2
                   (verti::build-vert-collection '(("a" "a2a" "a"))))))    ))
 
 (test removal-of-2
-  ""
   (let ((v1 (verti::build-vert-collection '(("a" "a2a" "a")
                                             ("a" "a2b" "b")))))
     (let ((v2 (verti::remove-node "a" v1)))
@@ -66,7 +55,6 @@
     ))
 
 (test removal-of-2-swapped-b
-  ""
   (let ((v1 (verti::build-vert-collection '(("a" "a2a" "a")
                                             ("b" "b2a" "a")))))
     (let ((v2 (verti::remove-node "a" v1)))
@@ -77,3 +65,48 @@
       (is (equalp
            (verti::build-vert-collection '(("a" "a2a" "a")))
            v2)))))
+
+(test removal-of-3
+  "Prove removing works OK."
+  (let ((v1 (verti::build-vert-collection '(("a" "a2b" "b")
+                                            ("b" "b2c" "c")
+                                            ("c" "c2a" "a")))))
+    (let ((v2 (verti::remove-node "a" v1)))
+      (is (equalp (verti::build-vert-collection
+                   '(("b" "b2c" "c")))
+                  v2)))
+    (let ((v3 (verti::remove-node "b" v1)))
+      (is (equalp (verti::build-vert-collection
+                   '(("c" "c2a" "a")))
+                  v3)))
+    (let ((v4 (verti::remove-node "c" v1)))
+      (is (equalp (verti::build-vert-collection
+                   '(("a" "a2b" "b")))
+                  v4)))))
+
+(test removal-of-4
+  "Prove removing 4 combibnations works OK."
+  (let ((v1 (verti::build-vert-collection '(("c" "c2d" "d")
+                                            ("b" "b2d" "d")
+                                            ("b" "b2c" "c")
+                                            ("a" "a2d" "d")
+                                            ("a" "a2c" "c")
+                                            ("a" "a2b" "b")))))
+    (let ((v2 (verti::remove-node "a" v1)))
+      (is (equalp (verti::build-vert-collection
+                   '(("b" "b2c" "c")
+                     ("b" "b2d" "d")
+                     ("c" "c2d" "d")))
+                  v2)))
+    (let ((v3 (verti::remove-node "b" v1)))
+      (is (equalp (verti::build-vert-collection
+                   '(("a" "a2c" "c")
+                     ("a" "a2d" "d")
+                     ("c" "c2d" "d")))
+                  v3)))
+    (let ((v4 (verti::remove-node "c" v1)))
+      (is (equalp (verti::build-vert-collection
+                   '(("a" "a2b" "b")
+                     ("a" "a2d" "d")
+                     ("b" "b2d" "d")))
+                  v4)))))
