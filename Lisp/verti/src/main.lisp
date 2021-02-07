@@ -43,27 +43,33 @@
                        acc
                        (remove-if #'null
                                   (mapcar (lambda (x)
-                                            (if (or (member x sns :test #'equalp)
-                                                    (member x tns :test #'equalp))
-                                                nil
-                                                (build-vert x "" nil)))
+                                            (when (not (or (member x sns :test #'equalp)
+                                                           (member x tns :test #'equalp)))
+                                              (build-vert x "" nil)))
                                           (remove-duplicates singles :test #'equalp))))))
-      (let ((l (car collection)))
+      (let ((l (car collection))
+            (new-acc)
+            (new-singles))
         (cond
           ((and (not (equalp (vert-source l) node))
                 (not (equalp (vert-target l) node)))
-           (remove-node node (cdr collection) (cons l acc) singles))
+           (setf new-acc (cons l acc)
+                 new-singles singles))
           ((and (equalp (vert-source l) node)
                 (equalp (vert-target l) node))
-           (remove-node node (cdr collection) acc)) ;skipped
+           (setf new-acc acc
+                 new-singles singles))  ;skipped
           ((and (equalp (vert-source l) node)
                 (not (equalp (vert-target l) node)))
-           (remove-node node (cdr collection) acc (cons (vert-target l) singles)))
+           (setf new-acc acc
+                 new-singles (cons (vert-target l) singles)))
           ((and (not (equalp (vert-source l) node))
                 (equalp (vert-target l) node))
-           (remove-node node (cdr collection) acc (cons (vert-source l) singles)))
+           (setf new-acc acc
+                 new-singles (cons (vert-source l) singles)))
           (t
-           (error "we should not end here with ~A" l))))))
+           (error "we should not end here with ~A" l)))
+        (remove-node node (cdr collection) new-acc new-singles))))
 
 
 (remove-node "a"
