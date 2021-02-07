@@ -39,15 +39,37 @@
   (loop for l in collection
         collect (apply #'build-vert l)))
 
-;; (remove-node "a" (build-combinations '(a b c d)))
-(defun remove-node (node collection)
-  (loop for l in collection
-        when (and (not (equalp (vert-source l) node))
-                  (not (equalp (vert-target l) node)))
-          collect l
-        when (and (not (equalp (vert-source l) node))
-                  (equalp (vert-target l) node))
-          collect (build-vert (vert-source l) "" nil)
-        when (and (equalp (vert-source l) node)
-                  (not (equalp (vert-target l) node)))
-          collect (build-vert (vert-target l) "" nil)))
+(defun remove-node (node collection &optional (acc))
+  (if (null collection)
+      (remove-duplicates acc :test #'equalp)
+      (let ((l (car collection)))
+        (cond
+          ((and (not (equalp (vert-source l) node))
+                (not (equalp (vert-target l) node)))
+           (remove-node node (cdr collection) (cons l acc)))
+          ((and (equalp (vert-source l) node)
+                (equalp (vert-target l) node))
+           (remove-node node (cdr collection) acc))
+          ((and (equalp (vert-source l) node)
+                (not (equalp (vert-target l) node)))
+           (remove-node node (cdr collection) (cons (build-vert (vert-target l) "" nil) acc)))
+          ((and (not (equalp (vert-source l) node))
+                (equalp (vert-target l) node))
+           (remove-node node (cdr collection) (cons (build-vert (vert-source l) "" nil) acc)))
+          (t
+           (error "we should not end here with ~A" l))))))
+
+
+(remove-node "a"
+             (build-vert-collection '(("a" "a2a" "a")
+                                      ("a" "a2b" "b")
+                                      ("b" "b2a" "a")
+                                      ("c" "c2b" "b")
+                                      )))
+
+(remove-node "b"
+             (build-vert-collection '(("a" "a2a" "a")
+                                      ("a" "a2b" "b")
+                                      ("b" "b2a" "a")
+                                      ("c" "c2b" "b")
+                                      )))
