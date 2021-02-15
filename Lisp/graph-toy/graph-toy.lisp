@@ -4,7 +4,7 @@
   (ql:quickload '(alexandria)))
 
 #| starting up
-(push #p "~/AAAAA/graph-toy/" asdf:*central-registry*)
+(push #p"~/Programming/Pyrulis/Lisp/graph-toy/" asdf:*central-registry*)
 (ql:quickload :graph-toy)
 (in-package #:graph-toy)
 (asdf:test-system 'graph-toy)
