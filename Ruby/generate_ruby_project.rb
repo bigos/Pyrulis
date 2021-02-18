@@ -6,6 +6,17 @@ def prompt(str)
   $stdin.gets.strip
 end
 
+def gather_data
+  puts 'Will generate project'
+
+  project_name = prompt 'Enter new project name'
+
+  existing_gems = `rvm gemset list`.split('=>')[1].split
+  puts 'Warning: you have such gem already' if existing_gems.include? project_name
+
+  project_name
+end
+
 def prepare_rvm(gem_set)
   `echo #{RUBY_VERSION} > .ruby-version`
   `echo #{gem_set} > .ruby-gemset`
@@ -33,17 +44,6 @@ def prepare_source(project_name)
   HERE
 
   `echo "#{content}" > #{project_name}.rb`
-end
-
-def gather_data
-  puts 'Will generate project'
-
-  project_name = prompt 'Enter new project name'
-
-  existing_gems = `rvm gemset list`.split('=>')[1].split
-  puts 'Warning: you have such gem already' if existing_gems.include? project_name
-
-  project_name
 end
 
 def final_info(project_name)
