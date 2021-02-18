@@ -35,7 +35,7 @@ def prepare_source(project_name)
   `echo "#{content}" > #{project_name}.rb`
 end
 
-def main
+def gather_data
   puts 'Will generate project'
 
   project_name = prompt 'Enter new project name'
@@ -43,7 +43,25 @@ def main
   existing_gems = `rvm gemset list`.split('=>')[1].split
   puts 'Warning: you have such gem already' if existing_gems.include? project_name
 
+  project_name
+end
+
+def final_info(project_name)
+  puts ''
+  puts "Project #{project_name} skeleton has been generated."
+  puts 'Now you can cd to it, edit the Gemfile and run:'
+  puts 'gem install bundler'
+  puts 'bundle install'
+  puts ''
+  puts "At this point you can edit the #{project_name}.rb and start tinkering."
+  puts ''
+end
+
+def main
+  project_name = gather_data
+
   `mkdir #{project_name}`
+
   Dir.chdir project_name
 
   prepare_rvm project_name
@@ -52,16 +70,7 @@ def main
 
   Dir.chdir '..'
 
-  puts ''
-  puts "Project #{project_name} skeleton has been generated."
-  puts 'Now you can cd to it, edit the Gemfile and run:'
-  puts 'gem install bundler'
-  puts 'bundle install'
-  puts ''
-  puts "At this point you can edit the #{project_name}.rb and start tinkering."
-
-  # final ===================================================
-  puts ''
+  final_info project_name
 end
 
 main
