@@ -7,6 +7,10 @@
 (push #p"~/Programming/Pyrulis/Lisp/graph-toy/" asdf:*central-registry*)
 (ql:quickload :graph-toy)
 (in-package #:graph-toy)
+(main)
+(my-loop)
+testing
+(ql:quickload :graph-toy/tests)
 (asdf:test-system 'graph-toy)
 |#
 
