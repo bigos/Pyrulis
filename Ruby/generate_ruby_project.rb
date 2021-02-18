@@ -39,7 +39,6 @@ def main
   puts 'Will generate project'
 
   project_name = prompt 'Enter new project name'
-  puts "entered #{project_name.inspect}"
 
   existing_gems = `rvm gemset list`.split('=>')[1].split
   puts 'Warning: you have such gem already' if existing_gems.include? project_name
@@ -59,7 +58,7 @@ def main
   puts 'gem install bundler'
   puts 'bundle install'
   puts ''
-  puts 'At this point you can create *.rb files and start tinkering.'
+  puts "At this point you can edit the #{project_name}.rb and start tinkering."
 
   # final ===================================================
   puts ''
