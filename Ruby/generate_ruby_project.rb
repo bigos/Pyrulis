@@ -26,8 +26,20 @@ def prepare_gemfile
   content = <<~HERE
     source 'https://rubygems.org'
 
-    gem 'rubocop', require: false
-    gem 'minitest', '~> 5.3.4'
+    # https://bundler.io/v1.5/groups.html
+    # for production deployment
+    # bundle install --without test development
+    group :development do
+      gem 'rubocop', require: false
+    end
+
+    group :development, :test do
+      gem 'byebug'
+    end
+
+    group :test do
+      gem 'minitest', '~> 5.3.4'
+    end
   HERE
 
   `echo "#{content}" > Gemfile`
