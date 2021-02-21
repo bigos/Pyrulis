@@ -1,0 +1,11 @@
+* Readme
+
+  This is the folder for collecting some information about org-mode that would
+  benefit from sharing across multiple machines.
+
+** Documentation
+   M-x org-info
+
+   https://orgmode.org/org.html
+
+   https://orgmode.org/guide/
