@@ -9,3 +9,9 @@
    https://orgmode.org/org.html
 
    https://orgmode.org/guide/
+
+** Interesting Links
+   https://www.reddit.com/r/orgmode/
+
+** Learning
+file:~/Programming/Pyrulis/Org-mode/learning-org-mode.org::1

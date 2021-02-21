@@ -1,0 +1,121 @@
+* Learning Plan
+  https://orgmode.org/org.html
+
+  gotcha 1
+  https://orgmode.org/org.html#Catching-invisible-edits
+
+** Basic Key Combinations
+   https://orgmode.org/org.html#Document-Structure
+
+*** cycling visibility
+    Tab cycles subtree
+    S-Tab cycles everything
+
+*** moving around
+
+**** traversing headers with np fb uj keys
+
+ C-c C-n (org-next-visible-heading)
+ C-c C-p (org-previous-visible-heading)
+
+ C-c C-f (org-forward-heading-same-level)
+ C-c C-b (org-backward-heading-same-level)
+
+ C-c C-u (outline-up-heading)
+
+ C-c C-j (org-goto)
+
+*** structure editing
+https://orgmode.org/org.html#Structure-Editing
+
+**** adding headings
+
+***** M-RET (org-meta-return)
+     Insert a new heading, item or row.
+
+     If the command is used at the beginning of a line, and if there is a
+     heading or a plain list item (see Plain Lists) at point, the new
+     heading/item is created before the current line. When used at the beginning
+     of a regular line of text, turn that line into a heading.
+
+     When this command is used in the middle of a line, the line is split and
+     the rest of the line becomes the new item or headline. If you do not want
+     the line to be split, customize org-M-RET-may-split-line.
+
+     Calling the command with a C-u prefix unconditionally inserts a new heading
+     at the end of the current subtree, thus preserving its contents. With a
+     double C-u C-u prefix, the new heading is created at the end of the parent
+     subtree instead.
+
+***** C-RET (org-insert-heading-respect-content)
+     Insert a new heading at the end of the current subtree.
+
+***** M-S-RET (org-insert-todo-heading)
+     Insert new TODO entry with same level as current heading. See also the
+     variable org-treat-insert-todo-heading-as-state-change.
+
+***** C-S-RET (org-insert-todo-heading-respect-content)
+     Insert new TODO entry with same level as current heading. Like C-RET, the
+     new headline is inserted after the current subtree.
+
+
+**** promoting demoting
+
+***** M-LEFT (org-do-promote) or M-RIGHT (org-do-demote)
+
+      Promote or demote current heading by one level.
+
+      When there is an active region—i.e., when Transient Mark mode is
+      active—promotion and demotion work on all headlines in the region.
+      To select a region of headlines, it is best to place both point and mark at
+      the beginning of a line, mark at the beginning of the first headline, and
+      point at the line just after the last headline to change.
+
+***** M-S-LEFT (org-promote-subtree)
+
+      Promote the current subtree by one level.
+
+***** M-S-RIGHT (org-demote-subtree)
+
+      Demote the current subtree by one level.
+
+
+**** subtree cut, copy and paste
+
+***** C-c C-x C-w (org-cut-subtree)
+      Kill subtree, i.e., remove it from buffer but save in kill ring. With a
+      numeric prefix argument N, kill N sequential subtrees.
+
+***** C-c C-x M-w (org-copy-subtree)
+      Copy subtree to kill ring. With a numeric prefix argument N, copy
+      the N sequential subtrees.
+
+***** C-c C-x C-y (org-paste-subtree)
+      Yank subtree from kill ring. This does modify the level of the subtree to
+      make sure the tree fits in nicely at the yank position. The yank level can
+      also be specified with a numeric prefix argument, or by yanking after a
+      headline marker like ‘****’.
+
+
+
+**** more to do
+     sorting
+     narrowing
+     toggling-heading
+     refiling
+
+*** TODO sparse trees
+    An important feature of Org mode is the ability to construct sparse trees
+    for selected information in an outline tree, so that the entire document is
+    folded as much as possible, but the selected information is made visible
+    along with the headline structure above it.
+
+*** TODO plain lists
+
+*** TODO drawers
+    Sometimes you want to keep information associated with an entry, but you
+    normally do not want to see it. For this, Org mode has drawers.
+
+*** TODO creating blocks
+
+** Videos
