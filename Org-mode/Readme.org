@@ -12,6 +12,7 @@
 
 ** Interesting Links
    https://www.reddit.com/r/orgmode/
+   https://blog.jethro.dev/posts/introducing_org_roam/
 
 ** Learning
 file:~/Programming/Pyrulis/Org-mode/learning-org-mode.org::1
