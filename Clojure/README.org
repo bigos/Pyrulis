@@ -8,11 +8,14 @@ see https://github.com/seancorfield/clj-new
 *** app
 
 create an application project:
+file:~/Programming/Pyrulis/Clojure/deps.edn::7
 
-clj -X:new create :name jac/try
+#+begin_example
+clj -X:new :template app :name jac/try
 cd try
-clj -M -m jac.try  # run it!
+clj -M -m jac.try # run it!
 clj -M:test:runner # run the tests!
+#+end_example
 
 ** Cider REPL
 
