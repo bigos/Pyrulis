@@ -19,6 +19,15 @@ clj -M:test:runner # run the tests!
 
 ** Cider REPL
 
+*** starting code in REPL
+#+begin_example
+cider-jack-in
+C-c C-k
+C-c C-z
+C-c M-n
+(-main)
+#+end_example
+
 *** useful Emacs commands
 
 | shortcut  | M-x command             | desc                                  |
