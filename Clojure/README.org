@@ -26,7 +26,7 @@ clj -M:test:runner # run the tests!
 |           | cider-jack-in           | start REPL                            |
 | C-c C-k   | cider-load-buffer       | LOAD BUFFER                           |
 | C-c M-z   |                         | LOAD buffer and switch to REPL        |
-| C-c M-n r | cider-ns-refresh        | reload edited code                    |
-| C-c M-n   | cider-repl-set-ns       | switch namespace                      |
 | C-c C-z   |                         | switch between REPL and source buffer |
+| C-c M-n   | cider-repl-set-ns       | switch namespace                      |
+| C-c M-n r | cider-ns-refresh        | reload edited code                    |
 | C-c M-k   | cider-repl-clear-buffer | clear REPL (my customisation)         |
