@@ -1,0 +1,85 @@
+* Generating Haskell Project
+
+** without template
+   #+begin_example
+   stack new try
+   cd try
+   stack run
+   # do some editing
+   stack run
+   #+end_example
+
+** with template
+   #+begin_example
+   stack new try chrisdone
+   cd try
+   stack run
+   # do some editing
+   stack run
+   #+end_example
+
+*** chrisdone
+    is an example template that can be found in default repository
+    https://github.com/commercialhaskell/stack-templates
+    This repository is not accepting new templates.
+
+*** templates
+
+**** guide
+     https://docs.haskellstack.org/en/stable/GUIDE/#templates
+
+**** help text
+     #+begin_example
+     stack templates
+     #+end_example
+
+**** default vs custom templates
+
+***** default
+      takes template from default repository
+      https://github.com/commercialhaskell/stack-templates
+      #+begin_example
+      stack new try chrisdone
+      #+end_example
+
+***** custom github
+      #+begin_example
+      stack new my-yesod-project yesodweb/simple
+      #+end_example
+
+***** custom gitlab
+      #+begin_example
+      stack new my-project gitlab:user29/foo
+      #+end_example
+
+***** custom url
+      #+begin_example
+      stack new my-project https://my-site.com/content/template9.hsfiles
+      #+end_example
+
+***** custom path
+      #+begin_example
+      stack new my-project ~/path/to/template.hsfiles
+      #+end_example
+
+** dependencies
+   [[https://docs.haskellstack.org/en/stable/GUIDE/#resolvers-and-changing-your-compiler-version][GUIDE/#resolvers-and-changing-your-compiler-version]]
+
+*** compiler
+    https://docs.haskellstack.org/en/stable/GUIDE/#installing-the-compiler
+
+**** new versions
+     https://www.haskell.org/ghc/
+     https://gitlab.haskell.org/ghc/ghc/-/wikis/commentary/libraries/version-history
+
+***** experimenting with
+
+****** stable Haskell
+       #+begin_example
+       stack setup 8.10.4
+       #+end_example
+
+****** latest Haskell
+       #+begin_example
+       stack setup 9.0.1
+       #+end_example
