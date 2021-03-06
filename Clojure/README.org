@@ -19,13 +19,23 @@ clj -M:test:runner # run the tests!
 
 ** Cider REPL
 
+*** starting code in REPL
+#+begin_example
+cider-jack-in
+C-c C-k
+C-c C-z
+C-c M-n
+(-main)
+#+end_example
+
 *** useful Emacs commands
 
 | shortcut  | M-x command             | desc                                  |
 |-----------+-------------------------+---------------------------------------|
 |           | cider-jack-in           | start REPL                            |
-| C-c M-n r | cider-ns-refresh        | reload edited code                    |
-| C-c M-n   | cider-repl-set-ns       | switch namespace                      |
-| C-c M-z   |                         | load buffer and switch to REPL        |
+| C-c C-k   | cider-load-buffer       | LOAD BUFFER                           |
+| C-c M-z   |                         | LOAD buffer and switch to REPL        |
 | C-c C-z   |                         | switch between REPL and source buffer |
+| C-c M-n   | cider-repl-set-ns       | switch namespace                      |
+| C-c M-n r | cider-ns-refresh        | reload edited code                    |
 | C-c M-k   | cider-repl-clear-buffer | clear REPL (my customisation)         |
