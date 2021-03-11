@@ -21,7 +21,9 @@ clj -M:test:runner # run the tests!
 
 *** 1 starting code using menu
     M-x ~cider-jack-in~
+
     click on the source buffer
+
     check menu *CIDER Eval* bottom section
 
 *** 2 starting code in REPL
