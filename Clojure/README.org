@@ -50,12 +50,14 @@ C-c M-n
 
 *** 3 starting code from deps.edn
 
-    open deps.edn
+    open deps.edn with default namespace ~jac.try~
 
     M-x ~cider-jack-in~
 
     M-x ~cider-load-all-project-ns~
 
     ~(jac.try/-main)~
+
+    C-c M-n and select ~jac.try~
 
     M-. on -main to access source
