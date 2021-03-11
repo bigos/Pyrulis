@@ -19,14 +19,8 @@ clj -M:test:runner # run the tests!
 
 ** Cider REPL
 
-*** 1 starting code using menu
-    M-x ~cider-jack-in~
+*** 1 starting code in REPL
 
-    click on the source buffer
-
-    check menu *CIDER Eval* bottom section
-
-*** 2 starting code in REPL
 #+begin_example
 cider-jack-in
 C-c C-k
@@ -46,3 +40,22 @@ C-c M-n
 | C-c M-n   | cider-repl-set-ns       | switch namespace                      |
 | C-c M-n r | cider-ns-refresh        | reload edited code                    |
 | C-c M-k   | cider-repl-clear-buffer | clear REPL (my customisation)         |
+
+*** 2 starting code using menu
+    M-x ~cider-jack-in~
+
+    click on the source buffer
+
+    check menu *CIDER Eval* bottom section
+
+*** 3 starting code from deps.edn
+
+    open deps.edn
+
+    M-x ~cider-jack-in~
+
+    M-x ~cider-load-all-project-ns~
+
+    ~(jac.try/-main)~
+
+    M-. on -main to access source
