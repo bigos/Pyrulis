@@ -23,8 +23,7 @@ clj -M:test:runner # run the tests!
 
 #+begin_example
 cider-jack-in
-C-c C-k
-C-c C-z
+C-c M-a
 C-c M-n
 (-main)
 #+end_example
