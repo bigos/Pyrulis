@@ -19,7 +19,13 @@ clj -M:test:runner # run the tests!
 
 ** Cider REPL
 
-*** starting code in REPL
+*** 1 starting code using menu
+    #+begin_example
+    cider-jack-in
+    check menu CIDER Eval bottom section
+    #+end_example
+
+*** 2 starting code in REPL
 #+begin_example
 cider-jack-in
 C-c C-k
