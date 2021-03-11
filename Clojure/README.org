@@ -50,11 +50,11 @@ C-c M-n
 
 *** 3 starting code from deps.edn
 
-    open deps.edn with default namespace ~jac.try~
+    M-x ~dired~ to open the directory containing the project
 
     M-x ~cider-jack-in~
 
-    M-x ~cider-load-all-project-ns~
+    M-x ~cider-load-all-files~
 
     ~(jac.try/-main)~
 
