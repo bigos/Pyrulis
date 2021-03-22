@@ -1,0 +1,96 @@
+* Ruby 3
+
+** pages with information
+
+   https://www.ruby-lang.org/en/news/2020/12/25/ruby-3-0-0-released/
+
+   https://bigbinary.com/blog/ruby-3-features
+
+** poor Emacs support
+
+
+** changes
+*** performance
+    Some apps benefit from JIT but for better performance in Rails we have to
+    wait until Ruby 3.1
+
+
+*** concurrency
+
+**** Ractor (experimental)
+
+**** Fiber Scheduler
+
+
+*** Static Analysis
+
+**** RBS
+
+     RBS is a language to describe the types of Ruby programs.
+
+     Type checkers including TypeProf and other tools supporting RBS will
+     understand Ruby programs much better with RBS definitions.
+
+     Ruby 3.0 ships with the rbs gem, which allows parsing and processing type
+     definitions written in RBS. The following is a small example of RBS with
+     class, module, and constant definitions.
+
+     #+begin_src ruby
+       module ChatApp
+         VERSION: String
+         class Channel
+           attr_reader name: String
+           attr_reader messages: Array[Message]
+           attr_reader users: Array[User | Bot]              # `|` means union types, `User` or `Bot`.
+           def initialize: (String) -> void
+             def post: (String, from: User | Bot) -> Message   # Method overloading is supported.
+               | (File, from: User | Bot) -> Message
+             end
+           end
+         end
+       end
+     #+end_src
+
+     See more here
+     https://github.com/ruby/rbs
+
+**** TypeProf
+     TypeProf is a type analysis tool bundled in the Ruby package.
+
+     Currently, TypeProf serves as a kind of type inference.
+
+     It reads plain (non-type-annotated) Ruby code, analyzes what methods are
+     defined and how they are used, and generates a prototype of type signature
+     in RBS format.
+
+     Usage
+     #+begin_example
+     typeprof ruby-prog.rb
+     #+end_example
+
+     TypeProf is experimental and not so mature yet; only a subset of the Ruby
+     language is supported, and the detection of type errors is limited. But it
+     is still growing rapidly to improve the coverage of language features, the
+     analysis performance, and usability.
+
+
+
+*** Other notable new features
+
+**** one line pattern matching
+
+**** ~in~
+
+**** Haskell like methods without ~end~
+
+**** sharing memory with C-API
+
+**** Other notable changes since 2.7
+
+***** keywords
+
+***** argument forwarding
+
+***** standard libraries
+
+***** some stdlib files became gems
