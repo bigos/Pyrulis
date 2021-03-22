@@ -1,0 +1,6 @@
+* README
+
+** Good monad tutorial
+   https://wiki.haskell.org/Monads_as_containers
+
+   https://wiki.haskell.org/All_About_Monads
