@@ -10,7 +10,8 @@
 (format t "~%this is a timer~%~%")
 
 (defclass my-timer ()
-  ((timer-value :initform (- 2 2))))
+  ((timer-value :initform (- 2 2))
+   (yet-another-slot :initform (list 1 (cons 2 2.5) 3))))
 
 (defgeneric get-value (my-timer))
 
