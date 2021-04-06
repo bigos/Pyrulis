@@ -1,0 +1,17 @@
+* Gaborean
+
+** think quickly with tiny steps and simple notes
+
+** talk to the rubber duck
+
+** as much as you can expand ideas using domain language
+
+** big jump to Lisp
+
+*** write loose high level code
+
+*** fill the gaps with tiny steps
+
+** discard and repeat
+
+** code <=affects=> thinking
