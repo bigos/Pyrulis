@@ -9,3 +9,6 @@
    https://wiki.haskell.org/Monads_as_containers
 
    https://wiki.haskell.org/All_About_Monads
+
+*** Monad tutorial warning
+    http://dev.stephendiehl.com/hask/#eightfold-path-to-monad-satori
