@@ -1,0 +1,67 @@
+* Haskell
+
+** Tutorial to consider
+   http://dev.stephendiehl.com/hask/
+
+*** particularly
+    http://dev.stephendiehl.com/hask/#type-holes
+
+    http://dev.stephendiehl.com/hask/#bottoms
+
+    http://dev.stephendiehl.com/hask/#typeclasses
+    http://dev.stephendiehl.com/hask/#type-class-extensions
+
+    http://dev.stephendiehl.com/hask/#monads
+
+    http://dev.stephendiehl.com/hask/#language-extensions
+
+*** other features worth mentioning
+    http://dev.stephendiehl.com/hask/#deferred-type-errors
+
+    http://dev.stephendiehl.com/hask/#debugger
+
+** Type system
+   TODO
+
+** Typeclasses
+
+*** diehl
+    Typeclasses are one of the core abstractions in Haskell.
+
+    Then we can define this typeclass over several different types. These
+    definitions are called typeclass instances.
+
+    For example we can define an equality class which allows us to define an
+    overloaded notion of equality depending on the data structure provided.
+
+    #+begin_src haskell
+class Equal a where
+  equal :: a -> a -> Bool
+
+-- Then we can define this typeclass over several different types. These
+-- definitions are called typeclass instances.
+
+instance Equal Bool where
+  equal True True   = True
+  equal False False = True
+  equal True False  = False
+  equal False True  = False
+    #+end_src
+
+*** real world haskell
+    http://book.realworldhaskell.org/read/using-typeclasses.html
+
+    Typeclasses define a set of functions that can have different
+    implementations depending on the type of data they are given.
+
+*** wikipedia
+    https://en.wikipedia.org/wiki/Type_class
+
+    Type classes were first implemented in the Haskell programming language
+    after first being proposed by Philip Wadler and Stephen Blott as an
+    extension to "eqtypes" in Standard ML, and were originally conceived
+    as a way of implementing overloaded arithmetic and equality operators in a
+    principled fashion.
+
+*** a blog
+    https://mmhaskell.com/blog/2019/1/28/why-haskell-iv-typeclasses-vs-inheritance
