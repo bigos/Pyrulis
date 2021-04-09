@@ -21,7 +21,9 @@
     http://dev.stephendiehl.com/hask/#debugger
 
 ** Type system
-   TODO
+
+*** Introduction
+    https://wiki.haskell.org/Type
 
 ** Typeclasses
 
