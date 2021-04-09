@@ -24,6 +24,30 @@
 
 *** Introduction
     https://wiki.haskell.org/Type
+    https://mmhaskell.com/blog/2017/12/24/haskell-data-types-in-5-steps
+    https://patxi.medium.com/intro-to-higher-kinded-types-in-haskell-df6b719e7a69
+
+*** keywords
+
+**** data
+     data is used to define new data types mostly using existing ones as
+     building blocks.
+
+**** type
+     Type synonyms are mostly just a convenience. They help make the roles of
+     types clearer or provide an alias to such things as complicated list or
+     tuple types.
+
+**** newtype
+     A newtype is like a cross between data and type. Like type, you’re
+     essentially renaming a type. But you do this by writing a declaration that
+     has exactly one constructor with exactly one type. As with a data
+     declaration, you can use record syntax within newtypes.
+
+     https://wiki.haskell.org/Newtype
+     https://mmhaskell.com/blog/2016/12/26/making-your-types-readable
+     https://stackoverflow.com/questions/2649305/why-is-there-data-and-newtype-in-haskell
+
 
 ** Typeclasses
 
