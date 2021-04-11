@@ -1,0 +1,8 @@
+* Cairo diagram
+  A cairo diagram excercise
+
+** Licence
+   PUBLIC DOMAIN
+
+** Docomentation
+   See the documentation folder
