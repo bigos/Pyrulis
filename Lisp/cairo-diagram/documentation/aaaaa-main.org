@@ -1,3 +1,25 @@
 * Main
   This is the place for documentation about, among other things, using Cairo
   library.
+
+** website
+   https://www.cairographics.org
+
+*** documentation
+    https://www.cairographics.org/documentation/
+
+    https://www.cairographics.org/tutorial/
+
+*** bindings
+    https://www.cairographics.org/manual/
+
+
+**** Appendix - Creating a language binding for cairo
+     https://www.cairographics.org/manual/language-bindings.html
+
+     This appendix attempts to collect together issues that come up when
+     creating a language bindings for cairo and present standardized solutions
+     to promote consistency among the different language bindings.
+
+     https://www.cairographics.org/manual/language-bindings.html#bindings-general
+     https://www.cairographics.org/manual/bindings-memory.html
