@@ -14,20 +14,18 @@
 (defun init-global-model ()
   (setf *global* nil))
 
+(defun key-press-fun (gm canvas rkv)
+  (format *o* "key press fun ~A ~A~%" canvas rkv)
+  (let ((kv (gdk-event-key-keyval rkv)))
+
+    (format *o* "key value ~A ~A~%" kv gm)))
+
 (defun main ()
   "Run the program"
   (format *o* "boooo~%")
   (format t "entering main loop~%")
-
   (init-global-model)
-
   (format *o* "global model is ~A~%" *global*)
-
-  (defun key-press-fun (gm canvas rkv)
-    (format *o* "key press fun ~A ~A~%" canvas rkv)
-    (let ((kv (gdk-event-key-keyval rkv)))
-
-      (format *o* "key value ~A ~A~%" kv gm)))
 
   (sb-int:with-float-traps-masked (:divide-by-zero)
     (within-main-loop
