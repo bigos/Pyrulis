@@ -1,0 +1,17 @@
+* Cairo references
+
+  file:~/Programming/Pyrulis/Lisp/cairo-diagram/documentation/aaaaa-main.org::25
+  and
+  https://www.cairographics.org/manual/bindings-memory.html
+
+  Refcounted opaque types all have a ..._reference() function to increase the
+  refcount by one and a ..._destroy() to decrease the refcount by one. These
+  should not be exposed to the user of the language binding, but rather used to
+  implement memory management within the language binding.
+
+** cairo-snake draw-canvas
+   uses the not recommended function
+   file:~/Programming/Pyrulis/Lisp/cairo-snake/cairo-snake.lisp::101
+
+   If the bindings do not do it in the recommended way we will write a macro to
+   fix that
