@@ -61,7 +61,7 @@
 
 (defun timer-fun (canvas)
   ;; (format *o* "AFTER timer fun ~A~%" gm)  ;problem here
-  (not nil))
+  (not +gdk-event-propagate+))
 
 (defun main ()
   "Run the program"
