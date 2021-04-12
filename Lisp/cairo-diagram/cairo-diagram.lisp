@@ -12,7 +12,7 @@
 (defparameter *o* *standard-output*)
 
 (defun init-global-model ()
-  (setf *global* nil))
+  (setf *global* 0))
 
 (defun draw-canvas (canvas context)
   (let* ((w (gtk-widget-get-allocated-width canvas))
@@ -38,7 +38,7 @@
     (cairo-set-line-width cr 13)
     (loop for c in (list '(0 . 0) '(10 . 1) '(20 . 2))
           do (cairo-move-to cr (* 10 (car c)) (* 10 (cdr c)))
-             (cairo-line-to cr (* 10 (car c)) (* 10 (cdr c))))
+             (cairo-line-to cr (+ (* 10 (car c)) *global*) (+ (* 10 (cdr c)) *global*)))
     (cairo-stroke cr)
 
 
@@ -49,18 +49,22 @@
     ;; continue propagation of the event handler
     +gdk-event-propagate+))
 
+;;; ====================== view ================================================
 (defun draw-fun (canvas context)
   (draw-canvas canvas context))
 
 (defun key-press-fun (canvas rkv)
   (format *o* "key press fun ~A ~A~%" canvas rkv)
   (let ((kv (gdk-event-key-keyval rkv)))
-
     (format *o* "key value ~A~%" kv)))
-
 
 (defun timer-fun (canvas)
   ;; (format *o* "AFTER timer fun ~A~%" gm)  ;problem here
+  (setf *global* (+ *global* 3))
+  (when (> *global* 100)
+    (setf *global* 0))
+
+  (gtk-widget-queue-draw canvas)
   (not +gdk-event-propagate+))
 
 (defun main ()
@@ -68,27 +72,24 @@
   (format *o* "boooo~%")
   (format t "entering main loop~%")
 
+  (init-global-model)
   (sb-int:with-float-traps-masked (:divide-by-zero)
     (within-main-loop
      (let ((win (gtk-window-new :toplevel))
-           (canvas (gtk-drawing-area-new))
-           )
-
+           (canvas (gtk-drawing-area-new)))
        (setf (gtk-window-default-size win) (list 300 200))
        (gtk-container-add win canvas)
 
+       ;; signals
        (g-timeout-add 1000
                       (lambda () (timer-fun canvas))
                       :priority +g-priority-default+)
-
        (g-signal-connect canvas "draw"
                          (lambda (canvas context)
                            (draw-fun canvas context)))
-
        (g-signal-connect win "key-press-event"
                          (lambda (win rkv)
                            (key-press-fun win rkv)))
-
        (g-signal-connect win "destroy"
                          (lambda (win)
                            (declare (ignore win))
