@@ -36,7 +36,7 @@
     ;; draw dots
     (cairo-set-source-rgb cr 0.4 0.6 0.1)
     (cairo-set-line-width cr 13)
-    (loop for c in (list '(0 . 0) '(10 . 1) '(20 . 2))
+    (loop for c in (list '(1 . 1) '(10 . 4) '(20 . 4))
           do (cairo-move-to cr (* 10 (car c)) (* 10 (cdr c)))
              (cairo-line-to cr (+ (* 10 (car c)) *global*) (+ (* 10 (cdr c)) *global*)))
     (cairo-stroke cr)
