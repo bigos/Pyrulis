@@ -28,3 +28,6 @@
    https://github.com/crategus/cl-cffi-gtk
    http://www.crategus.com/books/cl-cffi-gtk/
    http://www.crategus.com/books/cl-gtk/gtk-tutorial.html
+   http://www.crategus.com/books/cl-gtk/gtk-tutorial.html#figure-drawing
+
+   file:~/quicklisp/dists/quicklisp/software/cl-cffi-gtk-20201220-git/tutorial/tutorial.lisp::236
