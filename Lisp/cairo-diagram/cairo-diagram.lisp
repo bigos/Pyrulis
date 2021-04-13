@@ -65,7 +65,7 @@
     (setf *global* 0))
 
   (gtk-widget-queue-draw canvas)
-  (not +gdk-event-propagate+))
+  +gdk-event-stop+)
 
 (defun main ()
   "Run the program"
