@@ -23,3 +23,8 @@
 
      https://www.cairographics.org/manual/language-bindings.html#bindings-general
      https://www.cairographics.org/manual/bindings-memory.html
+
+** cl-cffi-gtk
+   https://github.com/crategus/cl-cffi-gtk
+   http://www.crategus.com/books/cl-cffi-gtk/
+   http://www.crategus.com/books/cl-gtk/gtk-tutorial.html
