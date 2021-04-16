@@ -75,26 +75,42 @@
   (init-global-model)
   (sb-int:with-float-traps-masked (:divide-by-zero)
     (within-main-loop
-     (let ((win (gtk-window-new :toplevel))
-           (canvas (gtk-drawing-area-new)))
-       (setf (gtk-window-default-size win) (list 300 200))
-       (gtk-container-add win canvas)
+      (let ((win (gtk-window-new :toplevel))
+            (canvas (gtk-drawing-area-new)))
+        (setf (gtk-window-default-size win) (list 300 200))
+        (gtk-container-add win canvas)
 
-       ;; signals
-       (g-timeout-add 1000
-                      (lambda () (timer-fun canvas))
-                      :priority +g-priority-default+)
-       (g-signal-connect canvas "draw"
-                         (lambda (canvas context)
-                           (draw-fun canvas context)))
-       (g-signal-connect win "key-press-event"
-                         (lambda (win rkv)
-                           (key-press-fun win rkv)))
-       (g-signal-connect win "destroy"
-                         (lambda (win)
-                           (declare (ignore win))
-                           (leave-gtk-main)))
+        ;; signals
+        (g-timeout-add 1000
+                       (lambda () (timer-fun canvas))
+                       :priority +g-priority-default+)
 
-       (gtk-widget-show-all win)))
+        (g-signal-connect canvas "draw"
+                          (lambda (canvas context)
+                            (draw-fun canvas context)))
+        (g-signal-connect canvas "configure-event"
+                          (lambda (canvas event)
+                            (format *o* "event data ~A~%" event)
+                            +gdk-event-propagate+))
+        (g-signal-connect canvas "motion-notify-event"
+                          (lambda (canvas event)
+                            (format *o* "event data ~A~%" event)
+                            +gdk-event-propagate+))
+        (g-signal-connect canvas "button-press-event"
+                          (lambda (canvas event)
+                            (format *o* "event data ~A~%" event)
+                            +gdk-event-propagate+))
+        (gtk-widget-add-events canvas '(:button-press-mask
+                                        :pointer-motion-mask))
+
+        (g-signal-connect win "key-press-event"
+                          (lambda (win rkv)
+                            (key-press-fun win rkv)))
+        (g-signal-connect win "destroy"
+                          (lambda (win)
+                            (declare (ignore win))
+                            (leave-gtk-main)))
+
+        (gtk-widget-show-all win)))
     (join-gtk-main)
     (format *o* "~&after the main loop~%")))
