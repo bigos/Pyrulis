@@ -26,7 +26,7 @@
     ;; prevent cr being destroyed improperly
     (cairo-reference cr)
 
-    (format *o* "canvas size is ~A --- ~A ~A === ~A~%" size w h s)
+    (format *o* "~&canvas size is ~A --- ~A ~A === ~A~%" size w h s)
     (format *o* "pointer context ~A~%" cr)
 
     (cairo-set-source-rgb cr 0.6 0.9 0)
@@ -54,12 +54,26 @@
 (defun draw-fun (canvas context)
   (draw-canvas canvas context))
 
-(defun canvas-fun (widget event))
+(defun canvas-event-fun (widget event)
+  (declare (ignore widget))
+  (typecase event
+    (gdk-event-configure (format *o* "c"))
+    (gdk-event-motion (format *o* "-"))
+    (gdk-event-button (format *o* "b"))
+    (t (error "not implemented ~A~%" (type-of event))))
+  +gdk-event-propagate+)
 
-(defun key-press-fun (canvas event)
-  (format *o* "key press fun ~A ~A~%" canvas event)
-  (let ((kv (gdk-event-key-keyval event)))
-    (format *o* "key value ~A~%" kv)))
+(defun win-event-fun (widget event)
+  (declare (ignore widget))
+  (typecase event
+    (gdk-event-key (key-event-fun event))
+    (t (error "not implemented ~A~%" (type-of event)))))
+
+(defun key-event-fun (event)
+  (let ((et  (gdk-event-key-type   event))
+        (str (gdk-event-key-string event))
+        (sta (gdk-event-key-state  event)))
+    (format *o* "event ~A ~A ~A~%" et str sta)))
 
 (defun timer-fun (canvas)
   ;; (format *o* "AFTER timer fun ~A~%" gm)  ;problem here
@@ -72,9 +86,6 @@
 
 (defun main ()
   "Run the program"
-  (format *o* "boooo~%")
-  (format t "entering main loop~%")
-
   (init-global-model)
   (sb-int:with-float-traps-masked (:divide-by-zero)
     (within-main-loop
@@ -83,39 +94,27 @@
         (setf (gtk-window-default-size win) (list 300 200))
         (gtk-container-add win canvas)
 
-        ;; signals
         (g-timeout-add 1000
                        (lambda () (timer-fun canvas))
                        :priority +g-priority-default+)
 
+        ;; drawing-area signals
         (g-signal-connect canvas "draw"
                           (lambda (widget context)
                             (draw-fun widget context)))
-        (g-signal-connect canvas "configure-event"
-                          (lambda (widget event) (declare (ignore widget))
-                            (format *o* "event data ~A~%" event)
-                            +gdk-event-propagate+))
-        (g-signal-connect canvas "motion-notify-event"
-                          (lambda (widget event) (declare (ignore widget))
-                            ;; (format *o* "mouse motion event data ~A~%" event)
-                            (setf *last-motion-notify*
-                                  (format nil "mouse motion event data ~A~%" event))
-                            +gdk-event-propagate+))
-        (g-signal-connect canvas "button-press-event"
-                          (lambda (widget event) (declare (ignore widget))
-                            (format *o* "recorded event ~A~%" *last-motion-notify*)
-                            (format *o* "event data ~A~%" event)
-                            +gdk-event-propagate+))
-        (g-signal-connect canvas "button-release-event"
-                          (lambda (widget event) (declare (ignore widget))
-                            (format *o* "event data ~A~%" event)
-                            +gdk-event-propagate+))
+
+        ;; add to canvas events inherited from widget
+        (loop for ev in (list "configure-event"
+                              "motion-notify-event"
+                              "button-press-event"
+                              "button-release-event")
+              do (g-signal-connect canvas ev #'canvas-event-fun))
         (gtk-widget-add-events canvas '(:all-events-mask))
 
-        (g-signal-connect win "key-press-event"
-                          #'key-press-fun)
-        (g-signal-connect win "key-release-event"
-                          #'key-press-fun)
+        ;; window signals
+        (loop for ev in (list "key-press-event"
+                              "key-release-event")
+              do (g-signal-connect win ev #'win-event-fun))
 
         (g-signal-connect win "destroy"
                           (lambda (widget)
