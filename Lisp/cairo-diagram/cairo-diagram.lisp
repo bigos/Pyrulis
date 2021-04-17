@@ -73,7 +73,10 @@
   (let ((et  (gdk-event-key-type   event))
         (str (gdk-event-key-string event))
         (sta (gdk-event-key-state  event)))
-    (format *o* "event ~A ~A ~A~%" et str sta)))
+    (case et
+      ((:key-press)   (format *o* "key press event ~A ~A ~A~%" et str sta))
+      ((:key-release) (format *o* "key release event ~A ~%" str))
+      (otherwise (error "unknown key event type ~A" et)))))
 
 (defun timer-fun (canvas)
   ;; (format *o* "AFTER timer fun ~A~%" gm)  ;problem here
