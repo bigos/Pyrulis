@@ -32,3 +32,6 @@
 
    drawing tutorial
    file:~/quicklisp/dists/quicklisp/software/cl-cffi-gtk-20201220-git/tutorial/tutorial.lisp::236
+
+** gtk
+   https://developer.gnome.org/gtk3/stable/GtkWidget.html
