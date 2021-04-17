@@ -100,13 +100,16 @@
                           (lambda (canvas event)
                             (format *o* "event data ~A~%" event)
                             +gdk-event-propagate+))
-        (gtk-widget-add-events canvas '(:button-press-mask
+        ;; following has some information in the state of the event
+        (gtk-widget-add-events canvas '(;; :button-press-mask
                                         ;; following does not work
-                                        :button-release-mask
+                                        ;; :button-release-mask
                                         ;; http://www.crategus.com/books/cl-cffi-gtk/pages/gdk_sym_gdk-event-mask.html
 
                                         ;; :pointer-motion-mask
-                                        :button1-motion-mask))
+                                        ;; :button1-motion-mask
+                                        :all-events-mask
+                                        ))
 
         (g-signal-connect win "key-press-event"
                           (lambda (win rkv)
