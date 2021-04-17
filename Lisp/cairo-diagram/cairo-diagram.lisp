@@ -8,6 +8,7 @@
 
 (in-package #:cairo-diagram)
 
+(defparameter *last-motion-notify* nil)
 (defparameter *global* nil)
 (defparameter *o* *standard-output*)
 
@@ -94,10 +95,13 @@
                             +gdk-event-propagate+))
         (g-signal-connect canvas "motion-notify-event"
                           (lambda (widget event) (declare (ignore widget))
-                            (format *o* "mouse motion event data ~A~%" event)
+                            ;; (format *o* "mouse motion event data ~A~%" event)
+                            (setf *last-motion-notify*
+                                  (format nil "mouse motion event data ~A~%" event))
                             +gdk-event-propagate+))
         (g-signal-connect canvas "button-press-event"
                           (lambda (widget event) (declare (ignore widget))
+                            (format *o* "recorded event ~A~%" *last-motion-notify*)
                             (format *o* "event data ~A~%" event)
                             +gdk-event-propagate+))
         (g-signal-connect canvas "button-release-event"
@@ -105,25 +109,17 @@
                             (format *o* "event data ~A~%" event)
                             +gdk-event-propagate+))
         ;; following has some information in the state of the event
-        (gtk-widget-add-events canvas '(:button-press-mask
-                                        ;; following does not work
-                                        :button-release-mask
-                                        ;; http://www.crategus.com/books/cl-cffi-gtk/pages/gdk_sym_gdk-event-mask.html
-
-                                        ;; :pointer-motion-mask
-                                        :button1-motion-mask
-                                        ;; :all-events-mask
-                                        ))
+        (gtk-widget-add-events canvas '(:all-events-mask))
 
         (g-signal-connect win "key-press-event"
-                          (lambda (win rkv)
-                            (key-press-fun win rkv)))
+                          (lambda (widget rkv)
+                            (key-press-fun widget rkv)))
         (g-signal-connect win "key-release-event"
-                          (lambda (win rkv)
-                            (key-press-fun win rkv)))
+                          (lambda (widget rkv)
+                            (key-press-fun widget rkv)))
         (g-signal-connect win "destroy"
-                          (lambda (win)
-                            (declare (ignore win))
+                          (lambda (widget)
+                            (declare (ignore widget))
                             (leave-gtk-main)))
 
         (gtk-widget-show-all win)))
