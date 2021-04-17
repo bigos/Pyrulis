@@ -86,22 +86,22 @@
                        :priority +g-priority-default+)
 
         (g-signal-connect canvas "draw"
-                          (lambda (canvas context)
-                            (draw-fun canvas context)))
+                          (lambda (widget context)
+                            (draw-fun widget context)))
         (g-signal-connect canvas "configure-event"
-                          (lambda (canvas event)
+                          (lambda (widget event) (declare (ignore widget))
                             (format *o* "event data ~A~%" event)
                             +gdk-event-propagate+))
         (g-signal-connect canvas "motion-notify-event"
-                          (lambda (canvas event)
+                          (lambda (widget event) (declare (ignore widget))
                             (format *o* "mouse motion event data ~A~%" event)
                             +gdk-event-propagate+))
         (g-signal-connect canvas "button-press-event"
-                          (lambda (canvas event)
+                          (lambda (widget event) (declare (ignore widget))
                             (format *o* "event data ~A~%" event)
                             +gdk-event-propagate+))
         (g-signal-connect canvas "button-release-event"
-                          (lambda (canvas event)
+                          (lambda (widget event) (declare (ignore widget))
                             (format *o* "event data ~A~%" event)
                             +gdk-event-propagate+))
         ;; following has some information in the state of the event

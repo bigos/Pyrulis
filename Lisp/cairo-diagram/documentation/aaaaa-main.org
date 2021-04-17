@@ -1,4 +1,6 @@
 * Main
+  file:~/Programming/Pyrulis/Lisp/cairo-diagram/cairo-diagram.lisp::1
+
   This is the place for documentation about, among other things, using Cairo
   library.
 
