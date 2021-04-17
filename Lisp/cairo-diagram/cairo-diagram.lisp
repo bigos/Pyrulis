@@ -54,9 +54,11 @@
 (defun draw-fun (canvas context)
   (draw-canvas canvas context))
 
-(defun key-press-fun (canvas rkv)
-  (format *o* "key press fun ~A ~A~%" canvas rkv)
-  (let ((kv (gdk-event-key-keyval rkv)))
+(defun canvas-fun (widget event))
+
+(defun key-press-fun (canvas event)
+  (format *o* "key press fun ~A ~A~%" canvas event)
+  (let ((kv (gdk-event-key-keyval event)))
     (format *o* "key value ~A~%" kv)))
 
 (defun timer-fun (canvas)
@@ -108,15 +110,13 @@
                           (lambda (widget event) (declare (ignore widget))
                             (format *o* "event data ~A~%" event)
                             +gdk-event-propagate+))
-        ;; following has some information in the state of the event
         (gtk-widget-add-events canvas '(:all-events-mask))
 
         (g-signal-connect win "key-press-event"
-                          (lambda (widget rkv)
-                            (key-press-fun widget rkv)))
+                          #'key-press-fun)
         (g-signal-connect win "key-release-event"
-                          (lambda (widget rkv)
-                            (key-press-fun widget rkv)))
+                          #'key-press-fun)
+
         (g-signal-connect win "destroy"
                           (lambda (widget)
                             (declare (ignore widget))
