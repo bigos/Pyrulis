@@ -37,7 +37,7 @@
     (format g "}~%")))
 
 (defun draw-graph (graph-string)
-  (let ((filename "fis-graph")
+  (let ((filename "fistma-graph")
         (extension "svg"))
     (let ((gv-file (format nil "/tmp/~A.gv" filename))
           (the-file(format nil "/tmp/~A.~A" filename extension)))
