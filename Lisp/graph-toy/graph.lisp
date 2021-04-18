@@ -118,7 +118,7 @@
 (defmethod draw ((g graph))
   ;; filename, extension and options
   (let* ((filename "the-graph")
-         (extension "svg")
+         (extension "png")     ; edit extension to change image format
          (gv-file (format nil "/tmp/~A.gv" filename))
          (the-file(format nil "/tmp/~A.~A" filename extension))
          (options (list
