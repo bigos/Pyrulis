@@ -34,6 +34,13 @@
     (opened
      (close closed))))
 
+(defun example ()
+  (draw-graph (dot-links '((n (n n) (ws ws) (dot dot))
+                           (begin (mn znmn) (pl znpl))
+                           (znmn (n n))
+                           (znpl (n n))
+                           (dot (ndot dot) (ws ws))))))
+
 (defun dot-links (l)
   "Take a nested graph L and convert it to list of links for draw-graph."
   (let ((a))
