@@ -1,4 +1,5 @@
 * Haskell
+  https://haskell.pl-a.net/
 
 ** Tutorial to consider
    http://dev.stephendiehl.com/hask/
