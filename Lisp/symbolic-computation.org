@@ -1,9 +1,6 @@
 * Symbolic computation
   https://www.google.com/search?q=lisp+symbolic+computation
 
-  https://stevelosh.com/blog/2016/06/symbolic-computation/#s1-disclaimer
-  https://stevelosh.com/blog/2016/06/symbolic-computation/#s12-symbols
-
 ** magazine
    http://ftp.math.utah.edu/pub/tex/bib/toc/lispsymbcomput.html
 
