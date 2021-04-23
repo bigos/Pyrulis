@@ -10,3 +10,9 @@
    https://www.tutorialspoint.com/sympy/sympy_symbolic_computation.htm
    https://www.quantamagazine.org/symbolic-mathematics-finally-yields-to-neural-networks-20200520/
    https://mathoverflow.net/questions/tagged/symbolic-computation
+
+
+** REPL example
+   #+begin_src lisp
+     (read-from-string "(+ 1 2 3)")
+   #+end_src
