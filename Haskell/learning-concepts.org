@@ -92,3 +92,6 @@ instance Equal Bool where
 
 *** a blog
     https://mmhaskell.com/blog/2019/1/28/why-haskell-iv-typeclasses-vs-inheritance
+
+*** more
+    https://www.poberezkin.com/posts/2021-04-21-what-i-wish-somebody-told-me-when-i-was-learning-Haskell.html
