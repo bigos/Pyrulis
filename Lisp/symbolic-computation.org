@@ -11,6 +11,10 @@
    https://www.quantamagazine.org/symbolic-mathematics-finally-yields-to-neural-networks-20200520/
    https://mathoverflow.net/questions/tagged/symbolic-computation
 
+   https://people.eecs.berkeley.edu/~fateman/generic/overload-small.pdf
+   http://www.reduce-algebra.com/lisp-docs/insidereduce.pdf
+
+   https://taeric.github.io/CodeAsData.html
 
 ** REPL example
    #+begin_src lisp
