@@ -1,0 +1,15 @@
+* Symbolic computation
+  https://www.google.com/search?q=lisp+symbolic+computation
+
+  https://stevelosh.com/blog/2016/06/symbolic-computation/#s1-disclaimer
+  https://stevelosh.com/blog/2016/06/symbolic-computation/#s12-symbols
+
+** magazine
+   http://ftp.math.utah.edu/pub/tex/bib/toc/lispsymbcomput.html
+
+** other
+   https://reference.wolfram.com/language/tutorial/AlgebraicCalculations.html#29942
+   https://www.journals.elsevier.com/journal-of-symbolic-computation
+   https://www.tutorialspoint.com/sympy/sympy_symbolic_computation.htm
+   https://www.quantamagazine.org/symbolic-mathematics-finally-yields-to-neural-networks-20200520/
+   https://mathoverflow.net/questions/tagged/symbolic-computation
