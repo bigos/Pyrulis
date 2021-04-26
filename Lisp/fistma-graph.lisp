@@ -34,6 +34,55 @@
     (opened
      (close closed))))
 
+;; (draw-graph (dot-links *draw*))
+(defparameter *draw*
+  '((draw
+     (init blank))
+    (canvas_result
+     (ui_event canvas_result)
+     (close_event blank))
+    (blank
+     (ui_event canvas_result)
+     (clear blank))
+    (blank (quit_event quit))
+    ))
+
+;; cleaning up the
+;; (draw-graph (dot-links *agape*))
+;; REPL use
+;; (draw-graph (dot-links *agape*))
+(defparameter *agape* '((IT
+                         ("was said" YOU2))
+                        (YOU2
+                         ("must love your" NEIGHBOUR)
+                         ("hate your" ENEMY))
+                        (THOSE_WHO
+                         (PRESECUTE YOU))
+                        (ENEMIES
+                         (IMPLIES THOSE_WHO))
+                        (SUN
+                         ("raise on" WICKED)
+                         ("raise on" GOOD))
+                        (FATHER
+                         ("makes his" SUN)
+                         ("makes his" RAIN)
+                         (IS PERFECT))
+                        (RAIN
+                         (ON RIGTEOUS)
+                         (ON UNRIGHTEOUS))
+                        (THE_SONS
+                         ("of your" FATHER))
+                        (YOU
+                         (HEARD IT)
+                         ("continue to love your" ENEMIES)
+                         ("SHOULD pray for" THOSE_WHO)
+                         ("prove yourselves" THE_SONS)
+                         ("must accordingly be" PERFECT))
+                        (I
+                         ("say to"  YOU))
+                        (ENEMY
+                         (PLURAL ENEMIES))))
+
 (defun example ()
   (draw-graph (dot-links '((n (n n) (ws ws) (dot dot))
                            (begin (mn znmn) (pl znpl))
@@ -52,20 +101,50 @@
         (push (cons (car s) at) a)))
     (reverse a)))
 
-(defun sources ()
-  (mapcar #'car *nested*))
+;; (nest *graph*)
+(defun nest (ul)
+  (let ((ht (make-hash-table)))
+    (loop for n in ul do
+      (push
+       (list (second n) (third n))
+       (gethash (first n) ht)))
+    (let ((coll))
+      (maphash
+       (lambda (k v) (push (CONS k v) coll))
+       ht)
+      coll)))
 
-(defun actions ()
+;; (unnest *nested*)
+(defun unnest (nl)
+  (let ((ht (make-hash-table)))
+    (loop for n in nl do
+      (loop for l in (cdr n) do
+        (push
+         (list (car n) (car l) (cadr l))
+         (gethash (car n) ht))))
+    (let ((coll))
+      (maphash
+       (lambda (k v) (declare (ignore k)) (loop for x in v do (push x coll)))
+       ht)
+      (reverse coll))))
+
+;; (sources *nested*)
+(defun sources (nl)
+  (mapcar #'car nl))
+
+;; (actions *nested*)
+(defun actions (nl)
   (ax:flatten
    (mapcar
     (lambda (x) (mapcar #'car (cdr x)))
-    *nested*)))
+    nl)))
 
-(defun targets ()
+;; (targets *nested*)
+(defun targets (nl)
   (ax:flatten
    (mapcar
     (lambda (x) (mapcar #'cdr (cdr x)))
-    *nested*)))
+    nl)))
 
 (defun prepare-graph (data)
   "Take DATA and prepare a graph string."
@@ -80,7 +159,8 @@
 
 (defun draw-graph (graph-string)
   (let ((filename "fistma-graph")
-        (extension "svg"))
+        ;; png is better for emailing, svg is better for scaling
+        (extension "png"))
     (let ((gv-file (format nil "/tmp/~A.gv" filename))
           (the-file(format nil "/tmp/~A.~A" filename extension)))
       (let ((options (list
