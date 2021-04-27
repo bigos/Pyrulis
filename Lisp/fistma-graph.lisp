@@ -48,7 +48,7 @@
     ))
 
 ;; cleaning up the
-;; (draw-graph (dot-links *agape*))
+;; (nest (unnest *agape*))
 ;; REPL use
 ;; (draw-graph (dot-links *agape*))
 (defparameter *agape* '((IT
