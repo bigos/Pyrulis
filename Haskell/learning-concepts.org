@@ -143,6 +143,7 @@
 **** lens
      It may be able to fix many things I did not like about Haskell
 
+     https://github.com/ekmett/lens
      https://www.fpcomplete.com/haskell/tutorial/lens/
 
 ** Type system
