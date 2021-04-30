@@ -131,13 +131,6 @@
        TypeFamilies
        TypeFamilyDependencies
 
-
-
-
-
-
-
-
 *** making Haskell more Lispy
 
 **** lens
@@ -145,6 +138,8 @@
 
      https://github.com/ekmett/lens
      https://www.fpcomplete.com/haskell/tutorial/lens/
+
+     https://github.com/well-typed/optics
 
 ** Type system
 
