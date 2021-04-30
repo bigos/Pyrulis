@@ -1,5 +1,8 @@
 * Haskell
   https://haskell.pl-a.net/
+  https://downloads.haskell.org/~ghc/8.2.2/docs/html/users_guide/index.html
+  https://downloads.haskell.org/~ghc/8.2.2/docs/html/users_guide/flags.html#language-options
+  https://downloads.haskell.org/~ghc/8.2.2/docs/html/users_guide/glasgow_exts.html
 
 ** Tutorial to consider
    http://dev.stephendiehl.com/hask/
@@ -20,6 +23,127 @@
     http://dev.stephendiehl.com/hask/#deferred-type-errors
 
     http://dev.stephendiehl.com/hask/#debugger
+
+**** language extensions
+     https://lexi-lambda.github.io/blog/2018/02/10/an-opinionated-guide-to-haskell-in-2018/#any-flavor-you-like
+
+     https://downloads.haskell.org/~ghc/8.2.2/docs/html/users_guide/flags.html#language-options
+     https://downloads.haskell.org/~ghc/8.2.2/docs/html/users_guide/glasgow_exts.html
+
+***** extensions in Hackerrank example
+      FlexibleInstances
+      UndecidableInstances
+      DuplicateRecordFields
+
+***** extensions from  lexi lambda blog
+      https://lexi-lambda.github.io/blog/2018/02/10/an-opinionated-guide-to-haskell-in-2018/#any-flavor-you-like
+
+****** default
+       EmptyCase
+       FlexibleContexts
+       FlexibleInstances
+       InstanceSigs
+       MultiParamTypeClasses
+
+****** syntactic conveniences
+       These things would be tiny macros in a Lisp, but they need to be
+       extensions to the compiler in Haskell
+
+       LambdaCase
+       MultiWayIf
+       NamedFieldPuns
+       TupleSections
+
+****** extensions to the deriving mechanism
+       GHC’s typeclass deriving mechanism is one of the things that makes
+       Haskell so pleasant to write, and in fact I think Haskell would be nearly
+       unpalatable to write without it.
+
+       There is rarely any reason to write a typeclass instance by hand when the
+       deriving mechanism will write it automatically.
+
+       These extensions give GHC’s typeclass deriving mechanism more power
+       without any cost. Therefore, I see no reason not to enable them:
+
+       DeriveFoldable
+       DeriveFunctor
+       DeriveGeneric
+       DeriveLift
+       DeriveTraversable
+       DerivingStrategies
+       GeneralizedNewtypeDeriving
+       StandaloneDeriving
+
+****** lightweight syntactic adjustments
+       A couple extensions tweak Haskell’s syntax in more substantial ways than
+       things like LambdaCase, but not in a significant enough way for them to
+       really be at all surprising:
+
+       BangPatterns
+       KindSignatures
+       TypeOperators
+
+****** polymorphic string literals
+       For me, OverloadedStrings is not optional. Haskell’s infamous
+       “string problem” (discussed in more detail at the end of this blog post)
+       means that String is a linked list of characters, and all code that cares
+       about performance actually uses Text.
+
+       OverloadedStrings
+
+****** simple extensions to aid type annotation
+       The following two extensions significantly round out Haskell’s language
+       for referring to types, making it much easier to insert type annotations
+       where necessary (for removing ambiguity or for debugging type errors):
+
+       ScopedTypeVariables
+       TypeApplications
+
+****** simple extensions to the Haskell type system
+       A few extensions tweak the Haskell type system in ways that I think are
+       simple enough to be self-explanatory, even to people who might not have
+       known they existed. These are as follows:
+
+       ConstraintKinds
+       RankNTypes
+
+****** intermediate syntactic adjustments
+       Three syntactic extensions to Haskell are a little bit more advanced
+
+       ApplicativeDo
+       DefaultSignatures
+       PatternSynonyms
+
+****** intermediate extensions to the Haskell type system
+       The following three extensions add some complexity to the Haskell type
+       system in return for some added expressive power:
+
+       ExistentialQuantification
+       GADTs - subumes the previous one
+       FunctionalDependencies
+
+****** advanced extensions to the Haskell type system
+       Finally, we arrive at the last set of extensions in this list. These are
+       the most advanced features Haskell’s type system currently has to offer,
+       and they are likely to be the most controversial to enable globally:
+
+       DataKinds
+       TypeFamilies
+       TypeFamilyDependencies
+
+
+
+
+
+
+
+
+*** making Haskell more Lispy
+
+**** lens
+     It may be able to fix many things I did not like about Haskell
+
+     https://www.fpcomplete.com/haskell/tutorial/lens/
 
 ** Type system
 
