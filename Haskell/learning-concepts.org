@@ -141,6 +141,8 @@
 
      https://github.com/well-typed/optics
 
+     [[https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjUuofp3qbwAhVwUhUIHXyOBisQFjASegQIERAD&url=https%3A%2F%2Flirias.kuleuven.be%2Fretrieve%2F522311&usg=AOvVaw3m87JHyg_D03bw2JkwwoDc][pdf about making haskell better with bypassing the restrictions]]
+
 ** Type system
 
 *** Introduction
