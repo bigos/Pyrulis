@@ -146,21 +146,21 @@
     (lambda (x) (mapcar #'cdr (cdr x)))
     nl)))
 
-(defun prepare-graph (data)
-  "Take DATA and prepare a graph string."
-  (with-output-to-string (g)
-    (format g "digraph {~%")
+(defun prepare-graph (file-name data)
+  "Take DATA and prepare a digraph to be written into FILE-NAME."
+  (with-open-file ( fh file-name :direction :output :if-exists :supersede)
+    (format fh "digraph {~%")
     (loop for c in data do
-      (format g "~A -> ~A [label=~S]~%"
+      (format fh "~A -> ~A [label=~S]~%"
               (nth 0 c)
               (nth 2 c)
               (nth 1 c)))
-    (format g "}~%")))
+    (format fh "}~%")))
 
-(defun draw-graph (graph-string)
+(defun draw-graph (data)
   (let ((filename "fistma-graph")
         ;; png is better for emailing, svg is better for scaling
-        (extension "png"))
+        (extension "svg"))
     (let ((gv-file (format nil "/tmp/~A.gv" filename))
           (the-file(format nil "/tmp/~A.~A" filename extension)))
       (let ((options (list
@@ -169,6 +169,6 @@
                       "-o"
                       the-file)))
         (format t "dot options ~A~%" options)
-        (with-open-file (stream gv-file :direction :output :if-exists :supersede)
-          (write-sequence (prepare-graph graph-string) stream))
+
+        (prepare-graph gv-file data)
         (sb-ext:run-program "/usr/bin/dot" options)))))
