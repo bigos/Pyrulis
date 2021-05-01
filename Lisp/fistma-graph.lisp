@@ -21,7 +21,7 @@
   ;; source action target
   '((closed lock locked)
     (closed open opened)
-    (locked "unlock" closed)
+    (locked "unlock me" closed)
     (opened close closed)))
 
 (defparameter *nested*
@@ -161,14 +161,14 @@
   (let ((filename "fistma-graph")
         ;; png is better for emailing, svg is better for scaling
         (extension "svg"))
-    (let ((gv-file (format nil "/tmp/~A.gv" filename))
-          (the-file(format nil "/tmp/~A.~A" filename extension)))
-      (let ((options (list
-                      (format nil "-T~A" extension)
-                      gv-file
-                      "-o"
-                      the-file)))
-        (format t "dot options ~A~%" options)
+    (let ((gv-file (format nil "/tmp/~A.gv" filename)))
+      (prepare-graph gv-file data)
 
-        (prepare-graph gv-file data)
-        (sb-ext:run-program "/usr/bin/dot" options)))))
+      (let ((the-file(format nil "/tmp/~A.~A" filename extension)))
+        (let ((options (list
+                        (format nil "-T~A" extension)
+                        gv-file
+                        "-o"
+                        the-file)))
+          (format t "dot options ~A~%" options)
+          (sb-ext:run-program "/usr/bin/dot" options))))))
