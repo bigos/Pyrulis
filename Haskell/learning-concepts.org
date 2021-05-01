@@ -6,6 +6,7 @@
 
 ** Tutorial to consider
    http://dev.stephendiehl.com/hask/
+   https://downloads.haskell.org/~ghc/8.2.2/docs/html/users_guide/search.html
 
 *** particularly
     http://dev.stephendiehl.com/hask/#type-holes
@@ -25,6 +26,9 @@
     http://dev.stephendiehl.com/hask/#debugger
 
 **** language extensions
+     https://downloads.haskell.org/~ghc/8.2.2/docs/html/users_guide/search.html
+
+     https://wiki.haskell.org/Language_extensions
      https://lexi-lambda.github.io/blog/2018/02/10/an-opinionated-guide-to-haskell-in-2018/#any-flavor-you-like
 
      https://downloads.haskell.org/~ghc/8.2.2/docs/html/users_guide/flags.html#language-options
@@ -132,6 +136,8 @@
        TypeFamilyDependencies
 
 *** making Haskell more Lispy
+    http://dev.stephendiehl.com/hask/#deferred-type-errors
+    https://downloads.haskell.org/~ghc/7.10.1/docs/html/users_guide/partial-type-signatures.html
 
 **** lens
      It may be able to fix many things I did not like about Haskell
