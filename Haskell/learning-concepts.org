@@ -139,6 +139,18 @@
     http://dev.stephendiehl.com/hask/#deferred-type-errors
     https://downloads.haskell.org/~ghc/7.10.1/docs/html/users_guide/partial-type-signatures.html
 
+**** undefined
+     https://wiki.haskell.org/Undefined
+     http://dev.stephendiehl.com/hask/#bottoms
+
+***** escaping from type checking
+      http://dev.stephendiehl.com/hask/#exhaustiveness
+
+***** other useful for debugging
+      http://dev.stephendiehl.com/hask/#debugger
+      http://dev.stephendiehl.com/hask/#stack-traces
+      http://dev.stephendiehl.com/hask/#printf-tracing
+
 **** lens
      It may be able to fix many things I did not like about Haskell
 
