@@ -43,10 +43,11 @@
     (delight is in the law)
     (law of Jehovah)
     (the_man and he)
-    (he reads his)
     (his law)
-    (his in an undertone)
-    (he reads day)
+    (he reads reads)
+    (reads in an undertone)
+    (reads his)
+    (reads day)
     (day and night)))
 
 (defparameter *nested*
@@ -63,9 +64,9 @@
 (defparameter *draw*
   '((draw
      (init blank))
-    (canvas_result
-     (ui_event canvas_result)
-     (close_event blank))
+    result
+    (ui_event canvas_result)
+    (close_event blank)
     (blank
      (ui_event canvas_result)
      (clear blank))
@@ -131,7 +132,7 @@
   (let ((ht (make-hash-table)))
     (loop for n in ul do
       (push
-       (list (second n) (third n))
+       (cdr n)
        (gethash (first n) ht)))
     (let ((coll))
       (maphash
@@ -145,7 +146,7 @@
     (loop for n in nl do
       (loop for l in (cdr n) do
         (push
-         (list (car n) (car l) (cadr l))
+         (cons (car n) l)
          (gethash (car n) ht))))
     (let ((coll))
       (maphash
