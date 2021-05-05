@@ -24,6 +24,31 @@
     (locked "unlock me" closed)
     (opened close closed)))
 
+;; (draw-graph *psalm*)
+(defparameter *psalm*
+  '((happy is the_man)
+    (the_man who)
+    (who does not)
+    (not walk)
+    (walk according to the advice)
+    (advice of the wicked)
+    (who and)
+    (and does not) (not stand)
+    (stand on the path)
+    (path of sinners)
+    (not sit)
+    (sit in the seat)
+    (seat of scoffers)
+    (the_man but his delight)
+    (delight is in the law)
+    (law of Jehovah)
+    (the_man and he)
+    (he reads his)
+    (his law)
+    (his in an undertone)
+    (he reads day)
+    (day and night)))
+
 (defparameter *nested*
   ;; (source (action target))
   '((closed
@@ -151,10 +176,13 @@
   (with-open-file ( fh file-name :direction :output :if-exists :supersede)
     (format fh "digraph {~%")
     (loop for c in data do
-      (format fh "~A -> ~A [label=~S]~%"
-              (nth 0 c)
-              (nth 2 c)
-              (nth 1 c)))
+      (format fh "~A -> ~A [label=\"~a\"]~%"
+              (car c)
+              (car (last c))
+              (with-output-to-string (s)
+                (loop for ch in (cdr (butlast c))
+                      collect (format s " ~A" ch)))
+              ))
     (format fh "}~%")))
 
 (defun draw-graph (data)
