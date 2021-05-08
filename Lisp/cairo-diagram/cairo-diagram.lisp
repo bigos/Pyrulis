@@ -9,11 +9,14 @@
 (in-package #:cairo-diagram)
 
 (defparameter *last-motion-notify* nil)
-(defparameter *global* nil)
+(defparameter *global-model* nil)
 (defparameter *o* *standard-output*)
 
+(defstruct global-model
+  (c 999 :type integer))
+
 (defun init-global-model ()
-  (setf *global-model* 0))
+  (setf *global-model* (make-global-model :c 0)))
 
 (defun draw-canvas (canvas context)
   (let* ((w (gtk-widget-get-allocated-width canvas))
@@ -39,7 +42,7 @@
     (cairo-set-line-width cr 13)
     (loop for c in (list '(1 . 1) '(10 . 4) '(20 . 4))
           do (cairo-move-to cr (* 10 (car c)) (* 10 (cdr c)))
-             (cairo-line-to cr (+ (* 10 (car c)) *global-model*) (+ (* 10 (cdr c)) *global-model*)))
+             (cairo-line-to cr (+ (* 10 (car c)) (global-model-c  *global-model*)) (+ (* 10 (cdr c)) (global-model-c *global-model*))))
     (cairo-stroke cr)
 
 
@@ -84,9 +87,9 @@
 
 (defun timer-fun (canvas)
   ;; (format *o* "AFTER timer fun ~A~%" gm)  ;problem here
-  (setf *global-model* (+ *global-model* 3))
-  (when (> *global-model* 100)
-    (setf *global-model* 0))
+  (setf (global-model-c *global-model*) (+ (global-model-c *global-model*) 3))
+  (when (> (global-model-c *global-model*) 100)
+    (setf (global-model-c *global-model*) 0))
 
   (gtk-widget-queue-draw canvas)
   +gdk-event-stop+)
