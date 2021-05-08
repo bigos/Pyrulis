@@ -13,7 +13,7 @@
 (defparameter *o* *standard-output*)
 
 (defun init-global-model ()
-  (setf *global* 0))
+  (setf *global-model* 0))
 
 (defun draw-canvas (canvas context)
   (let* ((w (gtk-widget-get-allocated-width canvas))
@@ -39,7 +39,7 @@
     (cairo-set-line-width cr 13)
     (loop for c in (list '(1 . 1) '(10 . 4) '(20 . 4))
           do (cairo-move-to cr (* 10 (car c)) (* 10 (cdr c)))
-             (cairo-line-to cr (+ (* 10 (car c)) *global*) (+ (* 10 (cdr c)) *global*)))
+             (cairo-line-to cr (+ (* 10 (car c)) *global-model*) (+ (* 10 (cdr c)) *global-model*)))
     (cairo-stroke cr)
 
 
@@ -59,13 +59,11 @@
   (typecase event
     (gdk-event-configure (format *o* "c"))
     (gdk-event-motion (format *o* "-"))
-    (gdk-event-button (progn
-                        (format *o* "~&Type ~A~%" (type-of (gdk-event-button-type event)))
-                        (if (equal (gdk-event-button-type event) :button-release)
-                            (format *o* "~&~A ~A~%"
-                                    (gdk-event-button-type event)
-                                    (gdk-event-button-button event))
-                            (format *o* "~&EEE b~A ~A~%" (gdk-event-button-type event) event))))
+    (gdk-event-button (if (equal (gdk-event-button-type event) :button-release)  ; mouse button
+                          (format *o* "~&~A ~A~%"
+                                  (gdk-event-button-type event)
+                                  (gdk-event-button-button event))
+                          (format *o* "~&EEE b~A ~A~%" (gdk-event-button-type event) event)))
     (t (error "not implemented ~A~%" (type-of event))))
   +gdk-event-propagate+)
 
@@ -80,15 +78,15 @@
         (str (gdk-event-key-string event))
         (sta (gdk-event-key-state  event)))
     (case et
-      ((:key-press)   (format *o* "~&key press event ~A ~A ~A~%" et str sta))
-      ((:key-release) (format *o* "key release event ~A ~%" str))
+      ((:key-press)   (format *o* "~&key press event ~A ~A ~A~A~%" et str sta event))
+      ((:key-release) (format *o* "~&key release event ~A ~%" str))
       (otherwise (error "unknown key event type ~A" et)))))
 
 (defun timer-fun (canvas)
   ;; (format *o* "AFTER timer fun ~A~%" gm)  ;problem here
-  (setf *global* (+ *global* 3))
-  (when (> *global* 100)
-    (setf *global* 0))
+  (setf *global-model* (+ *global-model* 3))
+  (when (> *global-model* 100)
+    (setf *global-model* 0))
 
   (gtk-widget-queue-draw canvas)
   +gdk-event-stop+)
