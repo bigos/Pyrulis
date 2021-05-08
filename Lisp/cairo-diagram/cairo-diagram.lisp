@@ -23,28 +23,11 @@
          (h (gtk-widget-get-allocated-height canvas))
          (size (cons w h))
          (s 99999)
-
          (cr (pointer context)))
-
     ;; prevent cr being destroyed improperly
     (cairo-reference cr)
 
-    ;; (format *o* "~&canvas size is ~A --- ~A ~A === ~A~%" size w h s)
-    ;; (format *o* "pointer context ~A~%" cr)
-
-    (cairo-set-source-rgb cr 0.6 0.9 0)
-    (cairo-set-line-width cr 25)
-    (cairo-set-line-cap cr :round)
-    (cairo-set-line-join cr :round)
-
-    ;; draw dots
-    (cairo-set-source-rgb cr 0.4 0.6 0.1)
-    (cairo-set-line-width cr 13)
-    (loop for c in (list '(1 . 1) '(10 . 4) '(20 . 4))
-          do (cairo-move-to cr (* 10 (car c)) (* 10 (cdr c)))
-             (cairo-line-to cr (+ (* 10 (car c)) (global-model-c  *global-model*)) (+ (* 10 (cdr c)) (global-model-c *global-model*))))
-    (cairo-stroke cr)
-
+    (draw-canvas-lines cr)
 
     ;; cleanup
     ;; cairo destroy must have matching cairo-reference
@@ -54,6 +37,24 @@
     +gdk-event-propagate+))
 
 ;;; ====================== view ================================================
+(defun draw-canvas-lines (cr)
+  (cairo-set-source-rgb cr 0.6 0.9 0)
+  (cairo-set-line-width cr 25)
+  (cairo-set-line-cap cr :round)
+  (cairo-set-line-join cr :round)
+
+  ;; draw dots
+  (cairo-set-source-rgb cr 0.4 0.6 0.1)
+  (cairo-set-line-width cr 13)
+  (loop for c in (list '(1 . 1) '(10 . 4) '(20 . 7))
+        do (cairo-move-to cr
+                          (* 10 (car c))
+                          (* 10 (cdr c)))
+           (cairo-line-to cr
+                          (+ (* 10 (car c)) (global-model-c *global-model*))
+                          (+ (* 10 (cdr c)) (global-model-c *global-model*))))
+  (cairo-stroke cr))
+
 (defun draw-fun (canvas context)
   (draw-canvas canvas context))
 
