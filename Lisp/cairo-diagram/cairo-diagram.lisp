@@ -13,11 +13,29 @@
 (defparameter *o* *standard-output*)
 
 (defstruct global-model
-  (c 999 :type integer))
+  (c 999 :type integer)
+  (nodes nil)
+  (links nil))
+
+(defstruct node
+  (label "" :type string)
+  (coord-x)
+  (coord-y))
+
+(defstruct link
+  (label "" :type string)
+  (source)
+  (target))
 
 (defun init-global-model ()
-  (setf *global-model* (make-global-model :c 0)))
+  (setf *global-model* (make-global-model :c 0))
+  (push (make-node :label "a" :coord-x 10 :coord-y 10)   (global-model-nodes *global-model*))
+  (push (make-node :label "b" :coord-x 100 :coord-y 70) (global-model-nodes *global-model*))
+  (push (make-link :label "a2b" :source "a" :target "b") (global-model-links *global-model*)))
 
+;;; ====================== view ================================================
+
+;;; canvas======================================================================
 (defun draw-canvas (canvas context)
   (let* ((w (gtk-widget-get-allocated-width canvas))
          (h (gtk-widget-get-allocated-height canvas))
@@ -28,6 +46,8 @@
     (cairo-reference cr)
 
     (draw-canvas-lines cr)
+    (draw-canvas-diagram cr)
+
 
     ;; cleanup
     ;; cairo destroy must have matching cairo-reference
@@ -36,7 +56,36 @@
     ;; continue propagation of the event handler
     +gdk-event-propagate+))
 
-;;; ====================== view ================================================
+(defun draw-canvas-diagram (cr)
+  ;; draw nodes
+  (cairo-set-source-rgb cr 0.99 0.1 0.1)
+  (cairo-set-line-width cr 5)
+  (loop for n in (global-model-nodes *global-model*) do
+    (let ((x (node-coord-x n))
+          (y (node-coord-y n)))
+      (cairo-move-to cr x y)
+      (cairo-line-to cr (+ x 5) (+ y 5))))
+  (cairo-stroke cr)
+
+  ;; draw links
+  (cairo-set-source-rgb cr 0.1 0.1 0.99)
+  (cairo-set-line-width cr 2)
+  (loop for l in (global-model-links *global-model*) do
+    (let ((sl (car (loop for nx in (global-model-nodes *global-model*)
+                         when (equalp (link-source l) (node-label nx))
+                           collect nx)))
+          (tl (car (loop for nx in (global-model-nodes *global-model*)
+                         when (equalp (link-target l) (node-label nx))
+                           collect nx)) )
+          (ll (link-label  l)))
+      (let ((slx (node-coord-x sl))
+            (sly (node-coord-y sl))
+            (tlx (node-coord-x tl))
+            (tly (node-coord-y tl)))
+        (cairo-move-to cr slx sly)
+        (cairo-line-to cr tlx tly))))
+  (cairo-stroke cr))
+
 (defun draw-canvas-lines (cr)
   (cairo-set-source-rgb cr 0.6 0.9 0)
   (cairo-set-line-width cr 25)
@@ -58,6 +107,7 @@
 (defun draw-fun (canvas context)
   (draw-canvas canvas context))
 
+;;; event handling==============================================================
 (defun canvas-event-fun (widget event)
   (declare (ignore widget))
   (typecase event
@@ -87,14 +137,16 @@
       (otherwise (error "unknown key event type ~A" et)))))
 
 (defun timer-fun (canvas)
-  ;; (format *o* "AFTER timer fun ~A~%" gm)  ;problem here
+  ;; do something with the model after timeout
   (setf (global-model-c *global-model*) (+ (global-model-c *global-model*) 3))
   (when (> (global-model-c *global-model*) 100)
     (setf (global-model-c *global-model*) 0))
 
+  ;; attempt to redraw canvas
   (gtk-widget-queue-draw canvas)
   +gdk-event-stop+)
 
+;;; main========================================================================
 (defun main ()
   "Run the program"
   (init-global-model)
