@@ -26,8 +26,8 @@
     ;; prevent cr being destroyed improperly
     (cairo-reference cr)
 
-    (format *o* "~&canvas size is ~A --- ~A ~A === ~A~%" size w h s)
-    (format *o* "pointer context ~A~%" cr)
+    ;; (format *o* "~&canvas size is ~A --- ~A ~A === ~A~%" size w h s)
+    ;; (format *o* "pointer context ~A~%" cr)
 
     (cairo-set-source-rgb cr 0.6 0.9 0)
     (cairo-set-line-width cr 25)
@@ -59,7 +59,13 @@
   (typecase event
     (gdk-event-configure (format *o* "c"))
     (gdk-event-motion (format *o* "-"))
-    (gdk-event-button (format *o* "b"))
+    (gdk-event-button (progn
+                        (format *o* "~&Type ~A~%" (type-of (gdk-event-button-type event)))
+                        (if (equal (gdk-event-button-type event) :button-release)
+                            (format *o* "~&~A ~A~%"
+                                    (gdk-event-button-type event)
+                                    (gdk-event-button-button event))
+                            (format *o* "~&EEE b~A ~A~%" (gdk-event-button-type event) event))))
     (t (error "not implemented ~A~%" (type-of event))))
   +gdk-event-propagate+)
 
@@ -74,7 +80,7 @@
         (str (gdk-event-key-string event))
         (sta (gdk-event-key-state  event)))
     (case et
-      ((:key-press)   (format *o* "key press event ~A ~A ~A~%" et str sta))
+      ((:key-press)   (format *o* "~&key press event ~A ~A ~A~%" et str sta))
       ((:key-release) (format *o* "key release event ~A ~%" str))
       (otherwise (error "unknown key event type ~A" et)))))
 
