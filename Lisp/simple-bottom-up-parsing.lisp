@@ -30,7 +30,7 @@
                  (equal cs 'b)
                  (equal d #\e))
         (format t "888^^^^^ ~S~%" (list tree 'qqq a bs bd cs cd d))
-        (cons (list 's (list bs bd) (list cs cd) d) (nthcdr 4 tree)))))
+        (cons (list 's a (list bs bd) (list cs cd) d) (nthcdr 4 tree)))))
 
    (ignore-errors
     (destructuring-bind ((as ad) b c &rest r) tree
