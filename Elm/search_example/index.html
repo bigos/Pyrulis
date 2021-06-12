@@ -1,0 +1,23 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Elm example</title>
+  <script src="main.js"></script>
+</head>
+
+<body>
+  <p>Stuff above Elm</p>
+  <div id="myapp"></div>
+  <p>Stuff below Elm</p>
+
+  <script>
+    var app = Elm.Main.init({
+        node: document.getElementById('myapp'),
+        flags: {
+            domain: "https://restcountries.eu",
+            countriesUrl: "/rest/v2/name/"
+        }
+    });
+  </script>
+</body>
+</html

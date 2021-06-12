@@ -1,0 +1,15 @@
+* README
+  https://elm-lang.org/docs
+  https://guide.elm-lang.org/
+  https://guide.elm-lang.org/interop/flags.html
+
+** compiling
+   #+begin_example
+     elm make ./src/Main.elm --output main.js
+   #+end_example
+
+** restclient
+
+#+BEGIN_SRC restclient
+  GET https://restcountries.eu/rest/v2/name/bel
+#+END_SRC
