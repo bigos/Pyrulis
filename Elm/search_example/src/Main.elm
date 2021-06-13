@@ -66,8 +66,12 @@ init flags =
     )
 
 
+minSearchLength =
+    1
+
+
 searchLongEnough model =
-    String.length model.countrySearchString > 2
+    String.length model.countrySearchString >= minSearchLength
 
 
 
@@ -141,10 +145,10 @@ subscriptions model =
 view : Model -> Html Msg
 view model =
     div []
-        [ h2 [] [ text "Random Cats" ]
-        , viewGif model
-        , p [] [ text (Debug.toString model) ]
-        , h3 [] [ text "Country search will go here" ]
+        [ -- h2 [] [ text "Random Cats" ]
+          -- , viewGif model
+          -- , p [] [ text (Debug.toString model) ]
+          h3 [] [ text "Country search will go here" ]
         , if searchLongEnough model then
             p [ style "background" "yellow" ] [ text "long enough" ]
 
@@ -157,20 +161,20 @@ view model =
 viewCountrySearch model =
     case model.countryStatuses of
         CountryStatusFailure err ->
-            text ("failure" ++ Debug.toString err)
+            searchViewer model [ Debug.toString err ] "failure"
 
         CountryStatusLoading ->
-            searchViewer model "nothing yet" "loading"
+            searchViewer model [ "loading" ] "loading"
 
-        CountryStatusSuccess url ->
-            searchViewer model url "success"
+        CountryStatusSuccess dat ->
+            searchViewer model dat "success"
 
 
 
 -- it is important to have consistent UI or we lose focus and Keyed was too complicated
 
 
-searchViewer model url res =
+searchViewer model dat res =
     let
         zzz =
             Debug.log res 1
@@ -185,11 +189,20 @@ searchViewer model url res =
                 []
             ]
         , if not (searchLongEnough model) then
-            p [] [ text "enter min 3 characters" ]
+            p [] [ text ("enter min " ++ String.fromInt minSearchLength ++ " characters") ]
 
           else
             span [] []
-        , text (res ++ Debug.toString url)
+        , div []
+            [ ul []
+                (List.map
+                    (\d ->
+                        li [] [ text (Debug.toString d) ]
+                    )
+                    dat
+                )
+            ]
+        , text res
         ]
 
 
