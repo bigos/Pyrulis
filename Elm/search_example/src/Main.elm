@@ -4,6 +4,8 @@ import Browser
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Html.Keyed as Keyed
+import Html.Lazy exposing (lazy)
 import Http
 import Json.Decode exposing (Decoder, field, map2, string)
 
@@ -65,7 +67,7 @@ init flags =
 
 
 searchLongEnough model =
-    String.length model.countrySearchString >= 3
+    String.length model.countrySearchString > 2
 
 
 
@@ -82,6 +84,10 @@ type Msg
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
+    let
+        zzz =
+            Debug.log ("message >>>> " ++ Debug.toString msg) Nothing
+    in
     case msg of
         MorePlease ->
             ( { model | catStatuses = Loading }, getRandomCatGif )
@@ -98,9 +104,13 @@ update msg model =
             ( { model | countryStatuses = CountryStatusLoading }, findCountry model )
 
         ChangeSearchString str ->
-            ( { model | countrySearchString = str }
-            , if searchLongEnough model then
-                findCountry model
+            let
+                newModel =
+                    { model | countrySearchString = str, countryStatuses = CountryStatusLoading }
+            in
+            ( newModel
+            , if searchLongEnough newModel then
+                findCountry newModel
 
               else
                 Cmd.none
@@ -133,8 +143,13 @@ view model =
     div []
         [ h2 [] [ text "Random Cats" ]
         , viewGif model
-        , h3 [] [ text "Country search will go here" ]
         , p [] [ text (Debug.toString model) ]
+        , h3 [] [ text "Country search will go here" ]
+        , if searchLongEnough model then
+            p [ style "background" "yellow" ] [ text "long enough" ]
+
+          else
+            p [] []
         , viewCountrySearch model
         ]
 
@@ -145,40 +160,37 @@ viewCountrySearch model =
             text ("failure" ++ Debug.toString err)
 
         CountryStatusLoading ->
-            div []
-                [ p [] [ text "loading" ]
-                , p []
-                    [ input
-                        [ placeholder "Search for aCountry"
-                        , value model.countrySearchString
-                        , onInput ChangeSearchString
-                        ]
-                        []
-                    ]
-                , if String.length model.countrySearchString < 3 then
-                    p [] [ text "enter min 3 characters" ]
-
-                  else
-                    p [] [ button [ onClick FindCountry ] [ text "find countries" ] ]
-                ]
+            searchViewer model "nothing yet" "loading"
 
         CountryStatusSuccess url ->
-            div []
-                [ p []
-                    [ input
-                        [ placeholder "Search for aCountry"
-                        , value model.countrySearchString
-                        , onInput ChangeSearchString
-                        ]
-                        []
-                    ]
-                , if String.length model.countrySearchString < 3 then
-                    p [] [ text "enter min 3 characters" ]
+            searchViewer model url "success"
 
-                  else
-                    p [] [ button [ onClick FindCountry ] [ text "find countries" ] ]
-                , text ("success " ++ Debug.toString url)
+
+
+-- it is important to have consistent UI or we lose focus and Keyed was too complicated
+
+
+searchViewer model url res =
+    let
+        zzz =
+            Debug.log res 1
+    in
+    div []
+        [ p []
+            [ input
+                [ placeholder "Search for aCountry"
+                , value model.countrySearchString
+                , onInput ChangeSearchString
                 ]
+                []
+            ]
+        , if not (searchLongEnough model) then
+            p [] [ text "enter min 3 characters" ]
+
+          else
+            span [] []
+        , text (res ++ Debug.toString url)
+        ]
 
 
 viewGif : Model -> Html Msg
@@ -221,6 +233,9 @@ gifDecoder =
 findCountry : Model -> Cmd Msg
 findCountry model =
     let
+        zzz =
+            Debug.log ("finding country >>> " ++ Debug.toString model.countrySearchString) Nothing
+
         urls =
             model.flags.domain ++ model.flags.countriesUrl ++ model.countrySearchString
     in
