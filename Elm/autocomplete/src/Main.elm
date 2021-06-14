@@ -1,4 +1,4 @@
-module Main exposing (..)
+module Main exposing (Country, Model, Msg(..), autocompleteConfig, decoder, errorToString, fetch, init, main, update, view, viewSelected, viewSuggestion)
 
 import Autocomplete
 import Browser
@@ -39,6 +39,7 @@ type alias Model =
     { autocomplete : Autocomplete.Autocomplete Country
     , selected : Maybe Country
     , error : String
+    , fetchPart : String
     }
 
 
@@ -47,6 +48,7 @@ init flags =
     ( { autocomplete = Autocomplete.init ""
       , selected = Nothing
       , error = ""
+      , fetchPart = ""
       }
     , Cmd.none
     )
@@ -199,10 +201,13 @@ viewSelected maybeSelected =
             "Selected: " ++ selected.name
 
 
-fetch : String -> Cmd Msg
-fetch query =
+fetch : Model -> String -> Cmd Msg
+fetch model query =
     Http.get
-        { url = "https://restcountries.eu/rest/v2/name/" ++ query
+        { url =
+            "https://restcountries.eu/rest/v2/name/"
+                ++ model.fetchPart
+                ++ query
         , expect = Http.expectJson CompletedLoadCountries (Decode.list decoder)
         }
 
