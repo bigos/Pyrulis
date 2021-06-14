@@ -8,6 +8,8 @@ import Html.Keyed as Keyed
 import Html.Lazy exposing (lazy)
 import Http
 import Json.Decode exposing (Decoder, field, map2, string)
+import Keyboard exposing (Key(..))
+import Keyboard.Arrows
 
 
 
@@ -48,7 +50,9 @@ type CountryStatuses
 
 
 type alias Model =
-    { catStatuses : CatStatuses
+    { pressedKeys : List Key
+    , selectedSearchIndex : Maybe Int
+    , catStatuses : CatStatuses
     , countryStatuses : CountryStatuses
     , countrySearchString : String
     , flags : Flags
@@ -58,6 +62,8 @@ type alias Model =
 init : Flags -> ( Model, Cmd Msg )
 init flags =
     ( { flags = flags
+      , pressedKeys = []
+      , selectedSearchIndex = Nothing
       , catStatuses = Loading
       , countryStatuses = CountryStatusLoading
       , countrySearchString = ""
@@ -79,11 +85,78 @@ searchLongEnough model =
 
 
 type Msg
-    = MorePlease
+    = NoOp
+    | MorePlease
+    | KeyMsg Keyboard.Msg
+    | HandleKeyPress
     | GotGif (Result Http.Error String)
     | FindCountry
     | ChangeSearchString String
     | GotCountry (Result Http.Error (List RestCountry))
+
+
+countryOptions model =
+    case model.countryStatuses of
+        CountryStatusSuccess countries ->
+            List.length countries
+
+        -- zero if no success
+        _ ->
+            0
+
+
+handleKeyPress model =
+    let
+        cs =
+            countryOptions model
+
+        -- debug =
+        --     Debug.log
+        --         (Debug.toString model.pressedKeys
+        --             ++ "available options length "
+        --             ++ Debug.toString cs
+        --         )
+        --         Nothing
+    in
+    case model.pressedKeys of
+        [ ArrowDown ] ->
+            update HandleKeyPress
+                (case model.selectedSearchIndex of
+                    Nothing ->
+                        { model | selectedSearchIndex = Just 0 }
+
+                    Just searchIndex ->
+                        { model
+                            | selectedSearchIndex =
+                                if searchIndex >= (cs - 1) then
+                                    Just 0
+
+                                else
+                                    Just (searchIndex + 1)
+                        }
+                )
+
+        [ ArrowUp ] ->
+            update HandleKeyPress
+                (case model.selectedSearchIndex of
+                    Nothing ->
+                        { model | selectedSearchIndex = Just (cs - 1) }
+
+                    Just searchIndex ->
+                        { model
+                            | selectedSearchIndex =
+                                if searchIndex > 0 then
+                                    Just
+                                        (searchIndex - 1)
+
+                                else
+                                    Just
+                                        (cs - 1)
+                        }
+                )
+
+        _ ->
+            update NoOp model
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -93,8 +166,17 @@ update msg model =
             Debug.log ("message >>>> " ++ Debug.toString msg) Nothing
     in
     case msg of
+        NoOp ->
+            ( model, Cmd.none )
+
         MorePlease ->
             ( { model | catStatuses = Loading }, getRandomCatGif )
+
+        KeyMsg keyMsg ->
+            handleKeyPress { model | pressedKeys = Keyboard.update keyMsg model.pressedKeys }
+
+        HandleKeyPress ->
+            ( model, Cmd.none )
 
         GotGif result ->
             case result of
@@ -135,7 +217,11 @@ update msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    Sub.batch
+        [ Sub.map KeyMsg Keyboard.subscriptions
+
+        -- ...
+        ]
 
 
 
@@ -147,8 +233,8 @@ view model =
     div []
         [ -- h2 [] [ text "Random Cats" ]
           -- , viewGif model
-          -- , p [] [ text (Debug.toString model) ]
-          h3 [] [ text "Country search will go here" ]
+          p [] [ text (Debug.toString model) ]
+        , h3 [] [ text "Country search will go here" ]
         , if searchLongEnough model then
             p [ style "background" "yellow" ] [ text "long enough" ]
 
@@ -174,6 +260,25 @@ viewCountrySearch model =
 -- it is important to have consistent UI or we lose focus and Keyed was too complicated
 
 
+selectedColor : Int -> Int -> String
+selectedColor val ind =
+    if val == ind then
+        "yellow"
+
+    else
+        "rgb(243,253,255)"
+
+
+indexColor : Model -> Int -> String
+indexColor model ind =
+    case model.selectedSearchIndex of
+        Just val ->
+            selectedColor val ind
+
+        Nothing ->
+            "white"
+
+
 searchViewer model dat res =
     let
         zzz =
@@ -196,10 +301,11 @@ searchViewer model dat res =
         , div []
             [ ul []
                 (List.map
-                    (\d ->
-                        li [] [ text (Debug.toString d) ]
+                    (\tup ->
+                        li [ style "background" (indexColor model (Tuple.first tup)) ]
+                            [ text (Debug.toString (Tuple.second tup)) ]
                     )
-                    dat
+                    (List.indexedMap Tuple.pair dat)
                 )
             ]
         , text res
