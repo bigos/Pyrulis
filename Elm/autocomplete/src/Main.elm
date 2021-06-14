@@ -201,8 +201,8 @@ viewSelected maybeSelected =
             "Selected: " ++ selected.name
 
 
-fetch : Model -> String -> Cmd Msg
-fetch model query =
+fetch : String -> Model -> Cmd Msg
+fetch query model =
     Http.get
         { url =
             "https://restcountries.eu/rest/v2/name/"
