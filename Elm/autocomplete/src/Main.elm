@@ -10,10 +10,15 @@ import Json.Decode as Decode exposing (Decoder)
 import Task exposing (Task)
 
 
-autocompleteConfig : Autocomplete.Config Country Msg
-autocompleteConfig =
+
+-- all I needed was finding call to autocomplete in update and view
+-- mistakenly I thought it was called only in the Autocomplete plugin
+
+
+autocompleteConfig : Model -> Autocomplete.Config Country Msg
+autocompleteConfig model =
     { transform = AutocompleteMsg
-    , fetch = fetch
+    , fetch = fetch model
     , submit = \_ -> NoOp
     , chose = SelectedCountry
     , focus = NoOp
@@ -71,7 +76,7 @@ update msg model =
         AutocompleteMsg subMsg ->
             let
                 { newAutocomplete, maybeMsg, cmd } =
-                    Autocomplete.update autocompleteConfig subMsg model.autocomplete
+                    Autocomplete.update (autocompleteConfig model) subMsg model.autocomplete
 
                 newModel =
                     { model | autocomplete = newAutocomplete }
@@ -136,7 +141,7 @@ view model =
         [ Html.p [] [ Html.text (Debug.toString model) ]
         , Html.p [] [ Html.text help ]
         , Html.div [ Attributes.style "background" selstyle ]
-            [ Autocomplete.input autocompleteConfig [] model.autocomplete
+            [ Autocomplete.input (autocompleteConfig model) [] model.autocomplete
             , Html.ul [] (List.indexedMap (viewSuggestion index) suggestions)
             ]
         , Html.p [] [ Html.strong [] [ Html.text model.error ] ]
@@ -201,8 +206,8 @@ viewSelected maybeSelected =
             "Selected: " ++ selected.name
 
 
-fetch : String -> Model -> Cmd Msg
-fetch query model =
+fetch : Model -> String -> Cmd Msg
+fetch model query =
     Http.get
         { url =
             "https://restcountries.eu/rest/v2/name/"
