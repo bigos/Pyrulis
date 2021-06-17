@@ -15,3 +15,9 @@
 ** discard and repeat
 
 ** code <=affects=> thinking
+
+
+
+
+* lisp book
+  link to [[https://doc.lagout.org/programmation/Lisp/Scheme/The%20Seasoned%20Schemer%20-%20Daniel%20P.%20Friedman.pdf][seasoned schemer]]
