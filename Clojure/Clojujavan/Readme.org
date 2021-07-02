@@ -1,0 +1,24 @@
+* Example of a Clojure project called from Java code
+
+
+** Clojure part
+
+*** Project Generation
+    clj -X:new :template lib :name jac/escaper
+
+*** Jar Compilation
+    clj -X:uberjar :jar ./escaper.jar :main-class jac.escaper
+
+*** Jar copying
+    cp ./escaper.jar ../JavaApplication1/lib/escaper.jar
+
+** Java part
+
+*** IDE
+    In th IDE project properties
+    add the copied jar file to the libraries
+
+*** Import
+    import clojure.java.api.Clojure;
+    import clojure.lang.IFn;
+    import jac.escaper;
