@@ -6,7 +6,7 @@
         #:cffi
         #:gtk #:gdk #:gdk-pixbuf #:gobject #:glib #:gio #:pango #:cairo))
 
-;; (load #p "/home/jacek/Programming/Pyrulis/Lisp/window.lisp")
+;; (load "/home/jacek/Programming/Pyrulis/Lisp/window.lisp")
 (in-package :window)
 
 ;;; canvas======================================================================
@@ -80,6 +80,7 @@
   (if (zerop *do-not-quit*)
       (progn
         (format t "~&QUITTING~%")
+        (leave-gtk-main)
         +gdk-event-propagate+)
 
       (progn
@@ -145,8 +146,12 @@
 ;;; ===this allows me to interact with model using REPL=========================
 ;; (setf *do-not-quit* 3)
 ;; (setf *global-app*  (gtk-application-new "weeee" :none))
-;; (g-application-register *global-app* nil)
+;; ==== we may not need this one === (g-application-register *global-app* nil)
 ;; (g-application-activate *global-app*)
 ;; (within-main-loop (add-new-window *global-app*))
 ;; use your REPL here and finally unref the memory
 ;; (g-object-unref (pointer *global-app*))
+
+
+;; (load "/home/jacek/Programming/Pyrulis/Lisp/window.lisp")
+;; (in-package :window)
