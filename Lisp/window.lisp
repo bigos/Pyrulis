@@ -143,14 +143,16 @@
         (g-object-unref (pointer app))
         status))))
 
-;;; ===this allows me to interact with model using REPL=========================
-;; (setf *do-not-quit* 3)
-;; (setf *global-app*  (gtk-application-new "weeee" :none))
-;; ==== we may not need this one === (g-application-register *global-app* nil)
-;; (g-application-activate *global-app*)
-;; (within-main-loop (add-new-window *global-app*))
-;; use your REPL here and finally unref the memory
-;; (g-object-unref (pointer *global-app*))
+(defun debug-app ()
+  "This allows me to interact with *model* using REPL"
+  (setf *do-not-quit* 3)
+  (setf *global-app*  (gtk-application-new "weeee" :none))
+  ;; ==== we may not need this one === (g-application-register *global-app* nil)
+  (g-application-activate *global-app*)
+  (within-main-loop (add-new-window *global-app*)))
+
+;;; after quitting run the following
+;;; (g-object-unref (pointer *global-app*))
 
 
 ;; (load "/home/jacek/Programming/Pyrulis/Lisp/window.lisp")
