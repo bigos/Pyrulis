@@ -70,6 +70,7 @@
                              *model*)
                             (gtk-widget-queue-draw widget)
                             (format T "~&EEE b~A ~A~%" (gdk-event-button-type event) event))))
+    (gdk-event-scroll (format t "~&scrolling event ~A~%" event))
     (t (error "not implemented ~A~%" (type-of event))))
   +gdk-event-propagate+)
 
@@ -117,6 +118,7 @@
     ;; add to canvas events inherited from widget
     (loop for ev in (list "configure-event"
                           "motion-notify-event"
+                          "scroll-event"
                           "button-press-event"
                           "button-release-event")
           do (g-signal-connect canvas ev #'canvas-event-fun))
