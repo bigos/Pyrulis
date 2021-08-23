@@ -26,6 +26,21 @@
     ;; continue propagation of the event handler
     +gdk-event-propagate+))
 
+(defun inner (cr model)
+  (let ((a (car model)))
+
+    (when model
+      (format t "~A~%" a )
+
+      (progn
+        (cairo-move-to cr
+                       (* 1 (car a))
+                       (* 1 (cdr a)))
+        (cairo-line-to cr
+                       (* 1 (car a))
+                       (* 1 (cdr a))))
+      (inner cr (cdr model)))))
+
 (defun draw-canvas-lines (cr model)
   (cairo-set-source-rgb cr 0.6 0.9 0)
   (cairo-set-line-width cr 25)
@@ -35,13 +50,9 @@
   ;; draw dots
   (cairo-set-source-rgb cr 0.4 0.6 0.1)
   (cairo-set-line-width cr 13)
-  (loop for c in model
-        do (cairo-move-to cr
-                          (* 1 (car c))
-                          (* 1 (cdr c)))
-           (cairo-line-to cr
-                          (* 1 (car c))
-                          (* 1 (cdr c)) ))
+
+  (inner cr model)
+
   (cairo-stroke cr))
 
 ;;; TODO play with drawing on canvas
@@ -56,20 +67,34 @@
 (defun canvas-event-fun (widget event)
   (typecase event
     (gdk-event-configure (format T "c"))
-    (gdk-event-motion (format T "-"))
-    (gdk-event-button (if (equal (gdk-event-button-type event) :button-release)  ; mouse button
-                          (format T "~&~A ~A~%"
-                                  (gdk-event-button-type event)
-                                  (gdk-event-button-button event))
-                          (progn
+    (gdk-event-motion
 
-                            (push
-                             (cons
-                              (gdk-event-button-x event)
-                              (gdk-event-button-y event))
-                             *model*)
-                            (gtk-widget-queue-draw widget)
-                            (format T "~&EEE b~A ~A~%" (gdk-event-button-type event) event))))
+     (when (eq *button* 'down)
+       (format T "~A~%" event)
+       (push
+        (cons
+         (gdk-event-motion-x event)
+         (gdk-event-motion-y event))
+        *model*)
+       (gtk-widget-queue-draw widget)))
+
+    (gdk-event-button
+
+     (if (equal (gdk-event-button-type event) :button-release)
+         (progn
+           (setf *button* 'up)
+           nil)
+         (progn
+           (setf *button* 'down)
+           (push
+            (cons
+             (gdk-event-button-x event)
+             (gdk-event-button-y event))
+            *model*)
+           (gtk-widget-queue-draw widget)
+           (format T "~&EEE b~A ~A~%" (gdk-event-button-type event) event)))
+     )
+
     (gdk-event-scroll (format t "~&scrolling event ~A~%" event))
     (t (error "not implemented ~A~%" (type-of event))))
   +gdk-event-propagate+)
@@ -139,7 +164,9 @@
         (argv (null-pointer)))
     (let ((app (gtk-application-new "try.window" :none)))
       (setf *global-app* app)
-      (setf *do-not-quit* 3)
+      (setf *do-not-quit* 2)
+      (setf *button* nil)
+      (setf *model* nil)
       (g-signal-connect app "activate" #'add-new-window)
       (let ((status (g-application-run app argc argv)))
         (g-object-unref (pointer app))
@@ -147,7 +174,7 @@
 
 (defun debug-app ()
   "This allows me to interact with *model* using REPL"
-  (setf *do-not-quit* 3)
+  (setf *do-not-quit* 2)
   (setf *global-app*  (gtk-application-new "weeee" :none))
   ;; ==== we may not need this one === (g-application-register *global-app* nil)
   (g-application-activate *global-app*)
