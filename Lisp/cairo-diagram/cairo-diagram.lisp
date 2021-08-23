@@ -176,7 +176,8 @@
 
         ;; window signals
         (loop for ev in (list "key-press-event"
-                              "key-release-event")
+                              "key-release-event"
+                              "focus-in-event")
               do (g-signal-connect win ev #'win-event-fun))
 
         (g-signal-connect win "destroy"
