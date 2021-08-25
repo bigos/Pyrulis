@@ -9,6 +9,9 @@
 ;; (load "/home/jacek/Programming/Pyrulis/Lisp/window.lisp")
 (in-package :window)
 
+;;; macros----------------------------------------------------------------------
+
+
 ;;; canvas======================================================================
 (defun draw-canvas (model canvas context)
   (let* ((w (gtk-widget-get-allocated-width canvas))
@@ -67,35 +70,32 @@
 (defun canvas-event-fun (widget event)
   (typecase event
     (gdk-event-configure (format T "c"))
-    (gdk-event-motion
 
-     (when (eq *button* 'down)
-       (format T "~A~%" event)
-       (push
-        (cons
-         (gdk-event-motion-x event)
-         (gdk-event-motion-y event))
-        *model*)
-       (gtk-widget-queue-draw widget)))
+    (gdk-event-motion (when (eq *button* 'down)
+                        (format T "~A~%" event)
+                        (push
+                         (cons
+                          (gdk-event-motion-x event)
+                          (gdk-event-motion-y event))
+                         *model*)
+                        (gtk-widget-queue-draw widget)))
 
-    (gdk-event-button
-
-     (if (equal (gdk-event-button-type event) :button-release)
-         (progn
-           (setf *button* 'up)
-           nil)
-         (progn
-           (setf *button* 'down)
-           (push
-            (cons
-             (gdk-event-button-x event)
-             (gdk-event-button-y event))
-            *model*)
-           (gtk-widget-queue-draw widget)
-           (format T "~&EEE b~A ~A~%" (gdk-event-button-type event) event)))
-     )
+    (gdk-event-button (if (equal (gdk-event-button-type event) :button-release)
+                          (progn
+                            (setf *button* 'up)
+                            nil)
+                          (progn
+                            (setf *button* 'down)
+                            (push
+                             (cons
+                              (gdk-event-button-x event)
+                              (gdk-event-button-y event))
+                             *model*)
+                            (gtk-widget-queue-draw widget)
+                            (format T "~&EEE b~A ~A~%" (gdk-event-button-type event) event))))
 
     (gdk-event-scroll (format t "~&scrolling event ~A~%" event))
+
     (t (error "not implemented ~A~%" (type-of event))))
   +gdk-event-propagate+)
 
@@ -150,7 +150,7 @@
     (gtk-widget-add-events canvas '(:all-events-mask))
 
     ;; Signal handler for closing the window and to handle the signal "delete-event".
-    (g-signal-connect window "delete-event" #'win-delete-event-fun)
+    (g-signal-connect window "delete-event"  #'win-delete-event-fun)
 
     ;; finally show all widgets
     (gtk-widget-show-all window)))
