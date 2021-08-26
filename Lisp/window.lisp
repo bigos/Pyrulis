@@ -99,6 +99,8 @@
     (t (error "not implemented ~A~%" (type-of event))))
   +gdk-event-propagate+)
 
+;; file:~/quicklisp/dists/quicklisp/software/cl-cffi-gtk-20201220-git/gdk/gdk.event-structures.lisp::920
+
 ;;; event for graceful closing of the window
 (defun win-delete-event-fun (widget event)
   (declare (ignore widget))
