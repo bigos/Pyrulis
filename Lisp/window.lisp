@@ -11,6 +11,158 @@
 
 ;;; macros----------------------------------------------------------------------
 
+;;; event structure=============================================================
+
+(defvar *event-types* '(((:key-press :key-release) gdk-event-key
+                         (time :uint32)
+                         (state gdk-modifier-type)
+                         (keyval :uint)
+                         (length :int)
+                         (string (:string :free-from-foreign nil
+                                          :free-to-foreign nil))
+                         (hardware-keycode :uint16)
+                         (group :uint8)
+                         (is-modifier :uint))
+
+                        ((:expose) gdk-event-expose
+                         (area gdk-rectangle :inline t)
+                         (region (:pointer (:struct cairo-region-t)))
+                         (count :int))
+
+                        ((:visibility-notify) gdk-event-visibility
+                         (state gdk-visibility-state))
+
+                        ((:motion-notify) gdk-event-motion
+                         (time :uint32)
+                         (x :double)
+                         (y :double)
+                         (axes (fixed-array :double 2))
+                         (state gdk-modifier-type)
+                         (is-hint :int16)
+                         (device (g-object gdk-device))
+                         (x-root :double)
+                         (y-root :double))
+
+                        ((:button-press
+                          :2button-press
+                          :double-button-press
+                          :3button-press
+                          :triple-button-press
+                          :button-release) gdk-event-button
+                         (time :uint32)
+                         (x :double)
+                         (y :double)
+                         (axes (fixed-array :double 2))
+                         (state gdk-modifier-type)
+                         (button :uint)
+                         (device (g-object gdk-device))
+                         (x-root :double)
+                         (y-root :double))
+
+                        ((:touch-begin
+                          :touch-update
+                          :touch-end
+                          :touch-cancel) gdk-event-touch
+                         (time :uint32)
+                         (x :double)
+                         (y :double)
+                         (axes (fixed-array :double 2))
+                         (state gdk-modifier-type)
+                         (sequence (g-boxed-foreign gdk-event-sequence))
+                         (emulating-pointer :boolean)
+                         (device (g-object gdk-device))
+                         (x-root :double)
+                         (y-root :double))
+
+                        ((:scroll) gdk-event-scroll
+                         (time :uint32)
+                         (x :double)
+                         (y :double)
+                         (state gdk-modifier-type)
+                         (direction gdk-scroll-direction)
+                         (device (g-object gdk-device))
+                         (x-root :double)
+                         (y-root :double)
+                         (delta-x :double)
+                         (delta-y :double)
+                         #+gdk-3-20
+                         (is-stop :uint)) ; bitfield
+
+                        ((:enter-notify :leave-notify) gdk-event-crossing
+                         (subwindow (g-object gdk-window))
+                         (time :uint32)
+                         (x :double)
+                         (y :double)
+                         (x-root :double)
+                         (y-root :double)
+                         (mode gdk-crossing-mode)
+                         (detail gdk-notify-type)
+                         (focus :boolean)
+                         (state gdk-modifier-type))
+
+                        ((:focus-change) gdk-event-focus
+                         (in :int16))
+
+                        ((:configure) gdk-event-configure
+                         (x :int)
+                         (y :int)
+                         (width :int)
+                         (height :int))
+
+                        ((:property-notify) gdk-event-property
+                         (atom gdk-atom)
+                         (time :uint32)
+                         (state gdk-property-state))
+
+                        ((:selection-clear
+                          :selection-notify
+                          :selection-request) gdk-event-selection
+                         (selection gdk-atom)
+                         (target gdk-atom)
+                         (property gdk-atom)
+                         (time :uint32)
+                         (requestor (g-object gdk-window)))
+
+                        ((:owner-change) gdk-event-owner-change
+                         (owner (g-object gdk-window))
+                         (reason gdk-owner-change)
+                         (selection gdk-atom)
+                         (time :uint32)
+                         (selection-time :uint32))
+
+                        ((:proximity-in
+                          :proximity-out) gdk-event-proximity
+                         (time :uint32)
+                         (device (g-object gdk-device)))
+
+                        ((:drag-enter
+                          :drag-leave
+                          :drag-motion
+                          :drag-status
+                          :drop-start
+                          :drop-finished) gdk-event-dnd
+                         (context (g-object gdk-drag-context))
+                         (time :uint32)
+                         (x-root :short)
+                         (y-root :short))
+
+                        ((:window-state) gdk-event-window-state
+                         (changed-mask gdk-window-state)
+                         (new-window-state gdk-window-state))
+
+                        ((:setting) gdk-event-setting
+                         (action gdk-setting-action)
+                         (name (:string :free-from-foreign nil :free-to-foreign nil)))
+
+                        ((:grab-broken) gdk-event-grab-broken
+                         (keyboard :boolean)
+                         (implicit :boolean)
+                         (grab-window (g-object gdk-window)))))
+
+(defun trying ()
+  `(typecase
+       ,@ (loop for el in *event-types*
+                collect (list (cadr el) `(case ( ,(cadr el) type) ,(car el))))))
 
 ;;; canvas======================================================================
 (defun draw-canvas (model canvas context)
@@ -101,6 +253,12 @@
 
 ;; file:~/quicklisp/dists/quicklisp/software/cl-cffi-gtk-20201220-git/gdk/gdk.event-structures.lisp::920
 
+(defun win-event-fun (widget event)
+  (format t "~&we have event ~A~%" event)
+  (typecase event
+    (gdk-event-key (format t "key event~%"))
+    (t (format t "not implemented~%"))))
+
 ;;; event for graceful closing of the window
 (defun win-delete-event-fun (widget event)
   (declare (ignore widget))
@@ -150,6 +308,13 @@
                           "button-release-event")
           do (g-signal-connect canvas ev #'canvas-event-fun))
     (gtk-widget-add-events canvas '(:all-events-mask))
+
+    (loop for ev in (list "key-press-event"
+                          "key-release-event"
+                          "enter-notify-event"
+                          "leave-notify-event")
+          do (g-signal-connect window ev #'win-event-fun))
+
 
     ;; Signal handler for closing the window and to handle the signal "delete-event".
     (g-signal-connect window "delete-event"  #'win-delete-event-fun)
