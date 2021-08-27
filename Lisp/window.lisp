@@ -160,9 +160,16 @@
                          (grab-window (g-object gdk-window)))))
 
 (defun trying ()
-  `(typecase
-       ,@ (loop for el in *event-types*
-                collect (list (cadr el) `(case ( ,(cadr el) type) ,(car el))))))
+  `(typecase event
+     ,@(loop for el in *event-types* collect
+                                     (list (cadr el)
+                                           `(case
+                                                (,(symbol-with-suffix (cadr el) '-type) event)
+                                              ,@(loop for vt in (car el)
+                                                      collect (list  vt 'func)))))))
+
+(defun symbol-with-suffix (symbol suffix)
+  (read-from-string (format nil "~A~A" symbol suffix)))
 
 ;;; canvas======================================================================
 (defun draw-canvas (model canvas context)
@@ -254,10 +261,12 @@
 ;; file:~/quicklisp/dists/quicklisp/software/cl-cffi-gtk-20201220-git/gdk/gdk.event-structures.lisp::920
 
 (defun win-event-fun (widget event)
-  (format t "~&we have event ~A~%" event)
+  (format t "~&================== we have event ~A~%" event)
   (typecase event
-    (gdk-event-key (format t "key event~%"))
-    (t (format t "not implemented~%"))))
+    (gdk-event-key (case (gdk-event-key-type event)
+                     (:key-press  (format t "key event key press~%"))
+                     (otherwise (format t "key event otherwise~%"))))
+    (t (format t "==================not implemented=================~%"))))
 
 ;;; event for graceful closing of the window
 (defun win-delete-event-fun (widget event)
