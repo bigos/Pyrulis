@@ -11,7 +11,7 @@
 
 ;;; macros----------------------------------------------------------------------
 (defvar *zzz*
-  (TYPECASE EVENT
+  '(TYPECASE EVENT
     (GDK-EVENT-KEY
      (CASE (GDK-EVENT-KEY-TYPE EVENT)
        (:KEY-PRESS FUNC)
