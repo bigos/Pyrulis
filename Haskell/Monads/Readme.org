@@ -1,0 +1,53 @@
+* Monads
+  This is for experimenting with simple monads
+
+** Tutorials
+
+*** dev.stephendiehl.com
+    http://dev.stephendiehl.com/hask/index.html
+    http://dev.stephendiehl.com/hask/index.html#eightfold-path-to-monad-satori
+
+*** wiki.haskell.org
+    https://wiki.haskell.org/Monads_as_containers
+    https://wiki.haskell.org/Monads_as_computation
+
+** Monad components
+   There are a few ways to choose the basic set of functions that one can
+   perform on these containers to be able to define a monad.
+
+*** basic functions
+
+**** pure
+     (return = pure)
+
+**** monadic bind
+     (>>=)
+
+*** more natural functions
+
+**** fmap
+     a functor map
+
+     We can think of a functor as a type of container where we are permitted to
+     apply a single function to every object in the container.
+
+     If you will give me a blueberry for each apple I give you (a -> b), and I
+     have a box of apples (f a), then I can get a box of blueberries (f b).
+
+**** pure
+     The second method, return, is specific to monads. If m is a monad, then
+     return takes an element of type a, and gives a container of type (m a) with
+     that element in it.
+
+**** join
+     The third method, join, also specific to monads, takes a container of
+     containers m (m a), and combines them into one m a in some sensible fashion
+
+**** so from these we have >>=
+     we can construct an important operation called bind or extend, which is
+     commonly given the symbol (>>=). When you define your own monad in Haskell,
+     it will expect you to define just return and bind.
+
+** Simplest example
+   https://wiki.haskell.org/Monads_as_containers
+   Lists are most likely the simplest, most illustrative example.
