@@ -242,6 +242,19 @@
                                               ,@(loop for vt in (car el)
                                                       collect (list  vt 'func)))))))
 
+;;; TODO still needs more polish to have handlers for different widgets
+(defun trying-again ()
+  `(typecase event
+     ,@(loop for el in *event-types*
+             collect
+             (list (cadr el)
+                   `(,(symbol-with-suffix (cadr el) '-handler)
+                     (,(symbol-with-suffix (cadr el) '-type) event)
+                     ,@(loop for at in (cddr el) collect (list (symbol-with-suffix
+                                                                (cadr el) (format nil "-~A"  (car at)))
+                                                               'event))
+                     )))))
+
 (defun symbol-with-suffix (symbol suffix)
   (read-from-string (format nil "~A~A" symbol suffix)))
 
