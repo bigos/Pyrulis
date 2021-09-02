@@ -272,9 +272,9 @@
      ,@(loop for el in *event-types*
              collect
              `(defun ,(read-from-string (format nil "~A-handler-~A" (cadr el) widget-name))
-                  ,(loop for at in (cddr el) collect (car at))
+                  ,(cons 'type (loop for at in (cddr el) collect (car at)))
 
-                (progn 'code-will-go-here)))))
+                (case type ,@(loop for et in (car el) collect (list et '(error "not implemented"))))))))
 
 (defun symbol-with-suffix (symbol suffix)
   (read-from-string (format nil "~A~A" symbol suffix)))
