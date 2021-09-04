@@ -57,10 +57,8 @@
 
    fmap is to some extent like this
    #+begin_src lisp
-     CL-USER> (funcall #'1+ 1)
-     2
-     CL-USER> (mapcar (lambda (x) (funcall #'1+ x)) '(2))
-     (3)
-     CL-USER> (mapcar (lambda (x) (funcall #'1+ x)) '())
-     NIL
+     (funcall #'1+ 1)
+     (mapcar (lambda (x) (funcall #'1+ x)) '())
+     (mapcar (lambda (x) (funcall #'1+ x)) '(2))
+     (mapcar (lambda (x) (funcall #'1+  (funcall #'1+ x))) '(1))
    #+end_src
