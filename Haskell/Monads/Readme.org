@@ -51,3 +51,16 @@
 ** Simplest example
    https://wiki.haskell.org/Monads_as_containers
    Lists are most likely the simplest, most illustrative example.
+
+** lisp example
+   https://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html
+
+   fmap is to some extent like this
+   #+begin_src lisp
+     CL-USER> (funcall #'1+ 1)
+     2
+     CL-USER> (mapcar (lambda (x) (funcall #'1+ x)) '(2))
+     (3)
+     CL-USER> (mapcar (lambda (x) (funcall #'1+ x)) '())
+     NIL
+   #+end_src
