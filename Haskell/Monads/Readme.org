@@ -58,22 +58,25 @@
 
 *** fmap
     fmap is to some extent like this
+
+    Functors apply a function to a wrapped value:
     #+begin_src lisp
       (defun to-string (x) (format nil "~A" x))
 
       (funcall #'1+ 1)
       (mapcar (lambda (x) (funcall #'1+ x)) '())
       (mapcar (lambda (x) (funcall #'1+ x)) '(2))
-      ;;; applicative ???
-      (mapcar (lambda (x) (funcall #'to-string  (funcall #'1+ x))) '(1))
-      (mapcar (lambda (x) (funcall (alexandria:compose #'to-string #'1+) x)) '(1 2 3))
     #+end_src
 
 *** applicative
+    Applicatives apply a wrapped function to a wrapped value: >>=
+    #+begin_src lisp
+      (map 'list (lambda (a b)  (funcall a b)) '(1+) '(1))
+    #+end_src
 
 *** monad
-    Functors apply a function to a wrapped value:
-
-    Applicatives apply a wrapped function to a wrapped value:
-
-    Monads apply a function that returns a wrapped value to a wrapped value.
+    Monads apply a function that returns a function of wrapped value to a wrapped value.
+    #+begin_src lisp
+      (map 'list (lambda (a b) (lambda () (+ a b))) '(1) '(1))
+      (funcall (car (map 'list (lambda (a b) (lambda () (+ a b))) '(1) '(1))))
+    #+end_src
