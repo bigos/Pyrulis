@@ -55,10 +55,25 @@
 ** lisp example
    https://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html
 
-   fmap is to some extent like this
-   #+begin_src lisp
-     (funcall #'1+ 1)
-     (mapcar (lambda (x) (funcall #'1+ x)) '())
-     (mapcar (lambda (x) (funcall #'1+ x)) '(2))
-     (mapcar (lambda (x) (funcall #'1+  (funcall #'1+ x))) '(1))
-   #+end_src
+
+*** fmap
+    fmap is to some extent like this
+    #+begin_src lisp
+      (defun to-string (x) (format nil "~A" x))
+
+      (funcall #'1+ 1)
+      (mapcar (lambda (x) (funcall #'1+ x)) '())
+      (mapcar (lambda (x) (funcall #'1+ x)) '(2))
+      ;;; applicative ???
+      (mapcar (lambda (x) (funcall #'to-string  (funcall #'1+ x))) '(1))
+      (mapcar (lambda (x) (funcall (alexandria:compose #'to-string #'1+) x)) '(1 2 3))
+    #+end_src
+
+*** applicative
+
+*** monad
+    Functors apply a function to a wrapped value:
+
+    Applicatives apply a wrapped function to a wrapped value:
+
+    Monads apply a function that returns a wrapped value to a wrapped value.
