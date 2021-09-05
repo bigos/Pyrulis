@@ -1,22 +1,14 @@
--- list monad
+-- use data or newtype to create Monad class instance
 
--- example defined elsewhere
--- instance Monad [] where
---   -- return :: a -> [a]
---   return x = [x] --make a list containing the one element given
+newtype M a = M (String -> (a, String))
 
---   -- (>>=) :: [a] -> (a -> [b]) -> [b]
---   xs >>= f = concat (map f xs)
---              -- collect all the results of f which re lists
---              -- and combine them into a new list
-
-oneTwoThree :: [Integer]
-oneTwoThree = [1,2,3]
+instance Monad M where
+  return a = M (\x -> (a, x))
+  m >>= k  = --how do i define bind?
 
 main :: IO ()
 main = do
-  putStrLn "List monad will go here."
-  putStrLn "it selves"
-  print (show $ oneTwoThree >>= (\x -> [x]))
-  putStrLn "itself and double and zero"
-  print (show $ oneTwoThree >>= (\x -> [x, 2*x, 0]))
+  putStrLn "monad will go here."
+
+
+-- https://stackoverflow.com/questions/26517061/define-a-new-monad-in-haskell
