@@ -82,3 +82,4 @@
      #+end_src
 
      Now find example for structure
+     https://wiki.haskell.org/All_About_Monads#Introduction_2
