@@ -77,5 +77,4 @@
                              (cons 2 'apple)
                              (cons 3 'apple)) (lambda (x) (list (cons (car x)
                                                                       'blueberry))))
-       #+end_src
-     (10 11 20 21 30 31)
+     #+end_src
