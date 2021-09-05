@@ -64,8 +64,18 @@
      hs-bind is >>=
      [10,20,30] >>= \x -> [x, x+1]
 
+     #+begin_example
+       (>>=) :: (Monad m) => m a -> (a -> m b) -> m b
+       xs >>= f = join (fmap f xs)
+       -- ma is xs !!> (a -> mb) is f !!> mb is the result
+     #+end_example
+
      #+begin_src lisp
-       (defun hs-bind (xs f) (apply 'append (mapcar f xs)))
-       (hs-bind (list 10 20 30) (lambda (x) (list x (1+ x))))
-     #+end_src
+              (defun hs-bind (xs f) (apply 'append (mapcar f xs)))
+              (hs-bind (list 10 20 30) (lambda (x) (list x (1+ x))))
+              (hs-bind (list (cons 1 'apple) ; swapping apples for blueberries
+                             (cons 2 'apple)
+                             (cons 3 'apple)) (lambda (x) (list (cons (car x)
+                                                                      'blueberry))))
+       #+end_src
      (10 11 20 21 30 31)
