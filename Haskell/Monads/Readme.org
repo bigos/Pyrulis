@@ -79,3 +79,22 @@
     #+begin_src lisp
       (map 'list (lambda (a b) (funcall (lambda () (funcall a b)))) '(1+) '(1))
     #+end_src
+
+*** another example translated from wiki haskell org
+
+**** haskell
+     Lists are most likely the simplest, most illustrative example. Here, fmap is
+     just the usual map, return is just (\x -> [x]) and join is concat.
+
+**** lisp
+     Lists are most likely the simplest, most illustrative example. Here, fmap is
+     just the usual mapcar, return is just (lambda (x) (list x (1+ x))) and join is apply 'append.
+
+     Lispy equivalent of (>>=)
+     [10,20,30] >>= \x -> [x, x+1]
+     hs-bind is >>=
+     #+begin_src lisp
+       (defun hs-bind (xs f) (apply 'append (mapcar f xs)))
+       (hs-bind (list 10 20 30) (lambda (x) (list x (1+ x))))
+       (10 11 20 21 30 31)
+     #+end_src
