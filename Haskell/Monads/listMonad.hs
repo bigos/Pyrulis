@@ -1,14 +1,15 @@
 -- use data or newtype to create Monad class instance
+import Data.List
 
-newtype M a = M (String -> (a, String))
+newtype M a  = Nothing
 
 instance Monad M where
-  return a = M (\x -> (a, x))
-  m >>= k  = --how do i define bind?
+  return x = [x]
+  xs >>= f = concat (fmap f xs)
 
 main :: IO ()
 main = do
   putStrLn "monad will go here."
 
 
--- https://stackoverflow.com/questions/26517061/define-a-new-monad-in-haskell
+-- https://www.schoolofhaskell.com/school/starting-with-haskell/basics-of-haskell/13-the-list-monad#handcrafted-list-monad

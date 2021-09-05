@@ -57,8 +57,10 @@
      just the usual map, return is just (\x -> [x]) and join is concat.
 
 **** lisp
-     Lists are most likely the simplest, most illustrative example. Here, fmap is
-     just the usual mapcar, return is just (lambda (x) (list x (1+ x))) and join is apply 'append.
+     Lists are most likely the simplest, most illustrative example. Here,
+     fmap is just the usual mapcar,
+     return is just (lambda (x) (list x (1+ x))) and
+     join is apply 'append.
 
      Lispy equivalent of (>>=)
      hs-bind is >>=
@@ -67,7 +69,7 @@
      #+begin_example
        (>>=) :: (Monad m) => m a -> (a -> m b) -> m b
        xs >>= f = join (fmap f xs)
-       -- ma is xs !!> (a -> mb) is f !!> mb is the result
+       -- ma is xs !!> (a -> mb) is f !!> m b is the result
      #+end_example
 
      #+begin_src lisp
@@ -78,3 +80,5 @@
                              (cons 3 'apple)) (lambda (x) (list (cons (car x)
                                                                       'blueberry))))
      #+end_src
+
+     Now find example for structure
