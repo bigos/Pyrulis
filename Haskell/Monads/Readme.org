@@ -83,3 +83,5 @@
 
      Now find example for structure
      https://wiki.haskell.org/All_About_Monads#Introduction_2
+
+     https://www.youtube.com/watch?v=_Gk_lwhJMzk
