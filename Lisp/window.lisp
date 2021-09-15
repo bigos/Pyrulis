@@ -1,3 +1,7 @@
+;;; also consider these projects
+;;; https://github.com/andy128k/cl-gobject-introspection
+;; https://github.com/kat-co/gir2cl
+
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (ql:quickload '(:alexandria :serapeum :cl-cffi-gtk)))
 
