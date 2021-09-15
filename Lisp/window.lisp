@@ -90,6 +90,10 @@
        (:GRAB-BROKEN FUNC)))))
 
 ;;; event structure=============================================================
+;;; usual events
+;; file:~/quicklisp/dists/quicklisp/software/cl-cffi-gtk-20201220-git/gdk/gdk.event-structures.lisp::915
+;;; all signals
+;; file:~/quicklisp/dists/quicklisp/software/cl-cffi-gtk-20201220-git/gtk/gtk.widget.lisp::424
 
 (defvar *event-types* '(((:key-press :key-release) gdk-event-key
                          (time :uint32)
