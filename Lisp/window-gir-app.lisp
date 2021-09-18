@@ -13,6 +13,24 @@
 
 (defvar *gtk* (gir:require-namespace "Gtk"))
 
+(defun activate (w)
+  (declare (ignore w))
+  (let ((window (gir:invoke (*gtk* "Window" 'new)
+                            (gir:nget *gtk* "WindowType" :toplevel))))
+
+
+    (setf (gir:property window 'title) "This is GIR")
+    (gir:invoke (window "set_default_size")
+                400 300)
+
+    (gir:connect window :destroy
+                 (lambda (win)
+                   (declare (ignore win))
+                   (format t "~&pressed close widget~%")
+                   (gir:invoke (*gtk* 'main-quit))))
+
+    (gir:invoke (window 'show))))
+
 (defun main ()
   (gir:invoke (*gtk* 'init) nil)
   (let ((app (gir:invoke (*gtk* "Application" 'new)
@@ -21,10 +39,8 @@
 
     (gir:connect app :activate
                  (lambda (w)
-                   (declare (ignore w))
-                   (finish me to run activate)))
+                   (activate w)))
 
-    (let ((status (gir:invoke (app "g_application_run")
-                              )))
-      ;; unref
+    (let ((status (gir:invoke (app "g_application_run"))))
+      (gir::g-object-unref (cffi:make-pointer app))
       status)))

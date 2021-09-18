@@ -29,6 +29,7 @@
                    (gir:invoke (*gtk* 'main-quit))))
 
     (gir:invoke (window 'show))
+    (break "zzzzzzzzzzz")
     (gir:invoke (*gtk* 'main))))
 
 ;;; now call main
