@@ -18,4 +18,13 @@
   (let ((app (gir:invoke (*gtk* "Application" 'new)
                          "gir.gtk.ecxample"
                          0))) ;; https://docs.adacore.com/gtkada-docs/gtkada_rm/gtkada_rm/docs/glib__application___spec.html#L165C4
-    app))
+
+    (gir:connect app :activate
+                 (lambda (w)
+                   (declare (ignore w))
+                   (finish me to run activate)))
+
+    (let ((status (gir:invoke (app "g_application_run")
+                              )))
+      ;; unref
+      status)))
