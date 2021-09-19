@@ -2,10 +2,10 @@
 ;;; https://github.com/andy128k/cl-gobject-introspection
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
-  (ql:quickload '(:alexandria :serapeum :cffi :cl-gobject-introspection :cl-cairo2 :s-xml :xmls)))
+  (ql:quickload '(:alexandria :serapeum :cffi :cl-gobject-introspection :cl-cairo2 :s-xml )))
 
 (defpackage #:window-gir-app
-  (:use #:cl))
+  (:use #:cl #:ns-0))
 
 ;; (load "/home/jacek/Programming/Pyrulis/Lisp/window-gir-app.lisp")
 
