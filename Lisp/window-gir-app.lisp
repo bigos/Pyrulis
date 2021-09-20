@@ -18,6 +18,22 @@
 (defun path-gir-gtk ()
   #p"/usr/share/gir-1.0/Gtk-3.0.gir")
 
+;; (gir-gtk  (last (s-xml:parse-xml-file (path-gir-gtk))) (list 0 1587 9 3))
+(defun gir-gtk (lst indexes)
+  (cond ((atom lst)
+         (list 'last-atom
+               lst))
+        ((and
+          (atom indexes)
+          (consp lst))
+         (list 'last-index
+               lst))
+        (t
+         (let ((lv (nth (car indexes) lst)))
+           (if lv
+               (gir-gtk (nth (car indexes)  lst) (cdr indexes))
+               (list 'index-not-found indexes))))))
+
 ;; (nth 1587 (parsed-gir-gtk))
 (defun parsed-gir-gtk ()
   (car
