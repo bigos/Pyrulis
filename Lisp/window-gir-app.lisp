@@ -5,7 +5,9 @@
   (ql:quickload '(:alexandria :serapeum :cffi :cl-gobject-introspection :cl-cairo2 :s-xml )))
 
 (defpackage #:window-gir-app
-  (:use #:cl #:ns-0))
+  (:use #:cl
+        ;#:ns-0
+        ))
 
 ;; (load "/home/jacek/Programming/Pyrulis/Lisp/window-gir-app.lisp")
 
@@ -17,8 +19,12 @@
   #p"/usr/share/gir-1.0/Gtk-3.0.gir")
 
 (defun parsed-gir-gtk ()
-  (cdr
-   (nth 8 (s-xml:parse-xml-file (path-gir-gtk)))))
+  (car
+   (last
+    (s-xml:parse-xml-file (path-gir-gtk)))))
+
+(defun parsed-gir-summary ()
+  (loop for l in  (parsed-gir-gtk) collect  (car l)))
 
 (defun parsed-kind-names ()
   (remove-duplicates  (loop for el in (parsed-gir-gtk)
@@ -30,9 +36,9 @@
   (loop for el in (parsed-gir-gtk)
         when (equalp symb (caar el)) collect el))
 
-(defun parsed-classes ()
-  (loop for el in (parsed-gir-gtk)
-        when (equalp 'ns-0:|class| (caar el)) collect (caddr (car el))))
+;; (defun parsed-classes ()
+;;   (loop for el in (parsed-gir-gtk)
+;;         when (equalp 'ns-0:|class| (caar el)) collect (caddr (car el))))
 
 ;; usage (gir-find "ApplicationWindow")
 (defun gir-find (str)
