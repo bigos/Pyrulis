@@ -18,6 +18,7 @@
 (defun path-gir-gtk ()
   #p"/usr/share/gir-1.0/Gtk-3.0.gir")
 
+;; (nth 1587 (parsed-gir-gtk))
 (defun parsed-gir-gtk ()
   (car
    (last
@@ -27,25 +28,26 @@
   (loop for l in  (parsed-gir-gtk) collect  (car l)))
 
 (defun parsed-kind-names ()
-  (remove-duplicates  (loop for el in (parsed-gir-gtk)
-                            collect (caar el))
-                      :test #'equalp))
+  (remove-duplicates (loop for el in (cdr  (parsed-gir-summary))
+                           collect (car el))
+                     :test #'equalp))
 
-;; (parsed-kinds 'ns-0:|bitfield|)
-(defun parsed-kinds (symb)
-  (loop for el in (parsed-gir-gtk)
-        when (equalp symb (caar el)) collect el))
+(defun parsed-by-nth (ntk-list))
 
-;; (defun parsed-classes ()
-;;   (loop for el in (parsed-gir-gtk)
-;;         when (equalp 'ns-0:|class| (caar el)) collect (caddr (car el))))
-
-;; usage (gir-find "ApplicationWindow")
-(defun gir-find (str)
+(defun parsed-kind-index ()
   (loop
-    for el in (parsed-gir-gtk)
-    when (search str (caddr (car el)))
-      collect el))
+    for n = 0 then (1+ n)
+    for el in (cdr  (parsed-gir-summary))
+    collect (list n (subseq el 0 3))))
+
+(defun parsed-kind-name-search (str)
+  (loop for l in (parsed-gir-gtk)
+        when (and
+              (equalp (nth 2 l) 'name)
+              (position str
+                            (nth 3 l)
+                            :test #'equalp))
+          collect l))
 
 (defun activate (w)
   (declare (ignore w))
