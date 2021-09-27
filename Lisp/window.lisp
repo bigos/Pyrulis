@@ -11,8 +11,6 @@
         #:gtk #:gdk #:gdk-pixbuf #:gobject #:glib #:gio #:pango #:cairo))
 
 ;; (load "/home/jacek/Programming/Pyrulis/Lisp/window.lisp")
-;; (load "c:/Users/Jacek/Documents/Programming/Pyrulis/Lisp/window-gir.lisp")
-
 (in-package :window)
 
 ;;; macros----------------------------------------------------------------------
@@ -479,6 +477,4 @@
 
 
 ;; (load "/home/jacek/Programming/Pyrulis/Lisp/window.lisp")
-;; (load "c:/Users/Jacek/Documents/Programming/Pyrulis/Lisp/window-gir.lisp")
 ;; (in-package :window)
-(main-app)
