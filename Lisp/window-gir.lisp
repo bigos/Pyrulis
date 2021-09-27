@@ -10,6 +10,7 @@
 
 ;; (load "/home/jacek/Programming/Pyrulis/Lisp/window-gir.lisp")
 ;; (load "c:/Users/Jacek/Documents/Programming/Pyrulis/Lisp/window-gir.lisp")
+
 (in-package :window-gir)
 
 (defvar *gtk* (gir:require-namespace "Gtk"))
@@ -30,7 +31,7 @@
                    (gir:invoke (*gtk* 'main-quit))))
 
     (gir:invoke (window 'show))
-    (break "zzzzzzzzzzz")
+    ;; (break "zzzzzzzzzzz")
     (gir:invoke (*gtk* 'main))))
 
 ;;; now call main
