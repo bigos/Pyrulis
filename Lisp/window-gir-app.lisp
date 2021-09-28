@@ -9,7 +9,8 @@
         ;#:ns-0
         ))
 
-;; (load "/home/jacek/Programming/Pyrulis/Lisp/window-gir-app.lisp")
+
+;; (load "~/Programming/Pyrulis/Lisp/window-gir-app.lisp")
 
 (in-package :window-gir-app)
 
