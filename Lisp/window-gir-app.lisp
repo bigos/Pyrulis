@@ -27,8 +27,18 @@
         ((and
           (atom indexes)
           (consp lst))
-         (list 'last-index
-               lst))
+         (list 'last-index lst))
+        ((and
+          (equalp indexes '(?))
+          (consp lst))
+         (list 'zzz
+               (loop for x in lst
+                     for n = 0 then (1+ n)
+                     collect
+                     (list 'xxxx n
+                           (if (atom (car x))
+                               (car x)
+                               (caar x))))))
         (t
          (let ((lv (nth (car indexes) lst)))
            (if lv
