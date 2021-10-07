@@ -36,9 +36,11 @@
                      for n = 0 then (1+ n)
                      collect
                      (list 'xxxx n
-                           (if (atom (car x))
-                               (car x)
-                               (caar x))))))
+                           (if (atom x)
+                               x
+                               (if (atom (car x))
+                                   (car x)
+                                   (caar x)))))))
         (t
          (let ((lv (nth (car indexes) lst)))
            (if lv
