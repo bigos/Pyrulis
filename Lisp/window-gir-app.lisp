@@ -21,6 +21,7 @@
 
 ;; (gir-gtk  (last (s-xml:parse-xml-file (path-gir-gtk))) (list 0 1587 9 3))
 ;; (gir-gtk  (last (s-xml:parse-xml-file (path-gir-gtk))) (list 0 1587 9 3 '?))
+;; (gir-gtk  (last (s-xml:parse-xml-file (path-gir-gtk))) (list 0 'c))
 (defun gir-gtk (lst indexes)
   (cond ((atom lst)
          (list 'last-atom
@@ -35,6 +36,23 @@
          (list 'zzz
                (loop for x in lst
                      for n = 0 then (1+ n)
+                     collect
+                     (list 'xxxx n
+                           (if (atom x)
+                               x
+                               (if (atom (car x))
+                                   (serapeum:take 3 x)
+                                   (list 'vvvv (serapeum:take 3 (car x)))))))))
+        ((and
+          (equalp indexes '(c))
+          (consp lst))
+         (list 'zzz
+               (loop for x in lst
+                     for n = 0 then (1+ n)
+                     when (and
+                           (consp x)
+                           (consp (car x))
+                           (equal (caar x) 'NS-0:|class|))
                      collect
                      (list 'xxxx n
                            (if (atom x)
