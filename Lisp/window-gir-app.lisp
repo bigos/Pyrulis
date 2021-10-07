@@ -20,6 +20,7 @@
   #p"/usr/share/gir-1.0/Gtk-3.0.gir")
 
 ;; (gir-gtk  (last (s-xml:parse-xml-file (path-gir-gtk))) (list 0 1587 9 3))
+;; (gir-gtk  (last (s-xml:parse-xml-file (path-gir-gtk))) (list 0 1587 9 3 '?))
 (defun gir-gtk (lst indexes)
   (cond ((atom lst)
          (list 'last-atom
@@ -39,8 +40,8 @@
                            (if (atom x)
                                x
                                (if (atom (car x))
-                                   (car x)
-                                   (caar x)))))))
+                                   (serapeum:take 3 x)
+                                   (list 'vvvv (serapeum:take 3 (car x)))))))))
         (t
          (let ((lv (nth (car indexes) lst)))
            (if lv
