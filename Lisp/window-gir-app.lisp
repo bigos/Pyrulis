@@ -6,8 +6,7 @@
 
 (defpackage #:window-gir-app
   (:use #:cl
-        ;#:ns-0
-        ))
+        #:s-xml))
 
 
 ;; (load "~/Programming/Pyrulis/Lisp/window-gir-app.lisp")
@@ -19,9 +18,9 @@
 (defun path-gir-gtk ()
   #p"/usr/share/gir-1.0/Gtk-3.0.gir")
 
-;; (gir-gtk  (last (s-xml:parse-xml-file (path-gir-gtk))) (list 0 1587 9 3))
-;; (gir-gtk  (last (s-xml:parse-xml-file (path-gir-gtk))) (list 0 1587 9 3 '?))
-;; (gir-gtk  (last (s-xml:parse-xml-file (path-gir-gtk))) (list 0 'c))
+;; (gir-gtk  (last (parse-xml-file (path-gir-gtk))) (list 0 1587 9 3))
+;; (gir-gtk  (last (parse-xml-file (path-gir-gtk))) (list 0 1587 9 3 '?))
+;; (gir-gtk  (last (parse-xml-file (path-gir-gtk))) (list 0 'c))
 (defun gir-gtk (lst indexes)
   (cond ((atom lst)
          (list 'last-atom
@@ -52,14 +51,15 @@
                      when (and
                            (consp x)
                            (consp (car x))
-                           (equal (caar x) 'NS-0:|class|))
-                     collect
-                     (list 'xxxx n
-                           (if (atom x)
-                               x
-                               (if (atom (car x))
-                                   (serapeum:take 3 x)
-                                   (list 'vvvv (serapeum:take 3 (car x)))))))))
+                           (equal (caar x)
+                                  'NS-0:|class|))
+                       collect
+                       (list 'xxxx n
+                             (if (atom x)
+                                 x
+                                 (if (atom (car x))
+                                     (serapeum:take 3 x)
+                                     (list 'vvvv (serapeum:take 3 (car x)))))))))
         (t
          (let ((lv (nth (car indexes) lst)))
            (if lv
