@@ -478,3 +478,4 @@
 
 ;; (load "/home/jacek/Programming/Pyrulis/Lisp/window.lisp")
 ;; (in-package :window)
+;; (main-app)
