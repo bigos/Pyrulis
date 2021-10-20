@@ -15,6 +15,15 @@
 
 (defvar *gtk* (gir:require-namespace "Gtk"))
 
+
+(defun make-my-string (&rest args)
+  (with-output-to-string (s)
+    (dolist (a args) (princ a s))))
+
+(defun make-my-symbol (&rest args)
+  (values (intern (apply #'make-my-string args))))
+
+
 (defun path-gir-gtk ()
   #p"/usr/share/gir-1.0/Gtk-3.0.gir")
 
