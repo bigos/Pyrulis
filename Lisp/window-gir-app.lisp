@@ -8,7 +8,6 @@
   (:use #:cl
         #:s-xml))
 
-
 ;; (load "~/Programming/Pyrulis/Lisp/window-gir-app.lisp")
 
 (in-package :window-gir-app)
@@ -60,8 +59,8 @@
                      when (and
                            (consp x)
                            (consp (car x))
-                           (equal (caar x)
-                                  'NS-0:|class|))
+                           (equal (make-my-string (caar x))
+                                  "class"))
                        collect
                        (list 'xxxx n
                              (if (atom x)
