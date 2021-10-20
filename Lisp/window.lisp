@@ -381,8 +381,8 @@
   (typecase event
     (gdk-event-key (case (gdk-event-key-type event)
                      (:key-press  (format t "key event key press~%"))
-                     (otherwise (format t "key event otherwise~%"))))
-    (t (format t "==================not implemented=================~%"))))
+                     (otherwise (format t "=====unimplemented case for ~A==========~%" (gdk-event-type event)))))
+    (t (format t "=========the above event is not implemented=================~%~%~%"))))
 
 ;;; event for graceful closing of the window
 (defun win-delete-event-fun (widget event)
