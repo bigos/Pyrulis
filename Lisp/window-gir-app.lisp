@@ -88,8 +88,6 @@
                            collect (car el))
                      :test #'equalp))
 
-(defun parsed-by-nth (ntk-list))
-
 (defun parsed-kind-index ()
   (loop
     for n = 0 then (1+ n)

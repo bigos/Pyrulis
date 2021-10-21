@@ -382,6 +382,7 @@
     (gdk-event-key (case (gdk-event-key-type event)
                      (:key-press  (format t "key event key press~%"))
                      (otherwise (format t "=====unimplemented case for ~A==========~%" (gdk-event-type event)))))
+
     (t (format t "=========the above event is not implemented=================~%~%~%"))))
 
 ;;; event for graceful closing of the window
