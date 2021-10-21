@@ -29,6 +29,7 @@
 ;; (gir-gtk  (last (parse-xml-file (path-gir-gtk))) (list 0 1587 9 3))
 ;; (gir-gtk  (last (parse-xml-file (path-gir-gtk))) (list 0 1587 9 3 '?))
 ;; (gir-gtk  (last (parse-xml-file (path-gir-gtk))) (list 0 'c))
+;; (gir-gtk  (last (parse-xml-file (path-gir-gtk))) (list 0 2630 86))
 (defun gir-gtk (lst indexes)
   (cond ((atom lst)
          (list 'last-atom
