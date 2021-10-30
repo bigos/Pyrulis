@@ -343,35 +343,21 @@
 
 ;;; event handling==============================================================
 (defun canvas-event-fun (widget event)
+  (format t "~&================== we have canvas event ~A~%" event)
   (typecase event
-    (gdk-event-configure (format T "c"))
+    (gdk-event-configure (case (gdk-event-configure-type event)
+                           (otherwise (format t "===unimplemented case for ~A===~%" event))))
 
-    (gdk-event-motion (when (eq *button* 'down)
-                        (format T "~A~%" event)
-                        (push
-                         (cons
-                          (gdk-event-motion-x event)
-                          (gdk-event-motion-y event))
-                         *model*)
-                        (gtk-widget-queue-draw widget)))
+    (gdk-event-motion (case (gdk-event-motion-type event)
+                        (otherwise (format t "===unimplemented case for ~A===~%" event))))
 
-    (gdk-event-button (if (equal (gdk-event-button-type event) :button-release)
-                          (progn
-                            (setf *button* 'up)
-                            nil)
-                          (progn
-                            (setf *button* 'down)
-                            (push
-                             (cons
-                              (gdk-event-button-x event)
-                              (gdk-event-button-y event))
-                             *model*)
-                            (gtk-widget-queue-draw widget)
-                            (format T "~&EEE b~A ~A~%" (gdk-event-button-type event) event))))
+    (gdk-event-button (case (gdk-event-button-type event)
+                        (otherwise (format t "===unimplemented case for ~A===~%" event))))
 
-    (gdk-event-scroll (format t "~&scrolling event ~A~%" event))
+    (gdk-event-scroll (case (gdk-event-scroll-type event)
+                        (otherwise (format t "===unimplemented case for ~A===~%" event))))
 
-    (t (error "not implemented ~A~%" (type-of event))))
+    (t (error "=====not implemented ~A~%" (type-of event))))
   +gdk-event-propagate+)
 
 ;; file:~/quicklisp/dists/quicklisp/software/cl-cffi-gtk-20201220-git/gdk/gdk.event-structures.lisp::920
