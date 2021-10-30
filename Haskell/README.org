@@ -12,3 +12,6 @@
 
 *** Monad tutorial warning
     http://dev.stephendiehl.com/hask/#eightfold-path-to-monad-satori
+
+*** interesting book - Algebra Driven Design
+https://algebradriven.design/
