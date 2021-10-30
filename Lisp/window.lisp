@@ -407,26 +407,28 @@
     (gtk-container-add window box)
     (gtk-box-pack-start box canvas)
 
-    ;; drawing-area signals
-    (g-signal-connect canvas "draw"
-                      (lambda (widget context)
-                        (draw-fun widget context)))
+    ;; signals
 
-    ;; add to canvas events inherited from widget
+    ;; canvas events inherited from the widget
     (loop for ev in (list "configure-event"
                           "motion-notify-event"
                           "scroll-event"
                           "button-press-event"
                           "button-release-event")
-          do (g-signal-connect canvas ev #'canvas-event-fun))
+       do (g-signal-connect canvas ev #'canvas-event-fun))
+    ;; canvas events
+    (g-signal-connect canvas "draw"
+                      (lambda (widget context)
+                        (draw-fun widget context)))
+
     (gtk-widget-add-events canvas '(:all-events-mask))
 
+    ;; window events inherited form the widget
     (loop for ev in (list "key-press-event"
                           "key-release-event"
                           "enter-notify-event"
                           "leave-notify-event")
-          do (g-signal-connect window ev #'win-event-fun))
-
+       do (g-signal-connect window ev #'win-event-fun))
 
     ;; Signal handler for closing the window and to handle the signal "delete-event".
     (g-signal-connect window "delete-event"  #'win-delete-event-fun)
