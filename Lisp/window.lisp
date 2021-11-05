@@ -362,7 +362,7 @@
 
 ;; file:~/quicklisp/dists/quicklisp/software/cl-cffi-gtk-20201220-git/gdk/gdk.event-structures.lisp::920
 
-(defmacro handle (&rest body)
+(defmacro handled (&rest body)
   `(progn
      (setf handled t)
      ,@body))
@@ -373,7 +373,7 @@
 
     (typecase event
       (gdk-event-key (case (gdk-event-key-type event)
-                       (:key-press  (handle (format t "key event key press~%"))))))
+                       (:key-press  (handled (format t "key event key press~%"))))))
 
     (unless handled
       (format t "=========the above event is not implemented=================~%~%~%"))))
