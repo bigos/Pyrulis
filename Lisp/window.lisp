@@ -362,14 +362,21 @@
 
 ;; file:~/quicklisp/dists/quicklisp/software/cl-cffi-gtk-20201220-git/gdk/gdk.event-structures.lisp::920
 
+(defmacro handled (&rest body)
+  `(progn
+     (setf handled t)
+     ,@body))
+
 (defun win-event-fun (widget event)
   (format t "~&================== we have event ~A~%" event)
-  (typecase event
-    (gdk-event-key (case (gdk-event-key-type event)
-                     (:key-press  (format t "key event key press~%"))
-                     (otherwise (format t "=====unimplemented case for ~A==========~%" (gdk-event-type event)))))
+  (let ((handled))
 
-    (t (format t "=========the above event is not implemented=================~%~%~%"))))
+    (typecase event
+      (gdk-event-key (case (gdk-event-key-type event)
+                       (:key-press  (handled (format t "key event key press~%"))))))
+
+    (unless handled
+      (format t "=========the above event is not implemented=================~%~%~%"))))
 
 ;;; event for graceful closing of the window
 (defun win-delete-event-fun (widget event)
