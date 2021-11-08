@@ -100,7 +100,7 @@
 (defmethod gv-print ((l link))
   (if (null (target l))
       (format nil "~&  ~A;~%" (source l))
-      (format nil "~&  ~A -> ~A [label=\"~A\"];~%" (source l) (target l) (action l))))
+      (format nil "~&  ~s -> ~s [label=~s];~%" (source l) (target l) (action l))))
 
 (defgeneric digraph (a) (:documentation "graph model as graphviz dot data"))
 (defmethod digraph ((g graph))
