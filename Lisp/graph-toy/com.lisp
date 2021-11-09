@@ -107,7 +107,9 @@
            (format t "autocompleted ~S~%" match-prefix)
            (if (eq 1 (length remaining-candidates))
                (format t "matched ~s~%" (first remaining-candidates))
-               (format t "match went wrong ~s~%" remaining-candidates))))))
+               (if (member match-prefix remaining-candidates :test #'equal)
+                   (format t "matched by entering ~s - remaining ~s~%" "" remaining-candidates)
+                   (format t "something went wrong with remaining ~s~%" remaining-candidates)))))))
 
 (defun butlast-string (str)
   (subseq str 0 (1- (length str))))
