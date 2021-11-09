@@ -66,3 +66,27 @@
 
 (defun com-list ()
   (format t "~A~%" (links-to-list *graph*)))
+
+;;; TODO figure out how to add auto completion input
+;;; we can have only normal characters here, no page down and friends
+;;; tough case for SBCL without curse library
+;; https://stackoverflow.com/questions/20276738/reading-a-character-without-requiring-the-enter-button-pressed
+(defun autocomplete (string-list)
+  (format t "autocompleting for ~A~%" string-list)
+  (let ((hist)
+        (rc))
+    (loop do
+      (with-open-stream (s *standard-input*)
+        (setf rc (read-char s))
+        (push rc hist))
+      (format t "~&entered ~s~%" rc)
+      (cond
+        ((equalp rc #\Newline)
+         (format t "new line ~A~%" hist))
+        (t
+         (format t "other char ~A    ~A~%" rc hist)))
+      until (equalp rc #\Newline)
+      finally (format t "we got ~s~%" (reverse hist)))))
+
+(defun candidates ()
+  (loop for x from 1 to 9999 collect (format nil "~A" x)))
