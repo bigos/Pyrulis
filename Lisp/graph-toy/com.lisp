@@ -81,6 +81,11 @@
                 (equalp last-read "quit"))
       do
          (progn
+           (setf remaining-candidates (remove-if-not
+                                       (lambda (x)
+                                         (alexandria:starts-with-subseq
+                                          match-prefix x))
+                                       string-list))
            (format t "entered ~S ===========================~%" last-read)
            (format t "variables ~s~%" (list
                                        all-entered
@@ -101,11 +106,7 @@
            (if (equalp "up" last-read)
                (setf match-prefix (butlast-string match-prefix))
                (setf match-prefix (format nil "~A~A" match-prefix last-read)))
-           (setf remaining-candidates (remove-if-not
-                                       (lambda (x)
-                                         (alexandria:starts-with-subseq
-                                          match-prefix x))
-                                       string-list))
+
            )
       finally
          (progn
