@@ -74,22 +74,27 @@
   (let ((last-read)
         (all-entered)
         (match-prefix "")
-        (matched-so-far)
         (remaining-candidates))
     (loop
       until (or (= (length remaining-candidates) 1)
-             (equalp last-read "")
-             (equalp last-read "quit"))
+                (equalp last-read "")
+                (equalp last-read "quit"))
       do
          (progn
            (format t "entered ~S ===========================~%" last-read)
            (format t "variables ~s~%" (list
                                        all-entered
                                        'match-prefix match-prefix
-                                       'matched-so-far matched-so-far
                                        remaining-candidates))
            (format t "remaining options~%~s~%" remaining-candidates)
-           (format t "matched so far > ~s~%" matched-so-far)
+           (format t "remaining initials =====> ~S~%"
+                   (let ((n (length match-prefix)))
+                     (remove-duplicates
+                      (loop for c in remaining-candidates collect
+                                                          (handler-case (progn (elt c n))
+                                                            (t (hc)
+                                                              (format t "got an error ~A~%" hc))))
+                      :test #'equalp)))
            (format t "enter ~&empty string to confirm~%one character to try matching~%")
            (setf last-read (prompt "enter the option"))
            (setf all-entered (append all-entered (list last-read)))
