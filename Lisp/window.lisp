@@ -343,21 +343,15 @@
 
 ;;; event handling==============================================================
 (defun canvas-event-fun (widget event)
-  (format t "~&================== we have canvas event ~A~%" (gdk-event-type event))
-  (typecase event
-    (gdk-event-configure (case (gdk-event-configure-type event)
-                           (otherwise (format t "===unimplemented case for ~A===~%" (gdk-event-type event)))))
+  (let ((handled))
+    (format t "~&================== we have canvas event ~A~%" (gdk-event-type event))
 
-    (gdk-event-motion (case (gdk-event-motion-type event)
-                        (otherwise (format t "===unimplemented case for ~A===~%" (gdk-event-type event)))))
+    (typecase event
+      (gdk-event-button (case (gdk-event-button-type event)
+                          (:button-press (handled (format t "button press event handling~%"))))))
 
-    (gdk-event-button (case (gdk-event-button-type event)
-                        (otherwise (format t "===unimplemented case for ~A===~%" (gdk-event-type event)))))
-
-    (gdk-event-scroll (case (gdk-event-scroll-type event)
-                        (otherwise (format t "===unimplemented case for ~A===~%" (gdk-event-type event)))))
-
-    (t (error "=====not implemented ~A~%" (type-of event))))
+    (unless handled
+      (format t "the canvas event is not implemented~%~%")))
   +gdk-event-propagate+)
 
 ;; file:~/quicklisp/dists/quicklisp/software/cl-cffi-gtk-20201220-git/gdk/gdk.event-structures.lisp::920
@@ -368,20 +362,75 @@
      ,@body))
 
 ;;; key event handling1=========================================================
+(defun key-event-modifiers (event)
+  (mapcar
+   (lambda (y)                          ;translate alts
+     (cond ((eq y :MOD1-MASK) :alt-mask)
+           ((eq y :MOD5-MASK) :altgr-mask)
+           (t y)))
+   (remove-if
+    (lambda (x)
+      (member x '(:MOD2-MASK :MOD4-MASK)))
+    (gdk-event-key-state event))))
 
 (defun gdk-event-key-key-press (event)
   (format t "----~A~%" event)
   (let ((kn (gdk-keyval-name (gdk-event-key-keyval event)))
-        (ks (gdk-event-key-state event)))
+        (ks (key-event-modifiers event)))
     (format t "Pressed ~s ~s~%" kn ks)
-      (cond ((equal "F1" kn)
-             (format t "~&----help----~%" )
-             (format t "Ctrl-a - autocomplete ~%"))
-            ((and (equal ks '(:control-mask :mod2-mask))
-                  (equal kn "a"))
-             (format t "pressed Ctrl-A~%"))
-            (t
-             (format t "ignored key ~s~%" kn)))))
+    (cond ((equal "F1" kn)
+           (format t "~&----help----~%" )
+           (format t "Ctrl-a - autocomplete ~%"))
+          ((and (equal ks '())
+                (equal kn "a"))
+           (format t "pressed Just a~%"))
+          ((and (equal ks '(:CONTROL-MASK ))
+                (equal kn "a"))
+           (format t "pressed Ctrl-a~%"))
+          ((and (equal ks '(:SHIFT-MASK :CONTROL-MASK ))
+                (equal kn "A"))
+           (format t "pressed Ctrl-A~%"))
+          ;; super
+          ((and (equal ks '(  :SUPER-MASK))
+                (equal kn "a"))
+           (format t "pressed Super-a~%"))
+          ((and (equal ks '(:SHIFT-MASK   :SUPER-MASK))
+                (equal kn "A"))
+           (format t "pressed Super-A~%"))
+
+          ((and (equal ks '(:SHIFT-MASK :CONTROL-MASK   :SUPER-MASK))
+                (equal kn "A"))
+           (format t "pressed Ctrl Super-A~%"))
+          ((and (equal ks '(:CONTROL-MASK   :SUPER-MASK))
+                (equal kn "a"))
+           (format t "pressed Ctrl Super-a~%"))
+          ;; alt
+          ((and (equal ks '(:ALT-MASK ))
+                (equal kn "a"))
+           (format t "pressed Alt-a~%"))
+
+          ((and (equal ks '(:SHIFT-MASK :ALT-MASK ))
+                (equal kn "A"))
+           (format t "pressed Alt-A~%"))
+          ((and (equal ks '(:CONTROL-MASK :ALT-MASK ))
+                (equal kn "a"))
+           (format t "pressed Ctrl Alt-a~%"))
+
+          ((and (equal ks '(:SHIFT-MASK :CONTROL-MASK :ALT-MASK   :SUPER-MASK))
+                (equal kn "A"))
+           (format t "pressed Shift Ctrl Alt Super-A~%"))
+
+          ((and (equal ks '(:ALT-MASK   :SUPER-MASK))
+                (equal kn "a"))
+           (format t "pressed Alt Super-a~%"))
+
+
+          ((and (equal ks '(  :ALTGR-MASK :SUPER-MASK))
+                (equal kn "ae"))
+           (format t "pressed AltGr Super-a~%"))
+
+          (t
+           (format t "ignored key ~s~%" kn)))) )
 ;;; key event handling2=========================================================
 
 (defun win-event-fun (widget event)
