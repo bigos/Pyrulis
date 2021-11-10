@@ -363,10 +363,15 @@
 
 ;;; key event handling1=========================================================
 (defun key-event-modifiers (event)
+  ;; all masks
+  ;; (:SHIFT-MASK :CONTROL-MASK :ALT-MASK :ALTGR-MASK :SUPER-MASK)
   (mapcar
    (lambda (y)                          ;translate alts
-     (cond ((eq y :MOD1-MASK) :alt-mask)
-           ((eq y :MOD5-MASK) :altgr-mask)
+     (cond ((eq y :MOD1-MASK) :ALT)
+           ((eq y :SHIFT-MASK) :SHIFT)
+           ((eq y :CONTROL-MASK) :CONTROL)
+           ((eq y :MOD5-MASK) :ALTGR)
+           ((eq y :SUPER-MASK) :SUPER)
            (t y)))
    (remove-if
     (lambda (x)
@@ -377,55 +382,55 @@
   (format t "----~A~%" event)
   (let ((kn (gdk-keyval-name (gdk-event-key-keyval event)))
         (ks (key-event-modifiers event)))
-    (format t "Pressed ~s ~s~%" kn ks)
+    (format t "Pressed ~s ~s ~s~%" (gdk-event-key-string event) kn ks)
     (cond ((equal "F1" kn)
            (format t "~&----help----~%" )
            (format t "Ctrl-a - autocomplete ~%"))
           ((and (equal ks '())
                 (equal kn "a"))
            (format t "pressed Just a~%"))
-          ((and (equal ks '(:CONTROL-MASK ))
+          ((and (equal ks '(:CONTROL))
                 (equal kn "a"))
            (format t "pressed Ctrl-a~%"))
-          ((and (equal ks '(:SHIFT-MASK :CONTROL-MASK ))
+          ((and (equal ks '(:SHIFT :CONTROL))
                 (equal kn "A"))
            (format t "pressed Ctrl-A~%"))
           ;; super
-          ((and (equal ks '(  :SUPER-MASK))
+          ((and (equal ks '(:SUPER))
                 (equal kn "a"))
            (format t "pressed Super-a~%"))
-          ((and (equal ks '(:SHIFT-MASK   :SUPER-MASK))
+          ((and (equal ks '(:SHIFT :SUPER))
                 (equal kn "A"))
            (format t "pressed Super-A~%"))
 
-          ((and (equal ks '(:SHIFT-MASK :CONTROL-MASK   :SUPER-MASK))
+          ((and (equal ks '(:SHIFT :CONTROL :SUPER))
                 (equal kn "A"))
            (format t "pressed Ctrl Super-A~%"))
-          ((and (equal ks '(:CONTROL-MASK   :SUPER-MASK))
+          ((and (equal ks '(:CONTROL :SUPER))
                 (equal kn "a"))
            (format t "pressed Ctrl Super-a~%"))
           ;; alt
-          ((and (equal ks '(:ALT-MASK ))
+          ((and (equal ks '(:ALT ))
                 (equal kn "a"))
            (format t "pressed Alt-a~%"))
 
-          ((and (equal ks '(:SHIFT-MASK :ALT-MASK ))
+          ((and (equal ks '(:SHIFT :ALT))
                 (equal kn "A"))
            (format t "pressed Alt-A~%"))
-          ((and (equal ks '(:CONTROL-MASK :ALT-MASK ))
+          ((and (equal ks '(:CONTROL :ALT))
                 (equal kn "a"))
            (format t "pressed Ctrl Alt-a~%"))
 
-          ((and (equal ks '(:SHIFT-MASK :CONTROL-MASK :ALT-MASK   :SUPER-MASK))
+          ((and (equal ks '(:SHIFT :CONTROL :ALT :SUPER))
                 (equal kn "A"))
            (format t "pressed Shift Ctrl Alt Super-A~%"))
 
-          ((and (equal ks '(:ALT-MASK   :SUPER-MASK))
+          ((and (equal ks '(:ALT :SUPER))
                 (equal kn "a"))
            (format t "pressed Alt Super-a~%"))
 
 
-          ((and (equal ks '(  :ALTGR-MASK :SUPER-MASK))
+          ((and (equal ks '(:ALTGR :SUPER))
                 (equal kn "ae"))
            (format t "pressed AltGr Super-a~%"))
 
