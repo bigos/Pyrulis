@@ -363,12 +363,40 @@
 ;; file:~/quicklisp/dists/quicklisp/software/cl-cffi-gtk-20201220-git/gdk/gdk.event-structures.lisp::920
 
 ;;; autocomplete================================================================
+
+(defun butlast-string (str)
+  (subseq str 0 (1- (length str))))
+
 (defun autocomplete-options ()
   (list
    "a" "about" "all" "also" "and" "as" "at" "be" "because" "but" "by" "can" "come" "could" "day" "do" "even" "find" "first" "for" "from" "get" "give" "go" "have" "he" "her" "here" "him" "his" "how" "I" "if" "in" "into" "it" "its" "just" "know" "like" "look" "make" "man" "many" "me" "more" "my" "new" "no" "not" "now" "of" "on" "one" "only" "or" "other" "our" "out" "people" "say" "see" "she" "so" "some" "take" "tell" "than" "that" "the" "their" "them" "then" "there" "these" "they" "thing" "think" "this" "those" "time" "to" "two" "up" "use" "very" "want" "way" "we" "well" "what" "when" "which" "who" "will" "with" "would" "year" "you" "your"
    ‍))
 
-(defun autocomplete ())
+(let ((remaining-candidates)
+      (match-prefix))
+
+  (defun autocomplete (str key-name)
+    (when (null match-prefix) (setf match-prefix ""))
+
+    (format t "autocomplete ===== ~S === ~S =================~%" str key-name)
+    (format t "variables ===== ~S~%" (list 'match-prefix match-prefix
+                                           'remaining  remaining-candidates))
+    (cond ((and (null str) key-name)
+           (cond
+             ((equalp "Escape" key-name)
+              (setf match-prefix nil))
+             ((equalp "Tab" key-name) )
+             ((equalp "BackSpace" key-name)
+              (setf match-prefix (butlast-string match-prefix)))
+             ((equalp "Return" key-name)
+              (setf match-prefix nil))
+
+             (t (error "not implemented ~s" key-name))))
+          ((and str (null key-name))
+           (setf match-prefix (format nil "~A~A" match-prefix str))
+
+           )
+          (t (error "Either str or key-name can be set")))))
 
 ;;; key event handling1=========================================================
 (defun key-event-modifiers (event)
@@ -390,30 +418,40 @@
 (defun gdk-event-key-key-press (event)
   (format t "----~A~%" event)
   (let ((kn (gdk-keyval-name (gdk-event-key-keyval event)))
-        (ks (key-event-modifiers event)))
-    (format t "Pressed ~s ~s ~s~%" (gdk-event-key-string event) kn ks)
+        (km (key-event-modifiers event))
+        (ks (gdk-event-key-string event)))
+    (format t "Pressed ~s ~s - ~s~%" km ks kn)
+
+    ;; send to autocomplete key nil OR nil modifier
     (cond ((and (equal "F1" kn)
-                (null ks))
+                (null km))
            (format t "~&----help----~%" )
            (format t "Ctrl-a - autocomplete ~%"))
-          ((and (equal ks '(:CONTROL))
+          ((and (equal km '(:CONTROL))
                 (equal kn "a"))
            (format t "pressed Ctrl-a to autocomplete~%"))
-          ((and (null ks)
-                (equal kn "Escape"))
-           (format t "pressed Escape to cancel~%"))
-          ((and (null ks)
-                (equal kn "Tab"))
-           (format t "pressed Tab to complete~%"))
-          ((and (null ks)
-                (equal kn "BackSpace"))
-           (format t "pressed Backspace to undo~%"))
-          ((and (null ks)
-                (equal kn "Return"))
-           (format t "pressed Return to confirm~%"))
 
+          ((and (null km)
+                (equal kn "Escape"))
+           (format t "pressed Escape to cancel~%")
+           (autocomplete nil kn))
+
+          ((and (null km)
+                (equal kn "Tab"))
+           (format t "pressed Tab to complete~%")
+           (autocomplete nil kn))
+          ((and (null km)
+                (equal kn "BackSpace"))
+           (format t "pressed Backspace to undo~%")
+           (autocomplete nil kn))
+          ((and (null km)
+                (equal kn "Return"))
+           (format t "pressed Return to confirm~%")
+           (autocomplete nil kn))
           (t
-           (format t "ignored key ~s~%" kn)))) )
+           (format t "ignored key ~s~%" kn)
+           (autocomplete ks nil)))))
+
 ;;; key event handling2=========================================================
 
 (defun win-event-fun (widget event)
@@ -440,7 +478,7 @@
 
       (progn
         (decf *do-not-quit*)
-        (format t "~&not quitting yet ~A clicks more on close widget to go~%" (+ 1 *do-not-quit*))
+        (format t "more on close widget to go~% " (+ 1 *do-not-quit*))
         +gdk-event-stop+)))
 
 ;;; event handling helpers======================================================
