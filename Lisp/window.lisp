@@ -342,6 +342,12 @@
     (draw-canvas model canvas context)))
 
 ;;; event handling==============================================================
+(defmacro handled (&rest body)
+  `(progn
+     (setf handled t)
+     ,@body))
+
+
 (defun canvas-event-fun (widget event)
   (let ((handled))
     (format t "~&================== we have canvas event ~A~%" (gdk-event-type event))
@@ -356,10 +362,13 @@
 
 ;; file:~/quicklisp/dists/quicklisp/software/cl-cffi-gtk-20201220-git/gdk/gdk.event-structures.lisp::920
 
-(defmacro handled (&rest body)
-  `(progn
-     (setf handled t)
-     ,@body))
+;;; autocomplete================================================================
+(defun autocomplete-options ()
+  (list
+   "a" "about" "all" "also" "and" "as" "at" "be" "because" "but" "by" "can" "come" "could" "day" "do" "even" "find" "first" "for" "from" "get" "give" "go" "have" "he" "her" "here" "him" "his" "how" "I" "if" "in" "into" "it" "its" "just" "know" "like" "look" "make" "man" "many" "me" "more" "my" "new" "no" "not" "now" "of" "on" "one" "only" "or" "other" "our" "out" "people" "say" "see" "she" "so" "some" "take" "tell" "than" "that" "the" "their" "them" "then" "there" "these" "they" "thing" "think" "this" "those" "time" "to" "two" "up" "use" "very" "want" "way" "we" "well" "what" "when" "which" "who" "will" "with" "would" "year" "you" "your"
+   ‍))
+
+(defun autocomplete ())
 
 ;;; key event handling1=========================================================
 (defun key-event-modifiers (event)
@@ -383,56 +392,27 @@
   (let ((kn (gdk-keyval-name (gdk-event-key-keyval event)))
         (ks (key-event-modifiers event)))
     (format t "Pressed ~s ~s ~s~%" (gdk-event-key-string event) kn ks)
-    (cond ((equal "F1" kn)
+    (cond ((and (equal "F1" kn)
+                (null ks))
            (format t "~&----help----~%" )
            (format t "Ctrl-a - autocomplete ~%"))
-          ((and (equal ks '())
-                (equal kn "a"))
-           (format t "pressed Just a~%"))
+
           ((and (equal ks '(:CONTROL))
                 (equal kn "a"))
-           (format t "pressed Ctrl-a~%"))
-          ((and (equal ks '(:SHIFT :CONTROL))
-                (equal kn "A"))
-           (format t "pressed Ctrl-A~%"))
-          ;; super
-          ((and (equal ks '(:SUPER))
-                (equal kn "a"))
-           (format t "pressed Super-a~%"))
-          ((and (equal ks '(:SHIFT :SUPER))
-                (equal kn "A"))
-           (format t "pressed Super-A~%"))
+           (format t "pressed Ctrl-a to autocomplete~%"))
 
-          ((and (equal ks '(:SHIFT :CONTROL :SUPER))
-                (equal kn "A"))
-           (format t "pressed Ctrl Super-A~%"))
-          ((and (equal ks '(:CONTROL :SUPER))
-                (equal kn "a"))
-           (format t "pressed Ctrl Super-a~%"))
-          ;; alt
-          ((and (equal ks '(:ALT ))
-                (equal kn "a"))
-           (format t "pressed Alt-a~%"))
+          ((and (null ks)
+                (equal kn "Escape"))
+           (format t "pressed Escape to cancel~%"))
 
-          ((and (equal ks '(:SHIFT :ALT))
-                (equal kn "A"))
-           (format t "pressed Alt-A~%"))
-          ((and (equal ks '(:CONTROL :ALT))
-                (equal kn "a"))
-           (format t "pressed Ctrl Alt-a~%"))
+          ((and (null ks)
+                (equal kn "Tab"))
+           (format t "pressed Tab to complete~%"))
 
-          ((and (equal ks '(:SHIFT :CONTROL :ALT :SUPER))
-                (equal kn "A"))
-           (format t "pressed Shift Ctrl Alt Super-A~%"))
+          ((and (null ks)
+                (equal kn "Return"))
+           (format t "pressed Return to confirm~%"))
 
-          ((and (equal ks '(:ALT :SUPER))
-                (equal kn "a"))
-           (format t "pressed Alt Super-a~%"))
-
-
-          ((and (equal ks '(:ALTGR :SUPER))
-                (equal kn "ae"))
-           (format t "pressed AltGr Super-a~%"))
 
           (t
            (format t "ignored key ~s~%" kn)))) )
