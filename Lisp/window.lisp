@@ -396,23 +396,21 @@
                 (null ks))
            (format t "~&----help----~%" )
            (format t "Ctrl-a - autocomplete ~%"))
-
           ((and (equal ks '(:CONTROL))
                 (equal kn "a"))
            (format t "pressed Ctrl-a to autocomplete~%"))
-
           ((and (null ks)
                 (equal kn "Escape"))
            (format t "pressed Escape to cancel~%"))
-
           ((and (null ks)
                 (equal kn "Tab"))
            (format t "pressed Tab to complete~%"))
-
+          ((and (null ks)
+                (equal kn "BackSpace"))
+           (format t "pressed Backspace to undo~%"))
           ((and (null ks)
                 (equal kn "Return"))
            (format t "pressed Return to confirm~%"))
-
 
           (t
            (format t "ignored key ~s~%" kn)))) )
