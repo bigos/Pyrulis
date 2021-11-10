@@ -343,19 +343,19 @@
 
 ;;; event handling==============================================================
 (defun canvas-event-fun (widget event)
-  (format t "~&================== we have canvas event ~A~%" event)
+  (format t "~&================== we have canvas event ~A~%" (gdk-event-type event))
   (typecase event
     (gdk-event-configure (case (gdk-event-configure-type event)
-                           (otherwise (format t "===unimplemented case for ~A===~%" event))))
+                           (otherwise (format t "===unimplemented case for ~A===~%" (gdk-event-type event)))))
 
     (gdk-event-motion (case (gdk-event-motion-type event)
-                        (otherwise (format t "===unimplemented case for ~A===~%" event))))
+                        (otherwise (format t "===unimplemented case for ~A===~%" (gdk-event-type event)))))
 
     (gdk-event-button (case (gdk-event-button-type event)
-                        (otherwise (format t "===unimplemented case for ~A===~%" event))))
+                        (otherwise (format t "===unimplemented case for ~A===~%" (gdk-event-type event)))))
 
     (gdk-event-scroll (case (gdk-event-scroll-type event)
-                        (otherwise (format t "===unimplemented case for ~A===~%" event))))
+                        (otherwise (format t "===unimplemented case for ~A===~%" (gdk-event-type event)))))
 
     (t (error "=====not implemented ~A~%" (type-of event))))
   +gdk-event-propagate+)
@@ -367,13 +367,31 @@
      (setf handled t)
      ,@body))
 
+;;; key event handling1=========================================================
+
+(defun gdk-event-key-key-press (event)
+  (format t "----~A~%" event)
+  (let ((kn (gdk-keyval-name (gdk-event-key-keyval event)))
+        (ks (gdk-event-key-state event)))
+    (format t "Pressed ~s ~s~%" kn ks)
+      (cond ((equal "F1" kn)
+             (format t "~&----help----~%" )
+             (format t "Ctrl-a - autocomplete ~%"))
+            ((and (equal ks '(:control-mask :mod2-mask))
+                  (equal kn "a"))
+             (format t "pressed Ctrl-A~%"))
+            (t
+             (format t "ignored key ~s~%" kn)))))
+;;; key event handling2=========================================================
+
 (defun win-event-fun (widget event)
-  (format t "~&================== we have event ~A~%" event)
+  (format t "~&================== we have event ~s~%" (gdk-event-type event))
   (let ((handled))
 
     (typecase event
       (gdk-event-key (case (gdk-event-key-type event)
-                       (:key-press  (handled (format t "key event key press~%"))))))
+                       (:key-press  (handled (format t "key event key press~%")
+                                             (gdk-event-key-key-press event))))))
 
     (unless handled
       (format t "=========the above event is not implemented=================~%~%~%"))))
