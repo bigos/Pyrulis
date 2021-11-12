@@ -353,14 +353,14 @@
 (defun canvas-event-fun (widget event)
   (declare (ignore widget))
   (let ((handled))
-    (format t "~&================== we have canvas event ~A~%" (gdk-event-type event))
+    ;; (format t "~&================== we have canvas event ~A~%" (gdk-event-type event))
 
     (typecase event
       (gdk-event-button (case (gdk-event-button-type event)
                           (:button-press (handled (format t "button press event handling~%"))))))
 
     (unless handled
-      (format t "the canvas event is not implemented~%~%")))
+      ;; (format t "the canvas event is not implemented~%~%")))
   +gdk-event-propagate+)
 
 ;; file:~/quicklisp/dists/quicklisp/software/cl-cffi-gtk-20201220-git/gdk/gdk.event-structures.lisp::920
