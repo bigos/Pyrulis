@@ -12,6 +12,12 @@
 
 *** fill the gaps with tiny steps
 
+*** progress from
+
+**** abstract to concrete
+
+**** vague to specific
+
 ** discard and repeat
 
 ** code <=affects=> thinking
