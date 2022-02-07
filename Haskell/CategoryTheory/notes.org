@@ -2,9 +2,37 @@
 ** Language Used
 Explained in part one
 *** Category
-A category is an embarrassingly simple concept. A category consists of objects
+**** A category is an embarrassingly simple concept. A category consists of objects
 and arrows that go between them. That’s why categories are so easy to represent
 pictorially. An object can be drawn as a circle or a point, and an arrow.
+
+**** wikipedia on Category theory
+https://en.wikipedia.org/wiki/Category_theory
+
+Samuel Eilenberg and Saunders Mac Lane introduced the concepts of categories,
+functors, and natural transformations from 1942–45 in their
+study of algebraic topology, with the
+goal of understanding the processes that *preserve mathematical structure*.
+
+**** my description
+Category is made of
+
+***** class of source objects
+where each object can be target of one morphism and source of another
+
+***** class of morphisms
+each morphism has a
+
+****** source object
+
+****** target object
+
+***** a 2 argument operation
+
+****** associativity
+f a->b & g b->c & h c->d = h (gf) = (hg) f
+****** identity
+
 *** Morphism
 TODO
 Let’s talk concretes. Think of arrows, which are also called morphisms, as
