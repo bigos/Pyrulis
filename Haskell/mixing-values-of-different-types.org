@@ -1,0 +1,60 @@
+* Mixing values of different types
+file:///home/jacekp/Documents/Manuals/Haskell/Haskell%20Study%20Plan.html
+https://web.archive.org/web/20090317030518/https://www.alpheccar.org/en/posts/show/67
+
+** Existential types
+We'd like to mix several values of different types in the same list ! So, we have to hide the types. We could do something like:
+
+#+begin_src haskell
+data H = forall a. H a
+#+end_src
+
+The type variable a is not visible on the left because of the forall. The type variable is not free. It is used by the forall. So, a is hidden from the outside. Now, you can write something like
+
+#+begin_src haskell
+myList = [H (1::Int), H "Hello", H (2.4::Float)]
+#+end_src
+
+But, it is not very useful if you cannot do something with these objects.
+
+You cannot have access to the value hidden in H directly because:
+
+#+begin_src haskell
+f :: H -> a
+#+end_src
+
+will not typecheck. The a in the forall for H is distinct from the a defined by function f.
+
+So, to be able to use the values hidden in H, you need to specify they have a common interface. After all, if you decided to mix them in the same list it is probably because you wanted to apply the same kind of transformation to each value.
+
+So, let's define a class:
+#+begin_src haskell
+class MyOperation a where
+ isNumber :: a -> Bool
+#+end_src
+
+And some instances:
+#+begin_src haskell
+instance MyOperation Int where
+ isNumber _ = True
+instance MyOperation Float where
+ isNumber _ = True
+instance MyOperation String where
+ isNumber _ = False
+#+end_src
+
+and we need one more instance for H
+
+#+begin_src haskell
+instance MyOperation H where
+ isNumber (H a) = isNumber a
+#+end_src
+
+but it won't work ! Indeed, we need to tell Haskell that H is not containing any kind of value but only the one with a isNumber function.
+
+So, let's write:
+#+begin_src haskell
+data H = forall a. MyOperation a => H a
+#+end_src
+
+Now, you can mix several different kind of values in the same list and process them with a given function. But, even if all values have type H there is no risk of mixing a String with a Int. You have the flexibility and the security.
