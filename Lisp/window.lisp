@@ -360,7 +360,8 @@
                           (:button-press (handled (format t "button press event handling~%"))))))
 
     (unless handled
-      ;; (format t "the canvas event is not implemented~%~%")))
+      ;; (format t "the canvas event is not implemented~%~%")
+      ))
   +gdk-event-propagate+)
 
 ;; file:~/quicklisp/dists/quicklisp/software/cl-cffi-gtk-20201220-git/gdk/gdk.event-structures.lisp::920
