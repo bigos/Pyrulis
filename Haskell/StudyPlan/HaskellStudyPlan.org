@@ -37,3 +37,6 @@ languages : reflexivity when it is really needed (which is not so frequent).
 
 ** More interesting stuff
 Fresh view of types
+
+** Existential types
+Mixing elements of different types in a list.
