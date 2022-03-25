@@ -6,3 +6,34 @@ https://github.com/soupi/haskell-study-plan
 ** locations
 /home/jacek/Documents/Manuals/Haskell/Haskell%20Study%20Plan.html
 [[http://web.archive.org/web/20100416040111/http://www.alpheccar.org/en/posts/show/67][On way back machine]]
+
+** Forget the imperative world
+You have to think in a totally different way : a software is a combination of
+data transformers.
+
+Once you have described the transformations to be applied to data to get the
+solution of your problem, the execution of the software must be understood as an
+algebraic simplification of your transformations.
+
+*** Control flow
+
+Most of the time control flow is needed to process some data which have a
+recursive structure (like a tree)
+For that you use the powerful data transformers fold, map, iter, scan ...
+
+To extract some data froma structured object.
+For that latter case you use pattern matching.
+
+In the infrequent cases when you need more, you just use a recursive function.
+
+** Types
+Haskell types are a partial specification of your functions but giving a lot of
+information. Types are constraints on what a function is allowed to do or not.
+
+The types are very flexible and it is the first strongly and statically typed
+language that I meet which is as pleasant to use as dynamically typed languages
+like Lisp. In fact, I only see one remaining reason for using dynamically typed
+languages : reflexivity when it is really needed (which is not so frequent).
+
+** More interesting stuff
+Fresh view of types
