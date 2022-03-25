@@ -1,0 +1,8 @@
+* Haskell Study Plan
+
+** other alternative
+https://github.com/soupi/haskell-study-plan
+
+** locations
+/home/jacek/Documents/Manuals/Haskell/Haskell%20Study%20Plan.html
+[[http://web.archive.org/web/20100416040111/http://www.alpheccar.org/en/posts/show/67][On way back machine]]
