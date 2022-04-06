@@ -26,4 +26,8 @@ add to init.el
   (require 'package-from-the-folder)
 #+end_src
 
-** zzz
+** comint
+https://masteringemacs.org/article/comint-writing-command-interpreter
+
+go to folder /home/jacek/.emacs.d/elpa
+and grep for ~require 'comint~
