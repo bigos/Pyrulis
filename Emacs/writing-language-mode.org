@@ -9,8 +9,21 @@ https://github.com/acl2/acl2/tree/master/emacs
 
 *** Other
 https://www.gnu.org/software/emacs/manual/html_node/emacs/C-Modes.html
+https://github.com/lfe/lfe/tree/develop/emacs
 
 **** Xah Lee
 Go to
 http://xahlee.info/emacs/emacs_search.html
 and search for ~mode~
+
+** loading custom project
+
+git clone project
+
+add to init.el
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/path/to/the/folder/")
+  (require 'package-from-the-folder)
+#+end_src
+
+** zzz
