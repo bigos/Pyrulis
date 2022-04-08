@@ -1,0 +1,18 @@
+* Interesting notes
+** blogs
+https://www.johndcook.com/blog/2016/07/20/humble-lisp-programmers/
+https://joshbradley.me/understanding-the-power-of-lisp/
+https://www.reddit.com/r/lisp/comments/9xd4gy/what_does_it_take_to_understand_the_true_power_of/
+
+** books
+
+*** Beautiful Racket
+https://beautifulracket.com/
+https://beautifulracket.com/appendix/why-racket-why-lisp.html
+https://beautifulracket.com/appendix/why-lop-why-racket.html
+
+** DSL
+[[https://www.youtube.com/watch?v=5FlHq_iiDW0][YouTube - DSL in Lisp]]
+
+** interesting articles
+https://github.com/JacobGabrielson/cl-rogue
