@@ -7,14 +7,15 @@
 ;; (load "~/Programming/Pyrulis/Lisp/graph-viewer.lisp")
 (in-package #:graph-viewer)
 
-(defun instance-slots (i)
-  (mapcar #'sb-mop:slot-definition-name
-          (sb-mop:class-slots (class-of i))))
 
 (defun travel (d)
   (let ((seen (make-hash-table)))
     (labels
-        ((sethash (key hash value)
+        ((instance-slots (i)
+           (mapcar #'sb-mop:slot-definition-name
+                   (sb-mop:class-slots (class-of i))))
+
+         (sethash (key hash value)
            (setf (gethash key hash) value))
 
          (seth (sha parent a fn)
@@ -60,8 +61,6 @@
 
 (defun nodes (th s)
   (maphash (lambda (node targets)
-             ;; (format t "~&elling ~A ~s~%" node targets)
-
              (format s "~&~a [label=~s]~%"
                      node
                      (getf (first targets) 'obj))
@@ -116,11 +115,13 @@
                                :if-exists :supersede
                                :if-does-not-exist :create)
               (format s "digraph {~%")
-              (let ((th (travel
-                                (list
-                                 (list 1 2 3)
-                                 (list
-                                  '(1 (2 . 3)  4 . 5))))))
-                (nodes th s))
-              (format s "~&}")))
+              (format s "~A"
+                      (nodes (travel
+                                        ; the data
+                              (list
+                               (list 1 2 3)
+                               (list
+                                '(1 (2 . 3)  4 . 5))))
+                             s))
+              (format s "~&}~%")))
     (draw-graph "/home/jacek/double")))
