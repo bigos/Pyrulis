@@ -99,34 +99,30 @@
 
 ;; usage: (graph (list (list 1 2 3) (list '(1 (2 . 3)  4 . 5))))
 (defun graph (gr)
-  (let ((file-path  #p"/home/jacek/graph.gv"))
-    (format t "~A~%"
-            (with-open-file (stream file-path
-                                    :direction :output
-                                    :if-exists :supersede
-                                    :if-does-not-exist :create)
-              (format stream "digraph {~%")
-              (format stream "~A" (nodes (travel gr) stream))
-              (format stream "~&}~%")))
-    (draw-graph "/home/jacek/graph")))
+  (let* ((gv-file  "/home/jacek/graph.gv")
+         (extension "svg")
+         (the-file (format nil "/home/jacek/graph.~A" extension)))
 
-(defun draw-graph (gv-file-path)
-  (let ((filename gv-file-path)
-        (extension "svg"))
-    (let ((gv-file (format nil "~A.gv" filename))
-          (the-file(format nil "~A.~A" filename extension)))
-      (let ((options (list
-                      (format nil "-T~A" extension)
-                      gv-file
-                      "-o"
-                      the-file)))
-        (format t "dot options ~A~%" options)
-        (let ((process (sb-ext:run-program
-                        "/usr/bin/dot" options
-                        :output :stream :wait nil)))
-          (with-output-to-string (s)
-            (loop for line = (read-line (sb-ext:process-output process) nil nil)
-                  while line
-                  do (format s "~A~%" line))
-            (sb-ext:process-close process)
-            s))))))
+    (with-open-file (stream gv-file
+                            :direction :output
+                            :if-exists :supersede
+                            :if-does-not-exist :create)
+      (format stream "digraph {~%")
+      (format stream "~A" (nodes (travel gr) stream))
+      (format stream "~&}~%"))
+
+    (let ((options (list
+                    (format nil "-T~A" extension)
+                    gv-file
+                    "-o"
+                    the-file)))
+      (format t "dot options ~A~%" options)
+      (let ((process (sb-ext:run-program
+                      "/usr/bin/dot" options
+                      :output :stream :wait nil)))
+        (with-output-to-string (s)
+          (loop for line = (read-line (sb-ext:process-output process) nil nil)
+                while line
+                do (format s "~A~%" line))
+          (sb-ext:process-close process)
+          s)))))
