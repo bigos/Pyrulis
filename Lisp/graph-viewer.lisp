@@ -74,26 +74,27 @@
                      node
                      (node-attrs (list (cons "label" (getf (first targets) 'obj)))))
              (loop for target in targets do
-               (cond
-                 ((eq 'car (getf target 'fn))
-                  (format stream "~a -> ~a ~a~%"
-                          (getf target 'parent)
-                          node
-                          (node-attrs (list (cons "label" (format nil "~S" (getf target 'fn)))
-                                            (cons "color" "red")))))
+               (let ((tfn (format nil "~S" (getf target 'fn))))
+                 (cond
+                   ((eq 'car (getf target 'fn))
+                    (format stream "~a -> ~a ~a~%"
+                            (getf target 'parent)
+                            node
+                            (node-attrs (list (cons "label" tfn)
+                                              (cons "color" "red")))))
 
-                 ((eq 'cdr (getf target 'fn))
-                  (format stream "~a -> ~a ~A~%"
-                          (getf target 'parent)
-                          node
-                          (node-attrs (list (cons "label" (format nil "~S" (getf target 'fn)))
-                                            (cons "color" "blue")))))
+                   ((eq 'cdr (getf target 'fn))
+                    (format stream "~a -> ~a ~A~%"
+                            (getf target 'parent)
+                            node
+                            (node-attrs (list (cons "label" tfn)
+                                              (cons "color" "blue")))))
 
-                 (t
-                  (format stream "~a -> ~a ~A~%"
-                          (getf target 'parent)
-                          node
-                          (node-attrs (list (cons "label" (format nil "~S" (getf target 'fn))))))))))
+                   (t
+                    (format stream "~a -> ~a ~A~%"
+                            (getf target 'parent)
+                            node
+                            (node-attrs (list (cons "label" tfn)))))))))
            seen))
 
 ;; usage: (graph (list (list 1 2 3) (list '(1 (2 . 3)  4 . 5))))
