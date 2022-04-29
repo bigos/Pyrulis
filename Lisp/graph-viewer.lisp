@@ -1,12 +1,11 @@
 (eval-when (:compile-toplevel :load-toplevel :execute)
-  (ql:quickload '(alexandria)))
+  (ql:quickload '(alexandria serapeum)))
 
 (defpackage #:graph-viewer
   (:use #:cl))
 
 ;; (load "~/Programming/Pyrulis/Lisp/graph-viewer.lisp")
 (in-package #:graph-viewer)
-
 
 (defun travel (d)
   (let ((seen (make-hash-table)))
@@ -59,30 +58,42 @@
       (visit d 'nothing 'empty))
     seen))
 
+(defun node-attrs (na)
+  (with-output-to-string (str)
+    (format str "[")
+    (serapeum:string-join (mapcar
+                           (lambda (p) (format nil "~S=~S" (car p) (cdr p)))
+                           na)
+                          ", "
+                          :stream str)
+    (format str "]")))
+
 (defun nodes (seen stream )
   (maphash (lambda (node targets)
-             (format stream "~&~a [label=~s]~%"
+             (format stream "~&~a ~a~%"
                      node
-                     (getf (first targets) 'obj))
+                     (node-attrs (list (cons "label" (getf (first targets) 'obj)))))
              (loop for target in targets do
                (cond
                  ((eq 'car (getf target 'fn))
-                  (format stream "~a -> ~a [label=~s,color=red]~%"
+                  (format stream "~a -> ~a ~a~%"
                           (getf target 'parent)
                           node
-                          (format nil "~S" (getf target 'fn))))
+                          (node-attrs (list (cons "label" (format nil "~S" (getf target 'fn)))
+                                            (cons "color" "red")))))
 
                  ((eq 'cdr (getf target 'fn))
-                  (format stream "~a -> ~a [label=~s,color=blue]~%"
+                  (format stream "~a -> ~a ~A~%"
                           (getf target 'parent)
                           node
-                          (format nil "~S" (getf target 'fn))))
+                          (node-attrs (list (cons "label" (format nil "~S" (getf target 'fn)))
+                                            (cons "color" "blue")))))
 
                  (t
-                  (format stream "~a -> ~a [label=~s]~%"
+                  (format stream "~a -> ~a ~A~%"
                           (getf target 'parent)
                           node
-                          (format nil "~S" (getf target 'fn)))))))
+                          (node-attrs (list (cons "label" (format nil "~S" (getf target 'fn))))))))))
            seen))
 
 ;; usage: (graph (list (list 1 2 3) (list '(1 (2 . 3)  4 . 5))))
