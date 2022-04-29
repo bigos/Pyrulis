@@ -59,32 +59,44 @@
       (visit d 'nothing 'empty))
     seen))
 
-(defun nodes (th s)
+(defun nodes (seen stream )
   (maphash (lambda (node targets)
-             (format s "~&~a [label=~s]~%"
+             (format stream "~&~a [label=~s]~%"
                      node
                      (getf (first targets) 'obj))
              (loop for target in targets do
                (cond
                  ((eq 'car (getf target 'fn))
-                  (format s "~a -> ~a [label=~s,color=red]~%"
+                  (format stream "~a -> ~a [label=~s,color=red]~%"
                           (getf target 'parent)
                           node
                           (format nil "~S" (getf target 'fn))))
 
                  ((eq 'cdr (getf target 'fn))
-                  (format s "~a -> ~a [label=~s,color=blue]~%"
+                  (format stream "~a -> ~a [label=~s,color=blue]~%"
                           (getf target 'parent)
                           node
                           (format nil "~S" (getf target 'fn))))
 
                  (t
-                  (format s "~a -> ~a [label=~s]~%"
+                  (format stream "~a -> ~a [label=~s]~%"
                           (getf target 'parent)
                           node
-                          (format nil "~S" (getf target 'fn)))
-                  ))))
-           th))
+                          (format nil "~S" (getf target 'fn)))))))
+           seen))
+
+;; usage: (graph (list (list 1 2 3) (list '(1 (2 . 3)  4 . 5))))
+(defun graph (gr)
+  (let ((file-path  #p"/home/jacek/graph.gv"))
+    (format t "~A~%"
+            (with-open-file (stream file-path
+                                    :direction :output
+                                    :if-exists :supersede
+                                    :if-does-not-exist :create)
+              (format stream "digraph {~%")
+              (format stream "~A" (nodes (travel gr) stream))
+              (format stream "~&}~%")))
+    (draw-graph "/home/jacek/graph")))
 
 (defun draw-graph (gv-file-path)
   (let ((filename gv-file-path)
@@ -106,22 +118,3 @@
                   do (format s "~A~%" line))
             (sb-ext:process-close process)
             s))))))
-
-(defun graph ()
-  (let ((file-path  #p"/home/jacek/double.gv"))
-    (format t "~A~%"
-            (with-open-file (s file-path
-                               :direction :output
-                               :if-exists :supersede
-                               :if-does-not-exist :create)
-              (format s "digraph {~%")
-              (format s "~A"
-                      (nodes (travel
-                                        ; the data
-                              (list
-                               (list 1 2 3)
-                               (list
-                                '(1 (2 . 3)  4 . 5))))
-                             s))
-              (format s "~&}~%")))
-    (draw-graph "/home/jacek/double")))
