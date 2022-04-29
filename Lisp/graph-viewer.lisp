@@ -58,27 +58,6 @@
       (visit d 'nothing 'empty))
     seen))
 
-(defun draw-graph (gv-file-path)
-  (let ((filename gv-file-path)
-        (extension "svg"))
-    (let ((gv-file (format nil "~A.gv" filename))
-          (the-file(format nil "~A.~A" filename extension)))
-      (let ((options (list
-                      (format nil "-T~A" extension)
-                      gv-file
-                      "-o"
-                      the-file)))
-        (format t "dot options ~A~%" options)
-        (let ((process (sb-ext:run-program
-                        "/usr/bin/dot" options
-                        :output :stream :wait nil)))
-          (with-output-to-string (s)
-            (loop for line = (read-line (sb-ext:process-output process) nil nil)
-                  while line
-                  do (format s "~A~%" line))
-            (sb-ext:process-close process)
-            s))))))
-
 (defun nodes (th s)
   (maphash (lambda (node targets)
              ;; (format t "~&elling ~A ~s~%" node targets)
@@ -107,6 +86,27 @@
                           (format nil "~S" (getf target 'fn)))
                   ))))
            th))
+
+(defun draw-graph (gv-file-path)
+  (let ((filename gv-file-path)
+        (extension "svg"))
+    (let ((gv-file (format nil "~A.gv" filename))
+          (the-file(format nil "~A.~A" filename extension)))
+      (let ((options (list
+                      (format nil "-T~A" extension)
+                      gv-file
+                      "-o"
+                      the-file)))
+        (format t "dot options ~A~%" options)
+        (let ((process (sb-ext:run-program
+                        "/usr/bin/dot" options
+                        :output :stream :wait nil)))
+          (with-output-to-string (s)
+            (loop for line = (read-line (sb-ext:process-output process) nil nil)
+                  while line
+                  do (format s "~A~%" line))
+            (sb-ext:process-close process)
+            s))))))
 
 (defun graph ()
   (let ((file-path  #p"/home/jacek/double.gv"))
