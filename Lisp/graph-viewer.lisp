@@ -109,21 +109,18 @@
            th))
 
 (defun graph ()
-  (let ((file-path  #p"/tmp/graph.gv"))
+  (let ((file-path  #p"/home/jacek/double.gv"))
     (format t "~A~%"
             (with-open-file (s file-path
                                :direction :output
                                :if-exists :supersede
                                :if-does-not-exist :create)
               (format s "digraph {~%")
-
-              (progn
-                (let ((th (travel
-                           (list
-                            (list 1 2 3)
-                            (list
-                             '(1 (2 . 3)  4 . 5))))))
-                  (nodes th s)))
-
+              (let ((th (travel
+                                (list
+                                 (list 1 2 3)
+                                 (list
+                                  '(1 (2 . 3)  4 . 5))))))
+                (nodes th s))
               (format s "~&}")))
-    (draw-graph "/tmp/graph")))
+    (draw-graph "/home/jacek/double")))
