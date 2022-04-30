@@ -1,16 +1,10 @@
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (ql:quickload '(alexandria serapeum)))
-
-(defpackage #:graph-viewer
-  (:use #:cl))
-
-;; (load "~/Programming/Pyrulis/Lisp/graph-viewer.lisp")
 (in-package #:graph-viewer)
 
-#|
-We have 3 functions for somewhat correct drawing of the graph, we still need to
-find a way for correct drawing of atoms of the same value
-|#
+;;; loading and reloading
+;; (push #p"~/Programming/Pyrulis/Lisp/graph-viewer/" asdf:*central-registry*)
+;; (ql:quickload :graph-viewer)
+;; (in-package #:graph-viewer)
+;; (graph-viewer:graph '(1 (2.1 . 2.2) 3))
 
 (defun travel (d)
   (let ((seen (make-hash-table)))
@@ -78,7 +72,7 @@ find a way for correct drawing of atoms of the same value
   (labels ((node-attrs (na)
              (with-output-to-string (str)
                (format str "[~A]"
-                       (serapeum:string-join (mapcar
+                       (se:string-join (mapcar
                                               (lambda (p)
                                                 (format nil "~S=~S"
                                                         (car p) (cdr p)))
