@@ -96,9 +96,10 @@ find a way for correct drawing of atoms of the same value
 
 ;; usage: (graph (list (list 1 2 3) (list '(1 (2 . 3)  4 . 5))))
 (defun graph (gr)
-  (let* ((gv-file  "/home/jacek/graph.gv")
+  (let* ((file-directory (pathname-directory "/home/jacek/"))
+         (gv-file  (make-pathname :directory file-directory :name "graph" :type "gv"))
          (extension "svg")
-         (the-file (format nil "/home/jacek/graph.~A" extension)))
+         (the-file (make-pathname :directory file-directory :name "graph" :type extension)))
 
     ;; gv file
     (with-open-file (stream gv-file
@@ -111,9 +112,9 @@ find a way for correct drawing of atoms of the same value
     ;; dot options
     (let ((options (list
                     (format nil "-T~A" extension)
-                    gv-file
+                    (format nil "~A" gv-file)
                     "-o"
-                    the-file)))
+                    (format nil "~A" the-file))))
       (format t "dot options ~A~%" options)
       ;; run program
       (let ((process (sb-ext:run-program
