@@ -1,11 +1,5 @@
 (in-package #:graph-viewer)
 
-;;; loading and reloading
-;; (push #p"~/Programming/Pyrulis/Lisp/graph-viewer/" asdf:*central-registry*)
-;; (ql:quickload :graph-viewer)
-;; (in-package #:graph-viewer)
-;; (graph-viewer:graph '(1 (2.1 . 2.2) 3))
-
 (defun travel (d)
   (let ((seen (make-hash-table)))
     (labels
@@ -62,9 +56,7 @@
                               slots))
                        ((consp a)
                         (visit (car a) sha 'car)
-                        (visit (cdr a) sha 'cdr))
-                       (t
-                        nil))))))))
+                        (visit (cdr a) sha 'cdr)))))))))
       (visit d 'nothing 'empty))
     seen))
 
@@ -73,11 +65,11 @@
              (with-output-to-string (str)
                (format str "[~A]"
                        (se:string-join (mapcar
-                                              (lambda (p)
-                                                (format nil "~S=~S"
-                                                        (car p) (cdr p)))
-                                              na)
-                                             ", ")))))
+                                        (lambda (p)
+                                          (format nil "~S=~S"
+                                                  (car p) (cdr p)))
+                                        na)
+                                       ", ")))))
     (maphash (lambda (node targets)
                (format stream "~&~a ~a~%"
                        node
@@ -99,7 +91,6 @@
                                (list (cons "label" tfn)))))))))
              seen)))
 
-;; usage: (graph (list (list 1 2 3) (list '(1 (2 . 3)  4 . 5))))
 (defun graph (gr)
   (let* ((file-directory (pathname-directory "/home/jacek/"))
          (gv-file  (make-pathname :directory file-directory :name "graph" :type "gv"))
@@ -112,7 +103,7 @@
                             :if-exists :supersede
                             :if-does-not-exist :create)
       (format stream "digraph {~%")
-      (format stream "~A" (nodes (travel gr) stream))
+      (nodes (travel gr) stream)
       (format stream "~&}~%"))
     ;; dot options
     (let ((options (list
