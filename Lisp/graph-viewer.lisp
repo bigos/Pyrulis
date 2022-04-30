@@ -29,8 +29,12 @@ find a way for correct drawing of atoms of the same value
                   (format nil "Struct ~A" (type-of a)))
                  ((null a)
                   (format nil "~A" a))
+                 ((typep a 'standard-object)
+                  (format nil "Object ~A" (type-of a)))
                  ((symbolp a)
                   (format nil "Symbol ~A" a))
+                 ((stringp a)
+                  (format nil "~S" a))
                  (t
                   (format nil "~A"   a))))
 
@@ -46,7 +50,12 @@ find a way for correct drawing of atoms of the same value
                             (list target-item))))))
 
          (visit (a parent parentfn)
-           (let ((sha (sxhash (cons a parent))))  ; without consing parent we get different interesting layout
+           (let ((sha (sxhash (typecase a
+                                (null   (cons a parent))
+                                (real   (cons a parent))
+                                (symbol (cons a parent))
+                                (string (cons a parent))
+                                (t a)))))  ; without consing parent we get different interesting layout
              (if (gethash sha seen)
                  (seth sha parent a parentfn)
                  (let ((slots (instance-slots a)))
