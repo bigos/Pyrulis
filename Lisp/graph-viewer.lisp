@@ -66,13 +66,13 @@ find a way for correct drawing of atoms of the same value
 (defun nodes (seen stream )
   (labels ((node-attrs (na)
              (with-output-to-string (str)
-               (format str "[")
-               (serapeum:string-join (mapcar
-                                      (lambda (p) (format nil "~S=~S" (car p) (cdr p)))
-                                      na)
-                                     ", "
-                                     :stream str)
-               (format str "]"))))
+               (format str "[~A]"
+                       (serapeum:string-join (mapcar
+                                              (lambda (p)
+                                                (format nil "~S=~S"
+                                                        (car p) (cdr p)))
+                                              na)
+                                             ", ")))))
     (maphash (lambda (node targets)
                (format stream "~&~a ~a~%"
                        node
@@ -100,6 +100,7 @@ find a way for correct drawing of atoms of the same value
          (extension "svg")
          (the-file (format nil "/home/jacek/graph.~A" extension)))
 
+    ;; gv file
     (with-open-file (stream gv-file
                             :direction :output
                             :if-exists :supersede
@@ -107,16 +108,18 @@ find a way for correct drawing of atoms of the same value
       (format stream "digraph {~%")
       (format stream "~A" (nodes (travel gr) stream))
       (format stream "~&}~%"))
-
+    ;; dot options
     (let ((options (list
                     (format nil "-T~A" extension)
                     gv-file
                     "-o"
                     the-file)))
       (format t "dot options ~A~%" options)
+      ;; run program
       (let ((process (sb-ext:run-program
                       "/usr/bin/dot" options
                       :output :stream :wait nil)))
+        ;; program output
         (with-output-to-string (s)
           (loop for line = (read-line (sb-ext:process-output process) nil nil)
                 while line
