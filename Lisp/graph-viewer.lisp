@@ -58,44 +58,44 @@
       (visit d 'nothing 'empty))
     seen))
 
-(defun node-attrs (na)
-  (with-output-to-string (str)
-    (format str "[")
-    (serapeum:string-join (mapcar
-                           (lambda (p) (format nil "~S=~S" (car p) (cdr p)))
-                           na)
-                          ", "
-                          :stream str)
-    (format str "]")))
-
 (defun nodes (seen stream )
-  (maphash (lambda (node targets)
-             (format stream "~&~a ~a~%"
-                     node
-                     (node-attrs (list (cons "label" (getf (first targets) 'obj)))))
-             (loop for target in targets do
-               (let ((tfn (format nil "~S" (getf target 'fn))))
-                 (cond
-                   ((eq 'car (getf target 'fn))
-                    (format stream "~a -> ~a ~a~%"
-                            (getf target 'parent)
-                            node
-                            (node-attrs (list (cons "label" tfn)
-                                              (cons "color" "red")))))
+  (labels ((node-attrs (na)
+             (with-output-to-string (str)
+               (format str "[")
+               (serapeum:string-join (mapcar
+                                      (lambda (p) (format nil "~S=~S" (car p) (cdr p)))
+                                      na)
+                                     ", "
+                                     :stream str)
+               (format str "]"))))
+      (maphash (lambda (node targets)
+                 (format stream "~&~a ~a~%"
+                         node
+                         (node-attrs (list (cons "label" (getf (first targets) 'obj)))))
+                 (loop for target in targets do
+                       (let ((tfn (format nil "~S" (getf target 'fn))))
+                         (cond
+                           ((eq 'car (getf target 'fn))
+                            (format stream "~a -> ~a ~a~%"
+                                    (getf target 'parent)
+                                    node
+                                    (node-attrs (list (cons "label" tfn)
+                                                      (cons "color" "red")))))
 
-                   ((eq 'cdr (getf target 'fn))
-                    (format stream "~a -> ~a ~A~%"
-                            (getf target 'parent)
-                            node
-                            (node-attrs (list (cons "label" tfn)
-                                              (cons "color" "blue")))))
+                           ((eq 'cdr (getf target 'fn))
+                            (format stream "~a -> ~a ~A~%"
+                                    (getf target 'parent)
+                                    node
+                                    (node-attrs (list (cons "label" tfn)
+                                                      (cons "color" "blue")))))
 
-                   (t
-                    (format stream "~a -> ~a ~A~%"
-                            (getf target 'parent)
-                            node
-                            (node-attrs (list (cons "label" tfn)))))))))
-           seen))
+                           (t
+                            (format stream "~a -> ~a ~A~%"
+                                    (getf target 'parent)
+                                    node
+                                    (node-attrs (list (cons "label" tfn))))))
+                         )))
+               seen)))
 
 ;; usage: (graph (list (list 1 2 3) (list '(1 (2 . 3)  4 . 5))))
 (defun graph (gr)
