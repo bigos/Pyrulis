@@ -22,17 +22,20 @@ find a way for correct drawing of atoms of the same value
          (sethash (key hash value)
            (setf (gethash key hash) value))
 
+         (annotate-a (a)
+           (cond ((consp a)
+                  (type-of a))
+                 ((eq 'structure-class (type-of (class-of a)))
+                  (format nil "Struct ~A" (type-of a)))
+                 ((null a)
+                  (format nil "~A" a))
+                 ((symbolp a)
+                  (format nil "Symbol ~A" a))
+                 (t
+                  (format nil "~A"   a))))
+
          (seth (sha parent a fn)
-           (let ((a2 (cond ((consp a)
-                            (type-of a))
-                           ((eq 'structure-class (type-of (class-of a)))
-                            (format nil "Struct ~A" (type-of a)))
-                           ((null a)
-                            (format nil "~A" a))
-                           ((symbolp a)
-                            (format nil "Symbol ~A" a))
-                           (t
-                            (format nil "~A"   a)))))
+           (let ((a2 (annotate-a a)))
              (let ((target-item (list 'obj a2 'fn fn 'parent parent)))
                (if (gethash sha seen)
                    (unless (member target-item (gethash sha seen) :test #'equal)
@@ -43,7 +46,7 @@ find a way for correct drawing of atoms of the same value
                             (list target-item))))))
 
          (visit (a parent parentfn)
-           (let ((sha (sxhash a)))
+           (let ((sha (sxhash (cons a parent))))  ; without consing parent we get different interesting layout
              (if (gethash sha seen)
                  (seth sha parent a parentfn)
                  (let ((slots (instance-slots a)))
