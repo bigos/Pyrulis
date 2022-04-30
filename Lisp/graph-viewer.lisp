@@ -59,19 +59,16 @@ find a way for correct drawing of atoms of the same value
              (if (gethash sha seen)
                  (seth sha parent a parentfn)
                  (let ((slots (instance-slots a)))
-                   (if slots
-                       (loop for sl in slots
-                             do (seth sha parent a parentfn)
-                                (visit (slot-value a sl) sha sl))
-                       (if (consp a)
-                           (progn
-                             (seth sha parent a parentfn)
-                             (visit (car a) sha 'car)
-
-                             (seth sha parent a parentfn)
-                             (visit (cdr a) sha 'cdr))
-                           (progn
-                             (seth sha parent a parentfn)))))))))
+                   (seth sha parent a parentfn)
+                   (cond
+                     (slots
+                      (mapc (lambda (sl) (visit (slot-value a sl) sha sl))
+                              slots))
+                     ((consp a)
+                      (visit (car a) sha 'car)
+                      (visit (cdr a) sha 'cdr))
+                     (t
+                      nil)))))))
       (visit d 'nothing 'empty))
     seen))
 
