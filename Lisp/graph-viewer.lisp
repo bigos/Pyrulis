@@ -7,6 +7,11 @@
 ;; (load "~/Programming/Pyrulis/Lisp/graph-viewer.lisp")
 (in-package #:graph-viewer)
 
+#|
+We have 3 functions for somewhat correct drawing of the graph, we still need to
+find a way for correct drawing of atoms of the same value
+|#
+
 (defun travel (d)
   (let ((seen (make-hash-table)))
     (labels
