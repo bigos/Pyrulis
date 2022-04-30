@@ -55,20 +55,22 @@ find a way for correct drawing of atoms of the same value
                                 (real   (cons a parent))
                                 (symbol (cons a parent))
                                 (string (cons a parent))
-                                (t a)))))  ; without consing parent we get shared node for the value
+                                (t a))))) ; without consing parent we get shared node for the value
              (if (gethash sha seen)
-                 (seth sha parent a parentfn)
-                 (let ((slots (instance-slots a)))
+                 (progn
+                   (seth sha parent a parentfn))
+                 (progn
                    (seth sha parent a parentfn)
-                   (cond
-                     (slots
-                      (mapc (lambda (sl) (visit (slot-value a sl) sha sl))
+                   (let ((slots (instance-slots a)))
+                     (cond
+                       (slots
+                        (mapc (lambda (sl) (visit (slot-value a sl) sha sl))
                               slots))
-                     ((consp a)
-                      (visit (car a) sha 'car)
-                      (visit (cdr a) sha 'cdr))
-                     (t
-                      nil)))))))
+                       ((consp a)
+                        (visit (car a) sha 'car)
+                        (visit (cdr a) sha 'cdr))
+                       (t
+                        nil))))))))
       (visit d 'nothing 'empty))
     seen))
 
