@@ -55,7 +55,7 @@ find a way for correct drawing of atoms of the same value
                                 (real   (cons a parent))
                                 (symbol (cons a parent))
                                 (string (cons a parent))
-                                (t a)))))  ; without consing parent we get different interesting layout
+                                (t a)))))  ; without consing parent we get shared node for the value
              (if (gethash sha seen)
                  (seth sha parent a parentfn)
                  (let ((slots (instance-slots a)))
