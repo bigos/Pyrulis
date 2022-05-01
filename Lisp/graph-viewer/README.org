@@ -2,6 +2,9 @@
 A simple utility to view cons trees and other data structures. This is still
 work in progress.
 
+Assuming you can translate my paths to your system equivalents these
+instructions may prove useful.
+
 ** REPL
 #+begin_src lisp
   ;; example use
