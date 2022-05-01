@@ -92,7 +92,7 @@
              seen)))
 
 (defun graph (gr)
-  (let* ((file-directory (pathname-directory "/home/jacek/"))
+  (let* ((file-directory (namestring (uiop/common-lisp:user-homedir-pathname)))
          (gv-file  (make-pathname :directory file-directory :name "graph" :type "gv"))
          (extension "svg")
          (the-file (make-pathname :directory file-directory :name "graph" :type extension)))
