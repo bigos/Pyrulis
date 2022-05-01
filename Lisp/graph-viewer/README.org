@@ -2,9 +2,16 @@
 A simple utility to view cons trees and other data structures. This is still
 work in progress.
 
+** REPL
 #+begin_src lisp
   ;; example use
   (push #p"~/Programming/Pyrulis/Lisp/graph-viewer/" asdf:*central-registry*)
   (ql:quickload :graph-viewer)
   (graph-viewer:graph '(1 (2.1 . 2.2) 3))
 #+end_src
+
+** Adding to quicklisp
+#+begin_example
+cd /home/jacek/quicklisp/local-projects
+ln -s /home/jacek/Programming/Pyrulis/Lisp/graph-viewer ./graph-viewer
+#+end_example
