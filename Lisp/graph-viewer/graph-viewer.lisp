@@ -91,11 +91,15 @@
                                (list (cons "label" tfn)))))))))
              seen)))
 
-(defun graph (gr)
+(defun graph (gr &optional title)
+  "Draw graph GR with TITLE."
   (let* ((file-directory (namestring (uiop/common-lisp:user-homedir-pathname)))
-         (gv-file  (make-pathname :directory file-directory :name "graph" :type "gv"))
+         (graph-title (format nil "graph~a" (if title
+                                                (format nil "-~A" title)
+                                                "")))
+         (gv-file  (make-pathname :directory file-directory :name graph-title :type "gv"))
          (extension "svg")
-         (the-file (make-pathname :directory file-directory :name "graph" :type extension)))
+         (the-file (make-pathname :directory file-directory :name graph-title :type extension)))
 
     ;; gv file
     (with-open-file (stream gv-file
