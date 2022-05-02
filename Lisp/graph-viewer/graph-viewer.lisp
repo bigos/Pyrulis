@@ -94,7 +94,7 @@
 (defun graph (gr &optional title)
   "Draw graph GR with TITLE."
   (let* ((file-directory (namestring (uiop/common-lisp:user-homedir-pathname)))
-         (graph-title (format nil "graph~a" (if title
+         (graph-title (format nil "lisp_graph~a" (if title
                                                 (format nil "_~A" title)
                                                 "")))
          (gv-file  (make-pathname :directory file-directory :name graph-title :type "gv"))
