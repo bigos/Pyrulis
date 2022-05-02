@@ -94,12 +94,13 @@
 (defun graph (gr &optional title)
   "Draw graph GR with TITLE."
   (let* ((file-directory
-           (serapeum:drop-prefix "/"
-                                 (serapeum:drop-suffix "/"
-
-                                                       ;; why do i have to drop / ???
-                                                       (namestring
-                                                        (uiop/common-lisp:user-homedir-pathname)))))
+           (serapeum:drop-prefix
+            "/"
+            (serapeum:drop-suffix
+             "/"
+             ;; why do i have to drop / ???
+             (namestring
+              (uiop/common-lisp:user-homedir-pathname)))))
          (graph-title (format nil "lisp_graph~a" (if title
                                                      (format nil "_~A" title)
                                                      "")))
