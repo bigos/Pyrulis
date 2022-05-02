@@ -18,3 +18,10 @@ instructions may prove useful.
 cd /home/jacek/quicklisp/local-projects
 ln -s /home/jacek/Programming/Pyrulis/Lisp/graph-viewer ./graph-viewer
 #+end_example
+
+** Interesting note on list circularity
+http://clhs.lisp.se/Body/02_dhp.htm
+http://www.lispworks.com/documentation/HyperSpec/Body/02_dhp.htm
+
+Has interesting documentation about *print-length* which can print circular
+lists using "infinite" list notation.
