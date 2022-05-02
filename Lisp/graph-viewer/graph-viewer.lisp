@@ -1,6 +1,6 @@
 (in-package #:graph-viewer)
 
-(defun travel (d)
+(defun travel (d title)
   (let ((seen (make-hash-table)))
     (labels
         ((instance-slots (i)
@@ -57,7 +57,7 @@
                        ((consp a)
                         (visit (car a) sha 'car)
                         (visit (cdr a) sha 'cdr)))))))))
-      (visit d 'nothing 'empty))
+      (visit d title 'start))
     seen))
 
 (defun nodes (seen stream )
@@ -95,7 +95,7 @@
   "Draw graph GR with TITLE."
   (let* ((file-directory (namestring (uiop/common-lisp:user-homedir-pathname)))
          (graph-title (format nil "graph~a" (if title
-                                                (format nil "-~A" title)
+                                                (format nil "_~A" title)
                                                 "")))
          (gv-file  (make-pathname :directory file-directory :name graph-title :type "gv"))
          (extension "svg")
@@ -107,7 +107,7 @@
                             :if-exists :supersede
                             :if-does-not-exist :create)
       (format stream "digraph {~%")
-      (nodes (travel gr) stream)
+      (nodes (travel gr graph-title) stream)
       (format stream "~&}~%"))
     ;; dot options
     (let ((options (list
