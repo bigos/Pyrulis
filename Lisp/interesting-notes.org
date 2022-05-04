@@ -1,0 +1,26 @@
+* Interesting notes
+
+** blogs
+https://www.johndcook.com/blog/2016/07/20/humble-lisp-programmers/
+https://joshbradley.me/understanding-the-power-of-lisp/
+https://www.reddit.com/r/lisp/comments/9xd4gy/what_does_it_take_to_understand_the_true_power_of/
+
+** books
+
+*** Beautiful Racket
+https://beautifulracket.com/
+https://beautifulracket.com/appendix/why-racket-why-lisp.html
+https://beautifulracket.com/appendix/why-lop-why-racket.html
+
+** DSL
+http://venge.net/graydon/talks/mkc/html/mgp00002.html
+
+[[https://www.youtube.com/watch?v=5FlHq_iiDW0][YouTube - DSL in Lisp]]
+
+[[pdf:/home/jacek/Documents/Manuals/Lisp/Land of Lisp.pdf#375][Land of Lisp, Chapter 17 - page 375]]
+
+** interesting articles
+
+*** CL-ROGUE
+This is a nearly line-for-line port of Rogue v3.6.2 from C to Common Lisp.
+https://github.com/JacobGabrielson/cl-rogue
