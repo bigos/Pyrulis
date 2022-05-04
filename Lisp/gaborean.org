@@ -39,7 +39,7 @@ work in progress
 
 *** principles
 
-Reduce components, similarity
+Reduce components
 Make systems of many appear fewer, symmetry, mental compression, proximity
 Deepen understanding
 No duplication unless it is a neighbour
@@ -47,7 +47,7 @@ Each distinct idea expressed separately
 
 *** opposite principles
 Copy pasted components
-Countless components without any organisation
+Countless components without any organisation, big ball of mud
 Complexity eats understanding
 Duplicates all over the place
 Spaghetti mix
@@ -64,4 +64,4 @@ fewer
 reduced
 
 **** clarity
-distinct, clear vs similar, blurred
+distinct, clear, similar, blurred
