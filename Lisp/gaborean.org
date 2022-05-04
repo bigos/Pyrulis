@@ -23,7 +23,11 @@
 ** code <=affects=> thinking
 
 
+* Other
 
+** forth book notes
+[[file:~/Programming/Pyrulis/thinking-forth.org::*structured design][structured design]]
+[[file:~/Programming/Pyrulis/thinking-forth.org::*FUNCTIONAL STRENGTH][FUNCTIONAL STRENGTH]]
 
-* lisp book
+** lisp book
   link to [[https://doc.lagout.org/programmation/Lisp/Scheme/The%20Seasoned%20Schemer%20-%20Daniel%20P.%20Friedman.pdf][seasoned schemer]]
