@@ -31,3 +31,37 @@
 
 ** lisp book
   link to [[https://doc.lagout.org/programmation/Lisp/Scheme/The%20Seasoned%20Schemer%20-%20Daniel%20P.%20Friedman.pdf][seasoned schemer]]
+
+** laws of simplicity
+[[file:~/Programming/Pyrulis/dijkstra-quotes.org::*Simplicity][Dijkstra Simplicity]]
+
+work in progress
+
+*** principles
+
+Reduce components, similarity
+Make systems of many appear fewer, symmetry, mental compression, proximity
+Deepen understanding
+No duplication unless it is a neighbour
+Each distinct idea expressed separately
+
+*** opposite principles
+Copy pasted components
+Countless components without any organisation
+Complexity eats understanding
+Duplicates all over the place
+Spaghetti mix
+
+*** words
+
+**** space
+proximity
+symmetry
+proportions
+
+**** count
+fewer
+reduced
+
+**** clarity
+distinct, clear vs similar, blurred
