@@ -1,0 +1,15 @@
+* Tris
+
+This is a project to use a 3 cell structure for doubly linked lists and other purposes.
+
+** License
+
+Public Domain
+
+** Repl
+#+begin_src lisp
+  ;; example use
+  (push #p"~/Programming/Pyrulis/Lisp/tris/" asdf:*central-registry*)
+  (ql:quickload :tris)
+  (trilist 1 2 3)
+#+end_src
