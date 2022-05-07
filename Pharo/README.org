@@ -1,0 +1,7 @@
+* Pharo
+
+** pharo wiki
+https://github.com/pharo-open-documentation/pharo-wiki
+
+*** for beginners
+https://github.com/pharo-open-documentation/pharo-wiki/blob/master/General/MustKnowForBeginners.md
