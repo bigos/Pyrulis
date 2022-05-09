@@ -13,3 +13,9 @@ Public Domain
   (ql:quickload :tris)
   (trilist 1 2 3)
 #+end_src
+
+** Adding to quicklisp
+#+begin_example
+cd /home/jacek/quicklisp/local-projects
+ln -s /home/jacek/Programming/Pyrulis/Lisp/tris ./tris
+#+end_example
