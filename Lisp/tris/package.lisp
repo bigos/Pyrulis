@@ -4,4 +4,5 @@
   (:use #:cl)
   (:export tris
            tria trib tric
-           trilist trilist-last trilist-first))
+           trilist trilist-last trilist-first
+           tris-get))
