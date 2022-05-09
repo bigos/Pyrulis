@@ -12,7 +12,7 @@ Public Domain
     (push #p"~/Programming/Pyrulis/Lisp/tris/" asdf:*central-registry*)
     (ql:quickload :tris)
     (setf *print-circle* t)
-    (tris:trilist 1 2 3)  
+    (tris:trilist 1 2 3)
 #+end_src
 
 ** Adding to quicklisp
