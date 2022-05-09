@@ -38,7 +38,7 @@
                (setf b current)))
     head))
 
-(defun trilist-tail (tris)
+(defun trilist-last (tris)
   (if (trid tris)
-      (trilist-tail (trid tris))
+      (trilist-last (trid tris))
       tris))

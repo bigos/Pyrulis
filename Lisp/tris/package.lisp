@@ -1,4 +1,5 @@
 ;;;; package.lisp
 
 (defpackage #:tris
-  (:use #:cl))
+  (:use #:cl)
+  (:export tris trib tria trid trilist trilist-last))
