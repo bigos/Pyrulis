@@ -42,3 +42,8 @@
   (if (tric tris)
       (trilist-last (tric tris))
       tris))
+
+(defun trilist-first (tris)
+  (if (tria tris)
+      (trilist-first (tria tris))
+      tris))
