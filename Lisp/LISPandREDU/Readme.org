@@ -1,0 +1,5 @@
+* Readme
+
+[[pdf:/home/jacek/Documents/Manuals/Lisp/1991_Bookmatter_ComputerAlgebraWithLISPAndREDU.pdf#5][Preface]]
+
+[[pdf:/home/jacek/Documents/Manuals/Lisp/1991_Bookmatter_ComputerAlgebraWithLISPAndREDU.pdf#7][Book content]]
