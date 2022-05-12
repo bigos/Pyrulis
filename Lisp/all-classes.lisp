@@ -8,7 +8,10 @@
                  (push (format nil "~a" c) seen)
                  (dp c))))
       (progn
+        ;; find all classes below T
         (dp (find-class t))
+
+        ;; show nice output
         (remove-duplicates
          (sort seen
                (lambda (x y) (string<= x y)))
