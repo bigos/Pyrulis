@@ -1,7 +1,13 @@
 * Readme
+
 ** Preface
 [[pdf:/home/jacek/Documents/Manuals/Lisp/1991_Bookmatter_ComputerAlgebraWithLISPAndREDU.pdf#5][Preface]]
 
 The function of an expert is not to be more right than other people, but to be wrong for more sophisticated reasons.
 
-[[pdf:/home/jacek/Documents/Manuals/Lisp/1991_Bookmatter_ComputerAlgebraWithLISPAndREDU.pdf#7][Book content]]
+** Contents
+[[pdf:/home/jacek/Documents/Manuals/Lisp/1991_Bookmatter_ComputerAlgebraWithLISPAndREDU.pdf#7][Book contents]]
+
+** Introduction
+
+It's a disappointment, only 11 pages, but still some ideas to search further
