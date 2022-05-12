@@ -47,3 +47,15 @@
   (if (tria tris)
       (trilist-first (tria tris))
       tris))
+
+(defun tris-get (accessors tris)
+  (labels
+      ((accfn ()
+         (case (car accessors)
+           ('a 'tria)
+           ('b 'trib)
+           ('c 'tric)
+           (otherwise (error "Invalid accessor ~A" (car accessors))))))
+    (if (null accessors)
+        tris
+        (tris-get (cdr accessors) (funcall (accfn) tris)))))

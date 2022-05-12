@@ -20,7 +20,7 @@
                  ((typep a 'standard-object)
                   (format nil "Object ~A" (type-of a)))
                  ((symbolp a)
-                  (format nil "Symbol ~A" a))
+                  (format nil "~A" a))
                  ((stringp a)
                   (format nil "~S" a))
                  (t
