@@ -4,6 +4,8 @@ Common Lisp Object System Experimentation and Research code will go here.
 
 ** Interesting links
 
+https://lispcookbook.github.io/cl-cookbook/clos.html
+
 https://www.xach.com/naggum/articles/3243735416407529@naggum.no.html
 
 https://www.xach.com/lisp/jrm-clos-guide.html
