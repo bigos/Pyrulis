@@ -9,7 +9,7 @@ Browse namespace: Main
 that will show defined functions and their types
 
 ** function listDir
-
+q
 *** Directory
 Move cursor over ~Directory~
 menu Idris / Browse namespace
