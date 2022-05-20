@@ -1,0 +1,3 @@
+* README
+
+This folder contains old experiments with Idris1. We need equivalents in Idris2.
