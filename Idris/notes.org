@@ -1,4 +1,10 @@
 * reading the book
+
+** old version below
+The sections below this one contain old links that refer to Idris 1.
+
+New works for Idris2 is needed.
+
 ** quick links
 *** colour meaning
 http://docs.idris-lang.org/en/latest/reference/semantic-highlighting.html#legend

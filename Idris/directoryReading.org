@@ -9,7 +9,7 @@ Browse namespace: Main
 that will show defined functions and their types
 
 ** function listDir
-
+q
 *** Directory
 Move cursor over ~Directory~
 menu Idris / Browse namespace
@@ -41,3 +41,6 @@ https://www.idris-lang.org/docs/current/contrib_doc/
 
 ** effects
 https://www.idris-lang.org/docs/current/effects_doc/
+
+** idris2 docs
+https://idris2.readthedocs.io/en/latest/
