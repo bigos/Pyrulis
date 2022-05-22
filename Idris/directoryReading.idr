@@ -1,5 +1,7 @@
 module Main
 
+
+
 dirName : String
 dirName = "/home/jacek/Documents/"
 
@@ -20,7 +22,3 @@ main = do
       entries <- listDir d []
       putStrLn (show entries)
       putStrLn "done"
-
--- Local Variables:
--- idris2-load-packages: ("test-0.5.1" "support" "network-0.5.1" "linear-0.5.1" "lib" "docs" "contrib-0.5.1" "base-0.5.1" "prelude-0.5.1")
--- End:
