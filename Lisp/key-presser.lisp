@@ -70,5 +70,26 @@
                  :string string
                  :name name)))
 
-
 ;; #####################################################################
+
+(defun key-from-inputs (i)
+  (typecase i
+    (string (loop for c across i do
+      (try (my-key-from-name (format nil "~a" c)))))
+    (cons (try (apply #'my-key-from-name i)))
+    (otherwise (error "Type ~S of ~S is not valid" i (type-of i)))))
+
+(defun try-inputs ()
+  (loop for i in
+        '(("F1") ("space") "uuuddd"  ("space") "dddu" ("F1"))
+        do (key-from-inputs i)))
+
+(defun try (arg)
+  (warn "trying arg ~S" arg))
+
+(quote (
+        build a counter with
+        ( count message)
+        and actions
+        (up down reset last-message help)
+  ))
