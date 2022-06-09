@@ -76,9 +76,13 @@
   ((cnt :std 0)
    (message)))
 
-(defmethod print-object ((obj model) stream)
+(defmethod print-object ((obj standard-object) stream)
   (print-unreadable-object (obj stream :type t)
-    (format stream "~S ~S" (cnt obj) (message obj))))
+    (format stream "~S"
+            (loop for sl in (sb-mop:compute-slots (class-of obj))
+                  collect (list
+                           (sb-mop:slot-definition-name sl)
+                           (slot-value obj (sb-mop:slot-definition-name sl)))))))
 
 ;; !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 (defun key-from-inputs (i)
