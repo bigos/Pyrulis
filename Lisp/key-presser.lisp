@@ -72,20 +72,39 @@
 
 ;; #####################################################################
 
+(defclass-std:defclass/std model ()
+  ((cnt :std 0)
+   (message)))
+
+(defmethod print-object ((obj model) stream)
+  (print-unreadable-object (obj stream :type t)
+    (format stream "~S ~S" (cnt obj) (message obj))))
+
+;; !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 (defun key-from-inputs (i)
   (typecase i
-    (string (loop for c across i do
-      (try (my-key-from-name (format nil "~a" c)))))
-    (cons (try (apply #'my-key-from-name i)))
+    (string
+     (loop for c across i do
+       (try
+        (my-key-from-name (format nil "~a" c)))))
+    (cons
+     (try
+      (apply #'my-key-from-name i)))
     (otherwise (error "Type ~S of ~S is not valid" i (type-of i)))))
 
+(defun try (key)
+  (warn "trying arg ~S ~s" key *model*)
+  (cond
+    (T (setf (message *model*) (format nil "ignoring key ~S" (my-key-name key)))))
+  (warn "finished with ~S" *model*))
+
+(defparameter *model* nil)
+
 (defun try-inputs ()
+  (setf *model* (make-instance 'model))
   (loop for i in
         '(("F1") ("space") "uuuddd"  ("space") "dddu" ("F1"))
         do (key-from-inputs i)))
-
-(defun try (arg)
-  (warn "trying arg ~S" arg))
 
 (quote (
         build a counter with
