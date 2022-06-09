@@ -115,7 +115,7 @@
                  (message *model*) nil)))
       (T
        (setf (message *model*) (format nil "ignoring key ~S" (my-key-name key)))))
-    (warn "finished with ~S" *model*)))
+    (warn "finished with ~A ~S" (my-key-name key) *model*)))
 
 (defparameter *model* nil)
 
