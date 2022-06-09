@@ -59,13 +59,16 @@
    ;; character name
    name))
 
-(defun my-key-from-name (name &optional modifiers)
-  (let ((kp (key-press-from-name name modifiers)))
-    (make-my-key :modifiers (elt kp 0) :string (elt kp 1) :name (elt kp 2))))
-
 (defstruct my-key
   (modifiers)
   (string)
   (name))
+
+(defun my-key-from-name (name &optional modifiers)
+  (destructuring-bind (modifiers string name) (key-press-from-name name modifiers)
+    (make-my-key :modifiers modifiers
+                 :string string
+                 :name name)))
+
 
 ;; #####################################################################
