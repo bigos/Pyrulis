@@ -72,10 +72,6 @@
 
 ;; #####################################################################
 
-(defclass-std:defclass/std model ()
-  ((cnt :std 0)
-   (message)))
-
 (defmethod print-object ((obj standard-object) stream)
   (print-unreadable-object (obj stream :type t)
     (format stream "~S"
@@ -83,6 +79,10 @@
                   collect (list
                            (sb-mop:slot-definition-name sl)
                            (slot-value obj (sb-mop:slot-definition-name sl)))))))
+
+(defclass-std:defclass/std model ()
+  ((cnt :std 0)
+   (message)))
 
 ;; !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 (defun key-from-inputs (i)
@@ -97,10 +97,25 @@
     (otherwise (error "Type ~S of ~S is not valid" i (type-of i)))))
 
 (defun try (key)
-  (warn "trying arg ~S ~s" key *model*)
-  (cond
-    (T (setf (message *model*) (format nil "ignoring key ~S" (my-key-name key)))))
-  (warn "finished with ~S" *model*))
+  ;(warn "trying arg ~S ~s" key *model*)
+  (let ((m (my-key-modifiers key))
+        (s (my-key-string key))
+        (n (my-key-name key)))
+    (cond
+      ((equal (my-key-name key) "F1")
+       (setf (message *model*) (format nil "help will go here")))
+      ((equal (my-key-name key) "u")
+       (setf (cnt *model*) (1+ (cnt *model*))
+             (message *model*) nil))
+      ((equal (my-key-name key) "d")
+       (if (<= (cnt *model*) 0)
+           (setf (cnt *model*) 0
+                 (message *model*) "can not go below 0")
+           (setf (cnt *model*) (1- (cnt *model*))
+                 (message *model*) nil)))
+      (T
+       (setf (message *model*) (format nil "ignoring key ~S" (my-key-name key)))))
+    (warn "finished with ~S" *model*)))
 
 (defparameter *model* nil)
 
