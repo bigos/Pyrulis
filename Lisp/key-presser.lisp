@@ -96,8 +96,8 @@
       (apply #'my-key-from-name i)))
     (otherwise (error "Type ~S of ~S is not valid" i (type-of i)))))
 
-(defun try (key)
-  ;(warn "trying arg ~S ~s" key *model*)
+;; !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+(defun try-update (key)
   (let ((m (my-key-modifiers key))
         (s (my-key-string key))
         (n (my-key-name key)))
@@ -115,14 +115,18 @@
                  (message *model*) nil)))
       (T
        (setf (message *model*) (format nil "ignoring key ~S" (my-key-name key)))))
-    (warn "finished with ~A ~S" (my-key-name key) *model*))
-  ;; and view ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    (warn "finished with ~A ~S" (my-key-name key) *model*)))
+
+(defun try-view ()
   (format t "~&====================================================~%")
   (format t " [~A] [~A] [~A] === (~S)~%~%"
-          "^" (cnt *model*) "v" (message *model*))
+          "^" (cnt *model*) "v" (message *model*)))
 
-  )
+(defun try (key)
+  (try-update key)
+  (try-view))
 
+;; !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 (defparameter *model* nil)
 
 (defun try-inputs ()
