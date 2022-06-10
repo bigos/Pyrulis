@@ -115,7 +115,12 @@
                  (message *model*) nil)))
       (T
        (setf (message *model*) (format nil "ignoring key ~S" (my-key-name key)))))
-    (warn "finished with ~A ~S" (my-key-name key) *model*)))
+    (warn "finished with ~A ~S" (my-key-name key) *model*))
+  ;; and view ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (format t "~&====================================================~%")
+  (format t " [~A] [~A] [~A] === (~S)~%~%" "^" (cnt *model*) "v" (message *model*))
+
+  )
 
 (defparameter *model* nil)
 
