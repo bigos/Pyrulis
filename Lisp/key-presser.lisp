@@ -118,7 +118,8 @@
     (warn "finished with ~A ~S" (my-key-name key) *model*))
   ;; and view ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (format t "~&====================================================~%")
-  (format t " [~A] [~A] [~A] === (~S)~%~%" "^" (cnt *model*) "v" (message *model*))
+  (format t " [~A] [~A] [~A] === (~S)~%~%"
+          "^" (cnt *model*) "v" (message *model*))
 
   )
 
