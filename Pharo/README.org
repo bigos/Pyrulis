@@ -8,6 +8,3 @@ https://github.com/pharo-open-documentation/pharo-wiki/blob/master/General/MustK
 
 ** syntax
 https://files.pharo.org/media/pharoCheatSheet.pdf
-
-** free book
-http://www.adamtornhill.com/reviews/pharobyexample.htm
