@@ -5,3 +5,9 @@ https://github.com/pharo-open-documentation/pharo-wiki
 
 *** for beginners
 https://github.com/pharo-open-documentation/pharo-wiki/blob/master/General/MustKnowForBeginners.md
+
+** syntax
+https://files.pharo.org/media/pharoCheatSheet.pdf
+
+** free book
+http://www.adamtornhill.com/reviews/pharobyexample.htm
