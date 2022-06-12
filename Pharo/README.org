@@ -78,4 +78,11 @@ add initialisation
 Now clicking on initialization in third from left pane
 will show bottom pane tan JacClass
 
-Here the web example no longer works
+I was able to use web examples by clicking bottom pane tab Inst. side method
+pasting the method code
+and right clicking and selecting Accept
+that would add methods to fourth from left pane
+
+package jacpac Jacclass
+right click jump to test class
+right click on JacClassTest option Run tests
