@@ -8,3 +8,20 @@ https://github.com/pharo-open-documentation/pharo-wiki/blob/master/General/MustK
 
 ** syntax
 https://files.pharo.org/media/pharoCheatSheet.pdf
+
+** Progress
+
+Launch a Pharo version in the Launcher
+
+Close welcome window
+
+Menu Browse System browser Ctrl o b - note tool-tip is wrong in Pharo 11
+
+Right click top leftmost area and select option New package
+Enter the package name Jacpac
+
+In the top left window select Jacpac
+New class tab will show in bottom part with the class stub
+edit Object subclass: #MyClass and name it #JacClass
+Right click and select Accept
+top second left pane will show new JacClass
