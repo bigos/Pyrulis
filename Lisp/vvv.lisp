@@ -33,6 +33,52 @@
   (cairo-set-source-rgb cr 0.7 1.0 1.0)
   (cairo-paint cr))
 
+;;; * processing events ******************************************
+(defstruct my-key
+  (modifiers)
+  (string)
+  (name))
+
+(defmethod key-update ((obj app) (widget gtk-application-window) (kp my-key))
+  ;; TODO add logic for handling key
+  (cond
+    ((equalp kp #S(MY-KEY :MODIFIERS NIL :STRING "" :NAME "F1"))
+     nil)
+    ((equalp kp #S(MY-KEY :MODIFIERS NIL :STRING "u" :NAME "u"))
+     nil)
+    ((equalp kp #S(MY-KEY :MODIFIERS NIL :STRING "d" :NAME "d"))
+     nil)
+    ((equalp kp #S(MY-KEY :MODIFIERS (:ALT) :STRING "q" :NAME "q"))
+     (quit obj))
+
+    (t
+     nil)))
+
+(defmethod build-my-key-modifiers ((event gdk-event-key))
+  (mapcar
+   (lambda (y)                          ;translate alts
+     (cond ((eql y :MOD1-MASK)
+            :ALT)
+           ((eql y :SHIFT-MASK)
+            :SHIFT)
+           ((eql y :CONTROL-MASK)
+            :CONTROL)
+           ((eql y :MOD5-MASK)
+            :ALTGR)
+           ((eql y :SUPER-MASK)
+            :SUPER)
+           (t y)))
+   (remove-if
+    (lambda (x)
+      (member x '(:MOD2-MASK :MOD4-MASK)))
+    (gdk-event-key-state event))))
+
+(defmethod build-my-key ((event gdk-event-key))
+  (make-my-key
+   :modifiers (build-my-key-modifiers event)
+   :string (gdk-event-key-string event)
+   :name (gdk-keyval-name (gdk-event-key-keyval event))))
+
 ;;; * normal events ******************************************
 (defmethod draw-canvas (obj (widget gtk-drawing-area) (context cairo-context))  ;VIEW
   (let ((cr (pointer context)))
@@ -43,22 +89,20 @@
     (cairo-destroy cr)))
 
 (defmethod widget-event ((obj app) (widget gtk-application-window) (event gdk-event-key))
-  (warn "processing event ~S ~S ~S" obj widget event)
-  (case (gdk-event-key-type event)
-    (:key-press (cond
-                  ((and (equal (gdk-event-key-string event) "q")
-                        (equal (gdk-event-key-state event) '(:MOD1-MASK)))
-                   (quit obj))
-                  (t
-                   nil)))
-    (:key-release (warn "unimplemented event ~S ~S ~S" obj widget event))
-    (otherwise (error "should not end here"))))
+  (warn "processing key devent ~S ~S ~S ~S"
+        (type-of obj) (type-of widget) (gdk-event-key-type event) (build-my-key event))
+  (let ((km (build-my-key event)))
+    (case (gdk-event-key-type event)
+      (:key-press   (key-update obj widget km))
+      (:key-release (format nil "unimplemented event ~S ~S ~S" obj widget event))
+      (otherwise (error "should not end here")))))
 
 (defmethod widget-event (obj (widget gtk-drawing-area) (event gdk-event-motion))
   (when nil (warn "unimplemented canvas motion event")))
 
 (defmethod widget-event (obj widget event)
-  (warn "unimplemented event ~S ~S ~S ~S" (type-of obj) (type-of widget) (type-of event) (gdk-event-type event)))
+  (warn "unimplemented event ~S ~S ~S ~S"
+        (type-of obj) (type-of widget) (type-of event) (gdk-event-type event)))
 
 ;;; * basic events ******************************************
 (defmethod win-delete-event ((obj app) (widget gtk-application-window) event)
