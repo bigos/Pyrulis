@@ -11,7 +11,9 @@ https://files.pharo.org/media/pharoCheatSheet.pdf
 
 ** Progress
 
-Launch a Pharo version in the Launcher
+Use Paro Launcher to rename latest 11-64 bit pharo as counter.
+
+Launch a Pharo named counter in the Launcher
 
 Close welcome window
 
