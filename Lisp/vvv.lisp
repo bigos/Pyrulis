@@ -19,14 +19,18 @@
 ;;; * clos ********************************************
 
 (defclass-std:defclass/std app ()
-  ((gtk-app)))
+  ((gtk-app)
+   (canvas)))
 
 (defmethod quit ((obj app))
   (loop for w in (gtk-application-get-windows (gtk-app obj))
         do (format t "closing window~%")
            (gtk-window-close w))
   (format t "trying to quit~%")
-    (g-signal-emit (gtk-app obj) "shutdown"))
+  (g-signal-emit (gtk-app obj) "shutdown"))
+
+(defmethod refresh-canvas ((obj app))
+  (gtk-widget-queue-draw (canvas obj)))
 
 (defmethod draw-view ((cr sb-sys:system-area-pointer))
   ;; add more drawing later
@@ -52,7 +56,8 @@
      (quit obj))
 
     (t
-     nil)))
+     nil))
+  (refresh-canvas obj))
 
 (defmethod build-my-key-modifiers ((event gdk-event-key))
   (mapcar
@@ -89,7 +94,7 @@
     (cairo-destroy cr)))
 
 (defmethod widget-event ((obj app) (widget gtk-application-window) (event gdk-event-key))
-  (warn "processing key devent ~S ~S ~S ~S"
+  (warn "processing key event ~S ~S ~S ~S"
         (type-of obj) (type-of widget) (gdk-event-key-type event) (build-my-key event))
   (let ((km (build-my-key event)))
     (case (gdk-event-key-type event)
