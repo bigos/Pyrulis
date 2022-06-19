@@ -32,6 +32,11 @@
 ** lisp book
   link to [[https://doc.lagout.org/programmation/Lisp/Scheme/The%20Seasoned%20Schemer%20-%20Daniel%20P.%20Friedman.pdf][seasoned schemer]]
 
+
+*** CLOS modelling
+move those links elsewhere
+https://atomicobject.com/resources/oo-programming/hierarchy
+
 ** laws of simplicity
 [[file:~/Programming/Pyrulis/dijkstra-quotes.org::*Simplicity][Dijkstra Simplicity]]
 
