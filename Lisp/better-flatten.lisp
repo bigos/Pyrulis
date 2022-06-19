@@ -1,3 +1,8 @@
+(declaim (optimize (speed 1) (safety 1) (debug 3)))
+
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (ql:quickload '(alexandria serapeum defclass-std)))
+
 ;;; better flatten with recursion on accumulator
 
 (defun flatten (x &optional acc)
