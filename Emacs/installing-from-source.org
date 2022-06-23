@@ -1,0 +1,8 @@
+* Installing from source
+
+** required libraries
+On system with existing installation we can find the installed dev libraries with
+
+#+begin_example
+sudo apt search "\-dev" | grep -E "^i\s"
+#+end_example
