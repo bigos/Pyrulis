@@ -37,6 +37,14 @@
 move those links elsewhere
 https://atomicobject.com/resources/oo-programming/hierarchy
 
+**** hierarchies
+
+***** is a
+
+***** is part of
+
+***** has a
+
 ** laws of simplicity
 [[file:~/Programming/Pyrulis/dijkstra-quotes.org::*Simplicity][Dijkstra Simplicity]]
 
