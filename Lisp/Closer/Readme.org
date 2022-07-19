@@ -14,3 +14,5 @@ http://t-a-w.blogspot.com/2006/08/programming-in-blub.html
 
 https://hyperthings.garden/posts/2021-05-19/singleton-classes-with-mop.html
 https://hyperthings.garden/posts/2021-06-25/playing-the-slots-with-mop.html
+
+https://clos-mop.hexstreamsoft.com/
