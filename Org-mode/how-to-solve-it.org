@@ -1,0 +1,17 @@
+* How to solve it
+
+** First
+Understand the problem.
+
+** Second
+Find the connection between the data and the unknown.
+
+You may consider auxiliary problems if the immediate/direct connection cannot be found.
+
+Eventually obtain the plan of the solution.
+
+** Third
+Examine the plan
+
+** Fourth
+Examine the solution
