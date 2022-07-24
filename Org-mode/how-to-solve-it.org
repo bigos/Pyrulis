@@ -11,7 +11,7 @@ You may consider auxiliary problems if the immediate/direct connection cannot be
 Eventually obtain the plan of the solution.
 
 ** Third
-Examine the plan
+Examine the plan. Is every step correct?
 
 ** Fourth
-Examine the solution
+Examine the solution. Can the solution be confirmed by other methods?
