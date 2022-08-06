@@ -1,0 +1,17 @@
+* Readme
+
+** reset counter
+It is attempt to illustrate and discuss recommended ways of calling update
+actions.
+
+file:~/Programming/Pyrulis/Elm/reset_counter/Main.elm::1
+
+** compiling
+#+begin_example
+elm make ./Main.elm
+#+end_example
+
+** elm documentation
+https://elm-lang.org/docs
+
+https://guide.elm-lang.org/
