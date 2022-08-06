@@ -6,16 +6,16 @@ import Html.Events exposing (onClick)
 
 
 main =
-    Browser.sandbox { init = init, update = update, view = view }
+    Browser.element { init = init, update = update, subscriptions = subscriptions, view = view }
 
 
 type alias Model =
     { counter : Int }
 
 
-init : Model
-init =
-    { counter = 0 }
+init : () -> ( Model, Cmd Msg )
+init _ =
+    ( { counter = 0 }, Cmd.none )
 
 
 type Msg
@@ -28,25 +28,25 @@ type Msg
 -- counter with limited counting
 
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Increment ->
             if model.counter < 5 then
-                { model | counter = model.counter + 1 }
+                ( { model | counter = model.counter + 1 }, Cmd.none )
 
             else
                 update Reset model
 
         Decrement ->
             if model.counter > -5 then
-                { model | counter = model.counter - 1 }
+                ( { model | counter = model.counter - 1 }, Cmd.none )
 
             else
                 update Reset model
 
         Reset ->
-            { model | counter = 0 }
+            ( { model | counter = 0 }, Cmd.none )
 
 
 view : Model -> Html Msg
@@ -57,3 +57,8 @@ view model =
         , button [ onClick Increment ] [ text "+" ]
         , div [] [ button [ onClick Reset ] [ text "reset" ] ]
         ]
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    Sub.none
