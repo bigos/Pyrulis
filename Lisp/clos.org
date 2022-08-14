@@ -3,11 +3,15 @@
 https://clos-mop.hexstreamsoft.com/
 
 ** different object systems
-**** message passing
-***** Ruby
+
+*** possibilities to extend
+pdf:/home/jacek/Documents/Manuals/Lisp/MetalevelProgrammingInClos.pdf#5
+
+*** message passing
+**** Ruby
 classes have methods and attributes
-**** generic function based
-*****  CLOS
+*** generic function based
+****  CLOS
 generic functions have methods
 classes have attributes
 
