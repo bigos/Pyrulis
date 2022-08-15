@@ -7,6 +7,9 @@ https://clos-mop.hexstreamsoft.com/
 *** possibilities to extend
 pdf:/home/jacek/Documents/Manuals/Lisp/MetalevelProgrammingInClos.pdf#5
 
+**** atomic object
+pdf:/home/jacek/Documents/Manuals/Lisp/MetalevelProgrammingInClos.pdf#7
+
 *** message passing
 **** Ruby
 classes have methods and attributes
