@@ -3,6 +3,9 @@
 https://clos-mop.hexstreamsoft.com/
 
 ** different object systems
+[[https://www.reddit.com/r/Common_Lisp/comments/wocapc/how_do_i_move_to_more_advanced_clos_how_do_i/][How do I add more advanced features to CLOS]]
+
+https://codeberg.org/mmontone/mold-desktop/src/branch/master/object.lisp
 
 *** possibilities to extend
 pdf:/home/jacek/Documents/Manuals/Lisp/MetalevelProgrammingInClos.pdf#5

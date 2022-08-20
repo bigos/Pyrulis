@@ -25,6 +25,19 @@
 
 * Other
 
+** russian ideas
+https://www.youtube.com/watch?v=dx3YovTZRNs
+
+https://en.wikipedia.org/wiki/Georgy_Shchedrovitsky
+
+https://web.archive.org/web/20190330215934/http://www.fondgp.ru:80/lib/int/5
+
+*** quotes
+The essence of solving a problem is to find a language in which the solution is
+obvious.
+
+
+
 ** forth book notes
 [[file:~/Programming/Pyrulis/thinking-forth.org::*structured design][structured design]]
 [[file:~/Programming/Pyrulis/thinking-forth.org::*FUNCTIONAL STRENGTH][FUNCTIONAL STRENGTH]]
