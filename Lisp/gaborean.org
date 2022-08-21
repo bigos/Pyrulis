@@ -36,7 +36,7 @@ https://web.archive.org/web/20190330215934/http://www.fondgp.ru:80/lib/int/5
 The essence of solving a problem is to find a language in which the solution is
 obvious.
 
-
+The language tries to emerge from the subconscious.
 
 ** forth book notes
 [[file:~/Programming/Pyrulis/thinking-forth.org::*structured design][structured design]]
