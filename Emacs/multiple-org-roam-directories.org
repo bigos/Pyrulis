@@ -1,0 +1,17 @@
+* Readme
+
+** multiple directories
+
+
+https://github.com/org-roam/org-roam/issues/80
+
+#+begin_src emacs-lisp
+((nil . ((org-roam-directory . ".")
+         (org-roam-db-location . "./org-roam.db"))))
+#+end_src
+
+close buffers in the org-roam-directory after adding the .dir-locals.el
+and open the again as needed
+
+** reload database
+M-x org-roam-db-sync

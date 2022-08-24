@@ -1,0 +1,5 @@
+* Problems with rvm
+Latest Linux Mint 21 has issues with rvm being unable to install rubies.
+
+this my be the answer
+https://github.com/rvm/rvm/issues/4680#issuecomment-816865721
