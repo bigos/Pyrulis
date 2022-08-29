@@ -1,0 +1,5 @@
+* Structs as lists
+I did not know that we can have explicitly specified
+[[https://www.cs.cmu.edu/Groups/AI/html/cltl/clm/node175.html#SECTION002370000000000000000][Representational Type]]
+
+Both unnamed and named structures can be encoded as lists.
