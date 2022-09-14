@@ -728,4 +728,7 @@ how Common Lisp's features can be used to implement good object-oriented
 designs.
 
 https://dept-info.labri.fr/~strandh/Teaching/MTP/Common/David-Lamkins/chapter07.html
+
 https://clos-mop.hexstreamsoft.com/concepts/
+
+https://flylib.com/books/en/4.425.1/
