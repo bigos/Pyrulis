@@ -19,6 +19,8 @@ http://venge.net/graydon/talks/mkc/html/mgp00002.html
 
 [[pdf:/home/jacek/Documents/Manuals/Lisp/Land of Lisp.pdf#375][Land of Lisp, Chapter 17 - page 375]]
 
+https://philcalcado.com/content/research_on_domain_specific_languages.html
+
 ** interesting articles
 
 *** CL-ROGUE
