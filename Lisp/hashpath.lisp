@@ -5,7 +5,7 @@
 
 (defpackage #:hashpath
   (:use :cl))
-;; (load "~/AAA/hashpath.lisp")
+;; (load "~/Programming/Pyrulis/Lisp/hashpath.lisp")
 (in-package #:hashpath)
 
 (defun make-hashpath-table (key)
@@ -41,11 +41,21 @@
           (hash-add current-hash (first keys) (make-hashpath-table (first keys))))
         (hash-add-path (gethash (first keys) current-hash) (rest keys) value))))
 
+(defun the-hash (current-hash key)
+  (cond
+    ((equal :. key)
+     current-hash)
+    (t
+     (gethash key current-hash))))
+
 (defun hash-enter-path (current-hash keys)
-  (if (endp keys)
-      current-hash
-      (progn
-        (setf current-hash (gethash (first keys) current-hash))
+  (assert (eql 'hash-table (type-of current-hash))
+          (current-hash keys) )
+  (let ((current-hash2 nil))
+    (setf current-hash2
+          (the-hash current-hash (first keys)))
+    (if (null current-hash2)
+        current-hash
         (hash-enter-path current-hash (rest keys)))))
 
 (defun test-me ()
@@ -71,6 +81,7 @@
     (hash-add-path current-hash '(:root :ch1 :ch1a) "avalue")
     (hash-add-path current-hash '(:root :ch1 :ch1b) (make-hashpath-table ::ch1a1))
 
+    (format t "before cd ~s~%" current-hash)
     (hash-enter-path current-hash '(:. :ch1 :ch1b))
 
     (when (equal :ch1b
