@@ -81,6 +81,8 @@
 
     (hash-add current-hash :a "a")
     (hash-add current-hash :b "b")
+    (assert (equal (parent-hash-table-alist root-hash)
+                   '((:|..| . PARENT) (:|.| . :/) (:A . "a") (:B . "b"))))
 
     (hash-add-path current-hash '(zzz :c) "c")
     (assert (hashpath-tablep current-hash :c))
