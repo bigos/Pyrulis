@@ -59,16 +59,12 @@
 
 (defun parent-hash-table-alist (table)
   "Returns an association list containing the keys and values of hash table
-TABLE replacing parent table with 'parent."
-  (let ((alist nil))
-    (maphash (lambda (k v)
-               (push (cons k
-                           (if (eql k :..)
-                               'parent
-                               v))
-                     alist))
-             table)
-    alist))
+  TABLE replacing parent table with 'parent."
+  (loop for k being the hash-key in table
+        collect (cons k
+                      (if (eql k :..)
+                          'parent
+                          (gethash k table)))))
 
 (defmethod print-object ((obj hash-table)  stream)
   (print-unreadable-object (obj stream :type t)
