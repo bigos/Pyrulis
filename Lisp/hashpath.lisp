@@ -10,10 +10,13 @@
 ;; (load "~/Programming/Pyrulis/Lisp/hashpath.lisp")
 (in-package #:hashpath)
 
+(defun init-hash (parent-hash current-hash key)
+  (setf (gethash :.. current-hash) parent-hash
+        (gethash :.  current-hash) key))
+
 (defun hash-add (hash key value)
   (when (typep value 'hash-table)
-    (setf (gethash :.. value) hash
-          (gethash :.  value) key))
+    (init-hash hash value key))
   (setf (gethash key hash) value))
 
 ;; (hash-add-path zzz '('q :a :b :c) 3)
@@ -72,9 +75,15 @@ TABLE replacing parent table with 'parent."
 (defun test-me ()
   (format t "~&Testing hashpath~%")
 
-  (let* ((root-hash (make-hashpath-table :root))
+  (let* ((root-hash (make-hash-table))
          (current-hash root-hash))
+    (init-hash nil root-hash :/)
     (assert (typep current-hash 'hash-table))
 
+    (hash-add current-hash :a "a")
+    (hash-add current-hash :b "b")
+
+    (hash-add-path current-hash '(zzz :c) "c")
+    (assert (hashpath-tablep current-hash :c))
 
     root-hash))
