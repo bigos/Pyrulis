@@ -11,6 +11,9 @@
 (in-package #:hashpath)
 
 (defun init-hash (parent-hash current-hash key)
+  (unless (zerop (hash-table-size current-hash))
+    (error "You can only init empty hash-table"))
+
   (setf (gethash :.. current-hash) parent-hash
         (gethash :.  current-hash) key))
 
