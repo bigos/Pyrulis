@@ -108,3 +108,11 @@
     (format t "zzzz ~S~%"
             (hash-get-path root-hash '(:c :d :d)))
     root-hash))
+
+(defun test-add ()
+  (let ((root-hash (make-hash-table)))
+    (init-hash nil root-hash :/)
+
+    (hash-add-path root-hash '(:a :b :c) "c-value")
+
+    root-hash))
