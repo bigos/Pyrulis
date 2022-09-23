@@ -25,17 +25,15 @@
 
 (defun hash-add-path (hash keys value)
   (if (null (cdr keys))
-      (setf (gethash (car keys)
-                     hash)
-            value)
-      (let ((next-hash (gethash (car keys)
-                                hash )))
+      (setf (gethash (car keys) hash) value)
+      (let ((next-hash (gethash (car keys) hash )))
         (unless next-hash
-          (setf next-hash (alexandria:ensure-gethash (car keys)
-                                                     hash (make-hash-table)))
+          (setf
+           next-hash (alexandria:ensure-gethash (car keys)
+                                                hash
+                                                (make-hash-table)))
           (init-hash hash next-hash (car keys)))
-        (hash-add-path next-hash (cdr keys)
-                       value))))
+        (hash-add-path next-hash (cdr keys) value))))
 
 (defun hash-get-path (hash keys)
   "Return HASH or value that can be traversed from HASH using the KEYS."
@@ -94,12 +92,12 @@
     (assert (equal (parent-hash-table-alist root-hash)
                    '((:|..| . PARENT) (:|.| . :/) (:A . "a") (:B . "b"))))
 
-    (hash-add-path current-hash '(:c) "c")
+    (hash-add-path current-hash '(:c :c) "c")
     (assert (hashpath-tablep current-hash :c))
     (assert (equal (parent-hash-table-alist (gethash :c  root-hash))
                    '((:|..| . PARENT) (:|.| . :C) (:C . "c"))))
 
-    (hash-add-path current-hash '(:c :d) "d")
+    (hash-add-path current-hash '(:c :d :d) "d")
     (assert (equal (parent-hash-table-alist
                     (gethash :d
                              (gethash :c  root-hash)))
