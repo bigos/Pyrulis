@@ -23,18 +23,22 @@
       (init-hash hash value key)))
   (setf (gethash key hash) value))
 
-;; (hash-add-path zzz '('q :a :b :c) 3)
 (defun hash-add-path (hash keys value)
-  (loop for k in keys
-        for oldh = nil then h
-        for h = hash then (alexandria:ensure-gethash k h (make-hash-table))
-        do
-           (when oldh
-             (hash-add oldh k h))
-           (format t "~& printing ~S~%" h)
-        finally (setf (gethash k h) value)))
+  (if (null (cdr keys))
+      (setf (gethash (car keys)
+                     hash)
+            value)
+      (let ((next-hash (gethash (car keys)
+                                hash )))
+        (unless next-hash
+          (setf next-hash (alexandria:ensure-gethash (car keys)
+                                                     hash (make-hash-table)))
+          (init-hash hash next-hash (car keys)))
+        (hash-add-path next-hash (cdr keys)
+                       value))))
 
 (defun hash-get-path (hash keys)
+  "Return HASH or value that can be traversed from HASH using the KEYS."
   (if (endp keys)
       hash
       (hash-get-path (gethash (first keys) hash) (rest keys))))
@@ -90,12 +94,12 @@
     (assert (equal (parent-hash-table-alist root-hash)
                    '((:|..| . PARENT) (:|.| . :/) (:A . "a") (:B . "b"))))
 
-    (hash-add-path current-hash '(zzz :c) "c")
+    (hash-add-path current-hash '(:c) "c")
     (assert (hashpath-tablep current-hash :c))
     (assert (equal (parent-hash-table-alist (gethash :c  root-hash))
                    '((:|..| . PARENT) (:|.| . :C) (:C . "c"))))
 
-    (hash-add-path current-hash '(zzz :c :d) "d")
+    (hash-add-path current-hash '(:c :d) "d")
     (assert (equal (parent-hash-table-alist
                     (gethash :d
                              (gethash :c  root-hash)))
