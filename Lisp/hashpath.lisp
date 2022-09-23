@@ -34,6 +34,11 @@
            (format t "~& printing ~S~%" h)
         finally (setf (gethash k h) value)))
 
+(defun hash-get-path (hash keys)
+  (if (endp keys)
+      hash
+      (hash-get-path (gethash (first keys) hash) (rest keys))))
+
 (defun hashpath-tablep (current-hash key)
   (let ((hash (gethash key current-hash)))
     (and (typep hash 'hash-table)
@@ -96,4 +101,6 @@
                              (gethash :c  root-hash)))
                    '((:|..| . PARENT) (:|.| . :D) (:D . "d"))))
 
+    (format t "zzzz ~S~%"
+            (hash-get-path root-hash '(:c :d :d)))
     root-hash))
