@@ -11,11 +11,12 @@
 (in-package #:hashpath)
 
 (defun init-hash (parent-hash current-hash key)
+  "Return CURRENT-HASH initialised with default values."
   (unless (zerop (hash-table-count current-hash))
     (error "You can only init empty hash-table, we have key ~S" (gethash :. current-hash)))
-
   (setf (gethash :.. current-hash) parent-hash
-        (gethash :.  current-hash) key))
+        (gethash :.  current-hash) key)
+  current-hash)
 
 (defun hash-add (hash key value)
   (when (typep value 'hash-table)
@@ -26,13 +27,14 @@
 (defun hash-add-path (hash keys value)
   (if (null (cdr keys))
       (setf (gethash (car keys) hash) value)
-      (let ((next-hash (gethash (car keys) hash )))
-        (unless next-hash
-          (setf next-hash (alexandria:ensure-gethash (car keys)
-                                                     hash
-                                                     (make-hash-table)))
-          (init-hash hash next-hash (car keys)))
-        (hash-add-path next-hash (cdr keys) value))))
+      (hash-add-path
+       (alexandria:ensure-gethash (car keys)
+                                  hash
+                                  (init-hash hash
+                                             (make-hash-table)
+                                             (car keys)))
+       (cdr keys)
+       value)))
 
 (defun hash-get-path (hash keys)
   "Return HASH or value that can be traversed from HASH using the KEYS."
