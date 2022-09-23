@@ -45,9 +45,7 @@
 (defun hashpath-tablep (current-hash key)
   (let ((hash (gethash key current-hash)))
     (and (typep hash 'hash-table)
-         (not (null (gethash :. hash)))
          (typep (gethash :. hash) 'keyword)
-         (not (null (gethash :.. hash)))
          (typep (gethash :.. hash) 'hash-table))))
 
 (-> hash-parent (hash-table) hash-table)
