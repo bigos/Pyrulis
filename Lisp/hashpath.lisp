@@ -56,8 +56,8 @@
 (defun hash-current (current-hash)
   (gethash :. current-hash))
 
-(-> the-hash (hash-table keyword) hash-table)
-(defun the-hash (current-hash key)
+(-> the-hash (keyword hash-table) hash-table)
+(defun the-hash (key current-hash)
   (cond
     ((equal :. key)
      current-hash)
