@@ -28,10 +28,9 @@
       (setf (gethash (car keys) hash) value)
       (let ((next-hash (gethash (car keys) hash )))
         (unless next-hash
-          (setf
-           next-hash (alexandria:ensure-gethash (car keys)
-                                                hash
-                                                (make-hash-table)))
+          (setf next-hash (alexandria:ensure-gethash (car keys)
+                                                     hash
+                                                     (make-hash-table)))
           (init-hash hash next-hash (car keys)))
         (hash-add-path next-hash (cdr keys) value))))
 
