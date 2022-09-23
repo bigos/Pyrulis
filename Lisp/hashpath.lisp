@@ -12,14 +12,15 @@
 
 (defun init-hash (parent-hash current-hash key)
   (unless (zerop (hash-table-count current-hash))
-    (error "You can only init empty hash-table"))
+    (error "You can only init empty hash-table, we have key ~S" (gethash :. current-hash)))
 
   (setf (gethash :.. current-hash) parent-hash
         (gethash :.  current-hash) key))
 
 (defun hash-add (hash key value)
   (when (typep value 'hash-table)
-    (init-hash hash value key))
+    (unless (hashpath-tablep hash key)
+      (init-hash hash value key)))
   (setf (gethash key hash) value))
 
 ;; (hash-add-path zzz '('q :a :b :c) 3)
@@ -86,5 +87,13 @@
 
     (hash-add-path current-hash '(zzz :c) "c")
     (assert (hashpath-tablep current-hash :c))
+    (assert (equal (parent-hash-table-alist (gethash :c  root-hash))
+                   '((:|..| . PARENT) (:|.| . :C) (:C . "c"))))
+
+    (hash-add-path current-hash '(zzz :c :d) "d")
+    (assert (equal (parent-hash-table-alist
+                    (gethash :d
+                             (gethash :c  root-hash)))
+                   '((:|..| . PARENT) (:|.| . :D) (:D . "d"))))
 
     root-hash))
