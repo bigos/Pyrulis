@@ -96,7 +96,7 @@
     (assert (typep current-hash 'hash-table))
 
     (hash-add current-hash :a "a")
-    (hash-add current-hash :b "b")
+    (hash-set-path current-hash '(:b) "b")
     (assert (equal (parent-hash-table-alist root-hash)
                    '((:|..| . PARENT) (:|.| . :/) (:A . "a") (:B . "b"))))
 
@@ -107,8 +107,7 @@
 
     (hash-set-path current-hash '(:c :d :d) "d")
     (assert (equal (parent-hash-table-alist
-                    (gethash :d
-                             (gethash :c  root-hash)))
+                    (hash-get-path root-hash '(:c :d)))
                    '((:|..| . PARENT) (:|.| . :D) (:D . "d"))))
 
     (format t "zzzz ~S~%"
