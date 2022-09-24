@@ -32,7 +32,7 @@
     (t
      (gethash key current-hash))))
 
-(defun (setf  the-hash) (value key current-hash)
+(defun (setf the-hash) (value key current-hash)
   (when (or (eql :. key)
             (eql :.. key))
     (error "You can not set ~S" key))
@@ -46,10 +46,10 @@
       (init-hash hash value key)))
   (setf (the-hash key hash) value))
 
-(defun hash-add-path (hash keys value)
+(defun hash-set-path (hash keys value)
   (if (null (cdr keys))
       (setf (the-hash (car keys) hash) value)
-      (hash-add-path
+      (hash-set-path
        (alexandria:ensure-gethash (car keys)
                                   hash
                                   (init-hash hash
@@ -100,12 +100,12 @@
     (assert (equal (parent-hash-table-alist root-hash)
                    '((:|..| . PARENT) (:|.| . :/) (:A . "a") (:B . "b"))))
 
-    (hash-add-path current-hash '(:c :c) "c")
+    (hash-set-path current-hash '(:c :c) "c")
     (assert (hashpath-tablep current-hash :c))
     (assert (equal (parent-hash-table-alist (gethash :c  root-hash))
                    '((:|..| . PARENT) (:|.| . :C) (:C . "c"))))
 
-    (hash-add-path current-hash '(:c :d :d) "d")
+    (hash-set-path current-hash '(:c :d :d) "d")
     (assert (equal (parent-hash-table-alist
                     (gethash :d
                              (gethash :c  root-hash)))
@@ -119,6 +119,6 @@
   (let ((root-hash (make-hash-table)))
     (init-hash nil root-hash :/)
 
-    (hash-add-path root-hash '(:a :b :c) "c-value")
+    (hash-set-path root-hash '(:a :b :c) "c-value")
 
     root-hash))
