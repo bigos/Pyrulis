@@ -102,7 +102,8 @@
 
     (hash-set-path current-hash '(:c :c) "c")
     (assert (hashpath-tablep current-hash :c))
-    (assert (equal (parent-hash-table-alist (gethash :c  root-hash))
+    (assert (equal (parent-hash-table-alist
+                    (hash-get-path root-hash '(:c)))
                    '((:|..| . PARENT) (:|.| . :C) (:C . "c"))))
 
     (hash-set-path current-hash '(:c :d :d) "d")
