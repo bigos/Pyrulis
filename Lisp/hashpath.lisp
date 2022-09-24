@@ -40,14 +40,14 @@
      (setf (gethash key current-hash) value)
      value))
 
-(defun hash-init-root (hash)
-  (init-hash nil hash :/))
-
 (defun hash-add (hash key value)
   (when (typep value 'hash-table)
     (unless (hashpath-tablep hash key)
       (init-hash hash value key)))
   (setf (the-hash key hash) value))
+
+(defun hash-init-root (hash)
+  (init-hash nil hash :/))
 
 (defun hash-set-path (hash keys value)
   (if (null (cdr keys))
@@ -92,9 +92,8 @@
 (defun test-me ()
   (format t "~&Testing hashpath~%")
 
-  (let* ((root-hash (make-hash-table))
+  (let* ((root-hash (hash-init-root (make-hash-table)))
          (current-hash root-hash))
-    (hash-init-root root-hash)
     (assert (typep current-hash 'hash-table))
 
     (hash-add current-hash :a "a")
