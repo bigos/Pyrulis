@@ -18,15 +18,34 @@
         (gethash :.  current-hash) key)
   current-hash)
 
+(defun hashpath-tablep (current-hash key)
+  (let ((hash (gethash key current-hash)))
+    (and (typep hash 'hash-table)
+         (typep (gethash :. hash) 'keyword)
+         (typep (gethash :.. hash) 'hash-table))))
+
+(-> the-hash (keyword hash-table) hash-table)
+(defun the-hash (key current-hash)
+  (cond
+    ((equal :. key)
+     current-hash)
+    (t
+     (gethash key current-hash))))
+
+(defun (setf  the-hash) (value key current-hash)
+  (progn
+     (setf (gethash key current-hash) value)
+     value))
+
 (defun hash-add (hash key value)
   (when (typep value 'hash-table)
     (unless (hashpath-tablep hash key)
       (init-hash hash value key)))
-  (setf (gethash key hash) value))
+  (setf (the-hash key hash) value))
 
 (defun hash-add-path (hash keys value)
   (if (null (cdr keys))
-      (setf (gethash (car keys) hash) value)
+      (setf (the-hash (car keys) hash) value)
       (hash-add-path
        (alexandria:ensure-gethash (car keys)
                                   hash
@@ -40,13 +59,7 @@
   "Return HASH or value that can be traversed from HASH using the KEYS."
   (if (endp keys)
       hash
-      (hash-get-path (gethash (first keys) hash) (rest keys))))
-
-(defun hashpath-tablep (current-hash key)
-  (let ((hash (gethash key current-hash)))
-    (and (typep hash 'hash-table)
-         (typep (gethash :. hash) 'keyword)
-         (typep (gethash :.. hash) 'hash-table))))
+      (hash-get-path (the-hash (first keys) hash) (rest keys))))
 
 (-> hash-parent (hash-table) hash-table)
 (defun hash-parent (current-hash)
@@ -56,13 +69,6 @@
 (defun hash-current (current-hash)
   (gethash :. current-hash))
 
-(-> the-hash (keyword hash-table) hash-table)
-(defun the-hash (key current-hash)
-  (cond
-    ((equal :. key)
-     current-hash)
-    (t
-     (gethash key current-hash))))
 
 (defun parent-hash-table-alist (table)
   "Returns an association list containing the keys and values of hash table
