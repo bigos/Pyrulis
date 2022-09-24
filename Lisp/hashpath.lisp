@@ -33,6 +33,9 @@
      (gethash key current-hash))))
 
 (defun (setf  the-hash) (value key current-hash)
+  (when (or (eql :. key)
+            (eql :.. key))
+    (error "You can not set ~S" key))
   (progn
      (setf (gethash key current-hash) value)
      value))
