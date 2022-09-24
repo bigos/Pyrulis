@@ -40,6 +40,9 @@
      (setf (gethash key current-hash) value)
      value))
 
+(defun hash-init-root (hash)
+  (init-hash nil hash :/))
+
 (defun hash-add (hash key value)
   (when (typep value 'hash-table)
     (unless (hashpath-tablep hash key)
@@ -72,7 +75,6 @@
 (defun hash-current (current-hash)
   (gethash :. current-hash))
 
-
 (defun parent-hash-table-alist (table)
   "Returns an association list containing the keys and values of hash table
   TABLE replacing parent table with 'parent."
@@ -92,7 +94,7 @@
 
   (let* ((root-hash (make-hash-table))
          (current-hash root-hash))
-    (init-hash nil root-hash :/)
+    (hash-init-root root-hash)
     (assert (typep current-hash 'hash-table))
 
     (hash-add current-hash :a "a")
@@ -113,12 +115,4 @@
 
     (format t "zzzz ~S~%"
             (hash-get-path root-hash '(:c :d :d)))
-    root-hash))
-
-(defun test-add ()
-  (let ((root-hash (make-hash-table)))
-    (init-hash nil root-hash :/)
-
-    (hash-set-path root-hash '(:a :b :c) "c-value")
-
     root-hash))
