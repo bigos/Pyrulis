@@ -11,45 +11,61 @@
 (in-package #:hashpath)
 
 (defun init-hash (parent-hash current-hash key)
+  "Return CURRENT-HASH initialised with default values."
   (unless (zerop (hash-table-count current-hash))
     (error "You can only init empty hash-table, we have key ~S" (gethash :. current-hash)))
-
   (setf (gethash :.. current-hash) parent-hash
-        (gethash :.  current-hash) key))
+        (gethash :.  current-hash) key)
+  current-hash)
+
+(defun hashpath-tablep (current-hash key)
+  (let ((hash (gethash key current-hash)))
+    (and (typep hash 'hash-table)
+         (typep (gethash :. hash) 'keyword)
+         (typep (gethash :.. hash) 'hash-table))))
+
+(-> the-hash (keyword hash-table) hash-table)
+(defun the-hash (key current-hash)
+  (cond
+    ((equal :. key)
+     current-hash)
+    (t
+     (gethash key current-hash))))
+
+(defun (setf the-hash) (value key current-hash)
+  (when (or (eql :. key)
+            (eql :.. key))
+    (error "You can not set ~S" key))
+  (progn
+     (setf (gethash key current-hash) value)
+     value))
 
 (defun hash-add (hash key value)
   (when (typep value 'hash-table)
     (unless (hashpath-tablep hash key)
       (init-hash hash value key)))
-  (setf (gethash key hash) value))
+  (setf (the-hash key hash) value))
 
-(defun hash-add-path (hash keys value)
+(defun hash-init-root (hash)
+  (init-hash nil hash :/))
+
+(defun hash-set-path (hash keys value)
   (if (null (cdr keys))
-      (setf (gethash (car keys)
-                     hash)
-            value)
-      (let ((next-hash (gethash (car keys)
-                                hash )))
-        (unless next-hash
-          (setf next-hash (alexandria:ensure-gethash (car keys)
-                                                     hash (make-hash-table)))
-          (init-hash hash next-hash (car keys)))
-        (hash-add-path next-hash (cdr keys)
-                       value))))
+      (setf (the-hash (car keys) hash) value)
+      (hash-set-path
+       (alexandria:ensure-gethash (car keys)
+                                  hash
+                                  (init-hash hash
+                                             (make-hash-table)
+                                             (car keys)))
+       (cdr keys)
+       value)))
 
 (defun hash-get-path (hash keys)
   "Return HASH or value that can be traversed from HASH using the KEYS."
   (if (endp keys)
       hash
-      (hash-get-path (gethash (first keys) hash) (rest keys))))
-
-(defun hashpath-tablep (current-hash key)
-  (let ((hash (gethash key current-hash)))
-    (and (typep hash 'hash-table)
-         (not (null (gethash :. hash)))
-         (typep (gethash :. hash) 'keyword)
-         (not (null (gethash :.. hash)))
-         (typep (gethash :.. hash) 'hash-table))))
+      (hash-get-path (the-hash (first keys) hash) (rest keys))))
 
 (-> hash-parent (hash-table) hash-table)
 (defun hash-parent (current-hash)
@@ -58,14 +74,6 @@
 (-> hash-current (hash-table) keyword)
 (defun hash-current (current-hash)
   (gethash :. current-hash))
-
-(-> the-hash (hash-table keyword) hash-table)
-(defun the-hash (current-hash key)
-  (cond
-    ((equal :. key)
-     current-hash)
-    (t
-     (gethash key current-hash))))
 
 (defun parent-hash-table-alist (table)
   "Returns an association list containing the keys and values of hash table
@@ -84,25 +92,24 @@
 (defun test-me ()
   (format t "~&Testing hashpath~%")
 
-  (let* ((root-hash (make-hash-table))
+  (let* ((root-hash (hash-init-root (make-hash-table)))
          (current-hash root-hash))
-    (init-hash nil root-hash :/)
     (assert (typep current-hash 'hash-table))
 
     (hash-add current-hash :a "a")
-    (hash-add current-hash :b "b")
+    (hash-set-path current-hash '(:b) "b")
     (assert (equal (parent-hash-table-alist root-hash)
                    '((:|..| . PARENT) (:|.| . :/) (:A . "a") (:B . "b"))))
 
-    (hash-add-path current-hash '(:c) "c")
+    (hash-set-path current-hash '(:c :c) "c")
     (assert (hashpath-tablep current-hash :c))
-    (assert (equal (parent-hash-table-alist (gethash :c  root-hash))
+    (assert (equal (parent-hash-table-alist
+                    (hash-get-path root-hash '(:c)))
                    '((:|..| . PARENT) (:|.| . :C) (:C . "c"))))
 
-    (hash-add-path current-hash '(:c :d) "d")
+    (hash-set-path current-hash '(:c :d :d) "d")
     (assert (equal (parent-hash-table-alist
-                    (gethash :d
-                             (gethash :c  root-hash)))
+                    (hash-get-path root-hash '(:c :d)))
                    '((:|..| . PARENT) (:|.| . :D) (:D . "d"))))
 
     (format t "zzzz ~S~%"
