@@ -95,3 +95,11 @@ reduced
 
 **** clarity
 distinct, clear, similar, blurred
+
+** Designing languages
+*** Growing a Language
+a talk by Guy Steele
+https://www.youtube.com/watch?v=_ahvzDzKdB0
+
+*** Racket creating languages
+https://github.com/racket/racket/wiki/Creating-Languages
