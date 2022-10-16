@@ -3,6 +3,17 @@
 
 ** Tutorials
 
+*** Monads are hard because
+https://www.johndcook.com/blog/2014/03/03/monads-are-hard-because/
+
+#+begin_quote
+Monads are hard because there are so many bad monad tutorials getting in the way
+of finally finding Wadler’s nice paper.
+#+end_quote
+
+The paper itself
+http://homepages.inf.ed.ac.uk/wadler/papers/marktoberdorf/baastad.pdf
+
 *** dev.stephendiehl.com
     http://dev.stephendiehl.com/hask/index.html
     http://dev.stephendiehl.com/hask/index.html#eightfold-path-to-monad-satori
