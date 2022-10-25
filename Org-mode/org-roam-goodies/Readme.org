@@ -1,11 +1,11 @@
 * Readme
-I do not know how to have multiple roams easily. so I have prepared two scripts
+I do not know how to have multiple roams easily. So I have prepared two scripts
 that go with my Emacs config to park and unpark org-roam folders for easy
 switching between them.
 
 I have Documetns/Roams in my home folder that contains folders that contain org-
 roam folders inside them. Running unpark.rb on a folder will extract the org-
-roam inside it and copy it to documents/org-roam.
+roam inside it and copy it to Documents/org-roam.
 
 Such folder copied to Documents/org roam should have park-at-path.rb script. You
 must make sure if points to the right parking folder and edit before first use
