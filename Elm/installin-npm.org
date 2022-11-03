@@ -1,0 +1,33 @@
+* Installing npm
+
+I have a problem with old node and npm on Linux Mint.
+
+** starting with a clean state
+
+*** apt packages
+#+begin_example
+sudo apt purge nodejs
+sudo apt autoremove
+#+end_example
+
+*** profiles
+We need to review and clean up the profiles and logout when finished.
+
+**** bash
+Home folder bash profile files like .bashrc and .profile need to be reviewed and
+any references to node or npm removed. That includes making sure the $PATH does
+not include node or npm related entries.
+
+**** other
+Removed files: .npmrc
+Removed folders: .npm, .npm-packages
+
+** Installing nodejs
+
+*** Install nvm
+https://tecadmin.net/how-to-install-nvm-on-ubuntu-20-04/
+
+*** install node
+#+begin_example
+nvm install node
+#+end_example
