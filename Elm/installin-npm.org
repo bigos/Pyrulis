@@ -37,3 +37,11 @@ nvm install node
 npm install elm -g
 npm install -g elm-test elm-format elm-review elm-json
 #+end_example
+
+*** run elm review in terminal
+
+#+begin_example
+$ npx elm-review --template jfmengels/elm-review-unused/example
+✔ Fetching template information
+I found no errors!
+#+end_example
