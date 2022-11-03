@@ -35,5 +35,5 @@ nvm install node
 *** install elm
 #+begin_example
 npm install elm -g
-npm install -g elm-test elm-format elm-review
+npm install -g elm-test elm-format elm-review elm-json
 #+end_example
