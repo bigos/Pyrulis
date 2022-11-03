@@ -1,0 +1,18 @@
+* Readme
+
+This folder is for notes reading Elm in Action.
+
+cover page
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#1
+
+brief contents
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#6
+
+contents
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#8
+
+preface
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#12
+
+how this book is organised
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#17
