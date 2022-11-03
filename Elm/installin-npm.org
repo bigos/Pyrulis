@@ -31,3 +31,8 @@ https://tecadmin.net/how-to-install-nvm-on-ubuntu-20-04/
 #+begin_example
 nvm install node
 #+end_example
+
+*** install elm
+#+begin_example
+npm install elm -g
+#+end_example
