@@ -1,8 +1,30 @@
 * Things I did not know
+
 ** multi-line comments
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#30
 
 #+begin_example
 > 1 + 2 {- in comment -} + 3
 6 : number
+#+end_example
+
+** REPL prototyping and let
+
+Following source example
+#+begin_src elm
+  withoutDashes str =
+      let
+          dash =
+              '-'
+          isKeepable character =
+              character /= dash
+      in
+          String.filter isKeepable str
+#+end_src
+
+can be tried in REPL like this:
+#+begin_example
+> dash = '-'
+> isKeepable character = character /= dash
+> withoutDashes str = String.filter isKeepable str
 #+end_example
