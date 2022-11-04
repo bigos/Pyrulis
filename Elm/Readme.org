@@ -3,7 +3,6 @@
 Here are some of my Elm projects and links to Elm resources
 
 ** Elm resources
-
 https://korban.net/elm/
 
 https://www.manning.com/books/elm-in-action/
@@ -12,6 +11,13 @@ https://elmcraft.org/learn
 
 ** interesting packages
 
+*** elm-ui
 https://dark.elm.dmy.fr/packages/mdgriffith/elm-ui/latest/
 
+*** elm-review
 https://dark.elm.dmy.fr/packages/jfmengels/elm-review-simplify/latest/
+
+#+begin_example
+  npx elm-review --template jfmengels/elm-review-unused/example
+  npx elm-review --template jfmengels/elm-review-simplify/example
+#+end_example
