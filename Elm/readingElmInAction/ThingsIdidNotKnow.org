@@ -38,3 +38,11 @@ These are equivalent
 isKeepable char = char /= '-'
 isKeepable = \char -> char /= '-'
 #+end_src
+
+** infix and prefix operators
+These are equivalent.
+
+#+begin_example
+  7 - 3 == 4
+(-) 7 3 == 4
+#+end_example
