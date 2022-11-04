@@ -20,3 +20,7 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#17
 ** reading
 1.2.1 Using Elm REPL
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#28
+
+
+1.3 Functions
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#34
