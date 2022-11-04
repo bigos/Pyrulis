@@ -28,3 +28,13 @@ can be tried in REPL like this:
 > isKeepable character = character /= dash
 > withoutDashes str = String.filter isKeepable str
 #+end_example
+
+The difference is that REPL version uses global scope for dash and isKeepable.
+
+** lambda and function equality
+These are equivalent
+
+#+begin_src elm
+isKeepable char = char /= '-'
+isKeepable = \char -> char /= '-'
+#+end_src
