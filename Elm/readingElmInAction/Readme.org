@@ -22,7 +22,6 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#17
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#28
 
 
-1.4 Collections
 
-1.4.2 Records
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#45
+2 Your first application
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#50

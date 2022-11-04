@@ -51,3 +51,22 @@ Operator precedence applies only to infix style calls.
 3 + 4 == 8 - 1
 (==) ((+) 3 4) ((-) 8 1) -- this is almost lispy
 #+end_src
+
+** record creation
+
+#+begin_src elm
+catLover = { name = "Li", cats = 2 } -- assigns a record to the name
+-- catLover. Once assigned, names cannot be reassigned.
+{ catLover | cats = 3 } -- returns a new record, based on catLover with new value cats set to 3
+#+end_src
+
+This is pattern seen in update.
+
+** Tuple destructuring
+Tuples have commas, functions in with arguments in brackets don't
+Tuples can have max 3 records.
+
+#+begin_src elm
+multiply3d ( x, y, z ) = x * y * z -- Destructuring a tuple into three named values: x, y, and z
+multiply3d ( 6, 7, 2 )
+#+end_src
