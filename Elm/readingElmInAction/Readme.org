@@ -20,3 +20,8 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#17
 ** reading
 1.2.1 Using Elm REPL
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#28
+
++begin_example
+> 1 + 2 {- in comment -} + 3
+6 : number
+#+end_example
