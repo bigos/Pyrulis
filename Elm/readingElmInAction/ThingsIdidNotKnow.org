@@ -1,3 +1,8 @@
 * Things I did not know
 ** multi-line comments
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#30
+
+#+begin_example
+> 1 + 2 {- in comment -} + 3
+6 : number
+#+end_example
