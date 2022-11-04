@@ -42,7 +42,12 @@ isKeepable = \char -> char /= '-'
 ** infix and prefix operators
 These are equivalent.
 
-#+begin_example
+Operator precedence applies only to infix style calls.
+
+#+begin_src elm
   7 - 3 == 4
 (-) 7 3 == 4
-#+end_example
+
+3 + 4 == 8 - 1
+(==) ((+) 3 4) ((-) 8 1) -- this is almost lispy
+#+end_src
