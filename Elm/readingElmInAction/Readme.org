@@ -24,4 +24,5 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#28
 
 1.4 Collections
 
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#43
+1.4.2 Records
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#45
