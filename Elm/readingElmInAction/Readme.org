@@ -21,14 +21,11 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#17
 1.2.1 Using Elm REPL
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#28
 
-
-
 2 Your first application
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#50
 
 elm reactor
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#55
 
-
-exposing everything with (..)
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#57
+2.1.2 Building a project
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#58
