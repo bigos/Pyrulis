@@ -28,3 +28,7 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#50
 
 elm reactor
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#55
+
+
+exposing everything with (..)
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#57
