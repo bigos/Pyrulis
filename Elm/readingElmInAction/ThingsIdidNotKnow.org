@@ -70,3 +70,7 @@ Tuples can have max 3 records.
 multiply3d ( x, y, z ) = x * y * z -- Destructuring a tuple into three named values: x, y, and z
 multiply3d ( 6, 7, 2 )
 #+end_src
+
+** Why we have commas first in Elm?
+Because it is easier to spot missing commas. In Elm a missing comma can still
+produce a syntactically valid code.
