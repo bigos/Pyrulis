@@ -74,3 +74,22 @@ multiply3d ( 6, 7, 2 )
 ** Why we have commas first in Elm?
 Because it is easier to spot missing commas. In Elm a missing comma can still
 produce a syntactically valid code.
+
+** import Module exposing(f1, f2)
+We could have achieved essentially the same result by assigning them names
+directly:
+
+#+begin_src elm
+import Html
+div = Html.div
+h1 = Html.h1
+img = Html.img
+text = Html.text
+#+end_src
+
+However, since this pile of code can be replaced by a single line
+#+begin_src elm
+import Html exposing (div, h1, img, text)
+#+end_src
+
+it’s normal to use exposing for this purpose instead.
