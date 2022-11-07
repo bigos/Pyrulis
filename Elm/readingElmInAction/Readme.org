@@ -25,3 +25,6 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#28
 
 2 Your first application
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#50
+
+elm reactor
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#55
