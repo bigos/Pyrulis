@@ -32,3 +32,6 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#58
 
 The Elm runtime and main
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
+
+2.2
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#61
