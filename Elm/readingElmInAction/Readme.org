@@ -33,5 +33,11 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#58
 The Elm runtime and main
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
-2.2
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#61
+2.2.1
+
+expanding our model
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#62
+
+
+code
+file:~/Programming/Pyrulis/Elm/readingElmInAction/PhotoGroove/src/PhotoGroove.elm::1
