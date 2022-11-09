@@ -4586,9 +4586,7 @@ var $author$project$PhotoGroove$view = function (model) {
 					]),
 				A2(
 					$elm$core$List$map,
-					function (photo) {
-						return A2($author$project$PhotoGroove$viewThumbnail, model.selectedUrl, photo);
-					},
+					$author$project$PhotoGroove$viewThumbnail(model.selectedUrl),
 					model.photos)),
 				A2(
 				$elm$html$Html$img,
