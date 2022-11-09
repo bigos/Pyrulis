@@ -1,7 +1,16 @@
 module PhotoGroove exposing (main)
 
-import Html exposing (div, h1, img, text)
+import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (onClick)
+
+
+update msg model =
+    if msg.description == "Clicked photo" then
+        { model | selectedUrl = msg.data }
+
+    else
+        model
 
 
 urlPrefix =
@@ -21,6 +30,7 @@ viewThumbnail selectedUrl thumb =
     img
         [ src (urlPrefix ++ thumb.url)
         , classList [ ( "selected", selectedUrl == thumb.url ) ]
+        , onClick { description = "Clicked photo", data = thumb.url }
         ]
         []
 
