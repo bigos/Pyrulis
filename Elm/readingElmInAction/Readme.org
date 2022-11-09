@@ -34,8 +34,8 @@ The Elm runtime and main
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
 
-2.2.2 Handling events with messages and updates
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#69
+Compiler as assistant
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#76
 
 
 code
