@@ -36,7 +36,7 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 2.2.1
 
 expanding our model
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#62
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#64
 
 
 code
