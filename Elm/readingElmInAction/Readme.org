@@ -29,3 +29,6 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#55
 
 2.1.2 Building a project
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#58
+
+The Elm runtime and main
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
