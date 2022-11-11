@@ -7,6 +7,20 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
 
 
+type alias Model =
+    { photos : List Photo
+    , selectedUrl : String
+    }
+
+
+type alias Photo =
+    { url : String }
+
+
+type alias Msg =
+    { description : String, data : String }
+
+
 update msg model =
     if msg.description == "Clicked photo" then
         { model | selectedUrl = msg.data }
@@ -24,6 +38,7 @@ urlPrefix =
     "http://elm-in-action.com/"
 
 
+view : Model -> Html Msg
 view model =
     div [ class "content" ]
         [ h1 [] [ text "Photo Groove" ]
@@ -42,12 +57,12 @@ viewThumbnail selectedUrl thumb =
         []
 
 
-photoArray : Array { url : String }
+photoArray : Array Photo
 photoArray =
     Array.fromList initialModel.photos
 
 
-initialModel : { photos : List { url : String }, selectedUrl : String }
+initialModel : { photos : List Photo, selectedUrl : String }
 initialModel =
     { photos =
         [ { url = "1.jpeg" }

@@ -33,8 +33,9 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#58
 The Elm runtime and main
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
-3.13 reusing annotations with type aliases
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#82
+3.14
+Annotating longer functions
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#83
 
 
 * The other links
