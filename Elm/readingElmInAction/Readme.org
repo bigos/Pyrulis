@@ -35,7 +35,8 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
 
 Compiler as assistant
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#76
+3.12
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#79
 
 
 code

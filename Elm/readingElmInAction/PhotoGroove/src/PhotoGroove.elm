@@ -14,6 +14,11 @@ update msg model =
         model
 
 
+photoListUrl : String
+photoListUrl =
+    "http:/elm-in-action.com/list-photos"
+
+
 urlPrefix =
     "http://elm-in-action.com/"
 
@@ -36,6 +41,7 @@ viewThumbnail selectedUrl thumb =
         []
 
 
+initialModel : { photos : List { url : String }, selectedUrl : String }
 initialModel =
     { photos =
         [ { url = "1.jpeg" }
