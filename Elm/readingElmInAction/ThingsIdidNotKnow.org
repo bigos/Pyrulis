@@ -96,3 +96,35 @@ it’s normal to use exposing for this purpose instead.
 
 ** classList
 https://package.elm-lang.org/packages/elm/html/latest/Html-Attributes#classList
+
+** Arrays have no literal sysnax
+
+** Lists perform better than Arrays
+in typical use cases
+
+** Arrays are better for arbitrary position access
+
+** Annotating functions with type variables
+DEFINITION A type variable represents more than one possible type. Type vari-
+ables have lowercase names, making them easy to differentiate from concrete
+types like String, which are always capitalized.
+
+NOTE
+Elm has three type variable names that have special meanings—
+number, appendable, and comparable—which we’ll dive into later. For
+now, avoid choosing any of those as your type variable names.
+
+
+#+begin_src elm
+  -- here the String is concrete type
+  myfn1 : List String
+  myfn1 = ["one", "two", "three"]
+
+  -- here the elementType is type variable, we could use one letter like a
+  myfn2 : List elementType -> Array elementType
+  myfn2 d = Array.fromList d
+
+  -- my imaginary function with type variables
+  myfn3 : List a -> (a -> b) -> List b
+  myfn3 ls fn = List.map fn ls
+#+end_src
