@@ -128,3 +128,10 @@ now, avoid choosing any of those as your type variable names.
   myfn3 : List a -> (a -> b) -> List b
   myfn3 ls fn = List.map fn ls
 #+end_src
+
+** Exposing imported types
+If we do not expose ~Array~ the function signature would have to be more verbose
+
+#+begin_src elm
+photoArray : Array.Array { url : String }
+#+end_src

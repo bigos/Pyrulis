@@ -1,5 +1,6 @@
 module PhotoGroove exposing (main)
 
+import Array exposing (Array)
 import Browser
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -39,6 +40,11 @@ viewThumbnail selectedUrl thumb =
         , onClick { description = "Clicked photo", data = thumb.url }
         ]
         []
+
+
+photoArray : Array { url : String }
+photoArray =
+    Array.fromList initialModel.photos
 
 
 initialModel : { photos : List { url : String }, selectedUrl : String }
