@@ -17,9 +17,12 @@
 (defun command (input)
   (format t "commanding ~S~%" input)
   (cond
-    ((and (equal input "help")          ;figure out ensuring correctness
+    ((and (equal input "quit")
+          (car (member "quit" (coms) :test #'equal)))
+     (error "should not end here because of quitting in the main loop"))
+    ((and (equal input "help")        ;figure out ensuring correctness
           (car (member "help" (coms) :test #'equal)))
-       (format t "commands are ~S~%" (list "quit" "help")))
+     (format t "commands are ~S~%" (list "quit" "help")))
     (T
      (error "unrecognised command ~S~%" input))))
 
