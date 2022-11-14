@@ -16,6 +16,17 @@
 
 (defun coms () (list "quit" "help" "inspect"))
 
+#| command succession
+  repl_input
+  command
+  model
+  view
+  repl_print
+|#
+
+(defun init ()
+  (setf *model* nil))
+
 (defun command (input)
   (format t "commanding ~S~%" input)
   (labels ((is (com)
@@ -45,6 +56,8 @@
   nil)
 
 (defun main ()
+  (init)
+
   (loop for input = (prompt "enter command")
         do
            (format t "you have said ~S~%" input)
