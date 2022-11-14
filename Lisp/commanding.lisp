@@ -14,7 +14,7 @@
   (format t "~&~a > " prompt)
   (read-line))
 
-(defun coms () (list "quit" "help"))
+(defun coms () (list "quit" "help" "inspect"))
 
 (defun command (input)
   (format t "commanding ~S~%" input)
@@ -23,24 +23,32 @@
                   (car (member com (coms) :test #'equal)))))
     (cond
       ((is "quit")
-       (error "should not end here because of quitting in the main loop"))
+       (setf  (getf *model* :mode) :quit))
       ((is "help")
-       (format t "commands are ~S~%" (list "quit" "help")))
+       (setf (getf *model* :mode) :help))
+      ((is "inspect")
+       (setf (getf *model* :mode) :inspect))
       (T
        (error "unrecognised command ~S~%" input))))
   (view))
 
 (defun view ()
   (format t "~&starting view ====++============~%")
+  (let ((m (getf *model* :mode)))
+    (ecase m
+      (:quit (format t "quitting~%"))
+      (:help (format t "the commands are ~S~%" (coms)))
+      (:inspect (format t "model is: ~S~%" *model*))
+      ))
 
   (format t "~&finished view ==================~%")
   nil)
 
 (defun main ()
   (loop for input = (prompt "enter command")
-        until (equal input "quit")
         do
            (format t "you have said ~S~%" input)
            (command input)
+        until (eq :quit (getf *model* :mode))
         finally
            (format t "quitting~%")))
