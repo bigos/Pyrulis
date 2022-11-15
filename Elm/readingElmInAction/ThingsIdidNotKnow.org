@@ -97,8 +97,7 @@ it’s normal to use exposing for this purpose instead.
 ** classList
 https://package.elm-lang.org/packages/elm/html/latest/Html-Attributes#classList
 
-** Arrays have no literal sysnax
-
+** Arrays have no literal syntax
 ** Lists perform better than Arrays
 in typical use cases
 
@@ -153,3 +152,6 @@ Runtime to perform. Unlike calling a function, running the same command
 multiple times can have different results.
 
 and the AHA! moment with the Figure 3.7 pn page 79 (100)
+
+** Type variables are for
+concrete types that have not been specified yet

@@ -23,8 +23,7 @@ type Msg
 view : Model -> Html Msg
 view model =
     div [ class "content" ]
-        [ p [] [ text <| Debug.toString model ]
-        , h1 [] [ text "Photo Groove" ]
+        [ h1 [] [ text "Photo Groove" ]
         , button
             [ onClick ClickedSurpriseMe ]
             [ text "Surprise Me!" ]
