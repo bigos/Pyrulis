@@ -135,3 +135,11 @@ If we do not expose ~Array~ the function signature would have to be more verbose
 #+begin_src elm
 photoArray : Array.Array { url : String }
 #+end_src
+
+** Function Signatures
+All elm functions support currying, so Elm adds brackets to the signature behind the scenes.
+#+begin_src elm
+  String.padLeft : Int -> Char -> String -> String
+  -- equals
+  String.padLeft : Int -> (Char -> (String -> String))
+#+end_src
