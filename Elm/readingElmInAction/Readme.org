@@ -33,9 +33,8 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#58
 The Elm runtime and main
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
-3.14
-Annotating longer functions
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#83
+3.2 Using case-expressions and custom types
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#86
 
 
 * The other links

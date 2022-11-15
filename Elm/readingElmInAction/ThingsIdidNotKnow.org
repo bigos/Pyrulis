@@ -143,3 +143,6 @@ All elm functions support currying, so Elm adds brackets to the signature behind
   -- equals
   String.padLeft : Int -> (Char -> (String -> String))
 #+end_src
+
+** Quick function search
+Searching for ~ : ~ in Emacs gives a grep list of record types and functions with their signatures.
