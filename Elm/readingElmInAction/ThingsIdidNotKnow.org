@@ -154,4 +154,4 @@ multiple times can have different results.
 and the AHA! moment with the Figure 3.7 pn page 79 (100)
 
 ** Type variables are for
-concrete types that have not been specified yet
+concrete types that have not been specified yet`

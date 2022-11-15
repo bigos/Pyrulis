@@ -18,6 +18,8 @@ how this book is organised
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#17
 
 ** reading
+
+*** part 1 done
 1.2.1 Using Elm REPL
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#28
 
@@ -33,10 +35,10 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#58
 The Elm runtime and main
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
-3.3.2
+*** part 2
 
 ANNOTATING MAIN
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#104
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#110
 
 
 * The other links
