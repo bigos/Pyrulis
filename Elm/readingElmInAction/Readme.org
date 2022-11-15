@@ -33,10 +33,10 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#58
 The Elm runtime and main
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
-3.2
-RENDERING DIFFERENT THUMBNAIL SIZES
+3.2.2
+DESTRUCTURING CUSTOM TYPES
 
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#91
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#94
 
 
 * The other links

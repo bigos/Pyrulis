@@ -53,14 +53,15 @@ urlPrefix =
 view : Model -> Html Msg
 view model =
     div [ class "content" ]
-        [ h1 [] [ text "Photo Groove" ]
+        [ p [] [ text <| Debug.toString model ]
+        , h1 [] [ text "Photo Groove" ]
         , button
             [ onClick { description = "ClickedSurpriseMe", data = "" } ]
             [ text "Surprise Me!" ]
         , h3 [] [ text "Thumbnail Size:" ]
         , div [ id "choose-size" ]
             (List.map viewSizeChooser [ Small, Medium, Large ])
-        , div [ id "thumbnails" ]
+        , div [ id "thumbnails", class (sizeToString model.chosenSize) ]
             (List.map (viewThumbnail model.selectedUrl) model.photos)
         , img [ class "large", src (urlPrefix ++ "large/" ++ model.selectedUrl) ] []
         ]
@@ -107,7 +108,7 @@ initialModel =
         , { url = "3.jpeg" }
         ]
     , selectedUrl = "1.jpeg"
-    , chosenSize = Medium
+    , chosenSize = Small
     }
 
 
