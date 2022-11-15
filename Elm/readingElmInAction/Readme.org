@@ -33,8 +33,10 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#58
 The Elm runtime and main
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
-3.2 Using case-expressions and custom types
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#86
+3.2
+RENDERING DIFFERENT THUMBNAIL SIZES
+
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#91
 
 
 * The other links
