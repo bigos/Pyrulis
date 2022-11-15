@@ -40,6 +40,11 @@ getPhotoUrl index =
             ""
 
 
+randomPhotoPicker : Random.Generator Int
+randomPhotoPicker =
+    Random.int 0 2
+
+
 update : Msg -> Model -> Model
 update msg model =
     case msg of
