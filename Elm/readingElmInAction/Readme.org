@@ -34,7 +34,9 @@ The Elm runtime and main
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
 3.3.2
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#99
+
+ANNOTATING MAIN
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#104
 
 
 * The other links
