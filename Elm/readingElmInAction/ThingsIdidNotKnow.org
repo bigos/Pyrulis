@@ -146,3 +146,10 @@ All elm functions support currying, so Elm adds brackets to the signature behind
 
 ** Quick function search
 Searching for ~ : ~ in Emacs gives a grep list of record types and functions with their signatures.
+
+** Elm Commands
+DEFINITION A command is a value that describes an operation for the Elm
+Runtime to perform. Unlike calling a function, running the same command
+multiple times can have different results.
+
+and the AHA! moment with the Figure 3.7 pn page 79 (100)
