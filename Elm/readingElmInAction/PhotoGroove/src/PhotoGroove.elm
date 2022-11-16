@@ -93,7 +93,7 @@ initialModel =
         , { url = "3.jpeg" }
         ]
     , selectedUrl = "1.jpeg"
-    , chosenSize = Small
+    , chosenSize = Medium
     }
 
 
