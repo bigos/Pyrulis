@@ -197,5 +197,14 @@ Different variants of (model, CmdAction) like Cmd.none |> Tuple.pair model
 Calling update does not directly alter any state. All update does is return a
 tuple. Updates are performed by the Elm Runtime.
 
-** matching (first :: rest) as elements
+** as in matching and destructuring
+matching (first :: rest) as elements
 The as means give entire list as elements
+
+TIP You can also use as when destructuring function arguments. For exam-
+ple, doSomethingWithTuple (( first, second ) as tuple) = ... or
+perhaps doSomethingWithRecord ({ username, password } as
+record) = ...
+
+** type alias does more that declaring type
+It also creates convenience function for building the record instances

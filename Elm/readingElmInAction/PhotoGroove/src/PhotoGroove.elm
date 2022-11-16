@@ -76,7 +76,7 @@ sizeToString size =
             "small"
 
         Medium ->
-            "medium"
+            "med"
 
         Large ->
             "large"
@@ -109,6 +109,14 @@ initialModel =
     { status = Loading
     , chosenSize = Medium
     }
+
+
+initialCmd : Cmd Msg
+initialCmd =
+    Http.get
+        { url = "http://elm-in-action.com/photos/list"
+        , expect = Http.expectString GotPhotos
+        }
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -144,22 +152,21 @@ update msg model =
         ClickedSize size ->
             ( { model | chosenSize = size }, Cmd.none )
 
-        GotPhotos result ->
-            case result of
-                Ok responseStr ->
-                    case String.split "," responseStr of
-                        (firstUrl :: _) as urls ->
-                            let
-                                photos =
-                                    List.map (\url -> { url = url }) urls
-                            in
-                            ( { model | status = Loaded photos firstUrl }, Cmd.none )
+        GotPhotos (Ok responseStr) ->
+            case String.split "," responseStr of
+                (firstUrl :: _) as urls ->
+                    let
+                        photos =
+                            -- List.map (\url -> { url = url }) urls -- is the same as the following
+                            List.map Photo urls
+                    in
+                    ( { model | status = Loaded photos firstUrl }, Cmd.none )
 
-                        [] ->
-                            ( { model | status = Errored "0 photos found" }, Cmd.none )
+                [] ->
+                    ( { model | status = Errored "0 photos found" }, Cmd.none )
 
-                Err httpError ->
-                    ( { model | status = Errored "Server error!" }, Cmd.none )
+        GotPhotos (Err _) ->
+            ( { model | status = Errored "Server error!" }, Cmd.none )
 
 
 selectUrl : String -> Status -> Status
@@ -177,7 +184,7 @@ selectUrl url status =
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( initialModel, Cmd.none )
+    ( initialModel, initialCmd )
 
 
 main : Program () Model Msg
@@ -186,5 +193,5 @@ main =
         { init = init
         , view = view
         , update = update
-        , subscriptions = \model -> Sub.none
+        , subscriptions = \_ -> Sub.none
         }
