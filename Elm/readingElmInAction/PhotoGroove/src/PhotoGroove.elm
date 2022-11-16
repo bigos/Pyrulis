@@ -78,21 +78,21 @@ type alias Photo =
     { url : String }
 
 
+type Status
+    = Loading
+    | Loaded (List Photo) String
+    | Errored String
+
+
 type alias Model =
-    { photos : List Photo
-    , selectedUrl : String
+    { status : Status
     , chosenSize : Thumbnailsize
     }
 
 
 initialModel : Model
 initialModel =
-    { photos =
-        [ { url = "1.jpeg" }
-        , { url = "2.jpeg" }
-        , { url = "3.jpeg" }
-        ]
-    , selectedUrl = "1.jpeg"
+    { status = Loading
     , chosenSize = Medium
     }
 
