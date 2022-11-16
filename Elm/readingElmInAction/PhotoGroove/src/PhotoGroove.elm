@@ -4,6 +4,7 @@ import Browser
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
+import Http
 import Random
 
 
@@ -17,6 +18,7 @@ type Msg
     | ClickedSize ThumbnailSize
     | ClickedSurpriseMe
     | GotRandomPhoto Photo
+    | GotPhotos (Result Http.Error String)
 
 
 view : Model -> Html Msg
@@ -141,6 +143,25 @@ update msg model =
 
         ClickedSize size ->
             ( { model | chosenSize = size }, Cmd.none )
+
+        GotPhotos result ->
+            case result of
+                Ok responseStr ->
+                    -- translate responseStr into a list of photos for our model
+                    let
+                        urls =
+                            String.split "," responseStr
+
+                        photos =
+                            List.map (\url -> { url = url }) urls
+
+                        firstUrl =
+                            List.head photos
+                    in
+                    ( { model | status = Loaded photos firstUrl }, Cmd.none )
+
+                Err httpError ->
+                    ( { model | status = Errored "Server error!" }, Cmd.none )
 
 
 selectUrl : String -> Status -> Status
