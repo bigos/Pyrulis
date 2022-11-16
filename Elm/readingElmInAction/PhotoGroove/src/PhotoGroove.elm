@@ -1,6 +1,5 @@
 module PhotoGroove exposing (main)
 
-import Array exposing (Array)
 import Browser
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -17,7 +16,7 @@ type Msg
     = ClickedPhoto String
     | ClickedSize ThumbnailSize
     | ClickedSurpriseMe
-    | GotSelectedIndex Int
+    | GotRandomPhoto Photo
 
 
 view : Model -> Html Msg
@@ -113,8 +112,8 @@ initialModel =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        GotSelectedIndex index ->
-            ( { model | status = selectUrl (getPhotoUrl index) model.status }, Cmd.none )
+        GotRandomPhoto photo ->
+            ( { model | status = selectUrl photo.url model.status }, Cmd.none )
 
         ClickedPhoto url ->
             ( { model | status = selectUrl url model.status }, Cmd.none )
@@ -122,9 +121,17 @@ update msg model =
         ClickedSurpriseMe ->
             case model.status of
                 Loaded (firstPhoto :: otherPhotos) _ ->
-                    ( model
-                    , Random.generate GotRandomPhoto (Random.uniform firstPhoto otherPhotos)
-                    )
+                    -- ( model
+                    -- , Random.generate GotRandomPhoto (Random.uniform firstPhoto otherPhotos)
+                    -- )
+                    -- or
+                    -- Tuple.pair model
+                    --     (Random.generate GotRandomPhoto (Random.uniform firstPhoto otherPhotos))
+                    -- or
+                    Random.uniform firstPhoto otherPhotos |> Random.generate GotRandomPhoto |> Tuple.pair model
+
+                Loaded [] _ ->
+                    ( model, Cmd.none )
 
                 Loading ->
                     ( model, Cmd.none )
@@ -143,7 +150,7 @@ selectUrl url status =
             Loaded photos url
 
         Loading ->
-            status thought
+            status
 
         Errored errorMessage ->
             status

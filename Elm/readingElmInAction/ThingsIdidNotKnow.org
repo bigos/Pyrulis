@@ -158,10 +158,21 @@ concrete types that have not been specified yet`
 
 ** Non empty lists
 Similarly, a function can “return a non-empty list” by returning
-an ( elem, List elem ) tuple.
+an ( elem, List elem ) tuple. where we have tuple of the head and rest
 
 Pattern matching as in
 #+begin_src elm
 Loaded (firstPhoto :: otherPhotos) _ ->
 #+end_src
 matches in a way where we can use it when we need arguments of a guaranteed non empty lists
+
+that comes handy in case zzz of like this:
+#+begin_src elm
+                Loaded (firstPhoto :: otherPhotos) _ ->
+                    ( model
+                    , Random.generate GotRandomPhoto (Random.uniform firstPhoto otherPhotos)
+                    )
+
+                Loaded [] _ ->
+                    ( model, Cmd.none )
+#+end_src
