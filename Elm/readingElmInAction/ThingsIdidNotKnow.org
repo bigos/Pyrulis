@@ -155,3 +155,13 @@ and the AHA! moment with the Figure 3.7 pn page 79 (100)
 
 ** Type variables are for
 concrete types that have not been specified yet`
+
+** Non empty lists
+Similarly, a function can “return a non-empty list” by returning
+an ( elem, List elem ) tuple.
+
+Pattern matching as in
+#+begin_src elm
+Loaded (firstPhoto :: otherPhotos) _ ->
+#+end_src
+matches in a way where we can use it when we need arguments of a guaranteed non empty lists
