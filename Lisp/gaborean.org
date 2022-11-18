@@ -7,7 +7,7 @@ until you fill your head
 until you run out of ideas
 
 ** as much as you can expand ideas using domain language
-until you can execute in your head
+until you can execute in your head and you have clear terms for the solution
 
 ** big jump to Lisp
 

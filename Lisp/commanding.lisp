@@ -1,14 +1,14 @@
 (eval-when (:compile-toplevel :load-toplevel :execute)
-  (ql:quickload '(alexandria)))
+  (ql:quickload '(alexandria defclass-std)))
 
 (defpackage #:commanding
+  (:import-from :defclass-std :defclass/std)
   (:use #:cl))
 
 ;; (load "~/Programming/Pyrulis/Lisp/commanding.lisp")
 (in-package #:commanding)
 
 (defparameter *model* nil)
-
 
 (defun prompt (prompt)
   (format t "~&~a > " prompt)
@@ -18,11 +18,15 @@
 
 #| command succession
   repl_input
+runtime
   command
   model
   view
+runtime
   repl_print
 |#
+
+(defclass/std runtime () ())
 
 (defun init ()
   (setf *model* nil))
