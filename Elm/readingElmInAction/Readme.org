@@ -37,8 +37,8 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
 *** part 2
 
-ANNOTATING MAIN
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#112
+4.3 decoding json
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#132
 
 
 * The other links
