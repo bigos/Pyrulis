@@ -26,15 +26,25 @@
 
 (defclass/std runtime () ())
 
+(defparameter *runtime* (make-instance 'runtime))
+
+;; (command *runtime* "boo")
+(defmethod command ((runtime runtime) input)
+  (format t "handling command ~S~%" input)
+
+  (cond
+    ((equal input "help")
+     (warn "no help yet written"))
+    (T
+     (warn "input ~S not handled" input))))
 
 
 (defun main ()
-  ;; (init)
 
   (loop for input = (prompt "enter command")
         do
            (format t "you have said ~S~%" input)
-           ;; (command input)
+           (command *runtime* input)
         until (equal input "quit")
         finally
            (format t "quitting~%")))
