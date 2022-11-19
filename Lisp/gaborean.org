@@ -103,3 +103,6 @@ https://www.youtube.com/watch?v=_ahvzDzKdB0
 
 *** Racket creating languages
 https://github.com/racket/racket/wiki/Creating-Languages
+
+*** Eric Normand thoughts
+https://ericnormand.me/podcast
