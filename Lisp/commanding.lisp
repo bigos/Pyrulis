@@ -8,8 +8,6 @@
 ;; (load "~/Programming/Pyrulis/Lisp/commanding.lisp")
 (in-package #:commanding)
 
-(defparameter *model* nil)
-
 (defun prompt (prompt)
   (format t "~&~a > " prompt)
   (read-line))
@@ -24,9 +22,15 @@
   repl_print
 |#
 
-(defclass/std runtime () ())
+(defclass/std runtime ()
+  ((model)))
 
 (defparameter *runtime* (make-instance 'runtime))
+
+(defmethod init ((runtime runtime) flags)
+  (declare (ignore flags))
+  (setf (model runtime)
+        nil))
 
 ;; (command *runtime* "boo")
 (defmethod command ((runtime runtime) input)
@@ -34,12 +38,30 @@
 
   (cond
     ((equal input "help")
-     (warn "no help yet written"))
+     (warn "no help yet written")
+     (update runtime "help" (model runtime)))
+
     (T
      (warn "input ~S not handled" input))))
 
+(defmethod update ((runtime runtime) message model)
+  (warn "update ~S ~S~%" message model)
+  (cond
+    (t (warn "not implemented ~S ~S~%" message model)))
+  (view runtime model))
+
+(defmethod view ((runtime runtime) model)
+  (warn "view ~S~%" model)
+  ;;  do the view stuff
+
+  (print-to-repl runtime))
+
+
+(defmethod print-to-repl ((runtime runtime) )
+  (warn "finally I will print to REPL~&"))
 
 (defun main ()
+  (init *runtime* nil)
 
   (loop for input = (prompt "enter command")
         do
