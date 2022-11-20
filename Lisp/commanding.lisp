@@ -10,7 +10,8 @@
 
 (defun prompt (prompt)
   (format t "~&~a > " prompt)
-  (read-line))
+  (alexandria:symbolicate
+   (read-line)))
 
 #| command succession
   repl_input
@@ -32,33 +33,34 @@
   (setf (model runtime)
         nil))
 
-;; (command *runtime* "boo")
-(defmethod command ((runtime runtime) input)
-  (format t "handling command ~S~%" input)
-
-  (cond
-    ((equal input "help")
-     (warn "no help yet written")
-     (update runtime "help" (model runtime)))
-
-    (T
-     (warn "input ~S not handled" input))))
-
-(defmethod update ((runtime runtime) message model)
-  (warn "update ~S ~S~%" message model)
-  (cond
-    (t (warn "not implemented ~S ~S~%" message model)))
-  (view runtime model))
-
 (defmethod view ((runtime runtime) model)
   (warn "view ~S~%" model)
   ;;  do the view stuff
 
   (print-to-repl runtime))
 
+(defmethod update ((runtime runtime) message model)
+  (warn "update ~S ~S~%" message model)
+  (cond
+    ((eq message :help)
+     (view runtime model))
+    (t (warn "not implemented ~S ~S~%" message model)
+       (view runtime model))))
 
 (defmethod print-to-repl ((runtime runtime) )
   (warn "finally I will print to REPL~&"))
+
+;; (command *runtime* "boo")
+(defmethod command ((runtime runtime) input)
+  (format t "handling command ~S~%" input)
+
+  (cond
+    ((eq input '|help|)
+     (warn "no help yet written")
+     (update runtime :help (model runtime)))
+
+    (T
+     (warn "input ~S not handled" input))))
 
 (defun main ()
   (init *runtime* nil)
@@ -67,6 +69,6 @@
         do
            (format t "you have said ~S~%" input)
            (command *runtime* input)
-        until (equal input "quit")
+        until (eq input '|quit|)
         finally
            (format t "quitting~%")))
