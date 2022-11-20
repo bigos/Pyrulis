@@ -2,7 +2,10 @@
   (ql:quickload '(alexandria serapeum defclass-std)))
 
 (defpackage #:commanding
-  (:import-from :defclass-std :defclass/std)
+  (:import-from :defclass-std
+   :defclass/std)
+  (:import-from :serapeum
+   :~>)
   (:use #:cl))
 
 ;; (load "~/Programming/Pyrulis/Lisp/commanding.lisp")
@@ -61,7 +64,7 @@
 
   (format t "~&beginning of output ==============================~%")
   ;;  do the view stuff
-  (when (help-message (model runtime))
+  (when (~> runtime model help-message)
     (format t "help message ~S~%" (help-message model)))
 
   (format t "~&the end of output ================================~%"))
@@ -75,7 +78,7 @@
 
 (defmethod update ((runtime runtime) (message help) model)
   (warn "update handling help")
-  (setf (help-message (model runtime)) "this is help"))
+  (setf (~> runtime model help-message) "this is help"))
 
 (defmethod update ((runtime runtime) (message nop) model)
   (warn "update handling nop"))
