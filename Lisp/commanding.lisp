@@ -66,23 +66,19 @@
 
   (format t "~&the end of output ================================~%"))
 
-;; (defmethod update ((runtime runtime) message model)
-;;   (warn "update ~S ~S~%" message model)
 
-;;   ;; help is set in one place only
-;;   (when (help-message (model runtime))
-;;     (setf (help-message (model runtime)) nil))
+(defmethod update :after ((runtime runtime) message model)
+  (view runtime model))
 
-;;   (typecase message
-;;     (help
-;;      (warn "update handling help")
-;;      (setf (help-message (model runtime)) "this is help")
-;;      (view runtime model))
-;;     (nop
-;;      (view runtime model))
-;;     (t
-;;      (warn "not implemented ~S ~S~%" message model)
-;;        (view runtime model))))
+(defmethod update ((runtime runtime) (message T) model)
+  (warn "not implemented update ~S ~S" message model))
+
+(defmethod update ((runtime runtime) (message help) model)
+  (warn "update handling help")
+  (setf (help-message (model runtime)) "this is help"))
+
+(defmethod update ((runtime runtime) (message nop) model)
+  (warn "update handling nop"))
 
 (defmethod command ((runtime runtime) input)
   (format t "handling command ~S~%" input)
