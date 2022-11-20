@@ -13,6 +13,14 @@
   (alexandria:symbolicate
    (read-line)))
 
+(defun mkstr (&rest args)
+  (with-output-to-string (s)
+    (dolist (a args) (princ a s))))
+
+(defun symb (&rest args)
+  (values (intern (apply #'mkstr args))))
+
+
 #| command succession
   repl_input
   runtime
