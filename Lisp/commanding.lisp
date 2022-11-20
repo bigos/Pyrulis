@@ -10,8 +10,7 @@
 
 (defun prompt (prompt)
   (format t "~&~a > " prompt)
-  (alexandria:symbolicate
-   (read-line)))
+  (read-line))
 
 (defun mkstr (&rest args)
   (with-output-to-string (s)
@@ -40,7 +39,7 @@
   ((model)))
 
 (defclass/std model ()
-  ())
+  ((help-message :std nil)))
 
 (defclass/std message ()
   ())
@@ -54,30 +53,35 @@
   (setf (model runtime)
         (make-instance 'model)))
 
-(defmethod print-to-repl ((runtime runtime) )
-  (warn "finally I will print to REPL~&"))
-
 (defmethod view ((runtime runtime) model)
   (warn "view ~S~%" model)
-  ;;  do the view stuff
 
-  (print-to-repl runtime))
+  (format t "~&beginning of output ==============================~%")
+  ;;  do the view stuff
+  (when (help-message (model runtime))
+    (format t "help message ~S~%" (help-message model)))
+
+  (format t "~&the end of output ================================~%"))
 
 (defmethod update ((runtime runtime) message model)
   (warn "update ~S ~S~%" message model)
   (typecase message
     (help
      (warn "update handling help")
+     (setf (help-message (model runtime)) "this is help")
      (view runtime model))
     (t
      (warn "not implemented ~S ~S~%" message model)
+     (setf (help-message (model runtime)) nil)
        (view runtime model))))
 
 (defmethod command ((runtime runtime) input)
   (format t "handling command ~S~%" input)
-  (case input
-    ('|help| (update runtime (make-instance 'help) (model runtime)))
-    (otherwise (warn "not handled case"))))
+  (cond
+    ((equal input "help")
+     (update runtime (make-instance 'help) (model runtime)))
+    (T
+     (warn "not handled case"))))
 
 (defun main ()
   (let ((runtime (make-instance 'runtime)))
@@ -87,6 +91,6 @@
           do
              (format t "you have said ~S~%" input)
              (command runtime input)
-          until (eq input '|quit|)
+          until (equal input "quit")
           finally
              (format t "quitting with ~S~%" runtime))))
