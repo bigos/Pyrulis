@@ -23,11 +23,8 @@
 
 #| command succession
   repl_input
-  runtime
-  command
-  model
-  view
-  runtime
+  update message model
+  view model
   repl_print
 |#
 
