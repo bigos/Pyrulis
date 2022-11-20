@@ -47,6 +47,9 @@
 (defclass/std help (message)
   ())
 
+(defclass/std nop (message)
+  ())
+
 
 (defmethod init ((runtime runtime) flags)
   (declare (ignore flags))
@@ -70,6 +73,9 @@
      (warn "update handling help")
      (setf (help-message (model runtime)) "this is help")
      (view runtime model))
+    (nop
+     (setf (help-message (model runtime)) nil)
+     (view runtime model))
     (t
      (warn "not implemented ~S ~S~%" message model)
      (setf (help-message (model runtime)) nil)
@@ -80,6 +86,8 @@
   (cond
     ((equal input "help")
      (update runtime (make-instance 'help) (model runtime)))
+    ((equal input "nop")
+     (update runtime (make-instance 'nop) (model runtime)))
     (T
      (warn "not handled case"))))
 
