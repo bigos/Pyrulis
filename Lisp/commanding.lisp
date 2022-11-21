@@ -49,15 +49,20 @@
    (t3 :std :ts3)
    (large :std :l1)))
 
-(defclass/std message ()
-  ())
+(defclass/std message ()        ())
+(defclass/std help    (message) ())
+(defclass/std nop     (message) ())
 
-(defclass/std help (message)
-  ())
+(defclass/std thumb-size ()           ())
+(defclass/std tsmall     (thumb-size) ())
+(defclass/std tmedium    (thumb-size) ())
+(defclass/std tlarge     (thumb-size) ())
 
-(defclass/std nop (message)
-  ())
-
+(defmethod validate ((model model))
+  (warn "validating model")
+  (unless (and (typep (size model) 'thumb-size)
+               (not (eq (type-of (size model)) 'thumb-size)))
+    (error "class ~S is not expected thumb-size class" (type-of (size model)))))
 
 (defmethod init ((runtime runtime) flags)
   (declare (ignore flags))
@@ -78,6 +83,7 @@
   (setf (~> runtime model help-message) nil))
 
 (defmethod update :after ((runtime runtime) message model)
+  (validate model)
   (view runtime model))
 
 (defmethod update ((runtime runtime) (message T) model)
@@ -110,7 +116,8 @@
        (warn "finish me"))
       ((equal input "med")
        (warn "finish me"))
-
+      ((equal input "lrg")
+       (warn "finish me"))
       (T
        (warn "not handled case")))))
 
