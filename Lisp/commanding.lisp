@@ -42,7 +42,12 @@
   ((model)))
 
 (defclass/std model ()
-  ((help-message :std nil)))
+  ((help-message :std nil)
+   (size :std :small)
+   (t1 :std :t1)
+   (t2 :std :t2)
+   (t3 :std :t3)
+   (large :std :l1)))
 
 (defclass/std message ()
   ())
@@ -90,6 +95,18 @@
      (update runtime (make-instance 'help) (model runtime)))
     ((equal input "nop")
      (update runtime (make-instance 'nop) (model runtime)))
+    ((equal input "t1")
+     (warn "finish me"))
+    ((equal input "t2")
+     (warn "finish me"))
+    ((equal input "t3")
+     (warn "finish me"))
+    ((equal input "sml")
+     (warn "finish me"))
+    ((equal input "med")
+     (warn "finish me"))
+    ((equal input "lrg")
+     (warn "finish me"))
     (T
      (warn "not handled case"))))
 
