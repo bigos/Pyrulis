@@ -43,7 +43,7 @@
 
 (defclass/std model ()
   ((help-message :std nil)
-   (size :std :small)
+   (size :std (make-instance 'tsmall))
    (t1 :std :ts1)
    (t2 :std :ts2)
    (t3 :std :ts3)
@@ -58,10 +58,13 @@
 (defclass/std tmedium    (thumb-size) ())
 (defclass/std tlarge     (thumb-size) ())
 
+(defun is-child-of (obj class-sym)
+  (and (typep obj class-sym)
+       (not (eq (type-of obj) class-sym))))
+
 (defmethod validate ((model model))
   (warn "validating model")
-  (unless (and (typep (size model) 'thumb-size)
-               (not (eq (type-of (size model)) 'thumb-size)))
+  (unless (is-child-of (size model) 'thumb-size)
     (error "class ~S is not expected thumb-size class" (type-of (size model)))))
 
 (defmethod init ((runtime runtime) flags)
