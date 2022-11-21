@@ -44,9 +44,9 @@
 (defclass/std model ()
   ((help-message :std nil)
    (size :std :small)
-   (t1 :std :t1)
-   (t2 :std :t2)
-   (t3 :std :t3)
+   (t1 :std :ts1)
+   (t2 :std :ts2)
+   (t3 :std :ts3)
    (large :std :l1)))
 
 (defclass/std message ()
