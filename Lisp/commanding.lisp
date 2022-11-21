@@ -74,6 +74,8 @@
 
   (format t "~&the end of output ================================~%"))
 
+(defmethod update :before ((runtime runtime) message model)
+  (setf (~> runtime model help-message) nil))
 
 (defmethod update :after ((runtime runtime) message model)
   (view runtime model))
@@ -89,26 +91,28 @@
   (warn "update handling nop"))
 
 (defmethod command ((runtime runtime) input)
-  (format t "handling command ~S~%" input)
-  (cond
-    ((equal input "help")
-     (update runtime (make-instance 'help) (model runtime)))
-    ((equal input "nop")
-     (update runtime (make-instance 'nop) (model runtime)))
-    ((equal input "t1")
-     (warn "finish me"))
-    ((equal input "t2")
-     (warn "finish me"))
-    ((equal input "t3")
-     (warn "finish me"))
-    ((equal input "sml")
-     (warn "finish me"))
-    ((equal input "med")
-     (warn "finish me"))
-    ((equal input "lrg")
-     (warn "finish me"))
-    (T
-     (warn "not handled case"))))
+  (labels ((ur (sym)
+             (update runtime (make-instance sym) (model runtime))))
+
+    (format t "handling command ~S~%" input)
+    (cond
+      ((equal input "help")
+       (ur 'help))
+      ((equal input "nop")
+       (ur 'nop) )
+      ((equal input "t1")
+       (warn "finish me"))
+      ((equal input "t2")
+       (warn "finish me"))
+      ((equal input "t3")
+       (warn "finish me"))
+      ((equal input "sml")
+       (warn "finish me"))
+      ((equal input "med")
+       (warn "finish me"))
+
+      (T
+       (warn "not handled case")))))
 
 (defun main ()
   (let ((runtime (make-instance 'runtime)))
