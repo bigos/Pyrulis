@@ -52,6 +52,9 @@
 (defclass/std message ()        ())
 (defclass/std help    (message) ())
 (defclass/std nop     (message) ())
+(defclass/std t1      (message) ())
+(defclass/std t2      (message) ())
+(defclass/std t3      (message) ())
 (defclass/std sml     (message) ())
 (defclass/std med     (message) ())
 (defclass/std lrg     (message) ())
@@ -102,14 +105,32 @@
 (defmethod update ((runtime runtime) (message nop) model)
   (warn "update handling nop"))
 
+(defmethod update ((runtime runtime) (message t1) model)
+  (setf (~> model large) :l1))
+
+(defmethod update ((runtime runtime) (message t2) model)
+  (setf (~> model large) :l2))
+
+(defmethod update ((runtime runtime) (message t3) model)
+  (setf (~> model large) :l3))
+
 (defmethod update ((runtime runtime) (message sml) model)
-  (setf (~> model size) (make-instance 'tsmall)))
+  (setf (~> model size) (make-instance 'tsmall)
+        (~> model t1) :ts1
+        (~> model t2) :ts2
+        (~> model t3) :ts3))
 
 (defmethod update ((runtime runtime) (message med) model)
-  (setf (~> model size) (make-instance 'tmedium)))
+  (setf (~> model size) (make-instance 'tmedium)
+        (~> model t1) :tm1
+        (~> model t2) :tm2
+        (~> model t3) :tm3))
 
 (defmethod update ((runtime runtime) (message lrg) model)
-  (setf (~> model size) (make-instance 'tlarge)))
+  (setf (~> model size) (make-instance 'tlarge)
+        (~> model t1) :tl1
+        (~> model t2) :tl2
+        (~> model t3) :tl3))
 
 (defmethod command ((runtime runtime) input)
   (labels ((ur (sym)
@@ -122,11 +143,11 @@
       ((equal input "nop")
        (ur 'nop) )
       ((equal input "t1")
-       (warn "finish me"))
+       (ur 't1))
       ((equal input "t2")
-       (warn "finish me"))
+       (ur 't2))
       ((equal input "t3")
-       (warn "finish me"))
+       (ur 't3))
       ((equal input "sml")
        (ur 'sml))
       ((equal input "med")
