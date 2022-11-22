@@ -65,8 +65,9 @@
 (defclass/std tlarge     (thumb-size) ())
 
 (defun is-child-of (obj class-sym)
-  (and (typep obj class-sym)
-       (not (eq (type-of obj) class-sym))))
+  (and
+   (not (eq (type-of obj) class-sym))
+   (typep obj class-sym)))
 
 (defmethod validate ((model model))
   (warn "validating model")
