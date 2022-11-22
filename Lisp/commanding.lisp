@@ -89,6 +89,8 @@
   (format t "~&the end of output ================================~%"))
 
 (defmethod update :before ((runtime runtime) message model)
+  (unless (is-child-of message 'message)
+    (error "class ~S is not expected message class" (type-of message)))
   (setf (~> runtime model help-message) nil))
 
 (defmethod update :after ((runtime runtime) message model)
