@@ -52,6 +52,9 @@
 (defclass/std message ()        ())
 (defclass/std help    (message) ())
 (defclass/std nop     (message) ())
+(defclass/std sml     (message) ())
+(defclass/std med     (message) ())
+(defclass/std lrg     (message) ())
 
 (defclass/std thumb-size ()           ())
 (defclass/std tsmall     (thumb-size) ())
@@ -99,6 +102,15 @@
 (defmethod update ((runtime runtime) (message nop) model)
   (warn "update handling nop"))
 
+(defmethod update ((runtime runtime) (message sml) model)
+  (setf (~> model size) (make-instance 'tsmall)))
+
+(defmethod update ((runtime runtime) (message med) model)
+  (setf (~> model size) (make-instance 'tmedium)))
+
+(defmethod update ((runtime runtime) (message lrg) model)
+  (setf (~> model size) (make-instance 'tlarge)))
+
 (defmethod command ((runtime runtime) input)
   (labels ((ur (sym)
              (update runtime (make-instance sym) (model runtime))))
@@ -116,11 +128,11 @@
       ((equal input "t3")
        (warn "finish me"))
       ((equal input "sml")
-       (warn "finish me"))
+       (ur 'sml))
       ((equal input "med")
-       (warn "finish me"))
+       (ur 'med))
       ((equal input "lrg")
-       (warn "finish me"))
+       (ur 'lrg))
       (T
        (warn "not handled case")))))
 
