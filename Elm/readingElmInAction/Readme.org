@@ -38,7 +38,11 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 *** part 2
 
 4.3 decoding json
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#132
+
+4.3.2
+
+USING EXPECTJSON IN INITIALCMD
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#139
 
 
 * The other links
