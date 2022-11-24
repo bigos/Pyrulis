@@ -2,10 +2,10 @@ module PhotoGroove exposing (main)
 
 import Browser
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes exposing (class, classList, id, name, src, title, type_)
 import Html.Events exposing (onClick)
 import Http
-import Json.Decode exposing (Decoder, int, list, string, succeed)
+import Json.Decode exposing (Decoder, bool, int, list, string, succeed)
 import Json.Decode.Pipeline exposing (optional, required)
 import Random
 
@@ -16,13 +16,9 @@ urlPrefix =
 
 
 type Msg
-    = SelectByUrl String
-    | GotSelectedIndex Int
-    | SurpriseMe
-    | SetSize ThumbnailSize
+    = ClickedPhoto String
     | ClickedSize ThumbnailSize
     | ClickedSurpriseMe
-    | ClickedPhoto String
     | GotRandomPhoto Photo
     | GotPhotos (Result Http.Error (List Photo))
 
@@ -52,7 +48,11 @@ viewLoaded photos selectedUrl chosenSize =
         (List.map viewSizeChooser [ Small, Medium, Large ])
     , div [ id "thumbnails", class (sizeToString chosenSize) ]
         (List.map (viewThumbnail selectedUrl) photos)
-    , img [ class "large", src (urlPrefix ++ "large/" ++ selectedUrl) ] []
+    , img
+        [ class "large"
+        , src (urlPrefix ++ "large/" ++ selectedUrl)
+        ]
+        []
     ]
 
 
@@ -62,7 +62,7 @@ viewThumbnail selectedUrl thumb =
         [ src (urlPrefix ++ thumb.url)
         , title (thumb.title ++ " [" ++ String.fromInt thumb.size ++ " KB] ")
         , classList [ ( "selected", selectedUrl == thumb.url ) ]
-        , onClick (SelectByUrl thumb.url)
+        , onClick (ClickedPhoto thumb.url)
         ]
         []
 
@@ -105,8 +105,8 @@ type alias Photo =
 photoDecoder : Decoder Photo
 photoDecoder =
     succeed Photo
-        |> Json.Decode.Pipeline.required "url" string
-        |> Json.Decode.Pipeline.required "size" int
+        |> required "url" string
+        |> required "size" int
         |> optional "title" string "(untitled)"
 
 
@@ -129,14 +129,6 @@ initialModel =
     }
 
 
-initialCmd : Cmd Msg
-initialCmd =
-    Http.get
-        { url = "http://elm-in-action.com/photos/list.json"
-        , expect = Http.expectJson GotPhotos (Json.Decode.list photoDecoder)
-        }
-
-
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
@@ -146,16 +138,12 @@ update msg model =
         ClickedPhoto url ->
             ( { model | status = selectUrl url model.status }, Cmd.none )
 
+        ClickedSize size ->
+            ( { model | chosenSize = size }, Cmd.none )
+
         ClickedSurpriseMe ->
             case model.status of
                 Loaded (firstPhoto :: otherPhotos) _ ->
-                    -- ( model
-                    -- , Random.generate GotRandomPhoto (Random.uniform firstPhoto otherPhotos)
-                    -- )
-                    -- or
-                    -- Tuple.pair model
-                    --     (Random.generate GotRandomPhoto (Random.uniform firstPhoto otherPhotos))
-                    -- or
                     Random.uniform firstPhoto otherPhotos |> Random.generate GotRandomPhoto |> Tuple.pair model
 
                 Loaded [] _ ->
@@ -166,9 +154,6 @@ update msg model =
 
                 Errored errorMessage ->
                     ( model, Cmd.none )
-
-        ClickedSize size ->
-            ( { model | chosenSize = size }, Cmd.none )
 
         GotPhotos (Ok photos) ->
             case photos of
@@ -182,10 +167,6 @@ update msg model =
 
         GotPhotos (Err _) ->
             ( { model | status = Errored "Server error!" }, Cmd.none )
-
-        _ ->
-            Debug.log ("undandled " ++ Debug.toString msg)
-                ( model, Cmd.none )
 
 
 selectUrl : String -> Status -> Status
@@ -201,15 +182,18 @@ selectUrl url status =
             status
 
 
-init : () -> ( Model, Cmd Msg )
-init _ =
-    ( initialModel, initialCmd )
+initialCmd : Cmd Msg
+initialCmd =
+    Http.get
+        { url = "http://elm-in-action.com/photos/list.json"
+        , expect = Http.expectJson GotPhotos (Json.Decode.list photoDecoder)
+        }
 
 
 main : Program () Model Msg
 main =
     Browser.element
-        { init = init
+        { init = \flags -> ( initialModel, initialCmd )
         , view = view
         , update = update
         , subscriptions = \_ -> Sub.none
