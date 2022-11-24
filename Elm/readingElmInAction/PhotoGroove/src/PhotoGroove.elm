@@ -184,7 +184,8 @@ update msg model =
             ( { model | status = Errored "Server error!" }, Cmd.none )
 
         _ ->
-            ( model, Cmd.none )
+            Debug.log ("undandled " ++ Debug.toString msg)
+                ( model, Cmd.none )
 
 
 selectUrl : String -> Status -> Status
