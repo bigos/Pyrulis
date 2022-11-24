@@ -20,6 +20,10 @@ type Msg
     | GotSelectedIndex Int
     | SurpriseMe
     | SetSize ThumbnailSize
+    | ClickedSize ThumbnailSize
+    | ClickedSurpriseMe
+    | ClickedPhoto String
+    | GotRandomPhoto Photo
     | GotPhotos (Result Http.Error (List Photo))
 
 
@@ -56,7 +60,7 @@ viewThumbnail : String -> Photo -> Html Msg
 viewThumbnail selectedUrl thumb =
     img
         [ src (urlPrefix ++ thumb.url)
-        , title (thumb.size ++ " [" String.fromInt thumb.size ++ " KB] ")
+        , title (thumb.title ++ " [" ++ String.fromInt thumb.size ++ " KB] ")
         , classList [ ( "selected", selectedUrl == thumb.url ) ]
         , onClick (SelectByUrl thumb.url)
         ]
@@ -101,8 +105,8 @@ type alias Photo =
 photoDecoder : Decoder Photo
 photoDecoder =
     succeed Photo
-        |> required "url" string
-        |> required "size" int
+        |> Json.Decode.Pipeline.required "url" string
+        |> Json.Decode.Pipeline.required "size" int
         |> optional "title" string "(untitled)"
 
 
@@ -129,7 +133,7 @@ initialCmd : Cmd Msg
 initialCmd =
     Http.get
         { url = "http://elm-in-action.com/photos/list.json"
-        , expect = Http.expectJson GotPhotos (list photoDecoder)
+        , expect = Http.expectJson GotPhotos (Json.Decode.list photoDecoder)
         }
 
 
@@ -178,6 +182,9 @@ update msg model =
 
         GotPhotos (Err _) ->
             ( { model | status = Errored "Server error!" }, Cmd.none )
+
+        _ ->
+            ( model, Cmd.none )
 
 
 selectUrl : String -> Status -> Status
