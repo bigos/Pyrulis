@@ -65,11 +65,13 @@
 (defclass/std tlarge     (thumb-size) ())
 
 (defun is-child-of (obj class-sym)
-  (break "in child check ~S ~S ~S" obj (type-of obj) class-sym)
+  (warn "in child check ~S ~S ~S ==> ~S" obj (type-of obj) class-sym (subtypep (type-of obj) class-sym))
   (and
    (not (eq (type-of obj) class-sym))
    (typep obj class-sym)
-   (subtypep (type-of obj class-sym))))  ; need to investigate further
+   ;; need to investigate further
+   ;; NOOO because of equal check in the function
+   (subtypep (type-of obj) class-sym)))
 
 (defmethod validate ((model model))
   (warn "validating model")
