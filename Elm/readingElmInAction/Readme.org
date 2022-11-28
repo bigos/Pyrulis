@@ -37,9 +37,9 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
 *** part 2
 
-5 Talking to JavaScript
+5.1.1
 
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#146
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#148
 
 
 * The other links

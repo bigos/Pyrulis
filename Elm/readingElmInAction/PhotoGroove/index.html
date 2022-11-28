@@ -2,6 +2,15 @@
 <html>
   <head>
     <link rel="stylesheet" href="http://elm-in-action.com/styles.css">
+    <script>
+      class RangeSlider extends HTMLElement {
+          connectedCallback() {
+              var input = document.createElement("input");
+              this.appendChild(input)
+          }
+      }
+      window.customElements.define("range-slider", RangeSlider);
+    </script>
   </head>
   <body>
     <div id="app"></div>
