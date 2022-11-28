@@ -7,6 +7,7 @@ import Html.Events exposing (onClick)
 import Http
 import Json.Decode exposing (Decoder, bool, int, list, string, succeed)
 import Json.Decode.Pipeline exposing (optional, required)
+import Json.Encode
 import Random
 
 
@@ -42,7 +43,7 @@ viewFilter name magnitude =
     div [ class "filter-slider" ]
         [ label [] [ text name ]
         , rangeSlider
-            [ max "11"
+            [ Html.Attributes.max "11"
             , Html.Attributes.property "val" (Json.Encode.int magnitude)
             ]
             []
