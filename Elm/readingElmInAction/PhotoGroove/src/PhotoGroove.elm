@@ -3,7 +3,7 @@ module PhotoGroove exposing (main)
 import Browser
 import Html exposing (..)
 import Html.Attributes as Attr exposing (class, classList, id, name, src, title, type_)
-import Html.Events exposing (onClick)
+import Html.Events exposing (on, onClick)
 import Http
 import Json.Decode exposing (Decoder, at, int, list, string, succeed)
 import Json.Decode.Pipeline exposing (optional, required)
@@ -69,7 +69,7 @@ viewLoaded photos selectedUrl model =
     , h3 [] [ text "Thumbnail Size:" ]
     , div [ id "choose-size" ]
         (List.map viewSizeChooser [ Small, Medium, Large ])
-    , div [ id "thumbnails", class (sizeToString chosenSize) ]
+    , div [ id "thumbnails", class (sizeToString model.chosenSize) ]
         (List.map (viewThumbnail selectedUrl) photos)
     , img
         [ class "large"

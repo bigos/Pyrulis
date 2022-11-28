@@ -37,11 +37,9 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
 *** part 2
 
-5.1.2
+5.2
 
-THE CUSTOM ELEMENT RENDERING PROCESS
-
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#154
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#162
 
 
 * The other links
