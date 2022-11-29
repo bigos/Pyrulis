@@ -208,3 +208,5 @@ record) = ...
 
 ** type alias does more that declaring type
 It also creates convenience function for building the record instances
+
+** Cmd.none produces no update message

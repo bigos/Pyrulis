@@ -38,9 +38,14 @@
     PhotoGroove.elm will
     get compiled into app.js.
 
+    <script src="http://elm-in-action.com/pasta.js"></script>
     <script src="app.js"></script>
     <script>
-      Elm.PhotoGroove.init({node: document.getElementById("app")});
+      var app = Elm.PhotoGroove.init({node: document.getElementById("app")});
+
+      app.ports.setFilters.subscribe(function(options) {
+          Pasta.apply(document.getElementById("main-canvas"), options)
+      });
     </script>
     The Elm object
   </body>
