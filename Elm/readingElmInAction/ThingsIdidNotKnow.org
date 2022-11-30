@@ -210,3 +210,7 @@ record) = ...
 It also creates convenience function for building the record instances
 
 ** Cmd.none produces no update message
+Does it just go to the run-time and ends its run?
+** explanation why Elm may not display JS content
+Optimised DOM Updates
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#172
