@@ -1,0 +1,6 @@
+* Remove all elc files
+
+#+begin_example
+cd ~/.emacs.d
+find . -name "*.elc" -type f | xargs rm -v
+#+end_example
