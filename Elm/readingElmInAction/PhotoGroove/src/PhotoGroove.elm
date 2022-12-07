@@ -22,6 +22,7 @@ type Msg
     | ClickedSurpriseMe
     | GotRandomPhoto Photo
     | GotPhotos (Result Http.Error (List Photo))
+    | GotActivity String
     | SlideHue Int
     | SlideRipple Int
     | SlideNoise Int
@@ -61,6 +62,7 @@ viewLoaded photos selectedUrl model =
     , button
         [ onClick ClickedSurpriseMe ]
         [ text "Surprise Me!" ]
+    , div [ class "activity" ] [ text model.activity ]
     , div [ class "filters" ]
         [ viewFilter SlideHue "Hue" model.hue
         , viewFilter SlideRipple "Ripple" model.ripple
@@ -150,6 +152,7 @@ type Status
 
 type alias Model =
     { status : Status
+    , activity : String
     , chosenSize : ThumbnailSize
     , hue : Int
     , ripple : Int
@@ -160,6 +163,7 @@ type alias Model =
 initialModel : Model
 initialModel =
     { status = Loading
+    , activity = ""
     , chosenSize = Medium
     , hue = 5
     , ripple = 5
@@ -170,6 +174,9 @@ initialModel =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        GotActivity activity ->
+            ( { model | activity = activity }, Cmd.none )
+
         GotRandomPhoto photo ->
             applyFilters { model | status = selectUrl photo.url model.status }
 
