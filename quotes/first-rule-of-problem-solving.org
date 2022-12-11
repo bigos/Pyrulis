@@ -1,0 +1,8 @@
+* The first rule of problem solving
+
+In engineering the first rule of problem solving is to clearly and
+concisely describe the problem.  They should consider doing that before
+promoting solutions.  Subjective adjectives like "hard" should be replaced
+with concrete objective descriptions.
+
+https://github.com/kaveh808/kons-9/discussions/191#discussioncomment-4259532
