@@ -33,10 +33,6 @@
   </head>
   <body>
     <div id="app"></div>
-    Our Elm application
-    will render into this div.
-    PhotoGroove.elm will
-    get compiled into app.js.
 
     <script src="http://elm-in-action.com/pasta.js"></script>
     <script src="app.js"></script>
@@ -47,13 +43,15 @@
 
       app.ports.setFilters.subscribe(function(options) {
           requestAnimationFrame(function() {
-              Pasta.apply(document.getElementById("main-canvas"), options)
+              Pasta.apply(
+                  document.getElementById("main-canvas"),
+                  options
+              );
           });
       });
 
       Pasta.addActivityListener(function(activity) {
-      console.log("Got some activity to send to Elm:", activity);
-      app.ports.activityChanges.send(activity);
+          app.ports.activityChanges.send(activity);
       });
     </script>
     The Elm object
