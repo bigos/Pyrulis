@@ -39,9 +39,9 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
 5.3.2
 
+checking listing 5.9
 
-
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#177
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#181
 
 
 * The other links
