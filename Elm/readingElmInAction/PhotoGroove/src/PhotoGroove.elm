@@ -1,8 +1,9 @@
 port module PhotoGroove exposing (main)
 
+import Array exposing (Array)
 import Browser
 import Html exposing (..)
-import Html.Attributes as Attr exposing (class, classList, id, name, src, title, type_)
+import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (on, onClick)
 import Http
 import Json.Decode exposing (Decoder, at, int, list, string, succeed)
@@ -18,14 +19,14 @@ urlPrefix =
 
 type Msg
     = ClickedPhoto String
-    | ClickedSize ThumbnailSize
-    | ClickedSurpriseMe
-    | GotRandomPhoto Photo
-    | GotPhotos (Result Http.Error (List Photo))
-    | GotActivity String
     | SlideHue Int
     | SlideRipple Int
     | SlideNoise Int
+    | ClickedSize ThumbnailSize
+    | ClickedSurpriseMe
+    | GotRandomPhoto Photo
+    | GotActivity String
+    | GotPhotos (Result Http.Error (List Photo))
 
 
 view : Model -> Html Msg
