@@ -169,9 +169,9 @@ initialModel =
     { status = Loading
     , activity = ""
     , chosenSize = Medium
-    , hue = 5
-    , ripple = 5
-    , noise = 5
+    , hue = 0
+    , ripple = 0
+    , noise = 0
     }
 
 
