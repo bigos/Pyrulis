@@ -181,6 +181,15 @@ update msg model =
         GotActivity activity ->
             ( { model | activity = activity }, Cmd.none )
 
+        SlideHue hue ->
+            applyFilters { model | hue = hue }
+
+        SlideRipple ripple ->
+            applyFilters { model | ripple = ripple }
+
+        SlideNoise noise ->
+            applyFilters { model | noise = noise }
+
         GotRandomPhoto photo ->
             applyFilters { model | status = selectUrl photo.url model.status }
 
@@ -223,15 +232,6 @@ update msg model =
 
         GotPhotos (Err _) ->
             ( { model | status = Errored "Server error!" }, Cmd.none )
-
-        SlideHue hue ->
-            applyFilters { model | hue = hue }
-
-        SlideRipple ripple ->
-            applyFilters { model | ripple = ripple }
-
-        SlideNoise noise ->
-            applyFilters { model | noise = noise }
 
 
 applyFilters : Model -> ( Model, Cmd Msg )
@@ -288,6 +288,11 @@ main =
         }
 
 
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    activityChanges GotActivity
+
+
 init : Float -> ( Model, Cmd Msg )
 init flags =
     let
@@ -295,11 +300,6 @@ init flags =
             "Initializing Pasta v" ++ String.fromFloat flags
     in
     ( { initialModel | activity = activity }, initialCmd )
-
-
-subscriptions : Model -> Sub Msg
-subscriptions model =
-    activityChanges GotActivity
 
 
 rangeSlider : List (Attribute msg) -> List (Html msg) -> Html msg
