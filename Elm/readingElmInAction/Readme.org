@@ -37,12 +37,9 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
 *** part 2
 
-5.3.2
+6 Testing
 
-checking listing 5.10
-
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#182
-
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#188
 
 * The other links
 ** code
