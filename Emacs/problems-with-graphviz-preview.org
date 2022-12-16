@@ -1,0 +1,9 @@
+* Problems with Graphviz preview
+
+In latest Emacs 29.* we can not preview the files.
+
+The easy workaround is:
+
+#+begin_example
+dot -Tsvg ./graph.gv > ./graph.svg
+#+end_example
