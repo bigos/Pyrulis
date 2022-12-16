@@ -37,14 +37,15 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
 *** part 2
 
-5.3
+6 Testing
 
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#173
-
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#188
 
 * The other links
 ** code
 file:~/Programming/Pyrulis/Elm/readingElmInAction/PhotoGroove/src/PhotoGroove.elm::1
+
+file:~/Programming/Pyrulis/Elm/readingElmInAction/PhotoGroove/index.html::1
 
 ** Things I did not know
 [[file:ThingsIdidNotKnow.org::*Things I did not know][Things I did not know]]

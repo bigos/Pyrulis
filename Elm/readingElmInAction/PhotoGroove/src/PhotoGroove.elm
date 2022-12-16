@@ -1,5 +1,6 @@
 port module PhotoGroove exposing (main)
 
+import Array exposing (Array)
 import Browser
 import Html exposing (..)
 import Html.Attributes as Attr exposing (class, classList, id, name, src, title, type_)
@@ -18,13 +19,14 @@ urlPrefix =
 
 type Msg
     = ClickedPhoto String
-    | ClickedSize ThumbnailSize
-    | ClickedSurpriseMe
-    | GotRandomPhoto Photo
-    | GotPhotos (Result Http.Error (List Photo))
     | SlideHue Int
     | SlideRipple Int
     | SlideNoise Int
+    | ClickedSize ThumbnailSize
+    | ClickedSurpriseMe
+    | GotRandomPhoto Photo
+    | GotActivity String
+    | GotPhotos (Result Http.Error (List Photo))
 
 
 view : Model -> Html Msg
@@ -61,6 +63,7 @@ viewLoaded photos selectedUrl model =
     , button
         [ onClick ClickedSurpriseMe ]
         [ text "Surprise Me!" ]
+    , div [ class "activity" ] [ text model.activity ]
     , div [ class "filters" ]
         [ viewFilter SlideHue "Hue" model.hue
         , viewFilter SlideRipple "Ripple" model.ripple
@@ -121,6 +124,9 @@ type ThumbnailSize
 port setFilters : FilterOptions -> Cmd msg
 
 
+port activityChanges : (String -> msg) -> Sub msg
+
+
 type alias FilterOptions =
     { url : String
     , filters : List { name : String, amount : Float }
@@ -150,6 +156,7 @@ type Status
 
 type alias Model =
     { status : Status
+    , activity : String
     , chosenSize : ThumbnailSize
     , hue : Int
     , ripple : Int
@@ -160,16 +167,29 @@ type alias Model =
 initialModel : Model
 initialModel =
     { status = Loading
+    , activity = ""
     , chosenSize = Medium
-    , hue = 5
-    , ripple = 5
-    , noise = 5
+    , hue = 0
+    , ripple = 0
+    , noise = 0
     }
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        GotActivity activity ->
+            ( { model | activity = activity }, Cmd.none )
+
+        SlideHue hue ->
+            applyFilters { model | hue = hue }
+
+        SlideRipple ripple ->
+            applyFilters { model | ripple = ripple }
+
+        SlideNoise noise ->
+            applyFilters { model | noise = noise }
+
         GotRandomPhoto photo ->
             applyFilters { model | status = selectUrl photo.url model.status }
 
@@ -212,15 +232,6 @@ update msg model =
 
         GotPhotos (Err _) ->
             ( { model | status = Errored "Server error!" }, Cmd.none )
-
-        SlideHue hue ->
-            applyFilters { model | hue = hue }
-
-        SlideRipple ripple ->
-            applyFilters { model | ripple = ripple }
-
-        SlideNoise noise ->
-            applyFilters { model | noise = noise }
 
 
 applyFilters : Model -> ( Model, Cmd Msg )
@@ -267,14 +278,28 @@ initialCmd =
         }
 
 
-main : Program () Model Msg
+main : Program Float Model Msg
 main =
     Browser.element
-        { init = \flags -> ( initialModel, initialCmd )
+        { init = init
         , view = view
         , update = update
-        , subscriptions = \_ -> Sub.none
+        , subscriptions = subscriptions
         }
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    activityChanges GotActivity
+
+
+init : Float -> ( Model, Cmd Msg )
+init flags =
+    let
+        activity =
+            "Initializing Pasta v" ++ String.fromFloat flags
+    in
+    ( { initialModel | activity = activity }, initialCmd )
 
 
 rangeSlider : List (Attribute msg) -> List (Html msg) -> Html msg
