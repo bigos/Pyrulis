@@ -38,24 +38,24 @@
                       "We had a problem, possibly invalid dot file generated"
                       "All went OK")))))))
 
-;;; ============================================================================
-
-(defun state-list (the-list)
+(defun draw-states (state-list)
   (draw
    (apply
     #'append
-    (loop for state-actions in the-list
+    (loop for state-actions in state-list
           collect
           (loop for action in (rest  state-actions)
                 collect (cons (first state-actions)
                               action))))))
 
+;;; ============================================================================
+
 (defun tryme ()
-  (state-list '(("FSM states"
-                 (opened) (closed) (locked))
-                (opened
-                 (closed "close door"))
-                (closed
-                 (opened "open door") (locked "lock door"))
-                (locked
-                 (closed "unlock door")))))
+  (draw-states '(("FSM states"
+                  (opened) (closed) (locked))
+                 (opened
+                  (closed "close door"))
+                 (closed
+                  (opened "open door") (locked "lock door"))
+                 (locked
+                  (closed "unlock door")))))
