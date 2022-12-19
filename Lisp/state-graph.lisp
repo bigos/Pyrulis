@@ -51,11 +51,11 @@
 ;;; ============================================================================
 
 (defun tryme ()
-  (draw-states '(("FSM states"
-                  (opened) (closed) (locked))
+  (draw-states '(
+                 ;; ("FSM states" (opened) (closed) (locked))
                  (opened
-                  (closed "close door"))
+                  (closed "Close door"))
                  (closed
-                  (opened "open door") (locked "lock door"))
+                  (opened "Open door") (locked "Lock door"))
                  (locked
-                  (closed "unlock door")))))
+                  (closed "Unlock door")))))
