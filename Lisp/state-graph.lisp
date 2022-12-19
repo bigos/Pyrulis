@@ -2,7 +2,7 @@
 
 ;;; (load "~/Programming/Pyrulis/Lisp/state-graph.lisp")
 
-(defun draw (g)
+(defun draw-states (g)
   (labels ((gv-print (l)
              (if (null (nth 1 l))
                  (format nil "~&  ~s;~%" (nth 0 l))
@@ -12,7 +12,14 @@
                      (reduce (lambda (a b) (concatenate 'string a b) )
                              (loop for l in g
                                    collect (gv-print l))
-                             :initial-value ""))))
+                             :initial-value "")))
+           (convert-state-list (state-list)
+                               (apply #'append
+                                      (loop for state-actions in state-list
+                                            collect
+                                            (loop for action in (rest  state-actions)
+                                                  collect (cons (first state-actions)
+                                                                action))))))
 
     ;; filename, extension and options
     (let* ((filename "the-graph")
@@ -21,7 +28,7 @@
 
       ;; create gv file
       (with-open-file (stream gv-file :direction :output :if-exists :supersede)
-        (write-sequence (digraph g) stream))
+                      (write-sequence (digraph (convert-state-list g)) stream))
 
       (let ((options (list
                       (format nil "-T~A" extension)
@@ -37,16 +44,6 @@
                   (if (eq 1 (sb-impl::process-exit-code outcome))
                       "We had a problem, possibly invalid dot file generated"
                       "All went OK")))))))
-
-(defun draw-states (state-list)
-  (draw
-   (apply
-    #'append
-    (loop for state-actions in state-list
-          collect
-          (loop for action in (rest  state-actions)
-                collect (cons (first state-actions)
-                              action))))))
 
 ;;; ============================================================================
 
