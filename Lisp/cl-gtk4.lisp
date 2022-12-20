@@ -26,9 +26,20 @@
                            (widget-vexpand-p label)
                            t)
                      (box-append box label)
-                     (let ((button-add (make-button :label "Add"))
+                     (let ((canvas (make-drawing-area))
+                           (button-add (make-button :label "Add"))
                            (button-dec (make-button :label "Dec"))
                            (count 0))
+
+                       ;; One of the major differences between GTK 3 and GTK 4 is
+                       ;; that we are now targeting GL / Vulkan instead of cairo.
+                       ;; https://blog.gtk.org/2020/04/24/custom-widgets-in-gtk-4-drawing/
+                       (connect canvas "draw" (lambda (widget context)
+                                                ))
+
+                       (setf (gtk4:drawing-area-content-width canvas) 50
+                             (gtk4:drawing-area-content-height canvas) 50)
+
                        (connect button-add "clicked" (lambda (button)
                                                        (declare (ignore button))
                                                        (setf (label-text label)
@@ -39,6 +50,7 @@
                                                        (format t "~&decreasing ====~%")
                                                        (setf (label-text label)
                                                              (format nil "~A" (decf count)))))
+                       (box-append box canvas)
                        (box-append box button-add)
                        (box-append box button-dec))
                      (let ((button (make-button :label "Exit")))
