@@ -14,7 +14,10 @@
              (lambda (app)
                (let ((window (make-application-window :application app)))
                  (setf (window-title window)
-                       "Simple Counter")
+                       "Simple Counter"
+                       (window-default-size window)
+                       (list 400 400))
+
                  (let ((box (make-box :orientation +orientation-vertical+
                                       :spacing 4)))
                    (let ((label (make-label :str "0")))
