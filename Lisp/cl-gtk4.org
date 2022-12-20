@@ -8,4 +8,4 @@ https://gitlab.gnome.org/GNOME/gobject-introspection
 https://ultralisp.org/
 
 ** package
-libgtk-4-dev
+sudo apt install libgtk-4-dev

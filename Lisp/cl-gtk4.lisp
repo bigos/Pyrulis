@@ -36,6 +36,7 @@
 
                        (connect button-dec "clicked" (lambda (button)
                                                        (declare (ignore button))
+                                                       (format t "~&decreasing ====~%")
                                                        (setf (label-text label)
                                                              (format nil "~A" (decf count)))))
                        (box-append box button-add)
