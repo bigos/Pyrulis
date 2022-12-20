@@ -1,4 +1,7 @@
 * Vala
+https://wiki.gnome.org/Projects/Vala/Documentation
+https://www.vala-project.org/doc/vala/
+https://valadoc.org/cairo/Cairo.Context.html
 
 ** tutorials
 
