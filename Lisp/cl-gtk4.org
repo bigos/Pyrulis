@@ -2,6 +2,8 @@
 
 https://github.com/bohonghuang/cl-gtk4
 
+https://gitlab.gnome.org/GNOME/gobject-introspection
+
 ** Ultralisp
 https://ultralisp.org/
 
