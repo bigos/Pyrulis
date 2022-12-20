@@ -4,8 +4,17 @@ https://github.com/bohonghuang/cl-gtk4
 
 https://gitlab.gnome.org/GNOME/gobject-introspection
 
+https://www.clpm.dev/
+
 ** Ultralisp
 https://ultralisp.org/
+
+#+begin_example
+(ql-dist:install-dist "http://dist.ultralisp.org/"
+                      :prompt nil)
+
+(ql:quickload :cl-gtk4)
+#+end_example
 
 ** package
 sudo apt install libgtk-4-dev
