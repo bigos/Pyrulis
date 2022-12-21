@@ -34,17 +34,44 @@
                        ;; One of the major differences between GTK 3 and GTK 4 is
                        ;; that we are now targeting GL / Vulkan instead of cairo.
                        ;; https://blog.gtk.org/2020/04/24/custom-widgets-in-gtk-4-drawing/
+                       ;; we do not use draw signal in gtk4
+                       ;; (connect canvas "draw" (lambda (widget context)
+                       ;;                          ))
 
-                       ;; also consider cairo gir
-                       ;; https://github.com/GNOME/gobject-introspection/blob/main/gir/cairo-1.0.gir.in
-
-                       ;; and
-                       ;; https://github.com/BradWBeer/clinch
-                       (connect canvas "draw" (lambda (widget context)
-                                                ))
 
                        (setf (gtk4:drawing-area-content-width canvas) 50
                              (gtk4:drawing-area-content-height canvas) 50)
+
+                       ;; can't figure out how to do custom drawing
+                       (gtk4:drawing-area-draw-func canvas  (lambda (widget context)
+                                                              (list widget context)
+                                                              ))
+
+
+
+                             ;; (lambda (widget surface)
+                             ;;   (declare (ignore widget))
+                             ;;   (let ((cr (cairo:create-context surface)))
+                             ;;     (unwind-protect
+                             ;;          (cairo:with-context (cr)
+                             ;;            (cairo:set-source-rgb 1 1 1)
+                             ;;            (cairo:paint)
+                             ;;            (cairo:stroke))
+                             ;;       (cairo:destroy cr))))
+
+
+
+
+
+                       (connect canvas "realize" (lambda (widget)
+                                                   (declare (ignore widget))
+                                                   ;; create GDK resources here
+                                                   ))
+
+                       (connect canvas "resize" (lambda (widget)
+                                                  (declare (ignore widget))))
+
+                       ;; ---------------------------------------------------------------
 
                        (connect button-add "clicked" (lambda (button)
                                                        (declare (ignore button))
