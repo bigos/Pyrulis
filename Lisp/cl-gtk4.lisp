@@ -37,6 +37,9 @@
 
                        ;; also consider cairo gir
                        ;; https://github.com/GNOME/gobject-introspection/blob/main/gir/cairo-1.0.gir.in
+
+                       ;; and
+                       ;; https://github.com/BradWBeer/clinch
                        (connect canvas "draw" (lambda (widget context)
                                                 ))
 
