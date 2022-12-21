@@ -1,5 +1,5 @@
 (eval-when (:compile-toplevel :load-toplevel :execute)
-  (ql:quickload '(cl-gtk4) ))
+  (ql:quickload '(cl-gtk4 cl-cairo2)))
 
 (defpackage cl-gtk4
   (:use #:cl #:gtk4))

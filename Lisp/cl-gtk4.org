@@ -18,3 +18,6 @@ https://ultralisp.org/
 
 ** package
 sudo apt install libgtk-4-dev
+
+** cairo bindings
+ https://github.com/GNOME/gobject-introspection/blob/main/gir/cairo-1.0.gir.in
