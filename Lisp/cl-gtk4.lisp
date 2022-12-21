@@ -54,23 +54,8 @@
                                                                               (cairo:paint)
                                                                               (cairo:stroke))
                                                                          (cairo:destroy cr))))
-                                                                   nil nil))
-
-
-
-                       ;; (lambda (widget surface)
-                       ;;   (declare (ignore widget))
-                       ;;   (let ((cr (cairo:create-context surface)))
-                       ;;     (unwind-protect
-                       ;;          (cairo:with-context (cr)
-                       ;;            (cairo:set-source-rgb 1 1 1)
-                       ;;            (cairo:paint)
-                       ;;            (cairo:stroke))
-                       ;;       (cairo:destroy cr))))
-
-
-
-
+                                                                   nil
+                                                                   nil))
 
                        (connect canvas "realize" (lambda (widget)
                                                    (declare (ignore widget))
