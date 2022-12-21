@@ -7,6 +7,7 @@
 ;; (load "~/Programming/Pyrulis/Lisp/cl-gtk4.lisp")
 (in-package #:cl-gtk4)
 
+
 (defun simple ()
   (let ((app (make-application :application-id "org.bohonghuang.cl-gtk4-example"
                                :flags gio:+application-flags-flags-none+)))
@@ -40,24 +41,32 @@
 
 
                        (setf (gtk4:drawing-area-content-width canvas) 50
-                             (gtk4:drawing-area-content-height canvas) 50)
+                             (gtk4:drawing-area-content-height canvas) 50
 
-                       ;; can't figure out how to do custom drawing
-                       (gtk4:drawing-area-draw-func canvas  (lambda (widget context)
-                                                              (list widget context)
-                                                              ))
+                             ;; can't figure out how to do custom drawing
+                             (gtk4:drawing-area-draw-func canvas) (list
+                                                                   (lambda (widget context)
+                                                                     (declare (ignore widget ))
+                                                                     (let ((cr context))
+                                                                       (unwind-protect
+                                                                            (cairo:with-context (cr)
+                                                                              (cairo:set-source-rgb 1.0 0.5 0.6)
+                                                                              (cairo:paint)
+                                                                              (cairo:stroke))
+                                                                         (cairo:destroy cr))))
+                                                                   nil nil))
 
 
 
-                             ;; (lambda (widget surface)
-                             ;;   (declare (ignore widget))
-                             ;;   (let ((cr (cairo:create-context surface)))
-                             ;;     (unwind-protect
-                             ;;          (cairo:with-context (cr)
-                             ;;            (cairo:set-source-rgb 1 1 1)
-                             ;;            (cairo:paint)
-                             ;;            (cairo:stroke))
-                             ;;       (cairo:destroy cr))))
+                       ;; (lambda (widget surface)
+                       ;;   (declare (ignore widget))
+                       ;;   (let ((cr (cairo:create-context surface)))
+                       ;;     (unwind-protect
+                       ;;          (cairo:with-context (cr)
+                       ;;            (cairo:set-source-rgb 1 1 1)
+                       ;;            (cairo:paint)
+                       ;;            (cairo:stroke))
+                       ;;       (cairo:destroy cr))))
 
 
 
