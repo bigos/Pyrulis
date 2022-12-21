@@ -34,6 +34,9 @@
                        ;; One of the major differences between GTK 3 and GTK 4 is
                        ;; that we are now targeting GL / Vulkan instead of cairo.
                        ;; https://blog.gtk.org/2020/04/24/custom-widgets-in-gtk-4-drawing/
+
+                       ;; also consider cairo gir
+                       ;; https://github.com/GNOME/gobject-introspection/blob/main/gir/cairo-1.0.gir.in
                        (connect canvas "draw" (lambda (widget context)
                                                 ))
 
