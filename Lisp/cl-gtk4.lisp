@@ -13,10 +13,8 @@
   (draw_func (sb-alien:function sb-alien:void
                                 (sb-alien:* t)
                                 (sb-alien:* t)
-                                (sb-alien:int)
-                                (sb-alien:int)
-                                (sb-alien:system-area-pointer)
-                                ))
+                                sb-alien:int
+                                sb-alien:int))
   (user_data (sb-alien:* t))
   (destroy (sb-alien:* t)))
 
@@ -24,15 +22,14 @@
     ((widget (sb-alien:* t))
      (cr     (sb-alien:* t))
      (width  sb-alien:int )
-     (height sb-alien:int )
-     (data   (sb-alien:* t)))
-  (sb-alien:with-alien ((widget (sb-alien:* t)) (cr (sb-alien:*)))
-    (unwind-protect
-         (cairo:with-context (cr)
-           (cairo:set-source-rgb 1.0 0.5 0.6)
-           (cairo:paint)
-           (cairo:stroke))
-      (cairo:destroy cr))))
+     (height sb-alien:int ))
+  (declare (ignore widget width height))
+  (sb-alien:with-alien ((cr2 (sb-alien:* t) cr))
+    (cairo:with-context (cr)
+      (cairo:set-source-rgb 1.0 0.5 0.6)
+      (cairo:paint)
+      (cairo:stroke))
+    (cairo:destroy cr2)))
 
 (defun simple ()
   (let ((app (make-application :application-id "org.bohonghuang.cl-gtk4-example"
@@ -63,7 +60,7 @@
 
                        (gtk_drawing_area_set_draw_func canvas
                                                        (sb-alien:alien-callable-function 'draw-callback)
-                                                       50 50 nil)
+                                                       50 50)
 
                        (connect canvas "realize" (lambda (widget)
                                                    (declare (ignore widget))
