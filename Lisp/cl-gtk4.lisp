@@ -7,6 +7,32 @@
 ;; (load "~/Programming/Pyrulis/Lisp/cl-gtk4.lisp")
 (in-package #:cl-gtk4)
 
+;; gtk_drawing_area_set_draw_func (GTK_DRAWING_AREA (drawing_area), draw_cb, NULL, NULL);
+(sb-alien:define-alien-routine gtk_drawing_area_set_draw_func sb-alien:void
+  (self (sb-alien:* t))
+  (draw_func (sb-alien:function sb-alien:void
+                                (sb-alien:* t)
+                                (sb-alien:* t)
+                                (sb-alien:int)
+                                (sb-alien:int)
+                                (sb-alien:system-area-pointer)
+                                ))
+  (user_data (sb-alien:* t))
+  (destroy (sb-alien:* t)))
+
+(sb-alien:define-alien-callable draw-callback sb-alien:void
+    ((widget (sb-alien:* t))
+     (cr     (sb-alien:* t))
+     (width  sb-alien:int )
+     (height sb-alien:int )
+     (data   (sb-alien:* t)))
+  (sb-alien:with-alien ((widget (sb-alien:* t)) (cr (sb-alien:*)))
+    (unwind-protect
+         (cairo:with-context (cr)
+           (cairo:set-source-rgb 1.0 0.5 0.6)
+           (cairo:paint)
+           (cairo:stroke))
+      (cairo:destroy cr))))
 
 (defun simple ()
   (let ((app (make-application :application-id "org.bohonghuang.cl-gtk4-example"
@@ -32,30 +58,12 @@
                            (button-dec (make-button :label "Dec"))
                            (count 0))
 
-                       ;; One of the major differences between GTK 3 and GTK 4 is
-                       ;; that we are now targeting GL / Vulkan instead of cairo.
-                       ;; https://blog.gtk.org/2020/04/24/custom-widgets-in-gtk-4-drawing/
-                       ;; we do not use draw signal in gtk4
-                       ;; (connect canvas "draw" (lambda (widget context)
-                       ;;                          ))
-
-
                        (setf (gtk4:drawing-area-content-width canvas) 50
-                             (gtk4:drawing-area-content-height canvas) 50
+                             (gtk4:drawing-area-content-height canvas) 50)
 
-                             ;; can't figure out how to do custom drawing
-                             (gtk4:drawing-area-draw-func canvas) (list
-                                                                   (lambda (widget context)
-                                                                     (declare (ignore widget ))
-                                                                     (let ((cr context))
-                                                                       (unwind-protect
-                                                                            (cairo:with-context (cr)
-                                                                              (cairo:set-source-rgb 1.0 0.5 0.6)
-                                                                              (cairo:paint)
-                                                                              (cairo:stroke))
-                                                                         (cairo:destroy cr))))
-                                                                   nil
-                                                                   nil))
+                       (gtk_drawing_area_set_draw_func canvas
+                                                       (sb-alien:alien-callable-function 'draw-callback)
+                                                       50 50 nil)
 
                        (connect canvas "realize" (lambda (widget)
                                                    (declare (ignore widget))
