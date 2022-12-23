@@ -34,11 +34,19 @@
     (cairo:stroke cr2)
     (cairo:destroy cr2)))
 
+;; (defun draw-func (area cr width height)
+;;   (format t "drawing with ~S ~S ~S ~S"  area cr width height)
+
+;;  )
+
 (cffi:defcallback %draw-func :void ((area :pointer)
                                     (cr :pointer)
                                     (width :int)
                                     (height :int)
-                                    (data :pointer)))
+                                    (data :pointer))
+  (declare (ignore data))
+  (warn "finish me"))
+
 (defun simple ()
   (let ((app (make-application :application-id "org.bohonghuang.cl-gtk4-example"
                                :flags gio:+application-flags-flags-none+)))
