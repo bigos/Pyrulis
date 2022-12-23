@@ -14,7 +14,8 @@
                                 (sb-alien:* t)
                                 (sb-alien:* t)
                                 sb-alien:int
-                                sb-alien:int))
+                                sb-alien:int
+                                (sb-alien:* t)))
   (user_data (sb-alien:* t))
   (destroy (sb-alien:* t)))
 
@@ -22,14 +23,18 @@
     ((widget (sb-alien:* t))
      (cr     (sb-alien:* t))
      (width  sb-alien:int )
-     (height sb-alien:int ))
-  (declare (ignore widget width height))
+     (height sb-alien:int )
+     (data (sb-alien:* t)))
+
+  (declare (ignore widget width height data))
   (sb-alien:with-alien ((cr2 (sb-alien:* t) cr))
-    (cairo:with-context (cr)
-      (cairo:set-source-rgb 1.0 0.5 0.6)
-      (cairo:paint)
-      (cairo:stroke))
-    (cairo:destroy cr2)))
+    (format t "running draw callback~%")
+    (cairo:set-source-rgb 1.0 0.5 0.6 cr2)
+    (cairo:paint cr2)
+    (cairo:stroke cr2)
+    (cairo:destroy cr2)
+    )
+  )
 
 (defun simple ()
   (let ((app (make-application :application-id "org.bohonghuang.cl-gtk4-example"
@@ -55,12 +60,25 @@
                            (button-dec (make-button :label "Dec"))
                            (count 0))
 
+                       (format t "gir test ~S~%" (slot-value canvas 'gir::this))
+
                        (setf (gtk4:drawing-area-content-width canvas) 50
                              (gtk4:drawing-area-content-height canvas) 50)
 
-                       (gtk_drawing_area_set_draw_func canvas
-                                                       (sb-alien:alien-callable-function 'draw-callback)
-                                                       50 50)
+                      (setf (gtk4:drawing-area-draw-func canvas)
+                            (list
+                             (sb-alien:alien-sap
+                              (sb-alien:alien-callable-function 'draw-callback))
+
+                             nil
+                             nil))
+
+                       ;; (gtk_drawing_area_set_draw_func (sb-alien:sap-alien
+                       ;;                                  (slot-value  canvas 'gir::this)
+                       ;;                                  (sb-alien:* t))
+                       ;;                                 (sb-alien:alien-callable-function 'draw-callback)
+                       ;;                                 nil
+                       ;;                                 nil)
 
                        (connect canvas "realize" (lambda (widget)
                                                    (declare (ignore widget))
@@ -94,3 +112,7 @@
                          box))
                  (window-present window))))
     (gio:application-run app nil)))
+
+(progn
+  (format t "running simple~%")
+  (cl-gtk4::simple))
