@@ -65,13 +65,19 @@
                        (setf (gtk4:drawing-area-content-width canvas) 50
                              (gtk4:drawing-area-content-height canvas) 50)
 
-                      (setf (gtk4:drawing-area-draw-func canvas)
-                            (list
-                             ;; why this does not work???
-                             (sb-alien:alien-callable-function 'draw-callback)
-                             nil
-                             nil))
 
+                       ;; read more
+                       ;; https://github.com/andy128k/cl-gobject-introspection
+
+                       (gtk_drawing_area_set_draw_func
+
+                        (gir:build-object-ptr ;how to make it work?
+                         (gir:nget (gir-wrapper:define-gir-namespace "Gtk" "4.0") "DrawingArea")
+                         canvas)
+
+                        (sb-alien:alien-callable-function 'draw-callback)
+                        nil
+                        nil)
 
                        (connect canvas "realize" (lambda (widget)
                                                    (declare (ignore widget))
