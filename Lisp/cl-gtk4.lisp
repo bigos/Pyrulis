@@ -1,5 +1,5 @@
 (eval-when (:compile-toplevel :load-toplevel :execute)
-  (ql:quickload '(cl-gtk4 cl-cairo2)))
+  (ql:quickload '(cl-gtk4 cl-cairo2 cffi)))
 
 (defpackage cl-gtk4
   (:use #:cl #:gtk4))
@@ -32,10 +32,13 @@
     (cairo:set-source-rgb 1.0 0.5 0.6 cr2)
     (cairo:paint cr2)
     (cairo:stroke cr2)
-    (cairo:destroy cr2)
-    )
-  )
+    (cairo:destroy cr2)))
 
+(cffi:defcallback %draw-func :void ((area :pointer)
+                                    (cr :pointer)
+                                    (width :int)
+                                    (height :int)
+                                    (data :pointer)))
 (defun simple ()
   (let ((app (make-application :application-id "org.bohonghuang.cl-gtk4-example"
                                :flags gio:+application-flags-flags-none+)))
@@ -60,28 +63,12 @@
                            (button-dec (make-button :label "Dec"))
                            (count 0))
 
-                       (format t "gir test ~S~%" canvas)
-
                        (setf (gtk4:drawing-area-content-width canvas) 50
-                             (gtk4:drawing-area-content-height canvas) 50)
-
-
-                       ;; read more
-                       ;; https://github.com/andy128k/cl-gobject-introspection
-
-                       (gtk_drawing_area_set_draw_func
-                        (gir::this-of canvas)
-                        (sb-alien:alien-callable-function 'draw-callback)
-                        nil
-                        nil)
-
-                       (connect canvas "realize" (lambda (widget)
-                                                   (declare (ignore widget))
-                                                   ;; create GDK resources here
-                                                   ))
-
-                       (connect canvas "resize" (lambda (widget)
-                                                  (declare (ignore widget))))
+                             (gtk4:drawing-area-content-height canvas) 50
+                             (gtk4:drawing-area-draw-func canvas) (list
+                                                                   (cffi:callback %draw-func)
+                                                                   (cffi:null-pointer)
+                                                                   (cffi:null-pointer)))
 
                        ;; ---------------------------------------------------------------
 
