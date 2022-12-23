@@ -65,24 +65,13 @@
                        (setf (gtk4:drawing-area-content-width canvas) 50
                              (gtk4:drawing-area-content-height canvas) 50)
 
-                      ;; (setf (gtk4:drawing-area-draw-func canvas)
-                      ;;       (list
-                      ;;        (sb-alien:alien-callable-function 'draw-callback)
-                      ;;        nil
-                      ;;        nil))
+                      (setf (gtk4:drawing-area-draw-func canvas)
+                            (list
+                             ;; why this does not work???
+                             (sb-alien:alien-callable-function 'draw-callback)
+                             nil
+                             nil))
 
-                       ;; (gtk_drawing_area_set_draw_func (sb-alien:sap-alien
-                       ;;                                  canvas
-                       ;;                                 (sb-alien:* t))
-                       ;;                                 (sb-alien:alien-callable-function 'draw-callback)
-                       ;;                                 nil
-                       ;;                                 nil)
-
-
-                       (connect canvas "draw" (lambda (widget)
-                                                   (declare (ignore widget))
-                                                   ;; create GDK resources here
-                                                   ))
 
                        (connect canvas "realize" (lambda (widget)
                                                    (declare (ignore widget))
