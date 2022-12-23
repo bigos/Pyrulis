@@ -60,7 +60,7 @@
                            (button-dec (make-button :label "Dec"))
                            (count 0))
 
-                       (format t "gir test ~S~%" (slot-value canvas 'gir::this))
+                       (format t "gir test ~S~%" canvas)
 
                        (setf (gtk4:drawing-area-content-width canvas) 50
                              (gtk4:drawing-area-content-height canvas) 50)
@@ -70,11 +70,7 @@
                        ;; https://github.com/andy128k/cl-gobject-introspection
 
                        (gtk_drawing_area_set_draw_func
-
-                        (gir:build-object-ptr ;how to make it work?
-                         (gir:nget (gir-wrapper:define-gir-namespace "Gtk" "4.0") "DrawingArea")
-                         canvas)
-
+                        (gir::this-of canvas)
                         (sb-alien:alien-callable-function 'draw-callback)
                         nil
                         nil)
