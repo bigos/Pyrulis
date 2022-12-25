@@ -21,11 +21,16 @@
 ;; (load "~/Programming/Pyrulis/Lisp/cl-gtk4.lisp")
 (in-package #:cl-gtk4-test)
 
+(defclass model ()
+  ((cnt :accessor cnt :initform 0)))
+
+(defparameter *model* (make-instance 'model))
+
 (cffi:defcstruct gdk-rgba
-                 (red :double)
-                 (green :double)
-                 (blue :double)
-                 (alpha :double))
+  (red :double)
+  (green :double)
+  (blue :double)
+  (alpha :double))
 
 (defmacro with-gdk-rgba ((pointer color) &body body)
   `(cffi:with-foreign-object (,pointer '(:struct gdk-rgba))
@@ -36,6 +41,7 @@
                                ,@body)))
 
 (defun draw-func (area cr width height)
+  (format t "draw-func in action ===========================~%")
   (let ((style-context (gtk:widget-style-context area)))
     (cairo:arc (/ (coerce (the (signed-byte 32) width) 'single-float) 2.0)
                (/ (coerce (the (signed-byte 32) height) 'single-float) 2.0)
@@ -47,9 +53,15 @@
     (cairo:arc (/ (coerce (the (signed-byte 32) width) 'single-float) 2.0)
                (/ (coerce (the (signed-byte 32) height) 'single-float) 2.0)
                (/ (min width height) 4.0) 0.0 (* 2.0 (coerce pi 'single-float)))
-    (with-gdk-rgba (color "#FFFFFFFF")
-                   (gdk:cairo-set-source-rgba cr color)
-                   (cairo:fill-path))))
+    (with-gdk-rgba (color (cond
+                            ((> (cnt *model*) 10)
+                             "#2233FFFF")
+                            ((>= 10 (cnt *model*) 0)
+                             "#FFFFFFFF")
+                            ((< (cnt *model*) 0)
+                             "#FF2233FF")))
+      (gdk:cairo-set-source-rgba cr color)
+      (cairo:fill-path))))
 
 (cffi:defcallback %draw-func :void ((area :pointer)
                                     (cr :pointer)
@@ -102,14 +114,16 @@
 
                        (connect button-add "clicked" (lambda (button)
                                                        (declare (ignore button))
-                                                       (setf (label-text label)
-                                                             (format nil "~A" (incf count)))))
+                                                       (setf (label-text label) (format nil "~A" (incf count))
+                                                             (cnt *model*) count)
+                                                       (widget-queue-draw canvas)))
 
                        (connect button-dec "clicked" (lambda (button)
                                                        (declare (ignore button))
                                                        (format t "~&decreasing ====~%")
-                                                       (setf (label-text label)
-                                                             (format nil "~A" (decf count)))))
+                                                       (setf (label-text label) (format nil "~A" (decf count))
+                                                             (cnt *model*) count)
+                                                       (widget-queue-draw canvas)))
                        (box-append box canvas)
                        (box-append box button-add)
                        (box-append box button-dec))
