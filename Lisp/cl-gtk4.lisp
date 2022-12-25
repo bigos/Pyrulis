@@ -1,21 +1,25 @@
+(cl:in-package "CL-USER")
+
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (ql:quickload '(cl-gtk4
                   cl-gdk4
                   cl-cairo2)))
 
-(cl:defpackage #:cairo-gobject
+(defpackage #:cairo-gobject
   (:use)
   (:export #:*ns*))
 
-(cl:in-package #:cairo-gobject)
+(in-package #:cairo-gobject)
 
 (gir-wrapper:define-gir-namespace "cairo")
 
-(cl:defpackage #:cl-gtk4-test
+(cl:in-package "CL-USER") ; make sure you come back to cl-user because the previous package does not use it
+
+(defpackage #:cl-gtk4-test
   (:use :cl #:gtk4))
 
 ;; (load "~/Programming/Pyrulis/Lisp/cl-gtk4.lisp")
-(cl:in-package #:cl-gtk4-test)
+(in-package #:cl-gtk4-test)
 
 (cffi:defcstruct gdk-rgba
                  (red :double)
