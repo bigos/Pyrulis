@@ -41,11 +41,10 @@
                                ,@body)))
 
 (defun draw-func (area cr width height)
-  (format t "draw-func in action ===========================~%")
   (let ((style-context (gtk:widget-style-context area)))
     (cairo:arc (/ (coerce (the (signed-byte 32) width) 'single-float) 2.0)
                (/ (coerce (the (signed-byte 32) height) 'single-float) 2.0)
-               (/ (min width height) 2.0) 0.0 (* 2.0 (coerce pi 'single-float)))
+               (/ (min width height) 2.0) 0.0 (* (+ 1.0 (/ (cnt *model*) 10.0)) (coerce pi 'single-float)))
 
     (let ((color (gtk:style-context-color style-context)))
       (gdk:cairo-set-source-rgba cr color)
@@ -58,7 +57,7 @@
                              "#2233FFFF")
                             ((>= 10 (cnt *model*) 0)
                              "#FFFFFFFF")
-                            ((< (cnt *model*) 0)
+                            ((> 0 (cnt *model*))
                              "#FF2233FF")))
       (gdk:cairo-set-source-rgba cr color)
       (cairo:fill-path))))
