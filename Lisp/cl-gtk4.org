@@ -18,3 +18,12 @@ https://ultralisp.org/
 
 ** package
 sudo apt install libgtk-4-dev
+
+** cairo bindings
+ https://github.com/GNOME/gobject-introspection/blob/main/gir/cairo-1.0.gir.in
+
+ gtk4 doc
+ https://docs.gtk.org/gtk4/getting_started.html#custom-drawing
+
+ my SO question
+ [[https://stackoverflow.com/questions/74882106/how-do-i-use-sbcl-sb-alien-to-create-a-gtk4-window-open-it-and-have-a-simple-cal][SO Gtk4 question]]

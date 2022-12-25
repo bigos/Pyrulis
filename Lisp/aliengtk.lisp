@@ -1,6 +1,13 @@
-;; #!/usr/local/bin/sbcl --script
+;; sbcl --load ~/Programming/Pyrulis/Lisp/aliengtk.lisp
 
-(load-shared-object "/usr/lib/x86_64-linux-gnu/libgtk-3.so.0")
+
+;; (load "~/Programming/Pyrulis/Lisp/aliengtk.lisp")
+
+;; (cl:defpackage "TEST-C-CALL" (:use "CL" "SB-ALIEN" "SB-C-CALL"))
+;; (cl:in-package "TEST-C-CALL")
+
+(load-shared-object
+ "/usr/lib/x86_64-linux-gnu/libgtk-3.so.0.2404.29")
 
 ;; This will exclude :divide-by-zero which might be caused in the GTK lib.
 ;; The default traps are (:OVERFLOW :INVALID :DIVIDE-BY-ZERO).
@@ -29,7 +36,7 @@
 
 (define-alien-routine gtk_widget_show_all void (win (* t)))
 
-(sb-alien::define-alien-callback mycallback void ((app (* t)) (u (* t)))
+(define-alien-callable mycallback void ((app (* t)) (u (* t)))
                                  (with-alien ((win (* t)))
                                    (setf win (gtk_application_window_new app))
                                    (gtk_window_set_title win "That")
@@ -38,7 +45,7 @@
 
 (with-alien ((app (* t)) (status int))
   (setf app (gtk_application_new "org.gtk.example" 0))
-  (g_signal_connect_data app "activate" mycallback nil nil 0)
+  (g_signal_connect_data app "activate" mycallback  nil nil 0)
   (g_application_run app 0 nil)
   (g_object_unref app))
 
