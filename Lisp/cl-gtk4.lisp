@@ -146,5 +146,5 @@
                  (window-present window))))
     (gio:application-run app nil)))
 
-(cl-gtk4-test::simple)
-(sb-ext:exit)
+;; (cl-gtk4-test::simple)
+;; (sb-ext:exit)
