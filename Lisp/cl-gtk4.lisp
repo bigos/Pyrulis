@@ -60,7 +60,17 @@
                             ((> 0 (cnt *model*))
                              "#FF2233FF")))
       (gdk:cairo-set-source-rgba cr color)
-      (cairo:fill-path))))
+      (cairo:fill-path))
+
+    (with-gdk-rgba (color "#118811FF")
+      (gdk:cairo-set-source-rgba cr color)
+      (cairo:select-font-face "Ubuntu Mono"
+                              :normal :bold)
+      (cairo:set-font-size 40)
+      (cairo:move-to (+ 10 (cnt *model*)) 30)
+      (cairo:show-text "Abc")
+      (cairo:fill-path))
+    ))
 
 (cffi:defcallback %draw-func :void ((area :pointer)
                                     (cr :pointer)
@@ -135,3 +145,6 @@
                          box))
                  (window-present window))))
     (gio:application-run app nil)))
+
+(cl-gtk4-test::simple)
+(sb-ext:exit)
