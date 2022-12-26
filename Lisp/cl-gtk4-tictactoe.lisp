@@ -55,7 +55,9 @@
      (* 2.0 (coerce pi 'single-float)))
     (with-gdk-rgba (color "#FF8844FF")
         (gdk:cairo-set-source-rgba cr color)
-      (cairo:fill-path))))
+      (cairo:fill-path))
+
+    ))
 
 (cffi:defcallback %draw-func :void ((area :pointer)
                                     (cr :pointer)
@@ -91,6 +93,7 @@
                    (let ((canvas (gtk:make-drawing-area)))
                      (setf (drawing-area-content-width canvas) 200
                            (drawing-area-content-height canvas) 200
+                           (widget-vexpand-p canvas) T
                            (drawing-area-draw-func canvas) (list (cffi:callback %draw-func)
                                                                  (cffi:null-pointer)
                                                                  (cffi:null-pointer)))
