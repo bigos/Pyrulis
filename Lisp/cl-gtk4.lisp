@@ -66,9 +66,9 @@
       (gdk:cairo-set-source-rgba cr color)
       (cairo:select-font-face "Ubuntu Mono"
                               :normal :bold)
-      (cairo:set-font-size 40)
+      (cairo:set-font-size 30)
       (cairo:move-to (+ 10 (cnt *model*)) 30)
-      (cairo:show-text "Abc")
+      (cairo:show-text (format nil "Cnt is: ~A" (cnt *model*)))
       (cairo:fill-path))
     ))
 
