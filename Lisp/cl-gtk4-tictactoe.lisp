@@ -83,13 +83,12 @@
         (let* ((size (/ (min w h) 4.5))
                (dist (+ size (* size 0.05))))
 
-
-
+          ;; grid background
           (with-gdk-rgba (color "#777777CC")
             (gdk:cairo-set-source-rgba cr color))
           (square-centered-at hw hh (+ (* size 3) (* size 0.20)) cr)
 
-
+          ;; grid
           (with-gdk-rgba (color "#FFFFFFCC")
             (gdk:cairo-set-source-rgba cr color))
           (square-centered-at (- hw dist) (- hh dist) size cr)
@@ -104,6 +103,7 @@
           (square-centered-at (+ hw dist) hh size cr)
           (square-centered-at (+ hw dist) (+ hh dist) size cr)
 
+          ;; top bar
           (with-gdk-rgba (color "#BBBBBBCC")
             (gdk:cairo-set-source-rgba cr color))
 
@@ -113,6 +113,7 @@
                            (* size 0.67))
           (cairo:fill-path)
 
+          ;; bottom bar
           (with-gdk-rgba (color "#FFFFBBCC")
             (gdk:cairo-set-source-rgba cr color))
           (cairo:rectangle (- hw (* size 2))
@@ -121,6 +122,7 @@
                            (* size 0.67))
           (cairo:fill-path)
 
+          ;; help area
           (with-gdk-rgba (color "#88FFFFAA")
             (gdk:cairo-set-source-rgba cr color))
           (cairo:rectangle (- hw (* size 2))
