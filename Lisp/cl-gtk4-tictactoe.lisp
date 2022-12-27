@@ -115,11 +115,18 @@
 
           (with-gdk-rgba (color "#FFFFBBCC")
             (gdk:cairo-set-source-rgba cr color))
-
           (cairo:rectangle (- hw (* size 2))
-                           (+ hh (* size 1.65))
+                           (+ hh (* size 1.62))
                            (* size 4)
                            (* size 0.67))
+          (cairo:fill-path)
+
+          (with-gdk-rgba (color "#88FFFFAA")
+            (gdk:cairo-set-source-rgba cr color))
+          (cairo:rectangle (- hw (* size 2))
+                           (- hh (* size 2))
+                           (* size 4)
+                           (* size 4))
           (cairo:fill-path)
 
           )
