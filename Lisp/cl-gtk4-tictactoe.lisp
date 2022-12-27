@@ -178,6 +178,8 @@
                      (box-append box canvas))
                    (setf (window-child window)
                          box))
+                 ;; figure out how to use event controller
+                 ;; (gtk4:make-event-controller-key )
                  (window-present window))))
     (gio:application-run app nil)))
 
