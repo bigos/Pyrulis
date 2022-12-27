@@ -44,20 +44,89 @@
 
 ;;; ============================================================================
 
+(defun square-at (x y &optional cr)
+  (let ((size 50))
+    (cairo:rectangle x y size size)
+    (cairo:fill-path)))
+
+(defun square-centered-at (x y size &optional cr)
+  (cairo:rectangle (- x (/ size 2))
+                   (- y (/ size 2))
+                   size size)
+  (cairo:fill-path))
+
 (defun draw-func (area cr width height)
   (format t "drawing ~S x ~S~%" width height)
-  (let ((context (gtk:widget-style-context area)))
-    (cairo:arc
-     (/ (coerce (the (signed-byte 32)  width) 'single-float) 2.0)
-     (/ (coerce (the (signed-byte 32) height) 'single-float) 2.0)
-     (/ (min width height) 2.0)
-     0.0
-     (* 2.0 (coerce pi 'single-float)))
-    (with-gdk-rgba (color "#FF8844FF")
-        (gdk:cairo-set-source-rgba cr color)
-      (cairo:fill-path))
+  (let ((w (coerce (the (signed-byte 32) width)  'single-float))
+        (h (coerce (the (signed-byte 32) height) 'single-float)))
+    (let ((hw (/ w 2))
+          (hh (/ h 2)))
+      (let ((context (gtk:widget-style-context area)))
 
-    ))
+        (cairo:arc
+         (/ w 2.0)
+         (/ h 2.0)
+         (/ (min w h) 2.0)
+         0.0
+         (* 2.0 (coerce pi 'single-float)))
+
+        (with-gdk-rgba (color "#FF8844FF")
+          (gdk:cairo-set-source-rgba cr color))
+        (cairo:fill-path)
+
+        (cairo:move-to 0.0 0.0)
+        (cairo:line-to w h)
+        (with-gdk-rgba (color "#227722FF")
+          (gdk:cairo-set-source-rgba cr color))
+        (cairo:stroke)
+
+        (let* ((size (/ (min w h) 4.5))
+               (dist (+ size (* size 0.05))))
+
+
+
+          (with-gdk-rgba (color "#777777CC")
+            (gdk:cairo-set-source-rgba cr color))
+          (square-centered-at hw hh (+ (* size 3) (* size 0.20)) cr)
+
+
+          (with-gdk-rgba (color "#FFFFFFCC")
+            (gdk:cairo-set-source-rgba cr color))
+          (square-centered-at (- hw dist) (- hh dist) size cr)
+          (square-centered-at (- hw dist) hh size cr)
+          (square-centered-at (- hw dist) (+ hh dist) size cr)
+
+          (square-centered-at hw (- hh dist) size cr)
+          (square-centered-at hw hh size cr)
+          (square-centered-at hw (+ hh dist) size cr)
+
+          (square-centered-at (+ hw dist) (- hh dist) size cr)
+          (square-centered-at (+ hw dist) hh size cr)
+          (square-centered-at (+ hw dist) (+ hh dist) size cr)
+
+          (with-gdk-rgba (color "#BBBBBBCC")
+            (gdk:cairo-set-source-rgba cr color))
+
+          (cairo:rectangle (- hw (* size 2))
+                           (- hh (* size 2.3))
+                           (* size 4)
+                           (* size 0.67))
+          (cairo:fill-path)
+
+          (with-gdk-rgba (color "#FFFFBBCC")
+            (gdk:cairo-set-source-rgba cr color))
+
+          (cairo:rectangle (- hw (* size 2))
+                           (+ hh (* size 1.65))
+                           (* size 4)
+                           (* size 0.67))
+          (cairo:fill-path)
+
+          )
+
+
+
+        ))))
 
 (cffi:defcallback %draw-func :void ((area :pointer)
                                     (cr :pointer)
@@ -102,3 +171,8 @@
                          box))
                  (window-present window))))
     (gio:application-run app nil)))
+
+;;; T for terminal
+(when nil
+  (main)
+  (sb-ext:quit))
