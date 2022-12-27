@@ -179,7 +179,9 @@
                    (setf (window-child window)
                          box))
                  ;; figure out how to use event controller
-                 ;; (gtk4:make-event-controller-key )
+                 ;; 21.1.1. Example
+                 ;; https://developer-old.gnome.org/gtkmm-tutorial/stable/sec-keyboardevents-overview.html.en
+                 (gtk4:make-event-controller-key )
                  (window-present window))))
     (gio:application-run app nil)))
 
