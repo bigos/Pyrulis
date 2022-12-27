@@ -125,9 +125,9 @@
           ;; help area
           (with-gdk-rgba (color "#88FFFFAA")
             (gdk:cairo-set-source-rgba cr color))
-          (cairo:rectangle (- hw (* size 2))
+          (cairo:rectangle (- hw (* size 2) 10)
                            (- hh (* size 2))
-                           (* size 4)
+                           (+ (* size 4) (* 2 10))
                            (* size 4))
           (cairo:fill-path)
 
