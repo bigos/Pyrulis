@@ -165,13 +165,10 @@
              (lambda (app)
                (let ((window (make-application-window :application app))
                      (controller (gtk4:make-event-controller-key)))
-                 ;; figure out how to use event controller
-                 ;; 21.1.1. Example
-                 ;; https://developer-old.gnome.org/gtkmm-tutorial/stable/sec-keyboardevents-overview.html.en
-                 ;; https://docs.gtk.org/gtk4/input-handling.html#keyboard-input
-                 (connect controller "key-pressed" (lambda (widget ev a b)
-                                                     (format t "key pressed ~S~%" (list widget ev a b))))
+                 (connect controller "key-pressed" (lambda (widget key-val key-code key-modifiers)
+                                                     (format t "key pressed ~S ~S ~S~%" key-val key-code key-modifiers)))
                  (widget-add-controller window controller)
+
                  (setf (window-title        window) "Tic Tac Toe"
                        (window-default-size window) (list 400 400))
                  (let ((box (make-box :orientation +orientation-vertical+
