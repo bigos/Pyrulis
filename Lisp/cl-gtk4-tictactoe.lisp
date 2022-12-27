@@ -44,98 +44,97 @@
 
 ;;; ============================================================================
 
-(defun square-at (x y &optional cr)
+(defun square-at (x y)
   (let ((size 50))
     (cairo:rectangle x y size size)
     (cairo:fill-path)))
 
-(defun square-centered-at (x y size &optional cr)
+(defun square-centered-at (x y size)
   (cairo:rectangle (- x (/ size 2))
                    (- y (/ size 2))
                    size size)
   (cairo:fill-path))
 
 (defun draw-func (area cr width height)
+  (declare (ignore area))
   (format t "drawing ~S x ~S~%" width height)
   (let ((w (coerce (the (signed-byte 32) width)  'single-float))
         (h (coerce (the (signed-byte 32) height) 'single-float)))
     (let ((hw (/ w 2))
           (hh (/ h 2)))
-      (let ((context (gtk:widget-style-context area)))
+      (cairo:arc
+       (/ w 2.0)
+       (/ h 2.0)
+       (/ (min w h) 2.0)
+       0.0
+       (* 2.0 (coerce pi 'single-float)))
 
-        (cairo:arc
-         (/ w 2.0)
-         (/ h 2.0)
-         (/ (min w h) 2.0)
-         0.0
-         (* 2.0 (coerce pi 'single-float)))
+      (with-gdk-rgba (color "#FF8844FF")
+        (gdk:cairo-set-source-rgba cr color))
+      (cairo:fill-path)
 
-        (with-gdk-rgba (color "#FF8844FF")
+      (cairo:move-to 0.0 0.0)
+      (cairo:line-to w h)
+      (with-gdk-rgba (color "#227722FF")
+        (gdk:cairo-set-source-rgba cr color))
+      (cairo:stroke)
+
+      (let* ((size (/ (min w h) 4.5))
+             (dist (+ size (* size 0.05))))
+
+        ;; grid background
+        (with-gdk-rgba (color "#777777CC")
           (gdk:cairo-set-source-rgba cr color))
+        (square-centered-at hw hh (+ (* size 3) (* size 0.20)))
+
+        ;; grid
+        (with-gdk-rgba (color "#FFFFFFCC")
+          (gdk:cairo-set-source-rgba cr color))
+        (square-centered-at (- hw dist) (- hh dist) size)
+        (square-centered-at (- hw dist) hh size)
+        (square-centered-at (- hw dist) (+ hh dist) size)
+
+        (square-centered-at hw (- hh dist) size)
+        (square-centered-at hw hh size)
+        (square-centered-at hw (+ hh dist) size)
+
+        (square-centered-at (+ hw dist) (- hh dist) size)
+        (square-centered-at (+ hw dist) hh size)
+        (square-centered-at (+ hw dist) (+ hh dist) size)
+
+        ;; top bar
+        (with-gdk-rgba (color "#BBBBBBCC")
+          (gdk:cairo-set-source-rgba cr color))
+
+        (cairo:rectangle (- hw (* size 2))
+                         (- hh (* size 2.3))
+                         (* size 4)
+                         (* size 0.67))
         (cairo:fill-path)
 
-        (cairo:move-to 0.0 0.0)
-        (cairo:line-to w h)
-        (with-gdk-rgba (color "#227722FF")
+        ;; bottom bar
+        (with-gdk-rgba (color "#FFFFBBCC")
           (gdk:cairo-set-source-rgba cr color))
-        (cairo:stroke)
+        (cairo:rectangle (- hw (* size 2))
+                         (+ hh (* size 1.62))
+                         (* size 4)
+                         (* size 0.67))
+        (cairo:fill-path)
 
-        (let* ((size (/ (min w h) 4.5))
-               (dist (+ size (* size 0.05))))
+        ;; help area
+        (with-gdk-rgba (color "#88FFFFAA")
+          (gdk:cairo-set-source-rgba cr color))
+        (cairo:rectangle (- hw (* size 2) 10)
+                         (- hh (* size 2))
+                         (+ (* size 4) (* 2 10))
+                         (* size 4))
+        (cairo:fill-path)
 
-          ;; grid background
-          (with-gdk-rgba (color "#777777CC")
-            (gdk:cairo-set-source-rgba cr color))
-          (square-centered-at hw hh (+ (* size 3) (* size 0.20)) cr)
-
-          ;; grid
-          (with-gdk-rgba (color "#FFFFFFCC")
-            (gdk:cairo-set-source-rgba cr color))
-          (square-centered-at (- hw dist) (- hh dist) size cr)
-          (square-centered-at (- hw dist) hh size cr)
-          (square-centered-at (- hw dist) (+ hh dist) size cr)
-
-          (square-centered-at hw (- hh dist) size cr)
-          (square-centered-at hw hh size cr)
-          (square-centered-at hw (+ hh dist) size cr)
-
-          (square-centered-at (+ hw dist) (- hh dist) size cr)
-          (square-centered-at (+ hw dist) hh size cr)
-          (square-centered-at (+ hw dist) (+ hh dist) size cr)
-
-          ;; top bar
-          (with-gdk-rgba (color "#BBBBBBCC")
-            (gdk:cairo-set-source-rgba cr color))
-
-          (cairo:rectangle (- hw (* size 2))
-                           (- hh (* size 2.3))
-                           (* size 4)
-                           (* size 0.67))
-          (cairo:fill-path)
-
-          ;; bottom bar
-          (with-gdk-rgba (color "#FFFFBBCC")
-            (gdk:cairo-set-source-rgba cr color))
-          (cairo:rectangle (- hw (* size 2))
-                           (+ hh (* size 1.62))
-                           (* size 4)
-                           (* size 0.67))
-          (cairo:fill-path)
-
-          ;; help area
-          (with-gdk-rgba (color "#88FFFFAA")
-            (gdk:cairo-set-source-rgba cr color))
-          (cairo:rectangle (- hw (* size 2) 10)
-                           (- hh (* size 2))
-                           (+ (* size 4) (* 2 10))
-                           (* size 4))
-          (cairo:fill-path)
-
-          )
+        )
 
 
 
-        ))))
+      )))
 
 (cffi:defcallback %draw-func :void ((area :pointer)
                                     (cr :pointer)
@@ -166,6 +165,7 @@
                (let ((window (make-application-window :application app))
                      (controller (gtk4:make-event-controller-key)))
                  (connect controller "key-pressed" (lambda (widget key-val key-code key-modifiers)
+                                                     (declare (ignore widget))
                                                      (format t "key pressed ~S ~S ~S~%" key-val key-code key-modifiers)))
                  (widget-add-controller window controller)
 
