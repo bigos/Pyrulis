@@ -163,14 +163,14 @@
             (list  ilm key-modifiers
                    (check-modifiers key-modifiers))))
   (format t "~16R ~S ~A~%" key-val (gdk4:keyval-name key-val)
-          (if (> (integer-length key-val) 8)
-              (format nil "==== other ~D  ~S ~c ~s ~B"
+          (if (> (integer-length key-val) 12)
+              (format nil "==== other ~D  ~S ~s ~c ~B"
                       (integer-length key-val)
                       :zzz
                       (code-char key-val)
                       (code-char key-val)
                       key-val)
-              (format nil "entry ~C"
+              (format nil "entry ~C >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
                       (code-char key-val)))))
 
 ;;; list of key names to check
@@ -179,13 +179,16 @@
 (defun check-modifiers (m)
   ;; this is for exploring modifiers
   ;; keywords are the modifiers, later we will reject strings
-  (let ((names '(:shift "b" :ctrl :alt "e" "f" "g" :gr "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
-                 "t" "u" "v" "w" "x" "y" "z" :win "2" "3" "4" "5")))
-    (loop for x = 0 then (1+ x)
-          for n in names
-          for km = (ldb (byte 1 x) m)
-          unless (zerop km)
-            collect n)))
+  (let ((names '(:shift "1" :ctrl :alt "4" "5" "6" :gr "8" "9" "10" "11" "12"
+                 "13" "14" "15" "16" "17" "18" "19" "20" "21" "22" "23" "24"
+                 "25" :win "27" "28" "29" "30")))
+    (remove-if (lambda (e)
+                 (typep e 'string))
+               (loop for x = 0 then (1+ x)
+                     for n in names
+                     for km = (ldb (byte 1 x) m)
+                     unless (zerop km)
+                       collect n))))
 
 ;;; ============================================================================
 
