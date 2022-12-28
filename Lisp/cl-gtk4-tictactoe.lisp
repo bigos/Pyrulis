@@ -154,7 +154,7 @@
 ;;; ============================================================================
 
 (defun check-key (key-val key-code key-modifiers)
-  (format t "key pressed val ~S, code ~S, modifiers ~S ~a ~S~%"
+  (format t "~%key pressed val ~S, code ~S, modifiers ~S ~a ~S~%"
           key-val
           key-code
           key-modifiers
@@ -162,7 +162,16 @@
           (let ((ilm (integer-length key-modifiers)))
             (list  ilm key-modifiers
                    (check-modifiers key-modifiers))))
-  (format t "~16R ~S ~C~%" key-val (gdk4:keyval-name key-val) (code-char key-val)))
+  (format t "~16R ~S ~A~%" key-val (gdk4:keyval-name key-val)
+          (if (> (integer-length key-val) 8)
+              (format nil "==== other ~D  ~S ~c ~s ~B"
+                      (integer-length key-val)
+                      :zzz
+                      (code-char key-val)
+                      (code-char key-val)
+                      key-val)
+              (format nil "entry ~C"
+                      (code-char key-val)))))
 
 ;;; list of key names to check
 ;; https://docs.oracle.com/cd/E88353_01/html/E37839/keysyms-1t.html
