@@ -154,41 +154,27 @@
 ;;; ============================================================================
 
 (defun check-key (key-val key-code key-modifiers)
-  (format t "~%key pressed val ~S, code ~S, modifiers ~S ~a ~S~%"
-          key-val
-          key-code
-          key-modifiers
-          (format nil "~B" key-modifiers)
-          (let ((ilm (integer-length key-modifiers)))
-            (list  ilm key-modifiers
-                   (check-modifiers key-modifiers))))
-  (format t "~16R ~S ~A~%" key-val (gdk4:keyval-name key-val)
-          (if (> (integer-length key-val) 12)
-              (format nil "==== other ~D  ~S ~s ~c ~B"
-                      (integer-length key-val)
-                      :zzz
-                      (code-char key-val)
-                      (code-char key-val)
-                      key-val)
-              (format nil "entry ~C >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-                      (code-char key-val)))))
+  (declare (ignore key-code))
+  (let ((enterable (< (integer-length key-val) 15)))
+    (format t
+            (if enterable
+                "~a ~S ~S >>>>>>>>>>>>>>>>>>>>>>>~%"
+                "~a ~S ~S~%")
+            (when enterable
+              (code-char key-val))
+            (gdk4:keyval-name key-val)
+            (modifiers key-modifiers))))
 
-;;; list of key names to check
-;; https://docs.oracle.com/cd/E88353_01/html/E37839/keysyms-1t.html
 ;; https://gitlab.gnome.org/GNOME/gtk/-/blob/main/gdk/gdkkeysyms.h
-(defun check-modifiers (m)
-  ;; this is for exploring modifiers
-  ;; keywords are the modifiers, later we will reject strings
+(defun modifiers (modifiers)
   (let ((names '(:shift "1" :ctrl :alt "4" "5" "6" :gr "8" "9" "10" "11" "12"
                  "13" "14" "15" "16" "17" "18" "19" "20" "21" "22" "23" "24"
-                 "25" :win "27" "28" "29" "30")))
-    (remove-if (lambda (e)
-                 (typep e 'string))
-               (loop for x = 0 then (1+ x)
-                     for n in names
-                     for km = (ldb (byte 1 x) m)
-                     unless (zerop km)
-                       collect n))))
+                 "25" :win)))
+    (loop for x = 0 then (1+ x)
+          for n in names
+          when (and (plusp (ldb (byte 1 x) modifiers))
+                    (typep n 'keyword))
+            collect n)))
 
 ;;; ============================================================================
 
