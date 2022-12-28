@@ -162,10 +162,7 @@
           (let ((ilm (integer-length key-modifiers)))
             (list  ilm key-modifiers
                    (check-modifiers key-modifiers))))
-  (format t "~S~%" (gdk4:keyval-name key-val))
-  ;; (format t "~S~%" (reverse (loop for x from 0 below (integer-length key-modifiers)
-  ;;                                 collect (ldb (byte 1 x) key-modifiers))))
-  )
+  (format t "~S ~C~%" (gdk4:keyval-name key-val) (code-char key-val)))
 
 ;;; list of key names to check
 ;; https://docs.oracle.com/cd/E88353_01/html/E37839/keysyms-1t.html
