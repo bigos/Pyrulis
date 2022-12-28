@@ -156,10 +156,7 @@
 (defun check-key (key-val key-code key-modifiers)
   (declare (ignore key-code))
   (let ((enterable (< (integer-length key-val) 15)))
-    (format t
-            (if enterable
-                "~a ~S ~S >>>>>>>>>>>>>>>>>>>>>>>~%"
-                "~a ~S ~S~%")
+    (format t "~a ~S ~S~%"
             (when enterable
               (code-char key-val))
             (gdk4:keyval-name key-val)
