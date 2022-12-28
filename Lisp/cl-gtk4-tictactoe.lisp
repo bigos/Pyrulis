@@ -155,7 +155,7 @@
 
 (defun check-key (key-val key-code key-modifiers)
   (declare (ignore key-code))
-  (let ((enterable (< (integer-length key-val) 15)))
+  (let ((enterable (< (integer-length key-val) 16)))
     (format t "~a ~S ~S~%"
             (when enterable
               (code-char key-val))
@@ -181,24 +181,34 @@
     (connect app "activate"
              (lambda (app)
                (let ((window (make-application-window :application app))
-                     (controller (gtk4:make-event-controller-key)))
-                 (connect controller "key-pressed" (lambda (widget key-val key-code key-modifiers)
-                                                     (declare (ignore widget))
-                                                     (check-key
-                                                      key-val key-code key-modifiers)))
-                 (widget-add-controller window controller)
+                     (key-controller (gtk4:make-event-controller-key)))
+
+                 (widget-add-controller window key-controller)
+                 (connect key-controller "key-pressed" (lambda (widget key-val key-code key-modifiers)
+                                                         (format t "key-pressed ~S~%" (slot-value widget 'class))
+                                                         (check-key
+                                                          key-val key-code key-modifiers)))
+
 
                  (setf (window-title        window) "Tic Tac Toe"
                        (window-default-size window) (list 400 400))
                  (let ((box (make-box :orientation +orientation-vertical+
                                       :spacing 0)))
-                   (let ((canvas (gtk:make-drawing-area)))
+                   (let ((canvas (gtk:make-drawing-area))
+                         (motion-controller (gtk4:make-event-controller-motion)))
                      (setf (drawing-area-content-width canvas) 200
                            (drawing-area-content-height canvas) 200
                            (widget-vexpand-p canvas) T
                            (drawing-area-draw-func canvas) (list (cffi:callback %draw-func)
                                                                  (cffi:null-pointer)
                                                                  (cffi:null-pointer)))
+
+                     (widget-add-controller canvas motion-controller)
+                     (connect motion-controller "motion" (lambda (a x y )
+
+                                                           (format t "Mouse motion ~S ~S ~S~%"
+                                                                   (slot-value a 'class) x y)))
+
                      (box-append box canvas))
                    (setf (window-child window)
                          box))
