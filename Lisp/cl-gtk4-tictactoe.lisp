@@ -184,8 +184,8 @@
                      (key-controller (gtk4:make-event-controller-key)))
 
                  (widget-add-controller window key-controller)
-                 (connect key-controller "key-pressed" (lambda (widget key-val key-code key-modifiers)
-                                                         (format t "key-pressed ~S~%" (slot-value widget 'class))
+                 (connect key-controller "key-pressed" (lambda (event key-val key-code key-modifiers)
+                                                         (format t "key-pressed ~S~%" (slot-value event 'class))
                                                          (check-key
                                                           key-val key-code key-modifiers)))
 
@@ -195,7 +195,8 @@
                  (let ((box (make-box :orientation +orientation-vertical+
                                       :spacing 0)))
                    (let ((canvas (gtk:make-drawing-area))
-                         (motion-controller (gtk4:make-event-controller-motion)))
+                         (motion-controller (gtk4:make-event-controller-motion))
+                         (gesture-click-controller (gtk4:make-gesture-click)))
                      (setf (drawing-area-content-width canvas) 200
                            (drawing-area-content-height canvas) 200
                            (widget-vexpand-p canvas) T
@@ -204,10 +205,21 @@
                                                                  (cffi:null-pointer)))
 
                      (widget-add-controller canvas motion-controller)
-                     (connect motion-controller "motion" (lambda (a x y )
+                     (connect motion-controller "motion" (lambda (event x y )
+                                                           ;; (format t "Mouse motion ~S ~S ~S~%" (slot-value event 'class) x y)
+                                                           ))
+                     (connect motion-controller "enter" (lambda (event x y )
+                                                          (format t "Mouse enter ~S ~S ~S~%" (slot-value event 'class) x y)))
+                     (connect motion-controller "leave" (lambda (event)
+                                                          (format t "Mouse leave ~S~%" (slot-value event 'class))))
 
-                                                           (format t "Mouse motion ~S ~S ~S~%"
-                                                                   (slot-value a 'class) x y)))
+                     (widget-add-controller canvas gesture-click-controller)
+                     (connect gesture-click-controller "pressed" (lambda (event n-press x y)
+                                                                   (format t "mouse pressed ~S ~S ~S ~S~%" (slot-value event 'class) n-press x y)))
+                     (connect gesture-click-controller "released" (lambda (event n-press x y)
+                                                                    (format t "mouse released ~S ~S ~S ~S~%" (slot-value event 'class) n-press x y)))
+
+
 
                      (box-append box canvas))
                    (setf (window-child window)
