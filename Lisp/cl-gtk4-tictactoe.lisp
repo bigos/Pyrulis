@@ -130,11 +130,7 @@
                          (* size 4))
         (cairo:fill-path)
 
-        )
-
-
-
-      )))
+        ))))
 
 (cffi:defcallback %draw-func :void ((area :pointer)
                                     (cr :pointer)
@@ -157,6 +153,36 @@
 
 ;;; ============================================================================
 
+(defun check-key (key-val key-code key-modifiers)
+  (format t "key pressed val ~S, code ~S, modifiers ~S ~a ~S~%"
+          key-val
+          key-code
+          key-modifiers
+          (format nil "~B" key-modifiers)
+          (let ((ilm (integer-length key-modifiers)))
+            (list  ilm key-modifiers
+                   (check-modifiers key-modifiers))))
+  (format t "~S~%" (gdk4:keyval-name key-val))
+  ;; (format t "~S~%" (reverse (loop for x from 0 below (integer-length key-modifiers)
+  ;;                                 collect (ldb (byte 1 x) key-modifiers))))
+  )
+
+;;; list of key names to check
+;; https://docs.oracle.com/cd/E88353_01/html/E37839/keysyms-1t.html
+
+(defun check-modifiers (m)
+  ;; this is for exploring modifiers
+  ;; keywords are the modifiers, later we will reject strings
+  (let ((names '(:shift "b" :ctrl :alt "e" "f" "g" :gr "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
+                 "t" "u" "v" "w" "x" "y" "z" :win "2" "3" "4" "5")))
+    (loop for x = 0 then (1+ x)
+          for n in names
+          for km = (ldb (byte 1 x) m)
+          unless (zerop km)
+            collect n)))
+
+;;; ============================================================================
+
 (defun main ()
   (let ((app (make-application :application-id "org.bigos.cl-gtk4-tictactoe"
                                :flags gio:+application-flags-flags-none+)))
@@ -166,7 +192,8 @@
                      (controller (gtk4:make-event-controller-key)))
                  (connect controller "key-pressed" (lambda (widget key-val key-code key-modifiers)
                                                      (declare (ignore widget))
-                                                     (format t "key pressed ~S ~S ~S~%" key-val key-code key-modifiers)))
+                                                     (check-key
+                                                      key-val key-code key-modifiers)))
                  (widget-add-controller window controller)
 
                  (setf (window-title        window) "Tic Tac Toe"
