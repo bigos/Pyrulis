@@ -162,11 +162,11 @@
           (let ((ilm (integer-length key-modifiers)))
             (list  ilm key-modifiers
                    (check-modifiers key-modifiers))))
-  (format t "~S ~C~%" (gdk4:keyval-name key-val) (code-char key-val)))
+  (format t "~16R ~S ~C~%" key-val (gdk4:keyval-name key-val) (code-char key-val)))
 
 ;;; list of key names to check
 ;; https://docs.oracle.com/cd/E88353_01/html/E37839/keysyms-1t.html
-
+;; https://gitlab.gnome.org/GNOME/gtk/-/blob/main/gdk/gdkkeysyms.h
 (defun check-modifiers (m)
   ;; this is for exploring modifiers
   ;; keywords are the modifiers, later we will reject strings
