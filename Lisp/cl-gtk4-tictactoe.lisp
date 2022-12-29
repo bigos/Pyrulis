@@ -170,8 +170,7 @@
     (loop for x = 0 then (1+ x)
           for n in names
           when (and (plusp (ldb (byte 1 x) modifiers))
-                    (typep n 'keyword)
-                    )
+                    (typep n 'keyword))
             collect n)))
 
 ;;; ============================================================================
