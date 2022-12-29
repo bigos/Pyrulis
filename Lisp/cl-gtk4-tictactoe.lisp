@@ -1,3 +1,5 @@
+(declaim (optimize (speed 0) (debug 3)))
+
 (cl:in-package "CL-USER")
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
@@ -21,11 +23,6 @@
 
 ;; (load "~/Programming/Pyrulis/Lisp/cl-gtk4-tictactoe.lisp")
 (in-package #:cl-gtk4-tictactoe)
-
-(defclass model ()
-  ())
-
-(defparameter *model* (make-instance 'model))
 
 ;;; ============================================================================
 
@@ -167,21 +164,32 @@
 
 ;; https://gitlab.gnome.org/GNOME/gtk/-/blob/main/gdk/gdkkeysyms.h
 (defun modifiers (modifiers)
-  (let ((names '(:shift "1" :ctrl :alt "4" "5" "6" :gr "8" "9" "10" "11" "12"
+  (let ((names '(:shift :lock :ctrl :alt "4" "5" "6" :gr :mb1 :mb2 :mb3 "11" "12"
                  "13" "14" "15" "16" "17" "18" "19" "20" "21" "22" "23" "24"
                  "25" :win)))
     (loop for x = 0 then (1+ x)
           for n in names
           when (and (plusp (ldb (byte 1 x) modifiers))
-                    (typep n 'keyword))
+                    (typep n 'keyword)
+                    )
             collect n)))
 
 ;;; ============================================================================
-
-
 ;;; TODO Add more code here.
 
-;;; ===================================0=========================================
+(defclass model ()
+  ())
+
+(defparameter *model* (make-instance 'model))
+
+(defun event-sink (event &rest args)
+  (let ((event-class (slot-value event 'class)))
+    (format t "event sink ~S ~S~%" event-class args)
+    (format t "zzzzzzzzz ~S ~S~%" event-class (type-of event-class))
+    ;(break "~S" event-class)
+    ))
+
+;;; ============================================================================
 ;;; main =======================================================================
 
 ;;; STARTING
@@ -189,66 +197,68 @@
 ;; (in-package #:cl-gtk4-tictactoe)
 
 (defun main ()
-  (let ((app (make-application :application-id "org.bigos.cl-gtk4-tictactoe"
-                               :flags gio:+application-flags-flags-none+)))
-    (connect app "activate"
-             (lambda (app)
-               (let ((window (make-application-window :application app)))
+    (let ((app (make-application :application-id "org.bigos.cl-gtk4-tictactoe"
+                                 :flags gio:+application-flags-flags-none+)))
+      (connect app "activate"
+               (lambda (app)
+                 (let ((window (make-application-window :application app)))
 
-                 (glib:timeout-add 1000 (lambda (&rest args)
-                                          (format t "timeout ~S~%" args)
-                                          glib:+priority-default+))
+                   (glib:timeout-add 1000 (lambda (&rest args)
+                                            (format t "timeout ~S~%" args)
+                                            glib:+priority-default+))
 
-                 ;; for some reason these do not work
-                 ;; (let ((focus-controller (gtk4:make-event-controller-focus)))
-                 ;;   (widget-add-controller window focus-controller)
-                 ;;   (connect focus-controller "enter" (lambda (event &rest args)
-                 ;;                                       (format t "focus enter  ~S ~S~%" (slot-value event 'class) args)))
-                 ;;   (connect focus-controller "leave" (lambda (event &rest args)
-                 ;;                                       (format t "focus leave ~S ~S~%"  (slot-value event 'class) args))))
+                   ;; for some reason these do not work
+                   ;; (let ((focus-controller (gtk4:make-event-controller-focus)))
+                   ;;   (widget-add-controller window focus-controller)
+                   ;;   (connect focus-controller "enter" (lambda (event &rest args)
+                   ;;                                       (format t "focus enter  ~S ~S~%" (slot-value event 'class) args)))
+                   ;;   (connect focus-controller "leave" (lambda (event &rest args)
+                   ;;                                       (format t "focus leave ~S ~S~%"  (slot-value event 'class) args))))
 
-                 (let ((key-controller (gtk4:make-event-controller-key)))
-                   (widget-add-controller window key-controller)
-                   (connect key-controller "key-pressed" (lambda (event key-val key-code key-modifiers)
-                                                           (format t "key-pressed ~S~%"  (find-class (type-of (slot-value event 'class))))
-                                                           (check-key key-val key-code key-modifiers))))
+                   (let ((key-controller (gtk4:make-event-controller-key)))
+                     (widget-add-controller window key-controller)
+                     (connect key-controller "key-pressed" (lambda (event key-val key-code key-modifiers)
+                                                             (format t "key-pressed ~S~%"
+                                                                     (slot-value event 'class))
+                                                             (event-sink event key-val key-code key-modifiers)
+                                                             (check-key key-val key-code key-modifiers))))
 
-                 (setf (window-title        window) "Tic Tac Toe"
-                       (window-default-size window) (list 400 400))
-                 (let ((box (make-box :orientation +orientation-vertical+
-                                      :spacing 0)))
-                   (let ((canvas (gtk:make-drawing-area)))
+                   (setf (window-title        window) "Tic Tac Toe"
+                         (window-default-size window) (list 400 400))
+                   (let ((box (make-box :orientation +orientation-vertical+
+                                        :spacing 0)))
+                     (let ((canvas (gtk:make-drawing-area)))
 
-                     (setf (drawing-area-content-width canvas) 200
-                           (drawing-area-content-height canvas) 200
-                           (widget-vexpand-p canvas) T
-                           (drawing-area-draw-func canvas) (list (cffi:callback %draw-func)
-                                                                 (cffi:null-pointer)
-                                                                 (cffi:null-pointer)))
-                     (let ((motion-controller (gtk4:make-event-controller-motion)))
-                       (widget-add-controller canvas motion-controller)
-                       (connect motion-controller "motion" (lambda (event x y )
-                                                             (declare (ignore event x y))
-                                                             ;; (format t "Mouse motion ~S ~S ~S~%" (slot-value event 'class) x y)
-                                                             ))
-                       (connect motion-controller "enter" (lambda (event x y )
-                                                            (format t "Mouse enter ~S ~S ~S~%" (slot-value event 'class) x y)))
-                       (connect motion-controller "leave" (lambda (event)
-                                                            (format t "Mouse leave ~S~%" (slot-value event 'class)))))
-                     (let ((gesture-click-controller (gtk4:make-gesture-click)))
-                       (widget-add-controller canvas gesture-click-controller)
-                       (connect gesture-click-controller "pressed" (lambda (event n-press x y)
-                                                                     (format t "mouse pressed ~S ~S ~S ~S~%" (slot-value event 'class) n-press x y)))
-                       (connect gesture-click-controller "released" (lambda (event n-press x y)
-                                                                      (format t "mouse released ~S ~S ~S ~S~%" (slot-value event 'class) n-press x y))))
+                       (setf (drawing-area-content-width canvas) 200
+                             (drawing-area-content-height canvas) 200
+                             (widget-vexpand-p canvas) T
+                             (drawing-area-draw-func canvas) (list (cffi:callback %draw-func)
+                                                                   (cffi:null-pointer)
+                                                                   (cffi:null-pointer)))
+                       (let ((motion-controller (gtk4:make-event-controller-motion)))
+                         (widget-add-controller canvas motion-controller)
+                         (connect motion-controller "motion" (lambda (event x y )
+                                                               (declare (ignore event x y))
+                                                               ;; (format t "Mouse motion ~S ~S ~S~%" (slot-value event 'class) x y)
+                                                               ))
+                         (connect motion-controller "enter" (lambda (event x y )
+                                                              (format t "Mouse enter ~S ~S ~S~%" (slot-value event 'class) x y)))
+                         (connect motion-controller "leave" (lambda (event)
+                                                              (format t "Mouse leave ~S~%" (slot-value event 'class)))))
+                       (let ((gesture-click-controller (gtk4:make-gesture-click)))
+                         (widget-add-controller canvas gesture-click-controller)
+                         (connect gesture-click-controller "pressed" (lambda (event n-press x y)
+                                                                       (format t "mouse pressed ~S ~S ~S ~S~%" (slot-value event 'class) n-press x y)))
+                         (connect gesture-click-controller "released" (lambda (event n-press x y)
+                                                                        (format t "mouse released ~S ~S ~S ~S~%" (slot-value event 'class) n-press x y))))
 
 
 
-                     (box-append box canvas))
-                   (setf (window-child window)
-                         box))
-                 (window-present window))))
-    (gio:application-run app nil)))
+                       (box-append box canvas))
+                     (setf (window-child window)
+                           box))
+                   (window-present window))))
+      (gio:application-run app nil)))
 
 ;;; T for terminal
 (when nil
