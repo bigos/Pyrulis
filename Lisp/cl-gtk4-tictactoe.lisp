@@ -181,12 +181,15 @@
 
 (defparameter *model* (make-instance 'model))
 
-(defun event-sink (event &rest args)
+(defun event-sink (signal-name event &rest args)
   (let ((event-class (slot-value event 'class)))
     (format t "event sink ~S ~S~%" event-class args)
-    (format t "zzzzzzzzz ~S ~S~%" event-class (type-of event-class))
-    ;(break "~S" event-class)
-    ))
+    (format t "zzzzzzzzz ~S ~%"
+            signal-name)
+    (format t "~S~%"
+            (cond ((event-controller-key-p event)
+                   "key event TTTTTTTTTTTT")
+                  (t "zzzzzzzzzzzzzzzzz")))))
 
 ;;; ============================================================================
 ;;; main =======================================================================
@@ -202,9 +205,9 @@
                (lambda (app)
                  (let ((window (make-application-window :application app)))
 
-                   (glib:timeout-add 1000 (lambda (&rest args)
-                                            (format t "timeout ~S~%" args)
-                                            glib:+priority-default+))
+                   (glib:timeout-add 5000 (lambda (&rest args)
+                                         (format t "timeout ~S~%" args)
+                                         glib:+priority-default+))
 
                    ;; for some reason these do not work
                    ;; (let ((focus-controller (gtk4:make-event-controller-focus)))
@@ -216,11 +219,12 @@
 
                    (let ((key-controller (gtk4:make-event-controller-key)))
                      (widget-add-controller window key-controller)
-                     (connect key-controller "key-pressed" (lambda (event key-val key-code key-modifiers)
-                                                             (format t "key-pressed ~S~%"
-                                                                     (slot-value event 'class))
-                                                             (event-sink event key-val key-code key-modifiers)
-                                                             (check-key key-val key-code key-modifiers))))
+                     (let ((signal "key-pressed"))
+                       (connect key-controller signal (lambda (event key-val key-code key-modifiers)
+                                                               (format t "key-pressed ~S~%"
+                                                                       (slot-value event 'class))
+                                                               (event-sink signal event key-val key-code key-modifiers (event-controller-key-p event ))
+                                                               (check-key key-val key-code key-modifiers)))))
 
                    (setf (window-title        window) "Tic Tac Toe"
                          (window-default-size window) (list 400 400))
