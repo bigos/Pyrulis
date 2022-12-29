@@ -182,33 +182,45 @@
 (defparameter *model* (make-instance 'model))
 
 (defun event-sink (signal-name event &rest args)
-  (format t "EEEEEEEEEEEEEEEEE ~S ~S ~S~%"
-          (format nil "~S" (slot-value event 'class))
-          signal-name
-          args)
-
-  (let ((event-class (format nil "~S" (slot-value event 'class))))
+  (let ((event-class (when event (format nil "~S" (slot-value event 'class)))))
+    (format t "EEEEEEEEEEEEEEEEE ~S ~S ~S~%"
+            event-class
+            signal-name
+            args)
     (cond
       ((equalp event-class "#O<EventControllerMotion>")
        (cond
-         ((equalp signal-name "motion"))
-         ((equalp signal-name "enter"))
-         ((equalp signal-name "leave"))
-         (t (format t "unknown signal ~S~%" signal-name))))
+         ((equalp signal-name "motion")
+          (warn "finish me"))
+         ((equalp signal-name "enter")
+          (warn "finish me"))
+         ((equalp signal-name "leave")
+          (warn "finish me"))
+         (t (error "unknown signal ~S~%" signal-name))))
 
       ((equalp event-class "#O<EventControllerKey>")
        (cond
-         ((equalp signal-name "key-pressed"))
-         (t (format t "unknown signal ~S~%" signal-name))))
+         ((equalp signal-name "key-pressed")
+          (destructuring-bind (key-val key-code key-modifiers) (first args)
+            (check-key key-val key-code key-modifiers)))
+         (t (error "unknown signal ~S~%" signal-name))))
 
       ((equalp event-class "#O<GestureClick>")
        (cond
-         ((equalp signal-name "pressed"))
-         ((equalp signal-name "released"))
-         (t (format t "unknown signal ~S~%" signal-name))))
+         ((equalp signal-name "pressed")
+          (warn "finish me"))
+         ((equalp signal-name "released")
+          (warn "finish me"))
+         (t (error "unknown signal ~S~%" signal-name))))
+
+      ((null event-class)
+       (cond
+         ((equalp signal-name "timeout")
+          (format t "timeout~%"))
+         (t (error "unknown signal ~S~%" signal-name))))
 
       (T
-       (format t "unkown event class")))))
+       (warn "unknown event class")))))
 ;;; ============================================================================
 ;;; main =======================================================================
 
@@ -216,31 +228,34 @@
 ;; (load "~/Programming/Pyrulis/Lisp/cl-gtk4-tictactoe.lisp")
 ;; (in-package #:cl-gtk4-tictactoe)
 
+(defun connect-controller (controller signal-name)
+  (connect controller signal-name (lambda (event &rest args)
+                                    (event-sink signal-name event args))))
 (defun main ()
-    (let ((app (make-application :application-id "org.bigos.cl-gtk4-tictactoe"
-                                 :flags gio:+application-flags-flags-none+)))
-      (connect app "activate"
-               (lambda (app)
-                 (let ((window (make-application-window :application app)))
+  (let ((app (make-application :application-id "org.bigos.cl-gtk4-tictactoe"
+                               :flags gio:+application-flags-flags-none+)))
+    (connect app "activate"
+             (lambda (app)
+               (let ((window (make-application-window :application app)))
 
-                   (glib:timeout-add 5000 (lambda (&rest args)
-                                         (format t "timeout ~S~%" args)
-                                         glib:+priority-default+))
+                 (glib:timeout-add 5000 (lambda (&rest args)
+                                          (event-sink "timeout" nil args)
+                                          glib:+priority-default+))
 
-                   ;; for some reason these do not work
-                   ;; (let ((focus-controller (gtk4:make-event-controller-focus)))
-                   ;;   (widget-add-controller window focus-controller)
-                   ;;   (connect focus-controller "enter" (lambda (event &rest args)
-                   ;;                                       (format t "focus enter  ~S ~S~%" (slot-value event 'class) args)))
-                   ;;   (connect focus-controller "leave" (lambda (event &rest args)
-                   ;;                                       (format t "focus leave ~S ~S~%"  (slot-value event 'class) args))))
+                 ;; for some reason these do not work
+                 ;; (let ((focus-controller (gtk4:make-event-controller-focus)))
+                 ;;   (widget-add-controller window focus-controller)
+                 ;;   (connect focus-controller "enter" (lambda (event &rest args)
+                 ;;                                       (format t "focus enter  ~S ~S~%" (slot-value event 'class) args)))
+                 ;;   (connect focus-controller "leave" (lambda (event &rest args)
+                 ;;                                       (format t "focus leave ~S ~S~%"  (slot-value event 'class) args))))
 
-                   (let ((key-controller (gtk4:make-event-controller-key)))
-                     (widget-add-controller window key-controller)
-
-                     (let ((signal-name "key-pressed"))
-                       (connect key-controller signal-name (lambda (event &rest args)
-                                                             (event-sink signal-name event args)))))
+                 (let ((key-controller (gtk4:make-event-controller-key)))
+                   (widget-add-controller window key-controller)
+                   (connect-controller key-controller "key-pressed")
+                   ;; (let ((signal-name "key-pressed"))
+                   ;;   (connect key-controller signal-name (lambda (event &rest args)
+                   ;;                                         (event-sink signal-name event args)))))
 
                    (setf (window-title        window) "Tic Tac Toe"
                          (window-default-size window) (list 400 400))
@@ -267,8 +282,8 @@
                            (connect motion-controller signal-name (lambda (event &rest args)
                                                                     (event-sink signal-name event args))))
                          (let ((signal-name "leave"))
-                             (connect motion-controller signal-name (lambda (event &rest args)
-                                                                      (event-sink signal-name event args)))))
+                           (connect motion-controller signal-name (lambda (event &rest args)
+                                                                    (event-sink signal-name event args)))))
                        (let ((gesture-click-controller (gtk4:make-gesture-click)))
                          (widget-add-controller canvas gesture-click-controller)
 
@@ -281,8 +296,8 @@
                        (box-append box canvas))
                      (setf (window-child window)
                            box))
-                   (window-present window))))
-      (gio:application-run app nil)))
+                   (window-present window)))))
+    (gio:application-run app nil)))
 
 ;;; T for terminal
 (when nil
