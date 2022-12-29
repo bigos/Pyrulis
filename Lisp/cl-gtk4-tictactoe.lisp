@@ -3,6 +3,7 @@
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (ql:quickload '(cl-gtk4
                   cl-gdk4
+                  cl-glib
                   cl-cairo2)))
 
 (defpackage #:cairo-gobject
@@ -195,8 +196,10 @@
                (let ((window (make-application-window :application app))
                      (key-controller (gtk4:make-event-controller-key)))
 
-                 ;; TODO add timeout
-                 ;; https://docs.gtk.org/glib/func.timeout_add.html
+                 (glib:timeout-add 1000 (lambda (&rest args)
+                                          (format t "timeout ~S~%" args)
+                                          glib:+priority-default+))
+
                  (widget-add-controller window key-controller)
                  (connect key-controller "key-pressed" (lambda (event key-val key-code key-modifiers)
                                                          (format t "key-pressed ~S~%"  (find-class (type-of (slot-value event 'class))))
