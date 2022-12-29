@@ -252,51 +252,36 @@
 
                  (let ((key-controller (gtk4:make-event-controller-key)))
                    (widget-add-controller window key-controller)
-                   (connect-controller key-controller "key-pressed")
-                   ;; (let ((signal-name "key-pressed"))
-                   ;;   (connect key-controller signal-name (lambda (event &rest args)
-                   ;;                                         (event-sink signal-name event args)))))
+                   (connect-controller key-controller "key-pressed"))
 
-                   (setf (window-title        window) "Tic Tac Toe"
-                         (window-default-size window) (list 400 400))
-                   (let ((box (make-box :orientation +orientation-vertical+
-                                        :spacing 0)))
-                     (let ((canvas (gtk:make-drawing-area)))
+                 (setf (window-title        window) "Tic Tac Toe"
+                       (window-default-size window) (list 400 400))
+                 (let ((box (make-box :orientation +orientation-vertical+
+                                      :spacing 0)))
+                   (let ((canvas (gtk:make-drawing-area)))
 
-                       (setf (drawing-area-content-width canvas) 200
-                             (drawing-area-content-height canvas) 200
-                             (widget-vexpand-p canvas) T
-                             (drawing-area-draw-func canvas) (list (cffi:callback %draw-func)
-                                                                   (cffi:null-pointer)
-                                                                   (cffi:null-pointer)))
-                       (let ((motion-controller (gtk4:make-event-controller-motion)))
-                         (widget-add-controller canvas motion-controller)
+                     (setf (drawing-area-content-width canvas) 200
+                           (drawing-area-content-height canvas) 200
+                           (widget-vexpand-p canvas) T
+                           (drawing-area-draw-func canvas) (list (cffi:callback %draw-func)
+                                                                 (cffi:null-pointer)
+                                                                 (cffi:null-pointer)))
 
-                         (let ((signal-name "motion"))
-                           (connect motion-controller signal-name (lambda (event &rest args)
-                                                                    (declare (ignore event args))
-                                                                    ;;  (event-sink signal-name event args)
-                                                                    ;; (format t "Mouse motion ~S ~S ~S~%" (slot-value event 'class) x y)
-                                                                    )))
-                         (let ((signal-name "enter"))
-                           (connect motion-controller signal-name (lambda (event &rest args)
-                                                                    (event-sink signal-name event args))))
-                         (let ((signal-name "leave"))
-                           (connect motion-controller signal-name (lambda (event &rest args)
-                                                                    (event-sink signal-name event args)))))
-                       (let ((gesture-click-controller (gtk4:make-gesture-click)))
-                         (widget-add-controller canvas gesture-click-controller)
+                     (let ((motion-controller (gtk4:make-event-controller-motion)))
+                       (widget-add-controller canvas motion-controller)
+                       (connect-controller motion-controller "motion")
+                       (connect-controller motion-controller "enter")
+                       (connect-controller motion-controller "leave"))
 
-                         (let ((signal-name "pressed"))
-                           (connect gesture-click-controller signal-name (lambda (event &rest args)
-                                                                           (event-sink signal-name event args))))
-                         (let ((signal-name "released"))
-                           (connect gesture-click-controller signal-name (lambda (event &rest args)
-                                                                           (event-sink signal-name event args)))))
-                       (box-append box canvas))
-                     (setf (window-child window)
-                           box))
-                   (window-present window)))))
+                     (let ((gesture-click-controller (gtk4:make-gesture-click)))
+                       (widget-add-controller canvas gesture-click-controller)
+                       (connect-controller gesture-click-controller "pressed")
+                       (connect-controller gesture-click-controller "released"))
+
+                     (box-append box canvas))
+                   (setf (window-child window)
+                         box))
+                 (window-present window))))
     (gio:application-run app nil)))
 
 ;;; T for terminal
