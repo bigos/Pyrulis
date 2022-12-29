@@ -43,6 +43,7 @@
        ,@body)))
 
 ;;; ============================================================================
+;;; drawing ====================================================================
 
 (defun square-at (x y)
   (let ((size 50))
@@ -152,6 +153,7 @@
                                width height)))
 
 ;;; ============================================================================
+;;; keys =======================================================================
 
 (defun check-key (key-val key-code key-modifiers)
   (declare (ignore key-code))
@@ -175,6 +177,16 @@
 
 ;;; ============================================================================
 
+
+;;; TODO Add more code here.
+
+;;; ===================================0=========================================
+;;; main =======================================================================
+
+;;; STARTING
+;; (load "~/Programming/Pyrulis/Lisp/cl-gtk4-tictactoe.lisp")
+;; (in-package #:cl-gtk4-tictactoe)
+
 (defun main ()
   (let ((app (make-application :application-id "org.bigos.cl-gtk4-tictactoe"
                                :flags gio:+application-flags-flags-none+)))
@@ -183,11 +195,12 @@
                (let ((window (make-application-window :application app))
                      (key-controller (gtk4:make-event-controller-key)))
 
+                 ;; TODO add timeout
+                 ;; https://docs.gtk.org/glib/func.timeout_add.html
                  (widget-add-controller window key-controller)
                  (connect key-controller "key-pressed" (lambda (event key-val key-code key-modifiers)
-                                                         (format t "key-pressed ~S~%" (slot-value event 'class))
-                                                         (check-key
-                                                          key-val key-code key-modifiers)))
+                                                         (format t "key-pressed ~S~%"  (find-class (type-of (slot-value event 'class))))
+                                                         (check-key key-val key-code key-modifiers)))
 
 
                  (setf (window-title        window) "Tic Tac Toe"
@@ -206,6 +219,7 @@
 
                      (widget-add-controller canvas motion-controller)
                      (connect motion-controller "motion" (lambda (event x y )
+                                                           (declare (ignore event x y))
                                                            ;; (format t "Mouse motion ~S ~S ~S~%" (slot-value event 'class) x y)
                                                            ))
                      (connect motion-controller "enter" (lambda (event x y )
