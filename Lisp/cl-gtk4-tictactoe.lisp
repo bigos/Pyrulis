@@ -183,15 +183,17 @@
 
 (defun event-sink (signal-name event &rest args)
   (let ((event-class (when event (format nil "~S" (slot-value event 'class)))))
-    (format t "EEEEEEEEEEEEEEEEE ~S ~S ~S~%"
-            event-class
-            signal-name
-            args)
+    (unless (member signal-name '("motion" "timeout") :test #'equalp)
+      (format t "EEEEEEEEEEEEEEEEE ~S ~S ~S~%"
+              event-class
+              signal-name
+              args))
     (cond
       ((equalp event-class "#O<EventControllerMotion>")
        (cond
          ((equalp signal-name "motion")
-          (warn "finish me"))
+          ;; (warn "finish me")
+          )
          ((equalp signal-name "enter")
           (warn "finish me"))
          ((equalp signal-name "leave")
@@ -216,7 +218,8 @@
       ((null event-class)
        (cond
          ((equalp signal-name "timeout")
-          (format t "timeout~%"))
+          ;; (format t "timeout~%")
+          )
          (t (error "unknown signal ~S~%" signal-name))))
 
       (T
@@ -245,10 +248,8 @@
                  ;; for some reason these do not work
                  ;; (let ((focus-controller (gtk4:make-event-controller-focus)))
                  ;;   (widget-add-controller window focus-controller)
-                 ;;   (connect focus-controller "enter" (lambda (event &rest args)
-                 ;;                                       (format t "focus enter  ~S ~S~%" (slot-value event 'class) args)))
-                 ;;   (connect focus-controller "leave" (lambda (event &rest args)
-                 ;;                                       (format t "focus leave ~S ~S~%"  (slot-value event 'class) args))))
+                 ;;   (connect-controller focus-controller "enter")
+                 ;;   (connect-controller focus-controller "leave"))
 
                  (let ((key-controller (gtk4:make-event-controller-key)))
                    (widget-add-controller window key-controller)
