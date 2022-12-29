@@ -185,8 +185,30 @@
   (format t "EEEEEEEEEEEEEEEEE ~S ~S ~S~%"
           (format nil "~S" (slot-value event 'class))
           signal-name
-          args))
+          args)
 
+  (let ((event-class (format nil "~S" (slot-value event 'class))))
+    (cond
+      ((equalp event-class "#O<EventControllerMotion>")
+       (cond
+         ((equalp signal-name "motion"))
+         ((equalp signal-name "enter"))
+         ((equalp signal-name "leave"))
+         (t (format t "unknown signal ~S~%" signal-name))))
+
+      ((equalp event-class "#O<EventControllerKey>")
+       (cond
+         ((equalp signal-name "key-pressed"))
+         (t (format t "unknown signal ~S~%" signal-name))))
+
+      ((equalp event-class "#O<GestureClick>")
+       (cond
+         ((equalp signal-name "pressed"))
+         ((equalp signal-name "released"))
+         (t (format t "unknown signal ~S~%" signal-name))))
+
+      (T
+       (format t "unkown event class")))))
 ;;; ============================================================================
 ;;; main =======================================================================
 
@@ -215,6 +237,7 @@
 
                    (let ((key-controller (gtk4:make-event-controller-key)))
                      (widget-add-controller window key-controller)
+
                      (let ((signal-name "key-pressed"))
                        (connect key-controller signal-name (lambda (event &rest args)
                                                              (event-sink signal-name event args)))))
@@ -233,11 +256,13 @@
                                                                    (cffi:null-pointer)))
                        (let ((motion-controller (gtk4:make-event-controller-motion)))
                          (widget-add-controller canvas motion-controller)
+
                          (let ((signal-name "motion"))
                            (connect motion-controller signal-name (lambda (event &rest args)
-                                                               ;;  (event-sink signal-name event args)
-                                                               ;; (format t "Mouse motion ~S ~S ~S~%" (slot-value event 'class) x y)
-                                                               )))
+                                                                    (declare (ignore event args))
+                                                                    ;;  (event-sink signal-name event args)
+                                                                    ;; (format t "Mouse motion ~S ~S ~S~%" (slot-value event 'class) x y)
+                                                                    )))
                          (let ((signal-name "enter"))
                            (connect motion-controller signal-name (lambda (event &rest args)
                                                                     (event-sink signal-name event args))))
@@ -246,6 +271,7 @@
                                                                       (event-sink signal-name event args)))))
                        (let ((gesture-click-controller (gtk4:make-gesture-click)))
                          (widget-add-controller canvas gesture-click-controller)
+
                          (let ((signal-name "pressed"))
                            (connect gesture-click-controller signal-name (lambda (event &rest args)
                                                                            (event-sink signal-name event args))))
