@@ -193,48 +193,54 @@
                                :flags gio:+application-flags-flags-none+)))
     (connect app "activate"
              (lambda (app)
-               (let ((window (make-application-window :application app))
-                     (key-controller (gtk4:make-event-controller-key)))
+               (let ((window (make-application-window :application app)))
 
                  (glib:timeout-add 1000 (lambda (&rest args)
                                           (format t "timeout ~S~%" args)
                                           glib:+priority-default+))
 
-                 (widget-add-controller window key-controller)
-                 (connect key-controller "key-pressed" (lambda (event key-val key-code key-modifiers)
-                                                         (format t "key-pressed ~S~%"  (find-class (type-of (slot-value event 'class))))
-                                                         (check-key key-val key-code key-modifiers)))
+                 ;; for some reason these do not work
+                 ;; (let ((focus-controller (gtk4:make-event-controller-focus)))
+                 ;;   (widget-add-controller window focus-controller)
+                 ;;   (connect focus-controller "enter" (lambda (event &rest args)
+                 ;;                                       (format t "focus enter  ~S ~S~%" (slot-value event 'class) args)))
+                 ;;   (connect focus-controller "leave" (lambda (event &rest args)
+                 ;;                                       (format t "focus leave ~S ~S~%"  (slot-value event 'class) args))))
 
+                 (let ((key-controller (gtk4:make-event-controller-key)))
+                   (widget-add-controller window key-controller)
+                   (connect key-controller "key-pressed" (lambda (event key-val key-code key-modifiers)
+                                                           (format t "key-pressed ~S~%"  (find-class (type-of (slot-value event 'class))))
+                                                           (check-key key-val key-code key-modifiers))))
 
                  (setf (window-title        window) "Tic Tac Toe"
                        (window-default-size window) (list 400 400))
                  (let ((box (make-box :orientation +orientation-vertical+
                                       :spacing 0)))
-                   (let ((canvas (gtk:make-drawing-area))
-                         (motion-controller (gtk4:make-event-controller-motion))
-                         (gesture-click-controller (gtk4:make-gesture-click)))
+                   (let ((canvas (gtk:make-drawing-area)))
+
                      (setf (drawing-area-content-width canvas) 200
                            (drawing-area-content-height canvas) 200
                            (widget-vexpand-p canvas) T
                            (drawing-area-draw-func canvas) (list (cffi:callback %draw-func)
                                                                  (cffi:null-pointer)
                                                                  (cffi:null-pointer)))
-
-                     (widget-add-controller canvas motion-controller)
-                     (connect motion-controller "motion" (lambda (event x y )
-                                                           (declare (ignore event x y))
-                                                           ;; (format t "Mouse motion ~S ~S ~S~%" (slot-value event 'class) x y)
-                                                           ))
-                     (connect motion-controller "enter" (lambda (event x y )
-                                                          (format t "Mouse enter ~S ~S ~S~%" (slot-value event 'class) x y)))
-                     (connect motion-controller "leave" (lambda (event)
-                                                          (format t "Mouse leave ~S~%" (slot-value event 'class))))
-
-                     (widget-add-controller canvas gesture-click-controller)
-                     (connect gesture-click-controller "pressed" (lambda (event n-press x y)
-                                                                   (format t "mouse pressed ~S ~S ~S ~S~%" (slot-value event 'class) n-press x y)))
-                     (connect gesture-click-controller "released" (lambda (event n-press x y)
-                                                                    (format t "mouse released ~S ~S ~S ~S~%" (slot-value event 'class) n-press x y)))
+                     (let ((motion-controller (gtk4:make-event-controller-motion)))
+                       (widget-add-controller canvas motion-controller)
+                       (connect motion-controller "motion" (lambda (event x y )
+                                                             (declare (ignore event x y))
+                                                             ;; (format t "Mouse motion ~S ~S ~S~%" (slot-value event 'class) x y)
+                                                             ))
+                       (connect motion-controller "enter" (lambda (event x y )
+                                                            (format t "Mouse enter ~S ~S ~S~%" (slot-value event 'class) x y)))
+                       (connect motion-controller "leave" (lambda (event)
+                                                            (format t "Mouse leave ~S~%" (slot-value event 'class)))))
+                     (let ((gesture-click-controller (gtk4:make-gesture-click)))
+                       (widget-add-controller canvas gesture-click-controller)
+                       (connect gesture-click-controller "pressed" (lambda (event n-press x y)
+                                                                     (format t "mouse pressed ~S ~S ~S ~S~%" (slot-value event 'class) n-press x y)))
+                       (connect gesture-click-controller "released" (lambda (event n-press x y)
+                                                                      (format t "mouse released ~S ~S ~S ~S~%" (slot-value event 'class) n-press x y))))
 
 
 
