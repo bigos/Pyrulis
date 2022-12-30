@@ -6,7 +6,9 @@
   (ql:quickload '(cl-gtk4
                   cl-gdk4
                   cl-glib
-                  cl-cairo2)))
+                  cl-cairo2
+                  serapeum
+                  defclass-std)))
 
 (defpackage #:cairo-gobject
   (:use)
@@ -19,7 +21,11 @@
 (cl:in-package "CL-USER") ; make sure you come back to cl-user because the previous package does not use it
 
 (defpackage #:cl-gtk4-tictactoe ; ----------------------------------------------
-  (:use :cl #:gtk4))
+  (:use :cl #:gtk4)
+  (:import-from :defclass-std
+   :defclass/std)
+  (:import-from :serapeum
+   :~>) )
 
 ;; (load "~/Programming/Pyrulis/Lisp/cl-gtk4-tictactoe.lisp")
 (in-package #:cl-gtk4-tictactoe)
@@ -190,18 +196,67 @@
                            (sb-mop:slot-definition-name sl)
                            (slot-value obj (sb-mop:slot-definition-name sl)))))))
 
+;;; ============================================================================
+
+;;; grid cells are numbered after the keys on the numeric keypad with 1 being
+;; bottom left and 9 being top right
+(defclass/std grid ()
+    ((c1)
+     (c2)
+     (c3)
+     (c4)
+     (c5)
+     (c6)
+     (c7)
+     (c8)
+     (c9)))
+
+(defmethod place-ox ((grid grid) (cell symbol) (ox symbol))
+  (let ((my-ox (ecase ox (:o ox) (:x ox))))
+    (if (member cell '(c1 c2 c3 c4 c5 c6 c7 c8 c9))
+        (setf (slot-value grid cell) my-ox)
+        (error "Cell ~s is not valid" cell))))
+
+(defun get-grid-cells% (grid set)
+  (loop for c in set
+        collect (slot-value grid c)))
+
+(defmethod get-rows ((grid grid) (cell symbol))
+  (get-grid-cells% grid (ecase cell
+                         (c1 '(c1 c2 c3))
+                         (c4 '(c4 c5 c6))
+                         (c7 '(c7 c8 c9)))))
+
+(defmethod get-columns ((grid grid) (cell symbol))
+  (get-grid-cells% grid (ecase cell
+                         (c7 '(c7 c4 c1))
+                         (c8 '(c8 c5 c2))
+                         (c9 '(c9 c6 c3)))))
+
+(defmethod get-diagonals ((grid grid) (cell symbol))
+  (get-grid-cells% grid (ecase cell
+                         (c7 '(c7 c5 c3))
+                         (c9 '(c9 c5 c1)))))
+
+;;; ============================================================================
+
 (defparameter *model* nil)
 (defclass model ()
-  ((state :initform nil)))
+  ((state :initform nil :accessor state )
+   (grid :initform (make-instance 'grid))
+   ))
 
 (defclass state () nil)
 (defclass init (state) nil)
 
 (defclass msg () nil)
-(defclass none (state) nil)
+(defclass none (msg) nil)
+(defclass init (msg) nil)
 
-(defmethod update ( (model model) (msg (eql :init)))
-  (warn "updating model"))
+
+(defmethod update ( (model model) (msg init))
+  (warn "updating model")
+  (setf (state *model*) (make-instance 'init)))
 
 ;;; ============================================================================
 
@@ -253,7 +308,8 @@
 (defun init-model ()
   (warn "init model")
   (setf *model* (make-instance 'model))
-  (update *model* :init))
+  (update *model* (make-instance 'init))
+  *model*)
 
 ;;; main =======================================================================
 
