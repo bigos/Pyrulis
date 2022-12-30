@@ -261,8 +261,9 @@
 (defclass/std mouse-motion (mouse-coords) nil)
 (defclass/std mouse-enter  (mouse-coords) nil)
 (defclass/std mouse-leave  (msg) nil)
-(defclass/std mouse-pressed  (mouse-coords) nil)
-(defclass/std mouse-released (mouse-coords) nil)
+(defclass/std mouse-gesture  (msg) ((button) (x) (y)))
+(defclass/std mouse-pressed  (mouse-gesture) nil)
+(defclass/std mouse-released (mouse-gesture) nil)
 
 (defmethod update ((model model) (msg none))
     (warn "doing nothing"))
@@ -283,10 +284,10 @@
 
 
 (defmethod update ((model model) (msg mouse-pressed))
-  (warn "doing nothing with ~S" (class-of msg)))
+  (warn "doing nothing with ~S" msg))
 
 (defmethod update ((model model) (msg mouse-released))
-  (warn "doing nothing with ~S" (class-of msg)))
+  (warn "doing nothing with ~S" msg))
 ;;; ============================================================================
 
 (defun event-sink (signal-name event &rest args)
@@ -320,11 +321,11 @@
       ((equalp event-class "#O<GestureClick>")
        (cond
          ((equalp signal-name "pressed")
-          (destructuring-bind ((x y)) args
-            (update *model* (make-instance 'mouse-pressed :x x :y y))))
+          (destructuring-bind ((button x y)) args
+            (update *model* (make-instance 'mouse-pressed :button button :x x :y y))))
          ((equalp signal-name "released")
-          (destructuring-bind ((x y)) args
-            (update *model* (make-instance 'mouse-released :x x :y y))))
+          (destructuring-bind ((button x y)) args
+            (update *model* (make-instance 'mouse-released :button button :x x :y y))))
          (t (error "unknown signal ~S~%" signal-name))))
 
       ((null event-class)
