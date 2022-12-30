@@ -56,7 +56,11 @@
 
 (defun draw-func (area cr width height)
   (declare (ignore area))
+
+  (warn "drawing")
   (format t "drawing ~S x ~S~%" width height)
+
+  ;; keep the existing drawing and continue drawing past it using the procedural method
   (let ((w (coerce (the (signed-byte 32) width)  'single-float))
         (h (coerce (the (signed-byte 32) height) 'single-float)))
     (let ((hw (/ w 2))
@@ -127,9 +131,11 @@
                          (- hh (* size 2))
                          (+ (* size 4) (* 2 10))
                          (* size 4))
-        (cairo:fill-path)
+        (cairo:fill-path))))
 
-        ))))
+  ;; procedural method part
+
+  )
 
 (cffi:defcallback %draw-func :void ((area :pointer)
                                     (cr :pointer)
@@ -176,10 +182,23 @@
 ;;; ============================================================================
 ;;; TODO Add more code here.
 
-(defclass model ()
-  ())
+(defmethod print-object ((obj standard-object) stream)
+  (print-unreadable-object (obj stream :type t)
+    (format stream "~S"
+            (loop for sl in (sb-mop:compute-slots (class-of obj))
+                  collect (list
+                           (sb-mop:slot-definition-name sl)
+                           (slot-value obj (sb-mop:slot-definition-name sl)))))))
 
-(defparameter *model* (make-instance 'model))
+(defparameter *model* nil)
+(defclass model ()
+  ((state :initform nil)))
+
+
+(defmethod update ( (model model) (msg (eql :init)))
+  (warn "updating model"))
+
+;;; ============================================================================
 
 (defun event-sink (signal-name event &rest args)
   (let ((event-class (when event (format nil "~S" (slot-value event 'class)))))
@@ -225,6 +244,12 @@
       (T
        (warn "unknown event class")))))
 ;;; ============================================================================
+
+(defun init-model ()
+  (warn "init model")
+  (setf *model* (make-instance 'model))
+  (update *model* :init))
+
 ;;; main =======================================================================
 
 ;;; STARTING
@@ -235,6 +260,8 @@
   (connect controller signal-name (lambda (event &rest args)
                                     (event-sink signal-name event args))))
 (defun main ()
+  (init-model)
+
   (let ((app (make-application :application-id "org.bigos.cl-gtk4-tictactoe"
                                :flags gio:+application-flags-flags-none+)))
     (connect app "activate"
