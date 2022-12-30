@@ -305,9 +305,7 @@
           ;; (format t "timeout~%")
           )
          ((equalp signal-name "resize")
-          (destructuring-bind ((widget width height)) args
-            (declare (ignore widget))
-            (format t "resize ~S ~S ~%" width height)
+          (destructuring-bind ((width height)) args
             (update *model* (make-instance 'resize :width width :height height))))
          (t (error "unknown signal ~S~%" signal-name))))
 
@@ -377,7 +375,8 @@
                        (connect-controller gesture-click-controller "pressed")
                        (connect-controller gesture-click-controller "released"))
 
-                     (connect canvas "resize" (lambda (&rest args)
+                     (connect canvas "resize" (lambda (widget &rest args)
+                                                (declare (ignore widget))
                                                 (event-sink "resize" nil args)))
 
                      (box-append box canvas))
