@@ -299,6 +299,9 @@
          ((equalp signal-name "timeout")
           ;; (format t "timeout~%")
           )
+         ((equalp signal-name "resize")
+          (format t "resize ~S~%" args)
+          )
          (t (error "unknown signal ~S~%" signal-name))))
 
       (T
@@ -366,6 +369,9 @@
                        (widget-add-controller canvas gesture-click-controller)
                        (connect-controller gesture-click-controller "pressed")
                        (connect-controller gesture-click-controller "released"))
+
+                     (connect canvas "resize" (lambda (&rest args)
+                                                (event-sink "resize" nil args)))
 
                      (box-append box canvas))
                    (setf (window-child window)
