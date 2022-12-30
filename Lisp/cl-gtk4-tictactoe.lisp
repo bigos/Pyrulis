@@ -197,18 +197,23 @@
 
 ;;; ============================================================================
 
+(defclass/std grid-cell ()
+  ((state)
+   (mouse)
+   (coords)))
+
 ;;; grid cells are numbered after the keys on the numeric keypad with 1 being
 ;; bottom left and 9 being top right
 (defclass/std grid ()
-    ((c1)
-     (c2)
-     (c3)
-     (c4)
-     (c5)
-     (c6)
-     (c7)
-     (c8)
-     (c9)))
+  ((c1)
+   (c2)
+   (c3)
+   (c4)
+   (c5)
+   (c6)
+   (c7)
+   (c8)
+   (c9)))
 
 (defmethod place-ox ((grid grid) (cell symbol) (ox symbol))
   (let ((my-ox (ecase ox (:o ox) (:x ox))))
@@ -236,6 +241,9 @@
   (get-grid-cells% grid (ecase cell
                          (c7 '(c7 c5 c3))
                          (c9 '(c9 c5 c1)))))
+
+(defmethod adjust-coordinates ((grid-grid))
+  (warn "finish adjust-coordinates"))
 
 ;;; ============================================================================
 
@@ -274,7 +282,8 @@
   (warn "updating model")
   (setf
    (ui-width  model) (width  msg)
-   (ui-height model) (height msg)))
+   (ui-height model) (height msg))
+  (adjust-coordinates (grid model)))
 (defmethod update ((model model) (msg mouse-coords))
   (setf (mouse-x model) (x msg)
         (mouse-y model) (y msg)))
