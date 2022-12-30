@@ -242,7 +242,7 @@
 (defparameter *model* nil)
 (defclass/std model ()
   ((state)
-   (grid)
+   (grid :std (make-instance 'grid))
    (ui-width)
    (ui-height)
    (mouse-x)
@@ -261,25 +261,32 @@
 (defclass/std mouse-motion (mouse-coords) nil)
 (defclass/std mouse-enter  (mouse-coords) nil)
 (defclass/std mouse-leave  (msg) nil)
-
+(defclass/std mouse-pressed  (mouse-coords) nil)
+(defclass/std mouse-released (mouse-coords) nil)
 
 (defmethod update ((model model) (msg none))
-  (warn "doing nothing"))
-(defmethod update ( (model model) (msg init))
+    (warn "doing nothing"))
+(defmethod update ((model model) (msg init))
   (warn "updating model")
   (setf (state model) (make-instance 'init)))
-(defmethod update ( (model model) (msg resize))
+(defmethod update ((model model) (msg resize))
   (warn "updating model")
   (setf
    (ui-width  model) (width  msg)
    (ui-height model) (height msg)))
-
 (defmethod update ((model model) (msg mouse-coords))
   (setf (mouse-x model) (x msg)
         (mouse-y model) (y msg)))
 (defmethod update ((model model) (msg mouse-leave))
   (setf (mouse-x model) nil
         (mouse-y model) nil))
+
+
+(defmethod update ((model model) (msg mouse-pressed))
+  (warn "doing nothing with ~S" (class-of msg)))
+
+(defmethod update ((model model) (msg mouse-released))
+  (warn "doing nothing with ~S" (class-of msg)))
 ;;; ============================================================================
 
 (defun event-sink (signal-name event &rest args)
@@ -313,9 +320,11 @@
       ((equalp event-class "#O<GestureClick>")
        (cond
          ((equalp signal-name "pressed")
-          (warn "finish me"))
+          (destructuring-bind ((x y)) args
+            (update *model* (make-instance 'mouse-pressed :x x :y y))))
          ((equalp signal-name "released")
-          (warn "finish me"))
+          (destructuring-bind ((x y)) args
+            (update *model* (make-instance 'mouse-released :x x :y y))))
          (t (error "unknown signal ~S~%" signal-name))))
 
       ((null event-class)
