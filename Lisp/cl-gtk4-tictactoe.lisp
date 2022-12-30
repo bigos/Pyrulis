@@ -60,10 +60,10 @@
                    size size)
   (cairo:fill-path))
 
-(defun draw-func (area cr width height)
+(defun draw-func (area cr width height model)
   (declare (ignore area))
 
-  (warn "drawing")
+  (warn "drawing ~S ~S === ~S ~S" width height (ui-width model) (ui-height model))
 
   ;; keep the existing drawing and continue drawing past it using the procedural method
   (let ((w (coerce (the (signed-byte 32) width)  'single-float))
@@ -159,7 +159,7 @@
                                (make-instance 'gir::struct-instance
                                               :class (gir:nget cairo-gobject:*ns* "Context")
                                               :this cr)
-                               width height)))
+                               width height *model*)))
 
 ;;; ============================================================================
 ;;; keys =======================================================================
@@ -244,7 +244,9 @@
   ((state)
    (grid)
    (ui-width)
-   (ui-height)))
+   (ui-height)
+   (mouse-x)
+   (mouse-y)))
 
 (defclass state () nil)
 (defclass init (state) nil)
@@ -254,34 +256,51 @@
 (defclass/std init (msg) nil)
 (defclass/std resize (msg) ((width) (height)))
 
+;;; msg with inheritance
+(defclass/std mouse-coords (msg) ((x) (y)))
+(defclass/std mouse-motion (mouse-coords) nil)
+(defclass/std mouse-enter  (mouse-coords) nil)
+(defclass/std mouse-leave  (msg) nil)
 
+
+(defmethod update ((model model) (msg none))
+  (warn "doing nothing"))
 (defmethod update ( (model model) (msg init))
   (warn "updating model")
   (setf (state model) (make-instance 'init)))
 (defmethod update ( (model model) (msg resize))
   (warn "updating model")
-  (setf (ui-width  model) (width  msg))
-  (setf (ui-height model) (height msg)))
+  (setf
+   (ui-width  model) (width  msg)
+   (ui-height model) (height msg)))
 
+(defmethod update ((model model) (msg mouse-coords))
+  (setf (mouse-x model) (x msg)
+        (mouse-y model) (y msg)))
+(defmethod update ((model model) (msg mouse-leave))
+  (setf (mouse-x model) nil
+        (mouse-y model) nil))
 ;;; ============================================================================
 
 (defun event-sink (signal-name event &rest args)
   (let ((event-class (when event (format nil "~S" (slot-value event 'class)))))
     (unless (member signal-name '("motion" "timeout") :test #'equalp)
-      (format t "EEEEEEEEEEEEEEEEE ~S ~S ~S~%"
+      (format t "EEEEEEEEEEEEEEEEE ~S ~S ~S  --- ~S~%"
               event-class
               signal-name
-              args))
+              args
+              *model*))
     (cond
       ((equalp event-class "#O<EventControllerMotion>")
        (cond
          ((equalp signal-name "motion")
-          ;; (warn "finish me")
-          )
+          (destructuring-bind ((x y)) args
+            (update *model* (make-instance 'mouse-motion :x x :y y))))
          ((equalp signal-name "enter")
-          (warn "finish me"))
+          (destructuring-bind ((x y)) args
+            (update *model* (make-instance 'mouse-enter :x x :y y))))
          ((equalp signal-name "leave")
-          (warn "finish me"))
+          (update *model* (make-instance 'mouse-leave)))
          (t (error "unknown signal ~S~%" signal-name))))
 
       ((equalp event-class "#O<EventControllerKey>")
@@ -324,10 +343,11 @@
 ;;; STARTING
 ;; (load "~/Programming/Pyrulis/Lisp/cl-gtk4-tictactoe.lisp")
 ;; (in-package #:cl-gtk4-tictactoe)
+;;; (main)
 
 (defun connect-controller (controller signal-name)
-  (connect controller signal-name (lambda (event &rest args)
-                                    (event-sink signal-name event args))))
+    (connect controller signal-name (lambda (event &rest args)
+                                      (event-sink signal-name event args))))
 (defun main ()
   (init-model)
 
@@ -383,7 +403,8 @@
                    (setf (window-child window)
                          box))
                  (window-present window))))
-    (gio:application-run app nil)))
+    (gio:application-run app nil))
+  *model*)
 
 ;;; T for terminal
 (when nil
