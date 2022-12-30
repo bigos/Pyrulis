@@ -64,7 +64,6 @@
   (declare (ignore area))
 
   (warn "drawing")
-  (format t "drawing ~S x ~S~%" width height)
 
   ;; keep the existing drawing and continue drawing past it using the procedural method
   (let ((w (coerce (the (signed-byte 32) width)  'single-float))
@@ -241,22 +240,28 @@
 ;;; ============================================================================
 
 (defparameter *model* nil)
-(defclass model ()
-  ((state :initform nil :accessor state )
-   (grid :initform (make-instance 'grid))
-   ))
+(defclass/std model ()
+  ((state)
+   (grid)
+   (ui-width)
+   (ui-height)))
 
 (defclass state () nil)
 (defclass init (state) nil)
 
-(defclass msg () nil)
-(defclass none (msg) nil)
-(defclass init (msg) nil)
+(defclass/std msg () nil)
+(defclass/std none (msg) nil)
+(defclass/std init (msg) nil)
+(defclass/std resize (msg) ((width) (height)))
 
 
 (defmethod update ( (model model) (msg init))
   (warn "updating model")
-  (setf (state *model*) (make-instance 'init)))
+  (setf (state model) (make-instance 'init)))
+(defmethod update ( (model model) (msg resize))
+  (warn "updating model")
+  (setf (ui-width  model) (width  msg))
+  (setf (ui-height model) (height msg)))
 
 ;;; ============================================================================
 
@@ -282,7 +287,7 @@
       ((equalp event-class "#O<EventControllerKey>")
        (cond
          ((equalp signal-name "key-pressed")
-          (destructuring-bind (key-val key-code key-modifiers) (first args)
+          (destructuring-bind ((key-val key-code key-modifiers)) args
             (check-key key-val key-code key-modifiers)))
          (t (error "unknown signal ~S~%" signal-name))))
 
@@ -300,8 +305,10 @@
           ;; (format t "timeout~%")
           )
          ((equalp signal-name "resize")
-          (format t "resize ~S~%" args)
-          )
+          (destructuring-bind ((widget width height)) args
+            (declare (ignore widget))
+            (format t "resize ~S ~S ~%" width height)
+            (update *model* (make-instance 'resize :width width :height height))))
          (t (error "unknown signal ~S~%" signal-name))))
 
       (T
