@@ -194,6 +194,11 @@
 (defclass model ()
   ((state :initform nil)))
 
+(defclass state () nil)
+(defclass init (state) nil)
+
+(defclass msg () nil)
+(defclass none (state) nil)
 
 (defmethod update ( (model model) (msg (eql :init)))
   (warn "updating model"))
