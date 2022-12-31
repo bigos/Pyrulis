@@ -139,8 +139,15 @@
         (cairo:fill-path))))
 
   ;; procedural method part
-
-  )
+  (with-gdk-rgba (color "#FFAA88FF")
+    (gdk:cairo-set-source-rgba cr color)
+    (let ((size (/ (min (ui-width model) (ui-height model))
+                   4.5)))
+      (loop for cell-name in '(c7 c8 c9  c4 c5 c6 c1 c2 c3)
+            do (let* ((gc (slot-value (grid model) cell-name))
+                      (cc (car (coords gc))))
+                 (square-centered-at (car cc) (cdr cc) size)))))
+  (cairo:fill-path))
 
 (cffi:defcallback %draw-func :void ((area :pointer)
                                     (cr :pointer)
@@ -202,28 +209,41 @@
    (mouse)
    (coords)))
 
+(defun centered-at (x y size)
+  "Get coordinates of square of SIZE centred at X Y."
+  (let ((tlx (- x (/ size 2)))
+        (tly (- y (/ size 2))))
+
+    (cons (cons tlx
+                tly)
+          (cons (+ tlx size)
+                (+ tly size)))))
+
 ;;; grid cells are numbered after the keys on the numeric keypad with 1 being
 ;; bottom left and 9 being top right
 (defclass/std grid ()
-  ((c1)
-   (c2)
-   (c3)
-   (c4)
-   (c5)
-   (c6)
-   (c7)
-   (c8)
-   (c9)))
+  ((c1 :std (make-instance 'grid-cell))
+   (c2 :std (make-instance 'grid-cell))
+   (c3 :std (make-instance 'grid-cell))
+   (c4 :std (make-instance 'grid-cell))
+   (c5 :std (make-instance 'grid-cell))
+   (c6 :std (make-instance 'grid-cell))
+   (c7 :std (make-instance 'grid-cell))
+   (c8 :std (make-instance 'grid-cell))
+   (c9 :std (make-instance 'grid-cell))))
 
 (defmethod place-ox ((grid grid) (cell symbol) (ox symbol))
   (let ((my-ox (ecase ox (:o ox) (:x ox))))
     (if (member cell '(c1 c2 c3 c4 c5 c6 c7 c8 c9))
-        (setf (slot-value grid cell) my-ox)
+        (let ((grid-cell (slot-value grid cell)))
+          (setf (state grid-cell)  my-ox))
         (error "Cell ~s is not valid" cell))))
 
 (defun get-grid-cells% (grid set)
   (loop for c in set
-        collect (slot-value grid c)))
+        collect
+        (state
+         (slot-value grid c))))
 
 (defmethod get-rows ((grid grid) (cell symbol))
   (get-grid-cells% grid (ecase cell
@@ -242,8 +262,33 @@
                          (c7 '(c7 c5 c3))
                          (c9 '(c9 c5 c1)))))
 
-(defmethod adjust-coordinates ((grid-grid))
-  (warn "finish adjust-coordinates"))
+(defmethod adjust-coordinates ((model model) (grid grid))
+  (warn "finish adjust-coordinates")
+  (let ((w (ui-width model))
+        (h (ui-height model)))
+    (let* ((hw (/ w 2))
+          (hh (/ h 2))
+          (size (/ (min w h) 4.5))
+          (dist (+ size (* size 0.05)))
+          (cell-names '(c7 c8 c9  c4 c5 c6 c1 c2 c3))
+           )
+      (let ((cell-coords (list
+                          (centered-at (- hw dist) (- hh dist) size)
+                          (centered-at (- hw dist) hh          size)
+                          (centered-at (- hw dist) (+ hh dist) size)
+
+                          (centered-at hw (- hh dist) size)
+                          (centered-at hw hh          size)
+                          (centered-at hw (+ hh dist) size)
+
+                          (centered-at (+ hw dist) (- hh dist) size)
+                          (centered-at (+ hw dist) hh          size)
+                          (centered-at (+ hw dist) (+ hh dist) size))))
+        (loop for cn in cell-names
+              for cc in cell-coords
+              do
+                 (let ((gc (slot-value grid cn)))
+                   (setf (coords gc) cc)))))))
 
 ;;; ============================================================================
 
@@ -283,7 +328,7 @@
   (setf
    (ui-width  model) (width  msg)
    (ui-height model) (height msg))
-  (adjust-coordinates (grid model)))
+  (adjust-coordinates model (grid model)))
 (defmethod update ((model model) (msg mouse-coords))
   (setf (mouse-x model) (x msg)
         (mouse-y model) (y msg)))
