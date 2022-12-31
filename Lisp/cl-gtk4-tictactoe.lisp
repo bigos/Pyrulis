@@ -143,7 +143,10 @@
     (gdk:cairo-set-source-rgba cr color)
     (let ((size (/ (min (ui-width model) (ui-height model))
                    4.5)))
-      (loop for cell-name in '(c7 c8 c9  c4 c5 c6 c1 c2 c3)
+      (loop for cell-name in '(c7 c8 c9
+                               ;; c4 c5 c6
+                               ;; c1 c2 c3
+                               )
             do (let* ((gc (slot-value (grid model) cell-name))
                       (cc (car (coords gc))))
                  (square-centered-at (car cc) (cdr cc) size)))))
@@ -267,23 +270,26 @@
   (let ((w (ui-width model))
         (h (ui-height model)))
     (let* ((hw (/ w 2))
-          (hh (/ h 2))
-          (size (/ (min w h) 4.5))
-          (dist (+ size (* size 0.05)))
-          (cell-names '(c7 c8 c9  c4 c5 c6 c1 c2 c3))
-           )
+           (hh (/ h 2))
+           (size (/ (min w h) 4.5))
+           (dist (+ size (* size 0.05)))
+           (cell-names '(c7 c8 c9
+                         ;; c4 c5 c6
+                         ;; c1 c2 c3
+                         )))
       (let ((cell-coords (list
                           (centered-at (- hw dist) (- hh dist) size)
                           (centered-at (- hw dist) hh          size)
                           (centered-at (- hw dist) (+ hh dist) size)
 
-                          (centered-at hw (- hh dist) size)
-                          (centered-at hw hh          size)
-                          (centered-at hw (+ hh dist) size)
+                          ;; (centered-at hw (- hh dist) size)
+                          ;; (centered-at hw hh          size)
+                          ;; (centered-at hw (+ hh dist) size)
 
-                          (centered-at (+ hw dist) (- hh dist) size)
-                          (centered-at (+ hw dist) hh          size)
-                          (centered-at (+ hw dist) (+ hh dist) size))))
+                          ;; (centered-at (+ hw dist) (- hh dist) size)
+                          ;; (centered-at (+ hw dist) hh          size)
+                          ;; (centered-at (+ hw dist) (+ hh dist) size)
+                          )))
         (loop for cn in cell-names
               for cc in cell-coords
               do
