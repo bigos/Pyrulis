@@ -230,8 +230,8 @@
 
 (defun centered-at (x y size)
   "Get coordinates of square of SIZE centred at X Y."
-  (let ((tlx (- x (/ size 2)))
-        (tly (- y (/ size 2))))
+  (let ((tlx x)
+        (tly y))
 
     (cons (cons tlx
                 tly)
