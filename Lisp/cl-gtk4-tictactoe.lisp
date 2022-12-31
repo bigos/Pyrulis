@@ -154,18 +154,19 @@
 
 
 
+  (progn
+    (format t "mouse coord ~S ~S~%" (mouse-x model) (mouse-y model))
+    ;; (cairo:rectangle (mouse-x model)
+    ;;                  (mouse-y model)
+    ;;                  100
+    ;;                  100)
+    )
+
   (with-gdk-rgba (color "#FFFFBBFF")
     (gdk:cairo-set-source-rgba cr color))
-  (when (and (mouse-x model)
-             (mouse-y model))
-    (format t "mouse coord ~S ~S~%" (mouse-x model) (mouse-y model))
-    (cairo:rectangle (mouse-x model)
-                     (mouse-y model)
-                     100
-                     100))
   (cairo:fill-path)
 
-
+  (format t "mouse state ~S ~S~%" (mouse-x model) (mouse-y model))
   )
 
 (cffi:defcallback %draw-func :void ((area :pointer)
@@ -230,13 +231,13 @@
 
 (defun centered-at (x y size)
   "Get coordinates of square of SIZE centred at X Y."
+  (declare (ignore size))
   (let ((tlx x)
         (tly y))
 
     (cons (cons tlx
                 tly)
-          (cons (+ tlx size)
-                (+ tly size)))))
+          (cons :Z :Z))))
 
 ;;; grid cells are numbered after the keys on the numeric keypad with 1 being
 ;; bottom left and 9 being top right
@@ -359,7 +360,9 @@
 
 
 (defmethod update ((model model) (msg mouse-pressed))
-  (warn "doing nothing with ~S" msg))
+  (setf (mouse-x model) (x msg)
+        (mouse-y model) (y msg))
+  (warn "doing nothing with ~S and mode mouse ~S ~S" msg (mouse-x model) (mouse-y model)))
 
 (defmethod update ((model model) (msg mouse-released))
   (warn "doing nothing with ~S" msg))
@@ -397,7 +400,12 @@
        (cond
          ((equalp signal-name "pressed")
           (destructuring-bind ((button x y)) args
-            (update *model* (make-instance 'mouse-pressed :button button :x x :y y))))
+            (update *model* (make-instance 'mouse-pressed :button button :x x :y y))
+            ;; FIXME tomorrow
+            (widget-queue-draw missing-widget)
+
+
+            ))
          ((equalp signal-name "released")
           (destructuring-bind ((button x y)) args
             (update *model* (make-instance 'mouse-released :button button :x x :y y))))
