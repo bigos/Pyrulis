@@ -1,4 +1,4 @@
-(declaim (optimize (speed 0) (debug 3)))
+(declaim (optimize (speed 0) (safety 2) (debug 3)))
 
 (cl:in-package "CL-USER")
 
@@ -139,18 +139,21 @@
         (cairo:fill-path))))
 
   ;; procedural method part
-  (with-gdk-rgba (color "#FFAA8866")
-    (gdk:cairo-set-source-rgba cr color)
-    (let ((size (/ (min (ui-width model) (ui-height model))
-                   4.5)))
-      (loop for cell-name in '(c7 c4 c1
-                               c8 c5 c2
-                               c9 c6 c3)
-            do (let* ((gc (slot-value (grid model) cell-name))
-                      (cc (car (coords gc))))
-                 (format t "cell coord ~S ~S    ~S ~S~%" cell-name cc (mouse-x model) (mouse-y model))
-                 (square-centered-at (car cc) (cdr cc) size)))))
-  (cairo:fill-path)
+  (let ((size (/ (min (ui-width model) (ui-height model))
+                 4.5)))
+    (loop for cell-name in '(c7 c4 c1
+                             c8 c5 c2
+                             c9 c6 c3)
+          for redval in '(200 180 160
+                          140 120 100
+                          80  60  40)
+          do (let* ((gc (slot-value (grid model) cell-name))
+                    (cc (car (coords gc))))
+               (format t "cell coord ~S ~S    ~S ~S~%" cell-name cc (mouse-x model) (mouse-y model))
+               (with-gdk-rgba (color (format nil "#~2,'0X~2,'0X~2,'0X~2,'0X" redval 200 230 255))
+                 (gdk:cairo-set-source-rgba cr color)
+                 (square-centered-at (car cc) (cdr cc) size)
+                 (cairo:fill-path)))))
 
   (progn
     (format t "mouse coord ~S ~S~%" (mouse-x model) (mouse-y model))
