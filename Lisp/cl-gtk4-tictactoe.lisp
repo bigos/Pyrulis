@@ -152,16 +152,13 @@
                  (square-centered-at (car cc) (cdr cc) size)))))
   (cairo:fill-path)
 
-
-
   (progn
     (format t "mouse coord ~S ~S~%" (mouse-x model) (mouse-y model))
     (when (mouse-x model)
       (cairo:rectangle (mouse-x model)
                        (mouse-y model)
-                       100
-                       100))
-    )
+                       25
+                       25)))
 
   (with-gdk-rgba (color "#FFFFBBFF")
     (gdk:cairo-set-source-rgba cr color))
