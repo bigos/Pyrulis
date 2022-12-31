@@ -156,10 +156,11 @@
 
   (progn
     (format t "mouse coord ~S ~S~%" (mouse-x model) (mouse-y model))
-    ;; (cairo:rectangle (mouse-x model)
-    ;;                  (mouse-y model)
-    ;;                  100
-    ;;                  100)
+    (when (mouse-x model)
+      (cairo:rectangle (mouse-x model)
+                       (mouse-y model)
+                       100
+                       100))
     )
 
   (with-gdk-rgba (color "#FFFFBBFF")
@@ -368,7 +369,7 @@
   (warn "doing nothing with ~S" msg))
 ;;; ============================================================================
 
-(defun event-sink (signal-name event &rest args)
+(defun event-sink (widget signal-name event &rest args)
   (let ((event-class (when event (format nil "~S" (slot-value event 'class)))))
     ;; (unless (member signal-name '("motion" "timeout") :test #'equalp)
     ;;   (format t "EEEEEEEEEEEEEEEEE ~S ~S ~S  --- ~S~%"
@@ -402,9 +403,7 @@
           (destructuring-bind ((button x y)) args
             (update *model* (make-instance 'mouse-pressed :button button :x x :y y))
             ;; FIXME tomorrow
-            (widget-queue-draw missing-widget)
-
-
+            (widget-queue-draw widget)
             ))
          ((equalp signal-name "released")
           (destructuring-bind ((button x y)) args
@@ -438,9 +437,9 @@
 ;; (in-package #:cl-gtk4-tictactoe)
 ;;; (main)
 
-(defun connect-controller (controller signal-name)
+(defun connect-controller (widget controller signal-name)
     (connect controller signal-name (lambda (event &rest args)
-                                      (event-sink signal-name event args))))
+                                      (event-sink widget signal-name event args))))
 (defun main ()
   (init-model)
 
@@ -451,18 +450,18 @@
                (let ((window (make-application-window :application app)))
 
                  (glib:timeout-add 5000 (lambda (&rest args)
-                                          (event-sink "timeout" nil args)
+                                          (event-sink window "timeout" nil args)
                                           glib:+priority-default+))
 
                  ;; for some reason these do not work
                  ;; (let ((focus-controller (gtk4:make-event-controller-focus)))
                  ;;   (widget-add-controller window focus-controller)
-                 ;;   (connect-controller focus-controller "enter")
-                 ;;   (connect-controller focus-controller "leave"))
+                 ;;   (connect-controller window focus-controller "enter")
+                 ;;   (connect-controller window focus-controller "leave"))
 
                  (let ((key-controller (gtk4:make-event-controller-key)))
                    (widget-add-controller window key-controller)
-                   (connect-controller key-controller "key-pressed"))
+                   (connect-controller window key-controller "key-pressed"))
 
                  (setf (window-title        window) "Tic Tac Toe"
                        (window-default-size window) (list 400 400))
@@ -479,18 +478,18 @@
 
                      (let ((motion-controller (gtk4:make-event-controller-motion)))
                        (widget-add-controller canvas motion-controller)
-                       (connect-controller motion-controller "motion")
-                       (connect-controller motion-controller "enter")
-                       (connect-controller motion-controller "leave"))
+                       (connect-controller canvas motion-controller "motion")
+                       (connect-controller canvas motion-controller "enter")
+                       (connect-controller canvas motion-controller "leave"))
 
                      (let ((gesture-click-controller (gtk4:make-gesture-click)))
                        (widget-add-controller canvas gesture-click-controller)
-                       (connect-controller gesture-click-controller "pressed")
-                       (connect-controller gesture-click-controller "released"))
+                       (connect-controller canvas gesture-click-controller "pressed")
+                       (connect-controller canvas gesture-click-controller "released"))
 
                      (connect canvas "resize" (lambda (widget &rest args)
                                                 (declare (ignore widget))
-                                                (event-sink "resize" nil args)))
+                                                (event-sink canvas "resize" nil args)))
 
                      (box-append box canvas))
                    (setf (window-child window)
