@@ -139,18 +139,34 @@
         (cairo:fill-path))))
 
   ;; procedural method part
-  (with-gdk-rgba (color "#FFAA88FF")
+  (with-gdk-rgba (color "#FFAA8866")
     (gdk:cairo-set-source-rgba cr color)
     (let ((size (/ (min (ui-width model) (ui-height model))
                    4.5)))
-      (loop for cell-name in '(c7 c8 c9
-                               ;; c4 c5 c6
-                               ;; c1 c2 c3
-                               )
+      (loop for cell-name in '(c7 c4 c1
+                               c8 c5 c2
+                               c9 c6 c3)
             do (let* ((gc (slot-value (grid model) cell-name))
                       (cc (car (coords gc))))
+                 (format t "cell coord ~S ~S    ~S ~S~%" cell-name cc (mouse-x model) (mouse-y model))
                  (square-centered-at (car cc) (cdr cc) size)))))
-  (cairo:fill-path))
+  (cairo:fill-path)
+
+
+
+  (with-gdk-rgba (color "#FFFFBBFF")
+    (gdk:cairo-set-source-rgba cr color))
+  (when (and (mouse-x model)
+             (mouse-y model))
+    (format t "mouse coord ~S ~S~%" (mouse-x model) (mouse-y model))
+    (cairo:rectangle (mouse-x model)
+                     (mouse-y model)
+                     100
+                     100))
+  (cairo:fill-path)
+
+
+  )
 
 (cffi:defcallback %draw-func :void ((area :pointer)
                                     (cr :pointer)
@@ -273,22 +289,21 @@
            (hh (/ h 2))
            (size (/ (min w h) 4.5))
            (dist (+ size (* size 0.05)))
-           (cell-names '(c7 c8 c9
-                         ;; c4 c5 c6
-                         ;; c1 c2 c3
-                         )))
+           (cell-names '(c7 c4 c1
+                         c8 c5 c2
+                         c9 c6 c3)))
       (let ((cell-coords (list
                           (centered-at (- hw dist) (- hh dist) size)
                           (centered-at (- hw dist) hh          size)
                           (centered-at (- hw dist) (+ hh dist) size)
 
-                          ;; (centered-at hw (- hh dist) size)
-                          ;; (centered-at hw hh          size)
-                          ;; (centered-at hw (+ hh dist) size)
+                          (centered-at hw (- hh dist) size)
+                          (centered-at hw hh          size)
+                          (centered-at hw (+ hh dist) size)
 
-                          ;; (centered-at (+ hw dist) (- hh dist) size)
-                          ;; (centered-at (+ hw dist) hh          size)
-                          ;; (centered-at (+ hw dist) (+ hh dist) size)
+                          (centered-at (+ hw dist) (- hh dist) size)
+                          (centered-at (+ hw dist) hh          size)
+                          (centered-at (+ hw dist) (+ hh dist) size)
                           )))
         (loop for cn in cell-names
               for cc in cell-coords
@@ -352,12 +367,12 @@
 
 (defun event-sink (signal-name event &rest args)
   (let ((event-class (when event (format nil "~S" (slot-value event 'class)))))
-    (unless (member signal-name '("motion" "timeout") :test #'equalp)
-      (format t "EEEEEEEEEEEEEEEEE ~S ~S ~S  --- ~S~%"
-              event-class
-              signal-name
-              args
-              *model*))
+    ;; (unless (member signal-name '("motion" "timeout") :test #'equalp)
+    ;;   (format t "EEEEEEEEEEEEEEEEE ~S ~S ~S  --- ~S~%"
+    ;;           event-class
+    ;;           signal-name
+    ;;           args
+    ;;           *model*))
     (cond
       ((equalp event-class "#O<EventControllerMotion>")
        (cond
