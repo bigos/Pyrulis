@@ -46,6 +46,51 @@
        (gdk:rgba-parse ,pointer ,color)
        ,@body)))
 
+;;; classes ====================================================================
+(defparameter *model* nil)
+(defclass/std model ()
+  ((state)
+   (grid :std (make-instance 'grid))
+   (ui-width)
+   (ui-height)
+   (mouse-x)
+   (mouse-y)))
+
+(defclass state () nil)
+(defclass init (state) nil)
+
+(defclass/std msg () nil)
+(defclass/std none (msg) nil)
+(defclass/std init (msg) nil)
+(defclass/std resize (msg) ((width) (height)))
+
+;;; msg with inheritance
+(defclass/std mouse-coords (msg) ((x) (y)))
+(defclass/std mouse-motion (mouse-coords) nil)
+(defclass/std mouse-enter  (mouse-coords) nil)
+(defclass/std mouse-leave  (msg) nil)
+(defclass/std mouse-gesture  (msg) ((button) (x) (y)))
+(defclass/std mouse-pressed  (mouse-gesture) nil)
+(defclass/std mouse-released (mouse-gesture) nil)
+
+(defclass/std grid-cell ()
+  ((state)
+   (mouse)
+   (coords)))
+
+;;; grid cells are numbered after the keys on the numeric keypad with 1 being
+;; bottom left and 9 being top right
+(defclass/std grid ()
+  ((c1 :std (make-instance 'grid-cell))
+   (c2 :std (make-instance 'grid-cell))
+   (c3 :std (make-instance 'grid-cell))
+   (c4 :std (make-instance 'grid-cell))
+   (c5 :std (make-instance 'grid-cell))
+   (c6 :std (make-instance 'grid-cell))
+   (c7 :std (make-instance 'grid-cell))
+   (c8 :std (make-instance 'grid-cell))
+   (c9 :std (make-instance 'grid-cell))))
+
 ;;; ============================================================================
 ;;; drawing ====================================================================
 
@@ -144,9 +189,8 @@
     (loop for cell-name in '(c7 c8 c9
                              c4 c5 c6
                              c1 c2 c3)
-          for redval in '(200 180 160
-                          140 120 100
-                          80  60  40)
+          for redval in (loop for x from 1 to 9
+                              for v = 250 then (- v 20) collect v)
           do (let* ((gc (slot-value (grid model) cell-name))
                     (cc (car (coords gc)))
                     (cm (mouse gc)))
@@ -234,11 +278,6 @@
 
 ;;; ============================================================================
 
-(defclass/std grid-cell ()
-  ((state)
-   (mouse)
-   (coords)))
-
 (defun centered-at (x y size)
   "Get coordinates of square of SIZE centred at X Y."
   (declare (ignore size))
@@ -248,19 +287,6 @@
     (cons (cons tlx
                 tly)
           (cons :Z :Z))))
-
-;;; grid cells are numbered after the keys on the numeric keypad with 1 being
-;; bottom left and 9 being top right
-(defclass/std grid ()
-  ((c1 :std (make-instance 'grid-cell))
-   (c2 :std (make-instance 'grid-cell))
-   (c3 :std (make-instance 'grid-cell))
-   (c4 :std (make-instance 'grid-cell))
-   (c5 :std (make-instance 'grid-cell))
-   (c6 :std (make-instance 'grid-cell))
-   (c7 :std (make-instance 'grid-cell))
-   (c8 :std (make-instance 'grid-cell))
-   (c9 :std (make-instance 'grid-cell))))
 
 (defmethod place-ox ((grid grid) (cell symbol) (ox symbol))
   (let ((my-ox (ecase ox (:o ox) (:x ox))))
@@ -324,31 +350,6 @@
 
 ;;; ============================================================================
 
-(defparameter *model* nil)
-(defclass/std model ()
-  ((state)
-   (grid :std (make-instance 'grid))
-   (ui-width)
-   (ui-height)
-   (mouse-x)
-   (mouse-y)))
-
-(defclass state () nil)
-(defclass init (state) nil)
-
-(defclass/std msg () nil)
-(defclass/std none (msg) nil)
-(defclass/std init (msg) nil)
-(defclass/std resize (msg) ((width) (height)))
-
-;;; msg with inheritance
-(defclass/std mouse-coords (msg) ((x) (y)))
-(defclass/std mouse-motion (mouse-coords) nil)
-(defclass/std mouse-enter  (mouse-coords) nil)
-(defclass/std mouse-leave  (msg) nil)
-(defclass/std mouse-gesture  (msg) ((button) (x) (y)))
-(defclass/std mouse-pressed  (mouse-gesture) nil)
-(defclass/std mouse-released (mouse-gesture) nil)
 
 (defmethod all-grid-cells ((model model))
   (loop for c in '(c1 c2 c3 c4 c5 c6 c7 c8 c9)
@@ -397,7 +398,6 @@
 (defmethod update ((model model) (msg mouse-leave))
   (setf (mouse-x model) nil
         (mouse-y model) nil))
-
 
 (defmethod update ((model model) (msg mouse-pressed))
   (setf (mouse-x model) (x msg)
