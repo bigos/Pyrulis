@@ -141,16 +141,9 @@
   ;; procedural method part::::::::::::::::::::::::::::::::::::::::::
   (let ((size (/ (min (ui-width model) (ui-height model))
                  4.5)))
-    (loop for cell-name in '(c7
-                             c8
-                             c9
-                             c4
-                             c5
-                             c6
-                             c1
-                             c2
-                             c3
-                             )
+    (loop for cell-name in '(c7 c8 c9
+                             c4 c5 c6
+                             c1 c2 c3)
           for redval in '(200 180 160
                           140 120 100
                           80  60  40)
