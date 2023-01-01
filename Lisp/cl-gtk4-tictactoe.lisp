@@ -151,8 +151,10 @@
                     (cc (car (coords gc)))
                     (cm (mouse gc)))
                (format t "cell coord ~S ~S    ~S ~S~%" cell-name cc (mouse-x model) (mouse-y model))
-               (with-gdk-rgba (color (if cm
-                                         "#FFAA88FF"
+               (with-gdk-rgba (color (if cm (ecase cm
+                                              (:clicked "#FFAA88FF")
+                                              (:hover   "#AAFF88FF"))
+
                                          (rgbahex redval 200 (/ redval 2) 255)))
                  (gdk:cairo-set-source-rgba cr color)
                  (square-centered-at (car cc) (cdr cc) size)
@@ -348,6 +350,11 @@
 (defclass/std mouse-pressed  (mouse-gesture) nil)
 (defclass/std mouse-released (mouse-gesture) nil)
 
+(defmethod all-grid-cells ((model model))
+  (loop for c in '(c1 c2 c3 c4 c5 c6 c7 c8 c9)
+        for gc = (funcall c (grid model))
+        collect gc))
+
 (defmethod nearest-grid-cells ((model model))
   (when (and (mouse-x model)
              (mouse-y model))
@@ -358,13 +365,19 @@
           for cc = (car (coords gc))
           for dx = (abs (- mx (car cc) ))
           for dy = (abs (- my (cdr cc)))
-          for dist = 50
+          for dist = (/ (min (ui-width model)
+                             (ui-height model))
+                        7.0)
           when (and (< dx dist) (< dy dist))
             collect gc)))
 
-(defmethod mark-nearest ((model model))
+(defmethod mark-nearest ((model model) state)
+  (loop for c in (all-grid-cells model)
+        do (setf (mouse c) nil))
   (loop for c in (nearest-grid-cells model)
-        do (setf (mouse c) :clicked)))
+        do (setf (mouse c) (if (member state '(:clicked :hover))
+                               state
+                               (error "~S is invalid state" state)))))
 
 (defmethod update ((model model) (msg none))
   (warn "doing nothing"))
@@ -379,7 +392,8 @@
   (adjust-coordinates model (grid model)))
 (defmethod update ((model model) (msg mouse-coords))
   (setf (mouse-x model) (x msg)
-        (mouse-y model) (y msg)))
+        (mouse-y model) (y msg))
+  (mark-nearest model :hover))
 (defmethod update ((model model) (msg mouse-leave))
   (setf (mouse-x model) nil
         (mouse-y model) nil))
@@ -388,16 +402,18 @@
 (defmethod update ((model model) (msg mouse-pressed))
   (setf (mouse-x model) (x msg)
         (mouse-y model) (y msg))
-  (mark-nearest model)
+  (mark-nearest model :clicked)
   (format t "mouse pressed ~S~%" model))
 
 (defmethod update ((model model) (msg mouse-released))
-  (warn "doing nothing with ~S" msg))
+  (mark-nearest model :hover))
 ;;; ============================================================================
 
 (defun event-sink (widget signal-name event &rest args)
   (let ((event-class (when event (format nil "~S" (slot-value event 'class)))))
-    ;; (unless (member signal-name '("motion" "timeout") :test #'equalp)
+    ;; (unless (member signal-name '("motion"
+    ;;                               "timeout")
+    ;;                 :test #'equalp)
     ;;   (format t "EEEEEEEEEEEEEEEEE ~S ~S ~S  --- ~S~%"
     ;;           event-class
     ;;           signal-name
@@ -408,7 +424,8 @@
        (cond
          ((equalp signal-name "motion")
           (destructuring-bind ((x y)) args
-            (update *model* (make-instance 'mouse-motion :x x :y y))))
+            (update *model* (make-instance 'mouse-motion :x x :y y))
+            (widget-queue-draw widget)))
          ((equalp signal-name "enter")
           (destructuring-bind ((x y)) args
             (update *model* (make-instance 'mouse-enter :x x :y y))))
