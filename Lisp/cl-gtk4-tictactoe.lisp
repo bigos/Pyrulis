@@ -148,9 +148,12 @@
                           140 120 100
                           80  60  40)
           do (let* ((gc (slot-value (grid model) cell-name))
-                    (cc (car (coords gc))))
+                    (cc (car (coords gc)))
+                    (cm (mouse gc)))
                (format t "cell coord ~S ~S    ~S ~S~%" cell-name cc (mouse-x model) (mouse-y model))
-               (with-gdk-rgba (color (rgbahex redval 200 (/ redval 2) 255))
+               (with-gdk-rgba (color (if cm
+                                         "#FFAA88FF"
+                                         (rgbahex redval 200 (/ redval 2) 255)))
                  (gdk:cairo-set-source-rgba cr color)
                  (square-centered-at (car cc) (cdr cc) size)
                  (cairo:fill-path)))))
@@ -166,7 +169,7 @@
     (with-gdk-rgba (color "#FFFFBBFF")
                    (gdk:cairo-set-source-rgba cr color))
     (cairo:fill-path))
-
+  (format t "nearest grid cells ~S~%" (nearest-grid-cells model))
   (format t "mouse state ~S ~S~%" (mouse-x model) (mouse-y model))
   )
 
@@ -345,8 +348,26 @@
 (defclass/std mouse-pressed  (mouse-gesture) nil)
 (defclass/std mouse-released (mouse-gesture) nil)
 
+(defmethod nearest-grid-cells ((model model))
+  (when (and (mouse-x model)
+             (mouse-y model))
+    (loop for c in '(c1 c2 c3 c4 c5 c6 c7 c8 c9)
+          for gc = (funcall c (grid model))
+          for mx = (mouse-x model)
+          for my = (mouse-y model)
+          for cc = (car (coords gc))
+          for dx = (abs (- mx (car cc) ))
+          for dy = (abs (- my (cdr cc)))
+          for dist = 50
+          when (and (< dx dist) (< dy dist))
+            collect gc)))
+
+(defmethod mark-nearest ((model model))
+  (loop for c in (nearest-grid-cells model)
+        do (setf (mouse c) :clicked)))
+
 (defmethod update ((model model) (msg none))
-    (warn "doing nothing"))
+  (warn "doing nothing"))
 (defmethod update ((model model) (msg init))
   (warn "updating model")
   (setf (state model) (make-instance 'init)))
@@ -367,7 +388,8 @@
 (defmethod update ((model model) (msg mouse-pressed))
   (setf (mouse-x model) (x msg)
         (mouse-y model) (y msg))
-  (warn "doing nothing with ~S and mode mouse ~S ~S" msg (mouse-x model) (mouse-y model)))
+  (mark-nearest model)
+  (format t "mouse pressed ~S~%" model))
 
 (defmethod update ((model model) (msg mouse-released))
   (warn "doing nothing with ~S" msg))
