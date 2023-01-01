@@ -138,19 +138,26 @@
                          (* size 4))
         (cairo:fill-path))))
 
-  ;; procedural method part
+  ;; procedural method part::::::::::::::::::::::::::::::::::::::::::
   (let ((size (/ (min (ui-width model) (ui-height model))
                  4.5)))
-    (loop for cell-name in '(c7 c4 c1
-                             c8 c5 c2
-                             c9 c6 c3)
+    (loop for cell-name in '(c7
+                             c8
+                             c9
+                             c4
+                             c5
+                             c6
+                             c1
+                             c2
+                             c3
+                             )
           for redval in '(200 180 160
                           140 120 100
                           80  60  40)
           do (let* ((gc (slot-value (grid model) cell-name))
                     (cc (car (coords gc))))
                (format t "cell coord ~S ~S    ~S ~S~%" cell-name cc (mouse-x model) (mouse-y model))
-               (with-gdk-rgba (color (format nil "#~2,'0X~2,'0X~2,'0X~2,'0X" redval 200 230 255))
+               (with-gdk-rgba (color (rgbahex redval 200 (/ redval 2) 255))
                  (gdk:cairo-set-source-rgba cr color)
                  (square-centered-at (car cc) (cdr cc) size)
                  (cairo:fill-path)))))
@@ -161,11 +168,11 @@
       (cairo:rectangle (mouse-x model)
                        (mouse-y model)
                        25
-                       25)))
+                       25))
 
-  (with-gdk-rgba (color "#FFFFBBFF")
-    (gdk:cairo-set-source-rgba cr color))
-  (cairo:fill-path)
+    (with-gdk-rgba (color "#FFFFBBFF")
+                   (gdk:cairo-set-source-rgba cr color))
+    (cairo:fill-path))
 
   (format t "mouse state ~S ~S~%" (mouse-x model) (mouse-y model))
   )
@@ -190,6 +197,10 @@
                                width height *model*)))
 
 ;;; ============================================================================
+(defun rgbahex (r g b a)
+  (format nil
+          "#~2,'0X~2,'0X~2,'0X~2,'0X"
+          r g b a))
 ;;; keys =======================================================================
 
 (defun check-key (key-val key-code key-modifiers)
