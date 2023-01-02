@@ -221,11 +221,14 @@
                  (gdk:cairo-set-source-rgba cr color)
                  (cairo:select-font-face "Ubuntu Mono"
                                          :normal :bold)
-                 (cairo:set-font-size 30)
+                 (cairo:set-font-size (* size 0.5))
                  (cairo:move-to (caar cc) (cdar cc))
-                 (cairo:show-text (format nil "~S" (state gc)))
-                 )
-               )))
+                 (cairo:show-text (format nil "~A" (if (state gc)
+                                                       (case (state gc)
+                                                         (:x "X")
+                                                         (:o "O")
+                                                         (otherwise "E"))
+                                                       "")))))))
 
   (progn
     (format t "mouse coord ~S ~S~%" (mouse-x model) (mouse-y model))
