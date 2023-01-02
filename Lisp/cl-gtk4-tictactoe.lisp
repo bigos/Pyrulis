@@ -371,7 +371,7 @@
           for dy = (abs (- my (cdr cc)))
           for dist = (/ (min (ui-width model)
                              (ui-height model))
-                        7.0)
+                        8.5)
           when (and (< dx dist) (< dy dist))
             collect gc)))
 
