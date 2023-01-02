@@ -1,4 +1,4 @@
-module Example exposing (..)
+module PhotoGrooveTests exposing (..)
 
 import Expect exposing (Expectation)
 import Fuzz exposing (Fuzzer, int, list, string)
