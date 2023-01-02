@@ -204,8 +204,7 @@
     (loop for cell-name in '(c7 c8 c9
                              c4 c5 c6
                              c1 c2 c3)
-          for redval in (loop for x from 1 to 9
-                              for v = 250 then (- v 20) collect v)
+          for redval = 200
           do (let* ((gc (slot-value (grid model) cell-name))
                     (cc  (coords gc))
                     (cm (mouse gc)))
@@ -213,7 +212,7 @@
                                               (:clicked "#FFAA88FF")
                                               (:hover   "#AAFF88FF"))
 
-                                         (rgbahex redval 200 (/ redval 2) 255)))
+                                         (rgbahex redval redval redval  255)))
                  (gdk:cairo-set-source-rgba cr color)
                  (square-centered-at (caar cc) (cdar cc) size)
                  (cairo:fill-path))
@@ -406,6 +405,8 @@
     (when c
       (setf (state c) (next-placed model))
       (toggle-next-placed model))))
+
+;;; ============================================================================
 
 (defmethod update ((model model) (msg none))
   (warn "doing nothing"))
