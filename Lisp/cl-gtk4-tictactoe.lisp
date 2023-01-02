@@ -493,7 +493,7 @@
          (t (error "unknown signal ~S~%" signal-name))))
 
       (T
-       (warn "unknown event class")))))
+       (error "unknown event class ~S" event-class)))))
 ;;; ============================================================================
 
 (defun init-model ()
