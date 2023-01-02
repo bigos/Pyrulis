@@ -46,18 +46,6 @@
        (gdk:rgba-parse ,pointer ,color)
        ,@body)))
 
-;;; object printing ============================================================
-(defmethod print-object ((obj standard-object) stream)
-  (print-unreadable-object (obj stream :type t)
-    (format stream "~S"
-            (loop for sl in (sb-mop:compute-slots (class-of obj))
-                  collect (list
-                           (sb-mop:slot-definition-name sl)
-                           (slot-value obj (sb-mop:slot-definition-name sl)))))))
-
-(defmethod print-object ((obj grid-cell) stream)
-  (print-unreadable-object (obj stream :type t)
-    (format stream "~S/~S/~S" (state obj) (mouse obj) (coords obj))))
 
 ;;; classes ====================================================================
 (defparameter *model* nil)
@@ -103,6 +91,19 @@
    (c7 :std (make-instance 'grid-cell))
    (c8 :std (make-instance 'grid-cell))
    (c9 :std (make-instance 'grid-cell))))
+
+;;; object printing ============================================================
+(defmethod print-object ((obj standard-object) stream)
+  (print-unreadable-object (obj stream :type t)
+    (format stream "~S"
+            (loop for sl in (sb-mop:compute-slots (class-of obj))
+                  collect (list
+                           (sb-mop:slot-definition-name sl)
+                           (slot-value obj (sb-mop:slot-definition-name sl)))))))
+
+(defmethod print-object ((obj grid-cell) stream)
+  (print-unreadable-object (obj stream :type t)
+    (format stream "~S/~S/~S" (state obj) (mouse obj) (coords obj))))
 
 ;;; ============================================================================
 ;;; drawing ====================================================================
