@@ -51,6 +51,7 @@
 (defparameter *model* nil)
 (defclass/std model ()
   ((state)
+   (next-placed :std :o)
    (grid :std (make-instance 'grid))
    (ui-width)
    (ui-height)
@@ -208,7 +209,6 @@
           do (let* ((gc (slot-value (grid model) cell-name))
                     (cc  (coords gc))
                     (cm (mouse gc)))
-               (format t "cell coord ~S ~S    ~S ~S~%" cell-name cc (mouse-x model) (mouse-y model))
                (with-gdk-rgba (color (if cm (ecase cm
                                               (:clicked "#FFAA88FF")
                                               (:hover   "#AAFF88FF"))
@@ -216,7 +216,16 @@
                                          (rgbahex redval 200 (/ redval 2) 255)))
                  (gdk:cairo-set-source-rgba cr color)
                  (square-centered-at (caar cc) (cdar cc) size)
-                 (cairo:fill-path)))))
+                 (cairo:fill-path))
+               (with-gdk-rgba (color "#221122FF")
+                 (gdk:cairo-set-source-rgba cr color)
+                 (cairo:select-font-face "Ubuntu Mono"
+                                         :normal :bold)
+                 (cairo:set-font-size 30)
+                 (cairo:move-to (caar cc) (cdar cc))
+                 (cairo:show-text (format nil "~S" (state gc)))
+                 )
+               )))
 
   (progn
     (format t "mouse coord ~S ~S~%" (mouse-x model) (mouse-y model))
@@ -354,6 +363,11 @@
 
 ;;; ============================================================================
 
+(defmethod toggle-next-placed ((model model))
+  (setf (next-placed model)
+        (ecase (next-placed model)
+          (:o :x)
+          (:x :o))))
 
 (defmethod all-grid-cells ((model model))
   (loop for c in '(c1 c2 c3 c4 c5 c6 c7 c8 c9)
@@ -384,6 +398,12 @@
                                state
                                (error "~S is invalid state" state)))))
 
+(defmethod place-placed ((model model))
+  (let ((c (car (nearest-grid-cells model))))
+    (when c
+      (setf (state c) (next-placed model))
+      (toggle-next-placed model))))
+
 (defmethod update ((model model) (msg none))
   (warn "doing nothing"))
 (defmethod update ((model model) (msg init))
@@ -407,6 +427,7 @@
   (setf (mouse-x model) (x msg)
         (mouse-y model) (y msg))
   (mark-nearest model :clicked)
+  (place-placed model)
   (format t "mouse pressed ~S~%" model))
 
 (defmethod update ((model model) (msg mouse-released))
