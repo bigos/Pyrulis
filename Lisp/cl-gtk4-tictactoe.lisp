@@ -123,7 +123,7 @@
 (defun draw-func (area cr width height model)
   (declare (ignore area))
 
-  (warn "drawing ~S ~S === ~S ~S" width height (ui-width model) (ui-height model))
+  ;; (warn "drawing ~S ~S === ~S ~S" width height (ui-width model) (ui-height model))
 
   ;; keep the existing drawing and continue drawing past it using the procedural method
   (let ((w (coerce (the (signed-byte 32) width)  'single-float))
@@ -230,7 +230,7 @@
                                                        "")))))))
 
   (progn
-    (format t "mouse coord ~S ~S~%" (mouse-x model) (mouse-y model))
+    ;; (format t "mouse coord ~S ~S~%" (mouse-x model) (mouse-y model))
     (when (mouse-x model)
       (cairo:rectangle (mouse-x model)
                        (mouse-y model)
@@ -238,11 +238,13 @@
                        25))
 
     (with-gdk-rgba (color "#FFFFBBFF")
-                   (gdk:cairo-set-source-rgba cr color))
+      (gdk:cairo-set-source-rgba cr color))
     (cairo:fill-path))
-  (format t "nearest grid cells ~S~%" (nearest-grid-cells model))
-  (format t "mouse state ~S ~S~%" (mouse-x model) (mouse-y model))
+
+  ;; (format t "nearest grid cells ~S~%" (nearest-grid-cells model))
+  ;; (format t "mouse state ~S ~S~%" (mouse-x model) (mouse-y model))
   )
+
 ;;; ================ end of draw-func ==========================================
 
 (cffi:defcallback %draw-func :void ((area :pointer)
@@ -451,6 +453,14 @@
         (mouse-y model) (y msg))
   (mark-nearest model :clicked)
   (place-placed model)
+
+  ;; >>>>>>>>>>>>> winning placements (((C7 C4 C1) (:O :O :O)))
+  (let ((all-lines (get-all-lines (grid model))))
+    (format t "~&>>>>>>>>>>>>> winning placements ~S~%" all-lines)
+    (when all-lines
+      (destructuring-bind ((cells placements)) all-lines
+          (format t "cells ~S placements ~S ~%" cells placements))))
+
   (format t "mouse pressed ~S~%" model))
 
 (defmethod update ((model model) (msg mouse-released))
