@@ -243,25 +243,26 @@
   (format t "nearest grid cells ~S~%" (nearest-grid-cells model))
   (format t "mouse state ~S ~S~%" (mouse-x model) (mouse-y model))
   )
+;;; ================ end of draw-func ==========================================
 
 (cffi:defcallback %draw-func :void ((area :pointer)
                                     (cr :pointer)
                                     (width :int)
                                     (height :int)
                                     (data :pointer))
-                  (declare (ignore data))
-                  (let ((cairo:*context* (make-instance 'cairo:context
-                                                        :pointer cr
-                                                        :width width
-                                                        :height height
-                                                        :pixel-based-p nil)))
-                    (draw-func (make-instance 'gir::object-instance
-                                              :class (gir:nget gtk:*ns* "DrawingArea")
-                                              :this area)
-                               (make-instance 'gir::struct-instance
-                                              :class (gir:nget cairo-gobject:*ns* "Context")
-                                              :this cr)
-                               width height *model*)))
+  (declare (ignore data))
+  (let ((cairo:*context* (make-instance 'cairo:context
+                                        :pointer cr
+                                        :width width
+                                        :height height
+                                        :pixel-based-p nil)))
+    (draw-func (make-instance 'gir::object-instance
+                              :class (gir:nget gtk:*ns* "DrawingArea")
+                              :this area)
+               (make-instance 'gir::struct-instance
+                              :class (gir:nget cairo-gobject:*ns* "Context")
+                              :this cr)
+               width height *model*)))
 
 ;;; ============================================================================
 (defun rgbahex (r g b a)
@@ -332,6 +333,24 @@
   (get-grid-cells% grid (ecase cell
                          (c7 '(c7 c5 c3))
                          (c9 '(c9 c5 c1)))))
+
+;;; determine the winner after the move
+(defmethod get-all-lines ((grid grid))
+  (let ((sets '((c1 c2 c3)
+                (c4 c5 c6)
+                (c7 c8 c9)
+                ;; -------
+                (c7 c4 c1)
+                (c8 c5 c2)
+                (c9 c6 c3)
+                ;; -------
+                (c7 c5 c3)
+                (c9 c5 c1))))
+    (loop for set in sets
+          for cells = (get-grid-cells% grid set)
+          when (or (equalp cells '(:o :o :o))
+                   (equalp cells '(:x :x :x)))
+            collect (list set cells))))
 
 (defmethod adjust-coordinates ((model model) (grid grid))
   (warn "finish adjust-coordinates")
