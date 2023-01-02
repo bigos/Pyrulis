@@ -46,6 +46,19 @@
        (gdk:rgba-parse ,pointer ,color)
        ,@body)))
 
+;;; object printing ============================================================
+(defmethod print-object ((obj standard-object) stream)
+  (print-unreadable-object (obj stream :type t)
+    (format stream "~S"
+            (loop for sl in (sb-mop:compute-slots (class-of obj))
+                  collect (list
+                           (sb-mop:slot-definition-name sl)
+                           (slot-value obj (sb-mop:slot-definition-name sl)))))))
+
+(defmethod print-object ((obj grid-cell) stream)
+  (print-unreadable-object (obj stream :type t)
+    (format stream "~S/~S/~S" (state obj) (mouse obj) (coords obj))))
+
 ;;; classes ====================================================================
 (defparameter *model* nil)
 (defclass/std model ()
@@ -192,7 +205,7 @@
           for redval in (loop for x from 1 to 9
                               for v = 250 then (- v 20) collect v)
           do (let* ((gc (slot-value (grid model) cell-name))
-                    (cc (car (coords gc)))
+                    (cc  (coords gc))
                     (cm (mouse gc)))
                (format t "cell coord ~S ~S    ~S ~S~%" cell-name cc (mouse-x model) (mouse-y model))
                (with-gdk-rgba (color (if cm (ecase cm
@@ -201,7 +214,7 @@
 
                                          (rgbahex redval 200 (/ redval 2) 255)))
                  (gdk:cairo-set-source-rgba cr color)
-                 (square-centered-at (car cc) (cdr cc) size)
+                 (square-centered-at (caar cc) (cdar cc) size)
                  (cairo:fill-path)))))
 
   (progn
@@ -266,27 +279,17 @@
             collect n)))
 
 ;;; ============================================================================
-;;; TODO Add more code here.
 
-(defmethod print-object ((obj standard-object) stream)
-  (print-unreadable-object (obj stream :type t)
-    (format stream "~S"
-            (loop for sl in (sb-mop:compute-slots (class-of obj))
-                  collect (list
-                           (sb-mop:slot-definition-name sl)
-                           (slot-value obj (sb-mop:slot-definition-name sl)))))))
+
 
 ;;; ============================================================================
 
 (defun centered-at (x y size)
   "Get coordinates of square of SIZE centred at X Y."
-  (declare (ignore size))
-  (let ((tlx x)
-        (tly y))
-
-    (cons (cons tlx
-                tly)
-          (cons :Z :Z))))
+  (cons (cons x
+              y)
+        (cons (+ x size)
+              (+ y size))))
 
 (defmethod place-ox ((grid grid) (cell symbol) (ox symbol))
   (let ((my-ox (ecase ox (:o ox) (:x ox))))
