@@ -39,8 +39,8 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
 6 Testing
 
-Renaming Example.elm
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#190
+RUNNING OUR FIRST TEST
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#191
 
 * The other links
 ** code
