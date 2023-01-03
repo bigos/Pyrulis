@@ -8,7 +8,8 @@
                   cl-glib
                   cl-cairo2
                   serapeum
-                  defclass-std)))
+                  defclass-std
+                  fiveam)))
 
 (defpackage #:cairo-gobject
   (:use)
@@ -619,3 +620,29 @@
 (when nil
   (main)
   (sb-ext:quit))
+
+;; :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+(in-package "CL-USER")
+
+(defpackage #:cl-gtk4-tictactoe/tests
+  (:use #:cl #:fiveam)
+  (:export #:run!
+           #:all-tests))
+
+(in-package #:cl-gtk4-tictactoe/tests)
+
+;; (cl-gtk4-tictactoe::main)
+
+(def-suite my-suite
+  :description "Test my system")
+
+(in-suite my-suite)
+
+(test my-tests
+  "Example"
+  (is (= 4 (+ 2 2)) "2 plus 2 wasn't equal to 4 (using #'= to test equality)")
+  (is (= 0 (+ -1 1)))
+  (signals
+      (error "Trying to divide by zero didn't signal an error")
+    (/ 2 0))
+  (is (= 0 (+ 1 1)) "this should have failed"))
