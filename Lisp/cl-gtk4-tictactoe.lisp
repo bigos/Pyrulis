@@ -58,8 +58,11 @@
    (mouse-x)
    (mouse-y)))
 
-(defclass state () nil)
-(defclass init (state) nil)
+(defclass/std state () nil)
+(defclass/std init    (state) nil)
+(defclass/std playing (state) nil)
+(defclass/std won     (state)
+  ((winner)))
 
 (defclass/std msg () nil)
 (defclass/std none (msg) nil)
@@ -104,7 +107,9 @@
 
 (defmethod print-object ((obj grid-cell) stream)
   (print-unreadable-object (obj stream :type t)
-    (format stream "~S/~S/~S" (state obj) (mouse obj) (coords obj))))
+    (format stream "~A/~A/"             ;we hide coordinates
+            (state obj)
+            (mouse obj))))
 
 ;;; ============================================================================
 ;;; drawing ====================================================================
@@ -451,15 +456,24 @@
 (defmethod update ((model model) (msg mouse-pressed))
   (setf (mouse-x model) (x msg)
         (mouse-y model) (y msg))
-  (mark-nearest model :clicked)
-  (place-placed model)
-
-  ;; >>>>>>>>>>>>> winning placements (((C7 C4 C1) (:O :O :O)))
-  (let ((all-lines (get-all-lines (grid model))))
-    (format t "~&>>>>>>>>>>>>> winning placements ~S~%" all-lines)
-    (when all-lines
-      (destructuring-bind ((cells placements)) all-lines
-          (format t "cells ~S placements ~S ~%" cells placements))))
+  (labels ((marking ()
+             (mark-nearest model :clicked)
+             (place-placed model)))
+    (etypecase (state model)
+      (init
+       (marking)
+       (setf (state model) (make-instance 'playing)))
+      (playing
+       (marking)
+       (progn
+         (let ((all-lines (get-all-lines (grid model))))
+           (format t "~&>>>>>>>>>>>>> winning placements ~S~%" all-lines)
+           (when all-lines
+             (destructuring-bind ((cells placements)) all-lines
+               (setf (state model) (make-instance 'won :winner (car placements)))
+               (format t "cells ~S placements ~S ~%" cells placements))))))
+      (won
+       (format t "doing nothing after victory"))))
 
   (format t "mouse pressed ~S~%" model))
 
@@ -470,7 +484,8 @@
 (defun event-sink (widget signal-name event &rest args)
   (let ((event-class (when event (format nil "~S" (slot-value event 'class)))))
     ;; (unless (member signal-name '("motion"
-    ;;                               "timeout")
+    ;;                               "timeout"
+    ;;                               )
     ;;                 :test #'equalp)
     ;;   (format t "EEEEEEEEEEEEEEEEE ~S ~S ~S  --- ~S~%"
     ;;           event-class
@@ -550,9 +565,10 @@
              (lambda (app)
                (let ((window (make-application-window :application app)))
 
-                 (glib:timeout-add 5000 (lambda (&rest args)
-                                          (event-sink window "timeout" nil args)
-                                          glib:+priority-default+))
+                 (glib:timeout-add 1000
+                                   (lambda (&rest args)
+                                     (event-sink window "timeout" nil args)
+                                     glib:+source-continue+))
 
                  ;; for some reason these do not work
                  ;; (let ((focus-controller (gtk4:make-event-controller-focus)))
