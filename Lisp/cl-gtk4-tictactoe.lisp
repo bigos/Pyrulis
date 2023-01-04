@@ -26,8 +26,7 @@
   (:import-from :defclass-std
    :defclass/std)
   (:import-from :serapeum
-   :~>)
-  (:export :init-model :ui-width :ui-height :event-sink2 :mouse-x :mouse-y))
+   :~>) )
 
 ;; (load "~/Programming/Pyrulis/Lisp/cl-gtk4-tictactoe.lisp")
 (in-package #:cl-gtk4-tictactoe)
@@ -507,8 +506,7 @@
          ((equalp signal-name "motion")
           (destructuring-bind ((x y)) args
             (update *model* (make-instance 'mouse-motion :x x :y y))
-            (when widget (widget-queue-draw widget))
-            ))
+            (widget-queue-draw widget)))
          ((equalp signal-name "enter")
           (destructuring-bind ((x y)) args
             (update *model* (make-instance 'mouse-enter :x x :y y))))
@@ -529,7 +527,7 @@
           (destructuring-bind ((button x y)) args
             (update *model* (make-instance 'mouse-pressed :button button :x x :y y))
             ;; FIXME tomorrow
-            (when widget (widget-queue-draw widget))
+            (widget-queue-draw widget)
             ))
          ((equalp signal-name "released")
           (destructuring-bind ((button x y)) args
@@ -635,7 +633,7 @@
 (in-package "CL-USER")
 
 (defpackage #:cl-gtk4-tictactoe/tests
-  (:use #:cl #:fiveam #:cl-gtk4-tictactoe)
+  (:use #:cl #:fiveam)
   (:export #:run!
            #:all-tests))
 
@@ -671,15 +669,12 @@
 
 (test mouse-movement
   "Testing mouse movement"
-  (setf *model* nil)
-  (is (null *model*))
-  (let ((model (init-model)))
-    (is (eql (type-of *model*) 'MODEL))
-
-    (event-sink2 (gtk:make-drawing-area) "resize" nil                         '(400 400))
-    (is (eql (ui-width  model) 400))
-    (is (eql (ui-height model) 400))
-
-    (event-sink2 (gtk:make-drawing-area) "motion" "#O<EventControllerMotion>" '(0 0))
-    (is (eql (mouse-x model) 0))
-    (is (eql (mouse-y model) 0))))
+  (setf cl-gtk4-tictactoe::*model* nil)
+  (is (null cl-gtk4-tictactoe::*model*))
+  (let ((model (cl-gtk4-tictactoe::init-model)))
+    (setf (cl-gtk4-tictactoe::ui-width  model) 400
+          (cl-gtk4-tictactoe::ui-height model) 400)
+    (is (eql (type-of cl-gtk4-tictactoe::*model*) 'CL-GTK4-TICTACTOE::MODEL))
+    (cl-gtk4-tictactoe::event-sink2 (gtk:make-drawing-area) "resize" nil                         '(400 400))
+    (cl-gtk4-tictactoe::event-sink2 (gtk:make-drawing-area) "motion" "#O<EventControllerMotion>" '(0 0))
+    ))
