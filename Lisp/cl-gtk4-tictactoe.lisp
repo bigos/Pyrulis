@@ -506,7 +506,8 @@
          ((equalp signal-name "motion")
           (destructuring-bind ((x y)) args
             (update *model* (make-instance 'mouse-motion :x x :y y))
-            (widget-queue-draw widget)))
+            (when widget
+              (widget-queue-draw widget))))
          ((equalp signal-name "enter")
           (destructuring-bind ((x y)) args
             (update *model* (make-instance 'mouse-enter :x x :y y))))
@@ -527,7 +528,8 @@
           (destructuring-bind ((button x y)) args
             (update *model* (make-instance 'mouse-pressed :button button :x x :y y))
             ;; FIXME tomorrow
-            (widget-queue-draw widget)
+            (when widget
+              (widget-queue-draw widget))
             ))
          ((equalp signal-name "released")
           (destructuring-bind ((button x y)) args
@@ -673,6 +675,6 @@
   (is (null cl-gtk4-tictactoe::*model*))
   (let ((model (cl-gtk4-tictactoe::init-model)))
     (is (eql (type-of cl-gtk4-tictactoe::*model*) 'CL-GTK4-TICTACTOE::MODEL))
-    ;; (cl-gtk4-tictactoe::event-sink2 (gtk:make-drawing-area) "resize" nil                         '(400 400))
-    ;; (cl-gtk4-tictactoe::event-sink2 (gtk:make-drawing-area) "motion" "#O<EventControllerMotion>" '(0 0))
+    (cl-gtk4-tictactoe::event-sink2 nil "resize" nil                         '(400 400))
+    (cl-gtk4-tictactoe::event-sink2 nil "motion" "#O<EventControllerMotion>" '(0 0))
     ))
