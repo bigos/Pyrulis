@@ -482,6 +482,10 @@
   (mark-nearest model :hover))
 ;;; ============================================================================
 
+;;; used for testing
+(defun event-sink2 (widget signal-name event-class &rest args)
+  (event-sink% widget signal-name event-class args))
+
 (defun event-sink (widget signal-name event &rest args)
   (let ((event-class (when event (format nil "~S" (slot-value event 'class)))))
     ;; (unless (member signal-name '("motion"
@@ -493,6 +497,9 @@
     ;;           signal-name
     ;;           args
     ;;           *model*))
+    (event-sink% widget signal-name event-class args)))
+
+(defun event-sink% (widget signal-name event-class args)
     (cond
       ((equalp event-class "#O<EventControllerMotion>")
        (cond
@@ -538,7 +545,8 @@
          (t (error "unknown signal ~S~%" signal-name))))
 
       (T
-       (error "unknown event class ~S" event-class)))))
+       (error "unknown event class ~S" event-class))))
+
 ;;; ============================================================================
 
 (defun init-model ()
@@ -631,12 +639,23 @@
 
 (in-package #:cl-gtk4-tictactoe/tests)
 
+;;; running
 ;; (cl-gtk4-tictactoe::main)
 
+;;; testing
+;; (load "~/Programming/Pyrulis/Lisp/cl-gtk4-tictactoe.lisp")
+;; (in-package #:cl-gtk4-tictactoe/tests)
+;;; (run!)
+
 (def-suite my-suite
-  :description "Test my system")
+           :description "Test my system")
 
 (in-suite my-suite)
+
+(setf
+ fiveam:*verbose-failures* T
+ fiveam:*on-error* :DEBUG
+ )
 
 (test my-tests
   "Example"
@@ -645,4 +664,14 @@
   (signals
       (error "Trying to divide by zero didn't signal an error")
     (/ 2 0))
-  (is (= 0 (+ 1 1)) "this should have failed"))
+  ;; (is (= 0 (+ 1 1)) "this should have failed")
+  )
+
+(test mouse-movement
+  "Testing mouse movement"
+  (setf cl-gtk4-tictactoe::*model* nil)
+  (is (null cl-gtk4-tictactoe::*model*))
+  (let ((model (cl-gtk4-tictactoe::init-model)))
+    (is (eql (type-of cl-gtk4-tictactoe::*model*) 'CL-GTK4-TICTACTOE::MODEL))
+    (cl-gtk4-tictactoe::event-sink2 (gtk:make-drawing-area) "motion" "#O<EventControllerMotion>" '(0 0))
+    ))
