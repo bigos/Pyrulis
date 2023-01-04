@@ -483,8 +483,8 @@
 ;;; ============================================================================
 
 ;;; used for testing
-(defun event-sink2 (widget signal-name event-class &rest args)
-  (event-sink% widget signal-name event-class args))
+(defun event-sink-test (signal-name event-class &rest args)
+  (event-sink% nil signal-name event-class args))
 
 (defun event-sink (widget signal-name event &rest args)
   (let ((event-class (when event (format nil "~S" (slot-value event 'class)))))
@@ -632,10 +632,12 @@
   (sb-ext:quit))
 
 ;; :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-(in-package "CL-USER")
+;; (in-package "CL-USER")o
 
 (defpackage #:cl-gtk4-tictactoe/tests
-  (:use #:cl #:fiveam)
+  (:use #:cl
+        #:fiveam)
+  (:local-nicknames (:ttt :cl-gtk4-tictactoe))
   (:export #:run!
            #:all-tests))
 
@@ -671,10 +673,10 @@
 
 (test mouse-movement
   "Testing mouse movement"
-  (setf cl-gtk4-tictactoe::*model* nil)
-  (is (null cl-gtk4-tictactoe::*model*))
-  (let ((model (cl-gtk4-tictactoe::init-model)))
-    (is (eql (type-of cl-gtk4-tictactoe::*model*) 'CL-GTK4-TICTACTOE::MODEL))
-    (cl-gtk4-tictactoe::event-sink2 nil "resize" nil                         '(400 400))
-    (cl-gtk4-tictactoe::event-sink2 nil "motion" "#O<EventControllerMotion>" '(0 0))
+  (setf ttt::*model* nil)
+  (is (null ttt::*model*))
+  (let ((model (ttt::init-model)))
+    (is (eql (type-of ttt::*model*) 'ttt::MODEL))
+    (ttt::event-sink-test "resize" nil                         '(400 400))
+    (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(0 0))
     ))
