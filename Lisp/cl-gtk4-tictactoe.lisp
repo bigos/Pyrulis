@@ -672,6 +672,9 @@
   (setf cl-gtk4-tictactoe::*model* nil)
   (is (null cl-gtk4-tictactoe::*model*))
   (let ((model (cl-gtk4-tictactoe::init-model)))
+    (setf (cl-gtk4-tictactoe::ui-width  model) 400
+          (cl-gtk4-tictactoe::ui-height model) 400)
     (is (eql (type-of cl-gtk4-tictactoe::*model*) 'CL-GTK4-TICTACTOE::MODEL))
+    (cl-gtk4-tictactoe::event-sink2 (gtk:make-drawing-area) "resize" nil                         '(400 400))
     (cl-gtk4-tictactoe::event-sink2 (gtk:make-drawing-area) "motion" "#O<EventControllerMotion>" '(0 0))
     ))
