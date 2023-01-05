@@ -53,7 +53,7 @@
 (defclass/std model ()
   ((state)
    (next-placed :std :o)
-   (grid :std (make-instance 'grid))
+   (grid :std (make-instance 'field-grid))
    (ui-width)
    (ui-height)
    (mouse-x)
@@ -87,7 +87,7 @@
 
 ;;; grid cells are numbered after the keys on the numeric keypad with 1 being
 ;; bottom left and 9 being top right
-(defclass/std grid ()
+(defclass/std field-grid ()
   ((c1 :std (make-instance 'grid-cell :name 'c1))
    (c2 :std (make-instance 'grid-cell :name 'c2))
    (c3 :std (make-instance 'grid-cell :name 'c3))
@@ -314,7 +314,7 @@
         (cons (+ x size)
               (+ y size))))
 
-(defmethod place-ox ((grid grid) (cell symbol) (ox symbol))
+(defmethod place-ox ((grid field-grid) (cell symbol) (ox symbol))
   (let ((my-ox (ecase ox (:o ox) (:x ox))))
     (if (member cell '(c1 c2 c3 c4 c5 c6 c7 c8 c9))
         (let ((grid-cell (slot-value grid cell)))
@@ -327,29 +327,29 @@
         (state
          (slot-value grid c))))
 
-(defmethod get-all-cells ((grid grid))
+(defmethod get-all-cells ((grid field-grid))
   (loop for c in '(c1 c2 c3 c4 c5 c6 c7 c8 c9)
         collect (slot-value grid c)))
 
-(defmethod get-rows ((grid grid) (cell symbol))
+(defmethod get-rows ((grid field-grid) (cell symbol))
   (get-grid-cells% grid (ecase cell
                           (c1 '(c1 c2 c3))
                           (c4 '(c4 c5 c6))
                           (c7 '(c7 c8 c9)))))
 
-(defmethod get-columns ((grid grid) (cell symbol))
+(defmethod get-columns ((grid field-grid) (cell symbol))
   (get-grid-cells% grid (ecase cell
                          (c7 '(c7 c4 c1))
                          (c8 '(c8 c5 c2))
                          (c9 '(c9 c6 c3)))))
 
-(defmethod get-diagonals ((grid grid) (cell symbol))
+(defmethod get-diagonals ((grid field-grid) (cell symbol))
   (get-grid-cells% grid (ecase cell
                          (c7 '(c7 c5 c3))
                          (c9 '(c9 c5 c1)))))
 
 ;;; determine the winner after the move
-(defmethod get-all-lines ((grid grid))
+(defmethod get-all-lines ((grid field-grid))
   (let ((sets '((c1 c2 c3)
                 (c4 c5 c6)
                 (c7 c8 c9)
@@ -366,7 +366,7 @@
                    (equalp cells '(:x :x :x)))
             collect (list set cells))))
 
-(defmethod adjust-coordinates ((model model) (grid grid))
+(defmethod adjust-coordinates ((model model) (grid field-grid))
   (warn "finish adjust-coordinates")
   (let ((w (ui-width model))
         (h (ui-height model)))
