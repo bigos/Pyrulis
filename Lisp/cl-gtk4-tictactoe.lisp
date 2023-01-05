@@ -302,11 +302,6 @@
             collect n)))
 
 ;;; ============================================================================
-
-
-
-;;; ============================================================================
-
 (defun centered-at (x y size)
   "Get coordinates of square of SIZE centred at X Y."
   (cons (cons x
@@ -314,6 +309,7 @@
         (cons (+ x size)
               (+ y size))))
 
+;;; ============================================================================
 (defmethod place-ox ((grid field-grid) (cell symbol) (ox symbol))
   (let ((my-ox (ecase ox (:o ox) (:x ox))))
     (if (member cell '(c1 c2 c3 c4 c5 c6 c7 c8 c9))
