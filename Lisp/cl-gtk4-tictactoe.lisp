@@ -482,7 +482,7 @@
       (won
        (format t "doing nothing after victory"))))
 
-  (format t "mouse pressed ~S~%" model))
+  (format t "mouse pressed~%" ))
 
 (defmethod update ((model model) (msg mouse-released))
   (mark-nearest model :hover))
@@ -651,12 +651,16 @@
 (in-package #:cl-gtk4-tictactoe/tests)
 
 ;;; running
-;; (cl-gtk4-tictactoe::main)
+;; (ttt::main)
 
 ;;; testing
 ;; (load "~/Programming/Pyrulis/Lisp/cl-gtk4-tictactoe.lisp")
 ;; (in-package #:cl-gtk4-tictactoe/tests)
 ;;; (run!)
+
+(defun grid-name-mouse ()
+  (loop for c in  (ttt::get-all-cells (gtk4:grid  ttt::*model*))
+        collect (list (ttt::name c) (ttt::mouse c))))
 
 (defun grid-name-state-mouse ()
   (loop for c in  (ttt::get-all-cells (gtk4:grid  ttt::*model*))
@@ -728,8 +732,7 @@
                 '((293.3333 . 106.66667) 382.2222 . 195.55556)))
     (is (equalp (grid-name-mouse)
                 '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 NIL) (TTT::C5 NIL)
-                 (TTT::C6 NIL) (TTT::C7 NIL) (TTT::C8 NIL) (TTT::C9 :HOVER))))
-    ))
+                 (TTT::C6 NIL) (TTT::C7 NIL) (TTT::C8 NIL) (TTT::C9 :HOVER))))))
 
 (test mouse-clicks
   "Testing mouse movement and clicks"
@@ -831,4 +834,5 @@
                  (TTT::C9 :X NIL))))
     (is (equalp (ttt::get-all-lines (gtk4::grid model))
                 '(((TTT::C7 TTT::C4 TTT::C1) (:O :O :O)))))))
+
 ;;; move grid out of gtk4 namespace
