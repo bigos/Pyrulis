@@ -53,7 +53,7 @@
 (defclass/std model ()
   ((state)
    (next-placed :std :o)
-   (grid :std (make-instance 'field-grid))
+   (my-grid :std (make-instance 'field-grid))
    (ui-width)
    (ui-height)
    (mouse-x)
@@ -213,7 +213,7 @@
                              c4 c5 c6
                              c1 c2 c3)
           for redval = 200
-          do (let* ((gc (slot-value (grid model) cell-name))
+          do (let* ((gc (slot-value (my-grid model) cell-name))
                     (cc  (coords gc))
                     (cm (mouse gc)))
                (with-gdk-rgba (color (if cm (ecase cm
@@ -406,14 +406,14 @@
 
 (defmethod all-grid-cells ((model model))
   (loop for c in '(c1 c2 c3 c4 c5 c6 c7 c8 c9)
-        for gc = (funcall c (grid model))
+        for gc = (funcall c (my-grid model))
         collect gc))
 
 (defmethod nearest-grid-cells ((model model))
   (when (and (mouse-x model)
              (mouse-y model))
     (loop for c in '(c1 c2 c3 c4 c5 c6 c7 c8 c9)
-          for gc = (funcall c (grid model))
+          for gc = (funcall c (my-grid model))
           for mx = (mouse-x model)
           for my = (mouse-y model)
           for cc = (car (coords gc))
@@ -451,7 +451,7 @@
   (setf
    (ui-width  model) (width  msg)
    (ui-height model) (height msg))
-  (adjust-coordinates model (grid model)))
+  (adjust-coordinates model (my-grid model)))
 (defmethod update ((model model) (msg mouse-coords))
   (setf (mouse-x model) (x msg)
         (mouse-y model) (y msg))
@@ -473,7 +473,7 @@
       (playing
        (marking)
        (progn
-         (let ((all-lines (get-all-lines (grid model))))
+         (let ((all-lines (get-all-lines (my-grid model))))
            (format t "~&>>>>>>>>>>>>> winning placements ~S~%" all-lines)
            (when all-lines
              (destructuring-bind ((cells placements)) all-lines
@@ -659,11 +659,11 @@
 ;;; (run!)
 
 (defun grid-name-mouse ()
-  (loop for c in  (ttt::get-all-cells (gtk4:grid  ttt::*model*))
+  (loop for c in  (ttt::get-all-cells (ttt::my-grid  ttt::*model*))
         collect (list (ttt::name c) (ttt::mouse c))))
 
 (defun grid-name-state-mouse ()
-  (loop for c in  (ttt::get-all-cells (gtk4:grid  ttt::*model*))
+  (loop for c in  (ttt::get-all-cells (ttt::my-grid  ttt::*model*))
         collect (list (ttt::name c) (ttt::state c) (ttt::mouse c))))
 
 (def-suite my-suite
@@ -703,7 +703,7 @@
 
     (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(100 100))
     (is-false (null (car (ttt::nearest-grid-cells model))))
-    (is (equalp (ttt::coords (ttt::c7 (gtk4:grid  model)))
+    (is (equalp (ttt::coords (ttt::c7 (ttt::my-grid  model)))
                 '((106.66667 . 106.66667) 195.55556 . 195.55556)))
     (is (equalp (grid-name-mouse)
                 '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 NIL) (TTT::C5 NIL)
@@ -711,16 +711,16 @@
 
     (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(100 200))
     (is-false (null (car (ttt::nearest-grid-cells model))))
-    (is (equalp (ttt::coords (ttt::c4 (gtk4:grid  model)))
+    (is (equalp (ttt::coords (ttt::c4 (ttt::my-grid  model)))
                 '((106.66667 . 200) 195.55556 . 288.8889)))
-    (is (eq :hover (ttt::mouse (ttt::c4 (gtk4:grid  model)))))
+    (is (eq :hover (ttt::mouse (ttt::c4 (ttt::my-grid  model)))))
     (is (equalp (grid-name-mouse)
                 '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 :HOVER) (TTT::C5 NIL)
                   (TTT::C6 NIL) (TTT::C7 NIL) (TTT::C8 NIL) (TTT::C9 NIL))))
 
     (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(100 290))
     (is-false (null (car (ttt::nearest-grid-cells model))))
-    (is (equalp (ttt::coords (ttt::c1 (gtk4:grid  model)))
+    (is (equalp (ttt::coords (ttt::c1 (ttt::my-grid  model)))
                 '((106.66667 . 293.3333) 195.55556 . 382.2222)))
     (is (equalp (grid-name-mouse)
                 '((TTT::C1 :HOVER) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 NIL) (TTT::C5 NIL)
@@ -728,7 +728,7 @@
 
 
     (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(333 65))
-    (is (equalp (ttt::coords (ttt::c9 (gtk4:grid  model)))
+    (is (equalp (ttt::coords (ttt::c9 (ttt::my-grid  model)))
                 '((293.3333 . 106.66667) 382.2222 . 195.55556)))
     (is (equalp (grid-name-mouse)
                 '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 NIL) (TTT::C5 NIL)
@@ -832,7 +832,5 @@
                ' ((TTT::C1 :O NIL) (TTT::C2 NIL NIL) (TTT::C3 NIL NIL) (TTT::C4 :O NIL)
                  (TTT::C5 NIL NIL) (TTT::C6 NIL :HOVER) (TTT::C7 :O NIL) (TTT::C8 :X NIL)
                  (TTT::C9 :X NIL))))
-    (is (equalp (ttt::get-all-lines (gtk4::grid model))
+    (is (equalp (ttt::get-all-lines (ttt::my-grid model))
                 '(((TTT::C7 TTT::C4 TTT::C1) (:O :O :O)))))))
-
-;;; move grid out of gtk4 namespace
