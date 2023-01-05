@@ -657,15 +657,18 @@
 ;; (in-package #:cl-gtk4-tictactoe/tests)
 ;;; (run!)
 
+(defun grid-name-mouse ()
+  (loop for c in  (ttt::get-all-cells (gtk4:grid  ttt::*model*))
+        collect (list (ttt::name c) (ttt::mouse c))))
+
 (def-suite my-suite
-           :description "Test my system")
+  :description "Test my system")
 
 (in-suite my-suite)
 
 (setf
  fiveam:*verbose-failures* T
- fiveam:*on-error* :DEBUG
- )
+ fiveam:*on-error* :DEBUG)
 
 (test my-tests
   "Example"
@@ -688,25 +691,25 @@
     (is (eql 400 (ttt::ui-height ttt::*model*)))
     (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(0 0))
     (is (null (ttt::nearest-grid-cells ttt::*model*)))
+    (is (equalp (grid-name-mouse)
+                '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 NIL) (TTT::C5 NIL)
+                  (TTT::C6 NIL) (TTT::C7 NIL) (TTT::C8 NIL) (TTT::C9 NIL))))
 
     (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(100 100))
     (is (not (null (car (ttt::nearest-grid-cells ttt::*model*)))))
     (is (equalp (ttt::coords (ttt::c7 (gtk4:grid  ttt::*model*)))
                 '((106.66667 . 106.66667) 195.55556 . 195.55556)))
     (is (eq :hover (ttt::mouse (ttt::c7 (gtk4:grid  ttt::*model*)))))
-    (is (equalp
-         (loop for c in  (ttt::get-all-cells (gtk4:grid  ttt::*model*))
-               collect (list (ttt::name c) (ttt::mouse c)))
-         '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 NIL) (TTT::C5 NIL)
-          (TTT::C6 NIL) (TTT::C7 :HOVER) (TTT::C8 NIL) (TTT::C9 NIL))))
+    (is (equalp (grid-name-mouse)
+                '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 NIL) (TTT::C5 NIL)
+                  (TTT::C6 NIL) (TTT::C7 :HOVER) (TTT::C8 NIL) (TTT::C9 NIL))))
 
     (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(110 200))
     (is (not (null (car (ttt::nearest-grid-cells ttt::*model*)))))
     (is (equalp (ttt::coords (ttt::c4 (gtk4:grid  ttt::*model*)))
                 '((106.66667 . 200) 195.55556 . 288.8889)))
     (is (eq :hover (ttt::mouse (ttt::c4 (gtk4:grid  ttt::*model*)))))
-    (is (equalp
-         (loop for c in  (ttt::get-all-cells (gtk4:grid  ttt::*model*))
-               collect (list (ttt::name c) (ttt::mouse c)))
-         '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 :HOVER) (TTT::C5 NIL)
-           (TTT::C6 NIL) (TTT::C7 NIL) (TTT::C8 NIL) (TTT::C9 NIL))))))
+    (is (equalp (grid-name-mouse)
+                '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 :HOVER) (TTT::C5 NIL)
+                  (TTT::C6 NIL) (TTT::C7 NIL) (TTT::C8 NIL) (TTT::C9 NIL))))
+    ))
