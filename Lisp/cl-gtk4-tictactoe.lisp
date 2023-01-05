@@ -511,6 +511,7 @@
        (cond
          ((equalp signal-name "motion")
           (destructuring-bind ((x y)) args
+            (format t "mouse moution ~S ~S~%" x y)
             (update *model* (make-instance 'mouse-motion :x x :y y))
             (when widget
               (widget-queue-draw widget))))
@@ -638,7 +639,7 @@
   (sb-ext:quit))
 
 ;; :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-;; (in-package "CL-USER")o
+;; (in-package "CL-USER")
 
 (defpackage #:cl-gtk4-tictactoe/tests
   (:use #:cl
@@ -695,16 +696,16 @@
                 '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 NIL) (TTT::C5 NIL)
                   (TTT::C6 NIL) (TTT::C7 NIL) (TTT::C8 NIL) (TTT::C9 NIL))))
 
+
     (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(100 100))
     (is (not (null (car (ttt::nearest-grid-cells ttt::*model*)))))
     (is (equalp (ttt::coords (ttt::c7 (gtk4:grid  ttt::*model*)))
                 '((106.66667 . 106.66667) 195.55556 . 195.55556)))
-    (is (eq :hover (ttt::mouse (ttt::c7 (gtk4:grid  ttt::*model*)))))
     (is (equalp (grid-name-mouse)
                 '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 NIL) (TTT::C5 NIL)
                   (TTT::C6 NIL) (TTT::C7 :HOVER) (TTT::C8 NIL) (TTT::C9 NIL))))
 
-    (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(110 200))
+    (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(100 200))
     (is (not (null (car (ttt::nearest-grid-cells ttt::*model*)))))
     (is (equalp (ttt::coords (ttt::c4 (gtk4:grid  ttt::*model*)))
                 '((106.66667 . 200) 195.55556 . 288.8889)))
@@ -712,4 +713,19 @@
     (is (equalp (grid-name-mouse)
                 '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 :HOVER) (TTT::C5 NIL)
                   (TTT::C6 NIL) (TTT::C7 NIL) (TTT::C8 NIL) (TTT::C9 NIL))))
-    ))
+
+    (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(100 290))
+    (is (not (null (car (ttt::nearest-grid-cells ttt::*model*)))))
+    (is (equalp (ttt::coords (ttt::c1 (gtk4:grid  ttt::*model*)))
+                '((106.66667 . 293.3333) 195.55556 . 382.2222)))
+    (is (equalp (grid-name-mouse)
+                '((TTT::C1 :HOVER) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 NIL) (TTT::C5 NIL)
+                 (TTT::C6 NIL) (TTT::C7 NIL) (TTT::C8 NIL) (TTT::C9 NIL))))
+
+
+    (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(333 65))
+    (is (equalp (ttt::coords (ttt::c9 (gtk4:grid  ttt::*model*)))
+                '((293.3333 . 106.66667) 382.2222 . 195.55556)))
+    (is (equalp (grid-name-mouse)
+                '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 NIL) (TTT::C5 NIL)
+                 (TTT::C6 NIL) (TTT::C7 NIL) (TTT::C8 NIL) (TTT::C9 :HOVER))))))
