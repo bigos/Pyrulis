@@ -224,17 +224,23 @@
                  (gdk:cairo-set-source-rgba cr color)
                  (square-centered-at (caar cc) (cdar cc) size)
                  (cairo:fill-path))
-               (with-gdk-rgba (color "#221122FF")
+               (with-gdk-rgba (color (cond
+                                       ((and (eql 'won (type-of (state model) )))
+                                        (cond
+                                          ((eql (state gc)
+                                                (winner (state model)))
+                                           "#FF1122FF")
+                                          (t "#221122aa")))
+                                       (T "#221122FF")))
                  (gdk:cairo-set-source-rgba cr color)
                  (cairo:select-font-face "Ubuntu Mono"
                                          :normal :bold)
                  (cairo:set-font-size (* size 0.5))
                  (cairo:move-to (caar cc) (cdar cc))
                  (cairo:show-text (format nil "~A" (if (state gc)
-                                                       (case (state gc)
+                                                       (ecase (state gc)
                                                          (:x "X")
-                                                         (:o "O")
-                                                         (otherwise "E"))
+                                                         (:o "O"))
                                                        "")))))))
 
   (progn
