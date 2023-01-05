@@ -828,4 +828,7 @@
     (is (equalp (grid-name-state-mouse)
                ' ((TTT::C1 :O NIL) (TTT::C2 NIL NIL) (TTT::C3 NIL NIL) (TTT::C4 :O NIL)
                  (TTT::C5 NIL NIL) (TTT::C6 NIL :HOVER) (TTT::C7 :O NIL) (TTT::C8 :X NIL)
-                 (TTT::C9 :X NIL))))))
+                 (TTT::C9 :X NIL))))
+    (is (equalp (ttt::get-all-lines (gtk4::grid model))
+                '(((TTT::C7 TTT::C4 TTT::C1) (:O :O :O)))))))
+;;; move grid out of gtk4 namespace
