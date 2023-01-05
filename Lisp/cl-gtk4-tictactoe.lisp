@@ -80,22 +80,23 @@
 (defclass/std mouse-released (mouse-gesture) nil)
 
 (defclass/std grid-cell ()
-  ((state)
+  ((name)
+   (state)
    (mouse)
    (coords)))
 
 ;;; grid cells are numbered after the keys on the numeric keypad with 1 being
 ;; bottom left and 9 being top right
 (defclass/std grid ()
-  ((c1 :std (make-instance 'grid-cell))
-   (c2 :std (make-instance 'grid-cell))
-   (c3 :std (make-instance 'grid-cell))
-   (c4 :std (make-instance 'grid-cell))
-   (c5 :std (make-instance 'grid-cell))
-   (c6 :std (make-instance 'grid-cell))
-   (c7 :std (make-instance 'grid-cell))
-   (c8 :std (make-instance 'grid-cell))
-   (c9 :std (make-instance 'grid-cell))))
+  ((c1 :std (make-instance 'grid-cell :name 'c1))
+   (c2 :std (make-instance 'grid-cell :name 'c2))
+   (c3 :std (make-instance 'grid-cell :name 'c3))
+   (c4 :std (make-instance 'grid-cell :name 'c4))
+   (c5 :std (make-instance 'grid-cell :name 'c5))
+   (c6 :std (make-instance 'grid-cell :name 'c6))
+   (c7 :std (make-instance 'grid-cell :name 'c7))
+   (c8 :std (make-instance 'grid-cell :name 'c8))
+   (c9 :std (make-instance 'grid-cell :name 'c9))))
 
 ;;; object printing ============================================================
 (defmethod print-object ((obj standard-object) stream)
@@ -108,7 +109,8 @@
 
 (defmethod print-object ((obj grid-cell) stream)
   (print-unreadable-object (obj stream :type t)
-    (format stream "~A/~A/"             ;we hide coordinates
+    (format stream "~A/~A/~A/"             ;we hide coordinates
+            (name  obj)
             (state obj)
             (mouse obj))))
 
@@ -325,11 +327,15 @@
         (state
          (slot-value grid c))))
 
+(defmethod get-all-cells ((grid grid))
+  (loop for c in '(c1 c2 c3 c4 c5 c6 c7 c8 c9)
+        collect (slot-value grid c)))
+
 (defmethod get-rows ((grid grid) (cell symbol))
   (get-grid-cells% grid (ecase cell
-                         (c1 '(c1 c2 c3))
-                         (c4 '(c4 c5 c6))
-                         (c7 '(c7 c8 c9)))))
+                          (c1 '(c1 c2 c3))
+                          (c4 '(c4 c5 c6))
+                          (c7 '(c7 c8 c9)))))
 
 (defmethod get-columns ((grid grid) (cell symbol))
   (get-grid-cells% grid (ecase cell
@@ -678,5 +684,29 @@
   (let ((model (ttt::init-model)))
     (is (eql (type-of ttt::*model*) 'ttt::MODEL))
     (ttt::event-sink-test "resize" nil                         '(400 400))
+    (is (eql 400 (ttt::ui-width  ttt::*model*)))
+    (is (eql 400 (ttt::ui-height ttt::*model*)))
     (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(0 0))
-    ))
+    (is (null (ttt::nearest-grid-cells ttt::*model*)))
+
+    (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(100 100))
+    (is (not (null (car (ttt::nearest-grid-cells ttt::*model*)))))
+    (is (equalp (ttt::coords (ttt::c7 (gtk4:grid  ttt::*model*)))
+                '((106.66667 . 106.66667) 195.55556 . 195.55556)))
+    (is (eq :hover (ttt::mouse (ttt::c7 (gtk4:grid  ttt::*model*)))))
+    (is (equalp
+         (loop for c in  (ttt::get-all-cells (gtk4:grid  ttt::*model*))
+               collect (list (ttt::name c) (ttt::mouse c)))
+         '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 NIL) (TTT::C5 NIL)
+          (TTT::C6 NIL) (TTT::C7 :HOVER) (TTT::C8 NIL) (TTT::C9 NIL))))
+
+    (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(110 200))
+    (is (not (null (car (ttt::nearest-grid-cells ttt::*model*)))))
+    (is (equalp (ttt::coords (ttt::c4 (gtk4:grid  ttt::*model*)))
+                '((106.66667 . 200) 195.55556 . 288.8889)))
+    (is (eq :hover (ttt::mouse (ttt::c4 (gtk4:grid  ttt::*model*)))))
+    (is (equalp
+         (loop for c in  (ttt::get-all-cells (gtk4:grid  ttt::*model*))
+               collect (list (ttt::name c) (ttt::mouse c)))
+         '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 :HOVER) (TTT::C5 NIL)
+           (TTT::C6 NIL) (TTT::C7 NIL) (TTT::C8 NIL) (TTT::C9 NIL))))))
