@@ -1,10 +1,9 @@
-
 * Treesitter Emacs 29
 
 The Emacs News says we need treesitter library present when configuring and compiling emacs.
 
 #+begin_example
-sudo apt install libtree-sitter-dev  
+sudo apt install libtree-sitter-dev
 #+end_example
 
 
@@ -25,6 +24,11 @@ repository, and then uses the installed C/C++ compiler to build the
 library and install it.
 
 M-x treesit-install-language-grammar
+
+will ask for language where we say ruby and then will ask for the URL of the
+parser library that can be found here:
+https://tree-sitter.github.io/tree-sitter/
+
 Library installed to ~/.emacs.d/tree-sitter/libtree-sitter-ruby.so
 
 Now when I open ruby file
