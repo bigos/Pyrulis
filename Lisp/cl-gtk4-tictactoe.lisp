@@ -742,7 +742,7 @@
                  (TTT::C6 NIL) (TTT::C7 NIL) (TTT::C8 NIL) (TTT::C9 :HOVER))))))
 
 (test mouse-clicks
-  "Testing mouse movement and clicks"
+  "Testing mouse movement and clicks leading to win"
   (setf ttt::*model* nil)
   (is (null ttt::*model*))
   (let ((model (ttt::init-model)))
