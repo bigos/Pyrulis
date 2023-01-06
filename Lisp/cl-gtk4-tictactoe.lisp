@@ -481,11 +481,14 @@
        (marking)
        (progn
          (let ((all-lines (get-all-lines (my-grid model))))
-           (format t "~&>>>>>>>>>>>>> winning placements ~S~%" all-lines)
            (when all-lines
+             (format t "~&>>>>>>>>>>>>> winning placements ~S~%" all-lines)
              (destructuring-bind ((cells placements)) all-lines
                (setf (state model) (make-instance 'won :winner (car placements)))
-               (format t "cells ~S placements ~S ~%" cells placements))))))
+               (format t "cells ~S placements ~S ~%" cells placements))))
+         (let ((empty-fields (loop for c in (get-all-cells (my-grid model)) when (null (state c)) collect c)))
+           (when (endp empty-fields)
+               (setf (state model) (make-instance 'no-moves))))))
       (won
        (format t "doing nothing after victory"))))
 
@@ -741,7 +744,7 @@
                 '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 NIL) (TTT::C5 NIL)
                  (TTT::C6 NIL) (TTT::C7 NIL) (TTT::C8 NIL) (TTT::C9 :HOVER))))))
 
-(test mouse-clicks
+(test mouse-clicks-winning
   "Testing mouse movement and clicks leading to win"
   (setf ttt::*model* nil)
   (is (null ttt::*model*))
@@ -841,3 +844,60 @@
                  (TTT::C9 :X NIL))))
     (is (equalp (ttt::get-all-lines (ttt::my-grid model))
                 '(((TTT::C7 TTT::C4 TTT::C1) (:O :O :O)))))))
+
+;; c7 100 100 
+;; c8 200 100 
+;; c9 300 100 
+
+;; c4 100 200 
+;; c5 200 200 
+;; c6 300 200 
+
+;; c1 100 300
+;; c2 200 300 
+;; c3 300 300
+
+;; oox
+;; x.o
+;; oxx
+
+(test mouse-clicks-draw
+  "Testing mouse clicks leading to draw."
+  (setf ttt::*model* nil)
+  (is (null ttt::*model*))
+  (let ((model (ttt::init-model)))
+    (ttt::event-sink-test "resize" nil                         '(400 400))
+    (is (eql 400 (ttt::ui-width  model)))
+    (is (eql 400 (ttt::ui-height model)))
+
+    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 100 100))
+    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 300 300))
+    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 100 300))
+    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 300 100))
+    (is (equalp (grid-name-state-mouse)
+                '((TTT::C1 :O NIL) (TTT::C2 NIL NIL) (TTT::C3 :X NIL) (TTT::C4 NIL NIL)
+                  (TTT::C5 NIL NIL) (TTT::C6 NIL NIL) (TTT::C7 :O NIL) (TTT::C8 NIL NIL)
+                  (TTT::C9 :X :CLICKED))))
+    
+    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 300 200))
+    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 100 200))
+    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 200 100))
+    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 200 300))
+    (is (equalp (grid-name-state-mouse)
+                '((TTT::C1 :O NIL) (TTT::C2 :X :CLICKED) (TTT::C3 :X NIL) (TTT::C4 :X NIL)
+                  (TTT::C5 NIL NIL) (TTT::C6 :O NIL) (TTT::C7 :O NIL) (TTT::C8 :O NIL)
+                  (TTT::C9 :X NIL))))  
+    (is (equal
+         (loop for c in  (ttt::get-all-cells (ttt::my-grid  ttt::*model*)) collect (ttt::state c))
+         '(:O :X :X :X NIL :O :O :O :X)))
+    (is (equal (type-of (ttt::state model)) 'ttt::playing))
+    
+    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 200 200))
+    (is (equalp (grid-name-state-mouse)
+                '((TTT::C1 :O NIL) (TTT::C2 :X NIL) (TTT::C3 :X NIL) (TTT::C4 :X NIL)
+                  (TTT::C5 :O :CLICKED) (TTT::C6 :O NIL) (TTT::C7 :O NIL) (TTT::C8 :O NIL)
+                  (TTT::C9 :X NIL))))
+    (is (equal
+         (loop for c in  (ttt::get-all-cells (ttt::my-grid  ttt::*model*)) collect (ttt::state c))
+         '(:O :X :X :X :O :O :O :O :X)))     
+    (is (equal (type-of (ttt::state model)) 'ttt::no-moves))))
