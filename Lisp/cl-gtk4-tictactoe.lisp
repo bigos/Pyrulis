@@ -59,10 +59,11 @@
    (mouse-x)
    (mouse-y)))
 
-(defclass/std state () nil)
-(defclass/std init    (state) nil)
-(defclass/std playing (state) nil)
-(defclass/std won     (state)
+(defclass/std state    ()      nil)
+(defclass/std init     (state) nil)
+(defclass/std playing  (state) nil)
+(defclass/std no-moves (state) nil) ; no side wins and now empty fields left
+(defclass/std won      (state)
   ((winner)))
 
 (defclass/std msg () nil)
