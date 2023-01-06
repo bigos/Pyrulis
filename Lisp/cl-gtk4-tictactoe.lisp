@@ -49,6 +49,10 @@
 
 
 ;;; classes ====================================================================
+
+;; add coverage testing
+;; http://www.sbcl.org/manual/index.html#sb_002dcover
+
 (defparameter *model* nil)
 (defclass/std model ()
   ((state)
