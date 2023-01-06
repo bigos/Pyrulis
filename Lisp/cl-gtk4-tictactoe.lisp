@@ -490,7 +490,9 @@
            (when (endp empty-fields)
                (setf (state model) (make-instance 'no-moves))))))
       (won
-       (format t "doing nothing after victory"))))
+       (format t "doing nothing after victory~%"))
+      (no-moves
+       (format t "doing nothing because no more moves possible~%"))))
 
   (format t "mouse pressed~%" ))
 
@@ -844,22 +846,6 @@
                  (TTT::C9 :X NIL))))
     (is (equalp (ttt::get-all-lines (ttt::my-grid model))
                 '(((TTT::C7 TTT::C4 TTT::C1) (:O :O :O)))))))
-
-;; c7 100 100 
-;; c8 200 100 
-;; c9 300 100 
-
-;; c4 100 200 
-;; c5 200 200 
-;; c6 300 200 
-
-;; c1 100 300
-;; c2 200 300 
-;; c3 300 300
-
-;; oox
-;; x.o
-;; oxx
 
 (test mouse-clicks-draw
   "Testing mouse clicks leading to draw."
