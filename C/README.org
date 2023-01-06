@@ -1,5 +1,7 @@
 * C programming
 
+** cool C book
+https://www.cc4e.com/book/toc.md
 
 ** Introduction
 
