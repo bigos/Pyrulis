@@ -202,6 +202,15 @@
                          (* size 0.67))
         (cairo:fill-path)
 
+        
+        (with-gdk-rgba (color "#FF4466CC")
+          (gdk:cairo-set-source-rgba cr color))
+        (cairo:select-font-face "Ubuntu Mono"
+                                :normal :bold)
+        (cairo:set-font-size (* size 0.5))
+        (cairo:move-to (caar cc) (cdar cc))       
+        (cairo:show-text (format nil "~A" 123))
+
         ;; help area
         ;; (with-gdk-rgba (color "#88FFFFAA")
         ;;   (gdk:cairo-set-source-rgba cr color))
@@ -209,7 +218,8 @@
         ;;                  (- hh (* size 2))
         ;;                  (+ (* size 4) (* 2 10))
         ;;                  (* size 4))
-        ;; (cairo:fill-path))))
+        ;; (cairo:fill-path)
+        )))) 
 
   ;; procedural method part::::::::::::::::::::::::::::::::::::::::::
   (let ((size (/ (min (ui-width model) (ui-height model))
@@ -262,7 +272,7 @@
 
   ;; (format t "nearest grid cells ~S~%" (nearest-grid-cells model))
   ;; (format t "mouse state ~S ~S~%" (mouse-x model) (mouse-y model))
-  )
+  
 
 ;;; ================ end of draw-func ==========================================
 
