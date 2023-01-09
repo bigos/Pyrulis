@@ -246,7 +246,7 @@
                  (square-centered-at (caar cc) (cdar cc) size)
                  (cairo:fill-path))
                (with-gdk-rgba (color (cond
-                                       ((and (eql 'won (type-of (state model) )))
+                                       ((eql 'won (type-of (state model) ))
                                         (cond
                                           ((eql (state gc)
                                                 (winner (state model)))
@@ -333,7 +333,7 @@
 ;;; ============================================================================
 (defun centered-at (x y size)
   "Get coordinates of square of SIZE centred at X Y."
-  (cons (cons x
+  (list (cons x
               y)
         (cons (+ x size)
               (+ y size))))
@@ -722,8 +722,8 @@
   (let ((model (ttt::init-model)))
     (is (eql (type-of model) 'ttt::MODEL))
     (ttt::event-sink-test "resize" nil                         '(400 400))
-    (is (eql 400 (ttt::ui-width  model)))
-    (is (eql 400 (ttt::ui-height model)))
+    (is (= 400 (ttt::ui-width  model)))
+    (is (= 400 (ttt::ui-height model)))
     (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(0 0))
     (is (null (ttt::nearest-grid-cells model)))
     (is (equalp (grid-name-mouse)
@@ -734,7 +734,7 @@
     (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(100 100))
     (is-false (null (car (ttt::nearest-grid-cells model))))
     (is (equalp (ttt::coords (ttt::c7 (ttt::my-grid  model)))
-                '((106.66667 . 106.66667) 195.55556 . 195.55556)))
+                '((106.66667 . 106.66667) (195.55556 . 195.55556))))
     (is (equalp (grid-name-mouse)
                 '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 NIL) (TTT::C5 NIL)
                   (TTT::C6 NIL) (TTT::C7 :HOVER) (TTT::C8 NIL) (TTT::C9 NIL))))
@@ -742,7 +742,7 @@
     (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(100 200))
     (is-false (null (car (ttt::nearest-grid-cells model))))
     (is (equalp (ttt::coords (ttt::c4 (ttt::my-grid  model)))
-                '((106.66667 . 200) 195.55556 . 288.8889)))
+                '((106.66667 . 200) (195.55556 . 288.8889))))
     (is (eq :hover (ttt::mouse (ttt::c4 (ttt::my-grid  model)))))
     (is (equalp (grid-name-mouse)
                 '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 :HOVER) (TTT::C5 NIL)
@@ -751,7 +751,7 @@
     (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(100 290))
     (is-false (null (car (ttt::nearest-grid-cells model))))
     (is (equalp (ttt::coords (ttt::c1 (ttt::my-grid  model)))
-                '((106.66667 . 293.3333) 195.55556 . 382.2222)))
+                '((106.66667 . 293.3333) (195.55556 . 382.2222))))
     (is (equalp (grid-name-mouse)
                 '((TTT::C1 :HOVER) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 NIL) (TTT::C5 NIL)
                  (TTT::C6 NIL) (TTT::C7 NIL) (TTT::C8 NIL) (TTT::C9 NIL))))
@@ -759,7 +759,7 @@
 
     (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(333 65))
     (is (equalp (ttt::coords (ttt::c9 (ttt::my-grid  model)))
-                '((293.3333 . 106.66667) 382.2222 . 195.55556)))
+                '((293.3333 . 106.66667) (382.2222 . 195.55556))))
     (is (equalp (grid-name-mouse)
                 '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 NIL) (TTT::C5 NIL)
                  (TTT::C6 NIL) (TTT::C7 NIL) (TTT::C8 NIL) (TTT::C9 :HOVER))))))
@@ -770,8 +770,8 @@
   (is (null ttt::*model*))
   (let ((model (ttt::init-model)))
     (ttt::event-sink-test "resize" nil                         '(400 400))
-    (is (eql 400 (ttt::ui-width  model)))
-    (is (eql 400 (ttt::ui-height model)))
+    (is (= 400 (ttt::ui-width  model)))
+    (is (= 400 (ttt::ui-height model)))
 
     (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(10 10))
     (is (null (ttt::nearest-grid-cells model)))
@@ -871,8 +871,8 @@
   (is (null ttt::*model*))
   (let ((model (ttt::init-model)))
     (ttt::event-sink-test "resize" nil                         '(400 400))
-    (is (eql 400 (ttt::ui-width  model)))
-    (is (eql 400 (ttt::ui-height model)))
+    (is (= 400 (ttt::ui-width  model)))
+    (is (= 400 (ttt::ui-height model)))
 
     (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 100 100))
     (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 300 300))
@@ -904,4 +904,4 @@
     (is (equal
          (loop for c in  (ttt::get-all-cells (ttt::my-grid  ttt::*model*)) collect (ttt::state c))
          '(:O :X :X :X :O :O :O :O :X)))
-    (is (equal (type-of (ttt::state model)) 'ttt::no-moves))))
+    (is (eql (type-of (ttt::state model)) 'ttt::no-moves))))
