@@ -202,25 +202,33 @@
                          (* size 0.67))
         (cairo:fill-path)
 
-        
+
         (with-gdk-rgba (color "#FF4466CC")
           (gdk:cairo-set-source-rgba cr color))
         (cairo:select-font-face "Ubuntu Mono"
                                 :normal :bold)
         (cairo:set-font-size (* size 0.5))
-        (cairo:move-to (caar cc) (cdar cc))       
-        (cairo:show-text (format nil "~A" 123))
+        (cairo:move-to (- hw (* size 2)) (- hh (* size 1.62)))
+        (cairo:show-text (format nil "~s"
+                                 (etypecase  (state model)
+                                   (init "Click to start")
+                                   (playing (format nil "Place ~S" (next-placed model)))
+                                   (won
+                                    (break "in winner")
+                                    (format nil "~S has won" (winner (state model))))
+                                   )))
 
         ;; help area
-        (with-gdk-rgba (color "#88FFFFAA")
-          (gdk:cairo-set-source-rgba cr color))
-        (cairo:rectangle (- hw (* size 2) 10)
-                         (- hh (* size 2))
-                         (+ (* size 4) (* 2 10))
-                         (* size 4))
-        (cairo:fill-path))))
-  
-  
+        ;; (with-gdk-rgba (color "#88FFFFAA")
+        ;;   (gdk:cairo-set-source-rgba cr color))
+        ;; (cairo:rectangle (- hw (* size 2) 10)
+        ;;                  (- hh (* size 2))
+        ;;                  (+ (* size 4) (* 2 10))
+        ;;                  (* size 4))
+        ;; (cairo:fill-path)
+        )))
+
+
 
   ;; procedural method part::::::::::::::::::::::::::::::::::::::::::
   (let ((size (/ (min (ui-width model) (ui-height model))
@@ -257,7 +265,7 @@
                                                        (ecase (state gc)
                                                          (:x "X")
                                                          (:o "O"))
-                                                       "")))))))  
+                                                       "")))))))
 
   (progn
     ;; (format t "mouse coord ~S ~S~%" (mouse-x model) (mouse-y model))
@@ -270,11 +278,11 @@
     (with-gdk-rgba (color "#FFFFBBFF")
       (gdk:cairo-set-source-rgba cr color))
     (cairo:fill-path)))
-  
+
 
   ;; (format t "nearest grid cells ~S~%" (nearest-grid-cells model))
   ;; (format t "mouse state ~S ~S~%" (mouse-x model) (mouse-y model))
-  
+
 
 ;;; ================ end of draw-func ==========================================
 
@@ -877,7 +885,7 @@
                 '((TTT::C1 :O NIL) (TTT::C2 NIL NIL) (TTT::C3 :X NIL) (TTT::C4 NIL NIL)
                   (TTT::C5 NIL NIL) (TTT::C6 NIL NIL) (TTT::C7 :O NIL) (TTT::C8 NIL NIL)
                   (TTT::C9 :X :CLICKED))))
-    
+
     (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 300 200))
     (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 100 200))
     (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 200 100))
@@ -885,12 +893,12 @@
     (is (equalp (grid-name-state-mouse)
                 '((TTT::C1 :O NIL) (TTT::C2 :X :CLICKED) (TTT::C3 :X NIL) (TTT::C4 :X NIL)
                   (TTT::C5 NIL NIL) (TTT::C6 :O NIL) (TTT::C7 :O NIL) (TTT::C8 :O NIL)
-                  (TTT::C9 :X NIL))))  
+                  (TTT::C9 :X NIL))))
     (is (equal
          (loop for c in  (ttt::get-all-cells (ttt::my-grid  ttt::*model*)) collect (ttt::state c))
          '(:O :X :X :X NIL :O :O :O :X)))
     (is (equal (type-of (ttt::state model)) 'ttt::playing))
-    
+
     (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 200 200))
     (is (equalp (grid-name-state-mouse)
                 '((TTT::C1 :O NIL) (TTT::C2 :X NIL) (TTT::C3 :X NIL) (TTT::C4 :X NIL)
@@ -898,5 +906,5 @@
                   (TTT::C9 :X NIL))))
     (is (equal
          (loop for c in  (ttt::get-all-cells (ttt::my-grid  ttt::*model*)) collect (ttt::state c))
-         '(:O :X :X :X :O :O :O :O :X)))     
+         '(:O :X :X :X :O :O :O :O :X)))
     (is (equal (type-of (ttt::state model)) 'ttt::no-moves))))
