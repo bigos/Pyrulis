@@ -150,7 +150,7 @@
        0.0
        (* 2.0 (coerce pi 'single-float)))
 
-      (with-gdk-rgba (color "#FF8844FF")
+      (with-gdk-rgba (color "#668844FF")
         (gdk:cairo-set-source-rgba cr color))
       (cairo:fill-path)
 
@@ -184,7 +184,7 @@
         ;; (square-centered-at (+ hw dist) (+ hh dist) size)
 
         ;; top bar
-        (with-gdk-rgba (color "#BBBBBBCC")
+        (with-gdk-rgba (color "#FFFFD0F0")
           (gdk:cairo-set-source-rgba cr color))
 
         (cairo:rectangle (- hw (* size 2))
@@ -203,20 +203,17 @@
         (cairo:fill-path)
 
 
-        (with-gdk-rgba (color "#FF4466CC")
+        (with-gdk-rgba (color "#441111FF")
           (gdk:cairo-set-source-rgba cr color))
         (cairo:select-font-face "Ubuntu Mono"
                                 :normal :bold)
         (cairo:set-font-size (* size 0.5))
-        (cairo:move-to (- hw (* size 2)) (- hh (* size 1.62)))
-        (cairo:show-text (format nil "~s"
+        (cairo:move-to (- hw (* size 1.75)) (- hh (* size 1.72)))
+        (cairo:show-text (format nil "~A"
                                  (etypecase  (state model)
-                                   (init "Click to start")
-                                   (playing (format nil "Place ~S" (next-placed model)))
-                                   (won
-                                    (break "in winner")
-                                    (format nil "~S has won" (winner (state model))))
-                                   )))
+                                   (init    (format nil "Place ~A" (next-placed model)))
+                                   (playing (format nil "Place ~A" (next-placed model)))
+                                   (won     (format nil "~A has won" (winner (state model)))))))
 
         ;; help area
         ;; (with-gdk-rgba (color "#88FFFFAA")
@@ -236,7 +233,7 @@
     (loop for cell-name in '(c7 c8 c9
                              c4 c5 c6
                              c1 c2 c3)
-          for redval = 200
+          for redval = 250
           do (let* ((gc (slot-value (my-grid model) cell-name))
                     (cc  (coords gc))
                     (cm (mouse gc)))
@@ -253,7 +250,7 @@
                                         (cond
                                           ((eql (state gc)
                                                 (winner (state model)))
-                                           "#FF1122FF")
+                                           "#A01122FF")
                                           (t "#221122aa")))
                                        (T "#221122FF")))
                  (gdk:cairo-set-source-rgba cr color)
