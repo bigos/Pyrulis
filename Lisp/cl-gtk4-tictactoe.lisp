@@ -653,7 +653,7 @@
 ;; :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;; (in-package "CL-USER")
 
-(defpackahge #:cl-gtk4-tictactoe/tests
+(defpackage #:cl-gtk4-tictactoe/tests
   (:use #:cl
         #:fiveam)
   (:local-nicknames (:ttt :cl-gtk4-tictactoe))
