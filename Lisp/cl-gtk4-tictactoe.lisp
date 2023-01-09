@@ -212,14 +212,15 @@
         (cairo:show-text (format nil "~A" 123))
 
         ;; help area
-        ;; (with-gdk-rgba (color "#88FFFFAA")
-        ;;   (gdk:cairo-set-source-rgba cr color))
-        ;; (cairo:rectangle (- hw (* size 2) 10)
-        ;;                  (- hh (* size 2))
-        ;;                  (+ (* size 4) (* 2 10))
-        ;;                  (* size 4))
-        ;; (cairo:fill-path)
-        )))) 
+        (with-gdk-rgba (color "#88FFFFAA")
+          (gdk:cairo-set-source-rgba cr color))
+        (cairo:rectangle (- hw (* size 2) 10)
+                         (- hh (* size 2))
+                         (+ (* size 4) (* 2 10))
+                         (* size 4))
+        (cairo:fill-path))))
+  
+  
 
   ;; procedural method part::::::::::::::::::::::::::::::::::::::::::
   (let ((size (/ (min (ui-width model) (ui-height model))
@@ -256,7 +257,7 @@
                                                        (ecase (state gc)
                                                          (:x "X")
                                                          (:o "O"))
-                                                       "")))))))
+                                                       "")))))))  
 
   (progn
     ;; (format t "mouse coord ~S ~S~%" (mouse-x model) (mouse-y model))
@@ -268,13 +269,15 @@
 
     (with-gdk-rgba (color "#FFFFBBFF")
       (gdk:cairo-set-source-rgba cr color))
-    (cairo:fill-path))
+    (cairo:fill-path)))
+  
 
   ;; (format t "nearest grid cells ~S~%" (nearest-grid-cells model))
   ;; (format t "mouse state ~S ~S~%" (mouse-x model) (mouse-y model))
   
 
 ;;; ================ end of draw-func ==========================================
+
 
 (cffi:defcallback %draw-func :void ((area :pointer)
                                     (cr :pointer)
