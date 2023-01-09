@@ -164,24 +164,24 @@
              (dist (+ size (* size 0.05))))
 
         ;; grid background
-        (with-gdk-rgba (color "#777777CC")
-          (gdk:cairo-set-source-rgba cr color))
-        (square-centered-at hw hh (+ (* size 3) (* size 0.20)))
+        ;; (with-gdk-rgba (color "#777777CC")
+        ;;   (gdk:cairo-set-source-rgba cr color))
+        ;; (square-centered-at hw hh (+ (* size 3) (* size 0.20)))
 
         ;; grid
-        (with-gdk-rgba (color "#FFFFFFCC")
-          (gdk:cairo-set-source-rgba cr color))
-        (square-centered-at (- hw dist) (- hh dist) size)
-        (square-centered-at (- hw dist) hh size)
-        (square-centered-at (- hw dist) (+ hh dist) size)
+        ;; (with-gdk-rgba (color "#FFFFFFCC")
+        ;;   (gdk:cairo-set-source-rgba cr color))
+        ;; (square-centered-at (- hw dist) (- hh dist) size)
+        ;; (square-centered-at (- hw dist) hh size)
+        ;; (square-centered-at (- hw dist) (+ hh dist) size)
 
-        (square-centered-at hw (- hh dist) size)
-        (square-centered-at hw hh size)
-        (square-centered-at hw (+ hh dist) size)
+        ;; (square-centered-at hw (- hh dist) size)
+        ;; (square-centered-at hw hh size)
+        ;; (square-centered-at hw (+ hh dist) size)
 
-        (square-centered-at (+ hw dist) (- hh dist) size)
-        (square-centered-at (+ hw dist) hh size)
-        (square-centered-at (+ hw dist) (+ hh dist) size)
+        ;; (square-centered-at (+ hw dist) (- hh dist) size)
+        ;; (square-centered-at (+ hw dist) hh size)
+        ;; (square-centered-at (+ hw dist) (+ hh dist) size)
 
         ;; top bar
         (with-gdk-rgba (color "#BBBBBBCC")
@@ -203,13 +203,13 @@
         (cairo:fill-path)
 
         ;; help area
-        (with-gdk-rgba (color "#88FFFFAA")
-          (gdk:cairo-set-source-rgba cr color))
-        (cairo:rectangle (- hw (* size 2) 10)
-                         (- hh (* size 2))
-                         (+ (* size 4) (* 2 10))
-                         (* size 4))
-        (cairo:fill-path))))
+        ;; (with-gdk-rgba (color "#88FFFFAA")
+        ;;   (gdk:cairo-set-source-rgba cr color))
+        ;; (cairo:rectangle (- hw (* size 2) 10)
+        ;;                  (- hh (* size 2))
+        ;;                  (+ (* size 4) (* 2 10))
+        ;;                  (* size 4))
+        ;; (cairo:fill-path))))
 
   ;; procedural method part::::::::::::::::::::::::::::::::::::::::::
   (let ((size (/ (min (ui-width model) (ui-height model))
@@ -653,7 +653,7 @@
 ;; :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;; (in-package "CL-USER")
 
-(defpackage #:cl-gtk4-tictactoe/tests
+(defpackahge #:cl-gtk4-tictactoe/tests
   (:use #:cl
         #:fiveam)
   (:local-nicknames (:ttt :cl-gtk4-tictactoe))
