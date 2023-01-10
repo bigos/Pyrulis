@@ -678,12 +678,9 @@
   ;; because we need easier package prefix for symbols
   (:local-nicknames (:ttt :cl-gtk4-tictactoe))
   ;; import global and tested functions
-  (:import-from
-   :cl-gtk4-tictactoe
-   ;; globals
-   :*model*
-   ;; methods and functions
-   :c1 :c2 :c3 :c4 :c5 :c6 :c7 :c8 :c9
+  (:import-from #:cl-gtk4-tictactoe
+   :*model*                             ; globals
+   :c1 :c2 :c3 :c4 :c5 :c6 :c7 :c8 :c9  ; methods and functions
    :coords
    :event-sink-test
    :get-all-cells
