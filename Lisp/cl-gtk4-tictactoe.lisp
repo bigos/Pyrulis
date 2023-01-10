@@ -250,7 +250,13 @@
                                         (cond
                                           ((eql (state gc)
                                                 (winner (state model)))
-                                           "#A01122FF")
+                                           (cond
+                                             ((member (name gc)
+                                                      (caar (get-all-cells (my-grid model)))
+                                                      :test #'equalp))
+                                             (t
+                                              "#A01122FF"))
+                                           )
                                           (t "#221122aa")))
                                        (T "#221122FF")))
                  (gdk:cairo-set-source-rgba cr color)
@@ -385,6 +391,7 @@
                 ;; -------
                 (c7 c5 c3)
                 (c9 c5 c1))))
+    ;; TODO fix me - we do not handle situation where two lines are possible
     (loop for set in sets
           for cells = (get-grid-cells% grid set)
           when (or (equalp cells '(:o :o :o))
