@@ -669,12 +669,34 @@
   (sb-ext:quit))
 
 ;; :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-;; (in-package "CL-USER")
 
+(in-package "CL-USER")
 (defpackage #:cl-gtk4-tictactoe/tests
   (:use #:cl
-        #:fiveam)
+        #:fiveam
+        #:cl-gtk4-tictactoe)
+  ;; because we need easier package prefix for symbols
   (:local-nicknames (:ttt :cl-gtk4-tictactoe))
+  ;; import global and tested functions
+  (:import-from
+   :cl-gtk4-tictactoe
+   ;; globals
+   :*model*
+   ;; methods and functions
+   :c1 :c2 :c3 :c4 :c5 :c6 :c7 :c8 :c9
+   :coords
+   :event-sink-test
+   :get-all-cells
+   :get-all-lines
+   :init-model
+   :mouse
+   :my-grid
+   :name
+   :nearest-grid-cells
+   :state
+   :ui-height
+   :ui-width
+   :winner)
   (:export #:run!
            #:all-tests))
 
@@ -685,16 +707,17 @@
 
 ;;; testing
 ;; (load "~/Programming/Pyrulis/Lisp/cl-gtk4-tictactoe.lisp")
+;; (cl-gtk4-tictactoe/tests:run!)
 ;; (in-package #:cl-gtk4-tictactoe/tests)
 ;;; (run!)
 
 (defun grid-name-mouse ()
-  (loop for c in  (ttt::get-all-cells (ttt::my-grid  ttt::*model*))
-        collect (list (ttt::name c) (ttt::mouse c))))
+  (loop for c in  (get-all-cells (my-grid  *model*))
+        collect (list (name c) (mouse c))))
 
 (defun grid-name-state-mouse ()
-  (loop for c in  (ttt::get-all-cells (ttt::my-grid  ttt::*model*))
-        collect (list (ttt::name c) (ttt::state c) (ttt::mouse c))))
+  (loop for c in  (get-all-cells (my-grid  *model*))
+        collect (list (name c) (state c) (mouse c))))
 
 (def-suite my-suite
   :description "Test my system")
@@ -717,191 +740,191 @@
 
 (test mouse-movement
   "Testing mouse movement and cell hovering"
-  (setf ttt::*model* nil)
-  (is (null ttt::*model*))
-  (let ((model (ttt::init-model)))
-    (is (eql (type-of model) 'ttt::MODEL))
-    (ttt::event-sink-test "resize" nil                         '(400 400))
-    (is (= 400 (ttt::ui-width  model)))
-    (is (= 400 (ttt::ui-height model)))
-    (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(0 0))
-    (is (null (ttt::nearest-grid-cells model)))
+  (setf *model* nil)
+  (is (null *model*))
+  (let ((model (init-model)))
+    (is (eql (type-of model) 'ttt::model))
+    (event-sink-test "resize" nil                         '(400 400))
+    (is (= 400 (ui-width  model)))
+    (is (= 400 (ui-height model)))
+    (event-sink-test "motion" "#O<EventControllerMotion>" '(0 0))
+    (is (null (nearest-grid-cells model)))
     (is (equalp (grid-name-mouse)
-                '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 NIL) (TTT::C5 NIL)
-                  (TTT::C6 NIL) (TTT::C7 NIL) (TTT::C8 NIL) (TTT::C9 NIL))))
+                '((C1 NIL) (C2 NIL) (C3 NIL) (C4 NIL) (C5 NIL)
+                  (C6 NIL) (C7 NIL) (C8 NIL) (C9 NIL))))
 
 
-    (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(100 100))
-    (is-false (null (car (ttt::nearest-grid-cells model))))
-    (is (equalp (ttt::coords (ttt::c7 (ttt::my-grid  model)))
+    (event-sink-test "motion" "#O<EventControllerMotion>" '(100 100))
+    (is-false (null (car (nearest-grid-cells model))))
+    (is (equalp (coords (c7 (my-grid  model)))
                 '((106.66667 . 106.66667) (195.55556 . 195.55556))))
     (is (equalp (grid-name-mouse)
-                '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 NIL) (TTT::C5 NIL)
-                  (TTT::C6 NIL) (TTT::C7 :HOVER) (TTT::C8 NIL) (TTT::C9 NIL))))
+                '((C1 NIL) (C2 NIL) (C3 NIL) (C4 NIL) (C5 NIL)
+                  (C6 NIL) (C7 :HOVER) (C8 NIL) (C9 NIL))))
 
-    (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(100 200))
-    (is-false (null (car (ttt::nearest-grid-cells model))))
-    (is (equalp (ttt::coords (ttt::c4 (ttt::my-grid  model)))
+    (event-sink-test "motion" "#O<EventControllerMotion>" '(100 200))
+    (is-false (null (car (nearest-grid-cells model))))
+    (is (equalp (coords (c4 (my-grid  model)))
                 '((106.66667 . 200) (195.55556 . 288.8889))))
-    (is (eq :hover (ttt::mouse (ttt::c4 (ttt::my-grid  model)))))
+    (is (eq :hover (mouse (c4 (my-grid  model)))))
     (is (equalp (grid-name-mouse)
-                '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 :HOVER) (TTT::C5 NIL)
-                  (TTT::C6 NIL) (TTT::C7 NIL) (TTT::C8 NIL) (TTT::C9 NIL))))
+                '((C1 NIL) (C2 NIL) (C3 NIL) (C4 :HOVER) (C5 NIL)
+                  (C6 NIL) (C7 NIL) (C8 NIL) (C9 NIL))))
 
-    (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(100 290))
-    (is-false (null (car (ttt::nearest-grid-cells model))))
-    (is (equalp (ttt::coords (ttt::c1 (ttt::my-grid  model)))
+    (event-sink-test "motion" "#O<EventControllerMotion>" '(100 290))
+    (is-false (null (car (nearest-grid-cells model))))
+    (is (equalp (coords (c1 (my-grid  model)))
                 '((106.66667 . 293.3333) (195.55556 . 382.2222))))
     (is (equalp (grid-name-mouse)
-                '((TTT::C1 :HOVER) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 NIL) (TTT::C5 NIL)
-                 (TTT::C6 NIL) (TTT::C7 NIL) (TTT::C8 NIL) (TTT::C9 NIL))))
+                '((C1 :HOVER) (C2 NIL) (C3 NIL) (C4 NIL) (C5 NIL)
+                 (C6 NIL) (C7 NIL) (C8 NIL) (C9 NIL))))
 
 
-    (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(333 65))
-    (is (equalp (ttt::coords (ttt::c9 (ttt::my-grid  model)))
+    (event-sink-test "motion" "#O<EventControllerMotion>" '(333 65))
+    (is (equalp (coords (c9 (my-grid  model)))
                 '((293.3333 . 106.66667) (382.2222 . 195.55556))))
     (is (equalp (grid-name-mouse)
-                '((TTT::C1 NIL) (TTT::C2 NIL) (TTT::C3 NIL) (TTT::C4 NIL) (TTT::C5 NIL)
-                 (TTT::C6 NIL) (TTT::C7 NIL) (TTT::C8 NIL) (TTT::C9 :HOVER))))))
+                '((C1 NIL) (C2 NIL) (C3 NIL) (C4 NIL) (C5 NIL)
+                 (C6 NIL) (C7 NIL) (C8 NIL) (C9 :HOVER))))))
 
 (test mouse-clicks-winning
   "Testing mouse movement and clicks leading to win"
-  (setf ttt::*model* nil)
-  (is (null ttt::*model*))
-  (let ((model (ttt::init-model)))
-    (ttt::event-sink-test "resize" nil                         '(400 400))
-    (is (= 400 (ttt::ui-width  model)))
-    (is (= 400 (ttt::ui-height model)))
+  (setf *model* nil)
+  (is (null *model*))
+  (let ((model (init-model)))
+    (event-sink-test "resize" nil                         '(400 400))
+    (is (= 400 (ui-width  model)))
+    (is (= 400 (ui-height model)))
 
-    (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(10 10))
-    (is (null (ttt::nearest-grid-cells model)))
+    (event-sink-test "motion" "#O<EventControllerMotion>" '(10 10))
+    (is (null (nearest-grid-cells model)))
     ;; c7 o
-    (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(70 70))
-    (is-false (null (ttt::nearest-grid-cells model)))
+    (event-sink-test "motion" "#O<EventControllerMotion>" '(70 70))
+    (is-false (null (nearest-grid-cells model)))
     (is (equalp (grid-name-state-mouse)
-                '((TTT::C1 NIL NIL) (TTT::C2 NIL NIL) (TTT::C3 NIL NIL) (TTT::C4 NIL NIL)
-                  (TTT::C5 NIL NIL) (TTT::C6 NIL NIL) (TTT::C7 NIL :HOVER) (TTT::C8 NIL NIL)
-                  (TTT::C9 NIL NIL))))
+                '((C1 NIL NIL) (C2 NIL NIL) (C3 NIL NIL) (C4 NIL NIL)
+                  (C5 NIL NIL) (C6 NIL NIL) (C7 NIL :HOVER) (C8 NIL NIL)
+                  (C9 NIL NIL))))
 
-    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 70 70))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 70 70))
     (is (equalp (grid-name-state-mouse)
-                '((TTT::C1 NIL NIL) (TTT::C2 NIL NIL) (TTT::C3 NIL NIL) (TTT::C4 NIL NIL)
-                  (TTT::C5 NIL NIL) (TTT::C6 NIL NIL) (TTT::C7 :O :CLICKED) (TTT::C8 NIL NIL)
-                  (TTT::C9 NIL NIL))))
+                '((C1 NIL NIL) (C2 NIL NIL) (C3 NIL NIL) (C4 NIL NIL)
+                  (C5 NIL NIL) (C6 NIL NIL) (C7 :O :CLICKED) (C8 NIL NIL)
+                  (C9 NIL NIL))))
     ;; c8 x
-    (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(175 85))
-    (is-false (null (ttt::nearest-grid-cells model)))
+    (event-sink-test "motion" "#O<EventControllerMotion>" '(175 85))
+    (is-false (null (nearest-grid-cells model)))
     (is (equalp (grid-name-state-mouse)
-                '((TTT::C1 NIL NIL) (TTT::C2 NIL NIL) (TTT::C3 NIL NIL) (TTT::C4 NIL NIL)
-                  (TTT::C5 NIL NIL) (TTT::C6 NIL NIL) (TTT::C7 :O NIL) (TTT::C8 NIL :HOVER)
-                  (TTT::C9 NIL NIL))))
+                '((C1 NIL NIL) (C2 NIL NIL) (C3 NIL NIL) (C4 NIL NIL)
+                  (C5 NIL NIL) (C6 NIL NIL) (C7 :O NIL) (C8 NIL :HOVER)
+                  (C9 NIL NIL))))
 
-    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 175 85))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 175 85))
     (is (equalp (grid-name-state-mouse)
-                '((TTT::C1 NIL NIL) (TTT::C2 NIL NIL) (TTT::C3 NIL NIL) (TTT::C4 NIL NIL)
-                 (TTT::C5 NIL NIL) (TTT::C6 NIL NIL) (TTT::C7 :O NIL) (TTT::C8 :X :CLICKED)
-                 (TTT::C9 NIL NIL))))
+                '((C1 NIL NIL) (C2 NIL NIL) (C3 NIL NIL) (C4 NIL NIL)
+                 (C5 NIL NIL) (C6 NIL NIL) (C7 :O NIL) (C8 :X :CLICKED)
+                 (C9 NIL NIL))))
     ;; c4 o
-    (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(100 200))
-    (is-false (null (ttt::nearest-grid-cells model)))
+    (event-sink-test "motion" "#O<EventControllerMotion>" '(100 200))
+    (is-false (null (nearest-grid-cells model)))
     (is (equalp (grid-name-state-mouse)
-                '((TTT::C1 NIL NIL) (TTT::C2 NIL NIL) (TTT::C3 NIL NIL) (TTT::C4 NIL :HOVER)
-                  (TTT::C5 NIL NIL) (TTT::C6 NIL NIL) (TTT::C7 :O NIL) (TTT::C8 :X NIL)
-                  (TTT::C9 NIL NIL))))
+                '((C1 NIL NIL) (C2 NIL NIL) (C3 NIL NIL) (C4 NIL :HOVER)
+                  (C5 NIL NIL) (C6 NIL NIL) (C7 :O NIL) (C8 :X NIL)
+                  (C9 NIL NIL))))
 
-    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 100 200))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 100 200))
     (is (equalp (grid-name-state-mouse)
-                '((TTT::C1 NIL NIL) (TTT::C2 NIL NIL) (TTT::C3 NIL NIL) (TTT::C4 :O :CLICKED)
-                  (TTT::C5 NIL NIL) (TTT::C6 NIL NIL) (TTT::C7 :O NIL) (TTT::C8 :X NIL)
-                  (TTT::C9 NIL NIL))))
+                '((C1 NIL NIL) (C2 NIL NIL) (C3 NIL NIL) (C4 :O :CLICKED)
+                  (C5 NIL NIL) (C6 NIL NIL) (C7 :O NIL) (C8 :X NIL)
+                  (C9 NIL NIL))))
 
     ;; c9 x
-    (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(333 65))
-    (is-false (null (ttt::nearest-grid-cells model)))
+    (event-sink-test "motion" "#O<EventControllerMotion>" '(333 65))
+    (is-false (null (nearest-grid-cells model)))
     (is (equalp (grid-name-state-mouse)
-                '((TTT::C1 NIL NIL) (TTT::C2 NIL NIL) (TTT::C3 NIL NIL) (TTT::C4 :O NIL)
-                  (TTT::C5 NIL NIL) (TTT::C6 NIL NIL) (TTT::C7 :O NIL) (TTT::C8 :X NIL)
-                  (TTT::C9 NIL :HOVER))))
+                '((C1 NIL NIL) (C2 NIL NIL) (C3 NIL NIL) (C4 :O NIL)
+                  (C5 NIL NIL) (C6 NIL NIL) (C7 :O NIL) (C8 :X NIL)
+                  (C9 NIL :HOVER))))
 
-    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 333 65))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 333 65))
     (is (equalp (grid-name-state-mouse)
-                '((TTT::C1 NIL NIL) (TTT::C2 NIL NIL) (TTT::C3 NIL NIL) (TTT::C4 :O NIL)
-                 (TTT::C5 NIL NIL) (TTT::C6 NIL NIL) (TTT::C7 :O NIL) (TTT::C8 :X NIL)
-                 (TTT::C9 :X :CLICKED))))
+                '((C1 NIL NIL) (C2 NIL NIL) (C3 NIL NIL) (C4 :O NIL)
+                 (C5 NIL NIL) (C6 NIL NIL) (C7 :O NIL) (C8 :X NIL)
+                 (C9 :X :CLICKED))))
 
     ;; c1 o
-    (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(100 290))
-    (is-false (null (ttt::nearest-grid-cells model)))
+    (event-sink-test "motion" "#O<EventControllerMotion>" '(100 290))
+    (is-false (null (nearest-grid-cells model)))
     (is (equalp (grid-name-state-mouse)
-                '((TTT::C1 NIL :HOVER) (TTT::C2 NIL NIL) (TTT::C3 NIL NIL) (TTT::C4 :O NIL)
-                 (TTT::C5 NIL NIL) (TTT::C6 NIL NIL) (TTT::C7 :O NIL) (TTT::C8 :X NIL)
-                 (TTT::C9 :X NIL))))
+                '((C1 NIL :HOVER) (C2 NIL NIL) (C3 NIL NIL) (C4 :O NIL)
+                 (C5 NIL NIL) (C6 NIL NIL) (C7 :O NIL) (C8 :X NIL)
+                 (C9 :X NIL))))
 
-    (is (equal (type-of (ttt::state model)) 'ttt::playing))
+    (is (equal (type-of (state model)) 'ttt::playing))
     ;; winning move
-    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 100 290))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 100 290))
     (is (equalp (grid-name-state-mouse)
-                '((TTT::C1 :O :CLICKED) (TTT::C2 NIL NIL) (TTT::C3 NIL NIL) (TTT::C4 :O NIL)
-                 (TTT::C5 NIL NIL) (TTT::C6 NIL NIL) (TTT::C7 :O NIL) (TTT::C8 :X NIL)
-                 (TTT::C9 :X NIL))))
-    (is (equal (type-of (ttt::state model)) 'ttt::won))
-    (is (equal (ttt::winner (ttt::state model)) :o))
+                '((C1 :O :CLICKED) (C2 NIL NIL) (C3 NIL NIL) (C4 :O NIL)
+                 (C5 NIL NIL) (C6 NIL NIL) (C7 :O NIL) (C8 :X NIL)
+                 (C9 :X NIL))))
+    (is (equal (type-of (state model)) 'ttt::won))
+    (is (equal (winner (state model)) :o))
     ;; now player x clicking on the grid should not do anything
 
     ;; c6 x
-    (ttt::event-sink-test "motion" "#O<EventControllerMotion>" '(285 200))
-    (is-false (null (ttt::nearest-grid-cells model)))
+    (event-sink-test "motion" "#O<EventControllerMotion>" '(285 200))
+    (is-false (null (nearest-grid-cells model)))
     (is (equalp (grid-name-state-mouse)
-                '((TTT::C1 :O NIL) (TTT::C2 NIL NIL) (TTT::C3 NIL NIL) (TTT::C4 :O NIL)
-                  (TTT::C5 NIL NIL) (TTT::C6 NIL :HOVER) (TTT::C7 :O NIL) (TTT::C8 :X NIL)
-                  (TTT::C9 :X NIL))))
+                '((C1 :O NIL) (C2 NIL NIL) (C3 NIL NIL) (C4 :O NIL)
+                  (C5 NIL NIL) (C6 NIL :HOVER) (C7 :O NIL) (C8 :X NIL)
+                  (C9 :X NIL))))
 
     ;; the c6 cell is still supposed to be in hover state
-    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 285 200))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 285 200))
     (is (equalp (grid-name-state-mouse)
-               ' ((TTT::C1 :O NIL) (TTT::C2 NIL NIL) (TTT::C3 NIL NIL) (TTT::C4 :O NIL)
-                 (TTT::C5 NIL NIL) (TTT::C6 NIL :HOVER) (TTT::C7 :O NIL) (TTT::C8 :X NIL)
-                 (TTT::C9 :X NIL))))
-    (is (equalp (ttt::get-all-lines (ttt::my-grid model))
-                '(((TTT::C7 TTT::C4 TTT::C1) (:O :O :O)))))))
+               ' ((C1 :O NIL) (C2 NIL NIL) (C3 NIL NIL) (C4 :O NIL)
+                 (C5 NIL NIL) (C6 NIL :HOVER) (C7 :O NIL) (C8 :X NIL)
+                 (C9 :X NIL))))
+    (is (equalp (get-all-lines (my-grid model))
+                '(((C7 C4 C1) (:O :O :O)))))))
 
 (test mouse-clicks-draw
   "Testing mouse clicks leading to draw."
-  (setf ttt::*model* nil)
-  (is (null ttt::*model*))
-  (let ((model (ttt::init-model)))
-    (ttt::event-sink-test "resize" nil                         '(400 400))
-    (is (= 400 (ttt::ui-width  model)))
-    (is (= 400 (ttt::ui-height model)))
+  (setf *model* nil)
+  (is (null *model*))
+  (let ((model (init-model)))
+    (event-sink-test "resize" nil                         '(400 400))
+    (is (= 400 (ui-width  model)))
+    (is (= 400 (ui-height model)))
 
-    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 100 100))
-    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 300 300))
-    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 100 300))
-    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 300 100))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 100 100))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 300 300))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 100 300))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 300 100))
     (is (equalp (grid-name-state-mouse)
-                '((TTT::C1 :O NIL) (TTT::C2 NIL NIL) (TTT::C3 :X NIL) (TTT::C4 NIL NIL)
-                  (TTT::C5 NIL NIL) (TTT::C6 NIL NIL) (TTT::C7 :O NIL) (TTT::C8 NIL NIL)
-                  (TTT::C9 :X :CLICKED))))
+                '((C1 :O NIL) (C2 NIL NIL) (C3 :X NIL) (C4 NIL NIL)
+                  (C5 NIL NIL) (C6 NIL NIL) (C7 :O NIL) (C8 NIL NIL)
+                  (C9 :X :CLICKED))))
 
-    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 300 200))
-    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 100 200))
-    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 200 100))
-    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 200 300))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 300 200))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 100 200))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 200 100))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 200 300))
     (is (equalp (grid-name-state-mouse)
-                '((TTT::C1 :O NIL) (TTT::C2 :X :CLICKED) (TTT::C3 :X NIL) (TTT::C4 :X NIL)
-                  (TTT::C5 NIL NIL) (TTT::C6 :O NIL) (TTT::C7 :O NIL) (TTT::C8 :O NIL)
-                  (TTT::C9 :X NIL))))
+                '((C1 :O NIL) (C2 :X :CLICKED) (C3 :X NIL) (C4 :X NIL)
+                  (C5 NIL NIL) (C6 :O NIL) (C7 :O NIL) (C8 :O NIL)
+                  (C9 :X NIL))))
     (is (equal
-         (loop for c in  (ttt::get-all-cells (ttt::my-grid  ttt::*model*)) collect (ttt::state c))
+         (loop for c in  (get-all-cells (my-grid  *model*)) collect (state c))
          '(:O :X :X :X NIL :O :O :O :X)))
-    (is (equal (type-of (ttt::state model)) 'ttt::playing))
+    (is (equal (type-of (state model)) 'ttt::playing))
 
-    (ttt::event-sink-test "pressed" "#O<GestureClick>" '(1 200 200))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 200 200))
     (is (equalp (grid-name-state-mouse)
-                '((TTT::C1 :O NIL) (TTT::C2 :X NIL) (TTT::C3 :X NIL) (TTT::C4 :X NIL)
-                  (TTT::C5 :O :CLICKED) (TTT::C6 :O NIL) (TTT::C7 :O NIL) (TTT::C8 :O NIL)
-                  (TTT::C9 :X NIL))))
+                '((C1 :O NIL) (C2 :X NIL) (C3 :X NIL) (C4 :X NIL)
+                  (C5 :O :CLICKED) (C6 :O NIL) (C7 :O NIL) (C8 :O NIL)
+                  (C9 :X NIL))))
     (is (equal
-         (loop for c in  (ttt::get-all-cells (ttt::my-grid  ttt::*model*)) collect (ttt::state c))
+         (loop for c in  (get-all-cells (my-grid  *model*)) collect (state c))
          '(:O :X :X :X :O :O :O :O :X)))
-    (is (eql (type-of (ttt::state model)) 'ttt::no-moves))))
+    (is (eql (type-of (state model)) 'ttt::no-moves))))
