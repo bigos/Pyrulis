@@ -252,9 +252,9 @@
                                           ((eql (state gc)
                                                 (winner (state model)))
                                            (cond
-                                             ((member (name gc)
-                                                      (caar (get-all-cells (my-grid model)))
-                                                      :test #'equalp))
+                                             ;; ((member (name gc)
+                                             ;;          (caar (get-all-cells (my-grid model)))
+                                             ;;          :test #'equalp))
                                              (t
                                               "#A01122FF"))
                                            )
