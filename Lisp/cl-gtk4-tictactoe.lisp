@@ -229,7 +229,6 @@
 
 
   ;; procedural method part::::::::::::::::::::::::::::::::::::::::::
-  (format t "vvvvvvvvvvvvvvvview all cells ~S~%" (get-all-cells (my-grid model)))
   (let ((size (/ (min (ui-width model) (ui-height model))
                  4.5)))
     (loop for cell-name in '(c7 c8 c9
@@ -254,7 +253,7 @@
                                                 (winner (state model)))
                                            (cond
                                              ((member (name gc)
-                                                      (caar (get-all-lines (my-grid model))) ; zzz
+                                                      (caar (get-all-lines (my-grid model)))
                                                       :test #'equalp)
                                               "#FF0000FF")
                                              (t
