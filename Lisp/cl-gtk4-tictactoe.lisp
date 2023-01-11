@@ -66,7 +66,7 @@
 (defclass/std state    ()      nil)
 (defclass/std init     (state) nil)
 (defclass/std playing  (state) nil)
-(defclass/std no-moves (state) nil) ; no side wins and now empty fields left
+(defclass/std no-moves (state) nil) ; no empty fields left and usually no side wins
 (defclass/std won      (state)
   ((winner)))
 
@@ -509,12 +509,13 @@
          (let ((all-lines (get-all-lines (my-grid model))))
            (when all-lines
              (format t "~&>>>>>>>>>>>>> winning placements ~S~%" all-lines)
-             (destructuring-bind ((cells placements)) all-lines
+             (destructuring-bind ((cells placements) &rest rest) all-lines
                (setf (state model) (make-instance 'won :winner (car placements)))
                (format t "cells ~S placements ~S ~%" cells placements))))
          (let ((empty-fields (loop for c in (get-all-cells (my-grid model)) when (null (state c)) collect c)))
            (when (endp empty-fields)
-               (setf (state model) (make-instance 'no-moves))))))
+             (unless (typep (state model) 'won)
+               (setf (state model) (make-instance 'no-moves)))))))
       (won
        (format t "doing nothing after victory~%"))
       (no-moves
