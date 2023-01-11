@@ -211,9 +211,10 @@
         (cairo:move-to (- hw (* size 1.75)) (- hh (* size 1.72)))
         (cairo:show-text (format nil "~A"
                                  (etypecase  (state model)
-                                   (init    (format nil "Place ~A" (next-placed model)))
-                                   (playing (format nil "Place ~A" (next-placed model)))
-                                   (won     (format nil "~A has won" (winner (state model)))))))
+                                   (init     (format nil "Place ~A" (next-placed model)))
+                                   (playing  (format nil "Place ~A" (next-placed model)))
+                                   (won      (format nil "~A has won" (winner (state model))))
+                                   (no-moves (format nil "~A no moves" (state model))))))
 
         ;; help area
         ;; (with-gdk-rgba (color "#88FFFFAA")
