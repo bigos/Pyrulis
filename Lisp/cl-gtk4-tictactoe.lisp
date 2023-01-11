@@ -229,6 +229,7 @@
 
 
   ;; procedural method part::::::::::::::::::::::::::::::::::::::::::
+  (format t "vvvvvvvvvvvvvvvview all cells ~S~%" (get-all-cells (my-grid model)))
   (let ((size (/ (min (ui-width model) (ui-height model))
                  4.5)))
     (loop for cell-name in '(c7 c8 c9
@@ -252,14 +253,15 @@
                                           ((eql (state gc)
                                                 (winner (state model)))
                                            (cond
-                                             ;; ((member (name gc)
-                                             ;;          (caar (get-all-cells (my-grid model)))
-                                             ;;          :test #'equalp))
+                                             ((member (name gc)
+                                                      (caar (get-all-lines (my-grid model))) ; zzz
+                                                      :test #'equalp))
                                              (t
                                               "#A01122FF"))
                                            )
                                           (t "#221122aa")))
                                        (T "#221122FF")))
+
                  (gdk:cairo-set-source-rgba cr color)
                  (cairo:select-font-face "Ubuntu Mono"
                                          :normal :bold)
