@@ -394,7 +394,6 @@
                 ;; -------
                 (c7 c5 c3)
                 (c9 c5 c1))))
-    ;; TODO fix me - we do not handle situation where two lines are possible
     (loop for set in sets
           for cells = (get-grid-cells% grid set)
           when (or (equalp cells '(:o :o :o))
