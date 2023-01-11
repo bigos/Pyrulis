@@ -255,7 +255,8 @@
                                            (cond
                                              ((member (name gc)
                                                       (caar (get-all-lines (my-grid model))) ; zzz
-                                                      :test #'equalp))
+                                                      :test #'equalp)
+                                              "#FF0000FF")
                                              (t
                                               "#A01122FF"))
                                            )
