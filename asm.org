@@ -1,0 +1,3 @@
+* High Level System Design and Analysis using Abstract State Machines
+
+pdf:/home/jacek/Documents/Manuals/High_level_system_design_and_analysis_us.pdf#1
