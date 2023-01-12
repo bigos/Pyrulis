@@ -214,3 +214,6 @@ Does it just go to the run-time and ends its run?
 ** explanation why Elm may not display JS content
 Optimised DOM Updates
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#172
+** wrapping in function
+In tests but also elsewhere wrapping some operation in a function can postpone
+evaluation until the wrapper is evaluated.
