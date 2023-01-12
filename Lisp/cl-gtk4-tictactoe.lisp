@@ -700,6 +700,7 @@
    :my-grid
    :name
    :nearest-grid-cells
+   :next-placed
    :state
    :ui-height
    :ui-width
@@ -935,3 +936,40 @@
          (loop for c in  (get-all-cells (my-grid  *model*)) collect (state c))
          '(:O :X :X :X :O :O :O :O :X)))
     (is (eql (type-of (state model)) 'ttt::no-moves))))
+
+;;; oxx
+;;; xox
+;;; oo.
+
+(test last-move-win
+  "Testing interesting special case where last move wins along two lines."
+  (setf *model* nil)
+  (is (null *model*))
+  (let ((model (init-model)))
+    (event-sink-test "resize" nil                         '(400 400))
+    (is (= 400 (ui-width  model)))
+    (is (= 400 (ui-height model)))
+
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 100 100)) ; o7
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 100 200)) ; x4
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 100 300)) ; o1
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 200 100)) ; x8
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 200 200)) ; o5
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 300 100)) ; x9
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 200 300)) ; o2
+    (is (equalp (grid-name-state-mouse)
+                '((C1 :O NIL) (C2 :O :CLICKED) (C3 NIL NIL) (C4 :X NIL) (C5 :O NIL) (C6 NIL NIL)
+                 (C7 :O NIL) (C8 :X NIL) (C9 :X NIL))))
+    (is  (eql (ttt::next-placed  model) :X))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 300 200)) ; x6
+    (is (equalp (grid-name-state-mouse)
+                '((C1 :O NIL) (C2 :O NIL) (C3 NIL NIL) (C4 :X NIL) (C5 :O NIL) (C6 :X :CLICKED)
+                 (C7 :O NIL) (C8 :X NIL) (C9 :X NIL))))
+    (is (typep (state model) 'ttt::playing))
+    (is  (eql (next-placed  model) :O))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 300 300)) ; o3
+    (is (equalp (grid-name-state-mouse)
+                '((C1 :O NIL) (C2 :O NIL) (C3 :O :CLICKED) (C4 :X NIL) (C5 :O NIL) (C6 :X NIL)
+                  (C7 :O NIL) (C8 :X NIL) (C9 :X NIL))))
+    (is (typep (state model) 'ttt::won))
+    (is (eql (winner (state model)) :O))))
