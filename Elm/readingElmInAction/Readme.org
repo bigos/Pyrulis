@@ -39,8 +39,8 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
 6 Testing
 
-RUNNING OUR FIRST TEST
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#191
+6.1.2 Unit testing a JSON decoder
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#193
 
 * The other links
 ** code
