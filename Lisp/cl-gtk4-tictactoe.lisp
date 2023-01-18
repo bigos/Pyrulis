@@ -641,7 +641,7 @@
                  (setf (window-title        window) "Tic Tac Toe"
                        (window-default-size window) (list 400 400))
                  (let ((box (make-box :orientation +orientation-vertical+
-                                      :spacing 0)))
+                                      :spacing 0)))                  
                    (let ((canvas (gtk:make-drawing-area)))
 
                      (setf (drawing-area-content-width canvas) 200
