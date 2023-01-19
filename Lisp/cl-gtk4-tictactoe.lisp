@@ -670,7 +670,7 @@
                        (box-append box canvas))
                      (setf (window-child window)
                            box))
-                   ;; menu-----
+                   ;; menu----- with my fork https://github.com/bigos/cl-gtk4
                    (let* ((menubar (gio:make-menu))
                          (menu-item-menu (gio:make-menu-item :label "Menu"))
                          (menu (gio:make-menu))
