@@ -670,7 +670,22 @@
                        (box-append box canvas))
                      (setf (window-child window)
                            box))
-                                      
+                   ;; menu-----
+                   (let* ((menubar (gio:make-menu))
+                         (menu-item-menu (gio:make-menu-item :label "Menu"))
+                         (menu (gio:make-menu))
+                         (menu-item-quit (gio:make-menu-item :label "Quit" :detailed-action "app.quit")))
+                     (gio:menu-append-item menu menu-item-quit)
+                     (gobject:object-unref menu-item-quit)
+                     
+                     (setf
+                      (gio:menu-item-submenu menu-item-menu) menu)
+                     
+                     (gio:menu-append-item menubar menu-item-menu)
+                     (gobject:object-unref menu-item-menu)
+                     
+                     (setf 
+                      (gtk4:application-menubar app) menubar))
                    (window-present window))))
       
       (setf stat (gio:application-run app nil))
