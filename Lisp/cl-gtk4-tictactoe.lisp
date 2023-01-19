@@ -670,6 +670,7 @@
                        (box-append box canvas))
                      (setf (window-child window)
                            box))
+                                      
                    (window-present window))))
       
       (setf stat (gio:application-run app nil))
