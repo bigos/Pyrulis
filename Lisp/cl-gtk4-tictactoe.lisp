@@ -671,24 +671,29 @@
                      (setf (window-child window)
                            box))
                    ;; menu----- with my fork https://github.com/bigos/cl-gtk4
-                   (let* ((menubar (gio:make-menu))
-                          (menu-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
-                          (menu (gio:make-menu))
-                          (menu-item-quit (gio:make-menu-item :label "Quit"
-                                                              :detailed-action "app.quit" )))
-                     (gio:menu-append-item menu menu-item-quit)
-                     (gobject:object-unref menu-item-quit)
+                   (let ((act-quit (gio:make-simple-action :name "quit" :parameter-type nil)))
+                     (connect act-quit "quit" (lambda (&rest args)
+                                                (warn "quit action ~S" args)))
+                     (let* ((menubar (gio:make-menu))
+                            (menu-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
+                            (menu (gio:make-menu))
+                            (menu-item-quit (gio:make-menu-item :label "Quit"
+                                                                :detailed-action "app.quit" )))
 
-                     (setf
-                      (gio:menu-item-submenu menu-item-menu) menu)
 
-                     (gio:menu-append-item menubar menu-item-menu)
-                     (gobject:object-unref menu-item-menu)
+                       (gio:menu-append-item menu menu-item-quit)
+                       (gobject:object-unref menu-item-quit)
 
-                     (setf
-                      (gtk4:application-menubar app) menubar
-                      (gtk4:application-window-show-menubar-p window) T)
-                     (window-present window)))))
+                       (setf
+                        (gio:menu-item-submenu menu-item-menu) menu)
+
+                       (gio:menu-append-item menubar menu-item-menu)
+                       (gobject:object-unref menu-item-menu)
+
+                       (setf
+                        (gtk4:application-menubar app) menubar
+                        (gtk4:application-window-show-menubar-p window) T)
+                       (window-present window))))))
 
       (setf stat (gio:application-run app nil))
       (format t "~S~%" *model*)
