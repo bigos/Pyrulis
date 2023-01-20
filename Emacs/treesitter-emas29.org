@@ -6,6 +6,16 @@ The Emacs News says we need treesitter library present when configuring and comp
 sudo apt install libtree-sitter-dev
 #+end_example
 
+Make sure you reload source configuration with
+#+begin_example
+./autogen.sh
+./configure
+#+end_example
+
+Configure summary output should include
+#+begin_example
+Does Emacs use -ltree-sitter?                           yes
+#+end_example
 
 M-x ruby-ts-mode
 gives
