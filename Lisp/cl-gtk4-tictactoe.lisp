@@ -685,8 +685,9 @@
                      (gobject:object-unref menu-item-menu)
 
                      (setf
-                      (gtk4:application-menubar app) menubar))
-                   (window-present window))))
+                      (gtk4:application-menubar app) menubar
+                      (gtk4:application-window-show-menubar-p window) T)
+                     (window-present window)))))
 
       (setf stat (gio:application-run app nil))
       (format t "~S~%" *model*)
