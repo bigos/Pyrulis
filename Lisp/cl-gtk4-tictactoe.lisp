@@ -672,10 +672,14 @@
                            box))
                    ;; menu----- with my fork https://github.com/bigos/cl-gtk4
                    ;; https://github.com/ToshioCP/Gtk4-tutorial/blob/main/gfm/sec17.md
+                   ;; https://docs.gtk.org/gtk4/getting_started.html
+                   ;; https://github.com/ToshioCP/Gtk4-tutorial
                    (let ((act-quit (gio:make-simple-action :name "quit" :parameter-type nil)))
                      (gio:action-map-add-action app act-quit)
                      (connect act-quit "activate" (lambda (&rest args)
-                                                    (warn "|>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ... quit action ~S" args)))
+                                                    (warn "|>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ... quit action ~S" args)
+                                                    ;; this quits the app without closing thew window
+                                                    (gio:application-quit app)))
                      (let* ((menubar (gio:make-menu))
                             (menu-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
                             (menu (gio:make-menu))
