@@ -674,7 +674,8 @@
                    (let* ((menubar (gio:make-menu))
                           (menu-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
                           (menu (gio:make-menu))
-                          (menu-item-quit (gio:make-menu-item :label "Quit" :detailed-action nil )))
+                          (menu-item-quit (gio:make-menu-item :label "Quit"
+                                                              :detailed-action "app.quit" )))
                      (gio:menu-append-item menu menu-item-quit)
                      (gobject:object-unref menu-item-quit)
 
