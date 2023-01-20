@@ -6,6 +6,7 @@
   (ql:quickload '(cl-gtk4
                   cl-gdk4
                   cl-glib
+                  cl-gobject
                   cl-cairo2
                   serapeum
                   defclass-std
@@ -616,62 +617,82 @@
                                       (event-sink widget signal-name event args))))
 (defun main ()
   (init-model)
+  (let ((stat nil))
+    (let ((app (make-application :application-id "org.bigos.cl-gtk4-tictactoe"
+                                 :flags gio:+application-flags-flags-none+)))
+      (connect app "activate"
+               (lambda (app)
+                 (let ((window (make-application-window :application app)))
 
-  (let ((app (make-application :application-id "org.bigos.cl-gtk4-tictactoe"
-                               :flags gio:+application-flags-flags-none+)))
-    (connect app "activate"
-             (lambda (app)
-               (let ((window (make-application-window :application app)))
+                   (glib:timeout-add 1000
+                                     (lambda (&rest args)
+                                       (event-sink window "timeout" nil args)
+                                       glib:+source-continue+))
 
-                 (glib:timeout-add 1000
-                                   (lambda (&rest args)
-                                     (event-sink window "timeout" nil args)
-                                     glib:+source-continue+))
+                   ;; for some reason these do not work
+                   ;; (let ((focus-controller (gtk4:make-event-controller-focus)))
+                   ;;   (widget-add-controller window focus-controller)
+                   ;;   (connect-controller window focus-controller "enter")
+                   ;;   (connect-controller window focus-controller "leave"))
 
-                 ;; for some reason these do not work
-                 ;; (let ((focus-controller (gtk4:make-event-controller-focus)))
-                 ;;   (widget-add-controller window focus-controller)
-                 ;;   (connect-controller window focus-controller "enter")
-                 ;;   (connect-controller window focus-controller "leave"))
+                   (let ((key-controller (gtk4:make-event-controller-key)))
+                     (widget-add-controller window key-controller)
+                     (connect-controller window key-controller "key-pressed"))
 
-                 (let ((key-controller (gtk4:make-event-controller-key)))
-                   (widget-add-controller window key-controller)
-                   (connect-controller window key-controller "key-pressed"))
+                   (setf (window-title        window) "Tic Tac Toe"
+                         (window-default-size window) (list 400 400))
+                   (let ((box (make-box :orientation +orientation-vertical+
+                                        :spacing 0)))
+                     (let ((canvas (gtk:make-drawing-area)))
 
-                 (setf (window-title        window) "Tic Tac Toe"
-                       (window-default-size window) (list 400 400))
-                 (let ((box (make-box :orientation +orientation-vertical+
-                                      :spacing 0)))
-                   (let ((canvas (gtk:make-drawing-area)))
+                       (setf (drawing-area-content-width canvas) 200
+                             (drawing-area-content-height canvas) 200
+                             (widget-vexpand-p canvas) T
+                             (drawing-area-draw-func canvas) (list (cffi:callback %draw-func)
+                                                                   (cffi:null-pointer)
+                                                                   (cffi:null-pointer)))
 
-                     (setf (drawing-area-content-width canvas) 200
-                           (drawing-area-content-height canvas) 200
-                           (widget-vexpand-p canvas) T
-                           (drawing-area-draw-func canvas) (list (cffi:callback %draw-func)
-                                                                 (cffi:null-pointer)
-                                                                 (cffi:null-pointer)))
+                       (let ((motion-controller (gtk4:make-event-controller-motion)))
+                         (widget-add-controller canvas motion-controller)
+                         (connect-controller canvas motion-controller "motion")
+                         (connect-controller canvas motion-controller "enter")
+                         (connect-controller canvas motion-controller "leave"))
 
-                     (let ((motion-controller (gtk4:make-event-controller-motion)))
-                       (widget-add-controller canvas motion-controller)
-                       (connect-controller canvas motion-controller "motion")
-                       (connect-controller canvas motion-controller "enter")
-                       (connect-controller canvas motion-controller "leave"))
+                       (let ((gesture-click-controller (gtk4:make-gesture-click)))
+                         (widget-add-controller canvas gesture-click-controller)
+                         (connect-controller canvas gesture-click-controller "pressed")
+                         (connect-controller canvas gesture-click-controller "released"))
 
-                     (let ((gesture-click-controller (gtk4:make-gesture-click)))
-                       (widget-add-controller canvas gesture-click-controller)
-                       (connect-controller canvas gesture-click-controller "pressed")
-                       (connect-controller canvas gesture-click-controller "released"))
+                       (connect canvas "resize" (lambda (widget &rest args)
+                                                  (declare (ignore widget))
+                                                  (event-sink canvas "resize" nil args)))
 
-                     (connect canvas "resize" (lambda (widget &rest args)
-                                                (declare (ignore widget))
-                                                (event-sink canvas "resize" nil args)))
+                       (box-append box canvas))
+                     (setf (window-child window)
+                           box))
+                   ;; menu----- with my fork https://github.com/bigos/cl-gtk4
+                   (let* ((menubar (gio:make-menu))
+                          (menu-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
+                          (menu (gio:make-menu))
+                          (menu-item-quit (gio:make-menu-item :label "Quit" :detailed-action nil )))
+                     (gio:menu-append-item menu menu-item-quit)
+                     (gobject:object-unref menu-item-quit)
 
-                     (box-append box canvas))
-                   (setf (window-child window)
-                         box))
-                 (window-present window))))
-    (gio:application-run app nil))
-  *model*)
+                     (setf
+                      (gio:menu-item-submenu menu-item-menu) menu)
+
+                     (gio:menu-append-item menubar menu-item-menu)
+                     (gobject:object-unref menu-item-menu)
+
+                     (setf
+                      (gtk4:application-menubar app) menubar
+                      (gtk4:application-window-show-menubar-p window) T)
+                     (window-present window)))))
+
+      (setf stat (gio:application-run app nil))
+      (format t "~S~%" *model*)
+      (gobject:object-unref app))
+    stat))
 
 ;;; T for terminal
 (when nil
