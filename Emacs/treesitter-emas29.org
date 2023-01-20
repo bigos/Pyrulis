@@ -46,3 +46,7 @@ Library installed to ~/.emacs.d/tree-sitter/libtree-sitter-ruby.so
 Now when I open ruby file
 M-x ruby-ts-mode
 works
+
+other modes look like:
+java-ts-mode
+c-ts-mode
