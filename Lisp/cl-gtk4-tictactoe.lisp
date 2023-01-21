@@ -679,7 +679,14 @@
                      (connect act-quit "activate" (lambda (&rest args)
                                                     (warn "|>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ... quit action ~S" args)
                                                     ;; this quits the app without closing thew window
-                                                    (gio:application-quit app)))
+
+                                                    ;; https://docs.gtk.org/glib/main-loop.html
+                                                    ;; may still need to close all windows
+                                                    ;; (gtk4:application-remove-window app window)
+                                                    (gtk4:window-close window)
+                                                    ;; (glib:main-loop-quit app)
+                                                    ;; (gio:application-quit app)
+                                                    ))
                      (let* ((menubar (gio:make-menu))
                             (menu-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
                             (menu (gio:make-menu))
