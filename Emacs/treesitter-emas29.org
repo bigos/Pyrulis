@@ -6,6 +6,16 @@ The Emacs News says we need treesitter library present when configuring and comp
 sudo apt install libtree-sitter-dev
 #+end_example
 
+Make sure you reload source configuration with
+#+begin_example
+./autogen.sh
+./configure
+#+end_example
+
+Configure summary output should include
+#+begin_example
+Does Emacs use -ltree-sitter?                           yes
+#+end_example
 
 M-x ruby-ts-mode
 gives
@@ -14,6 +24,8 @@ ruby-ts-mode: Tree-sitter for Ruby isn’t available
 https://github.com/tree-sitter/tree-sitter-ruby
 has the grammar
 
+and this is the list of URLs for other languages
+https://tree-sitter.github.io/tree-sitter/
 
 the Emacs News say:
 
@@ -34,3 +46,7 @@ Library installed to ~/.emacs.d/tree-sitter/libtree-sitter-ruby.so
 Now when I open ruby file
 M-x ruby-ts-mode
 works
+
+other modes look like:
+java-ts-mode
+c-ts-mode

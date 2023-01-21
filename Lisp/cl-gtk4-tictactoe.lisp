@@ -6,6 +6,7 @@
   (ql:quickload '(cl-gtk4
                   cl-gdk4
                   cl-glib
+                  cl-gobject
                   cl-cairo2
                   serapeum
                   defclass-std
@@ -616,62 +617,102 @@
                                       (event-sink widget signal-name event args))))
 (defun main ()
   (init-model)
+  (let ((stat nil))
+    (let ((app (make-application :application-id "org.bigos.cl-gtk4-tictactoe"
+                                 :flags gio:+application-flags-flags-none+)))
+      (connect app "activate"
+               (lambda (app)
+                 (let ((window (make-application-window :application app)))
 
-  (let ((app (make-application :application-id "org.bigos.cl-gtk4-tictactoe"
-                               :flags gio:+application-flags-flags-none+)))
-    (connect app "activate"
-             (lambda (app)
-               (let ((window (make-application-window :application app)))
+                   (glib:timeout-add 1000
+                                     (lambda (&rest args)
+                                       (event-sink window "timeout" nil args)
+                                       glib:+source-continue+))
 
-                 (glib:timeout-add 1000
-                                   (lambda (&rest args)
-                                     (event-sink window "timeout" nil args)
-                                     glib:+source-continue+))
+                   ;; for some reason these do not work
+                   ;; (let ((focus-controller (gtk4:make-event-controller-focus)))
+                   ;;   (widget-add-controller window focus-controller)
+                   ;;   (connect-controller window focus-controller "enter")
+                   ;;   (connect-controller window focus-controller "leave"))
 
-                 ;; for some reason these do not work
-                 ;; (let ((focus-controller (gtk4:make-event-controller-focus)))
-                 ;;   (widget-add-controller window focus-controller)
-                 ;;   (connect-controller window focus-controller "enter")
-                 ;;   (connect-controller window focus-controller "leave"))
+                   (let ((key-controller (gtk4:make-event-controller-key)))
+                     (widget-add-controller window key-controller)
+                     (connect-controller window key-controller "key-pressed"))
 
-                 (let ((key-controller (gtk4:make-event-controller-key)))
-                   (widget-add-controller window key-controller)
-                   (connect-controller window key-controller "key-pressed"))
+                   (setf (window-title        window) "Tic Tac Toe"
+                         (window-default-size window) (list 400 400))
+                   (let ((box (make-box :orientation +orientation-vertical+
+                                        :spacing 0)))
+                     (let ((canvas (gtk:make-drawing-area)))
 
-                 (setf (window-title        window) "Tic Tac Toe"
-                       (window-default-size window) (list 400 400))
-                 (let ((box (make-box :orientation +orientation-vertical+
-                                      :spacing 0)))
-                   (let ((canvas (gtk:make-drawing-area)))
+                       (setf (drawing-area-content-width canvas) 200
+                             (drawing-area-content-height canvas) 200
+                             (widget-vexpand-p canvas) T
+                             (drawing-area-draw-func canvas) (list (cffi:callback %draw-func)
+                                                                   (cffi:null-pointer)
+                                                                   (cffi:null-pointer)))
 
-                     (setf (drawing-area-content-width canvas) 200
-                           (drawing-area-content-height canvas) 200
-                           (widget-vexpand-p canvas) T
-                           (drawing-area-draw-func canvas) (list (cffi:callback %draw-func)
-                                                                 (cffi:null-pointer)
-                                                                 (cffi:null-pointer)))
+                       (let ((motion-controller (gtk4:make-event-controller-motion)))
+                         (widget-add-controller canvas motion-controller)
+                         (connect-controller canvas motion-controller "motion")
+                         (connect-controller canvas motion-controller "enter")
+                         (connect-controller canvas motion-controller "leave"))
 
-                     (let ((motion-controller (gtk4:make-event-controller-motion)))
-                       (widget-add-controller canvas motion-controller)
-                       (connect-controller canvas motion-controller "motion")
-                       (connect-controller canvas motion-controller "enter")
-                       (connect-controller canvas motion-controller "leave"))
+                       (let ((gesture-click-controller (gtk4:make-gesture-click)))
+                         (widget-add-controller canvas gesture-click-controller)
+                         (connect-controller canvas gesture-click-controller "pressed")
+                         (connect-controller canvas gesture-click-controller "released"))
 
-                     (let ((gesture-click-controller (gtk4:make-gesture-click)))
-                       (widget-add-controller canvas gesture-click-controller)
-                       (connect-controller canvas gesture-click-controller "pressed")
-                       (connect-controller canvas gesture-click-controller "released"))
+                       (connect canvas "resize" (lambda (widget &rest args)
+                                                  (declare (ignore widget))
+                                                  (event-sink canvas "resize" nil args)))
 
-                     (connect canvas "resize" (lambda (widget &rest args)
-                                                (declare (ignore widget))
-                                                (event-sink canvas "resize" nil args)))
+                       (box-append box canvas))
+                     (setf (window-child window)
+                           box))
+                   ;; menu----- with my fork https://github.com/bigos/cl-gtk4
+                   ;; https://github.com/ToshioCP/Gtk4-tutorial/blob/main/gfm/sec17.md
+                   ;; https://docs.gtk.org/gtk4/getting_started.html
+                   ;; https://github.com/ToshioCP/Gtk4-tutorial
+                   (let ((act-quit (gio:make-simple-action :name "quit" :parameter-type nil)))
+                     (gio:action-map-add-action app act-quit)
+                     (connect act-quit "activate" (lambda (&rest args)
+                                                    (warn ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ... quit action ~S" args)
+                                                    ;; this quits the app without closing thew window
 
-                     (box-append box canvas))
-                   (setf (window-child window)
-                         box))
-                 (window-present window))))
-    (gio:application-run app nil))
-  *model*)
+                                                    ;; https://docs.gtk.org/glib/main-loop.html
+                                                    ;; may still need to close all windows
+                                                    ;; (gtk4:application-remove-window app window)
+                                                    (gtk4:window-close window)
+                                                    ;; (glib:main-loop-quit app)
+                                                    ;; (gio:application-quit app)
+                                                    ))
+                     (let* ((menubar (gio:make-menu))
+                            (menu-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
+                            (menu (gio:make-menu))
+                            (menu-item-quit (gio:make-menu-item :label "Quit"
+                                                                :detailed-action "app.quit" )))
+                       (gio:menu-append-item menu menu-item-quit)
+                       (setf (gio:menu-item-submenu menu-item-menu) menu)
+                       (gio:menu-append-item menubar menu-item-menu)
+
+                       (setf
+                        (gtk4:application-menubar app) menubar
+                        (gtk4:application-window-show-menubar-p window) T)
+
+                       (window-present window)
+
+                       (gobject:object-unref menubar)
+                       (gobject:object-unref menu-item-menu)
+                       (gobject:object-unref menu)
+                       (gobject:object-unref menu-item-quit)
+                       )
+                     (gobject:object-unref act-quit)))))
+      ;; https://stackoverflow.com/questions/69135934/creating-a-simple-menubar-menu-and-menu-item-in-c-using-gtk4
+      (setf stat (gio:application-run app nil))
+      (format t "~S~%" *model*)
+      (gobject:object-unref app))
+    stat))
 
 ;;; T for terminal
 (when nil
@@ -700,6 +741,7 @@
    :my-grid
    :name
    :nearest-grid-cells
+   :next-placed
    :state
    :ui-height
    :ui-width
@@ -935,3 +977,40 @@
          (loop for c in  (get-all-cells (my-grid  *model*)) collect (state c))
          '(:O :X :X :X :O :O :O :O :X)))
     (is (eql (type-of (state model)) 'ttt::no-moves))))
+
+;;; oxx
+;;; xox
+;;; oo.
+
+(test last-move-win
+  "Testing interesting special case where last move wins along two lines."
+  (setf *model* nil)
+  (is (null *model*))
+  (let ((model (init-model)))
+    (event-sink-test "resize" nil                         '(400 400))
+    (is (= 400 (ui-width  model)))
+    (is (= 400 (ui-height model)))
+
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 100 100)) ; o7
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 100 200)) ; x4
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 100 300)) ; o1
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 200 100)) ; x8
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 200 200)) ; o5
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 300 100)) ; x9
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 200 300)) ; o2
+    (is (equalp (grid-name-state-mouse)
+                '((C1 :O NIL) (C2 :O :CLICKED) (C3 NIL NIL) (C4 :X NIL) (C5 :O NIL) (C6 NIL NIL)
+                 (C7 :O NIL) (C8 :X NIL) (C9 :X NIL))))
+    (is  (eql (ttt::next-placed  model) :X))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 300 200)) ; x6
+    (is (equalp (grid-name-state-mouse)
+                '((C1 :O NIL) (C2 :O NIL) (C3 NIL NIL) (C4 :X NIL) (C5 :O NIL) (C6 :X :CLICKED)
+                 (C7 :O NIL) (C8 :X NIL) (C9 :X NIL))))
+    (is (typep (state model) 'ttt::playing))
+    (is  (eql (next-placed  model) :O))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 300 300)) ; o3
+    (is (equalp (grid-name-state-mouse)
+                '((C1 :O NIL) (C2 :O NIL) (C3 :O :CLICKED) (C4 :X NIL) (C5 :O NIL) (C6 :X NIL)
+                  (C7 :O NIL) (C8 :X NIL) (C9 :X NIL))))
+    (is (typep (state model) 'ttt::won))
+    (is (eql (winner (state model)) :O))))
