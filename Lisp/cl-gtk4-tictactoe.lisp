@@ -688,18 +688,18 @@
                                                     ;; (gio:application-quit app)
                                                     ))
                      (let* ((menubar (gio:make-menu))
-                            (menu-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
+                            (menubar-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
                             (menu (gio:make-menu))
                             (menu-item-quit (gio:make-menu-item :label "Quit"
                                                                 :detailed-action "app.quit" )))
                        (gio:menu-append-item menu menu-item-quit)
                        (gobject:object-unref menu-item-quit)
 
-                       (setf (gio:menu-item-submenu menu-item-menu) menu)
+                       (setf (gio:menu-item-submenu menubar-item-menu) menu)
                        (gobject:object-unref menu)
 
-                       (gio:menu-append-item menubar menu-item-menu)
-                       (gobject:object-unref menu-item-menu)
+                       (gio:menu-append-item menubar menubar-item-menu)
+                       (gobject:object-unref menubar-item-menu)
 
                        (setf
                         (gtk4:application-menubar app) menubar
