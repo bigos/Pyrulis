@@ -694,8 +694,10 @@
                                                                 :detailed-action "app.quit" )))
                        (gio:menu-append-item menu menu-item-quit)
                        (gobject:object-unref menu-item-quit)
+
                        (setf (gio:menu-item-submenu menu-item-menu) menu)
                        (gobject:object-unref menu)
+
                        (gio:menu-append-item menubar menu-item-menu)
                        (gobject:object-unref menu-item-menu)
 
