@@ -691,7 +691,11 @@
                             (menubar-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
                             (menu (gio:make-menu))
                             (menu-item-quit (gio:make-menu-item :label "Quit"
-                                                                :detailed-action "app.quit" )))
+                                                                :detailed-action "app.quit" ))
+                            (menubar-item-help (gio:make-menu-item :label "Help" :detailed-action nil))
+                            (help (gio:make-menu))
+                            (help-item-about (gio:make-menu-item :label "About"
+                                                                 :detailed-action nil)))
                        (gio:menu-append-item menu menu-item-quit)
                        (setf (gio:menu-item-submenu menubar-item-menu) menu)
                        (gio:menu-append-item menubar menubar-item-menu)
@@ -699,6 +703,14 @@
                        (gobject:object-unref menu-item-quit)
                        (gobject:object-unref menu)
                        (gobject:object-unref menubar-item-menu)
+
+                       (gio:menu-append-item help help-item-about)
+                       (setf (gio:menu-item-submenu menubar-item-help) help)
+                       (gio:menu-append-item menubar menubar-item-help)
+
+                       (gobject:object-unref help-item-about)
+                       (gobject:object-unref help)
+                       (gobject:object-unref menubar-item-help)
 
                        (setf
                         (gtk4:application-menubar app) menubar
