@@ -39,8 +39,8 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
 6 Testing
 
-TRIPLE-QUOTED STRINGS
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#195
+6.1.3 Narrowing test scope
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#197
 
 * The other links
 ** code
