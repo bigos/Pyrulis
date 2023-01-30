@@ -40,7 +40,7 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 6 Testing
 
 6.1.2 Unit testing a JSON decoder
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#193
+docview:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf::193
 
 * The other links
 ** code
