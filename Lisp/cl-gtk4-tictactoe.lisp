@@ -674,7 +674,8 @@
                    ;; https://github.com/ToshioCP/Gtk4-tutorial/blob/main/gfm/sec17.md
                    ;; https://docs.gtk.org/gtk4/getting_started.html
                    ;; https://github.com/ToshioCP/Gtk4-tutorial
-                   (let ((act-quit (gio:make-simple-action :name "quit" :parameter-type nil)))
+                   (let ((act-quit (gio:make-simple-action :name "quit" :parameter-type nil))
+                         (act-preferences (gio:make-simple-action :name "preferences" :parameter-type nil)))
                      (gio:action-map-add-action app act-quit)
                      (connect act-quit "activate" (lambda (&rest args)
                                                     (warn ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ... quit action ~S" args)
@@ -687,15 +688,22 @@
                                                     ;; (glib:main-loop-quit app)
                                                     ;; (gio:application-quit app)
                                                     ))
+                     (gio:action-map-add-action app act-preferences)
+                     (connect act-preferences "activate" (lambda (&rest args)
+                                                    (warn ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ... preferences action ~S" args)))
+
                      (let* ((menubar (gio:make-menu))
                             (menubar-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
                             (menu (gio:make-menu))
+                            (menu-item-preferences (gio:make-menu-item :label "Preferences"
+                                                                       :detailed-action "app.preferences" ))
                             (menu-item-quit (gio:make-menu-item :label "Quit"
                                                                 :detailed-action "app.quit" ))
                             (menubar-item-help (gio:make-menu-item :label "Help" :detailed-action nil))
                             (help (gio:make-menu))
                             (help-item-about (gio:make-menu-item :label "About"
                                                                  :detailed-action nil)))
+                       (gio:menu-append-item menu menu-item-preferences)
                        (gio:menu-append-item menu menu-item-quit)
                        (setf (gio:menu-item-submenu menubar-item-menu) menu)
                        (gio:menu-append-item menubar menubar-item-menu)
