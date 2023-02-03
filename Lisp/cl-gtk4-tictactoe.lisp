@@ -725,10 +725,6 @@
                        (box-append box canvas))
                      (setf (window-child window)
                            box))
-                   ;; menu----- with my fork https://github.com/bigos/cl-gtk4
-                   ;; https://github.com/ToshioCP/Gtk4-tutorial/blob/main/gfm/sec17.md
-                   ;; https://docs.gtk.org/gtk4/getting_started.html
-                   ;; https://github.com/ToshioCP/Gtk4-tutorial
 
                    (let ((menubar (gio:make-menu)))
                      (main-menubar app menubar window)
@@ -738,9 +734,8 @@
                       (gtk4:application-window-show-menubar-p window) T)
                      (gobject:object-unref menubar)
 
-                     (window-present window)
-                     ))))
-      ;; https://stackoverflow.com/questions/69135934/creating-a-simple-menubar-menu-and-menu-item-in-c-using-gtk4
+                     (window-present window)))))
+
       (setf stat (gio:application-run app nil))
       (format t "~S~%" *model*)
       (gobject:object-unref app))
