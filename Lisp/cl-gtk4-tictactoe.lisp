@@ -728,13 +728,12 @@
 
                    (let ((menubar (gio:make-menu)))
                      (main-menubar app menubar window)
-
                      (setf
                       (gtk4:application-menubar app) menubar
                       (gtk4:application-window-show-menubar-p window) T)
-                     (gobject:object-unref menubar)
+                     (gobject:object-unref menubar))
 
-                     (window-present window)))))
+                   (window-present window))))
 
       (setf stat (gio:application-run app nil))
       (format t "~S~%" *model*)
