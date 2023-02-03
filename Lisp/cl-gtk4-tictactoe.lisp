@@ -612,9 +612,64 @@
 ;; (in-package #:cl-gtk4-tictactoe)
 ;;; (main)
 
+(defun main-menubar (app menubar window)
+  (let* ((menubar-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
+         (menu (gio:make-menu))
+         (menu-item-preferences (gio:make-menu-item :label "Preferences"
+                                                    :detailed-action
+                                                    (let ((act-preferences (gio:make-simple-action :name "preferences" :parameter-type nil)))
+                                                      (gio:action-map-add-action app act-preferences)
+                                                      (connect act-preferences "activate"
+                                                               (lambda (&rest args)
+                                                                 (warn
+                                                                  ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ... preferences action ~S" args)))
+                                                      (gobject:object-unref act-preferences)
+                                                      "app.preferences")))
+         (menu-item-quit (gio:make-menu-item :label "Quit"
+                                             :detailed-action
+                                             (let  ((act-quit (gio:make-simple-action :name "quit" :parameter-type nil)))
+                                               (gio:action-map-add-action app act-quit)
+                                               (connect act-quit "activate" (lambda (&rest args)
+                                                                              (warn ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ... quit action ~S" args)
+                                                                              ;; this quits the app without closing thew window
+
+                                                                              ;; https://docs.gtk.org/glib/main-loop.html
+                                                                              ;; may still need to close all windows
+                                                                              ;; (gtk4:application-remove-window app window)
+                                                                              (gtk4:window-close window)
+                                                                              ;; (glib:main-loop-quit app)
+                                                                              ;; (gio:application-quit app)
+                                                                              ))
+                                               (gobject:object-unref act-quit)
+                                               "app.quit")))
+         (menubar-item-help (gio:make-menu-item :label "Help" :detailed-action nil))
+         (help (gio:make-menu))
+         (help-item-manual (gio:make-menu-item :label "Manual"
+                                               :detailed-action nil))
+         (help-item-about (gio:make-menu-item :label "About"
+                                              :detailed-action nil)))
+    (gio:menu-append-item menu menu-item-preferences)
+    (gio:menu-append-item menu menu-item-quit)
+    (setf (gio:menu-item-submenu menubar-item-menu) menu)
+    (gio:menu-append-item menubar menubar-item-menu)
+
+    (gobject:object-unref menu-item-preferences)
+    (gobject:object-unref menu-item-quit)
+    (gobject:object-unref menu)
+    (gobject:object-unref menubar-item-menu)
+
+    (gio:menu-append-item help help-item-manual)
+    (gio:menu-append-item help help-item-about)
+    (setf (gio:menu-item-submenu menubar-item-help) help)
+    (gio:menu-append-item menubar menubar-item-help)
+
+    (gobject:object-unref help-item-about)
+    (gobject:object-unref help)
+    (gobject:object-unref menubar-item-help)))
+
 (defun connect-controller (widget controller signal-name)
-    (connect controller signal-name (lambda (event &rest args)
-                                      (event-sink widget signal-name event args))))
+  (connect controller signal-name (lambda (event &rest args)
+                                    (event-sink widget signal-name event args))))
 (defun main ()
   (init-model)
   (let ((stat nil))
@@ -674,71 +729,17 @@
                    ;; https://github.com/ToshioCP/Gtk4-tutorial/blob/main/gfm/sec17.md
                    ;; https://docs.gtk.org/gtk4/getting_started.html
                    ;; https://github.com/ToshioCP/Gtk4-tutorial
-                   (progn
 
-                     (let* ((menubar (gio:make-menu))
-                            (menubar-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
-                            (menu (gio:make-menu))
-                            (menu-item-preferences (gio:make-menu-item :label "Preferences"
-                                                                       :detailed-action
-                                                                       (let ((act-preferences (gio:make-simple-action :name "preferences" :parameter-type nil)))
-                                                                         (gio:action-map-add-action app act-preferences)
-                                                                         (connect act-preferences "activate"
-                                                                                  (lambda (&rest args)
-                                                                                    (warn
-                                                                                     ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ... preferences action ~S" args)))
-                                                                         (gobject:object-unref act-preferences)
-                                                                         "app.preferences")))
-                            (menu-item-quit (gio:make-menu-item :label "Quit"
-                                                                :detailed-action
-                                                                (let  ((act-quit (gio:make-simple-action :name "quit" :parameter-type nil)))
-                                                                  (gio:action-map-add-action app act-quit)
-                                                                  (connect act-quit "activate" (lambda (&rest args)
-                                                                                                 (warn ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ... quit action ~S" args)
-                                                                                                 ;; this quits the app without closing thew window
+                   (let ((menubar (gio:make-menu)))
+                     (main-menubar app menubar window)
 
-                                                                                                 ;; https://docs.gtk.org/glib/main-loop.html
-                                                                                                 ;; may still need to close all windows
-                                                                                                 ;; (gtk4:application-remove-window app window)
-                                                                                                 (gtk4:window-close window)
-                                                                                                 ;; (glib:main-loop-quit app)
-                                                                                                 ;; (gio:application-quit app)
-                                                                                                 ))
-                                                                  (gobject:object-unref act-quit)
-                                                                  "app.quit")))
-                            (menubar-item-help (gio:make-menu-item :label "Help" :detailed-action nil))
-                            (help (gio:make-menu))
-                            (help-item-manual (gio:make-menu-item :label "Manual"
-                                                                  :detailed-action nil))
-                            (help-item-about (gio:make-menu-item :label "About"
-                                                                 :detailed-action nil)))
-                       (gio:menu-append-item menu menu-item-preferences)
-                       (gio:menu-append-item menu menu-item-quit)
-                       (setf (gio:menu-item-submenu menubar-item-menu) menu)
-                       (gio:menu-append-item menubar menubar-item-menu)
+                     (setf
+                      (gtk4:application-menubar app) menubar
+                      (gtk4:application-window-show-menubar-p window) T)
+                     (gobject:object-unref menubar)
 
-                       (gobject:object-unref menu-item-preferences)
-                       (gobject:object-unref menu-item-quit)
-                       (gobject:object-unref menu)
-                       (gobject:object-unref menubar-item-menu)
-
-                       (gio:menu-append-item help help-item-manual)
-                       (gio:menu-append-item help help-item-about)
-                       (setf (gio:menu-item-submenu menubar-item-help) help)
-                       (gio:menu-append-item menubar menubar-item-help)
-
-                       (gobject:object-unref help-item-about)
-                       (gobject:object-unref help)
-                       (gobject:object-unref menubar-item-help)
-
-                       (setf
-                        (gtk4:application-menubar app) menubar
-                        (gtk4:application-window-show-menubar-p window) T)
-                       (gobject:object-unref menubar)
-
-                       (window-present window)
-
-                       )))))
+                     (window-present window)
+                     ))))
       ;; https://stackoverflow.com/questions/69135934/creating-a-simple-menubar-menu-and-menu-item-in-c-using-gtk4
       (setf stat (gio:application-run app nil))
       (format t "~S~%" *model*)
