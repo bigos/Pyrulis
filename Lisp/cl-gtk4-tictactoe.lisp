@@ -705,8 +705,7 @@
                                                                                                  ;; (gio:application-quit app)
                                                                                                  ))
                                                                   (gobject:object-unref act-quit)
-                                                                  "app.quit")
-                                                                ))
+                                                                  "app.quit")))
                             (menubar-item-help (gio:make-menu-item :label "Help" :detailed-action nil))
                             (help (gio:make-menu))
                             (help-item-manual (gio:make-menu-item :label "Manual"
