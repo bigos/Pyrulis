@@ -701,6 +701,8 @@
                                                                 :detailed-action "app.quit" ))
                             (menubar-item-help (gio:make-menu-item :label "Help" :detailed-action nil))
                             (help (gio:make-menu))
+                            (help-item-manual (gio:make-menu-item :label "Manual"
+                                                                  :detailed-action nil))
                             (help-item-about (gio:make-menu-item :label "About"
                                                                  :detailed-action nil)))
                        (gio:menu-append-item menu menu-item-preferences)
@@ -708,10 +710,12 @@
                        (setf (gio:menu-item-submenu menubar-item-menu) menu)
                        (gio:menu-append-item menubar menubar-item-menu)
 
+                       (gobject:object-unref menu-item-preferences)
                        (gobject:object-unref menu-item-quit)
                        (gobject:object-unref menu)
                        (gobject:object-unref menubar-item-menu)
 
+                       (gio:menu-append-item help help-item-manual)
                        (gio:menu-append-item help help-item-about)
                        (setf (gio:menu-item-submenu menubar-item-help) help)
                        (gio:menu-append-item menubar menubar-item-help)
