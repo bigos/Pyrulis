@@ -674,31 +674,39 @@
                    ;; https://github.com/ToshioCP/Gtk4-tutorial/blob/main/gfm/sec17.md
                    ;; https://docs.gtk.org/gtk4/getting_started.html
                    ;; https://github.com/ToshioCP/Gtk4-tutorial
-                   (let ((act-quit (gio:make-simple-action :name "quit" :parameter-type nil))
-                         (act-preferences (gio:make-simple-action :name "preferences" :parameter-type nil)))
-                     (gio:action-map-add-action app act-quit)
-                     (connect act-quit "activate" (lambda (&rest args)
-                                                    (warn ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ... quit action ~S" args)
-                                                    ;; this quits the app without closing thew window
-
-                                                    ;; https://docs.gtk.org/glib/main-loop.html
-                                                    ;; may still need to close all windows
-                                                    ;; (gtk4:application-remove-window app window)
-                                                    (gtk4:window-close window)
-                                                    ;; (glib:main-loop-quit app)
-                                                    ;; (gio:application-quit app)
-                                                    ))
-                     (gio:action-map-add-action app act-preferences)
-                     (connect act-preferences "activate" (lambda (&rest args)
-                                                    (warn ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ... preferences action ~S" args)))
+                   (progn
 
                      (let* ((menubar (gio:make-menu))
                             (menubar-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
                             (menu (gio:make-menu))
                             (menu-item-preferences (gio:make-menu-item :label "Preferences"
-                                                                       :detailed-action "app.preferences" ))
+                                                                       :detailed-action
+                                                                       (let ((act-preferences (gio:make-simple-action :name "preferences" :parameter-type nil)))
+                                                                         (gio:action-map-add-action app act-preferences)
+                                                                         (connect act-preferences "activate"
+                                                                                  (lambda (&rest args)
+                                                                                    (warn
+                                                                                     ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ... preferences action ~S" args)))
+                                                                         (gobject:object-unref act-preferences)
+                                                                         "app.preferences")))
                             (menu-item-quit (gio:make-menu-item :label "Quit"
-                                                                :detailed-action "app.quit" ))
+                                                                :detailed-action
+                                                                (let  ((act-quit (gio:make-simple-action :name "quit" :parameter-type nil)))
+                                                                  (gio:action-map-add-action app act-quit)
+                                                                  (connect act-quit "activate" (lambda (&rest args)
+                                                                                                 (warn ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ... quit action ~S" args)
+                                                                                                 ;; this quits the app without closing thew window
+
+                                                                                                 ;; https://docs.gtk.org/glib/main-loop.html
+                                                                                                 ;; may still need to close all windows
+                                                                                                 ;; (gtk4:application-remove-window app window)
+                                                                                                 (gtk4:window-close window)
+                                                                                                 ;; (glib:main-loop-quit app)
+                                                                                                 ;; (gio:application-quit app)
+                                                                                                 ))
+                                                                  (gobject:object-unref act-quit)
+                                                                  "app.quit")
+                                                                ))
                             (menubar-item-help (gio:make-menu-item :label "Help" :detailed-action nil))
                             (help (gio:make-menu))
                             (help-item-manual (gio:make-menu-item :label "Manual"
@@ -731,8 +739,7 @@
 
                        (window-present window)
 
-                       )
-                     (gobject:object-unref act-quit)))))
+                       )))))
       ;; https://stackoverflow.com/questions/69135934/creating-a-simple-menubar-menu-and-menu-item-in-c-using-gtk4
       (setf stat (gio:application-run app nil))
       (format t "~S~%" *model*)
