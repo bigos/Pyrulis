@@ -653,19 +653,18 @@
     (setf (gio:menu-item-submenu menubar-item-menu) menu)
     (gio:menu-append-item menubar menubar-item-menu)
 
-    (gobject:object-unref menu-item-preferences)
-    (gobject:object-unref menu-item-quit)
-    (gobject:object-unref menu)
-    (gobject:object-unref menubar-item-menu)
+    (loop for v in
+          (list menu-item-preferences menu-item-quit menu menubar-item-menu)
+          do (gobject:object-unref v))
 
     (gio:menu-append-item help help-item-manual)
     (gio:menu-append-item help help-item-about)
     (setf (gio:menu-item-submenu menubar-item-help) help)
     (gio:menu-append-item menubar menubar-item-help)
 
-    (gobject:object-unref help-item-about)
-    (gobject:object-unref help)
-    (gobject:object-unref menubar-item-help)))
+    (loop for v in
+          (list help-item-manual help-item-about help menubar-item-help)
+          do (gobject:object-unref v))))
 
 (defun connect-controller (widget controller signal-name)
   (connect controller signal-name (lambda (event &rest args)
