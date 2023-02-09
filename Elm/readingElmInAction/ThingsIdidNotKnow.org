@@ -217,3 +217,18 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#172
 ** wrapping in function
 In tests but also elsewhere wrapping some operation in a function can postpone
 evaluation until the wrapper is evaluated.
+** Result.map
+
+*** effect example
+Result.map allows us testing only a fragment of the structure!
+
+#+begin_src elm
+List.map        String.fromInt [ 5 ]       == [ "5" ]
+Json.Decode.map String.fromInt (succeed 5) == (succeed "5")
+Result.map      String.fromInt (Ok 5)      == (Ok "5")
+#+end_src
+
+*** no effect
+- List.map has no effect on [].
+- Json.Decode.map has no effect on decoders created with fail.
+- Result.map has no effect on Err variants.
