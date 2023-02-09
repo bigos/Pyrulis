@@ -48,5 +48,7 @@ file:~/Programming/Pyrulis/Elm/readingElmInAction/PhotoGroove/src/PhotoGroove.el
 
 file:~/Programming/Pyrulis/Elm/readingElmInAction/PhotoGroove/index.html::1
 
+file:~/Programming/Pyrulis/Elm/readingElmInAction/PhotoGroove/tests/PhotoGrooveTests.elm::1
+
 ** Things I did not know
 [[file:ThingsIdidNotKnow.org::*Things I did not know][Things I did not know]]

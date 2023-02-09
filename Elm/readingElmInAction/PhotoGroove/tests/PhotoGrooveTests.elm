@@ -11,8 +11,8 @@ decoderTest : Test
 decoderTest =
     test "title defaults to (untitled)" <|
         \_ ->
-            -- "{\"url\": \"fruits.com\", \"size\": 5}"
             """{"url": "fruits.com", "size":5}"""
                 |> decodeString PhotoGroove.photoDecoder
+                |> Result.map (\photo -> photo.title)
                 |> Expect.equal
-                    (Ok { url = "fruits.com", size = 5, title = "(untitled)" })
+                    (Ok "(untitled)")
