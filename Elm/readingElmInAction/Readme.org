@@ -39,8 +39,8 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
 6 Testing
 
-Using the .title shorthand
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#200
+6.2 Writing fuzz tests
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#201
 
 * The other links
 ** code
