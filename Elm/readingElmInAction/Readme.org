@@ -39,8 +39,8 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
 6 Testing
 
-6.1.3 Narrowing test scope
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#197
+Using the .title shorthand
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#200
 
 * The other links
 ** code
