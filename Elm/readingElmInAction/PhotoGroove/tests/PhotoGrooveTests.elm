@@ -13,7 +13,8 @@ decoderTest =
     test "title defaults to (untitled)" <|
         \_ ->
             -- """{"url": "fruits.com", "size":5}"""
-            Encode.object [ ( "url", Encode.string "fruits .com" ), ( "size", Encode.int 5 ) ]
+            [ ( "url", Encode.string "fruits .com" ), ( "size", Encode.int 5 ) ]
+                |> Encode.object
                 |> decodeValue PhotoGroove.photoDecoder
                 |> Result.map .title
                 |> Expect.equal
