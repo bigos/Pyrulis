@@ -12,7 +12,7 @@ decoderTest : Test
 decoderTest =
     fuzz2 string int "title defaults to (untitled)" <|
         \url size ->
-            [ ( "url", Encode.string "fruits .com" ), ( "size", Encode.int 5 ) ]
+            [ ( "url", Encode.string url ), ( "size", Encode.int size ) ]
                 |> Encode.object
                 |> decodeValue PhotoGroove.photoDecoder
                 |> Result.map .title
