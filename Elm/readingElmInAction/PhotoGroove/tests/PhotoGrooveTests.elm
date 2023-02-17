@@ -2,7 +2,8 @@ module PhotoGrooveTests exposing (..)
 
 import Expect exposing (Expectation)
 import Fuzz exposing (Fuzzer, int, list, string)
-import Json.Decode exposing (decodeString)
+import Json.Decode as Decode exposing (decodeString)
+import Json.Encode as Encode
 import PhotoGroove
 import Test exposing (..)
 
