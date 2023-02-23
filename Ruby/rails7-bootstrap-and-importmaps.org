@@ -1,0 +1,43 @@
+* Rails 7, Bootstrap 5 and importmaps without nodejs
+
+https://dev.to/coorasse/rails-7-bootstrap-5-and-importmaps-without-nodejs-4g8
+
+Stick with just rails new myapp
+This will setup exactly the tools I want: sprockets and importmaps. It will also
+setup automatically for me stimulus and turbo, which is great because I use them
+most of the time anyway.
+
+Add bootstrap gem and enable the gem sassc-rails in the Gemfile. This will allow
+us to compile bootstrap from SCSS without node.
+
+You can simply import Bootstrap styles in ~app/assets/stylesheets/application.scss~:
+
+(move application.css to application.sccs if needed)
+#+begin_example
+// here your custom bootstrap variables...
+
+@import "bootstrap";
+#+end_example
+
+That's it for the CSS part. Running ~rails assets:precompile~ will generate what you want.
+
+For the javascript part we need to do three things:
+
+Precompile the bootstrap.min.js that comes with the gem, by adding to ~config/initializers/assets.rb~
+#+begin_example
+Rails.application.config.assets.precompile += %w( bootstrap.min.js popper.js )
+#+end_example
+
+pin the compiled asset in ~config/importmap.rb~:
+#+begin_example
+pin "popper", to: 'popper.js', preload: true
+pin "bootstrap", to: 'bootstrap.min.js', preload: true
+#+end_example
+
+Include bootstrap in your ~app/javascript/application.js~:
+#+begin_example
+import "popper"
+import "bootstrap"
+#+end_example
+
+I prefer this approach rather than pinning a CDN because we avoid diverging versions
