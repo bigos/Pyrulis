@@ -29,3 +29,23 @@ slideHueSetHue =
                 |> Tuple.first
                 |> .hue
                 |> Expect.equal amount
+
+
+sliders : Test
+sliders =
+    describe "Slider sets the desired field in the Model"
+        [ testSlider "SlideHue" SlideHue .hue
+        , testSlider "SlideRipple" SlideRipple .ripple
+        , testSlider "SlideNoise" SlideNoise .noise
+        ]
+
+
+testSlider : String -> (Int -> Msg) -> (Model -> Int) -> Test
+testSlider description toMsg amountFromModel =
+    fuzz int description <|
+        \amount ->
+            initialModel
+                |> update (toMsg amount)
+                |> Tuple.first
+                |> amountFromModel
+                |> Expect.equal amount
