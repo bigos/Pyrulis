@@ -40,7 +40,10 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 6 Testing
 
 6.2 Writing fuzz tests
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#201
+
+6.2.2 Testing update functions
+
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#205
 
 * The other links
 ** code
