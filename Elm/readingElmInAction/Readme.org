@@ -39,11 +39,12 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
 6 Testing
 
-6.2 Writing fuzz tests
-
 6.3 Testing views
 
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#209
+6.3.1
+
+Building a Query.Single
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#211
 
 * The other links
 ** code
