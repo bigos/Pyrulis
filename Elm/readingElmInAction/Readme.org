@@ -41,10 +41,10 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
 6.3 Testing views
 
-6.3.1
+6.3.2
 
-Building a Query.Single
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#211
+
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#214
 
 * The other links
 ** code
