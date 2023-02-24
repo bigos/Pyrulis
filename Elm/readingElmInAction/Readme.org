@@ -41,10 +41,10 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
 6.3 Testing views
 
-6.3.2
+6.3.3
 
 
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#214
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#217
 
 * The other links
 ** code
