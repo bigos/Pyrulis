@@ -37,7 +37,11 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
 *** part 3
 
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#224
+Data modelling
+
+7.1 Storing values by keys in dictionaries
+
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#227
 
 * The other links
 ** code
