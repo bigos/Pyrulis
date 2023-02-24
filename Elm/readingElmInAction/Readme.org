@@ -43,8 +43,9 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
 6.3.3
 
+simulating click event
 
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#217
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#219
 
 * The other links
 ** code

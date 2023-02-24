@@ -6,6 +6,7 @@ port module PhotoGroove exposing
     , initialModel
     , main
     , photoDecoder
+    , photoFromUrl
     , update
     , urlPrefix
     , view

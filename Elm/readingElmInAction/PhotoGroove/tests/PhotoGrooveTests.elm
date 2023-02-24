@@ -5,7 +5,7 @@ import Fuzz exposing (Fuzzer, int, list, string)
 import Html.Attributes as Attr exposing (src)
 import Json.Decode as Decode exposing (decodeValue)
 import Json.Encode as Encode
-import PhotoGroove exposing (Model, Msg(..), Photo, Status(..), initialModel, update, urlPrefix, view)
+import PhotoGroove exposing (Model, Msg(..), Photo, Status(..), initialModel, photoFromUrl, update, urlPrefix, view)
 import Test exposing (..)
 import Test.Html.Query as Query
 import Test.Html.Selector exposing (attribute, tag, text)
@@ -74,14 +74,9 @@ thumbnailRendered url query =
 
 thumnailsWork : Test
 thumnailsWork =
-    fuzz (Fuzz.intRange 1 5) "URLs render as thumbnails" <|
-        \urlCount ->
+    fuzz urlFuzzer "URLs render as thumbnails" <|
+        \urls ->
             let
-                urls : List String
-                urls =
-                    List.Range 1 urlCount
-                        |> List.map (\num -> String.fromInt ++ ".png")
-
                 thumbnailChecks : List (Query.Single msg -> Expectation)
                 thumbnailChecks =
                     List.map thumbnailRendered urls
@@ -90,3 +85,14 @@ thumnailsWork =
                 |> view
                 |> Query.fromHtml
                 |> Expect.all thumbnailChecks
+
+
+urlFuzzer : Fuzzer (List String)
+urlFuzzer =
+    Fuzz.intRange 1 5
+        |> Fuzz.map urlsFromCount
+
+
+urlsFromCount : Int -> List String
+urlsFromCount urlCount =
+    List.range 1 urlCount |> List.map (\num -> String.fromInt num ++ ".png")
