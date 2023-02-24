@@ -41,7 +41,10 @@ Data modelling
 
 7.1 Storing values by keys in dictionaries
 
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#227
+7.1.1 Setting up the page
+
+
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#228
 
 * The other links
 ** code
