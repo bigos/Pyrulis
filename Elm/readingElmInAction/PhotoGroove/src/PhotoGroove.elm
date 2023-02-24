@@ -6,7 +6,6 @@ port module PhotoGroove exposing
     , initialModel
     , main
     , photoDecoder
-    , photoFromUrl
     , update
     , urlPrefix
     , view
@@ -324,8 +323,3 @@ onSlide toMsg =
     at [ "detail", "userSlidTo" ] int
         |> Json.Decode.map toMsg
         |> on "slide"
-
-
-photoFromUrl : String -> Photo
-photoFromUrl url =
-    { url = url, size = 0, title = "" }
