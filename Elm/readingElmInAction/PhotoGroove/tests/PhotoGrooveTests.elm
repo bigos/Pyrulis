@@ -1,4 +1,14 @@
-module PhotoGrooveTests exposing (..)
+module PhotoGrooveTests exposing
+    ( clickThumbnail
+    , decoderTest
+    , photoFromUrl
+    , sliders
+    , testSlider
+    , thumbnailRendered
+    , thumnailsWork
+    , urlFuzzer
+    , urlsFromCount
+    )
 
 import Expect exposing (Expectation)
 import Fuzz exposing (Fuzzer, int, list, string)
