@@ -41,10 +41,9 @@ Data modelling
 
 7.1 Storing values by keys in dictionaries
 
-7.1.1 Setting up the page
+7.1.2 Storing photos by URL in a dictionary
 
-
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#228
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#230
 
 * The other links
 ** code
