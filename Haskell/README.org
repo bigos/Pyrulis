@@ -15,3 +15,7 @@
 
 *** interesting book - Algebra Driven Design
 https://algebradriven.design/
+
+*** Haskell for Elm programmers
+https://flaviocorpa.com/
+https://flaviocorpa.com/haskell-for-elm-developers-giving-names-to-stuff-part-1-functors.html
