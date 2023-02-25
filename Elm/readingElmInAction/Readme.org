@@ -49,7 +49,8 @@ Data modelling
 
 7.1.2 Storing photos by URL in a dictionary
 
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#230
+storing and retrieving photos
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#232
 
 * The other links
 ** code
