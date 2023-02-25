@@ -48,6 +48,7 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#230
 * The other links
 ** code
 file:~/Programming/Pyrulis/Elm/readingElmInAction/PhotoGroove/src/PhotoGroove.elm::1
+file:~/Programming/Pyrulis/Elm/readingElmInAction/PhotoGroove/src/PhotoFolders.elm::1
 
 file:~/Programming/Pyrulis/Elm/readingElmInAction/PhotoGroove/index.html::1
 
