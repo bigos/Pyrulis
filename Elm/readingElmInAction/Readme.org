@@ -19,7 +19,8 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#17
 
 ** reading
 
-*** part 1 done
+*** DONE part 1
+CLOSED: [2023-02-25 Sat 16:22]
 1.2.1 Using Elm REPL
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#28
 
@@ -35,7 +36,12 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#58
 The Elm runtime and main
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#60
 
+*** DONE part 2
+CLOSED: [2023-02-25 Sat 16:24]
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#110
+
 *** part 3
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#224
 
 Data modelling
 
