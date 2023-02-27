@@ -163,6 +163,12 @@ type alias Photo =
     }
 
 
+viewPhoto : String -> Html Msg
+viewPhoto url =
+    div [ class "photo", onClick (ClickedPhoto url) ]
+        [ text url ]
+
+
 viewSelectedPhoto : Photo -> Html Msg
 viewSelectedPhoto photo =
     div [ class "selected-photo" ]
@@ -185,16 +191,41 @@ viewRelatedPhoto url =
         []
 
 
-viewFolder : Folder -> Html Msg
-viewFolder (Folder folder) =
+viewFolder : FolderPath -> Folder -> Html Msg
+viewFolder path (Folder folder) =
     let
-        subfolders =
-            List.map viewFolder folder.subfolders
+        viewSubfolder : Int -> Folder -> Html Msg
+        viewSubfolder index subfolder =
+            viewFolder (appendIndex index path) subfolder
+
+        folderLabel =
+            label [ onClick (ClickedFolder path) ] [ text folder.name ]
     in
-    div [ class "folder" ]
-        [ label [] [ text folder.name ]
-        , div [ class "subfolders" ] subfolders
-        ]
+    if folder.expanded then
+        let
+            contents =
+                --List.indexedMap viewSubfolder folder.subfolders
+                List.append
+                    (List.indexedMap viewSubfolder folder.subfolders)
+                    (List.map viewPhoto folder.photoUrls)
+        in
+        div [ class "folder-expanded" ]
+            [ folderLabel
+            , div [ class "contents" ] contents
+            ]
+
+    else
+        div [ class "folder collapsed" ] [ folderLabel ]
+
+
+appendIndex : Int -> FolderPath -> FolderPath
+appendIndex index path =
+    case path of
+        End ->
+            SubFolder index End
+
+        Subfolder subfolderIndex remainingPath ->
+            Subfolder subfolderIndex (appendIndex index remainingPath)
 
 
 urlPrefix : String
