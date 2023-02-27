@@ -49,9 +49,9 @@ Data modelling
 
 7.1.2 Storing photos by URL in a dictionary
 
-7.2.2 recursive messages
+7.2.3
 
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#244
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#247
 
 * The other links
 ** code

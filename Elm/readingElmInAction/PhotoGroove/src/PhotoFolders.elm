@@ -104,11 +104,15 @@ modelDecoder =
 type Msg
     = ClickedPhoto String
     | GotInitialModel (Result Http.Error Model)
+    | ClickedFolder FolderPath
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        ClickedFolder path ->
+            { model | root = toggleExpanded path model.root }
+
         ClickedPhoto url ->
             ( { model | selectedPhotoUrl = Just url }, Cmd.none )
 
@@ -196,3 +200,31 @@ viewFolder (Folder folder) =
 urlPrefix : String
 urlPrefix =
     "http://elm-in-action.com"
+
+
+type FolderPath
+    = End
+    | SubFolder Int FolderPath
+
+
+toggeleExpanded : FolderPath -> Folder -> Folder
+toggeleExpanded path (Folder folder) =
+    case path of
+        End ->
+            Folder { folder | expanded = not folder.expanded }
+
+        SubFolder targetIndex remainingPath ->
+            let
+                subfolders : List Folder
+                subfolders =
+                    List.indexedMap transform folder.subfolders
+
+                transform : Int -> Folder -> Folder
+                transform currentIndex currentSubfolder =
+                    if currentIndex == targetIndex then
+                        toggleExpanded remainingPath currentSubfolder
+
+                    else
+                        currentSubfolder
+            in
+            Folder { folder | subfolders = subfolders }
