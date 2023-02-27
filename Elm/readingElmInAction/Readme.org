@@ -49,9 +49,9 @@ Data modelling
 
 7.1.2 Storing photos by URL in a dictionary
 
-7.3.2
+7.3.3
 
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#252
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#256
 
 * The other links
 ** code
