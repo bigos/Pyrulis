@@ -51,7 +51,9 @@ Data modelling
 
 7.2
 
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#239
+destructuring single - variant custom types
+
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#243
 
 * The other links
 ** code
