@@ -156,6 +156,22 @@ and the AHA! moment with the Figure 3.7 pn page 79 (100)
 ** Type variables are for
 concrete types that have not been specified yet`
 
+We have 3 type variables in Elm
+
+*** number
+for Int or Float
+
+at least with number the type variable is a PREFIX
+so we can have
+number, number2, numberC and so on if the numbers are distinct from another
+numberA -> number2
+
+*** appendable
+for String pr List
+
+*** comparable
+for Int, Float, Char, String, List or Tuple
+
 ** Non empty lists
 Similarly, a function can “return a non-empty list” by returning
 an ( elem, List elem ) tuple. where we have tuple of the head and rest
