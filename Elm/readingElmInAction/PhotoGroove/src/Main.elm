@@ -45,10 +45,28 @@ viewHeader page =
 
         navLink : Page -> { url : String, caption : String } -> Html msg
         navLink targetPage { url, caption } =
-            li [ classList [ ( "active", page == targetPage ) ] ]
+            li
+                [ classList
+                    [ ( "active"
+                      , isActive
+                            { link = url
+                            , page = page
+                            }
+                      )
+                    ]
+                ]
                 [ a [ href url ] [ text caption ] ]
     in
     nav [] [ logo, links ]
+
+
+
+-- zzzzzzzzzzzzzzzzzz
+
+
+isActive : { link : String, page : Page } -> Bool
+isActive { link, page } =
+    True
 
 
 viewFooter : Html msg

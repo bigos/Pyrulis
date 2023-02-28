@@ -45,9 +45,9 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#224
 
 8 Single page applications
 
-8.1.2 Rendering the header and footer
+8.2 Routing
 
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#270
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#279
 
 * The other links
 ** code
