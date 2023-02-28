@@ -45,7 +45,9 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#224
 
 8 Single page applications
 
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#267
+8.1.1
+
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#268
 
 * The other links
 ** code
