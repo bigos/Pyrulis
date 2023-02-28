@@ -254,3 +254,9 @@ accidentally passing them in the wrong order, putting them into a record is a qu
 way to achieve “named arguments.” I can tell at a glance that
 { url = "/", caption = "Folders" } looks right, whereas something looks off about { url = "Folders",
 caption = "/" }. The string "Folders" clearly isn’t a URL,
+** adding debugger to whole page app
+compiling like this:
+#+begin_example
+elm make --output=app.js --debug ./src/Main.elm
+#+end_example
+adds a very nice debugger button in the corner of the app window
