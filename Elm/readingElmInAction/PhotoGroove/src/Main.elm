@@ -66,7 +66,9 @@ viewHeader page =
 
 isActive : { link : String, page : Page } -> Bool
 isActive { link, page } =
-    True
+    case ( link, page ) of
+        ( _, _ ) ->
+            True
 
 
 viewFooter : Html msg
