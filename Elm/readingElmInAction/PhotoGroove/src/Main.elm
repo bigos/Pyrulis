@@ -1,9 +1,11 @@
 module Main exposing (main)
 
 import Browser exposing (Document)
+import Browser.Navigation as Nav
 import Html exposing (Html, a, footer, h1, li, nav, text, ul)
 import Html.Attributes exposing (classList, href)
 import Html.Lazy exposing (lazy)
+import Url exposing (Url)
 
 
 type alias Model =
@@ -90,10 +92,23 @@ subscriptions model =
     Sub.none
 
 
+init : () -> Url -> Nav.Key -> ( Model, Cmd Msg )
+init flags url key =
+    case url.path of
+        "/gallery" ->
+            ( { page = Gallery }, Cmd.none )
+
+        "/" ->
+            ( { page = Folders }, Cmd.none )
+
+        _ ->
+            ( { page = NotFound }, Cmd.none )
+
+
 main : Program () Model Msg
 main =
     Browser.application
-        { init = \_ _ _ -> ( { page = Folders }, Cmd.none )
+        { init = init
         , onUrlRequest = \_ -> Debug.todo "handle URL requests"
         , onUrlChange = \_ -> Debug.todo "handle URL changes"
         , subscriptions = subscriptions
