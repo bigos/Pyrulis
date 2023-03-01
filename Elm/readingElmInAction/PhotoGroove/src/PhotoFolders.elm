@@ -3,7 +3,7 @@ module PhotoFolders exposing (Model, Msg, init, update, view)
 import Browser
 import Dict exposing (Dict)
 import Html exposing (..)
-import Html.Attributes exposing (class, src)
+import Html.Attributes exposing (class, href, src)
 import Html.Events exposing (onClick)
 import Http
 import Json.Decode as Decode exposing (Decoder, int, list, string)
@@ -120,7 +120,11 @@ type alias Photo =
 
 viewPhoto : String -> Html Msg
 viewPhoto url =
-    div [ class "photo", onClick (ClickedPhoto url) ]
+    a
+        [ href ("/photos/" ++ url)
+        , class "photo"
+        , onClick (ClickedPhoto url)
+        ]
         [ text url ]
 
 

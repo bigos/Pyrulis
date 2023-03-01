@@ -142,6 +142,9 @@ update msg model =
                 _ ->
                     ( model, Gmd.none )
 
+        GotInitialModel (Ok newModel) ->
+            ( { newModel | selectedPhotoUrl = model.selectedPhotoUrl }, Cmd.none )
+
 
 toFolders : Model -> ( Folders.Model, Cmd Folders.Msg ) -> ( Model, Cmd Msg )
 toFolders model ( folders, cmd ) =
