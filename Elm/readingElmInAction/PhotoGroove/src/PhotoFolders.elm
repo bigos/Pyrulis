@@ -30,13 +30,7 @@ initialModel : Model
 initialModel =
     { selectedPhotoUrl = Nothing
     , photos = Dict.empty
-    , root =
-        Folder
-            { name = "Loading..."
-            , expanded = True
-            , photoUrls = []
-            , subfolders = []
-            }
+    , root = Folder { name = "Loading...", expanded = True, photoUrls = [], subfolders = [] }
     }
 
 
@@ -54,10 +48,7 @@ modelDecoder : Decoder Model
 modelDecoder =
     Decode.map2
         (\photos root ->
-            { photos = photos
-            , root = root
-            , selectedPhotoUrl = Nothing
-            }
+            { photos = photos, root = root, selectedPhotoUrl = Nothing }
         )
         modelPhotosDecoder
         folderDecoder
@@ -79,7 +70,7 @@ update msg model =
             ( { model | selectedPhotoUrl = Just url }, Cmd.none )
 
         GotInitialModel (Ok newModel) ->
-            ( newModel, Cmd.none )
+            ( { newModel | selectedPhotoUrl = model.selectedPhotoUrl }, Cmd.none )
 
         GotInitialModel (Err _) ->
             ( model, Cmd.none )
@@ -103,9 +94,7 @@ view model =
     in
     div [ class "content" ]
         [ div [ class "folders" ]
-            [ h1 [] [ text "Folders" ]
-            , viewFolder End model.root
-            ]
+            [ viewFolder End model.root ]
         , div [ class "selected-photo" ] [ selectedPhoto ]
         ]
 
@@ -120,11 +109,7 @@ type alias Photo =
 
 viewPhoto : String -> Html Msg
 viewPhoto url =
-    a
-        [ href ("/photos/" ++ url)
-        , class "photo"
-        , onClick (ClickedPhoto url)
-        ]
+    a [ href ("/photos/" ++ url), class "photo", onClick (ClickedPhoto url) ]
         [ text url ]
 
 
@@ -145,7 +130,7 @@ viewRelatedPhoto : String -> Html Msg
 viewRelatedPhoto url =
     img
         [ class "related-photo"
-        , onClick (ClickedPhoto url)
+        , onClick (SelectPhotoUrl url)
         , src (urlPrefix ++ "photos/" ++ url ++ "/thumb")
         ]
         []
@@ -159,7 +144,7 @@ viewFolder path (Folder folder) =
             viewFolder (appendIndex index path) subfolder
 
         folderLabel =
-            label [ onClick (ClickedFolder path) ] [ text folder.name ]
+            label [ onClick (ToggleExpanded path) ] [ text folder.name ]
     in
     if folder.expanded then
         let
@@ -168,7 +153,7 @@ viewFolder path (Folder folder) =
                     (List.indexedMap viewSubfolder folder.subfolders)
                     (List.map viewPhoto folder.photoUrls)
         in
-        div [ class "folder-expanded" ]
+        div [ class "folder expanded" ]
             [ folderLabel
             , div [ class "contents" ] contents
             ]
@@ -181,10 +166,10 @@ appendIndex : Int -> FolderPath -> FolderPath
 appendIndex index path =
     case path of
         End ->
-            SubFolder index End
+            Subfolder index End
 
-        SubFolder subfolderIndex remainingPath ->
-            SubFolder subfolderIndex (appendIndex index remainingPath)
+        Subfolder subfolderIndex remainingPath ->
+            Subfolder subfolderIndex (appendIndex index remainingPath)
 
 
 urlPrefix : String
@@ -194,7 +179,7 @@ urlPrefix =
 
 type FolderPath
     = End
-    | SubFolder Int FolderPath
+    | Subfolder Int FolderPath
 
 
 toggleExpanded : FolderPath -> Folder -> Folder
@@ -203,7 +188,7 @@ toggleExpanded path (Folder folder) =
         End ->
             Folder { folder | expanded = not folder.expanded }
 
-        SubFolder targetIndex remainingPath ->
+        Subfolder targetIndex remainingPath ->
             let
                 subfolders : List Folder
                 subfolders =
@@ -248,7 +233,9 @@ finishPhoto ( url, json ) =
 
 fromPairs : List ( String, JsonPhoto ) -> Dict String Photo
 fromPairs pairs =
-    pairs |> List.map finishPhoto |> Dict.fromList
+    pairs
+        |> List.map finishPhoto
+        |> Dict.fromList
 
 
 photosDecoder : Decoder (Dict String Photo)
