@@ -16,9 +16,8 @@ type alias Model =
 
 
 type Page
-    = Gallery Gallery.Model
-    | Folders Folders.Model
-    | SelectedPhoto String Folders.Model
+    = GalleryPage Gallery.Model
+    | FoldersPage Folders.Model
     | NotFound
 
 
@@ -42,9 +41,9 @@ view model =
                         |> Html.map GotGalleryMsg
 
                 NotFound ->
-                    text "Not found"
+                    text "Not Found"
     in
-    { title = "Photo Gallery, SPA Style"
+    { title = "Photo Groove, SPA Style"
     , body =
         [ lazy viewHeader model.page
         , content
@@ -57,7 +56,7 @@ viewHeader : Page -> Html Msg
 viewHeader page =
     let
         logo =
-            h1 [] [ text "PhotoGallery" ]
+            h1 [] [ text "Photo Groove" ]
 
         links =
             ul []
@@ -67,16 +66,7 @@ viewHeader page =
 
         navLink : Route -> { url : String, caption : String } -> Html msg
         navLink route { url, caption } =
-            li
-                [ classList
-                    [ ( "active"
-                      , isActive
-                            { link = route
-                            , page = page
-                            }
-                      )
-                    ]
-                ]
+            li [ classList [ ( "active", isActive { link = route, page = page } ) ] ]
                 [ a [ href url ] [ text caption ] ]
     in
     nav [] [ logo, links ]
@@ -85,26 +75,20 @@ viewHeader page =
 isActive : { link : Route, page : Page } -> Bool
 isActive { link, page } =
     case ( link, page ) of
-        -- ------------------------
-        ( Gallery, GalleryPage ) ->
+        --------------------------------------------
+        ( Gallery, GalleryPage _ ) ->
             True
 
         ( Gallery, _ ) ->
             False
 
-        ( Folders, FoldersPage ) ->
-            True
-
-        ( Folders, SelectedPhoto _ ) ->
+        ( Folders, FoldersPage _ ) ->
             True
 
         ( Folders, _ ) ->
             False
 
         ( SelectedPhoto _, _ ) ->
-            False
-
-        ( NotFound, _ ) ->
             False
 
 
@@ -140,10 +124,15 @@ update msg model =
                     toFolders model (Folders.update foldersMsg folders)
 
                 _ ->
-                    ( model, Gmd.none )
+                    ( model, Cmd.none )
 
-        GotInitialModel (Ok newModel) ->
-            ( { newModel | selectedPhotoUrl = model.selectedPhotoUrl }, Cmd.none )
+        GotGalleryMsg galleryMsg ->
+            case model.page of
+                GalleryPage gallery ->
+                    toGallery model (Gallery.update galleryMsg gallery)
+
+                _ ->
+                    ( model, Cmd.none )
 
 
 toFolders : Model -> ( Folders.Model, Cmd Folders.Msg ) -> ( Model, Cmd Msg )
@@ -153,11 +142,19 @@ toFolders model ( folders, cmd ) =
     )
 
 
+toGallery : Model -> ( Gallery.Model, Cmd Gallery.Msg ) -> ( Model, Cmd Msg )
+toGallery model ( gallery, cmd ) =
+    ( { model | page = GalleryPage gallery }
+    , Cmd.map GotGalleryMsg cmd
+    )
+
+
 subscriptions : Model -> Sub Msg
 subscriptions model =
     case model.page of
         GalleryPage gallery ->
-            Gallery.subscriptions gallery |> Sub.map GotGalleryMsg
+            Gallery.subscriptions gallery
+                |> Sub.map GotGalleryMsg
 
         _ ->
             Sub.none
@@ -165,7 +162,7 @@ subscriptions model =
 
 init : Float -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init version url key =
-    ( { page = NotFound, key = key, version = version }, Cmd.none )
+    updateUrl url { page = NotFound, key = key, version = version }
 
 
 updateUrl : Url -> Model -> ( Model, Cmd Msg )
@@ -176,7 +173,7 @@ updateUrl url model =
                 |> toGallery model
 
         Just Folders ->
-            Folder.init Nothing
+            Folders.init Nothing
                 |> toFolders model
 
         Just (SelectedPhoto filename) ->
@@ -187,7 +184,7 @@ updateUrl url model =
             ( { model | page = NotFound }, Cmd.none )
 
 
-urlToPage : Url -> Page
+urlToPage : Float -> Url -> Page
 urlToPage version url =
     case Parser.parse parser url of
         Just Gallery ->
@@ -216,9 +213,9 @@ main : Program Float Model Msg
 main =
     Browser.application
         { init = init
-        , onUrlRequest = \_ -> ClickedLink
-        , onUrlChange = \_ -> ChangedUrl
-        , subscriptions = subscriptions
+        , onUrlRequest = ClickedLink
+        , onUrlChange = ChangedUrl
+        , subscriptions = \_ -> Sub.none
         , update = update
         , view = view
         }
