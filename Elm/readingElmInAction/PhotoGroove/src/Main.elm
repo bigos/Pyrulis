@@ -5,6 +5,8 @@ import Browser.Navigation as Nav
 import Html exposing (Html, a, footer, h1, li, nav, text, ul)
 import Html.Attributes exposing (classList, href)
 import Html.Lazy exposing (lazy)
+import PhotoFolders as Folders
+import PhotoGallery as Gallery
 import Url exposing (Url)
 import Url.Parser as Parser exposing ((</>), Parser, s, string)
 
@@ -26,7 +28,7 @@ view model =
         content =
             text "This isn't even my final form!"
     in
-    { title = "Photo Groove, SPA Style"
+    { title = "Photo Gallery, SPA Style"
     , body =
         [ lazy viewHeader model.page
         , content
@@ -39,7 +41,7 @@ viewHeader : Page -> Html Msg
 viewHeader page =
     let
         logo =
-            h1 [] [ text "PhotoGroove" ]
+            h1 [] [ text "PhotoGallery" ]
 
         links =
             ul []
