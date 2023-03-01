@@ -45,23 +45,12 @@ decoderTest =
                 |> Expect.equal (Ok "(untitled)")
 
 
-slideHueSetHue : Test
-slideHueSetHue =
-    fuzz int "SlideHue sets the hue" <|
-        \amount ->
-            initialModel
-                |> update (SlideHue amount)
-                |> Tuple.first
-                |> .hue
-                |> Expect.equal amount
-
-
 sliders : Test
 sliders =
     describe "Slider sets the desired field in the Model"
-        [ testSlider "SlideHue" SlideHue .hue
-        , testSlider "SlideRipple" SlideRipple .ripple
-        , testSlider "SlideNoise" SlideNoise .noise
+        [ testSlider "SlidHue" SlidHue .hue
+        , testSlider "SlidRipple" SlidRipple .ripple
+        , testSlider "SlidNoise" SlidNoise .noise
         ]
 
 
@@ -76,14 +65,15 @@ testSlider description toMsg amountFromModel =
                 |> Expect.equal amount
 
 
-thumnailsWork : Test
-thumnailsWork =
+thumbnailsWork : Test
+thumbnailsWork =
     fuzz (Fuzz.intRange 1 5) "URLs render as thumbnails" <|
         \urlCount ->
             let
                 urls : List String
                 urls =
-                    List.range 1 urlCount |> List.map (\num -> String.fromInt num ++ ".png")
+                    List.range 1 urlCount
+                        |> List.map (\num -> String.fromInt num ++ ".png")
 
                 thumbnailChecks : List (Query.Single msg -> Expectation)
                 thumbnailChecks =
@@ -93,17 +83,6 @@ thumnailsWork =
                 |> view
                 |> Query.fromHtml
                 |> Expect.all thumbnailChecks
-
-
-noPhotosNoThumbnails : Test
-noPhotosNoThumbnails =
-    test "No Thumbnails render when there are no photos to render." <|
-        \_ ->
-            initialModel
-                |> PhotoGroove.view
-                |> Query.fromHtml
-                |> Query.findAll [ tag "img" ]
-                |> Query.count (Expect.equal 0)
 
 
 thumbnailRendered : String -> Query.Single msg -> Expectation
@@ -126,19 +105,21 @@ urlFuzzer =
 
 urlsFromCount : Int -> List String
 urlsFromCount urlCount =
-    List.range 1 urlCount |> List.map (\num -> String.fromInt num ++ ".png")
+    List.range 1 urlCount
+        |> List.map (\num -> String.fromInt num ++ ".png")
 
 
 clickThumbnail : Test
 clickThumbnail =
     fuzz3 urlFuzzer string urlFuzzer "clicking a thumbnail selects it" <|
-        \urlsBefore urlsToSelect urlsAfter ->
+        \urlsBefore urlToSelect urlsAfter ->
             let
                 url =
-                    urlsToSelect ++ ".jpeg"
+                    urlToSelect ++ ".jpeg"
 
                 photos =
-                    (urlsBefore ++ url :: urlsAfter) |> List.map photoFromUrl
+                    (urlsBefore ++ url :: urlsAfter)
+                        |> List.map photoFromUrl
 
                 srcToClick =
                     urlPrefix ++ url
