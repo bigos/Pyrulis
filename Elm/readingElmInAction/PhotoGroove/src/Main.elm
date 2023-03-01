@@ -92,8 +92,10 @@ subscriptions model =
 
 main : Program () Model Msg
 main =
-    Browser.document
-        { init = \_ -> ( { page = Gallery }, Cmd.none )
+    Browser.application
+        { init = \_ _ _ -> ( { page = Folders }, Cmd.none )
+        , onUrlRequest = \_ -> Debug.todo "handle URL requests"
+        , onUrlChange = \_ -> Debug.todo "handle URL changes"
         , subscriptions = subscriptions
         , update = update
         , view = view

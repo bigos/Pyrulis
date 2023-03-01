@@ -260,3 +260,11 @@ compiling like this:
 elm make --output=app.js --debug ./src/Main.elm
 #+end_example
 adds a very nice debugger button in the corner of the app window
+** SPA needs npm package http-server-spa
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#279
+that makes links respond correctly instead of pointing to file system
+** 4 ways to crash Elm
+Debug.todo
+calling modBy 0 on any number
+fn1 == fn2 - calling == on two values that contain functions
+passing malformed value into a port
