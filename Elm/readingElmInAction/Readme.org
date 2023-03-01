@@ -47,9 +47,9 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#224
 
 8.2 Routing
 
-8.3
+8.3.3
 
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#293
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#300
 
 
 final Main.elm

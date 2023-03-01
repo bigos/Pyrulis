@@ -2,6 +2,7 @@ port module PhotoGallery exposing
     ( Model
     , Msg
     , init
+    , subscriptions
     , update
     , view
     )
