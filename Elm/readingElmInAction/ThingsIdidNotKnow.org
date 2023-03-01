@@ -268,3 +268,14 @@ Debug.todo
 calling modBy 0 on any number
 fn1 == fn2 - calling == on two values that contain functions
 passing malformed value into a port
+** external vs internal pages in SPA
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#290
+Nav.load for external and Nav.pushUrl for internal SPA pages
+
+pushUrl pushes url onto browser's history stack that leads to
+address bar change
+triggering ChangedUrl
+new item in browser history
+** SPA Nav.Key
+it is a token proving to Elm runtime that the elm code has full control over
+the page and was started with Browser.application

@@ -10,7 +10,7 @@ import Url.Parser as Parser exposing ((</>), Parser, s, string)
 
 
 type alias Model =
-    { page : Page }
+    { page : Page, key : Nav.Key }
 
 
 type Page
@@ -96,12 +96,23 @@ viewFooter =
 
 
 type Msg
-    = NothingYet
+    = ClickedLink Browser.UrlRequest
+    | ChangedUrl Url
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    ( model, Cmd.none )
+    case msg of
+        ClickedLink urlRequest ->
+            case urlRequest of
+                Browser.External href ->
+                    ( model, Nav.load href )
+
+                Browser.Internal url ->
+                    ( model, Nav.pushUrl model.key (Url.toString url) )
+
+        ChangedUrl url ->
+            ( { model | page = urlToPage url }, Cmd.none )
 
 
 subscriptions : Model -> Sub Msg
@@ -133,8 +144,8 @@ main : Program () Model Msg
 main =
     Browser.application
         { init = init
-        , onUrlRequest = \_ -> Debug.todo "handle URL requests"
-        , onUrlChange = \_ -> Debug.todo "handle URL changes"
+        , onUrlRequest = \_ -> ClickedLink
+        , onUrlChange = \_ -> ChangedUrl
         , subscriptions = subscriptions
         , update = update
         , view = view
