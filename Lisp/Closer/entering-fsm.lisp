@@ -23,38 +23,20 @@
 
 ;;; ----------------------------------------------------------------------------
 
-(defparameter !!! (make-instance 'prompt))
 
-(defun qqq (arg)
-  (enter !!! arg))
-
-;; (enter !!! "zzz") or (qqq "zzz")
-(defmethod enter ((prompt prompt) (entered t))
-  (cond ((null entered)
-         (format t "nothing entered~%"))
-        ((typep entered 'string)
-         (cond
-           ((equalp entered "")
-            (format t "entered empty string~%"))
-           ((serapeum:blankp entered)
-            (format t "entered blank string~%"))
-           (t
-            (format t "entered some string")
-
-            (process prompt
-                     (state prompt)
-                     ;; (serapeum/bundle:make-keyword (string-upcase entered))
-                     (read-from-string entered)
-                     ))))
-
-        (t (warn "entered ~S is not recognised" entered))))
+;; (send 'process)
+(let ((prompt (make-instance 'prompt)))
+  (defun send (my-method)
+    "With prompt in the closure, I can reduce number of arguments needed in
+    REPL."
+    (funcall my-method prompt (state prompt))))
 
 ;;; ----------------------------------------------------------------------------
 
-(defmethod process ((prompt prompt) (prompt-state initial) (entered (eql 'help)))
+(defmethod process ((prompt prompt) (prompt-state initial))
   (warn "processing initial state")
   (setf (state prompt) (m0 'help)))
 
-(defmethod process ((prompt prompt) (prompt-state help)    (entered (eql 'quit)))
+(defmethod process ((prompt prompt) (prompt-state help))
   (warn "processing help state")
   (setf (state prompt) (m0 'initial)))
