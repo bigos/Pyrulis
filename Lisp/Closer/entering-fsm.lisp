@@ -43,16 +43,18 @@
 
             (process prompt
                      (state prompt)
-                     (serapeum/bundle:make-keyword (string-upcase entered))))))
+                     ;; (serapeum/bundle:make-keyword (string-upcase entered))
+                     (read-from-string entered)
+                     ))))
 
         (t (warn "entered ~S is not recognised" entered))))
 
 ;;; ----------------------------------------------------------------------------
 
-(defmethod process ((prompt prompt) (prompt-state initial) (entered (eql :help)))
+(defmethod process ((prompt prompt) (prompt-state initial) (entered (eql 'help)))
   (warn "processing initial state")
   (setf (state prompt) (m0 'help)))
 
-(defmethod process ((prompt prompt) (prompt-state help)    (entered (eql :quit)))
+(defmethod process ((prompt prompt) (prompt-state help)    (entered (eql 'quit)))
   (warn "processing help state")
   (setf (state prompt) (m0 'initial)))
