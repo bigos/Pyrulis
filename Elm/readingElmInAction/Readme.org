@@ -43,20 +43,29 @@ pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#110
 *** part 3
 pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#224
 
-Data modelling
+8 Single page applications
 
-7.1 Storing values by keys in dictionaries
+8.2 Routing
 
-7.1.2 Storing photos by URL in a dictionary
+8.3.3
 
-7.3.3
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#300
 
-pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#256
+
+final Main.elm
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#307
+
+Git repo
+https://github.com/rtfeldman/elm-in-action/find/master
+
+future challenges: WHAT IF I WANT TO KEEP THIS PHOTO GROOVE GOING?
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#305
 
 * The other links
 ** code
 file:~/Programming/Pyrulis/Elm/readingElmInAction/PhotoGroove/src/PhotoGroove.elm::1
 file:~/Programming/Pyrulis/Elm/readingElmInAction/PhotoGroove/src/PhotoFolders.elm::1
+file:~/Programming/Pyrulis/Elm/readingElmInAction/PhotoGroove/src/Main.elm::1
 
 file:~/Programming/Pyrulis/Elm/readingElmInAction/PhotoGroove/index.html::1
 

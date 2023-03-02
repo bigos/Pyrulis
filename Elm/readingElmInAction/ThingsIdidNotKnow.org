@@ -248,3 +248,34 @@ Result.map      String.fromInt (Ok 5)      == (Ok "5")
 - List.map has no effect on [].
 - Json.Decode.map has no effect on decoders created with fail.
 - Result.map has no effect on Err variants.
+** confusing arguments and naming arguments
+Anytime you have multiple arguments of the same type, and you’re concerned about
+accidentally passing them in the wrong order, putting them into a record is a quick
+way to achieve “named arguments.” I can tell at a glance that
+{ url = "/", caption = "Folders" } looks right, whereas something looks off about { url = "Folders",
+caption = "/" }. The string "Folders" clearly isn’t a URL,
+** adding debugger to whole page app
+compiling like this:
+#+begin_example
+elm make --output=app.js --debug ./src/Main.elm
+#+end_example
+adds a very nice debugger button in the corner of the app window
+** SPA needs npm package http-server-spa
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#279
+that makes links respond correctly instead of pointing to file system
+** 4 ways to crash Elm
+Debug.todo
+calling modBy 0 on any number
+fn1 == fn2 - calling == on two values that contain functions
+passing malformed value into a port
+** external vs internal pages in SPA
+pdf:/home/jacek/Documents/Manuals/Elm/Elm_in_Action.pdf#290
+Nav.load for external and Nav.pushUrl for internal SPA pages
+
+pushUrl pushes url onto browser's history stack that leads to
+address bar change
+triggering ChangedUrl
+new item in browser history
+** SPA Nav.Key
+it is a token proving to Elm runtime that the elm code has full control over
+the page and was started with Browser.application

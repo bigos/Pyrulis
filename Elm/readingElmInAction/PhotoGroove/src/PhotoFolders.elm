@@ -1,9 +1,9 @@
-module PhotoFolders exposing (main)
+module PhotoFolders exposing (Model, Msg, init, update, view)
 
 import Browser
 import Dict exposing (Dict)
 import Html exposing (..)
-import Html.Attributes exposing (class, src)
+import Html.Attributes exposing (class, href, src)
 import Html.Events exposing (onClick)
 import Http
 import Json.Decode as Decode exposing (Decoder, int, list, string)
@@ -15,6 +15,7 @@ type Folder
         { name : String
         , photoUrls : List String
         , subfolders : List Folder
+        , expanded : Bool
         }
 
 
@@ -29,17 +30,13 @@ initialModel : Model
 initialModel =
     { selectedPhotoUrl = Nothing
     , photos = Dict.empty
-    , root =
-        { name = "Loading..."
-        , photoUrls = []
-        , subfolders = []
-        }
+    , root = Folder { name = "Loading...", expanded = True, photoUrls = [], subfolders = [] }
     }
 
 
-init : () -> ( Model, Cmd Msg )
-init _ =
-    ( initialModel
+init : Maybe String -> ( Model, Cmd Msg )
+init selectedFilename =
+    ( { initialModel | selectedPhotoUrl = selectedFilename }
     , Http.get
         { url = "http://elm-in-action.com/folders/list"
         , expect = Http.expectJson GotInitialModel modelDecoder
@@ -49,56 +46,12 @@ init _ =
 
 modelDecoder : Decoder Model
 modelDecoder =
-    Decode.succeed
-        { selectedPhotoUrl = Just "Trevi"
-        , photos =
-            Dict.fromList
-                [ ( "trevi"
-                  , { title = "trevi"
-                    , relatedUrls = [ "coli", "fresco" ]
-                    , size = 34
-                    , url = "trevi"
-                    }
-                  )
-                , ( "fresco"
-                  , { title = "Fresco"
-                    , relatedUrls = [ "trevi" ]
-                    , size = 46
-                    , url = "fresco"
-                    }
-                  )
-                , ( "coli"
-                  , { title = "Coliseum"
-                    , relatedUrls = [ "trevi", "fresco" ]
-                    , size = 36
-                    , url = "coli"
-                    }
-                  )
-                ]
-        , root =
-            Folder
-                { name = "Photos"
-                , photoUrls = []
-                , subfolders =
-                    [ Folder
-                        { name = "2016"
-                        , photoUrls = [ "trevi", "coli" ]
-                        , subfolders =
-                            [ Folder { name = "outdoors", photoUrls = [], subfolders = [] }
-                            , Folder { name = "indoors", photoUrls = [ "fresco" ], subfolders = [] }
-                            ]
-                        }
-                    , Folder
-                        { name = "2017"
-                        , photoUrls = []
-                        , subfolders =
-                            [ Folder { name = "outdoors", photoUrls = [], subfolders = [] }
-                            , Folder { name = "indoors", photoUrls = [], subfolders = [] }
-                            ]
-                        }
-                    ]
-                }
-        }
+    Decode.map2
+        (\photos root ->
+            { photos = photos, root = root, selectedPhotoUrl = Nothing }
+        )
+        modelPhotosDecoder
+        folderDecoder
 
 
 type Msg
@@ -111,13 +64,13 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         ClickedFolder path ->
-            { model | root = toggleExpanded path model.root }
+            ( { model | root = toggleExpanded path model.root }, Cmd.none )
 
         ClickedPhoto url ->
             ( { model | selectedPhotoUrl = Just url }, Cmd.none )
 
         GotInitialModel (Ok newModel) ->
-            ( newModel, Cmd.none )
+            ( { newModel | selectedPhotoUrl = model.selectedPhotoUrl }, Cmd.none )
 
         GotInitialModel (Err _) ->
             ( model, Cmd.none )
@@ -140,19 +93,10 @@ view model =
                     text ""
     in
     div [ class "content" ]
-        [ div [ class "selected-photo" ] [ selectedPhoto ]
-        , div [] [ text (Debug.toString model) ]
+        [ div [ class "folders" ]
+            [ viewFolder End model.root ]
+        , div [ class "selected-photo" ] [ selectedPhoto ]
         ]
-
-
-main : Program () Model Msg
-main =
-    Browser.element
-        { init = init
-        , view = view
-        , update = update
-        , subscriptions = \_ -> Sub.none
-        }
 
 
 type alias Photo =
@@ -165,13 +109,14 @@ type alias Photo =
 
 viewPhoto : String -> Html Msg
 viewPhoto url =
-    div [ class "photo", onClick (ClickedPhoto url) ]
+    a [ href ("/photos/" ++ url), class "photo", onClick (ClickedPhoto url) ]
         [ text url ]
 
 
 viewSelectedPhoto : Photo -> Html Msg
 viewSelectedPhoto photo =
-    div [ class "selected-photo" ]
+    div
+        [ class "selected-photo" ]
         [ h2 [] [ text photo.title ]
         , img [ src (urlPrefix ++ "photos/" ++ photo.url ++ "/full") ] []
         , span [] [ text (String.fromInt photo.size ++ "KB") ]
@@ -204,12 +149,11 @@ viewFolder path (Folder folder) =
     if folder.expanded then
         let
             contents =
-                --List.indexedMap viewSubfolder folder.subfolders
                 List.append
                     (List.indexedMap viewSubfolder folder.subfolders)
                     (List.map viewPhoto folder.photoUrls)
         in
-        div [ class "folder-expanded" ]
+        div [ class "folder expanded" ]
             [ folderLabel
             , div [ class "contents" ] contents
             ]
@@ -222,7 +166,7 @@ appendIndex : Int -> FolderPath -> FolderPath
 appendIndex index path =
     case path of
         End ->
-            SubFolder index End
+            Subfolder index End
 
         Subfolder subfolderIndex remainingPath ->
             Subfolder subfolderIndex (appendIndex index remainingPath)
@@ -230,21 +174,21 @@ appendIndex index path =
 
 urlPrefix : String
 urlPrefix =
-    "http://elm-in-action.com"
+    "http://elm-in-action.com/"
 
 
 type FolderPath
     = End
-    | SubFolder Int FolderPath
+    | Subfolder Int FolderPath
 
 
-toggeleExpanded : FolderPath -> Folder -> Folder
-toggeleExpanded path (Folder folder) =
+toggleExpanded : FolderPath -> Folder -> Folder
+toggleExpanded path (Folder folder) =
     case path of
         End ->
             Folder { folder | expanded = not folder.expanded }
 
-        SubFolder targetIndex remainingPath ->
+        Subfolder targetIndex remainingPath ->
             let
                 subfolders : List Folder
                 subfolders =
@@ -262,7 +206,7 @@ toggeleExpanded path (Folder folder) =
 
 
 type alias JsonPhoto =
-    { titke : String
+    { title : String
     , size : Int
     , relatedUrls : List String
     }
@@ -274,6 +218,24 @@ jsonPhotoDecoder =
         |> required "title" string
         |> required "size" int
         |> required "related_photos" (list string)
+
+
+finishPhoto : ( String, JsonPhoto ) -> ( String, Photo )
+finishPhoto ( url, json ) =
+    ( url
+    , { url = url
+      , size = json.size
+      , title = json.title
+      , relatedUrls = json.relatedUrls
+      }
+    )
+
+
+fromPairs : List ( String, JsonPhoto ) -> Dict String Photo
+fromPairs pairs =
+    pairs
+        |> List.map finishPhoto
+        |> Dict.fromList
 
 
 photosDecoder : Decoder (Dict String Photo)
@@ -296,5 +258,20 @@ folderFromJson name photos subfolders =
         { name = name
         , expanded = True
         , subfolders = subfolders
-        , photoUrls = Disct.keys photos
+        , photoUrls = Dict.keys photos
         }
+
+
+modelPhotosDecoder : Decoder (Dict String Photo)
+modelPhotosDecoder =
+    Decode.succeed modelPhotosFromJson
+        |> required "photos" photosDecoder
+        |> required "subfolders" (Decode.lazy (\_ -> list modelPhotosDecoder))
+
+
+modelPhotosFromJson :
+    Dict String Photo
+    -> List (Dict String Photo)
+    -> Dict String Photo
+modelPhotosFromJson folderPhotos subfolderPhotos =
+    List.foldl Dict.union folderPhotos subfolderPhotos

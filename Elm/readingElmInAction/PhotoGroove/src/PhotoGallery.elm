@@ -1,13 +1,9 @@
-port module PhotoGroove exposing
+port module PhotoGallery exposing
     ( Model
-    , Msg(..)
-    , Photo
-    , Status(..)
-    , initialModel
-    , main
-    , photoDecoder
+    , Msg
+    , init
+    , subscriptions
     , update
-    , urlPrefix
     , view
     )
 
@@ -70,7 +66,7 @@ viewFilter toMsg name magnitude =
 
 viewLoaded : List Photo -> String -> Model -> List (Html Msg)
 viewLoaded photos selectedUrl model =
-    [ h1 [] [ text "Photo Groove" ]
+    [ h1 [] [ text "Photo Gallery" ]
     , button
         [ onClick ClickedSurpriseMe ]
         [ text "Surprise Me!" ]
