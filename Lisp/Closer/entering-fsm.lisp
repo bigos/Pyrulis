@@ -19,8 +19,9 @@
 (defclass/std help (prompt-state) ())
 
 (defclass/std prompt ()
-  ((state :std (m0 'initial))
-   (entered)))
+  ((state :std (m0 'initial))))
+
+;;; ----------------------------------------------------------------------------
 
 (defparameter !!! (make-instance 'prompt))
 
@@ -39,13 +40,14 @@
             (format t "entered blank string~%"))
            (t
             (format t "entered some string")
-            (setf (entered prompt) entered)))
 
-         (process prompt
-                  (state prompt)
-                  (serapeum/bundle:make-keyword (string-upcase (entered prompt)))))
+            (process prompt
+                     (state prompt)
+                     (serapeum/bundle:make-keyword (string-upcase entered))))))
 
         (t (warn "entered ~S is not recognised" entered))))
+
+;;; ----------------------------------------------------------------------------
 
 (defmethod process ((prompt prompt) (prompt-state initial) (entered (eql :help)))
   (warn "processing initial state")
