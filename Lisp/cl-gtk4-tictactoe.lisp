@@ -555,7 +555,7 @@
         (cond
           ((equalp widget "menu-item-preferences"))
           ((equalp widget "menu-item-quit"))
-          (T (error "unknown simple action widget"))))
+          (T (warn "unknown simple action widget ~S" widget))))
        (t (error "unknown signal ~S~%" signal-name))))
 
     ((equalp event-class "#O<EventControllerMotion>")
@@ -631,19 +631,20 @@
     (gobject:object-unref act)
     (format nil "app.~A" action-name)))
 
+(defun make-my-menu-item (app label action-name item-name)
+  (gio:make-menu-item :label label
+                      :detailed-action
+                      (make-detailed-action app action-name
+                                            (lambda (event &rest args)
+                                              (event-sink item-name
+                                                          "activate"
+                                                          event args)))))
+
 (defun main-menubar (app menubar window)
   (let* ((menubar-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
          (menu (gio:make-menu))
          (menu-item-preferences
-           (gio:make-menu-item :label "Preferences"
-                               :detailed-action
-                               (make-detailed-action app "preferences"
-                                                     (lambda (event &rest args)
-                                                       (event-sink
-                                                        "menu-item-preferences"
-                                                        "activate"
-                                                        event
-                                                        args)))))
+           (make-my-menu-item app "Preferences" "preferences" "menu-item-preferences"))
          (menu-item-quit
            (gio:make-menu-item :label "Quit"
                                :detailed-action
@@ -659,10 +660,11 @@
                                                        (gtk4:window-close window)))))
          (menubar-item-help (gio:make-menu-item :label "Help" :detailed-action nil))
          (help (gio:make-menu))
-         (help-item-manual (gio:make-menu-item :label "Manual"
-                                               :detailed-action nil))
-         (help-item-about (gio:make-menu-item :label "About"
-                                              :detailed-action nil)))
+         (help-item-manual
+           (make-my-menu-item app "Manual" "manual" "help-item-manual"))
+         (help-item-about
+           (make-my-menu-item app "About" "about" "help-item-about")))
+
     (gio:menu-append-item menu menu-item-preferences)
     (gio:menu-append-item menu menu-item-quit)
     (setf (gio:menu-item-submenu menubar-item-menu) menu)
