@@ -622,7 +622,7 @@
 ;; (in-package #:cl-gtk4-tictactoe)
 ;;; (main)
 
-;;; TODO
+;;; TODO it can be made better if we find good way of moving the window closing to event sink
 (defun make-detailed-action (app action-name fn)
 
   (let ((act (gio:make-simple-action :name action-name :parameter-type nil)))
