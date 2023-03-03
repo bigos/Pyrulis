@@ -654,8 +654,16 @@
                                                         "activate"
                                                         event
                                                         args)
+
                                                        ;; this quits the app by closing the window
-                                                       (gtk4:window-close window)))))
+                                                       (let ((windows (gtk4:window-list-toplevels)))
+                                                         (if (atom windows)
+                                                             (progn
+                                                               (format t "values for closing: window ~S  windowS ~S~%" window windows)
+                                                               (gtk4:window-close window))
+                                                             (progn
+                                                               (format t "finish me for closing multiple windows~%")
+                                                               (warn "closing of multiple windows not implemented"))))))))
          (menubar-item-help (gio:make-menu-item :label "Help" :detailed-action nil))
          (help (gio:make-menu))
          (help-item-manual (gio:make-menu-item :label "Manual"
