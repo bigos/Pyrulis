@@ -547,65 +547,65 @@
     (event-sink% widget signal-name event-class args)))
 
 (defun event-sink% (widget signal-name event-class args)
-    (cond
-      ((equalp event-class "#O<SimpleAction>")
-       (cond ; manu
-         ((equalp signal-name "activate")
-          (cond
-            (format t "meeeennu ~S ~%" widget)
-            ((equalp widget "menu-item-preferences"))
-            ((equalp widget "menu-item-quit"))
-            (T (error "unknown simple action widget"))))
-         (t (error "unknown signal ~S~%" signal-name))))
+  (cond
+    ((equalp event-class "#O<SimpleAction>")
+     (cond                              ; manu
+       ((equalp signal-name "activate")
+        (format t "meeeennu ~S ~%" widget)
+        (cond
+          ((equalp widget "menu-item-preferences"))
+          ((equalp widget "menu-item-quit"))
+          (T (error "unknown simple action widget"))))
+       (t (error "unknown signal ~S~%" signal-name))))
 
-      ((equalp event-class "#O<EventControllerMotion>")
-       (cond
-         ((equalp signal-name "motion")
-          (destructuring-bind ((x y)) args
-            (format t "mouse moution ~S ~S~%" x y)
-            (update *model* (make-instance 'mouse-motion :x x :y y))
-            (when widget
-              (widget-queue-draw widget))))
-         ((equalp signal-name "enter")
-          (destructuring-bind ((x y)) args
-            (update *model* (make-instance 'mouse-enter :x x :y y))))
-         ((equalp signal-name "leave")
-          (update *model* (make-instance 'mouse-leave)))
-         (t (error "unknown signal ~S~%" signal-name))))
+    ((equalp event-class "#O<EventControllerMotion>")
+     (cond
+       ((equalp signal-name "motion")
+        (destructuring-bind ((x y)) args
+          (format t "mouse moution ~S ~S~%" x y)
+          (update *model* (make-instance 'mouse-motion :x x :y y))
+          (when widget
+            (widget-queue-draw widget))))
+       ((equalp signal-name "enter")
+        (destructuring-bind ((x y)) args
+          (update *model* (make-instance 'mouse-enter :x x :y y))))
+       ((equalp signal-name "leave")
+        (update *model* (make-instance 'mouse-leave)))
+       (t (error "unknown signal ~S~%" signal-name))))
 
-      ((equalp event-class "#O<EventControllerKey>")
-       (cond
-         ((equalp signal-name "key-pressed")
-          (destructuring-bind ((key-val key-code key-modifiers)) args
-            (check-key key-val key-code key-modifiers)))
-         (t (error "unknown signal ~S~%" signal-name))))
+    ((equalp event-class "#O<EventControllerKey>")
+     (cond
+       ((equalp signal-name "key-pressed")
+        (destructuring-bind ((key-val key-code key-modifiers)) args
+          (check-key key-val key-code key-modifiers)))
+       (t (error "unknown signal ~S~%" signal-name))))
 
-      ((equalp event-class "#O<GestureClick>")
-       (cond
-         ((equalp signal-name "pressed")
-          (destructuring-bind ((button x y)) args
-            (update *model* (make-instance 'mouse-pressed :button button :x x :y y))
-            ;; FIXME tomorrow
-            (when widget
-              (widget-queue-draw widget))
-            ))
-         ((equalp signal-name "released")
-          (destructuring-bind ((button x y)) args
-            (update *model* (make-instance 'mouse-released :button button :x x :y y))))
-         (t (error "unknown signal ~S~%" signal-name))))
+    ((equalp event-class "#O<GestureClick>")
+     (cond
+       ((equalp signal-name "pressed")
+        (destructuring-bind ((button x y)) args
+          (update *model* (make-instance 'mouse-pressed :button button :x x :y y))
+          ;; FIXME tomorrow
+          (when widget
+            (widget-queue-draw widget))
+          ))
+       ((equalp signal-name "released")
+        (destructuring-bind ((button x y)) args
+          (update *model* (make-instance 'mouse-released :button button :x x :y y))))
+       (t (error "unknown signal ~S~%" signal-name))))
 
-      ((null event-class)
-       (cond
-         ((equalp signal-name "timeout")
-          ;; (format t "timeout~%")
-          )
-         ((equalp signal-name "resize")
-          (destructuring-bind ((width height)) args
-            (update *model* (make-instance 'resize :width width :height height))))
-         (t (error "unknown signal ~S~%" signal-name))))
+    ((null event-class)
+     (cond
+       ((equalp signal-name "timeout")
+        ;; (format t "timeout~%")
+        )
+       ((equalp signal-name "resize")
+        (destructuring-bind ((width height)) args
+          (update *model* (make-instance 'resize :width width :height height))))
+       (t (error "unknown signal ~S~%" signal-name))))
 
-      (T
-       (warn "unknown event class ~S" event-class))))
+    (T
+     (warn "unknown event class ~S" event-class))))
 
 ;;; ============================================================================
 
@@ -648,7 +648,7 @@
                                                                               ;; (gtk4:application-remove-window app window)
                                                                               (gtk4:window-close window)
                                                                               ;; (glib:main-loop-quit app)
-                                                                              ;; (gio:application-quit app)
+                                                                              ;; (gio:application-quit app
                                                                               ))
                                                (gobject:object-unref act-quit)
                                                "app.quit")))
