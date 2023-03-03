@@ -654,12 +654,12 @@
                                                         event
                                                         args)
 
-                                                       (break "debug me")
-                                                       ;; this quits the app by closing the window
-                                                       (let ((windows (mapcar (lambda (ptr)
-                                                                                (make-window :pointer ptr))
-                                                                              (glib:glist-list (application-windows gio:*application*)))))
-                                                         (mapcar #'window-destroy windows))
+
+                                                       ;; this quits the app by closing the windows
+                                                       (gir:invoke (glib:*ns* "List" 'foreach)
+                                                                   (gtk4:application-windows app)
+                                                                   #'gtk4:window-close
+                                                                   nil)
                                                        ;; (gtk4:window-close window)
                                                        ))))
          (menubar-item-help (gio:make-menu-item :label "Help" :detailed-action nil))
