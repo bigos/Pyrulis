@@ -76,7 +76,7 @@
 (defclass/std init (msg) nil)
 (defclass/std resize (msg) ((width) (height)))
 
-;;; msg with inheritance
+;;; msg with inheritanawce
 (defclass/std mouse-coords (msg) ((x) (y)))
 (defclass/std mouse-motion (mouse-coords) nil)
 (defclass/std mouse-enter  (mouse-coords) nil)
@@ -654,10 +654,7 @@
                                                         "activate"
                                                         event
                                                         args)
-                                                       ;; this quits the app without closing the window
-                                                       ;; https://docs.gtk.org/glib/main-loop.html
-                                                       ;; may still need to close all windows
-                                                       ;; (gtk4:application-remove-window app window)
+                                                       ;; this quits the app by closing the window
                                                        (gtk4:window-close window)))))
          (menubar-item-help (gio:make-menu-item :label "Help" :detailed-action nil))
          (help (gio:make-menu))
