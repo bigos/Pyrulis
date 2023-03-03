@@ -634,20 +634,31 @@
 (defun main-menubar (app menubar window)
   (let* ((menubar-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
          (menu (gio:make-menu))
-         (menu-item-preferences (gio:make-menu-item :label "Preferences"
-                                                    :detailed-action
-                                                    (make-detailed-action app "preferences" (lambda (event &rest args)
-                                                                                              (event-sink "menu-item-preferences" "activate" event args)))
-                                                    ))
-         (menu-item-quit (gio:make-menu-item :label "Quit"
-                                             :detailed-action
-                                             (make-detailed-action app "quit" (lambda (event &rest args)
-                                                                                (event-sink "menu-item-quit" "activate" event args)
-                                                                                ;; this quits the app without closing the window
-                                                                                ;; https://docs.gtk.org/glib/main-loop.html
-                                                                                ;; may still need to close all windows
-                                                                                ;; (gtk4:application-remove-window app window)
-                                                                                (gtk4:window-close window)))))
+         (menu-item-preferences
+           (gio:make-menu-item :label "Preferences"
+                               :detailed-action
+                               (make-detailed-action app "preferences"
+                                                     (lambda (event &rest args)
+                                                       (event-sink
+                                                        "menu-item-preferences"
+                                                        "activate"
+                                                        event
+                                                        args)))))
+         (menu-item-quit
+           (gio:make-menu-item :label "Quit"
+                               :detailed-action
+                               (make-detailed-action app "quit"
+                                                     (lambda (event &rest args)
+                                                       (event-sink
+                                                        "menu-item-quit"
+                                                        "activate"
+                                                        event
+                                                        args)
+                                                       ;; this quits the app without closing the window
+                                                       ;; https://docs.gtk.org/glib/main-loop.html
+                                                       ;; may still need to close all windows
+                                                       ;; (gtk4:application-remove-window app window)
+                                                       (gtk4:window-close window)))))
          (menubar-item-help (gio:make-menu-item :label "Help" :detailed-action nil))
          (help (gio:make-menu))
          (help-item-manual (gio:make-menu-item :label "Manual"
