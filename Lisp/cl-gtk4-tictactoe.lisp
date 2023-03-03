@@ -638,7 +638,7 @@
                                              :detailed-action
                                              (let  ((act-quit (gio:make-simple-action :name "quit" :parameter-type nil)))
                                                (gio:action-map-add-action app act-quit)
-                                               (connect act-quit "activate" (lambda (&rest args)
+                                               (connect act-quit "activate" (lambda (event &rest args)
                                                                               (event-sink "menu-item-quit" "activate" event args)
 
                                                                               ;; this quits the app without closing thew window
