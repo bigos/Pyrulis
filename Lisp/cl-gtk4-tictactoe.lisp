@@ -548,6 +548,16 @@
 
 (defun event-sink% (widget signal-name event-class args)
     (cond
+      ((equalp event-class "#O<SimpleAction>")
+       (cond ; manu
+         ((equalp signal-name "activate")
+          (cond
+            (format t "meeeennu ~S ~%" widget)
+            ((equalp widget "menu-item-preferences"))
+            ((equalp widget "menu-item-quit"))
+            (T (error "unknown simple action widget"))))
+         (t (error "unknown signal ~S~%" signal-name))))
+
       ((equalp event-class "#O<EventControllerMotion>")
        (cond
          ((equalp signal-name "motion")
@@ -595,7 +605,7 @@
          (t (error "unknown signal ~S~%" signal-name))))
 
       (T
-       (error "unknown event class ~S" event-class))))
+       (warn "unknown event class ~S" event-class))))
 
 ;;; ============================================================================
 
@@ -620,9 +630,8 @@
                                                     (let ((act-preferences (gio:make-simple-action :name "preferences" :parameter-type nil)))
                                                       (gio:action-map-add-action app act-preferences)
                                                       (connect act-preferences "activate"
-                                                               (lambda (&rest args)
-                                                                 (warn
-                                                                  ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ... preferences action ~S" args)))
+                                                               (lambda (event &rest args)
+                                                                 (event-sink "menu-item-preferences" "activate" event args)))
                                                       (gobject:object-unref act-preferences)
                                                       "app.preferences")))
          (menu-item-quit (gio:make-menu-item :label "Quit"
@@ -630,7 +639,8 @@
                                              (let  ((act-quit (gio:make-simple-action :name "quit" :parameter-type nil)))
                                                (gio:action-map-add-action app act-quit)
                                                (connect act-quit "activate" (lambda (&rest args)
-                                                                              (warn ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ... quit action ~S" args)
+                                                                              (event-sink "menu-item-quit" "activate" event args)
+
                                                                               ;; this quits the app without closing thew window
 
                                                                               ;; https://docs.gtk.org/glib/main-loop.html
