@@ -622,9 +622,7 @@
 ;; (in-package #:cl-gtk4-tictactoe)
 ;;; (main)
 
-;;; TODO it can be made better if we find good way of moving the window closing to event sink
 (defun make-detailed-action (app action-name fn)
-
   (let ((act (gio:make-simple-action :name action-name :parameter-type nil)))
     (gio:action-map-add-action app act)
     (connect act "activate" fn)
@@ -665,8 +663,9 @@
          (help-item-about
            (make-my-menu-item app "About" "about" "help-item-about")))
 
-    (gio:menu-append-item menu menu-item-preferences)
-    (gio:menu-append-item menu menu-item-quit)
+    (loop for mi in (list menu-item-preferences
+                          menu-item-quit)
+          do (gio:menu-append-item menu mi))
     (setf (gio:menu-item-submenu menubar-item-menu) menu)
     (gio:menu-append-item menubar menubar-item-menu)
 
@@ -674,8 +673,9 @@
                 (list menu-item-preferences menu-item-quit menu menubar-item-menu)
           do (gobject:object-unref v))
 
-    (gio:menu-append-item help help-item-manual)
-    (gio:menu-append-item help help-item-about)
+    (loop for mi in (list help-item-manual
+                          help-item-about)
+          do (gio:menu-append-item help mi))
     (setf (gio:menu-item-submenu menubar-item-help) help)
     (gio:menu-append-item menubar menubar-item-help)
 
