@@ -622,36 +622,32 @@
 ;; (in-package #:cl-gtk4-tictactoe)
 ;;; (main)
 
+;;; TODO
+(defun make-detailed-action (app action-name fn)
+
+  (let ((act (gio:make-simple-action :name action-name :parameter-type nil)))
+    (gio:action-map-add-action app act)
+    (connect act "activate" fn)
+    (gobject:object-unref act)
+    (format nil "app.~A" action-name)))
+
 (defun main-menubar (app menubar window)
   (let* ((menubar-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
          (menu (gio:make-menu))
          (menu-item-preferences (gio:make-menu-item :label "Preferences"
                                                     :detailed-action
-                                                    (let ((act-preferences (gio:make-simple-action :name "preferences" :parameter-type nil)))
-                                                      (gio:action-map-add-action app act-preferences)
-                                                      (connect act-preferences "activate"
-                                                               (lambda (event &rest args)
-                                                                 (event-sink "menu-item-preferences" "activate" event args)))
-                                                      (gobject:object-unref act-preferences)
-                                                      "app.preferences")))
+                                                    (make-detailed-action app "preferences" (lambda (event &rest args)
+                                                                                              (event-sink "menu-item-preferences" "activate" event args)))
+                                                    ))
          (menu-item-quit (gio:make-menu-item :label "Quit"
                                              :detailed-action
-                                             (let  ((act-quit (gio:make-simple-action :name "quit" :parameter-type nil)))
-                                               (gio:action-map-add-action app act-quit)
-                                               (connect act-quit "activate" (lambda (event &rest args)
-                                                                              (event-sink "menu-item-quit" "activate" event args)
-
-                                                                              ;; this quits the app without closing thew window
-
-                                                                              ;; https://docs.gtk.org/glib/main-loop.html
-                                                                              ;; may still need to close all windows
-                                                                              ;; (gtk4:application-remove-window app window)
-                                                                              (gtk4:window-close window)
-                                                                              ;; (glib:main-loop-quit app)
-                                                                              ;; (gio:application-quit app
-                                                                              ))
-                                               (gobject:object-unref act-quit)
-                                               "app.quit")))
+                                             (make-detailed-action app "quit" (lambda (event &rest args)
+                                                                                (event-sink "menu-item-quit" "activate" event args)
+                                                                                ;; this quits the app without closing the window
+                                                                                ;; https://docs.gtk.org/glib/main-loop.html
+                                                                                ;; may still need to close all windows
+                                                                                ;; (gtk4:application-remove-window app window)
+                                                                                (gtk4:window-close window)))))
          (menubar-item-help (gio:make-menu-item :label "Help" :detailed-action nil))
          (help (gio:make-menu))
          (help-item-manual (gio:make-menu-item :label "Manual"
@@ -664,7 +660,7 @@
     (gio:menu-append-item menubar menubar-item-menu)
 
     (loop for v in
-          (list menu-item-preferences menu-item-quit menu menubar-item-menu)
+                (list menu-item-preferences menu-item-quit menu menubar-item-menu)
           do (gobject:object-unref v))
 
     (gio:menu-append-item help help-item-manual)
@@ -673,7 +669,7 @@
     (gio:menu-append-item menubar menubar-item-help)
 
     (loop for v in
-          (list help-item-manual help-item-about help menubar-item-help)
+                (list help-item-manual help-item-about help menubar-item-help)
           do (gobject:object-unref v))))
 
 (defun connect-controller (widget controller signal-name)
