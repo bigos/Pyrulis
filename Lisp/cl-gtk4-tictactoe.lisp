@@ -654,17 +654,10 @@
                                                         event
                                                         args)
 
-
-                                                       ;; this quits the app by closing the windows
-
+                                                       ;; this quits the app by closing all the windows
                                                        (loop for aw = (gtk4:application-active-window app)
                                                              until (null aw)
-                                                             do (gtk4:window-close aw))
-
-
-                                                       ;; this works
-                                                       ;; (gtk4:window-close window)
-                                                       ))))
+                                                             do (gtk4:window-close aw))))))
          (menubar-item-help (gio:make-menu-item :label "Help" :detailed-action nil))
          (help (gio:make-menu))
          (help-item-manual
