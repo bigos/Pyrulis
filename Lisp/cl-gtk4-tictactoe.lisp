@@ -657,45 +657,14 @@
 
                                                        ;; this quits the app by closing the windows
 
-                                                       ;; this did not work
-                                                       ;; (gir:invoke (glib:*ns* "List" 'foreach)
-                                                       ;;             (gtk4:application-windows app)
-                                                       ;;             #'gtk4:window-close
-                                                       ;;             nil)
+                                                       ;; this may be way out
+                                                       ;; https://docs.gtk.org/gtk4/class.ApplicationWindow.html
 
-                                                       ;; alien approach
-                                                       ;; (sb-alien:load-shared-object "/usr/lib/x86_64-linux-gnu/libglib-2.0.so")
-
-                                                       ;; (sb-alien:define-alien-type nil
-                                                       ;;     (struct g-list
-                                                       ;;             (data (* t))
-                                                       ;;             (next g-list)
-                                                       ;;             (prev g-list)))
-
-                                                       ;; (sb-alien:define-alien-routine g_list_foreach void
-                                                       ;;   (list (* g-list))
-                                                       ;;   (func (* t))
-                                                       ;;   (user_data (* t)))
-
-                                                       ;; (g_list_foreach
-                                                       ;;  (gtk4:application-window app)
-                                                       ;;  #'gtk4:window-close
-                                                       ;;  nil)
-
-                                                       ;; cffi approach
-                                                       ;; (cffi:define-foreign-library libglib)
-                                                       ;; (cffi:use-foreign-library libglib)
-                                                       ;; (cffi:defcfun "g_list_foreach" :void
-                                                       ;;   (list :pointer)
-                                                       ;;   (func :pointer)
-                                                       ;;   (user-data :pointer))
-                                                       ;; (cffi:foreign-funcall "g_list_foreach"
-                                                       ;;                       :pointer (gtk4:application-windows app)
-                                                       ;;                       :pointer (lambda (w) gtk4:window-close w)
-                                                       ;;                       :pointer nil)
-
+                                                       (break "help me")
                                                        ;; this works
-                                                       ;; (gtk4:window-close window)
+                                                       (gtk4:window-close window)
+
+
                                                        ))))
          (menubar-item-help (gio:make-menu-item :label "Help" :detailed-action nil))
          (help (gio:make-menu))
