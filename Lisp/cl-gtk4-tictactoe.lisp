@@ -657,14 +657,13 @@
 
                                                        ;; this quits the app by closing the windows
 
-                                                       ;; this may be way out
-                                                       ;; https://docs.gtk.org/gtk4/class.ApplicationWindow.html
+                                                       (loop for aw = (gtk4:application-active-window app)
+                                                             until (null aw)
+                                                             do (gtk4:window-close aw))
 
-                                                       (break "help me")
+
                                                        ;; this works
-                                                       (gtk4:window-close window)
-
-
+                                                       ;; (gtk4:window-close window)
                                                        ))))
          (menubar-item-help (gio:make-menu-item :label "Help" :detailed-action nil))
          (help (gio:make-menu))
