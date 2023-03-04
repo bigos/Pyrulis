@@ -554,7 +554,12 @@
         (format t "meeeennu ~S ~%" widget)
         (cond
           ((equalp widget "menu-item-preferences"))
-          ((equalp widget "menu-item-quit"))
+          ((equalp widget "menu-item-quit")
+
+           ;; this quits the app by closing all the windows
+           (loop for aw = (gtk4:application-active-window (current-app))
+                 until (null aw)
+                 do (gtk4:window-close aw)))
           (T (warn "unknown simple action widget ~S" widget))))
        (t (error "unknown signal ~S~%" signal-name))))
 
@@ -644,20 +649,8 @@
          (menu-item-preferences
            (make-my-menu-item app "Preferences" "preferences" "menu-item-preferences"))
          (menu-item-quit
-           (gio:make-menu-item :label "Quit"
-                               :detailed-action
-                               (make-detailed-action app "quit"
-                                                     (lambda (event &rest args)
-                                                       (event-sink
-                                                        "menu-item-quit"
-                                                        "activate"
-                                                        event
-                                                        args)
+           (make-my-menu-item app "Quit" "quit" "menu-item-quit"))
 
-                                                       ;; this quits the app by closing all the windows
-                                                       (loop for aw = (gtk4:application-active-window app)
-                                                             until (null aw)
-                                                             do (gtk4:window-close aw))))))
          (menubar-item-help (gio:make-menu-item :label "Help" :detailed-action nil))
          (help (gio:make-menu))
          (help-item-manual
@@ -688,11 +681,16 @@
 (defun connect-controller (widget controller signal-name)
   (connect controller signal-name (lambda (event &rest args)
                                     (event-sink widget signal-name event args))))
-(defun main ()
-  (init-model)
-  (let ((stat nil))
-    (let ((app (make-application :application-id "org.bigos.cl-gtk4-tictactoe"
-                                 :flags gio:+application-flags-flags-none+)))
+
+(let ((app nil))
+  (defun current-app ()                 ;that gives us read only app
+    app)
+
+  (defun main ()
+    (init-model)
+    (let ((stat nil))
+      (setf app (make-application :application-id "org.bigos.cl-gtk4-tictactoe"
+                                  :flags gio:+application-flags-flags-none+))
       (connect app "activate"
                (lambda (app)
                  (let ((window (make-application-window :application app)))
@@ -754,8 +752,8 @@
 
       (setf stat (gio:application-run app nil))
       (format t "~S~%" *model*)
-      (gobject:object-unref app))
-    stat))
+      (gobject:object-unref app)
+      stat)))
 
 ;;; T for terminal
 (when nil
