@@ -638,7 +638,7 @@
                                                           "activate"
                                                           event args)))))
 
-(defun main-menubar (app menubar window)
+(defun main-menubar (app menubar)
   (let* ((menubar-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
          (menu (gio:make-menu))
          (menu-item-preferences
@@ -745,7 +745,7 @@
                            box))
 
                    (let ((menubar (gio:make-menu)))
-                     (main-menubar app menubar window)
+                     (main-menubar app menubar)
                      (setf (gtk4:application-menubar app) menubar)
                      (gobject:object-unref menubar))
 
