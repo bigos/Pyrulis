@@ -664,23 +664,35 @@
                                                        ;;             nil)
 
                                                        ;; alien approach
-                                                       (sb-alien:load-shared-object "/usr/lib/x86_64-linux-gnu/libglib-2.0.so")
+                                                       ;; (sb-alien:load-shared-object "/usr/lib/x86_64-linux-gnu/libglib-2.0.so")
 
-                                                       (sb-alien:define-alien-type nil
-                                                           (struct g-list
-                                                                   (data (* t))
-                                                                   (next g-list)
-                                                                   (prev g-list)))
+                                                       ;; (sb-alien:define-alien-type nil
+                                                       ;;     (struct g-list
+                                                       ;;             (data (* t))
+                                                       ;;             (next g-list)
+                                                       ;;             (prev g-list)))
 
-                                                       (sb-alien:define-alien-routine g_list_foreach void
-                                                         (list (* g-list))
-                                                         (func (* t))
-                                                         (user_data (* t)))
+                                                       ;; (sb-alien:define-alien-routine g_list_foreach void
+                                                       ;;   (list (* g-list))
+                                                       ;;   (func (* t))
+                                                       ;;   (user_data (* t)))
 
-                                                       (g_list_foreach
-                                                        (gtk4:application-window app)
-                                                        #'gtk4:window-close
-                                                        nil)
+                                                       ;; (g_list_foreach
+                                                       ;;  (gtk4:application-window app)
+                                                       ;;  #'gtk4:window-close
+                                                       ;;  nil)
+
+                                                       ;; cffi approach
+                                                       ;; (cffi:define-foreign-library libglib)
+                                                       ;; (cffi:use-foreign-library libglib)
+                                                       ;; (cffi:defcfun "g_list_foreach" :void
+                                                       ;;   (list :pointer)
+                                                       ;;   (func :pointer)
+                                                       ;;   (user-data :pointer))
+                                                       ;; (cffi:foreign-funcall "g_list_foreach"
+                                                       ;;                       :pointer (gtk4:application-windows app)
+                                                       ;;                       :pointer (lambda (w) gtk4:window-close w)
+                                                       ;;                       :pointer nil)
 
                                                        ;; this works
                                                        ;; (gtk4:window-close window)
