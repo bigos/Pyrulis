@@ -1,0 +1,6 @@
+* Gtk4 Notes
+** questions
+https://docs.gtk.org/gtk4/question_index.html
+
+** gobject introspection
+https://gi.readthedocs.io/en/latest/
