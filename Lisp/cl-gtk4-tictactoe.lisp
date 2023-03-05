@@ -6,7 +6,6 @@
   (ql:quickload '(cl-gtk4
                   cl-gdk4
                   cl-glib
-                  ;; cl-gobject
                   cl-cairo2
                   serapeum
                   defclass-std
@@ -15,10 +14,9 @@
 (defpackage #:cairo-gobject
   (:use)
   (:export #:*ns*))
-
 (in-package #:cairo-gobject)
-
 (gir-wrapper:define-gir-namespace "cairo")
+
 
 (cl:in-package "CL-USER") ; make sure you come back to cl-user because the previous package does not use it
 
@@ -738,8 +736,8 @@
                    (let ((menubar (gio:make-menu)))
                      (main-menubar app menubar)
                      (setf (gtk4:application-menubar app) menubar))
-
                    (setf (gtk4:application-window-show-menubar-p window) T)
+
                    (window-present window))))
 
       (setf stat (gio:application-run app nil))
