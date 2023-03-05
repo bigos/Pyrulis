@@ -6,6 +6,7 @@
   (ql:quickload '(cl-gtk4
                   cl-gdk4
                   cl-glib
+                  ;; cl-gobject
                   cl-cairo2
                   serapeum
                   defclass-std
@@ -663,6 +664,7 @@
     (setf (gio:menu-item-submenu menubar-item-menu) menu)
     (gio:menu-append-item menubar menubar-item-menu)
 
+
     (loop for mi in (list help-item-manual
                           help-item-about)
           do (gio:menu-append-item help mi))
@@ -740,9 +742,15 @@
                    (setf (gtk4:application-window-show-menubar-p window) T)
                    (window-present window))))
 
-      (let ((stat (gio:application-run app nil)))
-        (format t "quitting~%")
-        stat))))
+      (setf stat (gio:application-run app nil))
+      (format t "~S~%" *model*)
+
+      stat)))
+
+;;; T for terminal
+(when nil
+  (main)
+  (sb-ext:quit))
 
 ;; :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
