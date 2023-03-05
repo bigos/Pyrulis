@@ -14,10 +14,9 @@
 (defpackage #:cairo-gobject
   (:use)
   (:export #:*ns*))
-
 (in-package #:cairo-gobject)
-
 (gir-wrapper:define-gir-namespace "cairo")
+
 
 (cl:in-package "CL-USER") ; make sure you come back to cl-user because the previous package does not use it
 
@@ -663,6 +662,7 @@
     (setf (gio:menu-item-submenu menubar-item-menu) menu)
     (gio:menu-append-item menubar menubar-item-menu)
 
+
     (loop for mi in (list help-item-manual
                           help-item-about)
           do (gio:menu-append-item help mi))
@@ -736,13 +736,19 @@
                    (let ((menubar (gio:make-menu)))
                      (main-menubar app menubar)
                      (setf (gtk4:application-menubar app) menubar))
-
                    (setf (gtk4:application-window-show-menubar-p window) T)
+
                    (window-present window))))
 
-      (let ((stat (gio:application-run app nil)))
-        (format t "quitting~%")
-        stat))))
+      (setf stat (gio:application-run app nil))
+      (format t "~S~%" *model*)
+
+      stat)))
+
+;;; T for terminal
+(when nil
+  (main)
+  (sb-ext:quit))
 
 ;; :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
