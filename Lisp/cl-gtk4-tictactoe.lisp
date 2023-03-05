@@ -6,7 +6,6 @@
   (ql:quickload '(cl-gtk4
                   cl-gdk4
                   cl-glib
-                  ;; cl-gobject
                   cl-cairo2
                   serapeum
                   defclass-std
@@ -631,7 +630,7 @@
   (let ((act (gio:make-simple-action :name action-name :parameter-type nil)))
     (gio:action-map-add-action app act)
     (connect act "activate" fn)
-    ;; (gobject:object-unref act)
+
     (format nil "app.~A" action-name)))
 
 (defun make-my-menu-item (app label action-name item-name)
@@ -664,20 +663,11 @@
     (setf (gio:menu-item-submenu menubar-item-menu) menu)
     (gio:menu-append-item menubar menubar-item-menu)
 
-    ;; (loop for v in
-    ;;             (list menu-item-preferences menu-item-quit menu menubar-item-menu)
-    ;;       do (gobject:object-unref v))
-
     (loop for mi in (list help-item-manual
                           help-item-about)
           do (gio:menu-append-item help mi))
     (setf (gio:menu-item-submenu menubar-item-help) help)
-    (gio:menu-append-item menubar menubar-item-help)
-
-    ;; (loop for v in
-    ;;             (list help-item-manual help-item-about help menubar-item-help)
-    ;;       do (gobject:object-unref v))
-    ))
+    (gio:menu-append-item menubar menubar-item-help)))
 
 (defun connect-controller (widget controller signal-name)
   (connect controller signal-name (lambda (event &rest args)
@@ -745,23 +735,14 @@
 
                    (let ((menubar (gio:make-menu)))
                      (main-menubar app menubar)
-                     (setf (gtk4:application-menubar app) menubar)
-                     ;; (gobject:object-unref menubar)
-                     )
+                     (setf (gtk4:application-menubar app) menubar))
 
                    (setf (gtk4:application-window-show-menubar-p window) T)
                    (window-present window))))
 
-      (setf stat (gio:application-run app nil))
-      (format t "~S~%" *model*)
-      ;; (gobject:object-unref app)
-
-      stat)))
-
-;;; T for terminal
-(when nil
-  (main)
-  (sb-ext:quit))
+      (let ((stat (gio:application-run app nil)))
+        (format t "quitting~%")
+        stat))))
 
 ;; :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
