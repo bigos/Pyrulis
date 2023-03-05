@@ -4,3 +4,13 @@ https://docs.gtk.org/gtk4/question_index.html
 
 ** gobject introspection
 https://gi.readthedocs.io/en/latest/
+
+** no need to copy g_objet_unref
+https://github.com/bohonghuang/cl-gtk4/issues/8
+#+begin_quote
+Does the code work without gobj:object-unref? Some C examples of GTK involve it,
+because C doesn't manage the memory automatically, forcing the programmer to
+unref a object when it is no longer needed. But Lisp has GC and can unref the
+unreachable objects at its own, so there is no point invoking gobj:object-unref
+unless you are interacting with GTK through CFFI.
+#+end_quote
