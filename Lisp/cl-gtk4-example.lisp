@@ -161,12 +161,11 @@
 
 ;;; main function --------------------------------------------------------------
 
+(defun main ()
+  (let
+      ((app (make-application :application-id "org.bohonghuang.cl-gdk4-cairo-example"
+                              :flags gio:+application-flags-flags-none+)))
 
-(let ((app (make-application :application-id "org.bohonghuang.cl-gdk4-cairo-example"
-                             :flags gio:+application-flags-flags-none+)))
-  (defun current-app () app)
-
-  (defun main ()
     (connect app "activate"
              (lambda (app)
                (let ((window (make-application-window :application app)))
