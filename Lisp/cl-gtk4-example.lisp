@@ -112,6 +112,7 @@
     (event-sink% widget signal-name event-class args)))
 
 (defun event-sink% (widget signal-name event-class args)
+  (declare (ignore args))
   (cond
     ((equalp event-class "#O<SimpleAction>")
      (cond                              ; manu
@@ -121,10 +122,11 @@
           ((equalp widget "menu-item-quit")
            ;; this quits the app by closing all the windows
 
-           ;; (loop for aw = (gtk4:application-active-window (current-app))
-           ;;       until (null aw)
-           ;;       do (gtk4:window-close aw))
-           (gtk::destroy-all-windows-and-quit))
+           (loop for aw = (gtk4:application-active-window (current-app))
+                 until (null aw)
+                 do (gtk4:window-close aw))
+           ;; (gtk::destroy-all-windows-and-quit)
+           )
           (T (warn "unknown simple action widget ~S" widget))))
        (t (error "unknown signal ~S~%" signal-name))))
     (T
@@ -160,12 +162,12 @@
     (gio:menu-append-item menubar menubar-item-menu)))
 
 ;;; main function --------------------------------------------------------------
+(let
+    ((app (make-application :application-id "org.bohonghuang.cl-gdk4-cairo-example"
+                            :flags gio:+application-flags-flags-none+)))
+  (defun current-app () app)
 
-(defun main ()
-  (let
-      ((app (make-application :application-id "org.bohonghuang.cl-gdk4-cairo-example"
-                              :flags gio:+application-flags-flags-none+)))
-
+  (defun main ()
     (connect app "activate"
              (lambda (app)
                (let ((window (make-application-window :application app)))
