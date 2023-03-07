@@ -121,12 +121,10 @@
           ((equalp widget "menu-item-quit")
            ;; this quits the app by closing all the windows
 
-           (loop for aw = (gtk4:application-active-window (current-app))
-                 until (null aw)
-                 do (gtk4:window-close aw))
-           ;; (destroy-all-windows-and-quit)
-
-           )
+           ;; (loop for aw = (gtk4:application-active-window (current-app))
+           ;;       until (null aw)
+           ;;       do (gtk4:window-close aw))
+           (gtk::destroy-all-windows-and-quit))
           (T (warn "unknown simple action widget ~S" widget))))
        (t (error "unknown signal ~S~%" signal-name))))
     (T
