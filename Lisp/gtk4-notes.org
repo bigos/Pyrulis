@@ -16,3 +16,10 @@ unref a object when it is no longer needed. But Lisp has GC and can unref the
 unreachable objects at its own, so there is no point invoking gobj:object-unref
 unless you are interacting with GTK through CFFI.
 #+end_quote
+
+** cl-gtk4 dependencies
+https://github.com/bigos/cl-gtk4
+https://github.com/bohonghuang/cl-gtk4
+https://github.com/bohonghuang/cl-glib
+https://github.com/bohonghuang/cl-gobject-introspection-wrapper
+https://github.com/andy128k/cl-gobject-introspection
