@@ -96,77 +96,77 @@
                               :this cr)
                width height)))
 
-
-
-;;; TODO
-(define-application (:name example
-                     :id "org.bigos.gtk4-example")
 ;;; event sink -----------------------------------------------------------------
-  (defun event-sink-test (signal-name event-class &rest args)
-    (event-sink% nil signal-name event-class args))
 
-  (defun event-sink (widget signal-name event &rest args)
-    (let ((event-class (when event (format nil "~S" (slot-value event 'class)))))
-      (unless (member signal-name '("motion" "timeout")
-                      :test #'equalp)
-        (format t "EEEEEEEEEEEEEEEEE ~S ~S ~S~%"
-                event-class
-                signal-name
-                args))
-      (event-sink% widget signal-name event-class args)))
+(defun event-sink-test (signal-name event-class &rest args)
+  (event-sink% nil signal-name event-class args))
 
-  (defun event-sink% (widget signal-name event-class args)
-    (declare (ignore args))
-    (cond
-      ((equalp event-class "#O<SimpleAction>")
-       (cond                            ; manu
-         ((equalp signal-name "activate")
-          (format t "meeeennu ~S ~%" widget)
-          (cond
-            ((equalp widget "menu-item-quit")
-             ;; this quits the app by closing all the windows
+(defun event-sink (widget signal-name event &rest args)
+  (let ((event-class (when event (format nil "~S" (slot-value event 'class)))))
+    (unless (member signal-name '("motion" "timeout")
+                    :test #'equalp)
+      (format t "EEEEEEEEEEEEEEEEE ~S ~S ~S~%"
+              event-class
+              signal-name
+              args))
+    (event-sink% widget signal-name event-class args)))
 
-             (loop for aw = (gtk4:application-active-window (current-app))
-                   until (null aw)
-                   do (gtk4:window-close aw))
-             ;; (gtk::destroy-all-windows-and-quit)
-             )
-            (T (warn "unknown simple action widget ~S" widget))))
-         (t (error "unknown signal ~S~%" signal-name))))
-      (T
-       (warn "unknown event class ~S" event-class))))
+(defun event-sink% (widget signal-name event-class args)
+  (declare (ignore args))
+  (cond
+    ((equalp event-class "#O<SimpleAction>")
+     (cond                            ; manu
+       ((equalp signal-name "activate")
+        (format t "meeeennu ~S ~%" widget)
+        (cond
+          ((equalp widget "menu-item-quit")
+           ;; this quits the app by closing all the windows
+
+           (loop for aw = (gtk4:application-active-window (current-app))
+                 until (null aw)
+                 do (gtk4:window-close aw))
+           ;; (gtk::destroy-all-windows-and-quit)
+           )
+          (T (warn "unknown simple action widget ~S" widget))))
+       (t (error "unknown signal ~S~%" signal-name))))
+    (T
+     (warn "unknown event class ~S" event-class))))
 
 ;;; menu -----------------------------------------------------------------------
-  (defun make-detailed-action (app action-name fn)
-    (let ((act (gio:make-simple-action :name action-name :parameter-type nil)))
-      (gio:action-map-add-action app act)
-      (connect act "activate" fn)
 
-      (format nil "app.~A" action-name)))
+(defun make-detailed-action (app action-name fn)
+  (let ((act (gio:make-simple-action :name action-name :parameter-type nil)))
+    (gio:action-map-add-action app act)
+    (connect act "activate" fn)
 
-  (defun make-my-menu-item (app label action-name item-name)
-    (gio:make-menu-item :label label
-                        :detailed-action
-                        (make-detailed-action app action-name
-                                              (lambda (event &rest args)
-                                                (event-sink item-name
-                                                            "activate"
-                                                            event args)))))
+    (format nil "app.~A" action-name)))
 
-  (defun main-menubar (app menubar)
-    (let* ((menubar-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
-           (menu (gio:make-menu))
-           (menu-item-quit
-             (make-my-menu-item app "Quit" "quit" "menu-item-quit")))
+(defun make-my-menu-item (app label action-name item-name)
+  (gio:make-menu-item :label label
+                      :detailed-action
+                      (make-detailed-action app action-name
+                                            (lambda (event &rest args)
+                                              (event-sink item-name
+                                                          "activate"
+                                                          event args)))))
 
-      (loop for mi in (list
-                       menu-item-quit)
-            do (gio:menu-append-item menu mi))
-      (setf (gio:menu-item-submenu menubar-item-menu) menu)
-      (gio:menu-append-item menubar menubar-item-menu)))
+(defun main-menubar (app menubar)
+  (let* ((menubar-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
+         (menu (gio:make-menu))
+         (menu-item-quit
+           (make-my-menu-item app "Quit" "quit" "menu-item-quit")))
+
+    (loop for mi in (list
+                     menu-item-quit)
+          do (gio:menu-append-item menu mi))
+    (setf (gio:menu-item-submenu menubar-item-menu) menu)
+    (gio:menu-append-item menubar menubar-item-menu)))
 
 ;;; main function --------------------------------------------------------------
 
+;;; TODO this does not work and needs to be compared with working example in my experiments
+(define-application (:name example
+                     :id "org.bigos.gtk4-example")
   (define-main-window (window (make-application-window :application *application*))
     (setf (window-title window) "Example test")
     (let ((app *application*))
