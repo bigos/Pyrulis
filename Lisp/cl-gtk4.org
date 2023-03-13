@@ -27,3 +27,7 @@ sudo apt install libgtk-4-dev
 
  my SO question
  [[https://stackoverflow.com/questions/74882106/how-do-i-use-sbcl-sb-alien-to-create-a-gtk4-window-open-it-and-have-a-simple-cal][SO Gtk4 question]]
+
+** without define-application
+https://github.com/bohonghuang/cl-gtk4/issues/11#issuecomment-1465287585
+https://github.com/bohonghuang/cl-gtk4/commit/7cba4f17f250ae38755ef4bd592e4a78645999a8
