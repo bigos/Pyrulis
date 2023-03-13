@@ -221,21 +221,24 @@
                         (,'ORG.BIGOS.GDK4-MENU-CAIRO-TEST2.MAIN-WINDOW-CONTENT
                          ,'*ORG.BIGOS.GDK4-MENU-CAIRO-TEST2.MAIN-WINDOW*)
                         NIL))))))))
-  (DEFVAR *ORG.BIGOS.GDK4-MENU-CAIRO-TEST2.MAIN-WINDOW* NIL)
-  (DEFINE-MAIN-WINDOW (WINDOW
-                       (MAKE-APPLICATION-WINDOW :APPLICATION *APPLICATION*))
-    (SETF (WINDOW-TITLE WINDOW) "Drawing Area Test with Menu")
-    (DEFINE-MENU-ACTIONS WINDOW)
-    (LET ((WINDOW-BOX
-           (MAKE-BOX :ORIENTATION +ORIENTATION-VERTICAL+ :SPACING 0)))
-      (LET ((MENU-BAR (MAKE-POPOVER-MENU-BAR :MODEL (MENU-TEST-MENU))))
-        (BOX-APPEND WINDOW-BOX MENU-BAR))
-      (LET ((AREA (MAKE-DRAWING-AREA)))
-        (SETF (DRAWING-AREA-CONTENT-WIDTH AREA) 200
-              (DRAWING-AREA-CONTENT-HEIGHT AREA) 200
-              (DRAWING-AREA-DRAW-FUNC AREA)
-                (LIST (CFFI:CALLBACK %DRAW-FUNC) (CFFI-SYS:NULL-POINTER)
-                      (CFFI-SYS:NULL-POINTER)))
-        (BOX-APPEND WINDOW-BOX AREA))
-      (SETF (WINDOW-CHILD WINDOW) WINDOW-BOX))
-    (UNLESS (WIDGET-VISIBLE-P WINDOW) (WINDOW-PRESENT WINDOW))))
+  (defvar *org.bigos.gdk4-menu-cairo-test2.main-window* nil)
+  (define-main-window (window
+                       (make-application-window :application *application*))
+      (setf (window-title window)
+            "drawing area test with menu")
+    (define-menu-actions window)
+    (let ((window-box
+           (make-box :orientation +orientation-vertical+ :spacing 0)))
+      (let ((menu-bar (make-popover-menu-bar :model (menu-test-menu))))
+        (box-append window-box menu-bar))
+      (let ((area (make-drawing-area)))
+        (setf (drawing-area-content-width area) 200
+              (drawing-area-content-height area) 200
+              (drawing-area-draw-func area) (list (cffi:callback %draw-func)
+                                                  (cffi-sys:null-pointer)
+                                                  (cffi-sys:null-pointer)))
+        (box-append window-box area))
+      (setf (window-child window)
+            window-box))
+    (unless (widget-visible-p window)
+      (window-present window))))
