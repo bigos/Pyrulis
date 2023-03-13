@@ -5,7 +5,6 @@
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (ql:quickload '(cl-gtk4
                   cl-gdk4
-                  cl-glib
                   cl-cairo2
                   serapeum
                   defclass-std
