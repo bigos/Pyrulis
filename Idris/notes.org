@@ -237,4 +237,4 @@ It contains variations of the previous that better wait for the second reading
 
 * next to read
 chapter 4
-p 87
+p 87 pdf:/home/jacek/Documents/Manuals/Idris/Type-Driven_Development_with_Idris.pdf#113
