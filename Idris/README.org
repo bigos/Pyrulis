@@ -5,5 +5,8 @@ This folder contains old experiments with Idris1. We need equivalents in [[https
 Changes since Idris 1
 https://idris2.readthedocs.io/en/latest/updates/updates.html
 
+Idris book updates
+https://idris2.readthedocs.io/en/latest/typedd/typedd.html
+
 ** nice Idris links
 https://wiki.nikiv.dev/programming-languages/idris/
