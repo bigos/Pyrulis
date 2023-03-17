@@ -22,6 +22,7 @@ In REPL do
 #+end_example
 
 ** load the libraries
+file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::21
 We need gtk4 amd related libraries.
 
 #+begin_src lisp
@@ -37,9 +38,9 @@ file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::24
     (:use)
     (:export #:*ns*))
 
-(cl:in-package #:cairo-gobject)
+  (cl:in-package #:cairo-gobject)
 
-  (gir-wrapper:define-gir-namespace "cairo")
+    (gir-wrapper:define-gir-namespace "cairo")
 #+end_src
 
 ** our package
