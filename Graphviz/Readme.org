@@ -2,3 +2,10 @@
 
 Paper that is a good example of using org mode
 https://www.jstatsoft.org/article/view/v046i03
+
+** packages
+
+*** Lisp
+https://github.com/jingtaozf/s-graphviz
+
+https://graphviz.org/resources/#common-lisp

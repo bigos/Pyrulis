@@ -1,3 +1,13 @@
 * Readme
 
 I need to explore Literate Lisp to a greater degree.
+
+** possible candidates
+
+*** literate-lisp
+https://github.com/jingtaozf/literate-lisp
+
+https://quickdocs.org/literate-lisp
+
+*** erudite
+https://github.com/mmontone/erudite
