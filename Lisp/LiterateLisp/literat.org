@@ -10,6 +10,9 @@
  This is experiment using literate programming. Here we have only one file with
  Lisp code.
 
+ The system that make this style of programming possible can be found here:
+ https://github.com/jingtaozf/literate-lisp
+
 *** REPL use
 #+begin_example
   (ql:quickload :literate-lisp)
