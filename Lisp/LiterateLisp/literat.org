@@ -1,0 +1,50 @@
+# -*- Mode: POLY-ORG ;-*- ---
+#+Title: Literat
+#+STARTUP: noindent
+#+STARTUP: inlineimages
+#+PROPERTY: literate-lang lisp
+#+PROPERTY: literate-load yes
+
+* Literat
+** Introduction
+ This is experiment using literate programming. Here we have only one file with
+ Lisp code.
+
+*** REPL use
+#+begin_example
+  CL-USER> (ql:quickload :literate-lisp)
+  CL-USER> (literate-lisp:with-literate-syntax  (load "~/Programming/Pyrulis/Lisp/LiterateLisp/literat.org"))
+#+end_example
+
+** Code
+
+*** eval-when
+
+#+begin_src lisp
+   (eval-when (:compile-toplevel :load-toplevel :execute)
+     (ql:quickload '(alexandria serapeum)))
+#+end_src
+
+*** Package
+Define package
+#+begin_src lisp
+  (defpackage :literat
+    (:use :cl))
+#+end_src
+
+And use it.
+#+begin_src lisp
+  (in-package :literat)
+#+end_src
+
+*** Say Hello
+define the function
+#+begin_src lisp
+  (defun say-hello ()
+    (format t "Just saying hello~%"))
+#+end_src
+
+and use it
+#+begin_src lisp
+  (say-hello)
+#+end_src
