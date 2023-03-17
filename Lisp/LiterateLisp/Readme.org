@@ -9,5 +9,7 @@ https://github.com/jingtaozf/literate-lisp
 
 https://quickdocs.org/literate-lisp
 
+file:~/quicklisp/dists/quicklisp/software/s-graphviz-20201220-git/s-graphviz.asd::17
+
 *** erudite
 https://github.com/mmontone/erudite
