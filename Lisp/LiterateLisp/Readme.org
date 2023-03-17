@@ -2,14 +2,12 @@
 
 I need to explore Literate Lisp to a greater degree.
 
-** possible candidates
-
-*** literate-lisp
+** literate-lisp
 https://github.com/jingtaozf/literate-lisp
 
 https://quickdocs.org/literate-lisp
 
-**** example use
+*** example use with another system
 asd
 file:~/quicklisp/dists/quicklisp/software/s-graphviz-20201220-git/s-graphviz.asd::17
 code use example
@@ -18,5 +16,5 @@ https://raw.githubusercontent.com/jingtaozf/s-graphviz/master/s-graphviz.org
 code formatted as Readme
 https://github.com/jingtaozf/s-graphviz
 
-*** erudite
-https://github.com/mmontone/erudite
+** my first attempt
+[[file:literat.org::*Literat][Literat]] is my first literate program.
