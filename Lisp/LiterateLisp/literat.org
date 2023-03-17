@@ -12,9 +12,11 @@
 
 *** REPL use
 #+begin_example
-  CL-USER> (ql:quickload :literate-lisp)
-  CL-USER> (literate-lisp:with-literate-syntax  (load "~/Programming/Pyrulis/Lisp/LiterateLisp/literat.org"))
+  (ql:quickload :literate-lisp)
+  (literate-lisp:with-literate-syntax  (load "~/Programming/Pyrulis/Lisp/LiterateLisp/literat.org"))
 #+end_example
+
+Evaluating this code in the REPL should print "Just saying hello"
 
 ** Code
 
