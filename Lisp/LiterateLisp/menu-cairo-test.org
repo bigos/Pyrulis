@@ -1,0 +1,46 @@
+# -*- Mode: POLY-ORG ;-*- ---
+#+Title: Menu Cairo Test
+#+STARTUP: noindent
+#+STARTUP: inlineimages
+#+PROPERTY: literate-lang lisp
+#+PROPERTY: literate-load yes
+
+* Code
+This is attempt to rewrite
+file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::1
+in literate style.
+
+This is attempt to make something more complex than the previous attempt.
+file:~/Programming/Pyrulis/Lisp/LiterateLisp/literat.org::8
+
+** running it
+In REPL do
+
+#+begin_example
+  (ql:quickload :literate-lisp)
+  (literate-lisp:with-literate-syntax  (load "~/Programming/Pyrulis/Lisp/LiterateLisp/menu-cairo-test.org"))
+#+end_example
+
+** load the libraries
+We need gtk4 amd related libraries.
+
+#+begin_src lisp
+  (eval-when (:compile-toplevel :load-toplevel :execute)
+    (ql:quickload '(:alexandria :serapeum :cl-gtk4 :cl-gdk4 :cl-cairo2 :defclass-std)))
+#+end_src
+
+** cairo-gobject fixes
+file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::24
+
+#+begin_src lisp
+  (cl:defpackage cairo-gobject
+    (:use)
+    (:export #:*ns*))
+
+(cl:in-package #:cairo-gobject)
+
+  (gir-wrapper:define-gir-namespace "cairo")
+#+end_src
+
+** our package
+file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::32
