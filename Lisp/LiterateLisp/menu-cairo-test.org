@@ -21,7 +21,8 @@ In REPL do
   (cairo-test)
 #+end_example
 
-** load the libraries
+** Introduction
+*** load the libraries
 file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::21
 We need gtk4 amd related libraries.
 
@@ -30,7 +31,7 @@ We need gtk4 amd related libraries.
     (ql:quickload '(:alexandria :serapeum :cl-gtk4 :cl-gdk4 :cl-cairo2 :defclass-std)))
 #+end_src
 
-** cairo-gobject fixes
+*** cairo-gobject fixes
 file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::24
 
 #+begin_src lisp
@@ -43,7 +44,7 @@ file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::24
     (gir-wrapper:define-gir-namespace "cairo")
 #+end_src
 
-** our package
+*** our package
 file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::32
 
 #+begin_src lisp
@@ -54,7 +55,9 @@ file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::32
   (cl:in-package #:menu-cairo-test)
 #+end_src
 
-** struct for colours and macro
+
+** Drawing
+*** struct for colours and macro
 file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::38
 
 #+begin_src lisp
@@ -77,16 +80,16 @@ file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::38
                ,@body)))))
 #+end_src
 
-** draw-func environment
+*** draw-func environment
 
-*** declare function type for draw-func
+**** declare function type for draw-func
 file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::56
 
 #+begin_src lisp
   (declaim (ftype (function (t t t t) t) draw-func))
 #+end_src
 
-*** cffi callback
+**** cffi callback
 file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::58
 
 #+begin_src lisp
@@ -112,7 +115,7 @@ file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::58
                                  width height)))
 #+end_src
 
-*** draw-func itself
+**** draw-func itself
 file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::118
 
 #+begin_src lisp
@@ -160,7 +163,8 @@ file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::118
 #+end_src
 
 
-** menu functions
+** GUI
+*** menu functions
 file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::77
 
 #+begin_src lisp
@@ -207,7 +211,7 @@ file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::77
 
 #+end_src
 
-** application
+*** application
 file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::161
 
 #+begin_src lisp
