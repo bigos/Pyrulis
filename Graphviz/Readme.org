@@ -1,0 +1,4 @@
+* Readme
+
+Paper that is a good example of using org mode
+https://www.jstatsoft.org/article/view/v046i03

@@ -1,0 +1,3 @@
+* Readme
+
+I need to explore Literate Lisp to a greater degree.
