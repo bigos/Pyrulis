@@ -23,7 +23,6 @@ In REPL do
 
 ** Introduction
 *** load the libraries
-file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::21
 We need gtk4 amd related libraries.
 
 #+begin_src lisp
@@ -32,7 +31,6 @@ We need gtk4 amd related libraries.
 #+end_src
 
 *** cairo-gobject fixes
-file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::24
 
 #+begin_src lisp
   (cl:defpackage cairo-gobject
@@ -45,7 +43,6 @@ file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::24
 #+end_src
 
 *** our package
-file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::32
 
 #+begin_src lisp
   (cl:defpackage menu-cairo-test
@@ -58,7 +55,6 @@ file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::32
 
 ** Drawing
 *** struct for colours and macro
-file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::38
 
 #+begin_src lisp
   (cffi:defcstruct gdk-rgba
@@ -83,14 +79,12 @@ file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::38
 *** draw-func environment
 
 **** declare function type for draw-func
-file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::56
 
 #+begin_src lisp
   (declaim (ftype (function (t t t t) t) draw-func))
 #+end_src
 
 **** cffi callback
-file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::58
 
 #+begin_src lisp
   (declaim (ftype (function (t t t t) t) draw-func))
@@ -116,7 +110,6 @@ file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::58
 #+end_src
 
 **** draw-func itself
-file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::118
 
 #+begin_src lisp
 (defun draw-func (area cr width height)
@@ -165,7 +158,6 @@ file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::118
 
 ** GUI
 *** menu functions
-file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::77
 
 #+begin_src lisp
 (defun menu-test-menu ()
@@ -212,30 +204,46 @@ file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::77
 #+end_src
 
 *** application
-file:~/Programming/Pyrulis/Lisp/menu-cairo-test.lisp::161
+
+**** define application
+Define application is a macro that makes interactive programming possible.
+
+Please note [[*closing bracket of define application][closing bracket of define application]]
 
 #+begin_src lisp
 (define-application (:name cairo-test
-                     :id "org.bohonghuang.gdk4-cairo-example")
-  (define-main-window (window (make-application-window :application *application*))
+                           :id "org.bohonghuang.gdk4-cairo-example")
+#+end_src
+
+**** main code
+#+begin_src lisp
+(define-main-window (window (make-application-window :application *application*))
     (setf (window-title window) "Drawing Area Test with Menu")
 
-    (define-menu-actions window)
+  (define-menu-actions window)
 
-    (let ((window-box (make-box :orientation +orientation-vertical+
-                                :spacing 0)))
-      (let ((menu-bar (make-popover-menu-bar :model (menu-test-menu))))
-        (box-append window-box menu-bar))
-      (let ((area (gtk:make-drawing-area)))
-        (setf (drawing-area-content-width area) 200
-              (drawing-area-content-height area) 200
-              (drawing-area-draw-func area) (list (cffi:callback %draw-func)
-                                                  (cffi:null-pointer)
-                                                  (cffi:null-pointer)))
-        (box-append window-box area))
+  (let ((window-box (make-box :orientation +orientation-vertical+
+                              :spacing 0)))
+    (let ((menu-bar (make-popover-menu-bar :model (menu-test-menu))))
+      (box-append window-box menu-bar))
+    (let ((area (gtk:make-drawing-area)))
+      (setf (drawing-area-content-width area) 200
+            (drawing-area-content-height area) 200
+            (drawing-area-draw-func area) (list (cffi:callback %draw-func)
+                                                (cffi:null-pointer)
+                                                (cffi:null-pointer)))
+      (box-append window-box area))
 
-      (setf (window-child window) window-box))
+    (setf (window-child window) window-box))
 
-    (unless (widget-visible-p window)
-      (window-present window))))
+  (unless (widget-visible-p window)
+    (window-present window)))
+#+end_src
+
+This is close the bracket of [[*define application][define application]]. Could it be placed at the end
+of previous block? I guess it is a matter of personal taste.
+
+**** closing bracket of define application
+#+begin_src lisp
+  )
 #+end_src
