@@ -16,7 +16,7 @@ This example has been tested with [[http://www.sbcl.org/][SBCL]] Common Lisp. To
 [[https://www.quicklisp.org/][Quicklisp]] and [[https://ultralisp.org/][Ultralisp]].
 
 ** running it
-In REPL do
+In REPL do:
 
 #+begin_example
   (ql:quickload :literate-lisp)
@@ -24,6 +24,8 @@ In REPL do
   (in-package #:menu-cairo-test)
   (cairo-test)
 #+end_example
+
+That will load the required libraries and execute the rest of the file.
 
 ** Introduction
 *** load the libraries
