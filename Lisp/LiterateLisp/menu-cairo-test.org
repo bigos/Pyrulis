@@ -13,7 +13,7 @@ file:~/Programming/Pyrulis/Lisp/LiterateLisp/literat.org::8
 
 ** setting up the environment
 This example has been tested with [[http://www.sbcl.org/][SBCL]] Common Lisp. To run it you need to set up
-[[https://www.quicklisp.org/][Quicklisp]] and [[https://ultralisp.org/][Ultralisp]]. It uses [[https://github.com/jingtaozf/literate-lisp][literate-lisp]] to tell lisp how to process the org file.
+[[https://www.quicklisp.org/][Quicklisp]] and [[https://ultralisp.org/][Ultralisp]]. It uses [[https://github.com/jingtaozf/literate-lisp][literate-lisp]] to tell Lisp how to process the org file.
 
 ** running it
 In REPL do:
