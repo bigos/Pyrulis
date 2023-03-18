@@ -27,7 +27,7 @@ In REPL do
 
 ** Introduction
 *** load the libraries
-We need gtk4 amd related libraries. The most important library [[https://github.com/bohonghuang/cl-gtk4][cl-gtk4]] is used to show the GUI.
+We need gtk4 amd related libraries. The most important library, [[https://github.com/bohonghuang/cl-gtk4][cl-gtk4]] is used to show the GUI.
 
 #+begin_src lisp
   (eval-when (:compile-toplevel :load-toplevel :execute)
