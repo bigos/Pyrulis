@@ -45,7 +45,7 @@ We need gtk4 amd related libraries. The most important library, [[https://github
 
   (cl:in-package #:cairo-gobject)
 
-    (gir-wrapper:define-gir-namespace "cairo")
+  (gir-wrapper:define-gir-namespace "cairo")
 #+end_src
 
 *** our package
@@ -54,8 +54,8 @@ We need gtk4 amd related libraries. The most important library, [[https://github
   (cl:defpackage menu-cairo-test
     (:use #:cl #:gtk4)
     (:export #:cairo-test))
-;; (load "/home/jacek/Programming/Pyrulis/Lisp/menu-cairo-test.lisp")
-  (cl:in-package #:menu-cairo-test)
+
+(cl:in-package #:menu-cairo-test)
 #+end_src
 
 
