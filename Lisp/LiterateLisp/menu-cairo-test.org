@@ -1,5 +1,6 @@
 # -*- Mode: POLY-ORG ;-*- ---
 #+Title: Menu Cairo Test
+#+STARTUP: noindent
 #+PROPERTY: literate-lang lisp
 #+PROPERTY: literate-load yes
 
