@@ -25,7 +25,7 @@ In REPL do:
   (cairo-test)
 #+end_example
 
-That will load the required libraries and execute the rest of the file.
+That will load the required libraries and execute the lisp code blocks in the rest of the file.
 
 ** Introduction
 *** load the libraries
