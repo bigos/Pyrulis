@@ -11,6 +11,10 @@ in literate style.
 This is attempt to make something more complex than the previous attempt.
 file:~/Programming/Pyrulis/Lisp/LiterateLisp/literat.org::8
 
+** setting up the environment
+This example has been tested with SBCL Common Lisp. To run it you need to set up
+[[https://www.quicklisp.org/][Quicklisp]] and [[https://ultralisp.org/][Ultralisp]].
+
 ** running it
 In REPL do
 
