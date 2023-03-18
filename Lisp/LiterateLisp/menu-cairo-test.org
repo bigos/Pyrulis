@@ -112,47 +112,47 @@ We need gtk4 amd related libraries.
 **** draw-func itself
 
 #+begin_src lisp
-(defun draw-func (area cr width height)
-  (declare (ignore area)
-           (optimize (speed 3)
-                     (debug 0)
-                     (safety 0)))
-  (let ((width (coerce (the fixnum width) 'single-float))
-        (height (coerce (the fixnum height) 'single-float))
-        (fpi (coerce pi 'single-float)))
-    (let* ((radius (/ (min width height) 2.0))
-           (stroke-width (/ radius 8.0))
-           (button-radius (* radius 0.4)))
-      (declare (type single-float radius stroke-width button-radius))
-      (with-gdk-rgba (color "#000000")
-        (cairo:arc (/ width 2.0) (/ height 2.0) radius 0.0 (* 2.0 fpi))
-        (gdk:cairo-set-source-rgba cr color)
-        (cairo:fill-path))
-      (with-gdk-rgba (color "#FF0000")
-        (cairo:arc (/ width 2.0) (/ height 2.0) (- radius stroke-width) pi (* 2.0 fpi))
-        (gdk:cairo-set-source-rgba cr color)
-        (cairo:fill-path))
-      (with-gdk-rgba (color "#FFFFFF")
-        (cairo:arc (/ width 2.0) (/ height 2.0) (- radius stroke-width) 0.0 fpi)
-        (gdk:cairo-set-source-rgba cr color)
-        (cairo:fill-path))
-      (with-gdk-rgba (color "#000000")
-        (let ((bar-length (sqrt (- (expt (* radius 2) 2.0) (expt stroke-width 2.0)))))
-          (declare (type single-float bar-length))
-          (cairo:rectangle (+ (- (/ width 2.0) radius) (- radius (/ bar-length 2.0)))
-                           (+ (- (/ height 2.0) radius) (- radius (/ stroke-width 2.0)))
-                           bar-length
-                           stroke-width))
-        (gdk:cairo-set-source-rgba cr color)
-        (cairo:fill-path))
-      (with-gdk-rgba (color "#000000")
-        (cairo:arc (/ width 2.0) (/ height 2.0) button-radius 0.0 (* 2.0 fpi))
-        (gdk:cairo-set-source-rgba cr color)
-        (cairo:fill-path))
-      (with-gdk-rgba (color "#FFFFFF")
-        (cairo:arc (/ width 2.0) (/ height 2.0) (- button-radius stroke-width) 0.0 (* 2.0 fpi))
-        (gdk:cairo-set-source-rgba cr color)
-        (cairo:fill-path)))))
+  (defun draw-func (area cr width height)
+    (declare (ignore area)
+             (optimize (speed 3)
+                       (debug 0)
+                       (safety 0)))
+    (let ((width (coerce (the fixnum width) 'single-float))
+          (height (coerce (the fixnum height) 'single-float))
+          (fpi (coerce pi 'single-float)))
+      (let* ((radius (/ (min width height) 2.0))
+             (stroke-width (/ radius 8.0))
+             (button-radius (* radius 0.4)))
+        (declare (type single-float radius stroke-width button-radius))
+        (with-gdk-rgba (color "#000000")
+          (cairo:arc (/ width 2.0) (/ height 2.0) radius 0.0 (* 2.0 fpi))
+          (gdk:cairo-set-source-rgba cr color)
+          (cairo:fill-path))
+        (with-gdk-rgba (color "#FF0000")
+          (cairo:arc (/ width 2.0) (/ height 2.0) (- radius stroke-width) pi (* 2.0 fpi))
+          (gdk:cairo-set-source-rgba cr color)
+          (cairo:fill-path))
+        (with-gdk-rgba (color "#FFFFFF")
+          (cairo:arc (/ width 2.0) (/ height 2.0) (- radius stroke-width) 0.0 fpi)
+          (gdk:cairo-set-source-rgba cr color)
+          (cairo:fill-path))
+        (with-gdk-rgba (color "#000000")
+          (let ((bar-length (sqrt (- (expt (* radius 2) 2.0) (expt stroke-width 2.0)))))
+            (declare (type single-float bar-length))
+            (cairo:rectangle (+ (- (/ width 2.0) radius) (- radius (/ bar-length 2.0)))
+                             (+ (- (/ height 2.0) radius) (- radius (/ stroke-width 2.0)))
+                             bar-length
+                             stroke-width))
+          (gdk:cairo-set-source-rgba cr color)
+          (cairo:fill-path))
+        (with-gdk-rgba (color "#000000")
+          (cairo:arc (/ width 2.0) (/ height 2.0) button-radius 0.0 (* 2.0 fpi))
+          (gdk:cairo-set-source-rgba cr color)
+          (cairo:fill-path))
+        (with-gdk-rgba (color "#FFFFFF")
+          (cairo:arc (/ width 2.0) (/ height 2.0) (- button-radius stroke-width) 0.0 (* 2.0 fpi))
+          (gdk:cairo-set-source-rgba cr color)
+          (cairo:fill-path)))))
 #+end_src
 
 
@@ -160,47 +160,46 @@ We need gtk4 amd related libraries.
 *** menu functions
 
 #+begin_src lisp
-(defun menu-test-menu ()
-  (let ((menu (gio:make-menu)))
-    (let ((submenu (gio:make-menu)))
-      (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Open" :detailed-action "app.open"))
-      (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Exit" :detailed-action "app.exit"))
-      (gio:menu-append-submenu menu "File" submenu))
-    (let ((submenu (gio:make-menu)))
-      (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "About" :detailed-action "app.about"))
-      (gio:menu-append-submenu menu "Help" submenu))
-    (values menu)))
+  (defun menu-test-menu ()
+    (let ((menu (gio:make-menu)))
+      (let ((submenu (gio:make-menu)))
+        (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Open" :detailed-action "app.open"))
+        (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Exit" :detailed-action "app.exit"))
+        (gio:menu-append-submenu menu "File" submenu))
+      (let ((submenu (gio:make-menu)))
+        (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "About" :detailed-action "app.about"))
+        (gio:menu-append-submenu menu "Help" submenu))
+      (values menu)))
 
-(defun menu-test-about-dialog ()
-  (let ((dialog (make-about-dialog))
-        (system (asdf:find-system :cl-gtk4)))
-    (setf (about-dialog-authors dialog) (list (asdf:system-author system) "Jacek Podkanski")
-          (about-dialog-website dialog) (asdf:system-homepage system)
-          (about-dialog-version dialog) (asdf:component-version system)
-          (about-dialog-program-name dialog) "Cairo and menu test"
-          (about-dialog-comments dialog) "This is a cl-gtk4 test."
-          (about-dialog-logo-icon-name dialog) "application-x-addon")
-    (values dialog)))
+  (defun menu-test-about-dialog ()
+    (let ((dialog (make-about-dialog))
+          (system (asdf:find-system :cl-gtk4)))
+      (setf (about-dialog-authors dialog) (list (asdf:system-author system) "Jacek Podkanski")
+            (about-dialog-website dialog) (asdf:system-homepage system)
+            (about-dialog-version dialog) (asdf:component-version system)
+            (about-dialog-program-name dialog) "Cairo and menu test"
+            (about-dialog-comments dialog) "This is a cl-gtk4 test."
+            (about-dialog-logo-icon-name dialog) "application-x-addon")
+      (values dialog)))
 
-(defun define-menu-actions (window)
-  (let ((action (gio:make-simple-action :name "exit"
-                                        :parameter-type nil)))
-    (gio:action-map-add-action *application* action)
-    (connect action "activate"
-             (lambda (action param)
-               (declare (ignore action param))
-               (gtk::destroy-all-windows-and-quit))))
-  (let ((action (gio:make-simple-action :name "about"
-                                        :parameter-type nil)))
-    (gio:action-map-add-action *application* action)
-    (connect action "activate"
-             (lambda (action param)
-               (declare (ignore action param))
-               (let ((dialog (menu-test-about-dialog)))
-                 (setf (window-modal-p dialog) t
-                       (window-transient-for dialog) window)
-                 (window-present dialog))))))
-
+  (defun define-menu-actions (window)
+    (let ((action (gio:make-simple-action :name "exit"
+                                          :parameter-type nil)))
+      (gio:action-map-add-action *application* action)
+      (connect action "activate"
+               (lambda (action param)
+                 (declare (ignore action param))
+                 (gtk::destroy-all-windows-and-quit))))
+    (let ((action (gio:make-simple-action :name "about"
+                                          :parameter-type nil)))
+      (gio:action-map-add-action *application* action)
+      (connect action "activate"
+               (lambda (action param)
+                 (declare (ignore action param))
+                 (let ((dialog (menu-test-about-dialog)))
+                   (setf (window-modal-p dialog) t
+                         (window-transient-for dialog) window)
+                   (window-present dialog))))))
 #+end_src
 
 *** application
@@ -213,10 +212,7 @@ Please note [[*closing bracket of define application][closing bracket of define 
 #+begin_src lisp
 (define-application (:name cairo-test
                            :id "org.bohonghuang.gdk4-cairo-example")
-#+end_src
 
-**** main code
-#+begin_src lisp
 (define-main-window (window (make-application-window :application *application*))
     (setf (window-title window) "Drawing Area Test with Menu")
 
@@ -238,12 +234,6 @@ Please note [[*closing bracket of define application][closing bracket of define 
 
   (unless (widget-visible-p window)
     (window-present window)))
-#+end_src
 
-This is close the bracket of [[*define application][define application]]. Could it be placed at the end
-of previous block? I guess it is a matter of personal taste.
-
-**** closing bracket of define application
-#+begin_src lisp
   )
 #+end_src
