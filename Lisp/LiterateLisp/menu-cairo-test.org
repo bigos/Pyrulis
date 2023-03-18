@@ -207,33 +207,29 @@ We need gtk4 amd related libraries.
 **** define application
 Define application is a macro that makes interactive programming possible.
 
-Please note [[*closing bracket of define application][closing bracket of define application]]
-
 #+begin_src lisp
-(define-application (:name cairo-test
-                           :id "org.bohonghuang.gdk4-cairo-example")
+  (define-application (:name cairo-test
+                             :id "org.bohonghuang.gdk4-cairo-example")
 
-(define-main-window (window (make-application-window :application *application*))
-    (setf (window-title window) "Drawing Area Test with Menu")
+  (define-main-window (window (make-application-window :application *application*))
+      (setf (window-title window) "Drawing Area Test with Menu")
 
-  (define-menu-actions window)
+    (define-menu-actions window)
 
-  (let ((window-box (make-box :orientation +orientation-vertical+
-                              :spacing 0)))
-    (let ((menu-bar (make-popover-menu-bar :model (menu-test-menu))))
-      (box-append window-box menu-bar))
-    (let ((area (gtk:make-drawing-area)))
-      (setf (drawing-area-content-width area) 200
-            (drawing-area-content-height area) 200
-            (drawing-area-draw-func area) (list (cffi:callback %draw-func)
-                                                (cffi:null-pointer)
-                                                (cffi:null-pointer)))
-      (box-append window-box area))
+    (let ((window-box (make-box :orientation +orientation-vertical+
+                                :spacing 0)))
+      (let ((menu-bar (make-popover-menu-bar :model (menu-test-menu))))
+        (box-append window-box menu-bar))
+      (let ((area (gtk:make-drawing-area)))
+        (setf (drawing-area-content-width area) 200
+              (drawing-area-content-height area) 200
+              (drawing-area-draw-func area) (list (cffi:callback %draw-func)
+                                                  (cffi:null-pointer)
+                                                  (cffi:null-pointer)))
+        (box-append window-box area))
 
-    (setf (window-child window) window-box))
+      (setf (window-child window) window-box))
 
-  (unless (widget-visible-p window)
-    (window-present window)))
-
-  )
+    (unless (widget-visible-p window)
+      (window-present window))))
 #+end_src
