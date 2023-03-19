@@ -14,6 +14,9 @@
  The system that make this style of programming possible can be found here:
  https://github.com/jingtaozf/literate-lisp
 
+ My version differs from the original documentation in skipping the use of
+ polymode. Possibly because I use the newer version of Emacs and org-mode.
+
 *** REPL use
 #+begin_example
   (ql:quickload :literate-lisp)
