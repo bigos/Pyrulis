@@ -1,4 +1,4 @@
-# -*- Mode: POLY-ORG ;-*- ---
+# make sure this line starts with "# " sharp space
 #+Title: Menu Cairo Test
 #+STARTUP: noindent
 #+PROPERTY: literate-lang lisp
