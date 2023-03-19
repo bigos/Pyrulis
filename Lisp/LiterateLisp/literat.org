@@ -61,7 +61,7 @@ define the function
     (format t "~&Just saying hello~%"))
 #+end_src
 
-and use it
+and call the function
 #+begin_src lisp
   (say-hello)
 #+end_src
