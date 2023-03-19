@@ -35,9 +35,7 @@ Evaluating this code in the REPL should print "Just saying hello"
 *** eval-when
 This is the example of loading libraries when the project is contained in one
 file. Another example where literate-lisp and the dependencies are
-invoked from asd file can be found here:
-
-https://github.com/jingtaozf/s-graphviz/blob/master/s-graphviz.asd
+invoked from asd file can be found [[https://github.com/jingtaozf/s-graphviz/blob/master/s-graphviz.asd][here]].
 
 #+begin_src lisp
    (eval-when (:compile-toplevel :load-toplevel :execute)
