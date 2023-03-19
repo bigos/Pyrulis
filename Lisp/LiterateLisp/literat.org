@@ -21,6 +21,8 @@
  '# ' reader macro.
 
 *** REPL use
+Load the literate-lisp system and then load this file.
+
 #+begin_example
   (ql:quickload :literate-lisp)
   (literate-lisp:with-literate-syntax  (load "~/Programming/Pyrulis/Lisp/LiterateLisp/literat.org"))
@@ -31,6 +33,11 @@ Evaluating this code in the REPL should print "Just saying hello"
 ** Code
 
 *** eval-when
+This is the example of loading libraries if the project is contained in one file.
+This is another example where literate-lisp and the dependencies are invoked
+from asd file.
+
+https://github.com/jingtaozf/s-graphviz/blob/master/s-graphviz.asd
 
 #+begin_src lisp
    (eval-when (:compile-toplevel :load-toplevel :execute)
@@ -53,7 +60,7 @@ And use it.
 define the function
 #+begin_src lisp
   (defun say-hello ()
-    (format t "Just saying hello~%"))
+    (format t "~&Just saying hello~%"))
 #+end_src
 
 and use it
