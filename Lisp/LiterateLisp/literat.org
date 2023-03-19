@@ -1,4 +1,4 @@
-# -*- Mode: POLY-ORG ;-*- ---
+# make sure this line starts with "# " sharp space
 #+Title: Literat
 #+STARTUP: noindent
 #+STARTUP: inlineimages
