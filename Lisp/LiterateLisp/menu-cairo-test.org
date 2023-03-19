@@ -61,6 +61,7 @@ We need gtk4 amd related libraries. The most important library, [[https://github
 
 
 ** Drawing
+
 *** struct for colours and macro
 
 #+begin_src lisp
