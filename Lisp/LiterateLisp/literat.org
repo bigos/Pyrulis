@@ -1,4 +1,6 @@
-# -*- Mode: POLY-ORG ;-*- ---
+(declaim (optimize (speed 1) (safety 2) (debug 3)))
+(format t "~&Hello at the top~%")
+# make sure this line line starts with sharp and space
 #+Title: Literat
 #+STARTUP: noindent
 #+STARTUP: inlineimages
