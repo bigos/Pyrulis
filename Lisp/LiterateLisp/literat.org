@@ -14,6 +14,11 @@
  The system that make this style of programming possible can be found here:
  https://github.com/jingtaozf/literate-lisp
 
+ This code can be tangled with:
+#+begin_example
+(literate-lisp:tangle-org-file "/home/jacek/Programming/Pyrulis/Lisp/LiterateLisp/literat.org")
+#+end_example
+
  My version differs from the original documentation in skipping the use of
  polymode. Possibly, because I use the newer version of Emacs and org-mode. The
  *Raw* view on Github, in some circumstances, may show the first few lines
