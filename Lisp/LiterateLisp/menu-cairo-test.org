@@ -1,4 +1,4 @@
-# -*- Mode: POLY-ORG ;-*- ---
+# make sure this line starts with "# " sharp space
 #+Title: Menu Cairo Test
 #+STARTUP: noindent
 #+PROPERTY: literate-lang lisp
@@ -164,7 +164,8 @@ We need gtk4 amd related libraries. The most important library, [[https://github
 
 
 ** GUI
-*** menu functions
+
+*** menu
 
 #+begin_src lisp
   (defun menu-test-menu ()
@@ -177,7 +178,11 @@ We need gtk4 amd related libraries. The most important library, [[https://github
         (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "About" :detailed-action "app.about"))
         (gio:menu-append-submenu menu "Help" submenu))
       (values menu)))
+#+end_src
 
+*** about dialog
+
+#+begin_src lisp
   (defun menu-test-about-dialog ()
     (let ((dialog (make-about-dialog))
           (system (asdf:find-system :cl-gtk4)))
@@ -188,7 +193,11 @@ We need gtk4 amd related libraries. The most important library, [[https://github
             (about-dialog-comments dialog) "This is a cl-gtk4 test."
             (about-dialog-logo-icon-name dialog) "application-x-addon")
       (values dialog)))
+#+end_src
 
+*** actions
+
+#+begin_src lisp
   (defun define-menu-actions (window)
     (let ((action (gio:make-simple-action :name "exit"
                                           :parameter-type nil)))
