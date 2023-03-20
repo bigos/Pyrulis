@@ -21,3 +21,12 @@ https://dark.elm.dmy.fr/packages/jfmengels/elm-review-simplify/latest/
   npx elm-review --template jfmengels/elm-review-unused/example
   npx elm-review --template jfmengels/elm-review-simplify/example
 #+end_example
+
+** fixing CORS XHR error on the API side
+https://stackoverflow.com/questions/35318324/render-json-with-header
+
+#+begin_src ruby
+# in your API controller action do something like:
+response.headers['Access-Control-Allow-Origin'] = '*'
+render json: { status: :ok, example_result: 123 }, status: 200
+#+end_src
