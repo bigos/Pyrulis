@@ -62,7 +62,7 @@ We need gtk4 amd related libraries. The most important library, [[https://github
 
 ** Drawing
 
-*** struct for colours and macro
+*** struct for colours and with-gdk-rgba macro
 
 #+begin_src lisp
   (cffi:defcstruct gdk-rgba
