@@ -6,6 +6,7 @@
   (ql:quickload '(cl-gtk4
                   cl-gdk4
                   cl-cairo2
+                  cl-glib
                   serapeum
                   defclass-std
                   fiveam)))

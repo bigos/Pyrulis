@@ -1,0 +1,70 @@
+(declaim (optimize (speed 1) (safety 2) (debug 3)))
+# make sure this line line starts with sharp and space
+#+Title: Literat
+
+* Literat
+** Introduction
+ This is experiment using literate programming. Here we have only one file with
+ Lisp code.
+
+*** literate-lisp
+ The system that make this style of programming possible can be found here:
+ https://github.com/jingtaozf/literate-lisp
+
+ My version differs from the original documentation in skipping the use of
+ polymode. Possibly, because I use the newer version of Emacs and org-mode. The
+ *Raw* view on Github, in some circumstances, may show the first few lines
+ incorrectly if you are adding more Lisp code above the line that starts with
+ '# ' reader macro.
+
+*** REPL use
+Load the literate-lisp system and then load this file.
+
+#+begin_example
+  (ql:quickload :literate-lisp)
+  (literate-lisp:with-literate-syntax  (load "~/Programming/Pyrulis/Lisp/LiterateLisp/literat.org"))
+#+end_example
+
+Evaluating this code in the REPL should print "Just saying hello"
+
+*** tangling
+This code can be tangled with:
+#+begin_example
+(literate-lisp:tangle-org-file "/home/jacek/Programming/Pyrulis/Lisp/LiterateLisp/literat.org")
+#+end_example
+
+** Code
+
+*** eval-when
+This is the example of loading libraries when the project is contained in one
+file. Another example where literate-lisp and the dependencies are
+invoked from asd file can be found [[https://github.com/jingtaozf/s-graphviz/blob/master/s-graphviz.asd][here]].
+
+#+begin_src lisp
+   (eval-when (:compile-toplevel :load-toplevel :execute)
+     (ql:quickload '(alexandria serapeum)))
+#+end_src
+
+*** Package
+Define package
+#+begin_src lisp
+  (defpackage :literat
+    (:use :cl))
+#+end_src
+
+And use it.
+#+begin_src lisp
+  (in-package :literat)
+#+end_src
+
+*** Say Hello
+define the function
+#+begin_src lisp
+  (defun say-hello ()
+    (format t "~&Just saying hello~%"))
+#+end_src
+
+and call the function
+#+begin_src lisp
+  (say-hello)
+#+end_src
