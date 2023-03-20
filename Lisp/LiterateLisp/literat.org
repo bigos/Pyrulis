@@ -7,6 +7,7 @@
  This is experiment using literate programming. Here we have only one file with
  Lisp code.
 
+*** literate-lisp
  The system that make this style of programming possible can be found here:
  https://github.com/jingtaozf/literate-lisp
 
@@ -26,6 +27,7 @@ Load the literate-lisp system and then load this file.
 
 Evaluating this code in the REPL should print "Just saying hello"
 
+*** tangling
 This code can be tangled with:
 #+begin_example
 (literate-lisp:tangle-org-file "/home/jacek/Programming/Pyrulis/Lisp/LiterateLisp/literat.org")
