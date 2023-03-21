@@ -31,4 +31,4 @@ elements of org-mode but done better. We need
 + links to structure elements
 + links to functions
 
-Perhaps I could use occur instead of the links withing the same file?
+Perhaps I could use occur instead of the links for jumping around the same file?
