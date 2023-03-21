@@ -30,3 +30,5 @@ elements of org-mode but done better. We need
 + links to lines
 + links to structure elements
 + links to functions
+
+Perhaps I could use occur instead of the links withing the same file?
