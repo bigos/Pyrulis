@@ -18,3 +18,15 @@ https://github.com/jingtaozf/s-graphviz
 
 ** my first attempt
 [[file:literat.org::*Literat][Literat]] is my first literate program.
+
+** verdict
+
+It is useless for real work. But it can be great as a teaching tool, especially
+because it is good at showing the structure and hiding irrelevant details.
+
+It is also an inspiration for thinking about a better tool. Such tool would have
+elements of org-mode but done better. We need
++ code folding across comments
++ links to lines
++ links to structure elements
++ links to functions
