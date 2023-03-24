@@ -80,13 +80,59 @@
       (gdk:cairo-set-source-rgba cr color))
     (cairo:stroke)))
 
+;;; event sink =============================
+
+;;; used for testing
+(defun event-sink-test (signal-name event-class &rest args)
+  (event-sink% nil signal-name event-class args))
+
+(defun event-sink (widget signal-name event &rest args)
+  (let ((event-class (when event (format nil "~S" (slot-value event 'class)))))
+    (event-sink% widget signal-name event-class args)))
+
+(defun event-sink% (widget signal-name event-class args)
+  (format t "~&event sink ~S~%" (list widget signal-name event-class args)))
+
 ;;; events and gui =========================
+(defun connect-controller (widget controller signal-name)
+  (connect controller signal-name (lambda (event &rest args)
+                                    (event-sink widget signal-name event args))))
+
+(defun window-events (window)
+  (glib:timeout-add 1000
+                    (lambda (&rest args)
+                      (event-sink window "timeout" nil args)
+                      glib:+source-continue+))
+  (let ((key-controller (gtk4:make-event-controller-key)))
+    (widget-add-controller window key-controller)
+    (connect-controller window key-controller "key-pressed")
+    (connect-controller window key-controller "key-released")))
+
+(defun canvas-events (canvas)
+  (let ((motion-controller (gtk4:make-event-controller-motion)))
+    (widget-add-controller canvas motion-controller)
+    (connect-controller canvas motion-controller "motion")
+    (connect-controller canvas motion-controller "enter")
+    (connect-controller canvas motion-controller "leave"))
+
+  (let ((gesture-click-controller (gtk4:make-gesture-click)))
+    (widget-add-controller canvas gesture-click-controller)
+    (connect-controller canvas gesture-click-controller "pressed")
+    (connect-controller canvas gesture-click-controller "released"))
+
+  (connect canvas "resize" (lambda (widget &rest args)
+                             (declare (ignore widget))
+                             (event-sink canvas "resize" nil args))))
+
 (defun connect-activate (app)
   (let ((window (make-application-window :application app)))
     (setf (window-title window) "GUI"
           (window-default-size window) (list 300 300))
+    (window-events window)
+
     (let ((box (make-box :orientation +orientation-vertical+
                          :spacing 0)))
+
       (let ((canvas (make-drawing-area)))
         (setf (drawing-area-content-width canvas) 200
               (drawing-area-content-height canvas) 200
@@ -95,7 +141,7 @@
               (drawing-area-draw-func canvas) (list (cffi:callback %draw-func)
                                                     (cffi:null-pointer)
                                                     (cffi:null-pointer)))
-        ;; add canvas events
+        (canvas-events canvas)
 
         (box-append box canvas))
       (setf (window-child window) box))
