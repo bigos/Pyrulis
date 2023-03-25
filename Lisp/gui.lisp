@@ -124,7 +124,7 @@
                              (declare (ignore widget))
                              (event-sink canvas "resize" nil args))))
 
-(defun connect-activate (app)
+(defun add-window (app)
   (let ((window (make-application-window :application app)))
     (setf (window-title window) "GUI"
           (window-default-size window) (list 300 300))
@@ -150,11 +150,20 @@
 
     (window-present window)))
 
-(let ((app (make-application :application-id "org.bigos.simple.gui"
-                             :flags gio:+application-flags-flags-none+)))
-  (defun current-app () app)
+(defun connect-activate (app)
+  (format t "going to add window ")
+  (add-window app))
 
-  (defun main ()
+
+(defparameter *application* nil)
+(defun current-app () *application*)
+
+(defun main ()
+  (setf *application* nil)
+  (let ((app (make-application :application-id "org.bigos.simple.gui"
+                              :flags gio:+application-flags-flags-none+)))
+    (setf *application* app)
+
     (connect app "activate"
              (lambda (app)
                (connect-activate app)))
