@@ -91,7 +91,8 @@
     (event-sink% widget signal-name event-class args)))
 
 (defun event-sink% (widget signal-name event-class args)
-  (format t "~&event sink ~S~%" (list widget signal-name event-class args)))
+  (unless (member signal-name (list "timeout" "motion") :test #'equalp)
+    (format t "~&event sink ~S~%" (list widget signal-name event-class args))))
 
 ;;; events and gui =========================
 (defun connect-controller (widget controller signal-name)
