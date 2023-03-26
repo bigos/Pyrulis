@@ -117,6 +117,13 @@
     (values menu)))
 
 (defun define-menu-actions (app window)
+  (let ((action (gio:make-simple-action :name "open"
+                                        :parameter-type nil)))
+    (gio:action-map-add-action app action)
+    (connect action "activate"
+             (lambda (action param)
+               (declare (ignore action param))
+               (add-window app))))
   (let ((action (gio:make-simple-action :name "exit"
                                         :parameter-type nil)))
     (gio:action-map-add-action app action)
