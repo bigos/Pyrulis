@@ -219,9 +219,8 @@
 (defun current-app () *application*)
 
 (defun main ()
-  (setf *application* nil)
   (let ((app (make-application :application-id "org.bigos.simple.gui"
-                              :flags gio:+application-flags-flags-none+)))
+                               :flags gio:+application-flags-flags-none+)))
     (setf *application* app)
 
     (connect app "activate"
