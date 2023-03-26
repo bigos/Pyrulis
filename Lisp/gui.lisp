@@ -116,17 +116,17 @@
       (gio:menu-append-submenu menu "Help" submenu))
     (values menu)))
 
-(defun define-menu-actions (window)
+(defun define-menu-actions (app window)
   (let ((action (gio:make-simple-action :name "exit"
                                         :parameter-type nil)))
-    (gio:action-map-add-action *application* action)
+    (gio:action-map-add-action app action)
     (connect action "activate"
              (lambda (action param)
                (declare (ignore action param))
                (close-all-windows-and-quit))))
   (let ((action (gio:make-simple-action :name "about"
                                         :parameter-type nil)))
-    (gio:action-map-add-action *application* action)
+    (gio:action-map-add-action app action)
     (connect action "activate"
              (lambda (action param)
                (declare (ignore action param))
@@ -189,7 +189,7 @@
       (setf (window-child window) box))
 
     ;; add menu
-    (define-menu-actions window)
+    (define-menu-actions app window)
     (setf (gtk4:application-menubar app) (menu-test-menu))
     (setf (gtk4:application-window-show-menubar-p window) T)
 
