@@ -189,11 +189,8 @@
       (setf (window-child window) box))
 
     ;; add menu
-    (let ((menubar (gio:make-menu)))
-      (main-menubar app menubar)
-      (setf (gtk4:application-menubar app) menubar))
+    (setf (gtk4:application-menubar app) (menu-test-menu))
     (setf (gtk4:application-window-show-menubar-p window) T)
-
 
     (window-present window)))
 
