@@ -208,15 +208,15 @@
   (format t "going to add window ")
   (add-window app))
 
-;;; main ===============================================
-(defparameter *application* nil)
-
-(defun current-app () *application*)
-
 (defun close-all-windows-and-quit ()
   (loop for aw = (gtk4:application-active-window (current-app))
         until (null aw)
         do (gtk4:window-close aw)))
+
+;;; main ===============================================
+(defparameter *application* nil)
+
+(defun current-app () *application*)
 
 (defun main ()
   (setf *application* nil)
