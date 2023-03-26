@@ -98,7 +98,7 @@
 (defun menu-test-about-dialog ()
   (let ((dialog (make-about-dialog)))
     (setf (about-dialog-authors dialog) (list "Jacek Podkanski")
-          (about-dialog-website dialog) "https://github.com/bigos/Pyrulis"
+          (about-dialog-website dialog) "https://github.com/bigos/Pyrulis/blob/master/Lisp/gui.lisp"
           (about-dialog-version dialog) "early-alpha-0.1"
           (about-dialog-program-name dialog) "Cairo, Gui and menu test"
           (about-dialog-comments dialog) "This is a cl-gtk4 test."
@@ -189,6 +189,7 @@
       (setf (window-child window) box))
 
     ;; add menu
+    (define-menu-actions window)
     (setf (gtk4:application-menubar app) (menu-test-menu))
     (setf (gtk4:application-window-show-menubar-p window) T)
 
