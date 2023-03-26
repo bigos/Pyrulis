@@ -173,8 +173,15 @@
                              (declare (ignore widget))
                              (event-sink canvas "resize" nil args))))
 
+(defun add-window-menu (app window)
+  (define-menu-actions app window)
+  (setf (gtk4:application-menubar app) (menu-test-menu))
+  (setf (gtk4:application-window-show-menubar-p window) T))
+
 (defun add-window (app)
   (let ((window (make-application-window :application app)))
+    (add-window-menu app window)
+
     (setf (window-title window) "GUI"
           (window-default-size window) (list 300 300))
     (window-events window)
@@ -194,11 +201,6 @@
 
         (box-append box canvas))
       (setf (window-child window) box))
-
-    ;; add menu
-    (define-menu-actions app window)
-    (setf (gtk4:application-menubar app) (menu-test-menu))
-    (setf (gtk4:application-window-show-menubar-p window) T)
 
     (window-present window)))
 
