@@ -94,6 +94,47 @@
   (unless (member signal-name (list "timeout" "motion") :test #'equalp)
     (format t "~&event sink ~S~%" (list widget signal-name event-class args))))
 
+;;; menu ===================================
+(defun menu-test-about-dialog ()
+  (let ((dialog (make-about-dialog)))
+    (setf (about-dialog-authors dialog) (list "Jacek Podkanski")
+          (about-dialog-website dialog) "https://github.com/bigos/Pyrulis"
+          (about-dialog-version dialog) "early-alpha-0.1"
+          (about-dialog-program-name dialog) "Cairo, Gui and menu test"
+          (about-dialog-comments dialog) "This is a cl-gtk4 test."
+          (about-dialog-logo-icon-name dialog) "application-x-addon")
+    (values dialog)))
+
+(defun menu-test-menu ()
+  (let ((menu (gio:make-menu)))
+    (let ((submenu (gio:make-menu)))
+      (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Open" :detailed-action "app.open"))
+      (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Exit" :detailed-action "app.exit"))
+      (gio:menu-append-submenu menu "File" submenu))
+    (let ((submenu (gio:make-menu)))
+      (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "About" :detailed-action "app.about"))
+      (gio:menu-append-submenu menu "Help" submenu))
+    (values menu)))
+
+(defun define-menu-actions (window)
+  (let ((action (gio:make-simple-action :name "exit"
+                                        :parameter-type nil)))
+    (gio:action-map-add-action *application* action)
+    (connect action "activate"
+             (lambda (action param)
+               (declare (ignore action param))
+               (close-all-windows-and-quit))))
+  (let ((action (gio:make-simple-action :name "about"
+                                        :parameter-type nil)))
+    (gio:action-map-add-action *application* action)
+    (connect action "activate"
+             (lambda (action param)
+               (declare (ignore action param))
+               (let ((dialog (menu-test-about-dialog)))
+                 (setf (window-modal-p dialog) t
+                       (window-transient-for dialog) window)
+                 (window-present dialog))))))
+
 ;;; events and gui =========================
 (defun connect-controller (widget controller signal-name)
   (connect controller signal-name (lambda (event &rest args)
@@ -148,6 +189,11 @@
       (setf (window-child window) box))
 
     ;; add menu
+    (let ((menubar (gio:make-menu)))
+      (main-menubar app menubar)
+      (setf (gtk4:application-menubar app) menubar))
+    (setf (gtk4:application-window-show-menubar-p window) T)
+
 
     (window-present window)))
 
@@ -155,9 +201,15 @@
   (format t "going to add window ")
   (add-window app))
 
-
+;;; main ===============================================
 (defparameter *application* nil)
+
 (defun current-app () *application*)
+
+(defun close-all-windows-and-quit ()
+  (loop for aw = (gtk4:application-active-window (current-app))
+        until (null aw)
+        do (gtk4:window-close aw)))
 
 (defun main ()
   (setf *application* nil)
