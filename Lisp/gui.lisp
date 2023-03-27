@@ -105,42 +105,43 @@
           (about-dialog-logo-icon-name dialog) "application-x-addon")
     (values dialog)))
 
-(defun menu-test-menu ()
+(defun menu-test-menu (app)
   (let ((menu (gio:make-menu)))
     (let ((submenu (gio:make-menu)))
       (gio:menu-append-submenu menu "File" submenu)
       (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Open" :detailed-action "app.open"))
-      (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Exit" :detailed-action "app.exit")))
+      (let ((action (gio:make-simple-action :name "open"
+                                            :parameter-type nil)))
+        (gio:action-map-add-action app action)
+        (connect action "activate"
+                 (lambda (action param)
+                   (declare (ignore action param))
+                   (add-window app))))
+
+      (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Exit" :detailed-action "app.exit"))
+      (let ((action (gio:make-simple-action :name "exit"
+                                            :parameter-type nil)))
+        (gio:action-map-add-action app action)
+        (connect action "activate"
+                 (lambda (action param)
+                   (declare (ignore action param))
+                   (close-all-windows-and-quit)))))
     (let ((submenu (gio:make-menu)))
       (gio:menu-append-submenu menu "Help" submenu)
-      (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "About" :detailed-action "app.about")))
-    (values menu)))
+      (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "About" :detailed-action "app.about"))
+      (let ((action (gio:make-simple-action :name "about"
+                                            :parameter-type nil)))
+        (gio:action-map-add-action app action)
+        (connect action "activate"
+                 (lambda (action param)
+                   (declare (ignore action param))
+                   (let ((dialog (menu-test-about-dialog)))
+                     (setf (window-modal-p dialog) t
+                           (window-transient-for dialog) window)
+                     (window-present dialog))))))
+    menu))
 
-(defun define-menu-actions (app window)
-  (let ((action (gio:make-simple-action :name "open"
-                                        :parameter-type nil)))
-    (gio:action-map-add-action app action)
-    (connect action "activate"
-             (lambda (action param)
-               (declare (ignore action param))
-               (add-window app))))
-  (let ((action (gio:make-simple-action :name "exit"
-                                        :parameter-type nil)))
-    (gio:action-map-add-action app action)
-    (connect action "activate"
-             (lambda (action param)
-               (declare (ignore action param))
-               (close-all-windows-and-quit))))
-  (let ((action (gio:make-simple-action :name "about"
-                                        :parameter-type nil)))
-    (gio:action-map-add-action app action)
-    (connect action "activate"
-             (lambda (action param)
-               (declare (ignore action param))
-               (let ((dialog (menu-test-about-dialog)))
-                 (setf (window-modal-p dialog) t
-                       (window-transient-for dialog) window)
-                 (window-present dialog))))))
+
 
 ;;; events and gui =========================
 (defun connect-controller (widget controller signal-name)
@@ -174,8 +175,7 @@
                              (event-sink canvas "resize" nil args))))
 
 (defun add-window-menu (app window)
-  (define-menu-actions app window)
-  (setf (gtk4:application-menubar app) (menu-test-menu))
+  (setf (gtk4:application-menubar app) (menu-test-menu app))
   (setf (gtk4:application-window-show-menubar-p window) T))
 
 (defun add-window (app)
