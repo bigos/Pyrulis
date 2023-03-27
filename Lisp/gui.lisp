@@ -87,12 +87,11 @@
   (event-sink% nil signal-name event-class args))
 
 (defun event-sink (widget signal-name event &rest args)
-  (let ((event-class (when event (format nil "~S" (slot-value event 'class)))))
-    (event-sink% widget signal-name event-class args)))
+  (event-sink% widget signal-name event args))
 
-(defun event-sink% (widget signal-name event-class args)
-  (unless (member signal-name (list "timeout" "motion") :test #'equalp)
-    (format t "~&event sink ~S~%" (list widget signal-name event-class args))))
+(defun event-sink% (widget signal-name event args)
+    (unless (member signal-name (list "timeout" "motion") :test #'equalp)
+      (format t "~&event sink ~S~%" (list widget signal-name event args))))
 
 ;;; menu ===================================
 (defun menu-test-about-dialog ()
@@ -105,7 +104,7 @@
           (about-dialog-logo-icon-name dialog) "application-x-addon")
     (values dialog)))
 
-(defun menu-test-menu (app)
+(defun menu-test-menu (app window)
   (let ((menu (gio:make-menu)))
     (let ((submenu (gio:make-menu)))
       (gio:menu-append-submenu menu "File" submenu)
@@ -115,7 +114,8 @@
         (gio:action-map-add-action app action)
         (connect action "activate"
                  (lambda (action param)
-                   (declare (ignore action param))
+                   ;(declare (ignore action param))
+                   (event-sink "menu/file/open" action "activate" param)
                    (add-window app))))
 
       (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Exit" :detailed-action "app.exit"))
@@ -124,7 +124,8 @@
         (gio:action-map-add-action app action)
         (connect action "activate"
                  (lambda (action param)
-                   (declare (ignore action param))
+                   ;(declare (ignore action param))
+                   (event-sink "menu/file/exit" action "activate" param)
                    (close-all-windows-and-quit)))))
     (let ((submenu (gio:make-menu)))
       (gio:menu-append-submenu menu "Help" submenu)
@@ -134,14 +135,13 @@
         (gio:action-map-add-action app action)
         (connect action "activate"
                  (lambda (action param)
-                   (declare (ignore action param))
+                   ;(declare (ignore action param))
+                   (event-sink "menu/help/about" action "activate" param)
                    (let ((dialog (menu-test-about-dialog)))
                      (setf (window-modal-p dialog) t
                            (window-transient-for dialog) window)
                      (window-present dialog))))))
     menu))
-
-
 
 ;;; events and gui =========================
 (defun connect-controller (widget controller signal-name)
@@ -175,7 +175,7 @@
                              (event-sink canvas "resize" nil args))))
 
 (defun add-window-menu (app window)
-  (setf (gtk4:application-menubar app) (menu-test-menu app))
+  (setf (gtk4:application-menubar app) (menu-test-menu app window))
   (setf (gtk4:application-window-show-menubar-p window) T))
 
 (defun add-window (app)
