@@ -107,17 +107,7 @@
         (cond
           ((equalp en "#O<EventControllerKey>")
            (format t "eventkey ~s~%" en)
-           (format t "kwy args ~S ~S~%" args (list :key
-                                                     (gdk:keyval-name (nth 0 (car args)))
-                                                     (nth 1 (car args))
-                                                     (format nil "~b" (nth 2 (car args)))
-                                                     (remove-if (lambda (km) (eq km :k5))
-                                                                (loop for x from 0 to 8
-                                                                      for n in '(:shift :caps-lock :ctrl :alt
-                                                                                 :k5 :k6 :win :alt-gr)
-                                                                      for mf = (mask-field (byte 1 x) (nth 2 (car args)))
-                                                                      unless (zerop mf)
-                                                                        collect n)))))
+           (format t "kwy args ~S ~%" args))
           (t
            (format t "eventzzz ~s~%" en)
            nil))))))
@@ -178,6 +168,22 @@
   (connect controller signal-name (lambda (event &rest args)
                                     (event-sink widget signal-name event args))))
 
+(defun connect-key-controller (widget controller signal-name)
+  (connect controller signal-name (lambda (event &rest args)
+                                    (format t "key-controller args ~S~%" args)
+                                    (destructuring-bind (keyval keycode keymods) args
+                                      (event-sink widget signal-name event (list
+                                                                            (gdk:keyval-name keyval)
+                                                                            keycode
+                                                                            (remove-if
+                                                                             (lambda (km) (eq km :k5))
+                                                                             (loop for x from 0 to 8
+                                                                                   for n in '(:shift :caps-lock :ctrl :alt
+                                                                                              :k5 :k6 :win :alt-gr)
+                                                                                   for mf = (mask-field (byte 1 x) keymods)
+                                                                                   unless (zerop mf)
+                                                                                     collect n))))))))
+
 (defun window-events (window)
   (glib:timeout-add 1000
                     (lambda (&rest args)
@@ -185,8 +191,8 @@
                       glib:+source-continue+))
   (let ((key-controller (gtk4:make-event-controller-key)))
     (widget-add-controller window key-controller)
-    (connect-controller window key-controller "key-pressed")
-    (connect-controller window key-controller "key-released")))
+    (connect-key-controller window key-controller "key-pressed")
+    (connect-key-controller window key-controller "key-released")))
 
 (defun canvas-events (canvas)
   (let ((motion-controller (gtk4:make-event-controller-motion)))
