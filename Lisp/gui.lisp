@@ -179,7 +179,8 @@
                                                                             keyval
                                                                             keycode
                                                                             (remove-if
-                                                                             (lambda (km) (member km (list :k5 :k6)))
+                                                                             ;; remove private modifier codes - 5 an 27 seen
+                                                                             (lambda (km) (member km (list :k5)))
                                                                              (loop
                                                                                for n in '(:shift :caps-lock :ctrl :alt
                                                                                           :k5 :k6 :win :alt-gr)
