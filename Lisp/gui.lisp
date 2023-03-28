@@ -135,7 +135,7 @@
         (connect action "activate"
                  (lambda (action param)
                    ;(declare (ignore action param))
-                   (event-sink submenu "activate" action param)
+                   (event-sink submenu "activate" action param '("File" "Open"))
                    (add-window app))))
 
       (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Exit" :detailed-action "app.exit"))
@@ -145,7 +145,7 @@
         (connect action "activate"
                  (lambda (action param)
                    ;(declare (ignore action param))
-                   (event-sink submenu "activate" action param)
+                   (event-sink submenu "activate" action param '("File" "Exit"))
                    (close-all-windows-and-quit)))))
     (let ((submenu (gio:make-menu)))
       (gio:menu-append-submenu menu "Help" submenu)
@@ -156,7 +156,7 @@
         (connect action "activate"
                  (lambda (action param)
                    ;(declare (ignore action param))
-                   (event-sink submenu "activate" action param)
+                   (event-sink submenu "activate" action param '("Help" "About"))
                    (let ((dialog (menu-test-about-dialog)))
                      (setf (window-modal-p dialog) t
                            (window-transient-for dialog) window)
@@ -196,7 +196,8 @@
   (let ((key-controller (gtk4:make-event-controller-key)))
     (widget-add-controller window key-controller)
     (connect-key-controller window key-controller "key-pressed")
-    (connect-key-controller window key-controller "key-released")))
+    ;; (connect-key-controller window key-controller "key-released")
+    ))
 
 (defun canvas-events (canvas)
   (let ((motion-controller (gtk4:make-event-controller-motion)))
