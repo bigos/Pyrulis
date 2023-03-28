@@ -107,19 +107,17 @@
         (cond
           ((equalp en "#O<EventControllerKey>")
            (format t "eventkey ~s~%" en)
-           (format t "args ~S ~S~%" args (list :woo
-                                               (gdk:keyval-name (nth 0 (car args)))
-                                               (nth 1 (car args))
-                                               ;; (mask-field (byte 1 0) #b010)
-                                               (format nil "~b" (nth 2 (car args)))))
-           (loop for x from 0 to 17
-                 for y in (loop for a from 0 to 33 collect a)
-                 for n in '(:shift :caps-lock :ctrl :alt :k5 :k6 :win :alt-gr :k9 :k10 :k11 :k12 :k13 :k14 :k15 :16 :k17 :k18)
-                 for mf = (mask-field (byte 1 x) (nth 2 (car args)))
-                 unless (zerop mf)
-                   do
-                      (format t "~&zzz ~S ~S ~S~%" n y mf
-                              )))
+           (format t "kwy args ~S ~S~%" args (list :key
+                                                     (gdk:keyval-name (nth 0 (car args)))
+                                                     (nth 1 (car args))
+                                                     (format nil "~b" (nth 2 (car args)))
+                                                     (remove-if (lambda (km) (eq km :k5))
+                                                                (loop for x from 0 to 8
+                                                                      for n in '(:shift :caps-lock :ctrl :alt
+                                                                                 :k5 :k6 :win :alt-gr)
+                                                                      for mf = (mask-field (byte 1 x) (nth 2 (car args)))
+                                                                      unless (zerop mf)
+                                                                        collect n)))))
           (t
            (format t "eventzzz ~s~%" en)
            nil))))))
