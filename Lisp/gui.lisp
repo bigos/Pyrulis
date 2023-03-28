@@ -176,7 +176,7 @@
                                                                             (gdk:keyval-name keyval)
                                                                             keycode
                                                                             (remove-if
-                                                                             (lambda (km) (eq km :k5))
+                                                                             (lambda (km) (member km (list :k5 :k6)))
                                                                              (loop
                                                                                for n in '(:shift :caps-lock :ctrl :alt
                                                                                           :k5 :k6 :win :alt-gr)
