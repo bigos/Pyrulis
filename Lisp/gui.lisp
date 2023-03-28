@@ -114,7 +114,7 @@
                                                (format nil "~b" (nth 2 (car args)))))
            (loop for x from 0 to 17
                  for y in (loop for a from 0 to 33 collect a)
-                 for n in '(:shift :s :ctrl :alt :g :h :win :alt-gr :l)
+                 for n in '(:shift :caps-lock :ctrl :alt :k5 :k6 :win :alt-gr :k9 :k10 :k11 :k12 :k13 :k14 :k15 :16 :k17 :k18)
                  for mf = (mask-field (byte 1 x) (nth 2 (car args)))
                  unless (zerop mf)
                    do
