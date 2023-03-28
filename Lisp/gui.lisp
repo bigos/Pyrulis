@@ -177,12 +177,13 @@
                                                                             keycode
                                                                             (remove-if
                                                                              (lambda (km) (eq km :k5))
-                                                                             (loop for x from 0 to 8
-                                                                                   for n in '(:shift :caps-lock :ctrl :alt
-                                                                                              :k5 :k6 :win :alt-gr)
-                                                                                   for mf = (mask-field (byte 1 x) keymods)
-                                                                                   unless (zerop mf)
-                                                                                     collect n))))))))
+                                                                             (loop
+                                                                               for n in '(:shift :caps-lock :ctrl :alt
+                                                                                          :k5 :k6 :win :alt-gr)
+                                                                               for x = 0 then (1+ x)
+                                                                               for modcode = (mask-field (byte 1 x) keymods)
+                                                                               unless (zerop modcode)
+                                                                                 collect n))))))))
 
 (defun window-events (window)
   (glib:timeout-add 1000
