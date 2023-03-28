@@ -5,6 +5,7 @@
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (ql:quickload '(serapeum
+                  alexandria
                   cl-gtk4
                   cl-gdk4
                   cl-cairo2
@@ -80,7 +81,7 @@
       (gdk:cairo-set-source-rgba cr color))
     (cairo:stroke)))
 
-;;; event sink =============================
+;;; sink =============================
 
 ;;; used for testing
 (defun event-sink-test (signal-name event-class &rest args)
@@ -90,10 +91,41 @@
   (event-sink% widget signal-name event args))
 
 (defun event-sink% (widget signal-name event args)
-    (unless (member signal-name (list "timeout" "motion") :test #'equalp)
-      (format t "~&event sink ~S~%" (list widget signal-name event args))))
+  (unless (member signal-name (list "timeout" "motion") :test #'equalp)
+    (format t "~&event sink ~S~%" (list (if (typep widget 'gir::object-instance )
+                                            (slot-value widget 'class)
+                                            widget)
+                                        (if (typep signal-name 'gir::object-instance)
+                                            (slot-value signal-name 'class)
+                                            signal-name)
+                                        (if (typep event 'gir::object-instance)
+                                            (slot-value event 'class)
+                                            event)
+                                        args))
+    (when event
+      (let ((en (format nil "~S" (slot-value event 'class))))
+        (cond
+          ((equalp en "#O<EventControllerKey>")
+           (format t "eventkey ~s~%" en)
+           (format t "args ~S ~S~%" args (list :woo
+                                               (gdk:keyval-name (nth 0 (car args)))
+                                               (nth 1 (car args))
+                                               ;; (mask-field (byte 1 0) #b010)
+                                               (format nil "~b" (nth 2 (car args)))))
+           (loop for x from 0 to 17
+                 for y in (loop for a from 0 to 33 collect a)
+                 for n in '(:shift :s :ctrl :alt :g :h :win :alt-gr :l)
+                 for mf = (mask-field (byte 1 x) (nth 2 (car args)))
+                 unless (zerop mf)
+                   do
+                      (format t "~&zzz ~S ~S ~S~%" n y mf
+                              )))
+          (t
+           (format t "eventzzz ~s~%" en)
+           nil))))))
 
 ;;; menu ===================================
+
 (defun menu-test-about-dialog ()
   (let ((dialog (make-about-dialog)))
     (setf (about-dialog-authors dialog) (list "Jacek Podkanski")
@@ -115,7 +147,7 @@
         (connect action "activate"
                  (lambda (action param)
                    ;(declare (ignore action param))
-                   (event-sink "menu/file/open" action "activate" param)
+                   (event-sink submenu "activate" action param)
                    (add-window app))))
 
       (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Exit" :detailed-action "app.exit"))
@@ -125,7 +157,7 @@
         (connect action "activate"
                  (lambda (action param)
                    ;(declare (ignore action param))
-                   (event-sink "menu/file/exit" action "activate" param)
+                   (event-sink submenu "activate" action param)
                    (close-all-windows-and-quit)))))
     (let ((submenu (gio:make-menu)))
       (gio:menu-append-submenu menu "Help" submenu)
@@ -136,7 +168,7 @@
         (connect action "activate"
                  (lambda (action param)
                    ;(declare (ignore action param))
-                   (event-sink "menu/help/about" action "activate" param)
+                   (event-sink submenu "activate" action param)
                    (let ((dialog (menu-test-about-dialog)))
                      (setf (window-modal-p dialog) t
                            (window-transient-for dialog) window)
