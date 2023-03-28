@@ -173,7 +173,10 @@
                                     (format t "key-controller args ~S~%" args)
                                     (destructuring-bind (keyval keycode keymods) args
                                       (event-sink widget signal-name event (list
+                                                                            (format nil "~A"
+                                                                                    (code-char keyval))
                                                                             (gdk:keyval-name keyval)
+                                                                            keyval
                                                                             keycode
                                                                             (remove-if
                                                                              (lambda (km) (member km (list :k5 :k6)))
