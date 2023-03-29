@@ -180,14 +180,18 @@
                                                                             keycode
                                                                             (remove-if
                                                                              ;; remove private modifier codes - 5 an 27 seen
-                                                                             (lambda (km) (member km (list :k5)))
+                                                                             (lambda (km)
+                                                                               nil
+                                                                               ;; (member km (list :k5))
+                                                                               )
                                                                              (loop
                                                                                for n in '(:shift :caps-lock :ctrl :alt
-                                                                                          :k5 :k6 :win :alt-gr)
+                                                                                          :num-lock :k6 :win :alt-gr)
                                                                                for x = 0 then (1+ x)
                                                                                for modcode = (mask-field (byte 1 x) keymods)
                                                                                unless (zerop modcode)
-                                                                                 collect n))))))))
+                                                                                 collect n))
+                                                                            keymods))))))
 
 (defun window-events (window)
   (glib:timeout-add 1000
