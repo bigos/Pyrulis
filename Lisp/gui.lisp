@@ -163,6 +163,61 @@
                      (window-present dialog))))))
     menu))
 
+;;; key strings ============================
+(defun key-string (keyval keycode)
+  (let ((str (gdk:keyval-name keyval))
+        (ent (format nil "~a" (code-char keyval))))
+    (format t "~&~A >~a~%" ent (gdk:keyval-name keyval))
+    ;; for alphabet keys ent
+    (cond ((eq 1 (length str))
+           str)
+          ((and (>= keycode 10)
+                (<= keycode 21))
+           ent)
+          ((and (>= keycode 24)
+                (<= keycode 35))
+           ent)
+          ((and (>= keycode 38)
+                (<= keycode 48))
+           ent)
+          ((and (>= keycode 52)
+                (<= keycode 61))
+           ent)
+          ((member keycode '(49 51 94))
+           ent)
+          ((equalp str "KP_Divide")
+           "/")
+          ((equalp str "KP_Multiply")
+           "*")
+          ((equalp str "KP_Subtract")
+           "-")
+          ((equalp str "KP_Add")
+           "+")
+          ((equalp str "KP_Decimal")
+           ".")
+          ((equalp str "KP_7")
+           "7")
+          ((equalp str "KP_8")
+           "8")
+          ((equalp str "KP_9")
+           "9")
+          ((equalp str "KP_4")
+           "4")
+          ((equalp str "KP_5")
+           "5")
+          ((equalp str "KP_6")
+           "6")
+          ((equalp str "KP_1")
+           "1")
+          ((equalp str "KP_2")
+           "2")
+          ((equalp str "KP_3")
+           "3")
+          ((equalp str "KP_0")
+           "0")
+          (t
+           nil))))
+
 ;;; events and gui =========================
 (defun connect-controller (widget controller signal-name)
   (connect controller signal-name (lambda (event &rest args)
@@ -177,21 +232,17 @@
                                                                                     (code-char keyval))
                                                                             (gdk:keyval-name keyval)
                                                                             keyval
+                                                                            :keycode
                                                                             keycode
-                                                                            (remove-if
-                                                                             ;; remove private modifier codes - 5 an 27 seen
-                                                                             (lambda (km)
-                                                                               nil
-                                                                               ;; (member km (list :k5))
-                                                                               )
-                                                                             (loop
-                                                                               for n in '(:shift :caps-lock :ctrl :alt
-                                                                                          :num-lock :k6 :win :alt-gr)
-                                                                               for x = 0 then (1+ x)
-                                                                               for modcode = (mask-field (byte 1 x) keymods)
-                                                                               unless (zerop modcode)
-                                                                                 collect n))
-                                                                            keymods))))))
+                                                                            (loop
+                                                                              for n in '(:shift :caps-lock :ctrl :alt
+                                                                                         :num-lock :k6 :win :alt-gr)
+                                                                              for x = 0 then (1+ x)
+                                                                              for modcode = (mask-field (byte 1 x) keymods)
+                                                                              unless (zerop modcode)
+                                                                                collect n)
+                                                                            keymods
+                                                                            (key-string keyval keycode)))))))
 
 (defun window-events (window)
   (glib:timeout-add 1000
