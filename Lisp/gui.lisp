@@ -107,7 +107,7 @@
         (cond
           ((equalp en "#O<EventControllerKey>")
            (format t "eventkey ~s~%" en)
-           (format t "kwy args ~S ~%" args))
+           (format t "key args ~S ~%" args))
           (t
            (format t "eventzzz ~s~%" en)
            nil))))))
@@ -166,8 +166,8 @@
 ;;; key strings ============================
 (defun key-string (keyval keycode)
   (let ((str (gdk:keyval-name keyval))
-        (ent (format nil "~a" (code-char keyval))))
-    (format t "~&~A >~a~%" ent (gdk:keyval-name keyval))
+        (ent (format nil "~a" (code-char (gdk:keyval-to-unicode keyval)))))
+    (format t "~&zzzzzz ~A ~A >~a~%" keyval ent str)
     ;; for alphabet keys ent
     (cond ((eq 1 (length str))
            str)
