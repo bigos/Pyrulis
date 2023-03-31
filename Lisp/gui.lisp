@@ -187,15 +187,10 @@
     menu))
 
 ;;; events and gui =========================
-(defun connect-controller (widget controller signal-name)
+(defun connect-controller (widget controller signal-name &optional (args-fn #'identity))
   (connect controller signal-name
            (lambda (event &rest args)
-             (event-sink widget signal-name event args))))
-
-(defun connect-key-controller (widget controller signal-name)
-  (connect controller signal-name
-           (lambda (event &rest args)
-             (event-sink widget signal-name event (translate-key-args args)))))
+             (event-sink widget signal-name event (funcall args-fn args)))))
 
 (defun window-events (window)
   (glib:timeout-add 1000
@@ -204,9 +199,7 @@
                       glib:+source-continue+))
   (let ((key-controller (gtk4:make-event-controller-key)))
     (widget-add-controller window key-controller)
-    (connect-key-controller window key-controller "key-pressed")
-    ;; (connect-key-controller window key-controller "key-released")
-    ))
+    (connect-controller window key-controller "key-pressed" #'translate-key-args)))
 
 (defun canvas-events (canvas)
   (let ((motion-controller (gtk4:make-event-controller-motion)))
