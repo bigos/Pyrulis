@@ -165,32 +165,34 @@
 
 ;;; events and gui =========================
 (defun connect-controller (widget controller signal-name)
-  (connect controller signal-name (lambda (event &rest args)
-                                    (event-sink widget signal-name event args))))
+  (connect controller signal-name
+           (lambda (event &rest args)
+             (event-sink widget signal-name event args))))
 
 (defun connect-key-controller (widget controller signal-name)
-  (connect controller signal-name (lambda (event &rest args)
-                                    (destructuring-bind (keyval keycode keymods) args
-                                      (event-sink widget signal-name event
-                                                  (list
-                                                   (format nil "~A"
-                                                           (let ((unicode (gdk:keyval-to-unicode keyval)))
-                                                             (if (or (zerop unicode)
-                                                                     (member keyval
-                                                                             (list gdk:+key-escape+
-                                                                                   gdk:+key-backspace+
-                                                                                   gdk:+key-delete+)))
-                                                                 ""
-                                                                 (code-char unicode))))
-                                                   (gdk:keyval-name keyval)
-                                                   keycode
-                                                   (loop
-                                                     for name in '(:shift :caps-lock :ctrl :alt
-                                                                   :num-lock :k6 :win :alt-gr)
-                                                     for x = 0 then (1+ x)
-                                                     for modcode = (mask-field (byte 1 x) keymods)
-                                                     unless (zerop modcode)
-                                                       collect name)))))))
+  (connect controller signal-name
+           (lambda (event &rest args)
+             (event-sink widget signal-name event
+                         (destructuring-bind (keyval keycode keymods) args
+                           (list
+                            (format nil "~A"
+                                    (let ((unicode (gdk:keyval-to-unicode keyval)))
+                                      (if (or (zerop unicode)
+                                              (member keyval
+                                                      (list gdk:+key-escape+
+                                                            gdk:+key-backspace+
+                                                            gdk:+key-delete+)))
+                                          ""
+                                          (code-char unicode))))
+                            (gdk:keyval-name keyval)
+                            keycode
+                            (loop
+                              for modname in '(:shift :caps-lock :ctrl :alt
+                                               :num-lock :k6 :win :alt-gr)
+                              for x = 0 then (1+ x)
+                              for modcode = (mask-field (byte 1 x) keymods)
+                              unless (zerop modcode)
+                                collect modname)))))))
 
 (defun window-events (window)
   (glib:timeout-add 1000
