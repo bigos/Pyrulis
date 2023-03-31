@@ -112,6 +112,29 @@
            (format t "eventzzz ~s~%" en)
            nil))))))
 
+;;; translate key args =====================
+(defun translate-key-args (args)
+  (destructuring-bind (keyval keycode keymods) args
+    (list
+     (format nil "~A"
+             (let ((unicode (gdk:keyval-to-unicode keyval)))
+               (if (or (zerop unicode)
+                       (member keyval
+                               (list gdk:+key-escape+
+                                     gdk:+key-backspace+
+                                     gdk:+key-delete+)))
+                   ""
+                   (code-char unicode))))
+     (gdk:keyval-name keyval)
+     keycode
+     (loop
+       for modname in '(:shift :caps-lock :ctrl :alt
+                        :num-lock :k6 :win :alt-gr)
+       for x = 0 then (1+ x)
+       for modcode = (mask-field (byte 1 x) keymods)
+       unless (zerop modcode)
+         collect modname))))
+
 ;;; menu ===================================
 
 (defun menu-test-about-dialog ()
@@ -172,27 +195,7 @@
 (defun connect-key-controller (widget controller signal-name)
   (connect controller signal-name
            (lambda (event &rest args)
-             (event-sink widget signal-name event
-                         (destructuring-bind (keyval keycode keymods) args
-                           (list
-                            (format nil "~A"
-                                    (let ((unicode (gdk:keyval-to-unicode keyval)))
-                                      (if (or (zerop unicode)
-                                              (member keyval
-                                                      (list gdk:+key-escape+
-                                                            gdk:+key-backspace+
-                                                            gdk:+key-delete+)))
-                                          ""
-                                          (code-char unicode))))
-                            (gdk:keyval-name keyval)
-                            keycode
-                            (loop
-                              for modname in '(:shift :caps-lock :ctrl :alt
-                                               :num-lock :k6 :win :alt-gr)
-                              for x = 0 then (1+ x)
-                              for modcode = (mask-field (byte 1 x) keymods)
-                              unless (zerop modcode)
-                                collect modname)))))))
+             (event-sink widget signal-name event (translate-key-args args)))))
 
 (defun window-events (window)
   (glib:timeout-add 1000
