@@ -102,7 +102,7 @@
                                             (slot-value event 'class)
                                             event)
                                         args))
-    (when event
+    (if  event
       (let ((en (format nil "~S" (slot-value event 'class)))
             (wi (format nil "~s" (slot-value widget 'class))))
         (cond
@@ -127,7 +127,8 @@
               (error "unexcpected simple action widget ~S" wi))))
           (t
            (format t "eventzzz ~s ~S~%" en signal-name)
-           nil))))))
+           nil)))
+      (warn "no event"))))
 
 ;;; translate key args =====================
 (defun translate-key-args (args)
