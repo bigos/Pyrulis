@@ -103,7 +103,8 @@
                                             event)
                                         args))
     (when event
-      (let ((en (format nil "~S" (slot-value event 'class))))
+      (let ((en (format nil "~S" (slot-value event 'class)))
+            (wi (format nil "~s" (slot-value widget 'class))))
         (cond
           ((equalp en "#O<EventControllerKey>")
            (format t "eventkey ~s~%" en)
@@ -112,23 +113,27 @@
            ;;            (break "testing args ~S" args)
 
            (format t "simple action for ~S ~S ~%"
-                   (slot-value widget 'class)
+                   wi
                    (slot-value (cdar args) 'class)
                    ;; https://docs.gtk.org/glib/method.Variant.print.html
                    ;; (glib:variant-print zzz t)
                    )
            (cond
-             ((equalp (caar args) "file/exit")
-              (close-all-windows-and-quit))
-             ((equalp (caar args) "file/open")
-              (add-window (current-app)))
-             ((equalp (caar args) "help/about")
-              (let ((dialog (menu-test-about-dialog)))
-                (setf (window-modal-p dialog) t
-                      (window-transient-for dialog) (current-active-window))
-                (window-present dialog)))
+             ((equalp wi "#O<Menu>")
+              (cond
+                ((equalp (caar args) "file/exit")
+                 (close-all-windows-and-quit))
+                ((equalp (caar args) "file/open")
+                 (add-window (current-app)))
+                ((equalp (caar args) "help/about")
+                 (let ((dialog (menu-test-about-dialog)))
+                   (setf (window-modal-p dialog) t
+                         (window-transient-for dialog) (current-active-window))
+                   (window-present dialog)))
+                (t
+                 (format t "unhandled menu event ~S ~S~%" en (caar args)))))
              (t
-              (format t "unhandled menu event ~S ~S~%" en (caar args)))))
+              (error "unexcpected simple action widget ~S" wi))))
           (t
            (format t "eventzzz ~s ~S~%" en signal-name)
            nil))))))
