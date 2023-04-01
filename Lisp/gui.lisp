@@ -114,7 +114,8 @@
            (format t "simple action for ~S ~S ~%"
                    (slot-value widget 'class)
                    (slot-value (cdar args) 'class)
-
+                   ;; https://docs.gtk.org/glib/method.Variant.print.html
+                   ;; (glib:variant-print zzz t)
                    )
            (cond
              ((equalp (caar args) "file/exit")
