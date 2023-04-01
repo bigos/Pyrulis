@@ -107,15 +107,8 @@
             (wi (format nil "~s" (slot-value widget 'class))))
         (cond
           ((equalp en "#O<EventControllerKey>")
-           (format t "eventkey ~s~%" en)
            (format t "key args ~S ~%" args))
           ((equalp en "#O<SimpleAction>")
-           (format t "simple action for ~S ~S ~%"
-                   wi
-                   args
-                   ;; https://docs.gtk.org/glib/method.Variant.print.html
-                   ;; (glib:variant-print zzz t)
-                   )
            (cond
              ((equalp wi "#O<Menu>")
               (cond
