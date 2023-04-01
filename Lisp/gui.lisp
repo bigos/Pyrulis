@@ -108,8 +108,22 @@
           ((equalp en "#O<EventControllerKey>")
            (format t "eventkey ~s~%" en)
            (format t "key args ~S ~%" args))
+          ((equalp en "#O<SimpleAction>")
+           (format t "simple action for ~S~%" (slot-value widget 'class))
+           (cond
+             ((equalp (caar args) "file/exit")
+              (close-all-windows-and-quit))
+             ((equalp (caar args) "file/open")
+              (add-window (current-app)))
+             ((equalp (caar args) "help/about")
+              (let ((dialog (menu-test-about-dialog)))
+                (setf (window-modal-p dialog) t
+                      (window-transient-for dialog) (current-active-window))
+                (window-present dialog)))
+             (t
+              (format t "unhandled menu event ~S ~S~%" en (caar args)))))
           (t
-           (format t "eventzzz ~s~%" en)
+           (format t "eventzzz ~s ~S~%" en signal-name)
            nil))))))
 
 ;;; translate key args =====================
@@ -148,6 +162,7 @@
     (values dialog)))
 
 (defun menu-test-menu (app window)
+  (declare (ignore window))
   (let ((menu (gio:make-menu)))
     (let ((submenu (gio:make-menu)))
       (gio:menu-append-submenu menu "File" submenu)
@@ -155,38 +170,31 @@
       (let ((action (gio:make-simple-action :name "open"
                                             :parameter-type nil)))
         (gio:action-map-add-action app action)
-        (connect action "activate"
-                 (lambda (action param)
-                   ;(declare (ignore action param))
-                   (event-sink submenu "activate" action param '("File" "Open"))
-                   (add-window app))))
+        (connect-menu-action submenu action "activate" (lambda (args) (cons
+                                                                       "file/open" args))))
 
       (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Exit" :detailed-action "app.exit"))
       (let ((action (gio:make-simple-action :name "exit"
                                             :parameter-type nil)))
         (gio:action-map-add-action app action)
-        (connect action "activate"
-                 (lambda (action param)
-                   ;(declare (ignore action param))
-                   (event-sink submenu "activate" action param '("File" "Exit"))
-                   (close-all-windows-and-quit)))))
+        (connect-menu-action submenu action "activate" (lambda (args) (cons
+                                                                       "file/exit" args)))))
     (let ((submenu (gio:make-menu)))
       (gio:menu-append-submenu menu "Help" submenu)
       (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "About" :detailed-action "app.about"))
       (let ((action (gio:make-simple-action :name "about"
                                             :parameter-type nil)))
         (gio:action-map-add-action app action)
-        (connect action "activate"
-                 (lambda (action param)
-                   ;(declare (ignore action param))
-                   (event-sink submenu "activate" action param '("Help" "About"))
-                   (let ((dialog (menu-test-about-dialog)))
-                     (setf (window-modal-p dialog) t
-                           (window-transient-for dialog) window)
-                     (window-present dialog))))))
+        (connect-menu-action submenu action "activate" (lambda (args) (cons
+                                                                       "help/about" args)))))
     menu))
 
 ;;; events and gui =========================
+(defun connect-menu-action (submenu action signal-name &optional (args-fn #'identity))
+  (connect action signal-name
+           (lambda (event args)
+             (event-sink submenu signal-name event (funcall args-fn args)))))
+
 (defun connect-controller (widget controller signal-name &optional (args-fn #'identity))
   (connect controller signal-name
            (lambda (event &rest args)
@@ -251,13 +259,16 @@
   (format t "going to add window ")
   (add-window app))
 
+
 (defun close-all-windows-and-quit ()
-  (loop for aw = (gtk4:application-active-window (current-app))
+  (loop for aw = (current-active-window)
         until (null aw)
         do (gtk4:window-close aw)))
 
 ;;; main ===============================================
 (defparameter *application* nil)
+
+(defun current-active-window () (gtk4:application-active-window (current-app)))
 
 (defun current-app () *application*)
 
