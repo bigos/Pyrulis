@@ -110,8 +110,6 @@
            (format t "eventkey ~s~%" en)
            (format t "key args ~S ~%" args))
           ((equalp en "#O<SimpleAction>")
-           ;;            (break "testing args ~S" args)
-
            (format t "simple action for ~S ~S ~%"
                    wi
                    (slot-value (cdar args) 'class)
@@ -178,7 +176,8 @@
                                         :parameter-type nil)))
     (gio:action-map-add-action app action)
     (connect-action submenu action "activate" (lambda (args)
-                                                (cons menu-dir args)))))
+                                                (declare (ignore args))
+                                                (list (list menu-dir))))))
 
 (defun menu-test-menu (app window)
   (declare (ignore window))
