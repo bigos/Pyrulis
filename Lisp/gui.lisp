@@ -112,7 +112,7 @@
           ((equalp en "#O<SimpleAction>")
            (format t "simple action for ~S ~S ~%"
                    wi
-                   (slot-value (cdar args) 'class)
+                   args
                    ;; https://docs.gtk.org/glib/method.Variant.print.html
                    ;; (glib:variant-print zzz t)
                    )
@@ -177,7 +177,7 @@
     (gio:action-map-add-action app action)
     (connect-action submenu action "activate" (lambda (args)
                                                 (declare (ignore args))
-                                                (list (list menu-dir))))))
+                                                 (list menu-dir)))))
 
 (defun menu-test-menu (app window)
   (declare (ignore window))
