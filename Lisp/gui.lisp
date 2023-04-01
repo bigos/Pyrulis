@@ -145,13 +145,14 @@
                    (code-char unicode))))
      (gdk:keyval-name keyval)
      keycode
-     (loop
-       for modname in '(:shift :caps-lock :ctrl :alt
-                        :num-lock :k6 :win :alt-gr)
-       for x = 0 then (1+ x)
-       for modcode = (mask-field (byte 1 x) keymods)
-       unless (zerop modcode)
-         collect modname))))
+     (remove-if (lambda (m) (member m '(:num-lock)))
+                (loop
+                  for modname in '(:shift :caps-lock :ctrl :alt
+                                   :num-lock :k6 :win :alt-gr)
+                  for x = 0 then (1+ x)
+                  for modcode = (mask-field (byte 1 x) keymods)
+                  unless (zerop modcode)
+                    collect modname)))))
 
 ;;; menu ===================================
 
