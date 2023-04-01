@@ -161,31 +161,29 @@
           (about-dialog-logo-icon-name dialog) "application-x-addon")
     (values dialog)))
 
+(defun action-connected (app action-name submenu menu-dir)
+  (let ((action (gio:make-simple-action :name action-name
+                                        :parameter-type nil)))
+    (gio:action-map-add-action app action)
+    (connect-action submenu action "activate" (lambda (args)
+                                                (cons menu-dir args)))))
+
 (defun menu-test-menu (app window)
   (declare (ignore window))
   (let ((menu (gio:make-menu)))
     (let ((submenu (gio:make-menu)))
       (gio:menu-append-submenu menu "File" submenu)
+
       (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Open" :detailed-action "app.open"))
-      (let ((action (gio:make-simple-action :name "open"
-                                            :parameter-type nil)))
-        (gio:action-map-add-action app action)
-        (connect-action submenu action "activate" (lambda (args)
-                                                    (cons "file/open" args))))
+      (action-connected app "open" submenu "file/open")
+
       (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Exit" :detailed-action "app.exit"))
-      (let ((action (gio:make-simple-action :name "exit"
-                                            :parameter-type nil)))
-        (gio:action-map-add-action app action)
-        (connect-action submenu action "activate" (lambda (args)
-                                                    (cons "file/exit" args)))))
+      (action-connected app "exit" submenu "file/exit"))
     (let ((submenu (gio:make-menu)))
       (gio:menu-append-submenu menu "Help" submenu)
+
       (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "About" :detailed-action "app.about"))
-      (let ((action (gio:make-simple-action :name "about"
-                                            :parameter-type nil)))
-        (gio:action-map-add-action app action)
-        (connect-action submenu action "activate" (lambda (args)
-                                                    (cons "help/about" args)))))
+      (action-connected app "about" submenu "help/about"))
     menu))
 
 ;;; events and gui =========================
