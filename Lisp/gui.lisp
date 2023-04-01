@@ -102,32 +102,33 @@
                                             (slot-value event 'class)
                                             event)
                                         args))
-
-    (let ((en (format nil "~S" (slot-value event 'class)))
-          (wi (format nil "~s" (slot-value widget 'class))))
-      (cond
-        ((equalp en "#O<EventControllerKey>")
-         (format t "key args ~S ~%" args))
-        ((equalp en "#O<SimpleAction>")
-         (cond
-           ((equalp wi "#O<Menu>")
-            (cond
-              ((equalp (caar args) "file/exit")
-               (close-all-windows-and-quit))
-              ((equalp (caar args) "file/open")
-               (add-window (current-app)))
-              ((equalp (caar args) "help/about")
-               (let ((dialog (menu-test-about-dialog)))
-                 (setf (window-modal-p dialog) t
-                       (window-transient-for dialog) (current-active-window))
-                 (window-present dialog)))
-              (t
-               (warn "unhandled menu event ~S ~S~%" en (caar args)))))
-           (t
-            (error "unexcpected simple action widget ~S" wi))))
-        (t
-         (warn "unexpected event ~s ~S~%" en signal-name)
-         nil)))))
+    (if event
+        (let ((en (format nil "~S" (slot-value event 'class)))
+              (wi (format nil "~s" (slot-value widget 'class))))
+          (cond
+            ((equalp en "#O<EventControllerKey>")
+             (format t "key args ~S ~%" args))
+            ((equalp en "#O<SimpleAction>")
+             (cond
+               ((equalp wi "#O<Menu>")
+                (cond
+                  ((equalp (caar args) "file/exit")
+                   (close-all-windows-and-quit))
+                  ((equalp (caar args) "file/open")
+                   (add-window (current-app)))
+                  ((equalp (caar args) "help/about")
+                   (let ((dialog (menu-test-about-dialog)))
+                     (setf (window-modal-p dialog) t
+                           (window-transient-for dialog) (current-active-window))
+                     (window-present dialog)))
+                  (t
+                   (warn "unhandled menu event ~S ~S~%" en (caar args)))))
+               (t
+                (error "unexcpected simple action widget ~S" wi))))
+            (t
+             (warn "unexpected event ~s ~S~%" en signal-name)
+             nil)))
+        (warn "null event"))))
 
 ;;; translate key args =====================
 (defun translate-key-args (args)
@@ -259,7 +260,6 @@
 (defun connect-activate (app)
   (format t "going to add window ")
   (add-window app))
-
 
 (defun close-all-windows-and-quit ()
   (loop for aw = (current-active-window)
