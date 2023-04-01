@@ -170,27 +170,26 @@
       (let ((action (gio:make-simple-action :name "open"
                                             :parameter-type nil)))
         (gio:action-map-add-action app action)
-        (connect-menu-action submenu action "activate" (lambda (args) (cons
-                                                                       "file/open" args))))
-
+        (connect-action submenu action "activate" (lambda (args)
+                                                    (cons "file/open" args))))
       (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Exit" :detailed-action "app.exit"))
       (let ((action (gio:make-simple-action :name "exit"
                                             :parameter-type nil)))
         (gio:action-map-add-action app action)
-        (connect-menu-action submenu action "activate" (lambda (args) (cons
-                                                                       "file/exit" args)))))
+        (connect-action submenu action "activate" (lambda (args)
+                                                    (cons "file/exit" args)))))
     (let ((submenu (gio:make-menu)))
       (gio:menu-append-submenu menu "Help" submenu)
       (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "About" :detailed-action "app.about"))
       (let ((action (gio:make-simple-action :name "about"
                                             :parameter-type nil)))
         (gio:action-map-add-action app action)
-        (connect-menu-action submenu action "activate" (lambda (args) (cons
-                                                                       "help/about" args)))))
+        (connect-action submenu action "activate" (lambda (args)
+                                                    (cons "help/about" args)))))
     menu))
 
 ;;; events and gui =========================
-(defun connect-menu-action (submenu action signal-name &optional (args-fn #'identity))
+(defun connect-action (submenu action signal-name &optional (args-fn #'identity))
   (connect action signal-name
            (lambda (event args)
              (event-sink submenu signal-name event (funcall args-fn args)))))
