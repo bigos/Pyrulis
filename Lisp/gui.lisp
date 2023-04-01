@@ -109,7 +109,13 @@
            (format t "eventkey ~s~%" en)
            (format t "key args ~S ~%" args))
           ((equalp en "#O<SimpleAction>")
-           (format t "simple action for ~S~%" (slot-value widget 'class))
+           ;;            (break "testing args ~S" args)
+
+           (format t "simple action for ~S ~S ~%"
+                   (slot-value widget 'class)
+                   (slot-value (cdar args) 'class)
+
+                   )
            (cond
              ((equalp (caar args) "file/exit")
               (close-all-windows-and-quit))
