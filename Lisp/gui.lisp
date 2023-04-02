@@ -102,57 +102,68 @@
   ;; (unless (member signal-name '(|timeout| |motion|))
   ;;   (format t "~&================= event ~S~%" (list widget signal-name event args)))
 
-  (case widget
-    (|<ApplicationWindow>|
-     (case event
-       (timeout                         ;ignored so far
-        )
-       (|<EventControllerKey>|
-        (case signal-name
-          (otherwise (warn "unexpected key signal ~S ~S" signal-name args))))
-       (otherwise (warn "unexpected window event ~S ~S ~S" event signal-name args))))
-    (|<DrawingArea>|
-     (case event
-       (|<EventControllerMotion>|
-        (case signal-name
-          (|motion|                     ;ignored
-           )
-          (otherwise (warn "unexpected motion signal ~S ~S" signal-name args))))
-       (otherwise (warn "unexpected canvas event ~S ~S ~S" event signal-name args))))
-    (|<Menu>|
-     (case event
-       (|<SimpleAction>|
-        (cond
-          ((equalp (caar args) "file/exit")
-           (close-all-windows-and-quit))
-          ((equalp (caar args) "file/open")
-           (add-window (current-app)))
-          ((equalp (caar args) "help/about")
-           (let ((dialog (menu-test-about-dialog)))
-             (setf (window-modal-p dialog) t
-                   (window-transient-for dialog) (current-active-window))
-             (window-present dialog)))
-          (t (warn "unhandled menu event ~S" args))))
-       (otherwise (warn "unexcpected menu event ~S ~S ~S" event signal-name args))))
-    (otherwise (warn "unexpected widget ~S ~S" widget args))))
+  (when nil
+    (case widget
+      (|<ApplicationWindow>|
+       (case event
+         (timeout                         ;ignored so far
+          )
+         (|<EventControllerKey>|
+          (case signal-name
+            (otherwise (warn "unexpected key signal ~S ~S" signal-name args))))
+         (otherwise (warn "unexpected window event ~S ~S ~S" event signal-name args))))
+      (|<DrawingArea>|
+       (case event
+         (|<EventControllerMotion>|
+          (case signal-name
+            (|motion|                     ;ignored
+             )
+            (otherwise (warn "unexpected motion signal ~S ~S" signal-name args))))
+         (otherwise (warn "unexpected canvas event ~S ~S ~S" event signal-name args))))
+      (|<Menu>|
+       (case event
+         (|<SimpleAction>|
+          (cond
+            ((equalp (caar args) "file/exit")
+             (close-all-windows-and-quit))
+            ((equalp (caar args) "file/open")
+             (add-window (current-app)))
+            ((equalp (caar args) "help/about")
+             (let ((dialog (menu-test-about-dialog)))
+               (setf (window-modal-p dialog) t
+                     (window-transient-for dialog) (current-active-window))
+               (window-present dialog)))
+            (t (warn "unhandled menu event ~S" args))))
+         (otherwise (warn "unexcpected menu event ~S ~S ~S" event signal-name args))))
+      (otherwise (warn "unexpected widget ~S ~S" widget args))))
+  (event-sink3 widget signal-name event args))
+
+(defmethod event-sink3 (widget signal-name event args)
+  (format t "~&<<=================<< event ~S~%" (list widget signal-name event args)))
+(defmethod event-sink3 (widget (signal-name (eql '|timeout|)) event args)
+  ;; (format t "T ")
+  )
+(defmethod event-sink3 (widget (signal-name (eql '|motion|)) event args)
+  ;; (format t "M ")
+  )
 
 (defparameter *comment-on-event-structure*
-  '(sink
-    (widget
-     (window
-      (timeout)
-      (key-pressed)
-      (key-released))
-     (canvas
-      (motion)
-      (resize)
-      (enter)
-      (leave))
-     (menu
-      (activate
-       ("file/open")
-       ("file/exit")
-       ("help/about")))))
+      '(sink
+        (widget
+         (window
+          (timeout)
+          (key-pressed)
+          (key-released))
+         (canvas
+          (motion)
+          (resize)
+          (enter)
+          (leave))
+         (menu
+          (activate
+           ("file/open")
+           ("file/exit")
+           ("help/about")))))
   "proposed widget event structure")
 
 ;;; translate key args =====================
