@@ -117,16 +117,16 @@
 (defmethod event-sink3 ((widget (eql '|<Menu>|)) (signal-name (eql '|activate|)) event args)
   (event-sink-menu (car args)))
 
-(defmethod event-sink-menu (car-args)
-  (format t "unhandled argszzzzzzzzz ~S" car-args))
-(defmethod event-sink-menu ((car-args (eql '|help/about|)))
+(defmethod event-sink-menu (menu-item)
+  (format t "unhandled argszzzzzzzzz ~S" menu-item))
+(defmethod event-sink-menu ((menu-item (eql '|help/about|)))
   (let ((dialog (menu-test-about-dialog)))
     (setf (window-modal-p dialog) t
           (window-transient-for dialog) (current-active-window))
     (window-present dialog)))
-(defmethod event-sink-menu ((car-args (eql '|file/open|)))
+(defmethod event-sink-menu ((menu-item (eql '|file/open|)))
   (add-window (current-app)))
-(defmethod event-sink-menu ((car-args (eql '|file/exit|)))
+(defmethod event-sink-menu ((menu-item (eql '|file/exit|)))
   (close-all-windows-and-quit))
 
 ;;; translate key args =====================
