@@ -132,7 +132,7 @@
              nil)))
         (warn "null event"))))
 
-(defparameter *events-comment
+(defparameter *comment-on-event-structure*
   '(sink
     (widget
      (window
