@@ -83,39 +83,45 @@
 
 ;;; sink =============================
 
-(defun symbilize (obj)
+(defun symbolize (obj)
   (intern (typecase obj
             (gir::object-instance
-             (subseq (format nil "~S" (slot-value obj 'class))
-                     3))
+             (subseq (format nil "~a" (slot-value obj 'class))
+                     2))
             (t
-             (format nil "~S" obj)))))
+             (format nil "~a" obj)))))
 
 (defun event-sink (widget signal-name event &rest args)
-  (event-sink2 (symbilize widget)
-               (symbilize signal-name)
+  (event-sink2 (symbolize widget)
+               (symbolize signal-name)
                (when event
-                 (symbilize event))
+                 (symbolize event))
                args))
 
 (defun event-sink2 (widget signal-name event args)
+  ;; (unless (member signal-name '(|timeout| |motion|))
+  ;;   (format t "~&================= event ~S~%" (list widget signal-name event args)))
+
   (case widget
-    (|ApplicationWindow>|
+    (|<ApplicationWindow>|
      (case event
-       (timeout                          ;ignored so far
+       (timeout                         ;ignored so far
         )
-       (|EventControllerKey>|
+       (|<EventControllerKey>|
         (case signal-name
           (otherwise (warn "unexpected key signal ~S ~S" signal-name args))))
-       (otherwise (warn "unexpected window event ~S ~S" event args))))
-    (|DrawingArea>|
+       (otherwise (warn "unexpected window event ~S ~S ~S" event signal-name args))))
+    (|<DrawingArea>|
      (case event
-       (|EventControllerMotion>|        ;ignored so far
-        )
-       (otherwise (warn "unexpected canvas event ~S ~S" event args))))
-    (|Menu>|
+       (|<EventControllerMotion>|
+        (case signal-name
+          (|motion|                     ;ignored
+           )
+          (otherwise (warn "unexpected motion signal ~S ~S" signal-name args))))
+       (otherwise (warn "unexpected canvas event ~S ~S ~S" event signal-name args))))
+    (|<Menu>|
      (case event
-       (|SimpleAction>|
+       (|<SimpleAction>|
         (cond
           ((equalp (caar args) "file/exit")
            (close-all-windows-and-quit))
@@ -127,7 +133,7 @@
                    (window-transient-for dialog) (current-active-window))
              (window-present dialog)))
           (t (warn "unhandled menu event ~S" args))))
-       (otherwise (warn "unexcpected menu event ~S ~S" event args))))
+       (otherwise (warn "unexcpected menu event ~S ~S ~S" event signal-name args))))
     (otherwise (warn "unexpected widget ~S ~S" widget args))))
 
 (defparameter *comment-on-event-structure*
