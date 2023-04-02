@@ -91,32 +91,27 @@
             (t
              (format nil "~S" obj)))))
 
-;;; used for testing
-(defun event-sink-test (signal-name event-class &rest args)
-  (event-sink% nil signal-name event-class args))
-
 (defun event-sink (widget signal-name event &rest args)
-  (event-sink% (symbilize widget)
+  (event-sink2 (symbilize widget)
                (symbilize signal-name)
                (when event
                  (symbilize event))
                args))
 
-(defun event-sink% (widget signal-name event args)
-  ;; (unless (member signal-name '(timeout))
-  ;;   (format t "~&======== ~a ~a ~a ~a ~A~&" widget signal-name event args (type-of widget)))
-
+(defun event-sink2 (widget signal-name event args)
   (case widget
     (|ApplicationWindow>|
      (case event
-       (timeout)
+       (timeout                          ;ignored so far
+        )
        (|EventControllerKey>|
         (case signal-name
           (otherwise (warn "unexpected key signal ~S ~S" signal-name args))))
        (otherwise (warn "unexpected window event ~S ~S" event args))))
     (|DrawingArea>|
      (case event
-       (|EventControllerMotion>|)
+       (|EventControllerMotion>|        ;ignored so far
+        )
        (otherwise (warn "unexpected canvas event ~S ~S" event args))))
     (|Menu>|
      (case event
@@ -142,16 +137,16 @@
       (timeout)
       (key-pressed)
       (key-released))
-     (menu
-      (activate
-       ("file/open")
-       ("file/exit")
-       ("help/about")))
      (canvas
       (motion)
       (resize)
       (enter)
-      (leave))))
+      (leave))
+     (menu
+      (activate
+       ("file/open")
+       ("file/exit")
+       ("help/about")))))
   "proposed widget event structure")
 
 ;;; translate key args =====================
