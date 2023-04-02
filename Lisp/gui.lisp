@@ -130,6 +130,20 @@
              nil)))
         (warn "null event"))))
 
+#|
+'(sink
+  (widget
+   (window
+    (key-pressed)
+    (key-released))
+   (menu
+    (activate))
+   (canvas
+    (resize)
+    (enter)
+    (leave))))
+|#
+
 ;;; translate key args =====================
 (defun translate-key-args (args)
   (destructuring-bind (keyval keycode keymods) args
