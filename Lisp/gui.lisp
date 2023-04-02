@@ -91,7 +91,9 @@
   (event-sink% widget signal-name event args))
 
 (defun event-sink% (widget signal-name event args)
-  (unless (member signal-name (list "timeout" "motion") :test #'equalp)
+  (unless (member signal-name (list "timeout"
+                                    "motion")
+                  :test #'equalp)
     (format t "~&event sink ~S~%" (list (if (typep widget 'gir::object-instance )
                                             (slot-value widget 'class)
                                             widget)
@@ -134,6 +136,7 @@
   '(sink
     (widget
      (window
+      (timeout)
       (key-pressed)
       (key-released))
      (menu
@@ -142,6 +145,7 @@
        ("file/exit")
        ("help/about")))
      (canvas
+      (motion)
       (resize)
       (enter)
       (leave))))
