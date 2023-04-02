@@ -130,19 +130,22 @@
              nil)))
         (warn "null event"))))
 
-#|
-'(sink
-  (widget
-   (window
-    (key-pressed)
-    (key-released))
-   (menu
-    (activate))
-   (canvas
-    (resize)
-    (enter)
-    (leave))))
-|#
+(defparameter *events-comment
+  '(sink
+    (widget
+     (window
+      (key-pressed)
+      (key-released))
+     (menu
+      (activate
+       ("file/open")
+       ("file/exit")
+       ("help/about")))
+     (canvas
+      (resize)
+      (enter)
+      (leave))))
+  "proposed widget event structure")
 
 ;;; translate key args =====================
 (defun translate-key-args (args)
