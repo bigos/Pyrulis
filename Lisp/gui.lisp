@@ -83,54 +83,57 @@
 
 ;;; sink =============================
 
+(defun symbilize (obj)
+  (intern (typecase obj
+            (gir::object-instance
+             (subseq (format nil "~S" (slot-value obj 'class))
+                     3))
+            (t
+             (format nil "~S" obj)))))
+
 ;;; used for testing
 (defun event-sink-test (signal-name event-class &rest args)
   (event-sink% nil signal-name event-class args))
 
 (defun event-sink (widget signal-name event &rest args)
-  (event-sink% widget signal-name event args))
+  (event-sink% (symbilize widget)
+               (symbilize signal-name)
+               (when event
+                 (symbilize event))
+               args))
 
 (defun event-sink% (widget signal-name event args)
-  (unless (member signal-name (list "timeout"
-                                    "motion")
-                  :test #'equalp)
-    (format t "~&event sink ~S~%" (list (if (typep widget 'gir::object-instance )
-                                            (slot-value widget 'class)
-                                            widget)
-                                        (if (typep signal-name 'gir::object-instance)
-                                            (slot-value signal-name 'class)
-                                            signal-name)
-                                        (if (typep event 'gir::object-instance)
-                                            (slot-value event 'class)
-                                            event)
-                                        args))
-    (if event
-        (let ((en (format nil "~S" (slot-value event 'class)))
-              (wi (format nil "~s" (slot-value widget 'class))))
-          (cond
-            ((equalp en "#O<EventControllerKey>")
-             (format t "key args ~S ~%" args))
-            ((equalp en "#O<SimpleAction>")
-             (cond
-               ((equalp wi "#O<Menu>")
-                (cond
-                  ((equalp (caar args) "file/exit")
-                   (close-all-windows-and-quit))
-                  ((equalp (caar args) "file/open")
-                   (add-window (current-app)))
-                  ((equalp (caar args) "help/about")
-                   (let ((dialog (menu-test-about-dialog)))
-                     (setf (window-modal-p dialog) t
-                           (window-transient-for dialog) (current-active-window))
-                     (window-present dialog)))
-                  (t
-                   (warn "unhandled menu event ~S ~S~%" en (caar args)))))
-               (t
-                (error "unexcpected simple action widget ~S" wi))))
-            (t
-             (warn "unexpected event ~s ~S~%" en signal-name)
-             nil)))
-        (warn "null event"))))
+  ;; (unless (member signal-name '(timeout))
+  ;;   (format t "~&======== ~a ~a ~a ~a ~A~&" widget signal-name event args (type-of widget)))
+
+  (case widget
+    (|ApplicationWindow>|
+     (case event
+       (timeout)
+       (|EventControllerKey>|
+        (case signal-name
+          (otherwise (warn "unexpected key signal ~S ~S" signal-name args))))
+       (otherwise (warn "unexpected window event ~S ~S" event args))))
+    (|DrawingArea>|
+     (case event
+       (|EventControllerMotion>|)
+       (otherwise (warn "unexpected canvas event ~S ~S" event args))))
+    (|Menu>|
+     (case event
+       (|SimpleAction>|
+        (cond
+          ((equalp (caar args) "file/exit")
+           (close-all-windows-and-quit))
+          ((equalp (caar args) "file/open")
+           (add-window (current-app)))
+          ((equalp (caar args) "help/about")
+           (let ((dialog (menu-test-about-dialog)))
+             (setf (window-modal-p dialog) t
+                   (window-transient-for dialog) (current-active-window))
+             (window-present dialog)))
+          (t (warn "unhandled menu event ~S" args))))
+       (otherwise (warn "unexcpected menu event ~S ~S" event args))))
+    (otherwise (warn "unexpected widget ~S ~S" widget args))))
 
 (defparameter *comment-on-event-structure*
   '(sink
@@ -217,17 +220,23 @@
 (defun connect-action (submenu action signal-name &optional (args-fn #'identity))
   (connect action signal-name
            (lambda (event args)
-             (event-sink submenu signal-name event (funcall args-fn args)))))
+             (event-sink submenu
+                         signal-name
+                         event
+                         (funcall args-fn args)))))
 
 (defun connect-controller (widget controller signal-name &optional (args-fn #'identity))
   (connect controller signal-name
            (lambda (event &rest args)
-             (event-sink widget signal-name event (funcall args-fn args)))))
+             (event-sink widget
+                         signal-name
+                         event
+                         (funcall args-fn args)))))
 
 (defun window-events (window)
   (glib:timeout-add 1000
                     (lambda (&rest args)
-                      (event-sink window "timeout" nil args)
+                      (event-sink window "timeout" 'timeout args)
                       glib:+source-continue+))
   (let ((key-controller (gtk4:make-event-controller-key)))
     (widget-add-controller window key-controller)
@@ -246,8 +255,7 @@
     (connect-controller canvas gesture-click-controller "released"))
 
   (connect canvas "resize" (lambda (widget &rest args)
-                             (declare (ignore widget))
-                             (event-sink canvas "resize" nil args))))
+                             (event-sink widget "resize" 'resize args))))
 
 (defun add-window-menu (app window)
   (setf (gtk4:application-menubar app) (menu-test-menu app window))
