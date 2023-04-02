@@ -99,6 +99,9 @@
                args))
 
 (defun event-sink2 (widget signal-name event args)
+  (unless (member signal-name '(|timeout| |motion|))
+    (format t "~&QQQQQQQQQQQQQQQQQQQQQQQQQQ event ~S~%" (list widget signal-name event args)))
+
   (event-sink3 widget signal-name event args))
 
 (defmethod event-sink3 (widget signal-name event args)
@@ -109,38 +112,22 @@
 (defmethod event-sink3 (widget (signal-name (eql '|motion|)) event args)
   ;; (format t "M ")
   )
+(defmethod event-sink3 (widget (signal-name (eql '|key-pressed|)) event args)
+  (format t "key pressed ~S~%" args))
 (defmethod event-sink3 ((widget (eql '|<Menu>|)) (signal-name (eql '|activate|)) event args)
-  (cond
-    ((equalp (caar args) "file/exit")
-     (close-all-windows-and-quit))
-    ((equalp (caar args) "file/open")
-     (add-window (current-app)))
-    ((equalp (caar args) "help/about")
-     (let ((dialog (menu-test-about-dialog)))
-       (setf (window-modal-p dialog) t
-             (window-transient-for dialog) (current-active-window))
-       (window-present dialog)))
-    (t (warn "unhandled menu event ~S" args))))
+  (event-sink-menu (car args)))
 
-
-(defparameter *comment-on-event-structure*
-  '(sink
-    (widget
-     (window
-      (timeout)
-      (key-pressed)
-      (key-released))
-     (canvas
-      (motion)
-      (resize)
-      (enter)
-      (leave))
-     (menu
-      (activate
-       ("file/open")
-       ("file/exit")
-       ("help/about")))))
-  "proposed widget event structure")
+(defmethod event-sink-menu (car-args)
+  (format t "unhandled argszzzzzzzzz ~S" car-args))
+(defmethod event-sink-menu ((car-args (eql '|help/about|)))
+  (let ((dialog (menu-test-about-dialog)))
+    (setf (window-modal-p dialog) t
+          (window-transient-for dialog) (current-active-window))
+    (window-present dialog)))
+(defmethod event-sink-menu ((car-args (eql '|file/open|)))
+  (add-window (current-app)))
+(defmethod event-sink-menu ((car-args (eql '|file/exit|)))
+  (close-all-windows-and-quit))
 
 ;;; translate key args =====================
 (defun translate-key-args (args)
@@ -182,9 +169,7 @@
   (let ((action (gio:make-simple-action :name action-name
                                         :parameter-type nil)))
     (gio:action-map-add-action app action)
-    (connect-action submenu action "activate" (lambda (args)
-                                                (declare (ignore args))
-                                                 (list menu-dir)))))
+    (connect-action submenu action "activate" (symbolize menu-dir))))
 
 (defun menu-test-menu (app window)
   (declare (ignore window))
@@ -205,13 +190,15 @@
     menu))
 
 ;;; events and gui =========================
-(defun connect-action (submenu action signal-name &optional (args-fn #'identity))
+(defun connect-action (submenu action signal-name menu-dir)
+  (format t "connect menudir ~S~%" menu-dir)
   (connect action signal-name
            (lambda (event args)
+             (declare (ignore args))
              (event-sink submenu
                          signal-name
                          event
-                         (funcall args-fn args)))))
+                         menu-dir))))
 
 (defun connect-controller (widget controller signal-name &optional (args-fn #'identity))
   (connect controller signal-name
