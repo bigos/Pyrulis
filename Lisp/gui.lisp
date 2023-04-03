@@ -91,29 +91,17 @@
             (t
              (format nil "~A" obj)))))
 
-(defun event-sink (widget signal-name event args)
-  (event-sink2 widget
-               signal-name
-               event
-               args))
-
-(defun event-sink2 (widget signal-name event args)
-  (unless (member signal-name '(|timeout| |motion|))
-    (format t "~&QQQQQQQQQQQQQQQQQQQQQQQQQQ event ~S~%" (list widget signal-name event args)))
-
-  (event-sink3 widget signal-name event args))
-
-(defmethod event-sink3 (widget signal-name event args)
+(defmethod event-sink (widget signal-name event args)
   (format t "~&<<=================<< event ~S~%" (list widget signal-name event args)))
-(defmethod event-sink3 (widget (signal-name (eql '|timeout|)) event args)
+(defmethod event-sink (widget (signal-name (eql '|timeout|)) event args)
   ;; (format t "T ")
   )
-(defmethod event-sink3 (widget (signal-name (eql '|motion|)) event args)
+(defmethod event-sink (widget (signal-name (eql '|motion|)) event args)
   ;; (format t "M ")
   )
-(defmethod event-sink3 (widget (signal-name (eql '|key-pressed|)) event args)
+(defmethod event-sink (widget (signal-name (eql '|key-pressed|)) event args)
   (format t "key pressed ~S~%" args))
-(defmethod event-sink3 ((widget (eql '|<Menu>|)) (signal-name (eql '|activate|)) event args)
+(defmethod event-sink ((widget (eql '|<Menu>|)) (signal-name (eql '|activate|)) event args)
   (ecase args
     (|file/open|
      (add-window (current-app)))
