@@ -206,6 +206,7 @@
                       (apply #'event-sink
                              (mapcar #'symbolize (list window "timeout" 'timeout args)))
                       glib:+source-continue+))
+
   (let ((key-controller (gtk4:make-event-controller-key)))
     (widget-add-controller window key-controller)
     (connect-controller window key-controller "key-pressed" #'translate-key-args)))
