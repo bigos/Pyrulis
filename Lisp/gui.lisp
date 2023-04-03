@@ -89,7 +89,7 @@
              (subseq (format nil "~a" (slot-value obj 'class))
                      2))
             (t
-             (format nil "~a" obj)))))
+             (format nil "~A" obj)))))
 
 (defun event-sink (widget signal-name event args)
   (event-sink2 widget
