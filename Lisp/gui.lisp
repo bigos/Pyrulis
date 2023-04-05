@@ -102,6 +102,7 @@
 (defmethod event-sink (widget (signal-name (eql '|key-pressed|)) event args)
   (format t "key pressed ~S~%" args))
 (defmethod event-sink ((widget (eql :menu)) (signal-name (eql :activate)) event args)
+  (format t "~&menu ~S~%" (list widget signal-name event args ))
   (ecase args
     (|file/open|
      (add-window (current-app)))
@@ -149,11 +150,11 @@
           (about-dialog-logo-icon-name dialog) "application-x-addon")
     (values dialog)))
 
-(defun define-and-connect-action (app action-name menu menu-dir)
+(defun define-and-connect-action (app action-name menu-dir)
   (let ((action (gio:make-simple-action :name action-name
                                         :parameter-type nil)))
     (gio:action-map-add-action app action)
-    (connect-action menu action "activate" (symbolize menu-dir))))
+    (connect-action action "activate" (symbolize menu-dir))))
 
 (defun menu-test-menu (app window)
   (declare (ignore window))
@@ -162,25 +163,24 @@
       (gio:menu-append-submenu menu "File" submenu)
 
       (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Open" :detailed-action "app.open"))
-      (define-and-connect-action app "open" :menu "file/open")
+      (define-and-connect-action app "open" "file/open")
 
       (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Exit" :detailed-action "app.exit"))
-      (define-and-connect-action app "exit" :menu "file/exit"))
+      (define-and-connect-action app "exit" "file/exit"))
     (let ((submenu (gio:make-menu)))
       (gio:menu-append-submenu menu "Help" submenu)
 
       (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "About" :detailed-action "app.about"))
-      (define-and-connect-action app "about" :menu "help/about"))
+      (define-and-connect-action app "about" "help/about"))
     menu))
 
 ;;; events and gui =========================
-(defun connect-action (submenu action signal-name menu-dir)
-  (format t "connect menudir ~S~%" menu-dir)
+(defun connect-action (action signal-name menu-dir)
   (connect action signal-name
            (lambda (event args)
              (declare (ignore event args))
              (apply #'event-sink
-                    (list submenu :activate :none menu-dir)))))
+                    (list :menu :activate :none menu-dir)))))
 
 ;;; signal key is for event sink signal name is for gtk4
 (defun connect-controller (widget controller signal-name signal-key &optional (args-fn #'identity))
