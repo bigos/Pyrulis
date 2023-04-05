@@ -92,7 +92,8 @@
              (format nil "~A" obj)))))
 
 (defmethod event-sink :before (widget signal-name args)
-  (format t "~&<<=================<< event ~S~%" (list widget signal-name args)))
+  (unless (member signal-name '(:motion :timeout))
+    (format t "~&<<=================<< event ~S~%" (list widget signal-name args))))
 (defmethod event-sink (widget signal-name args)
   (format t "~&unhandled event ~S~%" (list widget signal-name args)))
 (defmethod event-sink (widget (signal-name (eql :timeout)) args)
