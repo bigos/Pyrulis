@@ -91,18 +91,18 @@
             (t
              (format nil "~A" obj)))))
 
-(defmethod event-sink (widget signal-name event args)
-  (format t "~&<<=================<< event ~S~%" (list widget signal-name event args)))
-(defmethod event-sink (widget (signal-name (eql '|timeout|)) event args)
+(defmethod event-sink (widget signal-name args)
+  (format t "~&<<=================<< event ~S~%" (list widget signal-name args)))
+(defmethod event-sink (widget (signal-name (eql :timeout)) args)
   ;; (format t "T ")
   )
-(defmethod event-sink (widget (signal-name (eql '|motion|)) event args)
+(defmethod event-sink (widget (signal-name (eql :motion)) args)
   ;; (format t "M ")
   )
-(defmethod event-sink (widget (signal-name (eql '|key-pressed|)) event args)
+(defmethod event-sink (widget (signal-name (eql :key-pressed)) args)
   (format t "key pressed ~S~%" args))
-(defmethod event-sink ((widget (eql :menu)) (signal-name (eql :activate)) event args)
-  (format t "~&menu ~S~%" (list widget signal-name event args ))
+(defmethod event-sink ((widget (eql :menu)) (signal-name (eql :activate)) args)
+  (format t "~&menu ~S~%" (list widget signal-name args ))
   (ecase args
     (|file/open|
      (add-window (current-app)))
@@ -180,7 +180,7 @@
            (lambda (event args)
              (declare (ignore event args))
              (apply #'event-sink
-                    (list :menu :activate :none menu-dir)))))
+                    (list :menu :activate menu-dir)))))
 
 ;;; signal key is for event sink signal name is for gtk4
 (defun connect-controller (widget controller signal-name signal-key &optional (args-fn #'identity))
@@ -190,14 +190,13 @@
              (apply #'event-sink
                     (list widget
                           signal-key
-                          :none
                           (funcall args-fn args))))))
 
 (defun window-events (window)
   (glib:timeout-add 1000
                     (lambda (&rest args)
                       (apply #'event-sink
-                             (list :window :timeout :none args))
+                             (list :window :timeout args))
                       glib:+source-continue+))
 
   (let ((key-controller (gtk4:make-event-controller-key)))
@@ -219,7 +218,7 @@
   (connect canvas "resize" (lambda (widget &rest args)
                              (declare (ignore widget))
                              (apply #'event-sink
-                                    (list :canvas :resize :none args)))))
+                                    (list :canvas :resize args)))))
 
 (defun add-window-menu (app window)
   (setf (gtk4:application-menubar app) (menu-test-menu app window))
