@@ -1,9 +1,11 @@
 ;;; (load "~/Programming/Pyrulis/Lisp/clpm/demo1.lisp")
 
 (clpm-client:sync :sources '("quicklisp"))
-(clpm-client:active-context "default" :activate-asdf-integration t)
 
-(loop for s in '(:alexandria)
+(unless (equalp (clpm-client:active-context) "default")
+  (clpm-client:active-context "default" :activate-asdf-integration t))
+
+(loop for s in '(:alexandria :serapeum)
       do (asdf:load-system s))
 
 (defun try-me-first ()
