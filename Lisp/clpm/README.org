@@ -55,3 +55,11 @@ appropriate for CONTEXT.
 #+begin_src lisp
   (asdf:load-system :alexandria)
 #+end_src
+
+** Uninstalling
+#+begin_example
+cd /usr/local/
+sudo rm -v ./bin/clpm
+sudo rm -vr ./share/doc/clpm-*
+sudo rm -vr ./share/clpm
+#+end_example
