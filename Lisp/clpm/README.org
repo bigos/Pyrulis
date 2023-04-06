@@ -1,0 +1,57 @@
+* Readme
+
+https://gitlab.common-lisp.net/clpm/clpm/-/blob/main/README.org
+
+** installation attempt
+
+*** Download prebuilt binary and install it
+
+*** Create config
+Create a file called ~/.config/clpm/sources.conf
+(or %LOCALAPPDATA%\config\clpm\sources.conf on Windows)
+
+#+begin_example
+mkdir -p ~/.config/clpm
+emacsclient  ~/.config/clpm/sources.conf
+#+end_example
+
+And edit it with the following contents:
+
+#+begin_src lisp
+("quicklisp"
+ :type :quicklisp
+ :url "https://beta.quicklisp.org/dist/quicklisp.txt")
+#+end_src
+
+*** Configure ASDF to find the CLPM client
+#+begin_example
+mkdir -p ~/.config/common-lisp/source-registry.conf.d/
+clpm client source-registry.d > ~/.config/common-lisp/source-registry.conf.d/20-clpm-client.conf
+#+end_example
+
+*** Configure your Lisp to load the client
+
+#+begin_example
+echo '' >> ~/.sbclrc
+clpm client rc >> ~/.sbclrc
+#+end_example
+
+*** Use it
+
+**** Enter default context
+This clears ASDF's current configuration and replaces it with configuration
+appropriate for CONTEXT.
+
+#+begin_src lisp
+  (clpm-client:activate-context "default" :activate-asdf-integration t)
+#+end_src
+
+**** sync quicklisp
+#+begin_src lisp
+  (clpm-client:sync :sources "quicklisp")
+#+end_src
+
+**** load quicklisp system with CLPM
+#+begin_src lisp
+  (asdf:load-system :alexandria)
+#+end_src
