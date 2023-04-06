@@ -49,7 +49,7 @@ appropriate for CONTEXT.
 
 **** sync quicklisp
 #+begin_src lisp
-  (clpm-client:sync :sources "quicklisp")
+  (clpm-client:sync :sources '("quicklisp"))
 #+end_src
 
 **** load quicklisp system with CLPM
