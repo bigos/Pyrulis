@@ -1,8 +1,8 @@
 * Readme
 
-https://gitlab.common-lisp.net/clpm/clpm/-/blob/main/README.org
-
 https://gitlab.common-lisp.net/clpm/clpm/-/blob/main/tutorial/tutorial.org
+
+https://gitlab.common-lisp.net/clpm/clpm/-/blob/main/README.org
 
 ** installation attempt
 
@@ -65,3 +65,10 @@ sudo rm -v ./bin/clpm
 sudo rm -vr ./share/doc/clpm-*
 sudo rm -vr ./share/clpm
 #+end_example
+
+** Using in REPL
+
+#+begin_src lisp
+  (clpm-client:clpm-version)
+  (clpm-client:sync :sources '("quicklisp"))
+#+end_src
