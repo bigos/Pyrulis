@@ -3,9 +3,6 @@
 
 (clpm-client:sync :sources '("quicklisp"))
 
-(unless (equalp (clpm-client:active-context) "default")
-  (clpm-client:active-context "default" :activate-asdf-integration t))
-
 (loop for s in '(:alexandria :serapeum)
       do (asdf:load-system s))
 
