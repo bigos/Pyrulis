@@ -4,8 +4,6 @@ https://gitlab.common-lisp.net/clpm/clpm/-/blob/main/tutorial/tutorial.org
 
 https://gitlab.common-lisp.net/clpm/clpm/-/blob/main/README.org
 
-https://40ants.com/setup-lisp/
-
 ** installation attempt
 
 *** Download prebuilt binary and install it
