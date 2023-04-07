@@ -75,3 +75,12 @@ sudo rm -vr ./share/clpm
   (clpm-client:clpm-version)
   (clpm-client:sync :sources '("quicklisp"))
 #+end_src
+
+** Uninstalling ultralisp
+
+For experiments with code that needs ultralisp without ultralisp being present,
+run the following in REPL.
+
+#+begin_src lisp
+  (ql:uninstall-dist "ultralisp")
+#+end_src
