@@ -90,5 +90,8 @@ run the following in REPL.
 I had to start sbcl with increased dynamic space size
 #+begin_example
   sbcl --dynamic-space-size 120000
+  # or on another machine
+  sbcl --dynamic-space-size 810000
+
 #+end_example
 to be able to sync quicklisp.
