@@ -4,6 +4,9 @@ https://gitlab.common-lisp.net/clpm/clpm/-/blob/main/tutorial/tutorial.org
 
 https://gitlab.common-lisp.net/clpm/clpm/-/blob/main/README.org
 
+example of using clmpfile and clmpfile.lock
+https://gitlab.common-lisp.net/clpm/clpi-server
+
 ** installation attempt
 
 *** Download prebuilt binary and install it
