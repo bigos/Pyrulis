@@ -84,3 +84,11 @@ run the following in REPL.
 #+begin_src lisp
   (ql:uninstall-dist "ultralisp")
 #+end_src
+
+** syncing quicklip problem
+
+I had to start sbcl with increased dynamic space size
+#+begin_example
+  sbcl --dynamic-space-size 120000
+#+end_example
+to be able to sync quicklisp.
