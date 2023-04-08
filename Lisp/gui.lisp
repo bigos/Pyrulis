@@ -97,16 +97,21 @@
 
   (unless (member signal-name '(:motion :timeout))
     (format t "~&<<=================<< event ~S~%" (list widget signal-name args))))
+
 (defmethod event-sink (widget signal-name args)
   (format t "~&unhandled event ~S~%" (list widget signal-name args)))
+
 (defmethod event-sink (widget (signal-name (eql :timeout)) args)
   ;; (format t "T ")
   )
+
 (defmethod event-sink (widget (signal-name (eql :motion)) args)
   ;; (format t "M ")
   )
+
 (defmethod event-sink (widget (signal-name (eql :key-pressed)) args)
   (format t "key pressed ~S~%" args))
+
 (defmethod event-sink ((widget (eql :menu)) (signal-name (eql :activate)) args)
   (format t "~&menu ~S~%" (list widget signal-name args ))
   (ecase args
