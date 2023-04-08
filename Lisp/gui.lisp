@@ -92,6 +92,9 @@
              (format nil "~A" obj)))))
 
 (defmethod event-sink :before (widget signal-name args)
+  (assert (typep widget      'keyword))
+  (assert (typep signal-name 'keyword))
+
   (unless (member signal-name '(:motion :timeout))
     (format t "~&<<=================<< event ~S~%" (list widget signal-name args))))
 (defmethod event-sink (widget signal-name args)
