@@ -191,7 +191,9 @@
            (lambda (event args)
              (declare (ignore event args))
              (apply #'event-sink
-                    (list :menu :activate menu-dir)))))
+                    (list :menu
+                          :activate
+                          menu-dir)))))
 
 ;;; signal key is for event sink signal name is for gtk4
 (defun connect-controller (widget controller signal-name signal-key &optional (args-fn #'identity))
