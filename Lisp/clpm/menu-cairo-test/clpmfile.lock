@@ -11,6 +11,9 @@
 :sources
 (:implicit-file :type :file-system :system-files ("menu-cairo-test.asd"))
 (:implicit-vcs :type :vcs :projects
+ (("cl-gobject-introspection" :github :path
+   "andy128k/cl-gobject-introspection")))
+(:implicit-vcs :type :vcs :projects
  (("cl-gtk4" :github :path "bohonghuang/cl-gtk4")))
 ("quicklisp" :url "https://beta.quicklisp.org/dist/quicklisp.txt" :type
  :quicklisp)
@@ -22,6 +25,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 :requirements
+(:project :name "cl-gobject-introspection" :branch "master" :source
+ :implicit-vcs)
 (:project :name "cl-gtk4" :branch "master" :source :implicit-vcs)
 (:asd-file :name "menu-cairo-test.asd")
 
@@ -33,6 +38,8 @@
 :releases
 ("alexandria" :version "2022-07-08" :source "quicklisp" :systems ("alexandria"))
 ("anaphora" :version "2022-02-20" :source "quicklisp" :systems ("anaphora"))
+("asdf-flv" :version "2016-04-21" :source "quicklisp" :systems
+ ("net.didierverna.asdf-flv"))
 ("babel" :version "2023-02-15" :source "quicklisp" :systems ("babel"))
 ("bohonghuang/cl-glib" :version "20230407122000" :source "ultralisp" :systems
  ("cl-gio" "cl-gobject"))
@@ -42,8 +49,9 @@
 ("cl-cairo2" :version "2021-10-21" :source "quicklisp" :systems ("cl-cairo2"))
 ("cl-colors" :version "2018-03-28" :source "quicklisp" :systems ("cl-colors"))
 ("cl-glib" :version "2023-02-15" :source "quicklisp" :systems ("cl-glib"))
-("cl-gobject-introspection" :version "2023-02-15" :source "quicklisp" :systems
- ("cl-gobject-introspection"))
+("cl-gobject-introspection" :version
+ (:commit "c4fef07d01cec7c830ce84ef150ed8e4da5959c4") :source :implicit-vcs
+ :systems ("cl-gobject-introspection" "cl-gobject-introspection-test"))
 ("cl-gobject-introspection-wrapper" :version "2023-02-15" :source "quicklisp"
  :systems ("cl-gobject-introspection-wrapper"))
 ("cl-gtk4" :version (:commit "3241cc90b84f8ef205d3cf76fcb93461db1a2a62")
@@ -53,11 +61,14 @@
 ("cl-ppcre" :version "2022-02-20" :source "quicklisp" :systems ("cl-ppcre"))
 ("cl-utilities" :version "2010-10-07" :source "quicklisp" :systems
  ("cl-utilities"))
+("fiveam" :version "2022-04-01" :source "quicklisp" :systems ("fiveam"))
 ("iterate" :version "2021-05-31" :source "quicklisp" :systems ("iterate"))
 ("let-plus" :version "2019-11-30" :source "quicklisp" :systems ("let-plus"))
 ("menu-cairo-test.asd" :version :newest :source :implicit-file :systems nil)
 ("metabang-bind" :version "2023-02-15" :source "quicklisp" :systems
  ("metabang-bind"))
+("trivial-backtrace" :version "2023-02-15" :source "quicklisp" :systems
+ ("trivial-backtrace"))
 ("trivial-features" :version "2021-12-09" :source "quicklisp" :systems
  ("trivial-features"))
 ("trivial-garbage" :version "2021-12-30" :source "quicklisp" :systems
@@ -70,6 +81,7 @@
 
 :reverse-dependencies
 ("alexandria" ((:system :name "let-plus") (:system :name "alexandria"))
+ ((:system :name "fiveam") (:system :name "alexandria"))
  ((:system :name "cl-gobject-introspection-wrapper")
   (:system :name "alexandria"))
  ((:system :name "cl-gobject-introspection") (:system :name "alexandria"))
@@ -79,6 +91,9 @@
  ((:system :name "babel") (:system :name "alexandria")))
 
 ("anaphora" ((:system :name "let-plus") (:system :name "anaphora")))
+
+("asdf-flv"
+ ((:system :name "fiveam") (:system :name "net.didierverna.asdf-flv")))
 
 ("babel" ((:system :name "cffi") (:system :name "babel")))
 
@@ -101,7 +116,12 @@
 
 ("cl-gobject-introspection"
  ((:system :name "cl-gobject-introspection-wrapper")
-  (:system :name "cl-gobject-introspection")))
+  (:system :name "cl-gobject-introspection"))
+ ((:system :name "cl-gobject-introspection-test")
+  (:system :name "cl-gobject-introspection"))
+ (t
+  (:project :name "cl-gobject-introspection" :commit
+   "c4fef07d01cec7c830ce84ef150ed8e4da5959c4" :source :implicit-vcs)))
 
 ("cl-gobject-introspection-wrapper"
  ((:system :name "cl-gtk4.webkit2")
@@ -134,7 +154,11 @@
 
 ("cl-utilities" ((:system :name "cl-cairo2") (:system :name "cl-utilities")))
 
+("fiveam"
+ ((:system :name "cl-gobject-introspection-test") (:system :name "fiveam")))
+
 ("iterate"
+ ((:system :name "cl-gobject-introspection-test") (:system :name "iterate"))
  ((:system :name "cl-gobject-introspection") (:system :name "iterate")))
 
 ("let-plus" ((:system :name "cl-colors") (:system :name "let-plus")))
@@ -142,6 +166,9 @@
 ("menu-cairo-test.asd" (t (:asd-file :name "menu-cairo-test.asd")))
 
 ("metabang-bind" ((:system :name "cl-cairo2") (:system :name "metabang-bind")))
+
+("trivial-backtrace"
+ ((:system :name "fiveam") (:system :name "trivial-backtrace")))
 
 ("trivial-features"
  ((:system :name "cl-cairo2") (:system :name "trivial-features"))
