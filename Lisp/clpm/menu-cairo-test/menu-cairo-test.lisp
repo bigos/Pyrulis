@@ -18,8 +18,8 @@
 ;;;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (ql:quickload '(:alexandria :serapeum :cl-gtk4 :cl-gdk4 :cl-cairo2 :defclass-std)))
+;; (eval-when (:compile-toplevel :load-toplevel :execute)
+;;   (ql:quickload '(:alexandria :serapeum :cl-gtk4 :cl-gdk4 :cl-cairo2 :defclass-std)))
 
 (cl:defpackage cairo-gobject
   (:use)

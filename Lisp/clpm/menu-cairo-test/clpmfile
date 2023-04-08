@@ -3,4 +3,12 @@
 
 (:source "quicklisp" :url "https://beta.quicklisp.org/dist/quicklisp.txt" :type :quicklisp)
 
+(:source "ultralisp"
+ :url "https://clpi.ultralisp.org/"
+ :type :clpi)
+
 (:asd "menu-cairo-test.asd")
+
+(:github "cl-gtk4"
+ :path "bohonghuang/cl-gtk4"
+ :branch "master")
