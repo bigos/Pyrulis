@@ -26,3 +26,6 @@ https://philcalcado.com/content/research_on_domain_specific_languages.html
 *** CL-ROGUE
 This is a nearly line-for-line port of Rogue v3.6.2 from C to Common Lisp.
 https://github.com/JacobGabrielson/cl-rogue
+
+** interesting links
+https://pinecone-forest.com/lisplang-v0.0.142
