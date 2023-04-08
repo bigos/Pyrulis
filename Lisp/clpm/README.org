@@ -75,8 +75,10 @@ sudo rm -vr ./share/clpm
   (clpm-client:clpm-version)
   (clpm-client:sync :sources '("quicklisp"))
 #+end_src
+If the above fails you may try [[*syncing quicklip problem solution][syncing quicklip problem solution]]
 
-** Uninstalling ultralisp
+** Appendix
+*** Uninstalling ultralisp
 
 For experiments with code that needs ultralisp without ultralisp being present,
 run the following in REPL.
@@ -85,13 +87,10 @@ run the following in REPL.
   (ql:uninstall-dist "ultralisp")
 #+end_src
 
-** syncing quicklip problem
+*** syncing quicklip problem solution
 
-I had to start sbcl with increased dynamic space size
+I had to start sbcl with increased dynamic space size and sync from the command line
 #+begin_example
-  sbcl --dynamic-space-size 120000
-  # or on another machine
-  sbcl --dynamic-space-size 810000
-
+  sbcl --dynamic-space-size 810000 --eval "(clpm-client:sync :sources '(\"quicklisp\"))"
 #+end_example
 to be able to sync quicklisp.
