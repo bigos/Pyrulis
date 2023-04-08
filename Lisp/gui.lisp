@@ -161,12 +161,6 @@
           (about-dialog-logo-icon-name dialog) "application-x-addon")
     (values dialog)))
 
-(defun define-and-connect-action (app action-name menu-dir)
-  (let ((action (gio:make-simple-action :name action-name
-                                        :parameter-type nil)))
-    (gio:action-map-add-action app action)
-    (connect-action action "activate" (symbolize menu-dir))))
-
 (defun menu-test-menu (app window)
   (declare (ignore window))
   (let ((menu (gio:make-menu)))
@@ -184,6 +178,12 @@
       (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "About" :detailed-action "app.about"))
       (define-and-connect-action app "about" "help/about"))
     menu))
+
+(defun define-and-connect-action (app action-name menu-dir)
+  (let ((action (gio:make-simple-action :name action-name
+                                        :parameter-type nil)))
+    (gio:action-map-add-action app action)
+    (connect-action action "activate" (symbolize menu-dir))))
 
 ;;; events and gui =========================
 (defun connect-action (action signal-name menu-dir)
