@@ -56,6 +56,8 @@ appropriate for CONTEXT.
   (clpm-client:sync :sources '("quicklisp"))
 #+end_src
 
+If the above fails you may try [[*syncing quicklip problem solution][syncing quicklip problem solution]]
+
 *** load quicklisp system with CLPM
 #+begin_src lisp
   (asdf:load-system :alexandria)
@@ -67,6 +69,7 @@ appropriate for CONTEXT.
   (clpm-client:clpm-version)
   (clpm-client:sync :sources '("quicklisp"))
 #+end_src
+
 If the above fails you may try [[*syncing quicklip problem solution][syncing quicklip problem solution]]
 
 ** Appendix
