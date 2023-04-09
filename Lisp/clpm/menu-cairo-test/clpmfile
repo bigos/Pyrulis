@@ -8,11 +8,3 @@
  :type :clpi)
 
 (:asd "menu-cairo-test.asd")
-
-(:github "cl-gtk4"
- :path "bohonghuang/cl-gtk4"
- :branch "master")
-
-(:github "cl-gobject-introspection"
- :path "andy128k/cl-gobject-introspection"
- :branch "master")
