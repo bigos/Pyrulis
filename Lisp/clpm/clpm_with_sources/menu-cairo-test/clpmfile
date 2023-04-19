@@ -1,0 +1,30 @@
+;;; -*- Mode: common-lisp; -*-
+(:api-version "0.4")
+
+(:source "quicklisp" :url "https://beta.quicklisp.org/dist/quicklisp.txt" :type :quicklisp)
+
+(:asd "menu-cairo-test.asd")
+
+(:github "defclass-std"
+ :path "EuAndreh/defclass-std"
+ :branch "master")
+
+(:github "cl-gtk4"
+ :path "bohonghuang/cl-gtk4"
+ :branch "master")
+
+(:github "cl-glib"
+ :path "bohonghuang/cl-glib"
+ :branch "master")
+
+(:github "cl-gobject-introspection-wrapper"
+ :path "bohonghuang/cl-gobject-introspection-wrapper"
+ :branch "master")
+
+(:github "cl-gobject-introspection"
+ :path "andy128k/cl-gobject-introspection"
+ :branch "master")
+
+(:git "alexandria"
+ :url "git@common-lisp.net:alexandria/alexandria.git"
+ :branch "master")

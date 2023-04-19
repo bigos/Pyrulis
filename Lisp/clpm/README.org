@@ -1,0 +1,103 @@
+* Readme
+
+https://gitlab.common-lisp.net/clpm/clpm/-/blob/main/tutorial/tutorial.org
+
+https://gitlab.common-lisp.net/clpm/clpm/-/blob/main/README.org
+
+example of using clmpfile and clmpfile.lock
+https://gitlab.common-lisp.net/clpm/clpi-server
+
+nice reference
+https://www.clpm.dev/docs/bundle.html
+
+** Install
+
+*** Download prebuilt binary and install it
+
+*** Create config
+Create a file called ~/.config/clpm/sources.conf
+(or %LOCALAPPDATA%\config\clpm\sources.conf on Windows)
+
+#+begin_example
+mkdir -p ~/.config/clpm
+emacsclient  ~/.config/clpm/sources.conf
+#+end_example
+
+And edit it with the following contents:
+
+#+begin_src lisp
+("quicklisp"
+ :type :quicklisp
+ :url "https://beta.quicklisp.org/dist/quicklisp.txt")
+#+end_src
+
+*** Configure ASDF to find the CLPM client
+#+begin_example
+mkdir -p ~/.config/common-lisp/source-registry.conf.d/
+clpm client source-registry.d > ~/.config/common-lisp/source-registry.conf.d/20-clpm-client.conf
+#+end_example
+
+*** Configure your Lisp to load the client
+
+#+begin_example
+echo '' >> ~/.sbclrc
+clpm client rc >> ~/.sbclrc
+#+end_example
+
+** Use it
+
+*** Enter default context
+This clears ASDF's current configuration and replaces it with configuration
+appropriate for CONTEXT.
+
+#+begin_src lisp
+  (clpm-client:activate-context "default" :activate-asdf-integration t)
+#+end_src
+
+*** sync quicklisp
+#+begin_src lisp
+  (clpm-client:sync :sources '("quicklisp"))
+#+end_src
+
+If the above fails you may try [[*syncing quicklip problem solution][syncing quicklip problem solution]]
+
+*** load quicklisp system with CLPM
+#+begin_src lisp
+  (asdf:load-system :alexandria)
+#+end_src
+
+** Using in REPL
+
+#+begin_src lisp
+  (clpm-client:clpm-version)
+  (clpm-client:sync :sources '("quicklisp"))
+#+end_src
+
+If the above fails you may try [[*syncing quicklip problem solution][syncing quicklip problem solution]]
+
+** Appendix
+
+*** syncing quicklip problem solution
+
+I had to start sbcl with increased dynamic space size and sync from the command line
+#+begin_example
+  sbcl --dynamic-space-size 810000 --eval "(clpm-client:sync :sources '(\"quicklisp\"))"
+#+end_example
+to be able to sync quicklisp.
+
+*** Uninstalling clpm
+#+begin_example
+cd /usr/local/
+sudo rm -v ./bin/clpm
+sudo rm -vr ./share/doc/clpm-*
+sudo rm -vr ./share/clpm
+#+end_example
+
+*** Uninstalling ultralisp
+
+For experiments with code that needs ultralisp without ultralisp being present,
+run the following in REPL.
+
+#+begin_src lisp
+  (ql:uninstall-dist "ultralisp")
+#+end_src

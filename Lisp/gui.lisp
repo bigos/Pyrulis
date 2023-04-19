@@ -89,33 +89,32 @@
              (subseq (format nil "~a" (slot-value obj 'class))
                      2))
             (t
-             (format nil "~a" obj)))))
+             (format nil "~A" obj)))))
 
-(defun event-sink (widget signal-name event &rest args)
-  (event-sink2 (symbolize widget)
-               (symbolize signal-name)
-               (when event
-                 (symbolize event))
-               args))
+(defmethod event-sink :before (widget signal-name args)
+  (assert (typep widget      'keyword))
+  (assert (typep signal-name 'keyword))
 
-(defun event-sink2 (widget signal-name event args)
-  (unless (member signal-name '(|timeout| |motion|))
-    (format t "~&QQQQQQQQQQQQQQQQQQQQQQQQQQ event ~S~%" (list widget signal-name event args)))
+  (unless (member signal-name '(:motion :timeout))
+    (format t "~&<<=================<< event ~S~%" (list widget signal-name args))))
 
-  (event-sink3 widget signal-name event args))
+(defmethod event-sink (widget signal-name args)
+  (format t "~&unhandled event ~S~%" (list widget signal-name args)))
 
-(defmethod event-sink3 (widget signal-name event args)
-  (format t "~&<<=================<< event ~S~%" (list widget signal-name event args)))
-(defmethod event-sink3 (widget (signal-name (eql '|timeout|)) event args)
+(defmethod event-sink (widget (signal-name (eql :timeout)) args)
   ;; (format t "T ")
   )
-(defmethod event-sink3 (widget (signal-name (eql '|motion|)) event args)
+
+(defmethod event-sink (widget (signal-name (eql :motion)) args)
   ;; (format t "M ")
   )
-(defmethod event-sink3 (widget (signal-name (eql '|key-pressed|)) event args)
+
+(defmethod event-sink (widget (signal-name (eql :key-pressed)) args)
   (format t "key pressed ~S~%" args))
-(defmethod event-sink3 ((widget (eql '|<Menu>|)) (signal-name (eql '|activate|)) event args)
-  (ecase (car args)
+
+(defmethod event-sink ((widget (eql :menu)) (signal-name (eql :activate)) args)
+  (format t "~&menu ~S~%" (list widget signal-name args ))
+  (ecase args
     (|file/open|
      (add-window (current-app)))
     (|file/exit|
@@ -162,12 +161,6 @@
           (about-dialog-logo-icon-name dialog) "application-x-addon")
     (values dialog)))
 
-(defun define-and-connect-action (app action-name submenu menu-dir)
-  (let ((action (gio:make-simple-action :name action-name
-                                        :parameter-type nil)))
-    (gio:action-map-add-action app action)
-    (connect-action submenu action "activate" (symbolize menu-dir))))
-
 (defun menu-test-menu (app window)
   (declare (ignore window))
   (let ((menu (gio:make-menu)))
@@ -175,59 +168,70 @@
       (gio:menu-append-submenu menu "File" submenu)
 
       (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Open" :detailed-action "app.open"))
-      (define-and-connect-action app "open" submenu "file/open")
+      (define-and-connect-action app "open" "file/open")
 
       (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Exit" :detailed-action "app.exit"))
-      (define-and-connect-action app "exit" submenu "file/exit"))
+      (define-and-connect-action app "exit" "file/exit"))
     (let ((submenu (gio:make-menu)))
       (gio:menu-append-submenu menu "Help" submenu)
 
       (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "About" :detailed-action "app.about"))
-      (define-and-connect-action app "about" submenu "help/about"))
+      (define-and-connect-action app "about" "help/about"))
     menu))
 
+(defun define-and-connect-action (app action-name menu-dir)
+  (let ((action (gio:make-simple-action :name action-name
+                                        :parameter-type nil)))
+    (gio:action-map-add-action app action)
+    (connect-action action "activate" (symbolize menu-dir))))
+
 ;;; events and gui =========================
-(defun connect-action (submenu action signal-name menu-dir)
-  (format t "connect menudir ~S~%" menu-dir)
+(defun connect-action (action signal-name menu-dir)
   (connect action signal-name
            (lambda (event args)
-             (declare (ignore args))
-             (event-sink submenu
-                         signal-name
-                         event
-                         menu-dir))))
+             (declare (ignore event args))
+             (apply #'event-sink
+                    (list :menu
+                          :activate
+                          menu-dir)))))
 
-(defun connect-controller (widget controller signal-name &optional (args-fn #'identity))
+;;; signal key is for event sink signal name is for gtk4
+(defun connect-controller (widget controller signal-name signal-key &optional (args-fn #'identity))
   (connect controller signal-name
            (lambda (event &rest args)
-             (event-sink widget
-                         signal-name
-                         event
-                         (funcall args-fn args)))))
+             (declare (ignore event))
+             (apply #'event-sink
+                    (list widget
+                          signal-key
+                          (funcall args-fn args))))))
 
 (defun window-events (window)
   (glib:timeout-add 1000
                     (lambda (&rest args)
-                      (event-sink window "timeout" 'timeout args)
+                      (apply #'event-sink
+                             (list :window :timeout args))
                       glib:+source-continue+))
+
   (let ((key-controller (gtk4:make-event-controller-key)))
     (widget-add-controller window key-controller)
-    (connect-controller window key-controller "key-pressed" #'translate-key-args)))
+    (connect-controller :window key-controller "key-pressed" :key-pressed #'translate-key-args)))
 
 (defun canvas-events (canvas)
   (let ((motion-controller (gtk4:make-event-controller-motion)))
     (widget-add-controller canvas motion-controller)
-    (connect-controller canvas motion-controller "motion")
-    (connect-controller canvas motion-controller "enter")
-    (connect-controller canvas motion-controller "leave"))
+    (connect-controller :canvas motion-controller "motion" :motion)
+    (connect-controller :canvas motion-controller "enter" :enter)
+    (connect-controller :canvas motion-controller "leave" :leave))
 
   (let ((gesture-click-controller (gtk4:make-gesture-click)))
     (widget-add-controller canvas gesture-click-controller)
-    (connect-controller canvas gesture-click-controller "pressed")
-    (connect-controller canvas gesture-click-controller "released"))
+    (connect-controller :canvas gesture-click-controller "pressed" :pressed)
+    (connect-controller :canvas gesture-click-controller "released" :released))
 
   (connect canvas "resize" (lambda (widget &rest args)
-                             (event-sink widget "resize" 'resize args))))
+                             (declare (ignore widget))
+                             (apply #'event-sink
+                                    (list :canvas :resize args)))))
 
 (defun add-window-menu (app window)
   (setf (gtk4:application-menubar app) (menu-test-menu app window))
