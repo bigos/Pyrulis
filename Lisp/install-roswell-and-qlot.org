@@ -1,0 +1,28 @@
+* Install roswell and qlot
+
+** Roswell
+
+This page
+https://github.com/roswell/roswell/releases
+lists the latest version that can be installed.
+
+Installing it successfully can be confirmed in terminal:
+#+begin_example
+$ ros --version
+roswell 22.12.14.113(NO-GIT-REVISION)
+#+end_example
+
+** Qlot
+
+In terminal run:
+#+begin_example
+$ ros install qlot
+#+end_example
+
+** Bashrc modification
+
+Add ~.roswell/bin~ line to bashrc.
+#+begin_example
+$ echo '' >> ~/.bashrc
+$ echo 'export PATH="$PATH:$HOME/.roswell/bin"' >> ~/.bashrc
+#+end_example
