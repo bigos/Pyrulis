@@ -8,8 +8,12 @@
                   cl-cairo2
                   cl-glib
                   serapeum
+                  cl-interpol
                   defclass-std
                   fiveam)))
+
+;; http://edicl.github.io/cl-interpol/#syntax
+(cl-interpol:enable-interpol-syntax)
 
 (defpackage #:cairo-gobject
   (:use)
@@ -321,7 +325,8 @@
 (defun check-key (key-val key-code key-modifiers)
   (declare (ignore key-code))
   (let ((enterable (< (integer-length key-val) 16)))
-    (format t "~a ~S ~S~%"
+    ;; cl-interpol type newline
+    (format t #?"~a ~S \n"
             (when enterable
               (code-char key-val))
             (gdk4:keyval-name key-val)
