@@ -3,13 +3,17 @@
   (require 'org-mind-map)
 #+end_src
 
-eval the above
+M-x package-install org-mind-map
 
+eval the above code example
 
 This work with my Emacs config.
 
-M-x
-org-mind-map-write
+Copy this to some other folder
+
+M-x org-mind-map-write
+
+modify and enjoy
 
 https://github.com/the-ted/org-mind-map
 
@@ -28,3 +32,5 @@ https://github.com/the-ted/org-mind-map
 *** thoughts
 
 *** thoughts
+
+*** zzz
