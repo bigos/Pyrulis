@@ -1,0 +1,30 @@
+#+begin_src emacs-lisp
+  (require 'ox-org)
+  (require 'org-mind-map)
+#+end_src
+
+eval the above
+
+
+This work with my Emacs config.
+
+M-x
+org-mind-map-write
+
+https://github.com/the-ted/org-mind-map
+
+* arrival
+
+** goal
+
+*** departure
+
+** departure
+
+** thoughts
+
+*** arrival
+
+*** thoughts
+
+*** thoughts
