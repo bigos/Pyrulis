@@ -565,7 +565,7 @@
      (cond
        ((equalp signal-name "motion")
         (destructuring-bind ((x y)) args
-          (format t "mouse moution ~S ~S~%" x y)
+          ;; (format t "mouse moution ~S ~S~%" x y)
           (update *model* (make-instance 'mouse-motion :x x :y y))
           (when widget
             (widget-queue-draw widget))))
@@ -721,6 +721,9 @@
                          (connect-controller canvas motion-controller "leave"))
 
                        (let ((gesture-click-controller (gtk4:make-gesture-click)))
+                         ;; make gesture click listen to other mouse buttons as well
+                         (setf (gesture-single-button gesture-click-controller) 0)
+
                          (widget-add-controller canvas gesture-click-controller)
                          (connect-controller canvas gesture-click-controller "pressed")
                          (connect-controller canvas gesture-click-controller "released"))
