@@ -532,6 +532,9 @@
        ;; menu model
        ;; https://docs.gtk.org/gio/class.MenuModel.html
        ;; menu model is a menu created elsewhere
+
+       ;; this is built on wrong assumptions
+       ;; see: https://ssalewski.de/gtkprogramming.html#_popovermenu
        (let ((popover (gtk4:make-popover-menu :model
                                               (context-menubar (current-app)))))
          (gtk4:popover-popup popover)
