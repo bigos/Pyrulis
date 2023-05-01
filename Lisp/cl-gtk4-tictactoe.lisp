@@ -586,14 +586,14 @@
     ((equalp event-class "#O<GestureClick>")
      (cond
        ((equalp signal-name "pressed")
-        (destructuring-bind ((button x y)) args
+        (destructuring-bind ((button buttons x y)) args
           (update *model* (make-instance 'mouse-pressed :button button :x x :y y))
           ;; FIXME tomorrow
           (when widget
             (widget-queue-draw widget))
           ))
        ((equalp signal-name "released")
-        (destructuring-bind ((button x y)) args
+        (destructuring-bind ((button buttons x y)) args
           (update *model* (make-instance 'mouse-released :button button :x x :y y))))
        (t (error "unknown signal ~S~%" signal-name))))
 
@@ -728,9 +728,17 @@
                          ;; (connect-controller canvas gesture-click-controller "pressed")
                          ;; (connect-controller canvas gesture-click-controller "released")
                          (connect gesture-click-controller "pressed" (lambda (event &rest args)
-                                                                       (event-sink canvas "pressed" event args)))
+                                                                       (format t "==== pressed button ~S~%"
+                                                                               (gesture-single-current-button event))
+                                                                       (event-sink canvas "pressed" event
+                                                                                   (cons (gesture-single-current-button event)
+                                                                                         args))))
                          (connect gesture-click-controller "released" (lambda (event &rest args)
-                                                                        (event-sink canvas "released" event args))))
+                                                                        (format t "==== released button ~S~%"
+                                                                                (gesture-single-current-button event))
+                                                                        (event-sink canvas "released" event
+                                                                                    (cons (gesture-single-current-button event)
+                                                                                          args)))))
 
                        (connect canvas "resize" (lambda (widget &rest args)
                                                   (declare (ignore widget))
