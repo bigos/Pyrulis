@@ -524,7 +524,13 @@
              (unless (typep (state model) 'won)
                (setf (state model) (make-instance 'no-moves)))))))
       (won
-       (format t "doing nothing after victory~%"))
+       (format t "doing nothing after victory~%")
+       ;; consider this
+       ;; (xml-emitter:simple-tag 'attribute "_New Window" '(("name" "label") ("translatable" "yes")))
+       ;; to create menu
+       ;; https://docs.gtk.org/gtk4/class.PopoverMenu.html
+
+       )
       (no-moves
        (format t "doing nothing because no more moves possible~%"))))
 

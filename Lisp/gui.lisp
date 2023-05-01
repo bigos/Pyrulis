@@ -112,6 +112,22 @@
 (defmethod event-sink (widget (signal-name (eql :key-pressed)) args)
   (format t "key pressed ~S~%" args))
 
+(defmethod event-sink ((widget (eql :canvas)) (signal-name (eql :pressed)) args)
+  (format t "mouse key pressed ~S~%" args)
+  (destructuring-bind (button count x y) args
+    (declare (ignore count))
+    (case button
+      (3 (progn
+           (format t "right click~%")
+           (let ((dialog (menu-test-about-dialog)))
+             (setf (window-modal-p dialog) t
+                   (window-transient-for dialog) (current-active-window))
+             (window-present dialog)
+             ))))))
+
+(defmethod event-sink ((widget (eql :canvas)) (signal-name (eql :released)) args)
+  (format t "mouse key released ~S~%" args))
+
 (defmethod event-sink ((widget (eql :menu)) (signal-name (eql :activate)) args)
   (format t "~&menu ~S~%" (list widget signal-name args ))
   (ecase args
@@ -205,6 +221,15 @@
                           signal-key
                           (funcall args-fn args))))))
 
+(defun connect-geture-click-controller (widget controller signal-name signal-key &optional (args-fn #'identity))
+  (connect controller signal-name
+           (lambda (event &rest args)
+             (apply #'event-sink
+                    (list widget
+                          signal-key
+                          (funcall args-fn
+                                   (cons (gesture-single-current-button event)
+                                         args)))))))
 (defun window-events (window)
   (glib:timeout-add 1000
                     (lambda (&rest args)
@@ -224,9 +249,12 @@
     (connect-controller :canvas motion-controller "leave" :leave))
 
   (let ((gesture-click-controller (gtk4:make-gesture-click)))
+    ;; make gesture click listen to other mouse buttons as well
+    (setf (gesture-single-button gesture-click-controller) 0)
+
     (widget-add-controller canvas gesture-click-controller)
-    (connect-controller :canvas gesture-click-controller "pressed" :pressed)
-    (connect-controller :canvas gesture-click-controller "released" :released))
+    (connect-geture-click-controller :canvas gesture-click-controller "pressed" :pressed)
+    (connect-geture-click-controller :canvas gesture-click-controller "released" :released))
 
   (connect canvas "resize" (lambda (widget &rest args)
                              (declare (ignore widget))
