@@ -725,8 +725,12 @@
                          (setf (gesture-single-button gesture-click-controller) 0)
 
                          (widget-add-controller canvas gesture-click-controller)
-                         (connect-controller canvas gesture-click-controller "pressed")
-                         (connect-controller canvas gesture-click-controller "released"))
+                         ;; (connect-controller canvas gesture-click-controller "pressed")
+                         ;; (connect-controller canvas gesture-click-controller "released")
+                         (connect gesture-click-controller "pressed" (lambda (event &rest args)
+                                                                       (event-sink canvas "pressed" event args)))
+                         (connect gesture-click-controller "released" (lambda (event &rest args)
+                                                                        (event-sink canvas "released" event args))))
 
                        (connect canvas "resize" (lambda (widget &rest args)
                                                   (declare (ignore widget))
