@@ -498,6 +498,8 @@
   (setf (mouse-x model) nil
         (mouse-y model) nil))
 
+;;; consider addin here code for showing popover menu
+;; https://docs.gtk.org/gtk4/class.PopoverMenu.html
 (defmethod update ((model model) (msg mouse-pressed))
   (setf (mouse-x model) (x msg)
         (mouse-y model) (y msg))
