@@ -537,10 +537,6 @@
        ;; see: https://ssalewski.de/gtkprogramming.html#_popovermenu
 
        ;; perhaps dialog would be simpler
-       (let ((popover (gtk4:make-popover-menu :model
-                                              (context-menubar (current-app)))))
-         (gtk4:popover-popup popover)
-         )
        )
       (no-moves
        (format t "doing nothing because no more moves possible~%"))))
@@ -664,23 +660,6 @@
                                               (event-sink item-name
                                                           "activate"
                                                           event args)))))
-
-(defun context-menubar (app)
- (let ((menubar (gio:make-menu)))
-    (let* ((menubar-item-help (gio:make-menu-item :label "Help" :detailed-action nil))
-           (help (gio:make-menu))
-           (help-item-manual
-             (make-my-menu-item app "Manual" "manual" "help-item-manual"))
-           (help-item-about
-             (make-my-menu-item app "About" "about" "help-item-about")))
-
-      (loop for mi in (list help-item-manual
-                            help-item-about)
-            do (gio:menu-append-item help mi))
-      (setf (gio:menu-item-submenu menubar-item-help) help)
-      (gio:menu-append-item menubar menubar-item-help))
-    menubar)
-  )
 
 (defun main-menubar (app)
   (let ((menubar (gio:make-menu)))
