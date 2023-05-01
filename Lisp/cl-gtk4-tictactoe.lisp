@@ -529,7 +529,8 @@
        ;; (xml-emitter:simple-tag 'attribute "_New Window" '(("name" "label") ("translatable" "yes")))
        ;; to create menu
        ;; https://docs.gtk.org/gtk4/class.PopoverMenu.html
-
+       ;; menu model
+       ;; https://docs.gtk.org/gio/class.MenuModel.html
        )
       (no-moves
        (format t "doing nothing because no more moves possible~%"))))
