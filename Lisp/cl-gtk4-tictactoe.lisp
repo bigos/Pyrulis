@@ -535,6 +535,8 @@
 
        ;; this is built on wrong assumptions
        ;; see: https://ssalewski.de/gtkprogramming.html#_popovermenu
+
+       ;; perhaps dialog would be simpler
        (let ((popover (gtk4:make-popover-menu :model
                                               (context-menubar (current-app)))))
          (gtk4:popover-popup popover)
