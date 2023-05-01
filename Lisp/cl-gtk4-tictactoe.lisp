@@ -532,6 +532,8 @@
        ;; menu model
        ;; https://docs.gtk.org/gio/class.MenuModel.html
        ;; menu model is a menu created elsewhere
+       (gtk4:make-popover-menu :model
+                               (main-menubar (current-app)))
        )
       (no-moves
        (format t "doing nothing because no more moves possible~%"))))
