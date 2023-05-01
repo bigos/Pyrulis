@@ -1,0 +1,36 @@
+#+begin_src emacs-lisp
+  (require 'ox-org)
+  (require 'org-mind-map)
+#+end_src
+
+M-x package-install org-mind-map
+
+eval the above code example
+
+This work with my Emacs config.
+
+Copy this to some other folder
+
+M-x org-mind-map-write
+
+modify and enjoy
+
+https://github.com/the-ted/org-mind-map
+
+* arrival
+
+** goal
+
+*** departure
+
+** departure
+
+** thoughts
+
+*** arrival
+
+*** thoughts
+
+*** thoughts
+
+*** zzz
