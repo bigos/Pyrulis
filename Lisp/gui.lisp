@@ -240,7 +240,8 @@
            (lambda (event &rest args)
              (when (and (eq signal-key :pressed)
                         (eq 3 (gesture-single-current-button event)))
-               (setf (gtk4:popover-pointing-to popover) (gdk:rectangle (nth 1 args) (nth 2 args) 0 0))
+               ;; (setf (gtk4:popover-pointing-to popover) (gdk:rectangle
+               ;;                                           (nth 1 args) (nth 2 args) 0 0))
                (gtk4:popover-popup popover))
              (apply #'event-sink
                     (list widget
