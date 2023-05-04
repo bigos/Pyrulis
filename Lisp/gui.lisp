@@ -123,11 +123,7 @@
     (case button
       (3 (progn
            (format t "right click~%")
-           (let ((dialog (menu-test-about-dialog)))
-             (setf (window-modal-p dialog) t
-                   (window-transient-for dialog) (current-active-window))
-             (window-present dialog)
-             ))))))
+         )))))
 
 (defmethod event-sink ((widget (eql :canvas)) (signal-name (eql :released)) args)
   (format t "mouse key released ~S~%" args))
@@ -239,25 +235,26 @@
 (defun connect-geture-click-controller (widget controller signal-name signal-key popover &optional (args-fn #'identity))
   (connect controller signal-name
            (lambda (event &rest args)
-             (when (and (eq signal-key :pressed)
-                        (eq 3 (gesture-single-current-button event)))
+             (let ((current-button (gesture-single-current-button event)))
+               (when (and (eq signal-key :pressed)
+                          (eq 3 current-button))
 
-               (cffi:with-foreign-object (rect '(:struct gdk4:rectangle))
-                 (cffi:with-foreign-slots ((gdk::x gdk::y gdk::width gdk::height) rect (:struct gdk4:rectangle))
-                   (setf gdk::x (round (nth 1 args))
-                         gdk::y (round (nth 2 args))
-                         gdk::width (round 0)
-                         gdk::height (round 0)))
-                 (setf
-                       (popover-pointing-to popover) (gobj:pointer-object rect 'gdk:rectangle)))
+                 (cffi:with-foreign-object (rect '(:struct gdk4:rectangle))
+                   (cffi:with-foreign-slots ((gdk::x gdk::y gdk::width gdk::height) rect (:struct gdk4:rectangle))
+                     (setf gdk::x (round (nth 1 args))
+                           gdk::y (round (nth 2 args))
+                           gdk::width (round 0)
+                           gdk::height (round 0)))
+                   (setf
+                    (popover-pointing-to popover) (gobj:pointer-object rect 'gdk:rectangle)))
 
-               (gtk4:popover-popup popover)
+                 (gtk4:popover-popup popover))
 
                (apply #'event-sink
                       (list widget
                             signal-key
                             (funcall args-fn
-                                     (cons (gesture-single-current-button event)
+                                     (cons current-button
                                            args))))))))
 
 (defun window-events (window)
