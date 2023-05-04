@@ -235,13 +235,25 @@
                           signal-key
                           (funcall args-fn args))))))
 
+(cffi:defcstruct gdk-rectangle
+  (x :int)
+  (y :int)
+  (width :int)
+  (height :int))
+
 (defun connect-geture-click-controller (widget controller signal-name signal-key popover &optional (args-fn #'identity))
   (connect controller signal-name
            (lambda (event &rest args)
              (when (and (eq signal-key :pressed)
                         (eq 3 (gesture-single-current-button event)))
-               ;; (setf (gtk4:popover-pointing-to popover) (gdk:rectangle
-               ;;                                           (nth 1 args) (nth 2 args) 0 0))
+
+               (setf (gtk4:popover-pointing-to popover)
+                     (make-gdk-rectangle :x (nth 1 args)
+                                         :y (nth 2 args)
+                                         :width 0 :height 0)
+                     )
+
+               (gtk4:popover-pointing-to )
                (gtk4:popover-popup popover))
              (apply #'event-sink
                     (list widget
