@@ -134,7 +134,7 @@
 
 (defmethod event-sink ((widget (eql :menu)) (signal-name (eql :activate)) args)
   (format t "~&menu ~S~%" (list widget signal-name args ))
-  (ecase args
+  (case args
     (|file/open|
      (add-window (current-app)))
     (|file/exit|
@@ -143,7 +143,8 @@
      (let ((dialog (menu-test-about-dialog)))
        (setf (window-modal-p dialog) t
              (window-transient-for dialog) (current-active-window))
-       (window-present dialog)))))
+       (window-present dialog)))
+    (t (warn "case for ~S fell through" args))))
 
 ;;; translate key args =====================
 (defun translate-key-args (args)
