@@ -248,9 +248,9 @@
                         (eq 3 (gesture-single-current-button event)))
 
                (cffi:with-foreign-object (rect '(:struct gdk-rectangle))
-                 (cffi:with-foreign-slots (x y width height) rect (:struct gdk-rectangle)
-                   (setf x (nth 1 args)
-                         y (nth 2 args)
+                 (cffi:with-foreign-slots ((x y width height) rect (:struct gdk-rectangle))
+                   (setf x (round (nth 1 args))
+                         y (round (nth 2 args))
                          width 0
                          height 0))
 
