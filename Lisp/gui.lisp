@@ -248,6 +248,8 @@
                         (eq 3 (gesture-single-current-button event)))
 
                (setf (gtk4:popover-pointing-to popover)
+
+                     ;; fix it
                      (make-gdk-rectangle :x (nth 1 args)
                                          :y (nth 2 args)
                                          :width 0 :height 0)
