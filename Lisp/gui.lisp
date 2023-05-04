@@ -1,5 +1,8 @@
 (declaim (optimize (speed 0) (safety 2) (debug 3)))
 
+;;; popoever example
+;; https://python-gtk-3-tutorial.readthedocs.io/en/latest/popover.html
+
 ;;; This is a very simple example for starting gui projects
 ;;; (load "~/Programming/Pyrulis/Lisp/gui.lisp")
 
