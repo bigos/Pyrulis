@@ -202,10 +202,10 @@
 (defun menu-test-popover (app window)
   (declare (ignore window))
   (let ((submenu (gio:make-menu)))
-    (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Opt 1" :detailed-action "app.option1"))
+    (gio:menu-append-item submenu (gio:make-menu-item :label "Opt 1" :detailed-action "app.option1"))
     (define-and-connect-action app "option1" "popover/option1")
 
-    (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Opt 2" :detailed-action "app.option2"))
+    (gio:menu-append-item submenu (gio:make-menu-item :label "Opt 2" :detailed-action "app.option2"))
     (define-and-connect-action app "option2" "popover/option2")
     submenu))
 
@@ -302,11 +302,10 @@
               (drawing-area-draw-func canvas) (list (cffi:callback %draw-func)
                                                     (cffi:null-pointer)
                                                     (cffi:null-pointer)))
-        (let ((popover (gtk4:make-popover-menu)))
-          (setf (gtk4:popover-menu-menu-model popover) (menu-test-popover app window)
-                (gtk4:widget-parent popover) canvas))
+        (let ((popover (gtk4:make-popover-menu :model (menu-test-popover app window))))
+          (setf (gtk4:widget-parent popover) canvas)
 
-        (canvas-events canvas popover)
+          (canvas-events canvas popover))
 
         (box-append box canvas))
 
