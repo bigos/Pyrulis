@@ -1,6 +1,7 @@
 (declaim (optimize (speed 0) (safety 2) (debug 3)))
 
-;;; popoever example
+;;; popoever examples
+;; https://discourse.gnome.org/t/how-do-i-position-a-gtk-popovermenu-at-the-mouse-pointer-coordinates/10620/3
 ;; https://python-gtk-3-tutorial.readthedocs.io/en/latest/popover.html
 
 ;;; This is a very simple example for starting gui projects
