@@ -247,15 +247,17 @@
              (when (and (eq signal-key :pressed)
                         (eq 3 (gesture-single-current-button event)))
 
-               (setf (gtk4:popover-pointing-to popover)
+               (cffi:with-foreign-object (rect '(:struct gdk-rectangle))
+                 (cffi:with-foreign-slots (x y width height) rect (:struct gdk-rectangle)
+                   (setf x (nth 1 args)
+                         y (nth 2 args)
+                         width 0
+                         height 0))
 
-                     ;; fix it
-                     (make-gdk-rectangle :x (nth 1 args)
-                                         :y (nth 2 args)
-                                         :width 0 :height 0)
-                     )
+                 (setf (gtk4:popover-pointing-to popover)
+                       (gobj:pointer-object rect 'gdk-rectangle)))
 
-               (gtk4:popover-pointing-to )
+
                (gtk4:popover-popup popover))
              (apply #'event-sink
                     (list widget
@@ -265,11 +267,11 @@
                                          args)))))))
 
 (defun window-events (window)
-    (glib:timeout-add 1000
-                      (lambda (&rest args)
-                        (apply #'event-sink
-                               (list :window :timeout args))
-                        glib:+source-continue+))
+  (glib:timeout-add 1000
+                    (lambda (&rest args)
+                      (apply #'event-sink
+                             (list :window :timeout args))
+                      glib:+source-continue+))
 
   (let ((key-controller (gtk4:make-event-controller-key)))
     (widget-add-controller window key-controller)
