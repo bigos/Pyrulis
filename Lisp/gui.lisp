@@ -8,7 +8,7 @@
 ;;; (load "~/Programming/Pyrulis/Lisp/gui.lisp")
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
-  (ql:quickload '(serapeum
+  (ql:quickload '(
                   alexandria
                   cl-gtk4
                   cl-gdk4
@@ -235,36 +235,29 @@
                           signal-key
                           (funcall args-fn args))))))
 
-(cffi:defcstruct gdk-rectangle
-  (x :int)
-  (y :int)
-  (width :int)
-  (height :int))
-
 (defun connect-geture-click-controller (widget controller signal-name signal-key popover &optional (args-fn #'identity))
   (connect controller signal-name
            (lambda (event &rest args)
              (when (and (eq signal-key :pressed)
                         (eq 3 (gesture-single-current-button event)))
 
-               (cffi:with-foreign-object (rect '(:struct gdk-rectangle))
-                 (cffi:with-foreign-slots ((x y width height) rect (:struct gdk-rectangle))
-                   (setf x (round (nth 1 args))
-                         y (round (nth 2 args))
-                         width 0
-                         height 0))
+               (cffi:with-foreign-object (rect '(:struct gdk4:rectangle))
+                 (cffi:with-foreign-slots ((gdk::x gdk::y gdk::width gdk::height) rect (:struct gdk4:rectangle))
+                   (setf gdk::x (round (nth 1 args))
+                         gdk::y (round (nth 2 args))
+                         gdk::width (round 0)
+                         gdk::height (round 0)))
+                 (setf
+                       (popover-pointing-to popover) (gobj:pointer-object rect 'gdk:rectangle)))
 
-                 (setf (gtk4:popover-pointing-to popover)
-                       (gobj:pointer-object rect 'gdk-rectangle)))
+               (gtk4:popover-popup popover)
 
-
-               (gtk4:popover-popup popover))
-             (apply #'event-sink
-                    (list widget
-                          signal-key
-                          (funcall args-fn
-                                   (cons (gesture-single-current-button event)
-                                         args)))))))
+               (apply #'event-sink
+                      (list widget
+                            signal-key
+                            (funcall args-fn
+                                     (cons (gesture-single-current-button event)
+                                           args))))))))
 
 (defun window-events (window)
   (glib:timeout-add 1000
