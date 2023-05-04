@@ -263,12 +263,13 @@
                           (funcall args-fn
                                    (cons (gesture-single-current-button event)
                                          args)))))))
+
 (defun window-events (window)
-  (glib:timeout-add 1000
-                    (lambda (&rest args)
-                      (apply #'event-sink
-                             (list :window :timeout args))
-                      glib:+source-continue+))
+    (glib:timeout-add 1000
+                      (lambda (&rest args)
+                        (apply #'event-sink
+                               (list :window :timeout args))
+                        glib:+source-continue+))
 
   (let ((key-controller (gtk4:make-event-controller-key)))
     (widget-add-controller window key-controller)
