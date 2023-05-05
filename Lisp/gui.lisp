@@ -238,7 +238,7 @@
              (let ((current-button (gesture-single-current-button event)))
                (when (and (eq signal-key :pressed)
                           (eq 3 current-button))
-
+                 (format t "before rectangle and popover~%")
                  (cffi:with-foreign-object (rect '(:struct gdk4:rectangle))
                    (cffi:with-foreign-slots ((gdk::x gdk::y gdk::width gdk::height) rect (:struct gdk4:rectangle))
                      (setf gdk::x (round (nth 1 args))
@@ -248,6 +248,7 @@
                    (setf
                     (popover-pointing-to popover) (gobj:pointer-object rect 'gdk:rectangle)))
 
+                 (format t "~%~%==============popover================~S~%~%" args)
                  (gtk4:popover-popup popover))
 
                (apply #'event-sink
@@ -311,8 +312,11 @@
               (drawing-area-draw-func canvas) (list (cffi:callback %draw-func)
                                                     (cffi:null-pointer)
                                                     (cffi:null-pointer)))
-        (let ((popover (gtk4:make-popover-menu :model (menu-test-popover app window))))
+        (format t "before popover creation~%")
+        (let ((popover (gtk4:make-popover-menu  :model (menu-test-popover app window))))
+
           (setf (gtk4:widget-parent popover) canvas)
+          (gtk4:popover-present popover)
 
           (canvas-events canvas popover))
 
