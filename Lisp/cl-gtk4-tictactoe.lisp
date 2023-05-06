@@ -498,6 +498,8 @@
   (setf (mouse-x model) nil
         (mouse-y model) nil))
 
+;;; consider addin here code for showing popover menu
+;; https://docs.gtk.org/gtk4/class.PopoverMenu.html
 (defmethod update ((model model) (msg mouse-pressed))
   (setf (mouse-x model) (x msg)
         (mouse-y model) (y msg))
@@ -527,7 +529,14 @@
        ;; (xml-emitter:simple-tag 'attribute "_New Window" '(("name" "label") ("translatable" "yes")))
        ;; to create menu
        ;; https://docs.gtk.org/gtk4/class.PopoverMenu.html
+       ;; menu model
+       ;; https://docs.gtk.org/gio/class.MenuModel.html
+       ;; menu model is a menu created elsewhere
 
+       ;; this is built on wrong assumptions
+       ;; see: https://ssalewski.de/gtkprogramming.html#_popovermenu
+
+       ;; perhaps dialog would be simpler
        )
       (no-moves
        (format t "doing nothing because no more moves possible~%"))))
@@ -652,33 +661,35 @@
                                                           "activate"
                                                           event args)))))
 
-(defun main-menubar (app menubar)
-  (let* ((menubar-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
-         (menu (gio:make-menu))
-         (menu-item-preferences
-           (make-my-menu-item app "Preferences" "preferences" "menu-item-preferences"))
-         (menu-item-quit
-           (make-my-menu-item app "Quit" "quit" "menu-item-quit"))
+(defun main-menubar (app)
+  (let ((menubar (gio:make-menu)))
+    (let* ((menubar-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
+           (menu (gio:make-menu))
+           (menu-item-preferences
+             (make-my-menu-item app "Preferences" "preferences" "menu-item-preferences"))
+           (menu-item-quit
+             (make-my-menu-item app "Quit" "quit" "menu-item-quit"))
 
-         (menubar-item-help (gio:make-menu-item :label "Help" :detailed-action nil))
-         (help (gio:make-menu))
-         (help-item-manual
-           (make-my-menu-item app "Manual" "manual" "help-item-manual"))
-         (help-item-about
-           (make-my-menu-item app "About" "about" "help-item-about")))
+           (menubar-item-help (gio:make-menu-item :label "Help" :detailed-action nil))
+           (help (gio:make-menu))
+           (help-item-manual
+             (make-my-menu-item app "Manual" "manual" "help-item-manual"))
+           (help-item-about
+             (make-my-menu-item app "About" "about" "help-item-about")))
 
-    (loop for mi in (list menu-item-preferences
-                          menu-item-quit)
-          do (gio:menu-append-item menu mi))
-    (setf (gio:menu-item-submenu menubar-item-menu) menu)
-    (gio:menu-append-item menubar menubar-item-menu)
+      (loop for mi in (list menu-item-preferences
+                            menu-item-quit)
+            do (gio:menu-append-item menu mi))
+      (setf (gio:menu-item-submenu menubar-item-menu) menu)
+      (gio:menu-append-item menubar menubar-item-menu)
 
 
-    (loop for mi in (list help-item-manual
-                          help-item-about)
-          do (gio:menu-append-item help mi))
-    (setf (gio:menu-item-submenu menubar-item-help) help)
-    (gio:menu-append-item menubar menubar-item-help)))
+      (loop for mi in (list help-item-manual
+                            help-item-about)
+            do (gio:menu-append-item help mi))
+      (setf (gio:menu-item-submenu menubar-item-help) help)
+      (gio:menu-append-item menubar menubar-item-help))
+    menubar))
 
 (defun connect-controller (widget controller signal-name)
   (connect controller signal-name (lambda (event &rest args)
@@ -753,8 +764,7 @@
                      (setf (window-child window)
                            box))
 
-                   (let ((menubar (gio:make-menu)))
-                     (main-menubar app menubar)
+                   (let ((menubar (main-menubar app)))
                      (setf (gtk4:application-menubar app) menubar))
                    (setf (gtk4:application-window-show-menubar-p window) T)
 

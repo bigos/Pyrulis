@@ -1,10 +1,14 @@
 (declaim (optimize (speed 0) (safety 2) (debug 3)))
 
+;;; popoever examples
+;; https://discourse.gnome.org/t/how-do-i-position-a-gtk-popovermenu-at-the-mouse-pointer-coordinates/10620/3
+;; https://python-gtk-3-tutorial.readthedocs.io/en/latest/popover.html
+
 ;;; This is a very simple example for starting gui projects
 ;;; (load "~/Programming/Pyrulis/Lisp/gui.lisp")
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
-  (ql:quickload '(serapeum
+  (ql:quickload '(
                   alexandria
                   cl-gtk4
                   cl-gdk4
@@ -119,18 +123,14 @@
     (case button
       (3 (progn
            (format t "right click~%")
-           (let ((dialog (menu-test-about-dialog)))
-             (setf (window-modal-p dialog) t
-                   (window-transient-for dialog) (current-active-window))
-             (window-present dialog)
-             ))))))
+         )))))
 
 (defmethod event-sink ((widget (eql :canvas)) (signal-name (eql :released)) args)
   (format t "mouse key released ~S~%" args))
 
 (defmethod event-sink ((widget (eql :menu)) (signal-name (eql :activate)) args)
   (format t "~&menu ~S~%" (list widget signal-name args ))
-  (ecase args
+  (case args
     (|file/open|
      (add-window (current-app)))
     (|file/exit|
@@ -139,7 +139,8 @@
      (let ((dialog (menu-test-about-dialog)))
        (setf (window-modal-p dialog) t
              (window-transient-for dialog) (current-active-window))
-       (window-present dialog)))))
+       (window-present dialog)))
+    (t (warn "case for ~S fell through" args))))
 
 ;;; translate key args =====================
 (defun translate-key-args (args)
@@ -195,6 +196,16 @@
       (define-and-connect-action app "about" "help/about"))
     menu))
 
+(defun menu-test-popover (app window)
+  (declare (ignore window))
+  (let ((submenu (gio:make-menu)))
+    (gio:menu-append-item submenu (gio:make-menu-item :label "Opt 1" :detailed-action "app.option1"))
+    (define-and-connect-action app "option1" "popover/option1")
+
+    (gio:menu-append-item submenu (gio:make-menu-item :label "Opt 2" :detailed-action "app.option2"))
+    (define-and-connect-action app "option2" "popover/option2")
+    submenu))
+
 (defun define-and-connect-action (app action-name menu-dir)
   (let ((action (gio:make-simple-action :name action-name
                                         :parameter-type nil)))
@@ -221,15 +232,32 @@
                           signal-key
                           (funcall args-fn args))))))
 
-(defun connect-geture-click-controller (widget controller signal-name signal-key &optional (args-fn #'identity))
+(defun connect-geture-click-controller (widget controller signal-name signal-key popover &optional (args-fn #'identity))
   (connect controller signal-name
            (lambda (event &rest args)
-             (apply #'event-sink
-                    (list widget
-                          signal-key
-                          (funcall args-fn
-                                   (cons (gesture-single-current-button event)
-                                         args)))))))
+             (let ((current-button (gesture-single-current-button event)))
+               (when (and (eq signal-key :pressed)
+                          (eq 3 current-button))
+                 (format t "before rectangle and popover~%")
+                 (cffi:with-foreign-object (rect '(:struct gdk4:rectangle))
+                   (cffi:with-foreign-slots ((gdk::x gdk::y gdk::width gdk::height) rect (:struct gdk4:rectangle))
+                     (setf gdk::x (round (nth 1 args))
+                           gdk::y (round (nth 2 args))
+                           gdk::width (round 0)
+                           gdk::height (round 0)))
+                   (setf
+                    (popover-pointing-to popover) (gobj:pointer-object rect 'gdk:rectangle)))
+
+                 (format t "~%~%==============popover================~S~%~%" args)
+                 (gtk4:popover-popup popover))
+
+               (apply #'event-sink
+                      (list widget
+                            signal-key
+                            (funcall args-fn
+                                     (cons current-button
+                                           args))))))))
+
 (defun window-events (window)
   (glib:timeout-add 1000
                     (lambda (&rest args)
@@ -241,7 +269,7 @@
     (widget-add-controller window key-controller)
     (connect-controller :window key-controller "key-pressed" :key-pressed #'translate-key-args)))
 
-(defun canvas-events (canvas)
+(defun canvas-events (canvas popover)
   (let ((motion-controller (gtk4:make-event-controller-motion)))
     (widget-add-controller canvas motion-controller)
     (connect-controller :canvas motion-controller "motion" :motion)
@@ -253,8 +281,8 @@
     (setf (gesture-single-button gesture-click-controller) 0)
 
     (widget-add-controller canvas gesture-click-controller)
-    (connect-geture-click-controller :canvas gesture-click-controller "pressed" :pressed)
-    (connect-geture-click-controller :canvas gesture-click-controller "released" :released))
+    (connect-geture-click-controller :canvas gesture-click-controller "pressed"  :pressed  popover)
+    (connect-geture-click-controller :canvas gesture-click-controller "released" :released popover))
 
   (connect canvas "resize" (lambda (widget &rest args)
                              (declare (ignore widget))
@@ -284,9 +312,16 @@
               (drawing-area-draw-func canvas) (list (cffi:callback %draw-func)
                                                     (cffi:null-pointer)
                                                     (cffi:null-pointer)))
-        (canvas-events canvas)
+        (format t "before popover creation~%")
+        (let ((popover (gtk4:make-popover-menu  :model (menu-test-popover app window))))
+
+          (setf (gtk4:widget-parent popover) canvas)
+          (gtk4:popover-present popover)
+
+          (canvas-events canvas popover))
 
         (box-append box canvas))
+
       (setf (window-child window) box))
 
     (window-present window)))
