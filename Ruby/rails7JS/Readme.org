@@ -11,8 +11,15 @@ project 3 was created with
 rails new project3 -d sqlite3 -c bootstrap
 #+end_example
 
+file:~/Programming/Rails/project3/app/views/home/page.html.haml::9
+file:~/Programming/Rails/project3/app/assets/config/manifest.js::3
+file:~/Programming/Rails/project3/app/assets/javascripts/plugins/home.js::1
 ** project4
 
 #+begin_example
 rails new project4 -d sqlite3 -c tailwind
 #+end_example
+
+file:~/Programming/Rails/project4/app/views/home/page.html.haml::9
+file:~/Programming/Rails/project4/config/importmap.rb::9
+file:~/Programming/Rails/project4/app/javascript/application.js::5
