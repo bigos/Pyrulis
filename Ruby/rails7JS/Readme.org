@@ -1,0 +1,18 @@
+* Rails 7 JS
+
+Here we have 2 example project that give us hope of using Elm with Rails 7
+apps.
+
+** project3
+
+project 3 was created with
+
+#+begin_example
+rails new project3 -d sqlite3 -c bootstrap
+#+end_example
+
+** project4
+
+#+begin_example
+rails new project4 -d sqlite3 -c tailwind
+#+end_example
