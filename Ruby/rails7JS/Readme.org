@@ -78,3 +78,9 @@ import "controllers"
 
 // import "plugin/collections"
 #+end_example
+
+** tailwind vs bootstrap
+
+This article claims tailwind is more customizable.
+
+https://blog.logrocket.com/comparing-tailwind-css-bootstrap-time-ditch-ui-kits/
