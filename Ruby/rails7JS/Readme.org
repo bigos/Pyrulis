@@ -87,7 +87,7 @@ https://blog.logrocket.com/comparing-tailwind-css-bootstrap-time-ditch-ui-kits/
 
 *** tailwind can behave in unexpected ways
 
-Switching it off
+**** Switching it off
 
 https://developer.mozilla.org/en-US/docs/Web/CSS/all
 
@@ -95,4 +95,14 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/all
   %body{style:'all: initial'}
     -# %main.container.mx-auto.mt-28.px-5.flex
     = yield
+#+end_example
+
+**** Rails seems to generate incorrect scaffold by default
+
+This is  a more sensible start
+
+#+begin_example
+  %body
+    %main.container
+      = yield
 #+end_example
