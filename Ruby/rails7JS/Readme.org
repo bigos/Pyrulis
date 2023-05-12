@@ -106,3 +106,7 @@ This is  a more sensible start
     %main.container
       = yield
 #+end_example
+
+**** Criticism
+
+https://dev.to/gravy59/tailwind-css-a-critique-2hfh
