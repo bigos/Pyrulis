@@ -110,3 +110,5 @@ This is  a more sensible start
 **** Criticism
 
 https://dev.to/gravy59/tailwind-css-a-critique-2hfh
+
+https://www.aleksandrhovhannisyan.com/blog/why-i-dont-like-tailwind-css/
