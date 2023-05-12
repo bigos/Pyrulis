@@ -84,3 +84,15 @@ import "controllers"
 This article claims tailwind is more customizable.
 
 https://blog.logrocket.com/comparing-tailwind-css-bootstrap-time-ditch-ui-kits/
+
+*** tailwind can behave in unexpected ways
+
+Switching it off
+
+https://developer.mozilla.org/en-US/docs/Web/CSS/all
+
+#+begin_example
+  %body{style:'all: initial'}
+    -# %main.container.mx-auto.mt-28.px-5.flex
+    = yield
+#+end_example
