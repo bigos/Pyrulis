@@ -30,3 +30,16 @@ https://stackoverflow.com/questions/35318324/render-json-with-header
 response.headers['Access-Control-Allow-Origin'] = '*'
 render json: { status: :ok, example_result: 123 }, status: 200
 #+end_src
+
+** install npm
+
+https://github.com/nvm-sh/nvm#install--update-script
+
+#+begin_example
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+#+end_example
+
+** install yarn
+#+begin_example
+npm install -g yarn
+#+end_example
