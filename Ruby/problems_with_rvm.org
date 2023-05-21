@@ -1,5 +1,68 @@
 * Problems with rvm
+
 Latest Linux Mint 21 has issues with rvm being unable to install rubies.
 
 this my be the answer
 https://github.com/rvm/rvm/issues/4680#issuecomment-816865721
+
+It appears that rvm experience on Ubuntu derived systems has deteriorated.
+
+** rbenv and rbenv-gemset are the answer
+
+https://github.com/rbenv/rbenv
+https://github.com/jf/rbenv-gemset
+
+*** installing rbenv
+
+https://github.com/rbenv/rbenv#basic-git-checkout
+
+#+begin_example
+git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+echo 'eval "$(~/.rbenv/bin/rbenv init - bash)"' >> ~/.bashrc
+#+end_example
+
+restart the shell
+
+build environment for ubuntu
+https://github.com/rbenv/ruby-build/wiki#ubuntudebianmint
+
+**** install ruby build plugin
+
+#+begin_example
+git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+#+end_example
+
+**** install ruby
+
+test rbenv install works, list rubies and install one version
+
+#+begin_example
+rbenv install -l
+rbenv install -L
+rbenv install 3.2.2
+#+end_example
+
+*** installing rbenv-gemset
+
+https://github.com/jf/rbenv-gemset#installation
+
+#+begin_example
+git clone https://github.com/jf/rbenv-gemset.git $HOME/.rbenv/plugins/rbenv-gemset
+#+end_example
+
+and try item
+
+#+begin_example
+rbenv gemset
+#+end_example
+
+*** create a new project
+
+The ruby version ~3.2.2~ and project name ~project1~ may change to suit your
+needs.
+
+#+begin_example
+mkdir ./project1
+echo '3.2.2' >> ./project1/.ruby-version
+echo 'project1' >> ./project1/.ruby-gemset
+#+end_example
