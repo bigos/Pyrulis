@@ -30,3 +30,22 @@ https://stackoverflow.com/questions/35318324/render-json-with-header
 response.headers['Access-Control-Allow-Origin'] = '*'
 render json: { status: :ok, example_result: 123 }, status: 200
 #+end_src
+
+** possible solution for pages with Turbo
+
+#+begin_src javascript
+  function loadElm() {
+      var enode = document.getElementById("elm")
+      if (enode) {
+          Elm.Main.init({
+              flags: #{JSON.generate flag_data},
+              node: enode
+          });
+      } else {
+          // alert("no enode for Elm yet");
+      }
+  }
+
+  document.addEventListener('turbo:load', loadElm)
+  document.addEventListener('turbo:before-render', loadElm)
+#+end_src
