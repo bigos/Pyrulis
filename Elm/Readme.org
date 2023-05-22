@@ -34,10 +34,9 @@ render json: { status: :ok, example_result: 123 }, status: 200
 ** possible solution for pages with Turbo
 
 #+begin_src haml
-
-= javascript_include_tag 'plugins/home', "data-turbo-eval": "false"
-- flag_data = {a: 1, be: 'two'}
-:javascript
+  = javascript_include_tag 'plugins/home', "data-turbo-eval": "false"
+  - flag_data = {a: 1, be: 'two'}
+  :javascript
 #+end_src
 
 #+begin_src javascript
