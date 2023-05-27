@@ -199,7 +199,7 @@
 (defun menu-test-popover (app window)
   (declare (ignore window))
   (let ((submenu (gio:make-menu)))
-    ;; (format t "preparing the popover options ~%")
+    ;; aaarg! changing application theme in system Setting has fixed the problem
 
     (gio:menu-append-item submenu (gio:make-menu-item :label "Opt 1" :detailed-action "app.option1"))
     (define-and-connect-action app "option1" "popover/option1")
