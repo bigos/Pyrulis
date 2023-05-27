@@ -199,7 +199,8 @@
 (defun menu-test-popover (app window)
   (declare (ignore window))
   (let ((submenu (gio:make-menu)))
-    (format t "peparing the popover options ~%")
+    ;; (format t "preparing the popover options ~%")
+
     (gio:menu-append-item submenu (gio:make-menu-item :label "Opt 1" :detailed-action "app.option1"))
     (define-and-connect-action app "option1" "popover/option1")
 
