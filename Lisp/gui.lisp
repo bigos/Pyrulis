@@ -231,7 +231,7 @@
     (gio:menu-append-item submenu (gio:make-menu-item :label "Bottom" :detailed-action "app.option1"))
     (define-and-connect-action app "option1" "popover/option-botton")
 
-    (gio:menu-append-item submenu (gio:make-menu-item :label Right"" :detailed-action "app.option2"))
+    (gio:menu-append-item submenu (gio:make-menu-item :label "Right" :detailed-action "app.option2"))
     (define-and-connect-action app "option2" "popover/option-right")
 
     submenu))
@@ -269,23 +269,33 @@
              (let ((current-button (gesture-single-current-button event)))
                (when (and (eq signal-key :pressed)
                           (eq 3 current-button))
-                 (format t "before rectangle and popover~%")
-                 (cffi:with-foreign-object (rect '(:struct gdk4:rectangle))
-                   (cffi:with-foreign-slots ((gdk::x gdk::y gdk::width gdk::height) rect (:struct gdk4:rectangle))
-                     (setf gdk::x (round (nth 1 args))
-                           gdk::y (round (nth 2 args))
-                           gdk::width (round 0)
-                           gdk::height (round 0)))
+                 (destructuring-bind (buttons x y) args
+                   (format t "before rectangle and popover ~S ~S~%" event args)
+                   (cffi:with-foreign-object (rect '(:struct gdk4:rectangle))
+                     (cffi:with-foreign-slots ((gdk::x gdk::y gdk::width gdk::height) rect (:struct gdk4:rectangle))
+                       (setf gdk::x (round x)
+                             gdk::y (round y)
+                             gdk::width (round 0)
+                             gdk::height (round 0)))
 
-                   (let ((popover (gtk4:make-popover-menu  :model (menu-test-popover app window))))
-                     (setf (gtk4:widget-parent popover) widget)
-                     (gtk4:popover-present popover)
+                     (let ((popover (gtk4:make-popover-menu  :model
+                                                             (cond
+                                                               ((and (< x 50)
+                                                                     (< y 50))
+                                                                (menu-test-popover-tl app window))
+                                                               ((and (> x 200)
+                                                                     (> y 50))
+                                                                (menu-test-popover-br app window))
+                                                               (t
+                                                                (menu-test-popover app window))))))
+                       (setf (gtk4:widget-parent popover) widget)
+                       (gtk4:popover-present popover)
 
-                     (setf
-                      (popover-pointing-to popover) (gobj:pointer-object rect 'gdk:rectangle))
+                       (setf
+                        (popover-pointing-to popover) (gobj:pointer-object rect 'gdk:rectangle))
 
-                     (format t "~%~%==============popover================~S~%~%" args)
-                     (gtk4:popover-popup popover))))
+                       (format t "~%~%==============popover================~S~%~%" args)
+                       (gtk4:popover-popup popover)))))
 
                (apply #'event-sink
                       (list :canvas
