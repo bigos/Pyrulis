@@ -317,6 +317,9 @@
         (format t "before popover creation~%")
         (let ((popover (gtk4:make-popover-menu  :model (menu-test-popover app window))))
 
+          ;; idea to make pop over menu more dynamic
+          ;; https://docs.gtk.org/gtk4/method.PopoverMenu.set_menu_model.html
+
           (setf (gtk4:widget-parent popover) canvas)
           (gtk4:popover-present popover)
 
