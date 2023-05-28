@@ -199,7 +199,7 @@
 (defun menu-test-popover (app window)
   (declare (ignore window))
   (let ((submenu (gio:make-menu)))
-    ;; aaarg! changing application theme in system Setting has fixed the problem
+    ;; (format t "preparing the popover options ~%")
 
     (gio:menu-append-item submenu (gio:make-menu-item :label "Opt 1" :detailed-action "app.option1"))
     (define-and-connect-action app "option1" "popover/option1")
@@ -272,6 +272,11 @@
     (connect-controller :window key-controller "key-pressed" :key-pressed #'translate-key-args)))
 
 (defun canvas-events (canvas popover)
+  (connect canvas "resize" (lambda (widget &rest args)
+                             (declare (ignore widget))
+                             (apply #'event-sink
+                                    (list :canvas :resize args))))`
+
   (let ((motion-controller (gtk4:make-event-controller-motion)))
     (widget-add-controller canvas motion-controller)
     (connect-controller :canvas motion-controller "motion" :motion)
@@ -286,10 +291,8 @@
     (connect-geture-click-controller :canvas gesture-click-controller "pressed"  :pressed  popover)
     (connect-geture-click-controller :canvas gesture-click-controller "released" :released popover))
 
-  (connect canvas "resize" (lambda (widget &rest args)
-                             (declare (ignore widget))
-                             (apply #'event-sink
-                                    (list :canvas :resize args)))))
+
+  )
 
 (defun add-window-menu (app window)
   (setf (gtk4:application-menubar app) (menu-test-menu app window))
@@ -316,9 +319,6 @@
                                                     (cffi:null-pointer)))
         (format t "before popover creation~%")
         (let ((popover (gtk4:make-popover-menu  :model (menu-test-popover app window))))
-
-          ;; idea to make pop over menu more dynamic
-          ;; https://docs.gtk.org/gtk4/method.PopoverMenu.set_menu_model.html
 
           (setf (gtk4:widget-parent popover) canvas)
           (gtk4:popover-present popover)
