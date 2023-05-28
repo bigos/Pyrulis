@@ -203,10 +203,39 @@
 
     (gio:menu-append-item submenu (gio:make-menu-item :label "Opt 1" :detailed-action "app.option1"))
     (define-and-connect-action app "option1" "popover/option1")
-
     (gio:menu-append-item submenu (gio:make-menu-item :label "Opt 2" :detailed-action "app.option2"))
     (define-and-connect-action app "option2" "popover/option2")
+    (gio:menu-append-item submenu (gio:make-menu-item :label "Opt 3" :detailed-action "app.option3"))
+    (define-and-connect-action app "option2" "popover/option3")
+
     submenu))
+
+(defun menu-test-popover-tl (app window)
+  (declare (ignore window))
+  (let ((submenu (gio:make-menu)))
+    ;; (format t "preparing the popover options ~%")
+
+    (gio:menu-append-item submenu (gio:make-menu-item :label "Top" :detailed-action "app.option1"))
+    (define-and-connect-action app "option1" "popover/option-top")
+
+    (gio:menu-append-item submenu (gio:make-menu-item :label "Left" :detailed-action "app.option2"))
+    (define-and-connect-action app "option2" "popover/option-left")
+
+    submenu))
+
+(defun menu-test-popover-br (app window)
+  (declare (ignore window))
+  (let ((submenu (gio:make-menu)))
+    ;; (format t "preparing the popover options ~%")
+
+    (gio:menu-append-item submenu (gio:make-menu-item :label "Bottom" :detailed-action "app.option1"))
+    (define-and-connect-action app "option1" "popover/option-botton")
+
+    (gio:menu-append-item submenu (gio:make-menu-item :label Right"" :detailed-action "app.option2"))
+    (define-and-connect-action app "option2" "popover/option-right")
+
+    submenu))
+
 
 (defun define-and-connect-action (app action-name menu-dir)
   (let ((action (gio:make-simple-action :name action-name
