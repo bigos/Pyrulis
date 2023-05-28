@@ -234,7 +234,7 @@
                           signal-key
                           (funcall args-fn args))))))
 
-(defun connect-geture-click-controller (widget controller signal-name signal-key popover &optional (args-fn #'identity))
+(defun connect-geture-click-controller (widget controller signal-name signal-key app window &optional (args-fn #'identity))
   (connect controller signal-name
            (lambda (event &rest args)
              (let ((current-button (gesture-single-current-button event)))
@@ -247,14 +247,19 @@
                            gdk::y (round (nth 2 args))
                            gdk::width (round 0)
                            gdk::height (round 0)))
-                   (setf
-                    (popover-pointing-to popover) (gobj:pointer-object rect 'gdk:rectangle)))
 
-                 (format t "~%~%==============popover================~S~%~%" args)
-                 (gtk4:popover-popup popover))
+                   (let ((popover (gtk4:make-popover-menu  :model (menu-test-popover app window))))
+                     (setf (gtk4:widget-parent popover) widget)
+                     (gtk4:popover-present popover)
+
+                     (setf
+                      (popover-pointing-to popover) (gobj:pointer-object rect 'gdk:rectangle))
+
+                     (format t "~%~%==============popover================~S~%~%" args)
+                     (gtk4:popover-popup popover))))
 
                (apply #'event-sink
-                      (list widget
+                      (list :canvas
                             signal-key
                             (funcall args-fn
                                      (cons current-button
@@ -278,19 +283,14 @@
     (connect-controller :canvas motion-controller "enter" :enter)
     (connect-controller :canvas motion-controller "leave" :leave))
 
-  (let ((popover (gtk4:make-popover-menu  :model (menu-test-popover app window))))
-    (setf (gtk4:widget-parent popover) canvas)
-    (gtk4:popover-present popover)
+  (let ((gesture-click-controller (gtk4:make-gesture-click)))
+    ;; make gesture click listen to other mouse buttons as well
+    (setf (gesture-single-button gesture-click-controller) 0)
 
+    (widget-add-controller canvas gesture-click-controller)
 
-    (let ((gesture-click-controller (gtk4:make-gesture-click)))
-      ;; make gesture click listen to other mouse buttons as well
-      (setf (gesture-single-button gesture-click-controller) 0)
-
-      (widget-add-controller canvas gesture-click-controller)
-
-      (connect-geture-click-controller :canvas gesture-click-controller "pressed"  :pressed  popover)
-      (connect-geture-click-controller :canvas gesture-click-controller "released" :released popover)))`
+    (connect-geture-click-controller canvas gesture-click-controller "pressed"  :pressed app window)
+    (connect-geture-click-controller canvas gesture-click-controller "released" :released app window))`
 
   (connect canvas "resize" (lambda (widget &rest args)
                              (declare (ignore widget))
