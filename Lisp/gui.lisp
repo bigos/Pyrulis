@@ -271,28 +271,31 @@
     (widget-add-controller window key-controller)
     (connect-controller :window key-controller "key-pressed" :key-pressed #'translate-key-args)))
 
-(defun canvas-events (canvas popover)
-  (connect canvas "resize" (lambda (widget &rest args)
-                             (declare (ignore widget))
-                             (apply #'event-sink
-                                    (list :canvas :resize args))))`
-
+(defun canvas-events (canvas app window)
   (let ((motion-controller (gtk4:make-event-controller-motion)))
     (widget-add-controller canvas motion-controller)
     (connect-controller :canvas motion-controller "motion" :motion)
     (connect-controller :canvas motion-controller "enter" :enter)
     (connect-controller :canvas motion-controller "leave" :leave))
 
-  (let ((gesture-click-controller (gtk4:make-gesture-click)))
-    ;; make gesture click listen to other mouse buttons as well
-    (setf (gesture-single-button gesture-click-controller) 0)
-
-    (widget-add-controller canvas gesture-click-controller)
-    (connect-geture-click-controller :canvas gesture-click-controller "pressed"  :pressed  popover)
-    (connect-geture-click-controller :canvas gesture-click-controller "released" :released popover))
+  (let ((popover (gtk4:make-popover-menu  :model (menu-test-popover app window))))
+    (setf (gtk4:widget-parent popover) canvas)
+    (gtk4:popover-present popover)
 
 
-  )
+    (let ((gesture-click-controller (gtk4:make-gesture-click)))
+      ;; make gesture click listen to other mouse buttons as well
+      (setf (gesture-single-button gesture-click-controller) 0)
+
+      (widget-add-controller canvas gesture-click-controller)
+
+      (connect-geture-click-controller :canvas gesture-click-controller "pressed"  :pressed  popover)
+      (connect-geture-click-controller :canvas gesture-click-controller "released" :released popover)))`
+
+  (connect canvas "resize" (lambda (widget &rest args)
+                             (declare (ignore widget))
+                             (apply #'event-sink
+                                    (list :canvas :resize args)))))
 
 (defun add-window-menu (app window)
   (setf (gtk4:application-menubar app) (menu-test-menu app window))
@@ -317,14 +320,7 @@
               (drawing-area-draw-func canvas) (list (cffi:callback %draw-func)
                                                     (cffi:null-pointer)
                                                     (cffi:null-pointer)))
-        (format t "before popover creation~%")
-        (let ((popover (gtk4:make-popover-menu  :model (menu-test-popover app window))))
-
-          (setf (gtk4:widget-parent popover) canvas)
-          (gtk4:popover-present popover)
-
-          (canvas-events canvas popover))
-
+        (canvas-events canvas app window)
         (box-append box canvas))
 
       (setf (window-child window) box))
