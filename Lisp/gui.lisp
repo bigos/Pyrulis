@@ -201,12 +201,13 @@
   (let ((submenu (gio:make-menu)))
     ;; (format t "preparing the popover options ~%")
 
-    (gio:menu-append-item submenu (gio:make-menu-item :label "Opt 1" :detailed-action "app.option1"))
-    (define-and-connect-action app "option1" "popover/option1")
-    (gio:menu-append-item submenu (gio:make-menu-item :label "Opt 2" :detailed-action "app.option2"))
-    (define-and-connect-action app "option2" "popover/option2")
-    (gio:menu-append-item submenu (gio:make-menu-item :label "Opt 3" :detailed-action "app.option3"))
-    (define-and-connect-action app "option2" "popover/option3")
+    (loop for opt from 1 to 50
+          for label = (format nil "Opt zzzzzzzzzzzzzzzz ~a" opt)
+          for option = (format nil "option~A" opt)
+          for action = (format  nil "app.~a" option)
+          do
+             (gio:menu-append-item submenu (gio:make-menu-item :label label :detailed-action action))
+             (define-and-connect-action app option (format nil "popover/~A" option)))
 
     submenu))
 
@@ -270,6 +271,7 @@
                (when (and (eq signal-key :pressed)
                           (eq 3 current-button))
                  (destructuring-bind (buttons x y) args
+                   (declare (ignore buttons))
                    (format t "before rectangle and popover ~S ~S~%" event args)
                    (cffi:with-foreign-object (rect '(:struct gdk4:rectangle))
                      (cffi:with-foreign-slots ((gdk::x gdk::y gdk::width gdk::height) rect (:struct gdk4:rectangle))
