@@ -277,6 +277,35 @@
          (b (gtk4:make-builder :string xml)))
     b))
 
+
+;;; popover ================================
+(defun show-popover (app window widget event args )
+  (destructuring-bind (buttons x y) args
+    (declare (ignore buttons))
+    (format t "before rectangle and popover ~S ~S~%" event args)
+
+    (cffi:with-foreign-object (rect '(:struct gdk4:rectangle))
+
+      (cffi:with-foreign-slots ((gdk::x
+                                 gdk::y
+                                 gdk::width
+                                 gdk::height)
+                                rect (:struct gdk4:rectangle))
+        (setf gdk::x (round x)
+              gdk::y (round y)
+              gdk::width (round 0)
+              gdk::height (round 0)))
+
+      (let ((popover (gtk4:make-popover-menu  :model
+                                              ;; callback to create popover menu
+                                              (menu-popover-model app window x y))))
+
+        (setf (gtk4:widget-parent popover) widget
+              (popover-pointing-to popover) (gobj:pointer-object rect 'gdk:rectangle))
+
+        (gtk4:popover-present popover)
+        (gtk4:popover-popup popover)))))
+
 ;;; events and gui =========================
 (defun define-and-connect-action (app action-name menu-dir)
   (let ((action (gio:make-simple-action :name action-name
@@ -308,33 +337,10 @@
   (connect controller signal-name
            (lambda (event &rest args)
              (let ((current-button (gesture-single-current-button event)))
+
                (when (and (eq signal-key :pressed)
                           (eq 3 current-button))
-                 (destructuring-bind (buttons x y) args
-                   (declare (ignore buttons))
-                   (format t "before rectangle and popover ~S ~S~%" event args)
-
-                   (cffi:with-foreign-object (rect '(:struct gdk4:rectangle))
-
-                     (cffi:with-foreign-slots ((gdk::x
-                                                gdk::y
-                                                gdk::width
-                                                gdk::height)
-                                               rect (:struct gdk4:rectangle))
-                       (setf gdk::x (round x)
-                             gdk::y (round y)
-                             gdk::width (round 0)
-                             gdk::height (round 0)))
-
-                     (let ((popover (gtk4:make-popover-menu  :model
-                                                             ;; callback to create popover menu
-                                                             (menu-popover-model app window x y))))
-
-                       (setf (gtk4:widget-parent popover) widget
-                             (popover-pointing-to popover) (gobj:pointer-object rect 'gdk:rectangle))
-
-                       (gtk4:popover-present popover)
-                       (gtk4:popover-popup popover)))))
+                 (show-popover app window widget event args))
 
                (apply #'event-sink
                       (list :canvas
