@@ -55,3 +55,11 @@ https://github.com/tree-sitter/tree-sitter/tree/master/lib/binding_rust
 
 
 https://robert.kra.hn/posts/rust-emacs-setup/
+
+
+rust-analyser
+#+begin_example
+$ git clone https://github.com/rust-analyzer/rust-analyzer.git -b release
+$ cd rust-analyzer
+$ cargo xtask install --server # will install rust-analyzer into $HOME/.cargo/bin
+#+end_example

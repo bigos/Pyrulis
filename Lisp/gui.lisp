@@ -238,6 +238,19 @@
 
     submenu))
 
+(defun menu-popover-model (app window x y)
+  (cond
+    ((and (< x 50)
+          (< y 50))
+     (menu-test-popover-tl app window))
+    ((and (> x 200)
+          (> y 50))
+     (menu-test-popover-br app window)
+                                        ; (menu-test-builder)
+     )
+    (t
+     (menu-test-popover app window))))
+
 ;;; that is a big mystery, will I solve it one day?
 ;; https://docs.gtk.org/gtk4/class.PopoverMenu.html
 (defun menu-test-builder ()
@@ -302,24 +315,20 @@
                    (format t "before rectangle and popover ~S ~S~%" event args)
 
                    (cffi:with-foreign-object (rect '(:struct gdk4:rectangle))
-                     (cffi:with-foreign-slots ((gdk::x gdk::y gdk::width gdk::height) rect (:struct gdk4:rectangle))
+
+                     (cffi:with-foreign-slots ((gdk::x
+                                                gdk::y
+                                                gdk::width
+                                                gdk::height)
+                                               rect (:struct gdk4:rectangle))
                        (setf gdk::x (round x)
                              gdk::y (round y)
                              gdk::width (round 0)
                              gdk::height (round 0)))
 
                      (let ((popover (gtk4:make-popover-menu  :model
-                                                             (cond
-                                                               ((and (< x 50)
-                                                                     (< y 50))
-                                                                (menu-test-popover-tl app window))
-                                                               ((and (> x 200)
-                                                                     (> y 50))
-                                                                (menu-test-popover-br app window)
-                                                                ;(menu-test-builder)
-                                                                )
-                                                               (t
-                                                                (menu-test-popover app window))))))
+                                                             ;; callback to create popover menu
+                                                             (menu-popover-model app window x y))))
                        (setf (gtk4:widget-parent popover) widget
                              (popover-pointing-to popover) (gobj:pointer-object rect 'gdk:rectangle))
 
