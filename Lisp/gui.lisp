@@ -238,6 +238,32 @@
 
     submenu))
 
+;;; that is a big mystery, will I solve it one day?
+;; https://docs.gtk.org/gtk4/class.PopoverMenu.html
+(defun menu-test-builder ()
+  (let* ((xml "
+<section>
+  <attribute name=\"display-hint\">horizontal-buttons</attribute>
+  <item>
+    <attribute name=\"label\">Cut</attribute>
+    <attribute name=\"action\">app.cut</attribute>
+    <attribute name=\"verb-icon\">edit-cut-symbolic</attribute>
+  </item>
+  <item>
+    <attribute name=\"label\">Copy</attribute>
+    <attribute name=\"action\">app.copy</attribute>
+    <attribute name=\"verb-icon\">edit-copy-symbolic</attribute>
+  </item>
+  <item>
+    <attribute name=\"label\">Paste</attribute>
+    <attribute name=\"action\">app.paste</attribute>
+    <attribute name=\"verb-icon\">edit-paste-symbolic</attribute>
+  </item>
+</section>
+")
+         (b (gtk4:make-builder :string xml)))
+    b))
+
 
 (defun define-and-connect-action (app action-name menu-dir)
   (let ((action (gio:make-simple-action :name action-name
@@ -289,7 +315,9 @@
                                                                 (menu-test-popover-tl app window))
                                                                ((and (> x 200)
                                                                      (> y 50))
-                                                                (menu-test-popover-br app window))
+                                                                (menu-test-popover-br app window)
+                                                                ;(menu-test-builder)
+                                                                )
                                                                (t
                                                                 (menu-test-popover app window))))))
                        (setf (gtk4:widget-parent popover) widget
