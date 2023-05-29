@@ -201,10 +201,10 @@
   (let ((submenu (gio:make-menu)))
     ;; (format t "preparing the popover options ~%")
 
-    (loop for lab in (list "Undo" "Redo" "Cut" "Copy" "Paste" "Clear" "Fill")
-          for opt = 1 then (1+ opt)
+    (loop for lab in (list "Undo" "Redo" "Cut" "Copy" "Paste" "Clear All" "Fill" (format nil "Universal Time ~a" (get-universal-time)))
+          for option-number = 1 then (1+ option-number)
           for label = lab
-          for option = (format nil "option~A" opt)
+          for option = (format nil "option~A" option-number)
           for action = (format  nil "app.~a" option)
           do
              (gio:menu-append-item submenu (gio:make-menu-item :label label :detailed-action action))
