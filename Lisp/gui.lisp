@@ -277,14 +277,14 @@
          (b (gtk4:make-builder :string xml)))
     b))
 
-
+;;; events and gui =========================
 (defun define-and-connect-action (app action-name menu-dir)
   (let ((action (gio:make-simple-action :name action-name
                                         :parameter-type nil)))
     (gio:action-map-add-action app action)
     (connect-action action "activate" (symbolize menu-dir))))
 
-;;; events and gui =========================
+
 (defun connect-action (action signal-name menu-dir)
   (connect action signal-name
            (lambda (event args)
@@ -329,6 +329,7 @@
                      (let ((popover (gtk4:make-popover-menu  :model
                                                              ;; callback to create popover menu
                                                              (menu-popover-model app window x y))))
+
                        (setf (gtk4:widget-parent popover) widget
                              (popover-pointing-to popover) (gobj:pointer-object rect 'gdk:rectangle))
 
