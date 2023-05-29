@@ -274,6 +274,7 @@
                  (destructuring-bind (buttons x y) args
                    (declare (ignore buttons))
                    (format t "before rectangle and popover ~S ~S~%" event args)
+
                    (cffi:with-foreign-object (rect '(:struct gdk4:rectangle))
                      (cffi:with-foreign-slots ((gdk::x gdk::y gdk::width gdk::height) rect (:struct gdk4:rectangle))
                        (setf gdk::x (round x)
@@ -291,13 +292,10 @@
                                                                 (menu-test-popover-br app window))
                                                                (t
                                                                 (menu-test-popover app window))))))
-                       (setf (gtk4:widget-parent popover) widget)
+                       (setf (gtk4:widget-parent popover) widget
+                             (popover-pointing-to popover) (gobj:pointer-object rect 'gdk:rectangle))
+
                        (gtk4:popover-present popover)
-
-                       (setf
-                        (popover-pointing-to popover) (gobj:pointer-object rect 'gdk:rectangle))
-
-                       (format t "~%~%==============popover================~S~%~%" args)
                        (gtk4:popover-popup popover)))))
 
                (apply #'event-sink
