@@ -178,6 +178,11 @@
           (about-dialog-logo-icon-name dialog) "application-x-addon")
     (values dialog)))
 
+(defun menu-test-item (app parent submenu label action menu-dir)
+  (let ((detailed-action (format nil "app.~A" action)))
+    (gio:menu-append-item submenu (gio:make-menu-item :model parent :label label :detailed-action detailed-action))
+    (define-and-connect-action app action menu-dir)))
+
 (defun menu-test-menu (app window)
   (declare (ignore window))
   (let ((menu (gio:make-menu)))
@@ -201,7 +206,9 @@
   (let ((submenu (gio:make-menu)))
     ;; (format t "preparing the popover options ~%")
 
-    (loop for lab in (list "Undo" "Redo" "Cut" "Copy" "Paste" "Clear All" "Fill" (format nil "Universal Time ~a" (get-universal-time)))
+    (loop for lab in (list
+                      "Undo" "Redo" "Cut" "Copy" "Paste" "Clear All"
+                      "Fill" (format nil "Universal Time ~a" (get-universal-time)))
           for option-number = 1 then (1+ option-number)
           for label = lab
           for option = (format nil "option~A" option-number)
@@ -245,7 +252,7 @@
      (menu-test-popover-tl app window))
     ((and (> x 200)
           (> y 50))
-     (menu-test-popover-br app window)
+     (menu-test-menu app window)
                                         ; (menu-test-builder)
      )
     (t
