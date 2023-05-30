@@ -178,9 +178,9 @@
           (about-dialog-logo-icon-name dialog) "application-x-addon")
     (values dialog)))
 
-(defun menu-test-item (app parent submenu label action menu-dir)
+(defun menu-test-item (app topmenu submenu label action menu-dir)
   (let ((detailed-action (format nil "app.~A" action)))
-    (gio:menu-append-item submenu (gio:make-menu-item :model parent :label label :detailed-action detailed-action))
+    (gio:menu-append-item submenu (gio:make-menu-item :model topmenu :label label :detailed-action detailed-action))
     (define-and-connect-action app action menu-dir)))
 
 (defun menu-test-menu (app window)
@@ -197,8 +197,9 @@
     (let ((submenu (gio:make-menu)))
       (gio:menu-append-submenu menu "Help" submenu)
 
-      (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "About" :detailed-action "app.about"))
-      (define-and-connect-action app "about" "help/about"))
+      ;; (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "About" :detailed-action "app.about"))
+      ;; (define-and-connect-action app "about" "help/about")
+      (menu-test-item app menu submenu "About" "about" "help/about"))
     menu))
 
 (defun menu-test-popover (app window)
