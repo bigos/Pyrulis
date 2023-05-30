@@ -189,11 +189,14 @@
     (let ((submenu (gio:make-menu)))
       (gio:menu-append-submenu menu "File" submenu)
 
-      (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Open" :detailed-action "app.open"))
-      (define-and-connect-action app "open" "file/open")
+      ;; (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Open" :detailed-action "app.open"))
+      ;; (define-and-connect-action app "open" "file/open")
+      (menu-test-item app menu submenu "Open" "open" "file/open")
+      ;; (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Exit" :detailed-action "app.exit"))
+      ;; (define-and-connect-action app "exit" "file/exit")
 
-      (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Exit" :detailed-action "app.exit"))
-      (define-and-connect-action app "exit" "file/exit"))
+      (menu-test-item app menu submenu "Exit" "exit" "file/exit"))
+
     (let ((submenu (gio:make-menu)))
       (gio:menu-append-submenu menu "Help" submenu)
 
