@@ -189,19 +189,12 @@
     (let ((submenu (gio:make-menu)))
       (gio:menu-append-submenu menu "File" submenu)
 
-      ;; (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Open" :detailed-action "app.open"))
-      ;; (define-and-connect-action app "open" "file/open")
       (menu-test-item app menu submenu "Open" "open" "file/open")
-      ;; (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Exit" :detailed-action "app.exit"))
-      ;; (define-and-connect-action app "exit" "file/exit")
-
       (menu-test-item app menu submenu "Exit" "exit" "file/exit"))
 
     (let ((submenu (gio:make-menu)))
       (gio:menu-append-submenu menu "Help" submenu)
 
-      ;; (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "About" :detailed-action "app.about"))
-      ;; (define-and-connect-action app "about" "help/about")
       (menu-test-item app menu submenu "About" "about" "help/about"))
     menu))
 
@@ -216,10 +209,8 @@
           for option-number = 1 then (1+ option-number)
           for label = lab
           for option = (format nil "option~A" option-number)
-          for action = (format  nil "app.~a" option)
           do
-             (gio:menu-append-item submenu (gio:make-menu-item :label label :detailed-action action))
-             (define-and-connect-action app option (format nil "popover/~A" lab)))
+             (menu-test-item app nil submenu label option (format nil "popover/~A" lab)))
 
     submenu))
 
@@ -228,11 +219,15 @@
   (let ((submenu (gio:make-menu)))
     ;; (format t "preparing the popover options ~%")
 
-    (gio:menu-append-item submenu (gio:make-menu-item :label "Top" :detailed-action "app.option1"))
-    (define-and-connect-action app "option1" "popover/option-top")
+    (menu-test-item app nil submenu "Top" "option-top" (format nil "popover/~a" "option-top"))
+    (let ((submenu1 (gio:make-menu)))
+      (gio:menu-append-submenu submenu "Horizontal" submenu1)
 
-    (gio:menu-append-item submenu (gio:make-menu-item :label "Left" :detailed-action "app.option2"))
-    (define-and-connect-action app "option2" "popover/option-left")
+      (menu-test-item app submenu submenu1 "Left" "option-left" (format nil "popover/~a" "option-left"))
+      (menu-test-item app submenu submenu1 "Middle" "option-middle" (format nil "popover/~a" "option-middle"))
+      (menu-test-item app submenu submenu1 "Right" "option-right" (format nil "popover/~a" "option-right"))
+      )
+    (menu-test-item app nil submenu "Below" "option-below" (format nil "popover/~a" "option-below"))
 
     submenu))
 
@@ -241,11 +236,8 @@
   (let ((submenu (gio:make-menu)))
     ;; (format t "preparing the popover options ~%")
 
-    (gio:menu-append-item submenu (gio:make-menu-item :label "Bottom" :detailed-action "app.option1"))
-    (define-and-connect-action app "option1" "popover/option-botton")
-
-    (gio:menu-append-item submenu (gio:make-menu-item :label "Right" :detailed-action "app.option2"))
-    (define-and-connect-action app "option2" "popover/option-right")
+    (menu-test-item app nil submenu "Bottom" "option-bottom" (format nil "popover/~a" "option-bottom"))
+    (menu-test-item app nil submenu "Right" "option-right" (format nil "popover/~a" "option-right"))
 
     submenu))
 
