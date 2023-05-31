@@ -211,60 +211,10 @@
           for option = (format nil "option~A" option-number)
           do
              (menu-test-item app nil submenu label option (format nil "popover/~A" lab)))
-
-    submenu))
-
-(defun menu-test-popover-tl (app window)
-  (declare (ignore window))
-  (let ((submenu (gio:make-menu)))
-    ;; (format t "preparing the popover options ~%")
-
-    (menu-test-item app nil submenu "Top" "option-top" (format nil "popover/~a" "option-top"))
-    (let ((submenu1 (gio:make-menu)))
-      (gio:menu-append-submenu submenu "Horizontal" submenu1)
-
-      (menu-test-item app submenu submenu1 "Left" "option-left" (format nil "popover/~a" "option-left"))
-      (menu-test-item app submenu submenu1 "Middle" "option-middle" (format nil "popover/~a" "option-middle"))
-      (menu-test-item app submenu submenu1 "Right" "option-right" (format nil "popover/~a" "option-right")))
-
-    (let ((section1 (gio:make-menu)))
-      (gio:menu-append-section submenu "Brightness" section1)
-
-      (menu-test-item app submenu section1 "Bright" "option-bright" (format nil "popover/~a" "option-bright"))
-      (menu-test-item app submenu section1 "Medium" "option-medium" (format nil "popover/~a" "option-medium"))
-      (menu-test-item app submenu section1 "Dark" "option-dark" (format nil "popover/~a" "option-dark")))
-
-    (let ((section1 (gio:make-menu)))
-      (gio:menu-append-section submenu nil section1)
-
-      (menu-test-item app submenu section1 "Red" "option-red" (format nil "popover/~a" "option-red"))
-      (menu-test-item app submenu section1 "Green" "option-green" (format nil "popover/~a" "option-green"))
-      (menu-test-item app submenu section1 "Blue" "option-blue" (format nil "popover/~a" "option-blue")))
-
-    (menu-test-item app nil submenu "Below" "option-below" (format nil "popover/~a" "option-below"))
-
-    submenu))
-
-(defun menu-test-popover-br (app window)
-  (declare (ignore window))
-  (let ((submenu (gio:make-menu)))
-    ;; (format t "preparing the popover options ~%")
-
-    (menu-test-item app nil submenu "Bottom" "option-bottom" (format nil "popover/~a" "option-bottom"))
-    (menu-test-item app nil submenu "Right" "option-right" (format nil "popover/~a" "option-right"))
-
     submenu))
 
 (defun menu-popover-model (app window x y)
   (cond
-    ((and (< x 50)
-          (< y 50))
-     (menu-test-popover-tl app window))
-    ((and (> x 200)
-          (> y 50))
-     (menu-test-menu app window)
-                                        ; (menu-test-builder)
-     )
     (t
      (menu-test-popover app window))))
 
