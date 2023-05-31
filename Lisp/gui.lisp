@@ -226,33 +226,6 @@
     (t
      (menu-test-popover app))))
 
-;;; that is a big mystery, will I solve it one day?
-;; https://docs.gtk.org/gtk4/class.PopoverMenu.html
-(defun menu-test-builder ()
-  (let* ((xml "
-<section>
-  <attribute name=\"display-hint\">horizontal-buttons</attribute>
-  <item>
-    <attribute name=\"label\">Cut</attribute>
-    <attribute name=\"action\">app.cut</attribute>
-    <attribute name=\"verb-icon\">edit-cut-symbolic</attribute>
-  </item>
-  <item>
-    <attribute name=\"label\">Copy</attribute>
-    <attribute name=\"action\">app.copy</attribute>
-    <attribute name=\"verb-icon\">edit-copy-symbolic</attribute>
-  </item>
-  <item>
-    <attribute name=\"label\">Paste</attribute>
-    <attribute name=\"action\">app.paste</attribute>
-    <attribute name=\"verb-icon\">edit-paste-symbolic</attribute>
-  </item>
-</section>
-")
-         (b (gtk4:make-builder :string xml)))
-    b))
-
-
 ;;; popover ================================
 (defun show-popover (app window widget event args )
   (destructuring-bind (buttons x y) args
@@ -271,12 +244,9 @@
               gdk::width (round 0)
               gdk::height (round 0)))
 
-      (let ((popover (gtk4:make-popover-menu  :model
-                                              ;; callback to create popover menu
-                                              (menu-popover-model app window x y)
-                                              ;; :flags
-                                              ;; gtk4:+popover-menu-flags-nested+
-                                              )))
+      (let ((popover (gtk4:make-popover-menu
+                      :model
+                      (menu-popover-model app window x y))))
 
         (setf (gtk4:widget-parent popover) widget
               (popover-pointing-to popover) (gobj:pointer-object rect 'gdk:rectangle))
