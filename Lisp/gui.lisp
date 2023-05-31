@@ -301,7 +301,9 @@
 
       (let ((popover (gtk4:make-popover-menu  :model
                                               ;; callback to create popover menu
-                                              (menu-popover-model app window x y))))
+                                              (menu-popover-model app window x y)
+                                              :flags
+                                              gtk4:+popover-menu-flags-nested+)))
 
         (setf (gtk4:widget-parent popover) widget
               (popover-pointing-to popover) (gobj:pointer-object rect 'gdk:rectangle))
