@@ -179,11 +179,12 @@
     (values dialog)))
 
 (defun menu-test-item (app topmenu submenu label action menu-dir)
-  (if action
-      (let ((detailed-action (format nil "app.~A" action)))
-        (gio:menu-append-item submenu (gio:make-menu-item :model topmenu :label label :detailed-action detailed-action))
-        (define-and-connect-action app action menu-dir))
-      (gio:menu-append-item submenu (gio:make-menu-item :model topmenu :label (format nil "~A" label) :detailed-action "action-disabled"))  ))
+  (let ((detailed-action (format nil "app.~A" action)))
+    (gio:menu-append-item submenu (gio:make-menu-item :model topmenu :label label :detailed-action detailed-action))
+    (define-and-connect-action app action menu-dir)))
+
+(defun menu-test-item-disabled (submenu label)
+    (gio:menu-append-item submenu (gio:make-menu-item :model nil :label (format nil "~A" label) :detailed-action "action-disabled")))
 
 (defun menu-test-menu (app window)
   (declare (ignore window))
@@ -206,15 +207,16 @@
     ;; (format t "preparing the popover options ~%")
 
     (loop for lab in (list
-                      "Undo" "Redo" nil "Cut" "Copy" "Paste" "Clear All"
-                      "Fill" (format nil "Universal Time ~a" (get-universal-time)))
+                      "Undo" "Redo" "-Copying-" "Cut" "Copy" "Paste" "-" "Clear All"
+                      "Fill" "-" (format nil "Universal Time ~a" (get-universal-time)))
           for option-number = 1 then (1+ option-number)
           for label = lab
           for option = (format nil "option~A" option-number)
+          for disabled = (alexandria:starts-with #\- label)
           do
-             (menu-test-item app nil submenu label
-                             (when label  option)
-                             (format nil "popover/~A" lab)))
+             (if disabled
+                 (menu-test-item-disabled submenu label)
+                 (menu-test-item app nil submenu label option (format nil "popover/~A" lab))))
     submenu))
 
 (defun menu-popover-model (app window x y)
