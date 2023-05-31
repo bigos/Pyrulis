@@ -77,7 +77,8 @@
                      (safety 0)))
   (let ((w (coerce (the (signed-byte 32) width)  'single-float))
         (h (coerce (the (signed-byte 32) height) 'single-float))
-        (fpi (coerce pi 'single-float)))
+        ;; (fpi (coerce pi 'single-float))
+        )
 
     (cairo:move-to 0.0 0.0)
     (cairo:line-to w h)
@@ -119,7 +120,7 @@
 (defmethod event-sink ((widget (eql :canvas)) (signal-name (eql :pressed)) args)
   (format t "mouse key pressed ~S~%" args)
   (destructuring-bind (button count x y) args
-    (declare (ignore count))
+    (declare (ignore count x y))
     (case button
       (3 (progn
            (format t "right click~%")
@@ -201,8 +202,8 @@
       (menu-test-item app menu submenu "About" "about" "help/about"))
     menu))
 
-(defun menu-test-popover (app window)
-  (declare (ignore window))
+(defun menu-test-popover (app)
+
   (let ((submenu (gio:make-menu)))
     ;; (format t "preparing the popover options ~%")
 
@@ -220,9 +221,10 @@
     submenu))
 
 (defun menu-popover-model (app window x y)
+  (declare (ignore window x y))
   (cond
     (t
-     (menu-test-popover app window))))
+     (menu-test-popover app))))
 
 ;;; that is a big mystery, will I solve it one day?
 ;; https://docs.gtk.org/gtk4/class.PopoverMenu.html
