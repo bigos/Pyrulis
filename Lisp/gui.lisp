@@ -225,8 +225,22 @@
 
       (menu-test-item app submenu submenu1 "Left" "option-left" (format nil "popover/~a" "option-left"))
       (menu-test-item app submenu submenu1 "Middle" "option-middle" (format nil "popover/~a" "option-middle"))
-      (menu-test-item app submenu submenu1 "Right" "option-right" (format nil "popover/~a" "option-right"))
-      )
+      (menu-test-item app submenu submenu1 "Right" "option-right" (format nil "popover/~a" "option-right")))
+
+    (let ((section1 (gio:make-menu)))
+      (gio:menu-append-section submenu "Brightness" section1)
+
+      (menu-test-item app submenu section1 "Bright" "option-bright" (format nil "popover/~a" "option-bright"))
+      (menu-test-item app submenu section1 "Medium" "option-medium" (format nil "popover/~a" "option-medium"))
+      (menu-test-item app submenu section1 "Dark" "option-dark" (format nil "popover/~a" "option-dark")))
+
+    (let ((section1 (gio:make-menu)))
+      (gio:menu-append-section submenu nil section1)
+
+      (menu-test-item app submenu section1 "Red" "option-red" (format nil "popover/~a" "option-red"))
+      (menu-test-item app submenu section1 "Green" "option-green" (format nil "popover/~a" "option-green"))
+      (menu-test-item app submenu section1 "Blue" "option-blue" (format nil "popover/~a" "option-blue")))
+
     (menu-test-item app nil submenu "Below" "option-below" (format nil "popover/~a" "option-below"))
 
     submenu))
@@ -302,8 +316,9 @@
       (let ((popover (gtk4:make-popover-menu  :model
                                               ;; callback to create popover menu
                                               (menu-popover-model app window x y)
-                                              :flags
-                                              gtk4:+popover-menu-flags-nested+)))
+                                              ;; :flags
+                                              ;; gtk4:+popover-menu-flags-nested+
+                                              )))
 
         (setf (gtk4:widget-parent popover) widget
               (popover-pointing-to popover) (gobj:pointer-object rect 'gdk:rectangle))
