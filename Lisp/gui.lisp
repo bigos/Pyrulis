@@ -179,14 +179,6 @@
           (about-dialog-logo-icon-name dialog) "application-x-addon")
     (values dialog)))
 
-(defun menu-test-item (app topmenu submenu label action menu-dir)
-  (let ((detailed-action (format nil "app.~A" action)))
-    (gio:menu-append-item submenu (gio:make-menu-item :model topmenu :label label :detailed-action detailed-action))
-    (define-and-connect-action app action menu-dir)))
-
-(defun menu-test-item-disabled (submenu label)
-    (gio:menu-append-item submenu (gio:make-menu-item :model nil :label (format nil "~A" label) :detailed-action "action-disabled")))
-
 (defun menu-test-menu (app window)
   (declare (ignore window))
   (let ((menu (gio:make-menu)))
@@ -201,6 +193,15 @@
 
       (menu-test-item app menu submenu "About" "about" "help/about"))
     menu))
+
+;;; popover ================================
+(defun menu-test-item (app topmenu submenu label action menu-dir)
+  (let ((detailed-action (format nil "app.~A" action)))
+    (gio:menu-append-item submenu (gio:make-menu-item :model topmenu :label label :detailed-action detailed-action))
+    (define-and-connect-action app action menu-dir)))
+
+(defun menu-test-item-disabled (submenu label)
+  (gio:menu-append-item submenu (gio:make-menu-item :model nil :label (format nil "~A" label) :detailed-action "action-disabled")))
 
 (defun menu-test-popover (app)
 
@@ -226,7 +227,6 @@
     (t
      (menu-test-popover app))))
 
-;;; popover ================================
 (defun show-popover (app window widget event args )
   (destructuring-bind (buttons x y) args
     (declare (ignore buttons))
@@ -262,7 +262,6 @@
                              (gio:make-simple-action :name action-name
                                                      :parameter-type nil))
   (connect-action action "activate" (symbolize menu-dir)))
-
 
 (defun connect-action (action signal-name menu-dir)
   (connect action signal-name
