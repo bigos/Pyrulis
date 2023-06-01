@@ -258,10 +258,10 @@
 (defun define-and-connect-action (app action-name menu-dir)
   ;; if the old action-name exists it will be dropped
   ;; https://docs.gtk.org/gio/method.ActionMap.add_action.html
-  (gio:action-map-add-action app
-                             (gio:make-simple-action :name action-name
-                                                     :parameter-type nil))
-  (connect-action action "activate" (symbolize menu-dir)))
+  (let ((action (gio:make-simple-action :name action-name
+                                        :parameter-type nil)))
+    (gio:action-map-add-action app action)
+    (connect-action action "activate" (symbolize menu-dir))))
 
 (defun connect-action (action signal-name menu-dir)
   (connect action signal-name
