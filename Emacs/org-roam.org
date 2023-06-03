@@ -1,0 +1,31 @@
+* Org roam
+
+** Zettelkasten links
+
+
+*** description of physical method
+https://www.lesswrong.com/posts/NfdHG6oHBJ8Qxc26s/the-zettelkasten-method-1
+
+*** not zettelkasten but apparently cool idea
+https://users.speakeasy.net/~lion/nb/html/
+
+*** Practical introduction to zettelkasten workflow
+https://medium.com/@fairylights_io/the-zettelkasten-method-examples-to-help-you-get-started-8f8a44fa9ae6
+that introduces two additional types of notes
+
+in more detail describes differences between different types of notes
+
+strategies for connecting notes
+
+
+** Org roam
+https://github.com/org-roam/org-roam
+
+*** manual
+https://www.orgroam.com/manual.html
+
+*** tutorial
+https://systemcrafters.net/build-a-second-brain-in-emacs/getting-started-with-org-roam/
+
+** another discussion of steps leading from ideas to permanent notes
+https://www.youtube.com/watch?v=yqKspwjXu18
