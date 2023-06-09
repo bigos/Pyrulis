@@ -16,3 +16,12 @@
 
 ** Learning
 file:~/Programming/Pyrulis/Org-mode/learning-org-mode.org::1
+
+
+** Radio stations
+￼
+https://www.radio.net/language/maltese
+
+https://onlineradiobox.com/mt/
+
+https://en.wikipedia.org/wiki/List_of_radio_stations_in_Malta
