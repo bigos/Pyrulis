@@ -46,3 +46,11 @@ https://cloud.digitalocean.com
 
 ***** server
 apache or nginx
+
+** Radio stations
+￼
+https://www.radio.net/language/maltese
+
+https://onlineradiobox.com/mt/
+
+https://en.wikipedia.org/wiki/List_of_radio_stations_in_Malta
