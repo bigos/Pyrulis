@@ -16,3 +16,33 @@
 
 ** Learning
 file:~/Programming/Pyrulis/Org-mode/learning-org-mode.org::1
+
+** Digital ocean
+https://cloud.digitalocean.com
+
+*** droplets
+
+**** 4 dollars a month
+512 MB
+1 CPU
+10GB SSD
+
+**** 6 dollars a month
+1 GB
+1 CPU
+25GB SSD
+
+*** install everything
+
+**** additional user
+
+**** rbenv
+
+**** npm
+
+**** yarn
+
+**** deployment
+
+***** server
+apache or nginx
