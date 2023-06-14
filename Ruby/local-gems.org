@@ -7,13 +7,13 @@ be an option.
 
 #+begin_example
 touch ~/.gemrc
-nano ~/.gemrc
+echo "gem: --user-install --no-document" >> ~/.gemrc
 #+end_example
 
-add content
+** ruby -dev
 
 #+begin_example
-gem: --user-install --no-document
+sudo apt install build-essential ruby-dev
 #+end_example
 
 ** bashrc
