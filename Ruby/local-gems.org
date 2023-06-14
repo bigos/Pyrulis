@@ -1,24 +1,18 @@
 * Local gems
 
-When I use system ruby with rbenv, for some reaons it insists on /usr/gemsets.
+I need to use Ruby in a severely constrained VM where rbenv may *NOT* be the
+best option.
 
-I need to use Ruby in a severely constrained VM where rbenv may be the best
-option but without ruby-build.
-
-that runs into a problem with compiling ruby
-
-https://github.com/rbenv/rbenv/wiki/Plugins
-
-** ruby -dev
+This is not the best option permission wise.
 
 #+begin_example
-sudo apt install build-essential ruby-dev
+sudo apt install ruby-dev
+sudo chmod -R 777 /var/lib/gems/3.0.0
+sudo chmod -R 777 /usr/local/bin
+sudo apt install make
+sudo apt install build-essential
+gem install rails
 #+end_example
-
-** rbenv
-https://github.com/rbenv/rbenv#basic-git-checkout
-
-
 
 ** network
 
