@@ -22,6 +22,33 @@ https://guides.rubygems.org/command-reference/#gem-environment
 gem environment
 #+end_example
 
+documentation
+https://docs.ruby-lang.org/en/3.0/Gem/ConfigFile.html
+
+*** config
+
+#+begin_example
+cat ~/.gemrc
+#+end_example
+
+gives the correct config
+
+#+begin_example
+---
+gem: --no-rdoc --user-install
+#+end_example
+
+
+*** installation
+
+#+begin_example
+touch ~/.gemrc
+gem environment
+nano ~/.gemrc
+sudo apt install build-essential ruby-dev
+echo 'export PATH="$PATH:$HOME/.local/share/gem/ruby/3.0.0/bin"' >> ~/.bashrc
+source ~/.bashrc
+#+end_example
 
 ** network
 
