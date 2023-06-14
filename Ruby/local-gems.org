@@ -14,6 +14,15 @@ sudo apt install build-essential
 gem install rails
 #+end_example
 
+** environment
+
+https://guides.rubygems.org/command-reference/#gem-environment
+
+#+begin_example
+gem environment
+#+end_example
+
+
 ** network
 
 $ cat ~/bin/host_network
