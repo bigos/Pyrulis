@@ -50,6 +50,27 @@ echo 'export PATH="$PATH:$HOME/.local/share/gem/ruby/3.0.0/bin"' >> ~/.bashrc
 source ~/.bashrc
 #+end_example
 
+*** still fails
+
+#+begin_example
+Using rake 13.0.6
+Following files may not be writable, so sudo is needed:
+  /usr/local/bin
+  /var/lib/gems/3.0.0
+Using concurrent-ruby 1.2.2
+Using i18n 1.14.1
+Fetching minitest 5.18.0
+
+
+Your user account isn't allowed to install to the system RubyGems.
+  You can cancel this installation and run:
+
+      bundle config set --local path 'vendor/bundle'
+      bundle install
+#+end_example
+
+When I follow the above suggestion the installation completes successfully.
+
 ** network
 
 $ cat ~/bin/host_network
