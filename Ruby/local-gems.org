@@ -1,0 +1,29 @@
+* Local gems
+
+Installing gems as a local user on severely constrained VM where rbenv may not
+be an option.
+
+** .gemrc
+
+#+begin_example
+touch ~/.gemrc
+nano ~/.gemrc
+#+end_example
+
+add content
+
+#+begin_example
+gem: --user-install --no-document
+#+end_example
+
+** bashrc
+
+trying to install gem will come with warning:
+#+begin_example
+WARNING:  You don't have /home/qattus/.local/share/gem/ruby/3.0.0/bin in your PATH,
+#+end_example
+
+so add the following to .bashrc
+#+begin_example
+export PATH="$PATH:$HOME/.local/share/gem/ruby/3.0.0/bin"
+#+end_example
