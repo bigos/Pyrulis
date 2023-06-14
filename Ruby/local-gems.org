@@ -27,3 +27,29 @@ so add the following to .bashrc
 #+begin_example
 export PATH="$PATH:$HOME/.local/share/gem/ruby/3.0.0/bin"
 #+end_example
+
+** netplan
+
+$ cat /etc/netplan/00-installer-config.yaml
+
+#+begin_example
+# This is the network config written by 'subiquity'
+network:
+  ethernets:
+    enp0s3:
+      dhcp4: true
+    enps0s8:
+      dhcp4: true
+  version: 2
+#+end_example
+
+$ cat ~/bin/host_network
+
+#+begin_example
+#!/usr/bin/bash
+
+sudo dhclient enp0s8
+echo "connection established"
+
+ip a | grep -A 5 enp0s8
+#+end_example
