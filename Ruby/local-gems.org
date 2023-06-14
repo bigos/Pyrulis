@@ -1,14 +1,13 @@
 * Local gems
 
-Installing gems as a local user on severely constrained VM where rbenv may not
-be an option.
+When I use system ruby with rbenv, for some reaons it insists on /usr/gemsets.
 
-** .gemrc
+I need to use Ruby in a severely constrained VM where rbenv may be the best
+option but without ruby-build.
 
-#+begin_example
-touch ~/.gemrc
-echo "gem: --user-install --no-document" >> ~/.gemrc
-#+end_example
+that runs into a problem with compiling ruby
+
+https://github.com/rbenv/rbenv/wiki/Plugins
 
 ** ruby -dev
 
@@ -16,32 +15,12 @@ echo "gem: --user-install --no-document" >> ~/.gemrc
 sudo apt install build-essential ruby-dev
 #+end_example
 
-** bashrc
+** rbenv
+https://github.com/rbenv/rbenv#basic-git-checkout
 
-trying to install gem will come with warning:
-#+begin_example
-WARNING:  You don't have /home/qattus/.local/share/gem/ruby/3.0.0/bin in your PATH,
-#+end_example
 
-so add the following to .bashrc
-#+begin_example
-export PATH="$PATH:$HOME/.local/share/gem/ruby/3.0.0/bin"
-#+end_example
 
-** netplan
-
-$ cat /etc/netplan/00-installer-config.yaml
-
-#+begin_example
-# This is the network config written by 'subiquity'
-network:
-  ethernets:
-    enp0s3:
-      dhcp4: true
-    enps0s8:
-      dhcp4: true
-  version: 2
-#+end_example
+** network
 
 $ cat ~/bin/host_network
 
