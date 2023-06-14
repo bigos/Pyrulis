@@ -82,3 +82,6 @@ not try to finish rails app installation
 #+begin_example
 bundle install
 #+end_example
+
+rails app works
+http://1.2.3.4:3000
