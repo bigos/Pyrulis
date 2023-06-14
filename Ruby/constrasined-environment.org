@@ -1,0 +1,84 @@
+* Constrained environment
+
+login as root
+
+add user, add him to sudoers and change user
+#+begin_example
+adduser qattus
+adduser qattus sudo
+su qattus
+#+end_example
+
+show network address
+#+begin_example
+ip a | grep eth0
+#+end_example
+
+log in
+#+begin_example
+ssh qattus@1.2.3.4
+#+end_example
+
+edit gemrc file with command ~nano ~/.gemrc~ to show the following
+#+begin_example
+---
+gem: --no-rdoc --user-install
+#+end_example
+
+install ruby, verify it, add PATH and refresh
+#+begin_example
+sudo apt install ruby-dev build-essential
+gem environment
+echo 'export PATH="$PATH:$HOME/.local/share/gem/ruby/3.0.0/bin"' >> ~/.bashrc
+source ~/.bashrc
+#+end_example
+
+install minimal rails find permissions problem
+#+begin_example
+mkdir -p apps/rails/quattus
+cd apps/rails/
+gem install rails
+rails new qattus -d sqlite3 -J --minimal
+#+end_example
+
+Ctrl-C when you see the message about permissions
+#+begin_quote
+Your user account isn't allowed to install to the system RubyGems.
+  You can cancel this installation and run:
+
+      bundle config set --local path 'vendor/bundle'
+      bundle install
+#+end_quote
+
+fix the problem
+#+begin_example
+cd ./qattus
+gem install bundler
+bundle config set --local path 'vendor/bundle'
+bundle install
+#+end_example
+
+That will fail with ~Killed~ because we run out of memory.
+
+https://www.digitalocean.com/community/tutorials/how-to-add-swap-space-on-ubuntu-20-04
+
+add swapfile
+#+begin_example
+sudo fallocate -l 1G /swapfile
+ls -lh /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+sudo swapon --show
+#+end_example
+
+make it permanent
+#+begin_example
+sudo cp /etc/fstab /etc/fstab.bak
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+#+end_example
+
+not try to finish rails app installation
+#+begin_example
+bundle install
+#+end_example
