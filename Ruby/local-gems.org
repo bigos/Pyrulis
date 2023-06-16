@@ -106,5 +106,5 @@ EDITOR="nano" bin/rails credentials:edit
 RAILS_ENV=production rails assets:precompile
 
 RAILS_ENV=production rails db:migrate
-RAILS_ENV=production rails s -b 0.0.0.0 -p 3001
+RAILS_SERVE_STATIC_FILES=true RAILS_ENV=production rails s -b 0.0.0.0 -p 3001
 #+end_example
