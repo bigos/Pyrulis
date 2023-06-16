@@ -91,3 +91,13 @@ sudo apt install ruby-dev build-essential
 sudo apt install libyaml-dev
 sudo apt install libssl-dev libffi-dev libreadline-dev
 rbenv install --verbose 3.2.2
+
+RAILS_ENV=production bundle install
+
+rm ./config/credentials.yml.enc
+RAILS_ENV=production rails credentials:edit
+EDITOR="nano" bin/rails credentials:edit
+RAILS_ENV=production rails assets:precompile
+
+RAILS_ENV=production rails db:migrate
+RAILS_ENV=production rails s -b 0.0.0.0 -p 3001
