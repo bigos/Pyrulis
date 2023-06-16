@@ -25,6 +25,8 @@ gem environment
 documentation
 https://docs.ruby-lang.org/en/3.0/Gem/ConfigFile.html
 
+https://www.jedi.be/blog/2009/04/29/gem_home-and-gem_path-with-passenger/
+
 *** config
 
 #+begin_example
