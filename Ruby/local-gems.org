@@ -85,3 +85,9 @@ echo "connection established"
 
 ip a | grep -A 5 enp0s8
 #+end_example
+
+** installing rbenv
+sudo apt install ruby-dev build-essential
+sudo apt install libyaml-dev
+sudo apt install libssl-dev
+rbenv install --verbose 3.2.2
