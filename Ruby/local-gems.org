@@ -87,11 +87,14 @@ ip a | grep -A 5 enp0s8
 #+end_example
 
 ** installing rbenv
+#+begin_example
 sudo apt install ruby-dev build-essential
 sudo apt install libyaml-dev
 sudo apt install libssl-dev libffi-dev libreadline-dev
 rbenv install --verbose 3.2.2
+#+end_example
 
+#+begin_example
 RAILS_ENV=production bundle install
 
 rm ./config/credentials.yml.enc
@@ -101,3 +104,4 @@ RAILS_ENV=production rails assets:precompile
 
 RAILS_ENV=production rails db:migrate
 RAILS_ENV=production rails s -b 0.0.0.0 -p 3001
+#+end_example
