@@ -91,6 +91,9 @@ ip a | grep -A 5 enp0s8
 sudo apt install ruby-dev build-essential
 sudo apt install libyaml-dev
 sudo apt install libssl-dev libffi-dev libreadline-dev
+
+curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash
+
 rbenv install --verbose 3.2.2
 #+end_example
 
