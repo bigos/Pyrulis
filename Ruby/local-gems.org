@@ -90,7 +90,7 @@ ip a | grep -A 5 enp0s8
 #+begin_example
 sudo apt install ruby-dev build-essential
 sudo apt install libyaml-dev
-sudo apt install libssl-dev libffi-dev libreadline-dev
+sudo apt install libssl-dev libffi-dev libreadline-dev zlib1g-dev
 
 curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash
 
