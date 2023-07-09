@@ -77,7 +77,8 @@
                      (safety 0)))
   (let ((w (coerce (the (signed-byte 32) width)  'single-float))
         (h (coerce (the (signed-byte 32) height) 'single-float))
-        (fpi (coerce pi 'single-float)))
+        ;; (fpi (coerce pi 'single-float))
+        )
 
     (cairo:move-to 0.0 0.0)
     (cairo:line-to w h)
@@ -119,7 +120,7 @@
 (defmethod event-sink ((widget (eql :canvas)) (signal-name (eql :pressed)) args)
   (format t "mouse key pressed ~S~%" args)
   (destructuring-bind (button count x y) args
-    (declare (ignore count))
+    (declare (ignore count x y))
     (case button
       (3 (progn
            (format t "right click~%")
@@ -178,118 +179,54 @@
           (about-dialog-logo-icon-name dialog) "application-x-addon")
     (values dialog)))
 
-(defun menu-test-item (app topmenu submenu label action menu-dir)
-  (let ((detailed-action (format nil "app.~A" action)))
-    (gio:menu-append-item submenu (gio:make-menu-item :model topmenu :label label :detailed-action detailed-action))
-    (define-and-connect-action app action menu-dir)))
-
 (defun menu-test-menu (app window)
   (declare (ignore window))
   (let ((menu (gio:make-menu)))
     (let ((submenu (gio:make-menu)))
       (gio:menu-append-submenu menu "File" submenu)
 
-      ;; (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Open" :detailed-action "app.open"))
-      ;; (define-and-connect-action app "open" "file/open")
       (menu-test-item app menu submenu "Open" "open" "file/open")
-      ;; (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "Exit" :detailed-action "app.exit"))
-      ;; (define-and-connect-action app "exit" "file/exit")
-
       (menu-test-item app menu submenu "Exit" "exit" "file/exit"))
 
     (let ((submenu (gio:make-menu)))
       (gio:menu-append-submenu menu "Help" submenu)
 
-      ;; (gio:menu-append-item submenu (gio:make-menu-item :model menu :label "About" :detailed-action "app.about"))
-      ;; (define-and-connect-action app "about" "help/about")
       (menu-test-item app menu submenu "About" "about" "help/about"))
     menu))
 
-(defun menu-test-popover (app window)
-  (declare (ignore window))
+;;; popover ================================
+(defun menu-test-item (app topmenu submenu label action menu-dir)
+  (let ((detailed-action (format nil "app.~A" action)))
+    (gio:menu-append-item submenu (gio:make-menu-item :model topmenu :label label :detailed-action detailed-action))
+    (define-and-connect-action app action menu-dir)))
+
+(defun menu-test-item-disabled (submenu label)
+  (gio:menu-append-item submenu (gio:make-menu-item :model nil :label (format nil "~A" label) :detailed-action "action-disabled")))
+
+(defun menu-test-popover (app)
+
   (let ((submenu (gio:make-menu)))
     ;; (format t "preparing the popover options ~%")
 
     (loop for lab in (list
-                      "Undo" "Redo" "Cut" "Copy" "Paste" "Clear All"
-                      "Fill" (format nil "Universal Time ~a" (get-universal-time)))
+                      "Undo" "Redo" "-Copying-" "Cut" "Copy" "Paste" "-" "Clear All"
+                      "Fill" "-" (format nil "Universal Time ~a" (get-universal-time)))
           for option-number = 1 then (1+ option-number)
           for label = lab
           for option = (format nil "option~A" option-number)
-          for action = (format  nil "app.~a" option)
+          for disabled = (alexandria:starts-with #\- label)
           do
-             (gio:menu-append-item submenu (gio:make-menu-item :label label :detailed-action action))
-             (define-and-connect-action app option (format nil "popover/~A" lab)))
-
-    submenu))
-
-(defun menu-test-popover-tl (app window)
-  (declare (ignore window))
-  (let ((submenu (gio:make-menu)))
-    ;; (format t "preparing the popover options ~%")
-
-    (gio:menu-append-item submenu (gio:make-menu-item :label "Top" :detailed-action "app.option1"))
-    (define-and-connect-action app "option1" "popover/option-top")
-
-    (gio:menu-append-item submenu (gio:make-menu-item :label "Left" :detailed-action "app.option2"))
-    (define-and-connect-action app "option2" "popover/option-left")
-
-    submenu))
-
-(defun menu-test-popover-br (app window)
-  (declare (ignore window))
-  (let ((submenu (gio:make-menu)))
-    ;; (format t "preparing the popover options ~%")
-
-    (gio:menu-append-item submenu (gio:make-menu-item :label "Bottom" :detailed-action "app.option1"))
-    (define-and-connect-action app "option1" "popover/option-botton")
-
-    (gio:menu-append-item submenu (gio:make-menu-item :label "Right" :detailed-action "app.option2"))
-    (define-and-connect-action app "option2" "popover/option-right")
-
+             (if disabled
+                 (menu-test-item-disabled submenu label)
+                 (menu-test-item app nil submenu label option (format nil "popover/~A" lab))))
     submenu))
 
 (defun menu-popover-model (app window x y)
+  (declare (ignore window x y))
   (cond
-    ((and (< x 50)
-          (< y 50))
-     (menu-test-popover-tl app window))
-    ((and (> x 200)
-          (> y 50))
-     (menu-test-menu app window)
-                                        ; (menu-test-builder)
-     )
     (t
-     (menu-test-popover app window))))
+     (menu-test-popover app))))
 
-;;; that is a big mystery, will I solve it one day?
-;; https://docs.gtk.org/gtk4/class.PopoverMenu.html
-(defun menu-test-builder ()
-  (let* ((xml "
-<section>
-  <attribute name=\"display-hint\">horizontal-buttons</attribute>
-  <item>
-    <attribute name=\"label\">Cut</attribute>
-    <attribute name=\"action\">app.cut</attribute>
-    <attribute name=\"verb-icon\">edit-cut-symbolic</attribute>
-  </item>
-  <item>
-    <attribute name=\"label\">Copy</attribute>
-    <attribute name=\"action\">app.copy</attribute>
-    <attribute name=\"verb-icon\">edit-copy-symbolic</attribute>
-  </item>
-  <item>
-    <attribute name=\"label\">Paste</attribute>
-    <attribute name=\"action\">app.paste</attribute>
-    <attribute name=\"verb-icon\">edit-paste-symbolic</attribute>
-  </item>
-</section>
-")
-         (b (gtk4:make-builder :string xml)))
-    b))
-
-
-;;; popover ================================
 (defun show-popover (app window widget event args )
   (destructuring-bind (buttons x y) args
     (declare (ignore buttons))
@@ -307,9 +244,9 @@
               gdk::width (round 0)
               gdk::height (round 0)))
 
-      (let ((popover (gtk4:make-popover-menu  :model
-                                              ;; callback to create popover menu
-                                              (menu-popover-model app window x y))))
+      (let ((popover (gtk4:make-popover-menu
+                      :model
+                      (menu-popover-model app window x y))))
 
         (setf (gtk4:widget-parent popover) widget
               (popover-pointing-to popover) (gobj:pointer-object rect 'gdk:rectangle))
@@ -319,11 +256,12 @@
 
 ;;; events and gui =========================
 (defun define-and-connect-action (app action-name menu-dir)
+  ;; if the old action-name exists it will be dropped
+  ;; https://docs.gtk.org/gio/method.ActionMap.add_action.html
   (let ((action (gio:make-simple-action :name action-name
                                         :parameter-type nil)))
     (gio:action-map-add-action app action)
     (connect-action action "activate" (symbolize menu-dir))))
-
 
 (defun connect-action (action signal-name menu-dir)
   (connect action signal-name

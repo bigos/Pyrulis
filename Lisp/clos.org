@@ -329,6 +329,11 @@ discussing for much of the book up until now. You can't subclass these classes,
 but, as you saw in the previous chapter, you can define methods that specialize
 on them, effectively extending the behavior of those classes.
 
+*** order of definitions
+Classes should be defined before ~defmethod~ calls that use them.
+
+https://softwareengineering.stackexchange.com/questions/314898/in-which-order-should-lisp-functions-be-defined
+
 *** defclass
 
 DEFCLASS is responsible only for defining the class as a data type.

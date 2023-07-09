@@ -1,0 +1,110 @@
+* Local gems
+
+I need to use Ruby in a severely constrained VM where rbenv may *NOT* be the
+best option.
+
+This is not the best option permission wise.
+
+#+begin_example
+sudo apt install ruby-dev
+sudo chmod -R 777 /var/lib/gems/3.0.0
+sudo chmod -R 777 /usr/local/bin
+sudo apt install make
+sudo apt install build-essential
+gem install rails
+#+end_example
+
+** environment
+
+https://guides.rubygems.org/command-reference/#gem-environment
+
+#+begin_example
+gem environment
+#+end_example
+
+documentation
+https://docs.ruby-lang.org/en/3.0/Gem/ConfigFile.html
+
+https://www.jedi.be/blog/2009/04/29/gem_home-and-gem_path-with-passenger/
+
+*** config
+
+#+begin_example
+cat ~/.gemrc
+#+end_example
+
+gives the correct config
+
+#+begin_example
+---
+gem: --no-rdoc --user-install
+#+end_example
+
+
+*** installation
+
+#+begin_example
+touch ~/.gemrc
+gem environment
+nano ~/.gemrc
+sudo apt install build-essential ruby-dev
+echo 'export PATH="$PATH:$HOME/.local/share/gem/ruby/3.0.0/bin"' >> ~/.bashrc
+source ~/.bashrc
+#+end_example
+
+*** still fails
+
+#+begin_example
+Using rake 13.0.6
+Following files may not be writable, so sudo is needed:
+  /usr/local/bin
+  /var/lib/gems/3.0.0
+Using concurrent-ruby 1.2.2
+Using i18n 1.14.1
+Fetching minitest 5.18.0
+
+
+Your user account isn't allowed to install to the system RubyGems.
+  You can cancel this installation and run:
+
+      bundle config set --local path 'vendor/bundle'
+      bundle install
+#+end_example
+
+When I follow the above suggestion the installation completes successfully.
+
+** network
+
+$ cat ~/bin/host_network
+
+#+begin_example
+#!/usr/bin/bash
+
+sudo dhclient enp0s8
+echo "connection established"
+
+ip a | grep -A 5 enp0s8
+#+end_example
+
+** installing rbenv
+#+begin_example
+sudo apt install ruby-dev build-essential
+sudo apt install libyaml-dev
+sudo apt install libssl-dev libffi-dev libreadline-dev zlib1g-dev
+
+curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash
+
+rbenv install --verbose 3.2.2
+#+end_example
+
+#+begin_example
+RAILS_ENV=production bundle install
+
+rm ./config/credentials.yml.enc
+RAILS_ENV=production rails credentials:edit
+EDITOR="nano" bin/rails credentials:edit
+RAILS_ENV=production rails assets:precompile
+
+RAILS_ENV=production rails db:migrate
+RAILS_SERVE_STATIC_FILES=true RAILS_ENV=production rails s -b 0.0.0.0 -p 3001
+#+end_example

@@ -29,3 +29,11 @@ https://github.com/JacobGabrielson/cl-rogue
 
 ** interesting links
 https://pinecone-forest.com/lisplang-v0.0.142
+
+** language power
+
+Strictly speaking, a new programming language is not needed to enjoy the new
+paradigm.
+
+However, a new programming language will make it easier to think effectively in
+the new paradigm.
