@@ -6,6 +6,8 @@ until you fill your head
 ** talk to the rubber duck
 until you run out of ideas
 
+importance of verbalising repeatedly
+
 ** as much as you can expand ideas using domain language
 until you can execute in your head and you have clear terms for the solution
 
@@ -48,7 +50,6 @@ The language tries to emerge from the subconscious.
 ** lisp book
   link to [[https://doc.lagout.org/programmation/Lisp/Scheme/The%20Seasoned%20Schemer%20-%20Daniel%20P.%20Friedman.pdf][seasoned schemer]]
 
-
 *** CLOS modelling
 move those links elsewhere
 https://atomicobject.com/resources/oo-programming/hierarchy
@@ -80,6 +81,7 @@ Copy pasted components
 Countless components without any organisation, big ball of mud
 Complexity eats understanding
 Duplicates all over the place
+blurred concepts
 Spaghetti mix
 
 *** words

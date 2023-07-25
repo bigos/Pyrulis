@@ -1,0 +1,8 @@
+digraph {
+    design1_gv [label="design1.gv",style=filled,fillcolor=green]
+    design1_gv -> design1_gv
+
+    category -> theory [label=commutes]
+    category [style=filled,fillcolor=yellow]
+    theory [style=filled,fillcolor=red]
+}

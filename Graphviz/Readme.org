@@ -9,3 +9,14 @@ https://www.jstatsoft.org/article/view/v046i03
 https://github.com/jingtaozf/s-graphviz
 
 https://graphviz.org/resources/#common-lisp
+
+** documentation
+
+*** node
+https://graphviz.org/docs/nodes/
+
+*** edge
+https://graphviz.org/docs/edges/
+
+*** attributes
+https://graphviz.org/doc/info/attrs.html
