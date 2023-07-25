@@ -36,6 +36,24 @@ int main(void)
 
 ***** Whitespace
 
+#+begin_src c
+  printf("Hello world"); return 0;
+
+  // is the same as
+
+  printf("Hello world");
+  return 0;
+
+  // which is also the same as
+
+  printf (
+      "Hello world") ;
+
+
+
+  return 0;
+#+end_src
+
 ***** Scope
 
 ****** global and local
@@ -80,6 +98,7 @@ local variable shadowing
       return 0;
   }
 #+end_src
+
 *** Intermediate C
 
 *** Advanced C
