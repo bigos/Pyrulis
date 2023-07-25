@@ -1,4 +1,87 @@
 * Readme
 
-the tutorial
+** the tutorial
 https://en.wikibooks.org/wiki/C_Programming
+
+** excercises
+
+https://en.wikibooks.org/wiki/C_Programming
+
+*** Beginning C
+
+**** hello, Intro Exercise
+https://en.wikibooks.org/wiki/C_Programming/Intro_exercise
+file:~/Programming/Pyrulis/C/wikibooks/hello.c::1
+
+**** Preliminaries
+https://en.wikibooks.org/wiki/C_Programming/Preliminaries
+
+***** blocks
+and variable shadowing?
+
+#+begin_src c
+int main(void)
+{
+    /* this is a 'block' */
+    int i = 5;
+
+    {
+        /* this is also a 'block', nested inside the outer block */
+        int i = 6;
+    }
+
+    return 0;
+}
+#+end_src
+
+***** Whitespace
+
+***** Scope
+
+****** global and local
+
+#+begin_src c
+  int i = 5; /* this is a 'global' variable, it can be accessed from anywhere in the program */
+
+  /* this is a function, all variables inside of it
+     are "local" to the function. */
+  int main(void)
+  {
+      int i = 6; /* 'i' now equals 6 */
+      printf("%d\n", i); /* prints a '6' to the screen, instead of the global variable of 'i', which is 5 */
+
+      return 0;
+  }
+#+end_src
+
+****** variable shadowing
+local variable shadowing
+
+#+begin_src c
+  /* the main function */
+  int main(void)
+  {
+      /* this is the beginning of a 'block', you read about those above */
+
+      int i = 6; /* this is the first variable of this 'block', 'i' */
+
+      {
+          /* this is a new 'block', and because it's a different block, it has its own scope */
+
+          /* this is also a variable called 'i', but in a different 'block',
+             because it's in a different 'block' than the first variable named 'i', it doesn't affect the first one! */
+          int i = 5;
+          printf("%d\n", i); /* prints a '5' onto the screen */
+      }
+      /* now we're back into the first block */
+
+      printf("%d\n", i); /* prints a '6' onto the screen */
+
+      return 0;
+  }
+#+end_src
+*** Intermediate C
+
+*** Advanced C
+
+*** C and Beyond
