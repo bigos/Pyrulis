@@ -11,6 +11,8 @@ https://fresh2refresh.com/c-programming/c-basic-program/
 
 https://www.w3schools.in/c-tutorial/
 
+https://en.wikibooks.org/wiki/C_Programming
+
 *** pointers
 
 **** simple example
