@@ -99,6 +99,70 @@ local variable shadowing
   }
 #+end_src
 
+**** Basics of Compilation
+https://en.wikibooks.org/wiki/C_Programming/Basics_of_compilation
+
+Compilation process steps
+
+***** Preprocessor
+First the file is preprocessed
+
+All preprocessor directives begin with the hash character ~#~. You can see one
+preprocessor directive in the Hello world program. Example:
+
+#+begin_src c
+ #include <stdio.h>
+#+end_src
+
+***** Syntax check
+
+***** Compiling object code
+
+***** Linking
+
+***** Automation
+Makefiles and IDEs
+
+**** Structure and style
+https://en.wikibooks.org/wiki/C_Programming/Structure_and_style
+
+***** introduction
+In C, programs are composed of statements. Statements are terminated with
+a semi-colon,
+
+***** line breaks
+While you could in theory put everything in one line, only separated by
+a semi-colon it is better to break up code into readable lines.
+
+***** blank lines
+Blank lines should be used to offset the main components of your code. Always use them:
+
++ After preprocessor directives.
++ After new variables are declared.
++ Use your own judgment for finding other places where components should be separated.
+
+***** Indentation
+Although adding simple line breaks between key blocks of code can make code
+easier to read, it provides no information about the block structure of the
+program.
+
+Indentation visually separates paths of execution by moving their starting
+points to a new column. This simple practice will make it much easier to read
+and understand code.
+
+***** Comments
+Two styles of comments ~// style1~ and ~/* style2  */~
+
+
+**** Variables
+https://en.wikibooks.org/wiki/C_Programming/Variables
+
+This is the first meaty part
+
+**** zzz
+
+
+
 *** Intermediate C
 
 *** Advanced C
