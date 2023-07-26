@@ -1,8 +1,13 @@
 * Readme
+
 ** following tutorial
-https://stevedonovan.github.io/rust-gentle-intro/1-basics.html
+
+https://stevedonovan.github.io/rust-gentle-intro/readme.html
 
 ** Basics
+
+https://stevedonovan.github.io/rust-gentle-intro/1-basics.html
+
 file:~/Programming/Pyrulis/Rust/gentle-intro/hello.rs::1
 
 file:~/Programming/Pyrulis/Rust/gentle-intro/let1.rs::1
@@ -10,3 +15,13 @@ file:~/Programming/Pyrulis/Rust/gentle-intro/let1.rs::1
 file:~/Programming/Pyrulis/Rust/gentle-intro/let2.rs::1
 
 file:~/Programming/Pyrulis/Rust/gentle-intro/for1.rs::1
+
+file:~/Programming/Pyrulis/Rust/gentle-intro/for2.rs::1
+
+file:~/Programming/Pyrulis/Rust/gentle-intro/for3.rs::1
+
+file:~/Programming/Pyrulis/Rust/gentle-intro/add1.rs::1
+
+file:~/Programming/Pyrulis/Rust/gentle-intro/add2.rs::1
+
+file:~/Programming/Pyrulis/Rust/gentle-intro/add3.rs::1
