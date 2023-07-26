@@ -28,6 +28,10 @@ file:~/.bashrc::141 ,
 file:~/.profile::28 ,
 file:~/.bash_profile::2
 
+#+begin_example
+. "$HOME/.cargo/env"
+#+end_example
+
 After repeating the first command in the restarted shell, I had everything set up
 
 The script also added rustlings folder to my home
