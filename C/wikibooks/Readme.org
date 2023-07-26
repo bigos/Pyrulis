@@ -268,9 +268,52 @@ has no regard for type or structure
 
 good convention to write its value in all CAPITALS
 
-***** TODO scope
+***** scope
+global vs local variables
+
+***** other modifiers
+https://en.wikibooks.org/wiki/C_Programming/Variables#Other_Modifiers
+
+****** static
+it's complicated
+
+When you declare a function or global variable as static, you cannot access the
+function or variable through the extern (see below) keyword from other files in
+your project. This is called static linkage.
+
+When you declare a local variable as static, it is created just like any other
+variable. However, when the variable goes out of scope (i.e. the block it was
+local to is finished) the variable stays in memory, retaining its value.
+
+there's more about default values
+
+****** extern
+extern is used when a file needs to access a variable in another file that it
+may not have #included directly. Therefore, extern does not allocate memory for
+the new variable, it just provides the compiler with sufficient information to
+access a variable declared in another file.
+
+****** volatile
+volatile is a special type of modifier which informs the compiler that the value
+of the variable may be changed by external entities other than the program itself.
+
+****** auto
+auto is a modifier which specifies an "automatic" variable that is automatically
+created when in scope and destroyed when out of scope. If you think this sounds
+like pretty much what you've been doing all along when you declare a variable,
+you're right: all declared items within a block are implicitly "automatic".
+
+****** register
+register is a hint to the compiler to attempt to optimize the storage of the
+given variable by storing it in a register of the computer's CPU when the
+program is run. Most optimizing compilers do this anyway, so use of this keyword
+is often unnecessary.
 
 **** TODO Simple Input and Output
+https://en.wikibooks.org/wiki/C_Programming/Simple_Input_and_Output
+
+printf, puts and scanf
+
 **** zzz
 
 
