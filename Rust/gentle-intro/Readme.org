@@ -6,3 +6,7 @@ https://stevedonovan.github.io/rust-gentle-intro/1-basics.html
 file:~/Programming/Pyrulis/Rust/gentle-intro/hello.rs::1
 
 file:~/Programming/Pyrulis/Rust/gentle-intro/let1.rs::1
+
+file:~/Programming/Pyrulis/Rust/gentle-intro/let2.rs::1
+
+file:~/Programming/Pyrulis/Rust/gentle-intro/for1.rs::1
