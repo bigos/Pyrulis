@@ -343,7 +343,17 @@ int main(void)
 }
 #+end_src
 
-**** TODO Operators and type casting
+**** Operators and type casting
+https://en.wikibooks.org/wiki/C_Programming/Operators_and_type_casting
+
+***** primary expressions
+lots of nonsense providing context for operators
+
+***** operators
+lots of interesting stuff including ternary operator
+
+**** TODO Arrays and Strings
+https://en.wikibooks.org/wiki/C_Programming/Arrays_and_strings
 
 **** zzz
 
