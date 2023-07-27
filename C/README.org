@@ -15,6 +15,11 @@ https://en.wikibooks.org/wiki/C_Programming
 
 *** pointers
 
+**** referencing and dereferencing
+Check if the two corresponding operators ~&~ and ~*~ are also used that way in C.
+Is the ~*~ in pointer type declaration an unfortunate mistake? Or there is some
+deeper meaning here?
+
 **** simple example
 #+BEGIN_SRC c
   #include <stdio.h>

@@ -25,3 +25,5 @@ file:~/Programming/Pyrulis/Rust/gentle-intro/add1.rs::1
 file:~/Programming/Pyrulis/Rust/gentle-intro/add2.rs::1
 
 file:~/Programming/Pyrulis/Rust/gentle-intro/add3.rs::1
+
+file:~/Programming/Pyrulis/Rust/gentle-intro/fun1.rs::1
