@@ -37,3 +37,8 @@ file:~/Programming/Pyrulis/Rust/gentle-intro/array2.rs::1
 file:~/Programming/Pyrulis/Rust/gentle-intro/array3.rs::1
 
 file:~/Programming/Pyrulis/Rust/gentle-intro/slice1.rs::1
+
+file:~/Programming/Pyrulis/Rust/gentle-intro/slice2.rs::1
+discussion of Some and None types a bit like Haskell Maybe
+
+file:~/Programming/Pyrulis/Rust/gentle-intro/vec1.rs::1
