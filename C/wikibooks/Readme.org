@@ -3,10 +3,6 @@
 ** the tutorial
 https://en.wikibooks.org/wiki/C_Programming
 
-** excercises
-
-https://en.wikibooks.org/wiki/C_Programming
-
 *** Beginning C
 
 **** hello, Intro Exercise
@@ -309,10 +305,45 @@ given variable by storing it in a register of the computer's CPU when the
 program is run. Most optimizing compilers do this anyway, so use of this keyword
 is often unnecessary.
 
-**** TODO Simple Input and Output
+**** Simple Input and Output
 https://en.wikibooks.org/wiki/C_Programming/Simple_Input_and_Output
 
 printf, puts and scanf
+
+***** printf
+needs #include <stdio.h>
+
+uses format specifiers
+https://en.wikipedia.org/wiki/printf_format_string
+
+***** puts
+simple, without format specifiers
+
+***** scanf
+several variations
+
+uses pointers
+
+do not use reference ~&~ when inputting strings
+
+may need to flush the buffer first
+
+#+begin_src c
+#include "stdio.h"
+
+int main(void)
+{
+    int a;
+
+    printf("Please input an integer value: ");
+    scanf("%d", &a);
+    printf("You entered: %d\n", a);
+
+    return 0;
+}
+#+end_src
+
+**** TODO Operators and type casting
 
 **** zzz
 
