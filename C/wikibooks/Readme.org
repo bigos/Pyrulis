@@ -352,8 +352,47 @@ lots of nonsense providing context for operators
 ***** operators
 lots of interesting stuff including ternary operator
 
-**** TODO Arrays and Strings
+**** Arrays and Strings
 https://en.wikibooks.org/wiki/C_Programming/Arrays_and_strings
+
+***** Arrays
+Declare array of 6 int values called numbers and 6 char values called letters
+#+begin_src c
+int numbers[6];
+char letters[6];
+char two_d[3][5];               /* multidimensional */
+#+end_src
+
+declare and initialise
+#+begin_src c
+int digits[8] = {1,2,3,4,5,6,7,8};
+int numbers[2000]={245};        /* remaining numbers will be zeros */
+int two_d[2][3] = {{ 5, 2, 1 },
+                   { 6, 7, 8 }};
+#+end_src
+
+***** Strings
+C has no string handling facilities built in; consequently, strings are defined
+as arrays of characters. C allows a character array to be represented by a
+character string rather than a list of characters, with the null terminating
+character automatically added to the end.
+
+#+begin_src c
+char string[11] = "Merkkijono";
+/* or the same */
+char string[11] = {'M', 'e', 'r', 'k', 'k', 'i', 'j', 'o', 'n', 'o', '\0'};
+
+char string[58] = "This is a very, very long "
+    "string that requires two lines.";
+#+end_src
+
+string handling library
+#+begin_src c
+#include <string.h>  //new header file
+#+end_src
+
+**** TODO Program Flow Control
+https://en.wikibooks.org/wiki/C_Programming/Program_flow_control
 
 **** zzz
 
