@@ -52,3 +52,9 @@ file:~/Programming/Pyrulis/Rust/gentle-intro/iter3.rs::1
 file:~/Programming/Pyrulis/Rust/gentle-intro/sum1.rs::1
 
 file:~/Programming/Pyrulis/Rust/gentle-intro/vec3.rs::1
+
+file:~/Programming/Pyrulis/Rust/gentle-intro/string1.rs::1
+
+file:~/Programming/Pyrulis/Rust/gentle-intro/string5.rs::1
+
+file:~/Programming/Pyrulis/Rust/gentle-intro/string6.rs::1
