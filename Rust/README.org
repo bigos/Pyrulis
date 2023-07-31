@@ -43,8 +43,9 @@ https://rust-lang.github.io/rustup/
 **** Emacs integration
 We have Prelude module enabled
 
-run the following if ~rust-analyser ---help~ does not work
+run the following
 #+begin_example
+rustup update
 rustup component add rust-analyzer
 #+end_example
 
