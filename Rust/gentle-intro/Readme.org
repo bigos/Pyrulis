@@ -58,3 +58,9 @@ file:~/Programming/Pyrulis/Rust/gentle-intro/string1.rs::1
 file:~/Programming/Pyrulis/Rust/gentle-intro/string5.rs::1
 
 file:~/Programming/Pyrulis/Rust/gentle-intro/string6.rs::1
+
+file:~/Programming/Pyrulis/Rust/gentle-intro/string2.rs::1
+
+file:~/Programming/Pyrulis/Rust/gentle-intro/string3.rs::1
+
+file:~/Programming/Pyrulis/Rust/gentle-intro/args0.rs::1
