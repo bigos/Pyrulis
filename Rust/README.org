@@ -40,7 +40,7 @@ The script also added rustlings folder to my home
 https://www.rust-lang.org/tools/install
 
 https://rust-lang.github.io/rustup/
-**** Emacs integration
+** Emacs integration
 We have Prelude module enabled
 
 run the following
@@ -49,12 +49,18 @@ rustup update
 rustup component add rust-analyzer
 #+end_example
 
-After installing Eglot, e.g. via M-x package-install (not needed from Emacs 29),
+in case of problem update eglot
+#+begin_src lisp
+  (eglot-update)
+#+end_src
+
+After installing or updating Eglot, e.g. via M-x package-install (not needed from Emacs 29),
 you can enable it via the M-x eglot command or load it automatically in rust-
 mode via
 #+begin_src lisp
 (add-hook 'rust-mode-hook 'eglot-ensure)
 #+end_src
+
 
 ** Exercises
 file:~/rustlings/README.md::95
