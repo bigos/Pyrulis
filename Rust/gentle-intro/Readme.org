@@ -68,3 +68,8 @@ file:~/Programming/Pyrulis/Rust/gentle-intro/args0.rs::1
 file:~/Programming/Pyrulis/Rust/gentle-intro/args1.rs::1
 
 file:~/Programming/Pyrulis/Rust/gentle-intro/file1.rs::1
+
+file:~/Programming/Pyrulis/Rust/gentle-intro/file2.rs::1
+
+** Structs, Enums and Matching
+https://stevedonovan.github.io/rust-gentle-intro/2-structs-enums-lifetimes.html
