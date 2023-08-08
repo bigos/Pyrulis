@@ -77,6 +77,10 @@ file:~/rustlings/exercises/intro/intro1.rs::13
 https://stevedonovan.github.io/rust-gentle-intro/readme.html
 [[file:gentle-intro/Readme.org::*following tutorial][following tutorial]]
 
+** Documentation
+
+https://doc.rust-lang.org/beta/
+
 ** Emacs integration
 
 Tree sitter
