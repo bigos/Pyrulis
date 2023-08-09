@@ -77,7 +77,14 @@ file:~/rustlings/exercises/intro/intro1.rs::13
 https://stevedonovan.github.io/rust-gentle-intro/readme.html
 [[file:gentle-intro/Readme.org::*following tutorial][following tutorial]]
 
+** Documentation
+
+https://doc.rust-lang.org/beta/
+
 ** Emacs integration
 
 Tree sitter
 https://github.com/tree-sitter/tree-sitter/tree/master/lib/binding_rust
+
+** New Rust Project
+https://doc.rust-lang.org/cargo/guide/creating-a-new-project.html
