@@ -1,6 +1,7 @@
 ;;; window-gir-launcher
 
-(load "c:/Users/Jacek/Documents/Programming/Pyrulis/Lisp/window-gir.lisp")
+
+;; (load (compile-file (compile-file "c:/Users/Jacek/Documents/Programming/Pyrulis/Lisp/window-gir.lisp"))
 
 (in-package :window-gir)
 

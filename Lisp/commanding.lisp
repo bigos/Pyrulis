@@ -8,7 +8,7 @@
    :~>)
   (:use #:cl))
 
-;; (load "~/Programming/Pyrulis/Lisp/commanding.lisp")
+;; (load (compile-file "~/Programming/Pyrulis/Lisp/commanding.lisp"))
 (in-package #:commanding)
 
 (defun prompt (prompt)

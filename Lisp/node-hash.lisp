@@ -1,4 +1,4 @@
-;; (load "~/Programming/Pyrulis/Lisp/node-hash.lisp")
+;; (load (compile-file "~/Programming/Pyrulis/Lisp/node-hash.lisp"))
 
 (defstruct node
   name

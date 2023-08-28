@@ -8,7 +8,7 @@
   (:use #:cl
         #:s-xml))
 
-;; (load "~/Programming/Pyrulis/Lisp/window-gir-app.lisp")
+;; (load (compile-file "~/Programming/Pyrulis/Lisp/window-gir-app.lisp"))
 
 (in-package :window-gir-app)
 

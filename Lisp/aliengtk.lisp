@@ -1,7 +1,7 @@
 ;; sbcl --load ~/Programming/Pyrulis/Lisp/aliengtk.lisp
 
 
-;; (load "~/Programming/Pyrulis/Lisp/aliengtk.lisp")
+;; (load (compile-file "~/Programming/Pyrulis/Lisp/aliengtk.lisp"))
 
 ;; (cl:defpackage "TEST-C-CALL" (:use "CL" "SB-ALIEN" "SB-C-CALL"))
 ;; (cl:in-package "TEST-C-CALL")

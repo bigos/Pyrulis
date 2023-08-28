@@ -4,7 +4,7 @@
   (ql:quickload '(alexandria serapeum defclass-std)))
 
 ;; USAGE
-;; (load "~/Programming/Pyrulis/Lisp/all-classes.lisp")
+;; (load (compile-file "~/Programming/Pyrulis/Lisp/all-classes.lisp"))
 ;; (all-classes)
 (defun all-classes ()
   (let ((seen nil))

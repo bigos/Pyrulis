@@ -1,6 +1,6 @@
 ;;; Draw a state transition diagram.
 
-;;; (load "~/Programming/Pyrulis/Lisp/state-graph.lisp")
+;; (load (compile-file "~/Programming/Pyrulis/Lisp/state-graph.lisp"))
 
 (defun draw-states (g)
   (labels ((gv-print (l)

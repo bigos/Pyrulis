@@ -32,7 +32,7 @@
 (cl:defpackage menu-cairo-test
   (:use #:cl #:gtk4)
   (:export #:cairo-test))
-;; (load "/home/jacek/Programming/Pyrulis/Lisp/menu-cairo-test2.lisp")
+;; (load (compile-file "/home/jacek/Programming/Pyrulis/Lisp/menu-cairo-test2.lisp"))
 (cl:in-package #:menu-cairo-test)
 
 (cffi:defcstruct gdk-rgba

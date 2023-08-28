@@ -1,5 +1,5 @@
-;;; (load "~/Programming/Pyrulis/Lisp/clpm/demo1.lisp")
-;;; (load "c:/Users/jacek/Programming/Pyrulis/Lisp/clpm/demo1.lisp")
+;; (load (compile-file "~/Programming/Pyrulis/Lisp/clpm/demo1.lisp"))
+;; (load (compile-file "c:/Users/jacek/Programming/Pyrulis/Lisp/clpm/demo1.lisp"))
 
 (clpm-client:sync :sources '("quicklisp"))
 

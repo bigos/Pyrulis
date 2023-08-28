@@ -10,7 +10,7 @@
         #:cffi
         #:gtk #:gdk #:gdk-pixbuf #:gobject #:glib #:gio #:pango #:cairo))
 
-;; (load "/home/jacek/Programming/Pyrulis/Lisp/window.lisp")
+;; (load (compile-file "/home/jacek/Programming/Pyrulis/Lisp/window.lisp"))
 (in-package :window)
 
 ;;; macros----------------------------------------------------------------------
@@ -612,6 +612,6 @@ longer prefix and return it or just return MATCH-PREFIX"
 ;;; (g-object-unref (pointer *global-app*))
 
 
-;; (load "/home/jacek/Programming/Pyrulis/Lisp/window.lisp")
+;; (load (compile-file "/home/jacek/Programming/Pyrulis/Lisp/window.lisp"))
 ;; (in-package :window)
 ;; (main-app)

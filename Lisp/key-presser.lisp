@@ -8,7 +8,7 @@
 
 (defpackage :key-presser
   (:use #:cl))
-;; (load "/home/jacek/Programming/Pyrulis/Lisp/key-presser.lisp")
+;; (load (compile-file "/home/jacek/Programming/Pyrulis/Lisp/key-presser.lisp"))
 (in-package :key-presser)
 
 ;; #####################################################################

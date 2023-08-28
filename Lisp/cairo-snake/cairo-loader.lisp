@@ -1,7 +1,7 @@
 ;;; loader for starting from the command line
 
 (if (equal "LispWorks" (lisp-implementation-type))
-    (load "~/lw-rc.lisp"))
+    ;; (load (compile-file "~/lw-rc.lisp"))
 
 (defparameter project-system-path
   (if

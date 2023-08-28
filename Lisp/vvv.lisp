@@ -9,7 +9,7 @@
   (:use #:cl
         #:cffi
         #:gtk #:gdk #:gdk-pixbuf #:gobject #:glib #:gio #:pango #:cairo))
-;; (load "~/Programming/Pyrulis/Lisp/vvv.lisp")
+;; (load (compile-file "~/Programming/Pyrulis/Lisp/vvv.lisp"))
 (in-package :vvv)
 
 ;;---------------------------------------------------------------------;;

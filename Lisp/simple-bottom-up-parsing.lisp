@@ -3,7 +3,7 @@
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (ql:quickload '(alexandria serapeum dot-cons-tree)))
 
-;; (load "~/Programming/Pyrulis/Lisp/simple-bottom-up-parsing.lisp")
+;; (load (compile-file "~/Programming/Pyrulis/Lisp/simple-bottom-up-parsing.lisp"))
 
 (defun dt (l)
   (dot-cons-tree:draw-graph l))

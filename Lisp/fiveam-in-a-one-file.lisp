@@ -8,7 +8,7 @@
   (:local-nicknames (#:se #:serapeum) (#:ax #:alexandria))
   (:export #:adder))
 
-;; (load "~/Programming/Pyrulis/Lisp/fiveam-in-a-one-file.lisp")
+;; (load (compile-file "~/Programming/Pyrulis/Lisp/fiveam-in-a-one-file.lisp"))
 (in-package #:iii)
 
 (defun adder (n)

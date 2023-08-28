@@ -7,7 +7,7 @@
   (:import-from :serapeum
    :->)
   (:use :cl))
-;; (load "~/Programming/Pyrulis/Lisp/hashpath.lisp")
+;; (load (compile-file "~/Programming/Pyrulis/Lisp/hashpath.lisp"))
 (in-package #:hashpath)
 
 (defun init-hash (parent-hash current-hash key)

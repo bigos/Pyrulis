@@ -5,7 +5,7 @@
 ;; https://python-gtk-3-tutorial.readthedocs.io/en/latest/popover.html
 
 ;;; This is a very simple example for starting gui projects
-;;; (load "~/Programming/Pyrulis/Lisp/gui.lisp")
+;; (load (compile-file "~/Programming/Pyrulis/Lisp/gui.lisp"))
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (ql:quickload '(

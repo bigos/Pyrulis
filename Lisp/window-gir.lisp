@@ -8,8 +8,8 @@
 (defpackage #:window-gir
   (:use #:cl))
 
-;; (load "/home/jacek/Programming/Pyrulis/Lisp/window-gir.lisp")
-;; (load "c:/Users/Jacek/Documents/Programming/Pyrulis/Lisp/window-gir.lisp")
+;; (load (compile-file "/home/jacek/Programming/Pyrulis/Lisp/window-gir.lisp"))
+;; (load (compile-file "c:/Users/Jacek/Documents/Programming/Pyrulis/Lisp/window-gir.lisp"))
 
 (in-package :window-gir)
 

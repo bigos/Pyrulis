@@ -1,7 +1,7 @@
 (declaim (optimize (speed 0) (debug 3)))
 
 #| loading
-(load "~/Programming/Pyrulis/Lisp/fistma-graph.lisp")
+;; (load (compile-file "~/Programming/Pyrulis/Lisp/fistma-graph.lisp")
 (in-package #:fistma-graph)
 (draw-graph *graph*)
 (draw-graph (dot-links *nested*))

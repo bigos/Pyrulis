@@ -30,7 +30,7 @@
   (:import-from :serapeum
    :~>) )
 
-;; (load "~/Programming/Pyrulis/Lisp/cl-gtk4-example.lisp")
+;; (load (compile-file (compile-file (compile-file (compile-file "~/Programming/Pyrulis/Lisp/cl-gtk4-example.lisp")))))
 (in-package #:cl-gtk4-example)
 
 ;;; drawing - macro for colours ------------------------------------------------

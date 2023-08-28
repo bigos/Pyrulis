@@ -18,7 +18,7 @@
 (defpackage #:cl-gtk4-test
   (:use :cl #:gtk4))
 
-;; (load "~/Programming/Pyrulis/Lisp/cl-gtk4.lisp")
+;; (load (compile-file "~/Programming/Pyrulis/Lisp/cl-gtk4.lisp"))
 (in-package #:cl-gtk4-test)
 
 (defclass model ()

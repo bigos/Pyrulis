@@ -9,7 +9,7 @@
   (:import-from :serapeum :~>)
   (:import-from :defclass-std :defclass/std)
   (:use #:cl))
-;; (load "~/Programming/Pyrulis/Lisp/Closer/entering-fsm.lisp")
+;; (load (compile-file "~/Programming/Pyrulis/Lisp/Closer/entering-fsm.lisp"))
 (in-package :entering-fsm)
 
 (defun m0 (class) (make-instance class))

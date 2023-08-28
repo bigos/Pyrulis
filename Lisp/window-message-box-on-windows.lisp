@@ -15,4 +15,4 @@
 (message-box 0 "hello" "world" 0)
 
 
-;; (load "c:/Users/Jacek/Documents/Programming/Pyrulis/Lisp/window-message-box-on-windows.lisp")
+;; (load (compile-file "c:/Users/Jacek/Documents/Programming/Pyrulis/Lisp/window-message-box-on-windows.lisp"))

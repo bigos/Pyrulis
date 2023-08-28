@@ -31,7 +31,7 @@
   (:import-from :serapeum
    :~>) )
 
-;; (load "~/Programming/Pyrulis/Lisp/cl-gtk4-tictactoe.lisp")
+;; (load (compile-file "~/Programming/Pyrulis/Lisp/cl-gtk4-tictactoe.lisp"))
 (in-package #:cl-gtk4-tictactoe)
 
 ;;; ============================================================================
@@ -641,7 +641,7 @@
 ;;; main =======================================================================
 
 ;;; STARTING
-;; (load "~/Programming/Pyrulis/Lisp/cl-gtk4-tictactoe.lisp")
+;; (load (compile-file "~/Programming/Pyrulis/Lisp/cl-gtk4-tictactoe.lisp"))
 ;; (in-package #:cl-gtk4-tictactoe)
 ;;; (main)
 
@@ -816,7 +816,7 @@
 ;; (ttt::main)
 
 ;;; testing
-;; (load "~/Programming/Pyrulis/Lisp/cl-gtk4-tictactoe.lisp")
+;; (load (compile-file "~/Programming/Pyrulis/Lisp/cl-gtk4-tictactoe.lisp"))
 ;; (cl-gtk4-tictactoe/tests:run!)
 ;; (in-package #:cl-gtk4-tictactoe/tests)
 ;;; (run!)
