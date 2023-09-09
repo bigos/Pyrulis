@@ -1,5 +1,8 @@
 * Ruby 3
 
+creating project gemset and activating it with rbenv gemset create
+https://github.com/jf/rbenv-gemset/issues/97#issuecomment-1712504002
+
 ** pages with information
 
    https://www.ruby-lang.org/en/news/2020/12/25/ruby-3-0-0-released/
