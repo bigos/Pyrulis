@@ -657,6 +657,7 @@
 
                         (apply 'process-menu-action (list :radio
                                                           action-name
+                                                          action
                                                           (glib:variant-string
                                                            (gio:action-state action))))))
         (gobj:object-unref action)))
@@ -691,6 +692,7 @@
                      (apply 'process-menu-action
                              (list :bool
                                    action-name
+                                   action
                                    (glib:variant-hash (gio:action-state action))))))
       (gobj:object-unref action))
 
@@ -709,7 +711,7 @@
                     (lambda (event parameter)
                       (declare (ignore event parameter))
 
-                      (apply 'process-menu-action (list :simple action-name))))
+                      (apply 'process-menu-action (list :simple action-name action))))
       (gobj:object-unref action))
 
     (gio:make-menu-item :model menu
@@ -766,69 +768,28 @@
 
     (values menu)))
 
-(defun process-menu-action (action-type action &optional arg)
-  (setf *selection*
-        (format nil "processing ~S ~S ~S~%" action-type action arg))
-  (case action-type
+;;; ause this tro teranslate menu actions to call event-sink
+(defun process-menu-action (action-type action-name action &optional arg)
+
+  (format T "processing menu ~S ~S ~S~%" action-type action arg)
+  (ecase action-type
     ;; null arg
-    (:simple)
+    (:simple
+     (cond
+       ((equalp action-name "quit") (event-sink "menu-item-quit" "activate" action arg))
+       (t (error "not recognised action ~S" action-name))))
     ;; 0 or 1 arg
     (:bool)
     ;; string arg
-    (:radio))
-  (when *canvas*
-    (gtk4:widget-queue-draw *canvas*)))
+    (:radio)))
 
 ;;; STARTING
 ;; (load (compile-file "~/Programming/Pyrulis/Lisp/cl-gtk4-tictactoe.lisp"))
 ;; (in-package #:cl-gtk4-tictactoe)
 ;;; (main)
 
-(defun make-detailed-action (app action-name fn)
-  (let ((act (gio:make-simple-action :name action-name :parameter-type nil)))
-    (gio:action-map-add-action app act)
-    (connect act "activate" fn)
-
-    (format nil "app.~A" action-name)))
-
-(defun make-my-menu-item (app label action-name item-name)
-  (gio:make-menu-item :label label
-                      :detailed-action
-                      (make-detailed-action app action-name
-                                            (lambda (event &rest args)
-                                              (event-sink item-name
-                                                          "activate"
-                                                          event args)))))
-
 (defun main-menubar (app)
-  (let ((menubar (gio:make-menu)))
-    (let* ((menubar-item-menu (gio:make-menu-item :label "Menu" :detailed-action nil ))
-           (menu (gio:make-menu))
-           (menu-item-preferences
-             (make-my-menu-item app "Preferences" "preferences" "menu-item-preferences"))
-           (menu-item-quit
-             (make-my-menu-item app "Quit" "quit" "menu-item-quit"))
-
-           (menubar-item-help (gio:make-menu-item :label "Help" :detailed-action nil))
-           (help (gio:make-menu))
-           (help-item-manual
-             (make-my-menu-item app "Manual" "manual" "help-item-manual"))
-           (help-item-about
-             (make-my-menu-item app "About" "about" "help-item-about")))
-
-      (loop for mi in (list menu-item-preferences
-                            menu-item-quit)
-            do (gio:menu-append-item menu mi))
-      (setf (gio:menu-item-submenu menubar-item-menu) menu)
-      (gio:menu-append-item menubar menubar-item-menu)
-
-
-      (loop for mi in (list help-item-manual
-                            help-item-about)
-            do (gio:menu-append-item help mi))
-      (setf (gio:menu-item-submenu menubar-item-help) help)
-      (gio:menu-append-item menubar menubar-item-help))
-    menubar))
+  (menu-bar-menu app))
 
 (defun connect-controller (widget controller signal-name)
   (connect controller signal-name (lambda (event &rest args)
