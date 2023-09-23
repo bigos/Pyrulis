@@ -752,7 +752,7 @@
   (let ((menu (gio:make-menu)))
     (build-menu menu
                 (prepare-submenu "File"
-                                 (prepare-section "Q Options"
+                                 (prepare-section nil
                                                   (build-items
                                                    (prepare-item-simple app menu "Preferences" "preferences")))
                                  (prepare-section nil
