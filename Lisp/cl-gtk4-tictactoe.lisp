@@ -640,6 +640,175 @@
 
 ;;; main =======================================================================
 
+;; ================================= MENU ======================================
+;; https://docs.gtk.org/gio/ctor.MenuItem.new_section.html ; ===================
+
+(defun prepare-radio-action (app action-name default)
+      (let ((action (gio:make-stateful-simple-action :name action-name
+                                                     :parameter-type (glib:make-variant-type
+                                                                      :type-string "s")
+                                                     :state (glib:make-string-variant
+                                                             :string default))))
+        (gio:action-map-add-action app action)
+        (gtk4:connect action "activate"
+                      (lambda (event parameter)
+                        (declare (ignore event))
+                        (gio:action-change-state action parameter)
+
+                        (apply 'process-menu-action (list :radio
+                                                          action-name
+                                                          (glib:variant-string
+                                                           (gio:action-state action))))))
+        (gobj:object-unref action)))
+
+(defun prepare-item-radio (app menu label action-name string)
+    (declare (ignore app))
+  (progn
+    (let ((item (gio:make-menu-item :model menu
+                                    :label label
+                                    :detailed-action (format nil "app.~A" action-name))))
+      (setf (gio:menu-item-action-and-target-value item)
+            (list "app.color-scheme" (glib:make-string-variant
+                                      :string string)))
+      item)))
+
+(defun prepare-item-bool (app menu label action-name default &key (disabled nil))
+  (progn
+    (let ((action (gio:make-stateful-simple-action :name action-name
+                                                   :parameter-type nil
+                                                   :state (glib:make-boolean-variant
+                                                           :value default))))
+      (when disabled (setf (gio:simple-action-enabled-p action) nil))
+      (gio:action-map-add-action app action)
+
+      (gtk:connect action "activate"
+                   (lambda (event parameter)
+                     (declare (ignore event parameter))
+                     (gio:action-change-state action (glib:make-boolean-variant
+                                                      :value (if (zerop (glib:variant-hash (gio:action-state action)))
+                                                                 T
+                                                                 nil)))
+                     (apply 'process-menu-action
+                             (list :bool
+                                   action-name
+                                   (glib:variant-hash (gio:action-state action))))))
+      (gobj:object-unref action))
+
+    (gio:make-menu-item :model menu
+                        :label label
+                        :detailed-action (format nil  "app.~A" action-name))))
+
+(defun prepare-item-simple (app menu label action-name &key (disabled nil))
+  (progn
+    (let ((action (gio:make-simple-action :name action-name
+                                          :parameter-type nil)))
+      (when disabled (setf (gio:simple-action-enabled-p action) nil))
+      (gio:action-map-add-action app action)
+
+      (gtk4:connect action "activate"
+                    (lambda (event parameter)
+                      (declare (ignore event parameter))
+
+                      (apply 'process-menu-action (list :simple action-name))))
+      (gobj:object-unref action))
+
+    (gio:make-menu-item :model menu
+                        :label label
+                        :detailed-action (format nil  "app.~A" action-name))))
+
+(defun prepare-section (label section)
+  (gio:make-section-menu-item
+   :label label
+   :section  section))
+
+(defun prepare-submenu (label &rest submenu-items)
+  (list :submenu label
+        (apply 'build-items submenu-items)))
+
+(defun build-items (&rest items)
+  (let ((submenu (gio:make-menu)))
+    (apply 'build-menu submenu items)
+    submenu))
+
+(defun build-menu (submenu &rest items)
+  (loop for i in items
+        for item-class-string = (when (typep i 'gir::object-instance)
+                                  (format nil "~A"
+                                          (gir:gir-class-of i)))
+        do (cond
+             ((equalp item-class-string "#O<MenuItem>")
+              (gio:menu-append-item submenu i))
+             ((and (null item-class-string)
+                   (consp i)
+                   (eq :submenu (first i)))
+              (gio:menu-append-submenu submenu (second i) (third i)))
+             (T (error "unexpected item-class-string or option ~S" item-class-string)))))
+
+;; ================================= MENU code ends here =======================
+
+(defun menu-bar-menu (app)
+  (let ((menu (gio:make-menu)))
+    (build-menu menu
+                (prepare-submenu "File" ; I will add new code for menu
+
+                                 (prepare-item-bool app menu "Fullscreen" "fullscreen" nil)
+                                 (prepare-item-bool app menu "Always On Top" "always-on-top" T :disabled T)
+
+                                 (prepare-section "Q Options"
+                                                  (build-items
+                                                   (prepare-item-simple app menu "Q1" "q1")
+                                                   (prepare-item-simple app menu "Q2" "q2")
+
+                                                   (prepare-submenu "Abyss"
+                                                                    (prepare-item-simple app menu "Abyss 1" "abyss-1")
+                                                                    (prepare-item-simple app menu "Abyss 2" "abyss-2" :disabled T)
+                                                                    (prepare-item-simple app menu "Abyss 3" "abyss-3"))
+
+                                                   (prepare-item-simple app menu "After abyss" "after-abyss")))
+
+                                 (prepare-submenu "Deeper"
+                                                  (prepare-item-simple app menu "W1" "w1")
+                                                  (prepare-item-simple app menu "W2" "w2")
+                                                  (prepare-item-simple app menu "W3" "w3")
+
+                                                  (prepare-submenu "Deepest"
+                                                                   (prepare-submenu "abysmal"
+                                                                                    (prepare-item-simple app menu "aW1" "aw1")
+                                                                                    (prepare-item-simple app menu "aW2" "aw2")
+                                                                                    (prepare-item-simple app menu "aW3" "aw3"))))
+
+                                 (prepare-section nil
+                                                  (build-items
+                                                   (prepare-item-simple app menu "Quit" "quit"))))
+
+                (prepare-submenu "Help"
+                                 (prepare-section nil
+                                                  (progn
+                                                    (prepare-radio-action app "color-scheme" "LIGHT")
+                                                    (build-items
+                                                     (prepare-item-radio app menu "Transparent" "color-scheme" "TRANSPARENT")
+                                                     (prepare-item-radio app menu "Light" "color-scheme" "LIGHT")
+                                                     (prepare-item-radio app menu "Dark" "color-scheme" "DARK"))))
+
+                                 (prepare-section nil
+                                                  (build-items
+                                                   (prepare-item-bool app menu "Colorful" "colorful" T)))))
+
+    (values menu)))
+
+(defun process-menu-action (action-type action &optional arg)
+  (setf *selection*
+        (format nil "processing ~S ~S ~S~%" action-type action arg))
+  (case action-type
+    ;; null arg
+    (:simple)
+    ;; 0 or 1 arg
+    (:bool)
+    ;; string arg
+    (:radio))
+  (when *canvas*
+    (gtk4:widget-queue-draw *canvas*)))
+
 ;;; STARTING
 ;; (load (compile-file "~/Programming/Pyrulis/Lisp/cl-gtk4-tictactoe.lisp"))
 ;; (in-package #:cl-gtk4-tictactoe)
