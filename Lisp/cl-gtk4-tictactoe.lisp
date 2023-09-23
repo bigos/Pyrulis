@@ -749,50 +749,20 @@
 (defun menu-bar-menu (app)
   (let ((menu (gio:make-menu)))
     (build-menu menu
-                (prepare-submenu "File" ; I will add new code for menu
-
-                                 (prepare-item-bool app menu "Fullscreen" "fullscreen" nil)
-                                 (prepare-item-bool app menu "Always On Top" "always-on-top" T :disabled T)
-
+                (prepare-submenu "File"
                                  (prepare-section "Q Options"
                                                   (build-items
-                                                   (prepare-item-simple app menu "Q1" "q1")
-                                                   (prepare-item-simple app menu "Q2" "q2")
-
-                                                   (prepare-submenu "Abyss"
-                                                                    (prepare-item-simple app menu "Abyss 1" "abyss-1")
-                                                                    (prepare-item-simple app menu "Abyss 2" "abyss-2" :disabled T)
-                                                                    (prepare-item-simple app menu "Abyss 3" "abyss-3"))
-
-                                                   (prepare-item-simple app menu "After abyss" "after-abyss")))
-
-                                 (prepare-submenu "Deeper"
-                                                  (prepare-item-simple app menu "W1" "w1")
-                                                  (prepare-item-simple app menu "W2" "w2")
-                                                  (prepare-item-simple app menu "W3" "w3")
-
-                                                  (prepare-submenu "Deepest"
-                                                                   (prepare-submenu "abysmal"
-                                                                                    (prepare-item-simple app menu "aW1" "aw1")
-                                                                                    (prepare-item-simple app menu "aW2" "aw2")
-                                                                                    (prepare-item-simple app menu "aW3" "aw3"))))
-
+                                                   (prepare-item-simple app menu "Preferences" "preferences")))
                                  (prepare-section nil
                                                   (build-items
                                                    (prepare-item-simple app menu "Quit" "quit"))))
-
                 (prepare-submenu "Help"
                                  (prepare-section nil
-                                                  (progn
-                                                    (prepare-radio-action app "color-scheme" "LIGHT")
-                                                    (build-items
-                                                     (prepare-item-radio app menu "Transparent" "color-scheme" "TRANSPARENT")
-                                                     (prepare-item-radio app menu "Light" "color-scheme" "LIGHT")
-                                                     (prepare-item-radio app menu "Dark" "color-scheme" "DARK"))))
-
+                                                  (build-items
+                                                   (prepare-item-simple app menu "Manual" "manual")))
                                  (prepare-section nil
                                                   (build-items
-                                                   (prepare-item-bool app menu "Colorful" "colorful" T)))))
+                                                   (prepare-item-simple app menu "About" "about")))))
 
     (values menu)))
 
