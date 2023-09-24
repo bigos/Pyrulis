@@ -37,9 +37,9 @@
 ;;; ============================================================================
 
 (cffi:defcstruct gdk-rgba
-    (red :double)
+  (red   :double)
   (green :double)
-  (blue :double)
+  (blue  :double)
   (alpha :double))
 
 (defmacro with-gdk-rgba ((pointer color) &body body)
@@ -155,8 +155,8 @@
        (* 2.0 (coerce pi 'single-float)))
 
       (with-gdk-rgba (color "#668844FF")
-        (cairo:set-source-rgba color) ; TODO convert hex colors to numric values
-        ;; (gdk:cairo-set-source-rgba cr color)
+        ;; (cairo:set-source-rgba color) ; TODO convert hex colors to numric values
+        (gdk:cairo-set-source-rgba cr color)
         )
       (cairo:fill-path)
 
