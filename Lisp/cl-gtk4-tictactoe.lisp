@@ -163,7 +163,9 @@
       (cairo:move-to 0.0 0.0)
       (cairo:line-to w h)
       (with-gdk-rgba (color "red")
-        (gdk:cairo-set-source-rgba cr color))
+        ;; (cairo:set-source-rgba color)
+        (gdk:cairo-set-source-rgba cr color)
+        )
       (cairo:stroke)
 
       (let* ((size (/ (min w h) 4.5))
