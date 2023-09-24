@@ -50,14 +50,18 @@
        (gdk:rgba-parse ,pointer ,color)
        ,@body)))
 
-
+(defun color-to-rgba (color)            ;TODO finish me
+  (cffi:with-foreign-object (rgba '(:struct gdk-rgba))
+    (gdk:rgba-parse rgba color)
+    (cffi:with-foreign-slots ((red green blue alpha) rgba (:struct gdk-rgba))
+      (list red green blue alpha)))
 
 ;;; classes ====================================================================
 
-;; add coverage testing
-;; http://www.sbcl.org/manual/index.html#sb_002dcover
+  ;; add coverage testing
+  ;; http://www.sbcl.org/manual/index.html#sb_002dcover
 
-(defparameter *model* nil)
+  (defparameter *model* nil))
 (defclass/std model ()
   ((state)
    (next-placed :std :o)
