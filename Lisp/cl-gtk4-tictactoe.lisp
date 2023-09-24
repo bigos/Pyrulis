@@ -325,7 +325,7 @@
 
       ;; call actual drawing
       (draw-func :ignored-area
-                 ctx
+                 (slot-value surface 'cl-cairo2:pointer)
                  w
                  h
                  *model*))
@@ -630,7 +630,6 @@
         ;; possibly buttons will always be 1
         (destructuring-bind ((button buttons x y)) args
           (update *model* (make-instance 'mouse-pressed :button button :x x :y y))
-          ;; FIXME tomorrow
           (when widget
             (widget-queue-draw widget))
           ))
@@ -1197,5 +1196,5 @@
                   (C7 :O NIL) (C8 :X NIL) (C9 :X NIL))))
     (is (typep (state model) 'ttt::won))
     (is (eql (winner (state model)) :O)))
-  ;; (cl-gtk4-tictactoe::simulate-draw-func 200 200)
+  (cl-gtk4-tictactoe::simulate-draw-func 200 200)
   )
