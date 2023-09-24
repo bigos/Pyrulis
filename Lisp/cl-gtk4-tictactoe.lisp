@@ -315,11 +315,32 @@
                               :this cr)
                width height *model*)))
 
+(defun simulate-draw-func (w h)
+  (let* ((surface (cairo:create-image-surface :argb32
+                                              w
+                                              h)))
+    (let* ((ctx (cairo:create-context surface)))
+      (setf  cairo:*context* ctx)
+      ;; #######################################################################
+
+      ;; call actual drawing
+      (draw-func :ignored-area
+                 ctx
+                 w
+                 h
+                 *model*))
+
+    ;; put drawn surface to a file
+    (cairo:surface-write-to-png surface
+                                (format nil
+                                        "/tmp/tictactoe-simulate-drawing-~A.png"
+                                        (get-internal-run-time)))))
+
 ;;; ============================================================================
 (defun rgbahex (r g b a)
-  (format nil
-          "#~2,'0X~2,'0X~2,'0X~2,'0X"
-          r g b a))
+    (format nil
+            "#~2,'0X~2,'0X~2,'0X~2,'0X"
+            r g b a))
 ;;; keys =======================================================================
 
 (defun check-key (key-val key-code key-modifiers)
@@ -606,6 +627,7 @@
     ((equalp event-class "#O<GestureClick>")
      (cond
        ((equalp signal-name "pressed")
+        ;; possibly buttons will always be 1
         (destructuring-bind ((button buttons x y)) args
           (update *model* (make-instance 'mouse-pressed :button button :x x :y y))
           ;; FIXME tomorrow
@@ -1016,7 +1038,7 @@
                   (C5 NIL NIL) (C6 NIL NIL) (C7 NIL :HOVER) (C8 NIL NIL)
                   (C9 NIL NIL))))
 
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 70 70))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 70 70))
     (is (equalp (grid-name-state-mouse)
                 '((C1 NIL NIL) (C2 NIL NIL) (C3 NIL NIL) (C4 NIL NIL)
                   (C5 NIL NIL) (C6 NIL NIL) (C7 :O :CLICKED) (C8 NIL NIL)
@@ -1029,7 +1051,7 @@
                   (C5 NIL NIL) (C6 NIL NIL) (C7 :O NIL) (C8 NIL :HOVER)
                   (C9 NIL NIL))))
 
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 175 85))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 175 85))
     (is (equalp (grid-name-state-mouse)
                 '((C1 NIL NIL) (C2 NIL NIL) (C3 NIL NIL) (C4 NIL NIL)
                  (C5 NIL NIL) (C6 NIL NIL) (C7 :O NIL) (C8 :X :CLICKED)
@@ -1042,7 +1064,7 @@
                   (C5 NIL NIL) (C6 NIL NIL) (C7 :O NIL) (C8 :X NIL)
                   (C9 NIL NIL))))
 
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 100 200))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 100 200))
     (is (equalp (grid-name-state-mouse)
                 '((C1 NIL NIL) (C2 NIL NIL) (C3 NIL NIL) (C4 :O :CLICKED)
                   (C5 NIL NIL) (C6 NIL NIL) (C7 :O NIL) (C8 :X NIL)
@@ -1056,7 +1078,7 @@
                   (C5 NIL NIL) (C6 NIL NIL) (C7 :O NIL) (C8 :X NIL)
                   (C9 NIL :HOVER))))
 
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 333 65))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 333 65))
     (is (equalp (grid-name-state-mouse)
                 '((C1 NIL NIL) (C2 NIL NIL) (C3 NIL NIL) (C4 :O NIL)
                  (C5 NIL NIL) (C6 NIL NIL) (C7 :O NIL) (C8 :X NIL)
@@ -1072,7 +1094,7 @@
 
     (is (equal (type-of (state model)) 'ttt::playing))
     ;; winning move
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 100 290))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 100 290))
     (is (equalp (grid-name-state-mouse)
                 '((C1 :O :CLICKED) (C2 NIL NIL) (C3 NIL NIL) (C4 :O NIL)
                  (C5 NIL NIL) (C6 NIL NIL) (C7 :O NIL) (C8 :X NIL)
@@ -1090,7 +1112,7 @@
                   (C9 :X NIL))))
 
     ;; the c6 cell is still supposed to be in hover state
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 285 200))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 285 200))
     (is (equalp (grid-name-state-mouse)
                ' ((C1 :O NIL) (C2 NIL NIL) (C3 NIL NIL) (C4 :O NIL)
                  (C5 NIL NIL) (C6 NIL :HOVER) (C7 :O NIL) (C8 :X NIL)
@@ -1107,19 +1129,19 @@
     (is (= 400 (ui-width  model)))
     (is (= 400 (ui-height model)))
 
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 100 100))
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 300 300))
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 100 300))
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 300 100))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 100 100))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 300 300))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 100 300))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 300 100))
     (is (equalp (grid-name-state-mouse)
                 '((C1 :O NIL) (C2 NIL NIL) (C3 :X NIL) (C4 NIL NIL)
                   (C5 NIL NIL) (C6 NIL NIL) (C7 :O NIL) (C8 NIL NIL)
                   (C9 :X :CLICKED))))
 
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 300 200))
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 100 200))
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 200 100))
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 200 300))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 300 200))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 100 200))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 200 100))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 200 300))
     (is (equalp (grid-name-state-mouse)
                 '((C1 :O NIL) (C2 :X :CLICKED) (C3 :X NIL) (C4 :X NIL)
                   (C5 NIL NIL) (C6 :O NIL) (C7 :O NIL) (C8 :O NIL)
@@ -1129,7 +1151,7 @@
          '(:O :X :X :X NIL :O :O :O :X)))
     (is (equal (type-of (state model)) 'ttt::playing))
 
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 200 200))
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 200 200))
     (is (equalp (grid-name-state-mouse)
                 '((C1 :O NIL) (C2 :X NIL) (C3 :X NIL) (C4 :X NIL)
                   (C5 :O :CLICKED) (C6 :O NIL) (C7 :O NIL) (C8 :O NIL)
@@ -1152,26 +1174,28 @@
     (is (= 400 (ui-width  model)))
     (is (= 400 (ui-height model)))
 
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 100 100)) ; o7
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 100 200)) ; x4
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 100 300)) ; o1
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 200 100)) ; x8
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 200 200)) ; o5
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 300 100)) ; x9
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 200 300)) ; o2
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 100 100)) ; o7
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 100 200)) ; x4
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 100 300)) ; o1
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 200 100)) ; x8
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 200 200)) ; o5
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 300 100)) ; x9
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 200 300)) ; o2
     (is (equalp (grid-name-state-mouse)
                 '((C1 :O NIL) (C2 :O :CLICKED) (C3 NIL NIL) (C4 :X NIL) (C5 :O NIL) (C6 NIL NIL)
                  (C7 :O NIL) (C8 :X NIL) (C9 :X NIL))))
     (is  (eql (ttt::next-placed  model) :X))
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 300 200)) ; x6
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 300 200)) ; x6
     (is (equalp (grid-name-state-mouse)
                 '((C1 :O NIL) (C2 :O NIL) (C3 NIL NIL) (C4 :X NIL) (C5 :O NIL) (C6 :X :CLICKED)
                  (C7 :O NIL) (C8 :X NIL) (C9 :X NIL))))
     (is (typep (state model) 'ttt::playing))
     (is  (eql (next-placed  model) :O))
-    (event-sink-test "pressed" "#O<GestureClick>" '(1 300 300)) ; o3
+    (event-sink-test "pressed" "#O<GestureClick>" '(1 1 300 300)) ; o3
     (is (equalp (grid-name-state-mouse)
                 '((C1 :O NIL) (C2 :O NIL) (C3 :O :CLICKED) (C4 :X NIL) (C5 :O NIL) (C6 :X NIL)
                   (C7 :O NIL) (C8 :X NIL) (C9 :X NIL))))
     (is (typep (state model) 'ttt::won))
-    (is (eql (winner (state model)) :O))))
+    (is (eql (winner (state model)) :O)))
+  ;; (cl-gtk4-tictactoe::simulate-draw-func 200 200)
+  )
