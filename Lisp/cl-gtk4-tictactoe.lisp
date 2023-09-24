@@ -1198,3 +1198,11 @@
     (is (eql (winner (state model)) :O)))
   (cl-gtk4-tictactoe::simulate-draw-func 200 200)
   )
+
+(when nil                              ; REPL experiments with drawing
+  (progn
+    (let ((model (init-model)))
+      (event-sink-test "resize" nil '(400 400))
+      (simulate-draw-func 400 400)))
+
+  )
