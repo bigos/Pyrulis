@@ -162,7 +162,7 @@
 
       (cairo:move-to 0.0 0.0)
       (cairo:line-to w h)
-      (with-gdk-rgba (color "#227722FF")
+      (with-gdk-rgba (color "red")
         (gdk:cairo-set-source-rgba cr color))
       (cairo:stroke)
 
@@ -328,7 +328,7 @@
 
       ;; call actual drawing
       (draw-func :ignored-area
-                 (slot-value surface 'cl-cairo2:pointer)
+                 ctx
                  w
                  h
                  *model*))
