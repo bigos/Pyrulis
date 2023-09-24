@@ -36,19 +36,6 @@
 
 ;;; ============================================================================
 
-(cffi:defcstruct gdk-rgba
-  (red :double)
-  (green :double)
-  (blue :double)
-  (alpha :double))
-
-(defmacro with-gdk-rgba ((pointer color) &body body)
-  `(cffi:with-foreign-object (,pointer '(:struct gdk-rgba))
-     (let ((,pointer (make-instance 'gir::struct-instance
-                                    :class (gir:nget gdk::*ns* "RGBA")
-                                    :this ,pointer)))
-       (gdk:rgba-parse ,pointer ,color)
-       ,@body)))
 
 
 ;;; classes ====================================================================
@@ -154,7 +141,9 @@
        (* 2.0 (coerce pi 'single-float)))
 
       (with-gdk-rgba (color "#668844FF")
-        (gdk:cairo-set-source-rgba cr color))
+        (cairo:set-source-rgba color) ; TODO convert hex colors to numric values
+        ;; (gdk:cairo-set-source-rgba cr color)
+        )
       (cairo:fill-path)
 
       (cairo:move-to 0.0 0.0)
