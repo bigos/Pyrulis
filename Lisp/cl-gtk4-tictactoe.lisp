@@ -36,6 +36,20 @@
 
 ;;; ============================================================================
 
+(cffi:defcstruct gdk-rgba
+    (red :double)
+  (green :double)
+  (blue :double)
+  (alpha :double))
+
+(defmacro with-gdk-rgba ((pointer color) &body body)
+  `(cffi:with-foreign-object (,pointer '(:struct gdk-rgba))
+     (let ((,pointer (make-instance 'gir::struct-instance
+                                    :class (gir:nget gdk::*ns* "RGBA")
+                                    :this ,pointer)))
+       (gdk:rgba-parse ,pointer ,color)
+       ,@body)))
+
 
 
 ;;; classes ====================================================================
