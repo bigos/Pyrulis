@@ -37,10 +37,10 @@
 ;;; ============================================================================
 
 (cffi:defcstruct gdk-rgba
-  (red   :double)
-  (green :double)
-  (blue  :double)
-  (alpha :double))
+  (red   :float)
+  (green :float)
+  (blue  :float)
+  (alpha :float))
 
 (defmacro with-gdk-rgba ((pointer color) &body body)
   `(cffi:with-foreign-object (,pointer '(:struct gdk-rgba))
@@ -50,14 +50,14 @@
        (gdk:rgba-parse ,pointer ,color)
        ,@body)))
 
-(defun color-to-rgba (color)            ;TODO finish me - still no lusl parsing the colors correctly
+(defun color-to-rgba (color)            ;names are trnaslated correctly
   (cffi:with-foreign-object (rgba '(:struct gdk-rgba))
     (let ((pointer (make-instance 'gir::struct-instance
                                   :class (gir:nget gdk::*ns* "RGBA")
                                   :this rgba)))
       (let ((valid-color (gdk:rgba-parse pointer color)))
         (cffi:with-foreign-slots ((red green blue alpha) rgba (:struct gdk-rgba))
-          (cairo:set-source-rgba red green blue alpha))
+          (list valid-color red green blue alpha))
         ))))
 
 
