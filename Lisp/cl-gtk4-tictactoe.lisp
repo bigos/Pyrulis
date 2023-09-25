@@ -57,8 +57,7 @@
                                   :this rgba)))
       (let ((valid-color (gdk:rgba-parse pointer color)))
         (cffi:with-foreign-slots ((red green blue alpha) rgba (:struct gdk-rgba))
-          (list valid-color red green blue alpha))
-        ))))
+          (list valid-color red green blue alpha))))))
 
 
 
@@ -174,8 +173,10 @@
       (cairo:move-to 0.0 0.0)
       (cairo:line-to w h)
 
-      (with-gdk-rgba (color "red")
-        (gdk:cairo-set-source-rgba cr color))
+      ;; (with-gdk-rgba (color "red")
+      ;;   (gdk:cairo-set-source-rgba cr color))
+
+      (apply 'cairo:set-source-rgba (rest (color-to-rgba "red")))
 
       (cairo:stroke)
 
