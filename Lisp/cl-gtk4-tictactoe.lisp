@@ -342,9 +342,7 @@
 
       ;; call actual drawing
       (draw-func :ignored-area
-                 (make-instance 'gir::struct-instance
-                                :class (gir:nget cairo-gobject:*ns* "Context")
-                                :this (slot-value ctx 'cairo:zzz))
+                 (slot-value surface 'cl-cairo2:pointer)
                  w
                  h
                  *model*))
