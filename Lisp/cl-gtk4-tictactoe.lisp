@@ -50,18 +50,25 @@
        (gdk:rgba-parse ,pointer ,color)
        ,@body)))
 
-(defun color-to-rgba (color)            ;TODO finish me
+(defun color-to-rgba (color)            ;TODO finish me - still no lusl parsing the colors correctly
   (cffi:with-foreign-object (rgba '(:struct gdk-rgba))
-    (gdk:rgba-parse rgba color)
-    (cffi:with-foreign-slots ((red green blue alpha) rgba (:struct gdk-rgba))
-      (list red green blue alpha)))
+    (let ((pointer (make-instance 'gir::struct-instance
+                                  :class (gir:nget gdk::*ns* "RGBA")
+                                  :this rgba)))
+      (let ((valid-color (gdk:rgba-parse pointer color)))
+        (cffi:with-foreign-slots ((red green blue alpha) rgba (:struct gdk-rgba))
+          (cairo:set-source-rgba red green blue alpha))
+        ))))
+
+
 
 ;;; classes ====================================================================
 
-  ;; add coverage testing
-  ;; http://www.sbcl.org/manual/index.html#sb_002dcover
+;; add coverage testing
+;; http://www.sbcl.org/manual/index.html#sb_002dcover
 
-  (defparameter *model* nil))
+
+(defparameter *model* nil)
 (defclass/std model ()
   ((state)
    (next-placed :std :o)
@@ -166,10 +173,10 @@
 
       (cairo:move-to 0.0 0.0)
       (cairo:line-to w h)
+
       (with-gdk-rgba (color "red")
-        ;; (cairo:set-source-rgba color)
-        (gdk:cairo-set-source-rgba cr color)
-        )
+        (gdk:cairo-set-source-rgba cr color))
+
       (cairo:stroke)
 
       (let* ((size (/ (min w h) 4.5))
