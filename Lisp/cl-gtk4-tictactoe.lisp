@@ -147,7 +147,7 @@
                    size size)
   (cairo:fill-path))
 
-(defun set-source (color)
+(defun set-rgba (color)
   (let ((parsed-color (color-to-rgba color)))
    (if (first parsed-color)
        (apply 'cairo:set-source-rgba (rest parsed-color))
@@ -170,7 +170,7 @@
        0.0
        (* 2.0 (coerce pi 'single-float)))
 
-      (set-source "#668844FF")
+      (set-rgba "#668844FF")
 
       (cairo:fill-path)
 
@@ -178,9 +178,9 @@
       (cairo:line-to w h)
 
       ;; (with-gdk-rgba (color "red")
-      ;;   (gdk:cairo-set-source-rgba cr color))
+      ;;   (gdk:cairo-set-rgba-rgba cr color))
 
-      (set-source "green")
+      (set-rgba "green")
 
       (cairo:stroke)
 
@@ -189,12 +189,12 @@
 
         ;; grid background
         ;; (with-gdk-rgba (color "#777777CC")
-        ;;   (gdk:cairo-set-source-rgba cr color))
+        ;;   (gdk:cairo-set-rgba-rgba cr color))
         ;; (square-centered-at hw hh (+ (* size 3) (* size 0.20)))
 
         ;; grid
         ;; (with-gdk-rgba (color "#FFFFFFCC")
-        ;;   (gdk:cairo-set-source-rgba cr color))
+        ;;   (gdk:cairo-set-rgba-rgba cr color))
         ;; (square-centered-at (- hw dist) (- hh dist) size)
         ;; (square-centered-at (- hw dist) hh size)
         ;; (square-centered-at (- hw dist) (+ hh dist) size)
@@ -209,7 +209,7 @@
 
         ;; top bar
 
-        (set-source "#FFFFD0F0")
+        (set-rgba "#FFFFD0F0")
 
 
         (cairo:rectangle (- hw (* size 2))
@@ -219,7 +219,7 @@
         (cairo:fill-path)
 
         ;; bottom bar
-        (set-source "#FFFFBBCC")
+        (set-rgba "#FFFFBBCC")
 
 
         (cairo:rectangle (- hw (* size 2))
@@ -228,7 +228,7 @@
                          (* size 0.67))
         (cairo:fill-path)
 
-        (set-source "#441111FF")
+        (set-rgba "#441111FF")
 
         (cairo:select-font-face "Ubuntu Mono"
                                 :normal :bold)
@@ -243,7 +243,7 @@
 
         ;; help area
         ;; (with-gdk-rgba (color "#88FFFFAA")
-        ;;   (gdk:cairo-set-source-rgba cr color))
+        ;;   (gdk:cairo-set-rgba-rgba cr color))
         ;; (cairo:rectangle (- hw (* size 2) 10)
         ;;                  (- hh (* size 2))
         ;;                  (+ (* size 4) (* 2 10))
@@ -264,7 +264,7 @@
                     (cc  (coords gc))
                     (cm (mouse gc)))
 
-               (set-source (if cm (ecase cm
+               (set-rgba (if cm (ecase cm
                                     (:clicked "#FFAA88FF")
                                     (:hover   "#AAFF88FF"))
 
@@ -272,7 +272,7 @@
 
                (square-centered-at (caar cc) (cdar cc) size)
                (cairo:fill-path)
-               (set-source (cond
+               (set-rgba (cond
                              ((eql 'won (type-of (state model) ))
                               (cond
                                 ((eql (state gc)
@@ -307,7 +307,7 @@
                        25
                        25))
 
-    (set-source "#FFFFBBFF")
+    (set-rgba "#FFFFBBFF")
     (cairo:fill-path)))
 
 
