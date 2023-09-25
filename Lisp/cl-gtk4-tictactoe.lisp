@@ -147,6 +147,12 @@
                    size size)
   (cairo:fill-path))
 
+(defun set-source (color)
+  (let ((parsed-color (color-to-rgba color)))
+   (if (first parsed-color)
+       (apply 'cairo:set-source-rgba (rest parsed-color))
+       (error "~S is not a valid color"))))
+
 (defun draw-func (area cr width height model)
   (declare (ignore area))
 
@@ -164,10 +170,8 @@
        0.0
        (* 2.0 (coerce pi 'single-float)))
 
-      (with-gdk-rgba (color "#668844FF")
-        ;; (cairo:set-source-rgba color) ; TODO convert hex colors to numric values
-        (gdk:cairo-set-source-rgba cr color)
-        )
+      (set-source "#668844FF")
+
       (cairo:fill-path)
 
       (cairo:move-to 0.0 0.0)
@@ -176,7 +180,7 @@
       ;; (with-gdk-rgba (color "red")
       ;;   (gdk:cairo-set-source-rgba cr color))
 
-      (apply 'cairo:set-source-rgba (rest (color-to-rgba "red")))
+      (set-source "green")
 
       (cairo:stroke)
 
@@ -204,8 +208,9 @@
         ;; (square-centered-at (+ hw dist) (+ hh dist) size)
 
         ;; top bar
-        (with-gdk-rgba (color "#FFFFD0F0")
-          (gdk:cairo-set-source-rgba cr color))
+
+        (set-source "#FFFFD0F0")
+
 
         (cairo:rectangle (- hw (* size 2))
                          (- hh (* size 2.3))
@@ -214,17 +219,17 @@
         (cairo:fill-path)
 
         ;; bottom bar
-        (with-gdk-rgba (color "#FFFFBBCC")
-          (gdk:cairo-set-source-rgba cr color))
+        (set-source "#FFFFBBCC")
+
+
         (cairo:rectangle (- hw (* size 2))
                          (+ hh (* size 1.62))
                          (* size 4)
                          (* size 0.67))
         (cairo:fill-path)
 
+        (set-source "#441111FF")
 
-        (with-gdk-rgba (color "#441111FF")
-          (gdk:cairo-set-source-rgba cr color))
         (cairo:select-font-face "Ubuntu Mono"
                                 :normal :bold)
         (cairo:set-font-size (* size 0.5))
@@ -258,40 +263,41 @@
           do (let* ((gc (slot-value (my-grid model) cell-name))
                     (cc  (coords gc))
                     (cm (mouse gc)))
-               (with-gdk-rgba (color (if cm (ecase cm
-                                              (:clicked "#FFAA88FF")
-                                              (:hover   "#AAFF88FF"))
 
-                                         (rgbahex redval redval redval  255)))
-                 (gdk:cairo-set-source-rgba cr color)
-                 (square-centered-at (caar cc) (cdar cc) size)
-                 (cairo:fill-path))
-               (with-gdk-rgba (color (cond
-                                       ((eql 'won (type-of (state model) ))
-                                        (cond
-                                          ((eql (state gc)
-                                                (winner (state model)))
-                                           (cond
-                                             ((member (name gc)
-                                                      (caar (get-all-lines (my-grid model)))
-                                                      :test #'equalp)
-                                              "#FF0000FF")
-                                             (t
-                                              "#A01122FF"))
-                                           )
-                                          (t "#221122aa")))
-                                       (T "#221122FF")))
+               (set-source (if cm (ecase cm
+                                    (:clicked "#FFAA88FF")
+                                    (:hover   "#AAFF88FF"))
 
-                 (gdk:cairo-set-source-rgba cr color)
-                 (cairo:select-font-face "Ubuntu Mono"
-                                         :normal :bold)
-                 (cairo:set-font-size (* size 0.5))
-                 (cairo:move-to (caar cc) (cdar cc))
-                 (cairo:show-text (format nil "~A" (if (state gc)
-                                                       (ecase (state gc)
-                                                         (:x "X")
-                                                         (:o "O"))
-                                                       "")))))))
+                               (rgbahex redval redval redval  255)))
+
+               (square-centered-at (caar cc) (cdar cc) size)
+               (cairo:fill-path)
+               (set-source (cond
+                             ((eql 'won (type-of (state model) ))
+                              (cond
+                                ((eql (state gc)
+                                      (winner (state model)))
+                                 (cond
+                                   ((member (name gc)
+                                            (caar (get-all-lines (my-grid model)))
+                                            :test #'equalp)
+                                    "#FF0000FF")
+                                   (t
+                                    "#A01122FF"))
+                                 )
+                                (t "#221122aa")))
+                             (T "#221122FF")))
+
+
+               (cairo:select-font-face "Ubuntu Mono"
+                                       :normal :bold)
+               (cairo:set-font-size (* size 0.5))
+               (cairo:move-to (caar cc) (cdar cc))
+               (cairo:show-text (format nil "~A" (if (state gc)
+                                                     (ecase (state gc)
+                                                       (:x "X")
+                                                       (:o "O"))
+                                                     ""))))))
 
   (progn
     ;; (format t "mouse coord ~S ~S~%" (mouse-x model) (mouse-y model))
@@ -301,8 +307,7 @@
                        25
                        25))
 
-    (with-gdk-rgba (color "#FFFFBBFF")
-      (gdk:cairo-set-source-rgba cr color))
+    (set-source "#FFFFBBFF")
     (cairo:fill-path)))
 
 
