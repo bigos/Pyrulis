@@ -163,25 +163,19 @@
         (h (coerce (the (signed-byte 32) height) 'single-float)))
     (let ((hw (/ w 2))
           (hh (/ h 2)))
+
       (cairo:arc
        (/ w 2.0)
        (/ h 2.0)
        (/ (min w h) 2.0)
        0.0
        (* 2.0 (coerce pi 'single-float)))
-
       (set-rgba "#668844FF")
-
       (cairo:fill-path)
 
       (cairo:move-to 0.0 0.0)
       (cairo:line-to w h)
-
-      ;; (with-gdk-rgba (color "red")
-      ;;   (gdk:cairo-set-rgba-rgba cr color))
-
       (set-rgba "green")
-
       (cairo:stroke)
 
       (let* ((size (/ (min w h) 4.5))
@@ -210,8 +204,6 @@
         ;; top bar
 
         (set-rgba "#FFFFD0F0")
-
-
         (cairo:rectangle (- hw (* size 2))
                          (- hh (* size 2.3))
                          (* size 4)
@@ -220,8 +212,6 @@
 
         ;; bottom bar
         (set-rgba "#FFFFBBCC")
-
-
         (cairo:rectangle (- hw (* size 2))
                          (+ hh (* size 1.62))
                          (* size 4)
@@ -229,7 +219,6 @@
         (cairo:fill-path)
 
         (set-rgba "#441111FF")
-
         (cairo:select-font-face "Ubuntu Mono"
                                 :normal :bold)
         (cairo:set-font-size (* size 0.5))
@@ -267,28 +256,25 @@
                (set-rgba (if cm (ecase cm
                                     (:clicked "#FFAA88FF")
                                     (:hover   "#AAFF88FF"))
-
                                (rgbahex redval redval redval  255)))
-
                (square-centered-at (caar cc) (cdar cc) size)
                (cairo:fill-path)
+
                (set-rgba (cond
-                             ((eql 'won (type-of (state model) ))
-                              (cond
-                                ((eql (state gc)
-                                      (winner (state model)))
-                                 (cond
-                                   ((member (name gc)
-                                            (caar (get-all-lines (my-grid model)))
-                                            :test #'equalp)
-                                    "#FF0000FF")
-                                   (t
-                                    "#A01122FF"))
-                                 )
-                                (t "#221122aa")))
-                             (T "#221122FF")))
-
-
+                           ((eql 'won (type-of (state model) ))
+                            (cond
+                              ((eql (state gc)
+                                    (winner (state model)))
+                               (cond
+                                 ((member (name gc)
+                                          (caar (get-all-lines (my-grid model)))
+                                          :test #'equalp)
+                                  "#FF0000FF")
+                                 (t
+                                  "#A01122FF"))
+                               )
+                              (t "#221122aa")))
+                           (T "#221122FF")))
                (cairo:select-font-face "Ubuntu Mono"
                                        :normal :bold)
                (cairo:set-font-size (* size 0.5))
