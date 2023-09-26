@@ -1203,8 +1203,12 @@
                 '((C1 :O NIL) (C2 :O NIL) (C3 :O :CLICKED) (C4 :X NIL) (C5 :O NIL) (C6 :X NIL)
                   (C7 :O NIL) (C8 :X NIL) (C9 :X NIL))))
     (is (typep (state model) 'ttt::won))
-    (is (eql (winner (state model)) :O)))
-  (cl-gtk4-tictactoe::simulate-draw-func 200 200)
+    (is (eql (winner (state model)) :O))
+
+    (is (= 400 (ui-width  model)))
+    (is (= 400 (ui-height model))))
+
+  (cl-gtk4-tictactoe::simulate-draw-func 400 400)
   )
 
 (when nil                              ; REPL experiments with drawing
