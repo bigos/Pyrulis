@@ -34,10 +34,10 @@
 
 ;;; drawing =========================
 (cffi:defcstruct gdk-rgba
-  (red :double)
-  (green :double)
-  (blue :double)
-  (alpha :double))
+  (red :float)
+  (green :float)
+  (blue :float)
+  (alpha :float))
 
 (defmacro with-gdk-rgba ((pointer color) &body body)
   `(locally

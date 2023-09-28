@@ -37,10 +37,10 @@
 
 ;; https://github.com/bohonghuang/cl-gtk4/blob/master/examples/gdk4-cairo.lisp
 (cffi:defcstruct gdk-rgba
-  (red :double)
-  (green :double)
-  (blue :double)
-  (alpha :double))
+  (red :float)
+  (green :float)
+  (blue :float)
+  (alpha :float))
 
 (defmacro with-gdk-rgba ((pointer color) &body body)
   `(locally
