@@ -66,10 +66,10 @@ We need gtk4 amd related libraries. The most important library, [[https://github
 
 #+begin_src lisp
   (cffi:defcstruct gdk-rgba
-      (red :double)
-    (green :double)
-    (blue :double)
-    (alpha :double))
+      (red :float)
+    (green :float)
+    (blue :float)
+    (alpha :float))
 
 (defmacro with-gdk-rgba ((pointer color) &body body)
   `(locally
