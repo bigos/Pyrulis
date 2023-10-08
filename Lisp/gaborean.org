@@ -8,6 +8,8 @@ until you run out of ideas
 
 importance of verbalising repeatedly
 
+Can using org-roam-ui* functions help at this step?
+
 ** as much as you can expand ideas using domain language
 until you can execute in your head and you have clear terms for the solution
 
