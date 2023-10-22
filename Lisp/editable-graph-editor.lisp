@@ -13,7 +13,7 @@
    (list 'start
          (list 'empty_graph))
    (list 'empty_graph
-         (list '(hmm ((:label "quit")))
+         (list '(hmm ((:label "quit") (:color "red") (:fontcolor "red")))
                '(nodes ((:label "add_node")))))
    (list 'nodes
          (list '(nodes ((:label "add_node")))
