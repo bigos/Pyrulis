@@ -119,16 +119,17 @@
 
 ;;; object printing ============================================================
 (defmethod print-object ((obj standard-object) stream)
-  (print-unreadable-object (obj stream :type t)
-    (format stream "~S"
-            (loop for sl in (sb-mop:compute-slots (class-of obj))
-                  collect (list
-                           (sb-mop:slot-definition-name sl)
-                           (slot-value obj (sb-mop:slot-definition-name sl)))))))
+  (print-unreadable-object (obj stream :type t :identity t)
+    (format stream "~a"
+            (loop for sl in (sb-mop:class-slots (class-of obj))
+                  for slot-name = (sb-mop:slot-definition-name sl)
+                  collect (cons slot-name
+                                (if (slot-boundp obj slot-name)
+                                    (format nil "~S" (slot-value obj slot-name))))))))
 
 (defmethod print-object ((obj grid-cell) stream)
   (print-unreadable-object (obj stream :type t)
-    (format stream "~A/~A/~A/"             ;we hide coordinates
+    (format stream "~A/~A/~A/"          ;we hide coordinates
             (name  obj)
             (state obj)
             (mouse obj))))
