@@ -88,3 +88,67 @@ that would add methods to fourth from left pane
 package jacpac Jacclass
 right click jump to test class
 right click on JacClassTest option Run tests
+
+** another introduction video
+https://www.youtube.com/watch?v=WLoXXFxU8lw
+
+*** intro
+https://youtu.be/WLoXXFxU8lw?t=2
+
+*** Pharo download
+https://youtu.be/WLoXXFxU8lw?t=21
+
+*** running it
+https://youtu.be/WLoXXFxU8lw?t=40
+
+Transcript
+https://youtu.be/WLoXXFxU8lw?t=51
+
+can be used as REPL
+
+Hello World
+https://youtu.be/WLoXXFxU8lw?t=81
+
+Classes
+https://youtu.be/WLoXXFxU8lw?t=119
+
+Class categories
+https://youtu.be/WLoXXFxU8lw?t=137
+
+Class adding messages
+https://youtu.be/WLoXXFxU8lw?t=161
+
+adding method
+https://youtu.be/WLoXXFxU8lw?t=171
+
+saving method
+https://youtu.be/WLoXXFxU8lw?t=181
+
+calling the method in the Transcript
+https://youtu.be/WLoXXFxU8lw?t=220
+
+seeing the class in File Browser
+https://youtu.be/WLoXXFxU8lw?t=260
+
+the exclamation marks in the file
+https://youtu.be/WLoXXFxU8lw?t=277
+
+editing the file in external editor
+https://youtu.be/WLoXXFxU8lw?t=297
+
+bringing edited code back into the image
+https://youtu.be/WLoXXFxU8lw?t=317
+File entire file
+
+closing the image without saving
+https://youtu.be/WLoXXFxU8lw?t=353
+
+upon restarting the image the last edits did not work
+https://youtu.be/WLoXXFxU8lw?t=370
+
+he runs again: File entire file
+https://youtu.be/WLoXXFxU8lw?t=396
+
+what's next
+https://youtu.be/WLoXXFxU8lw?t=433
+understand the image and the tools
