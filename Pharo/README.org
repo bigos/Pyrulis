@@ -113,7 +113,7 @@ https://youtu.be/WLoXXFxU8lw?t=81
 Classes
 https://youtu.be/WLoXXFxU8lw?t=119
 
-Class categories
+Class categories, now they are packages
 https://youtu.be/WLoXXFxU8lw?t=137
 
 Class adding messages
