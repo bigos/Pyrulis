@@ -744,3 +744,8 @@ https://courses.cs.northwestern.edu/325/readings/clos.php
 https://dept-info.labri.fr/~strandh/Teaching/MTP/Common/David-Lamkins/chapter07.html
 
 https://stackoverflow.com/questions/5066355/advantages-of-clos-over-other-class-based-oo-systems
+
+https://clisp.sourceforge.io/impnotes/mop-chap.html
+http://www.clisp.org/impnotes/mop-classes.html#class-prototype
+
+https://stackoverflow.com/questions/19446174/sbcl-clos-why-do-i-have-to-add-a-validate-superclass-method-here
