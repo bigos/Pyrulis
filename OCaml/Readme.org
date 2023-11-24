@@ -8,3 +8,5 @@ https://ocaml.org/docs/installing-ocaml
 #+end_example
 
 https://ocaml.org/docs/tour-of-ocaml
+
+https://ocaml.org/docs/set-up-editor#vim-and-emacs
