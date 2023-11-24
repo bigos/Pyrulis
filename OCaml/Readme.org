@@ -6,3 +6,5 @@ https://ocaml.org/docs/installing-ocaml
   sudo apt install opam
   opam init -y
 #+end_example
+
+https://ocaml.org/docs/tour-of-ocaml
