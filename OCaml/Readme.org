@@ -1,0 +1,8 @@
+* Readme
+
+https://ocaml.org/docs/installing-ocaml
+
+#+begin_example
+  sudo apt install opam
+  opam init -y
+#+end_example
