@@ -86,3 +86,6 @@ https://github.com/cbaggers/tamei
 
 which, I have forked and git cloned cloned at
 ~/Programming/Lisp/tamei
+
+** Interesting paper on Monads in Lisp
+https://cl-monad-macros.common-lisp.dev/monad-macros.pdf
