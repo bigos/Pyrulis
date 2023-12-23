@@ -19,3 +19,11 @@ https://www.google.com/search?q=Common+Lisp+Style+Guide
 project generation
 
 https://github.com/fukamachi/cl-project
+
+packages
+
+https://www-fourier.ujf-grenoble.fr/~sergerar/Papers/Packaging.pdf
+
+https://stackoverflow.com/questions/74809637/common-lisp-best-practices-for-splitting-code-between-files
+
+https://flownet.com/ron/packages.pdf
