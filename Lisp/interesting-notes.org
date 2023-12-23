@@ -37,3 +37,9 @@ paradigm.
 
 However, a new programming language will make it easier to think effectively in
 the new paradigm.
+
+
+** Common Lisp executable
+https://lispcookbook.github.io/cl-cookbook/scripting.html
+
+https://github.com/Shinmera/deploy/
