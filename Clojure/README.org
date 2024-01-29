@@ -42,7 +42,7 @@ C-c M-n
 
 *** 2 starting code from project folder
 
-    M-x ~dired~ to open the directory containing the project
+    M-x ~dired~ to open the directory containing the project (and deps.edn file)
 
     M-x ~cider-jack-in~
 
