@@ -6,3 +6,24 @@ https://git.savannah.gnu.org/cgit/gcl.git/tree/gcl/info
 
 https://gitlab.common-lisp.net/clpm/clpm
 https://gitlab.common-lisp.net/clpm/clpm/-/blob/main/tutorial/tutorial.org
+
+
+style guides
+
+https://github.com/foxsae/The-One-True-Lisp-Style-Guide
+
+http://labs.ariel-networks.com/cl-style-guide.html
+
+https://www.google.com/search?q=Common+Lisp+Style+Guide
+
+project generation
+
+https://github.com/fukamachi/cl-project
+
+packages
+
+https://www-fourier.ujf-grenoble.fr/~sergerar/Papers/Packaging.pdf
+
+https://stackoverflow.com/questions/74809637/common-lisp-best-practices-for-splitting-code-between-files
+
+https://flownet.com/ron/packages.pdf
