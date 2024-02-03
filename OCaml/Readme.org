@@ -7,6 +7,18 @@ https://ocaml.org/docs/installing-ocaml
   opam init -y
 #+end_example
 
+Run the command at the end of the output of the last command
+
+** Install platform tools
+#+begin_example
+opam install dune ocaml-lsp-server odoc ocamlformat utop
+#+end_example
+
+check installation
+https://ocaml.org/docs/installing-ocaml#check-installation
+
+** tour
 https://ocaml.org/docs/tour-of-ocaml
 
+** editor
 https://ocaml.org/docs/set-up-editor#vim-and-emacs
