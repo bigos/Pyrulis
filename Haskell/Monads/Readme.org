@@ -1,6 +1,8 @@
 * Monads
   This is for experimenting with simple monads
 
+https://stackoverflow.com/questions/21959259/what-is-the-difference-between-monads-and-macros
+
 ** Tutorials
 
 *** Monads are hard because
