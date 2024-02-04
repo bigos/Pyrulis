@@ -9,6 +9,9 @@ https://ocaml.org/docs/installing-ocaml
 
 Run the command at the end of the output of the last command
 
+run ~opam init~
+and answer ~y~ to the question about bash profile, then restart terminal
+
 ** Install platform tools
 #+begin_example
 opam install dune ocaml-lsp-server odoc ocamlformat utop
