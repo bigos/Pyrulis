@@ -25,3 +25,11 @@ https://ocaml.org/docs/tour-of-ocaml
 
 ** editor
 https://ocaml.org/docs/set-up-editor#vim-and-emacs
+
+** first program
+https://ocaml.org/docs/your-first-program
+
+#+begin_example
+jacek@jacek-host:~$ cd /tmp
+jacek@jacek-host:/tmp$ opam exec -- dune init proj hello
+#+end_example
