@@ -39,3 +39,9 @@ jacek@jacek-host:/tmp$ cd hello
 jacek@jacek-host:/tmp/hello$ opam exec -- dune exec hello
 Hello, World!
 #+end_example
+
+** installing libraries
+
+#+begin_example
+opam install ounit2
+#+end_example
