@@ -18,3 +18,5 @@ extreme (like Haskell) do not.
 #+end_quote
 
 ** next reading
+
+https://cs3110.github.io/textbook/chapters/basics/toplevel.html
