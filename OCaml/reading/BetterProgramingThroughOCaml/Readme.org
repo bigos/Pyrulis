@@ -1,0 +1,20 @@
+* Readme
+
+This folder is for reading this book
+https://cs3110.github.io/textbook/chapters/preface/about.html
+
+** quotes
+
+*** clarifying and simplyfying
+
+https://cs3110.github.io/textbook/chapters/intro/future.html
+
+#+begin_quote
+If after OCaml you want to learn more about functional programming, you’ll be
+well prepared. OCaml does a great job of clarifying and simplifying the essence
+of functional programming in a way that other languages that blend functional
+and imperative programming (like Scala) or take functional programming to the
+extreme (like Haskell) do not.
+#+end_quote
+
+** next reading
