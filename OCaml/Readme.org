@@ -39,3 +39,11 @@ jacek@jacek-host:/tmp$ cd hello
 jacek@jacek-host:/tmp/hello$ opam exec -- dune exec hello
 Hello, World!
 #+end_example
+
+** books
+https://cs3110.github.io/textbook/chapters/intro/intro.html
+
+https://ocaml.org/books
+
+** calling C
+https://ocaml.org/docs/calling-c-libraries
