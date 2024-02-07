@@ -45,6 +45,8 @@ https://cs3110.github.io/textbook/chapters/intro/intro.html
 
 https://ocaml.org/books
 
+https://dev.realworldocaml.org/toc.html
+
 ** calling C
 https://ocaml.org/docs/calling-c-libraries
 
