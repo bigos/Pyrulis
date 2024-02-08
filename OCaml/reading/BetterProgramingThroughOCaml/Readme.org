@@ -19,4 +19,6 @@ extreme (like Haskell) do not.
 
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/basics/compiling.html
+
+
+https://cs3110.github.io/textbook/chapters/basics/compiling.html#creating-a-dune-project-automatically
