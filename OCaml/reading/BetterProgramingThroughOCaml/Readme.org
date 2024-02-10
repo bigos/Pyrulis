@@ -28,4 +28,5 @@ https://cs3110.github.io/textbook/chapters/basics/expressions.html#more-operator
 
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/basics/expressions.html
+
+https://cs3110.github.io/textbook/chapters/basics/expressions.html#let-expressions
