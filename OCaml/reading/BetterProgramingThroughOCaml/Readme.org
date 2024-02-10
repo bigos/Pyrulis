@@ -17,7 +17,15 @@ and imperative programming (like Scala) or take functional programming to the
 extreme (like Haskell) do not.
 #+end_quote
 
-** next reading
+** equality
+structural vs physical
 
+|            | structural | physical |
+|------------+------------+----------|
+| equality   | =          | ==       |
+| inequality | <>         | !=       |
+https://cs3110.github.io/textbook/chapters/basics/expressions.html#more-operators
+
+** next reading
 
 https://cs3110.github.io/textbook/chapters/basics/expressions.html
