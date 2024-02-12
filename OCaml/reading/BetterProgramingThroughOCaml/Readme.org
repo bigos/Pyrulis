@@ -17,7 +17,8 @@ and imperative programming (like Scala) or take functional programming to the
 extreme (like Haskell) do not.
 #+end_quote
 
-** equality
+** notes
+*** equality
 structural vs physical
 
 |            | structural | physical |
@@ -25,6 +26,31 @@ structural vs physical
 | equality   | =          | ==       |
 | inequality | <>         | !=       |
 https://cs3110.github.io/textbook/chapters/basics/expressions.html#more-operators
+
+*** functions
+**** recursion with rec keyword
+https://cs3110.github.io/textbook/chapters/basics/functions.html#
+
+**** mutually recursive functions
+
+**** pipeline
+#+begin_example
+5 |> inc |> square
+#+end_example
+
+**** keyword arguments
+#+begin_example
+let f ~name1:name1 ~name2:name2 = name1 + name2
+let f ~name1 ~name2 = name1 + name2
+let f ~name1:(arg1 : int) ~name2:(arg2 : int) = arg1 + arg2
+#+end_example
+
+**** optional arguments
+#+begin_example
+let f ?name:(arg1=8) arg2 = arg1 + arg2
+#+end_example
+
+**** tail call recursion recipe
 
 ** next reading
 
