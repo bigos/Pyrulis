@@ -52,6 +52,9 @@ let f ?name:(arg1=8) arg2 = arg1 + arg2
 
 **** tail call recursion recipe
 
+*** documentation
+
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/basics/functions.html
+
+https://cs3110.github.io/textbook/chapters/basics/documentation.html
