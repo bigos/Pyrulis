@@ -56,5 +56,4 @@ let f ?name:(arg1=8) arg2 = arg1 + arg2
 
 ** next reading
 
-
-https://cs3110.github.io/textbook/chapters/basics/documentation.html
+https://cs3110.github.io/textbook/chapters/basics/printing.html
