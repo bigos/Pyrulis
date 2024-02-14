@@ -52,8 +52,12 @@ let f ?name:(arg1=8) arg2 = arg1 + arg2
 
 **** tail call recursion recipe
 
-*** documentation
+*** ddebugging
+https://cs3110.github.io/textbook/chapters/basics/debugging.html#debugging-in-ocaml
 
+https://ocaml.org/docs/debugging#The-OCaml-debugger
+
+assert invalid_arg failwith
 ** next reading
 
 https://cs3110.github.io/textbook/chapters/basics/debugging.html#
