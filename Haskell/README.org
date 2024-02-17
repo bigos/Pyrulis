@@ -24,3 +24,5 @@ https://flaviocorpa.com/haskell-for-elm-developers-giving-names-to-stuff-part-1-
 https://www.reddit.com/r/haskell/comments/pvosen/how_can_haskell_programmers_tolerate_space_leaks/
 
 https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/strict.html
+
+https://well-typed.com/blog/2024/01/ghc-eras-profiling/
