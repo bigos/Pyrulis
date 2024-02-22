@@ -26,6 +26,8 @@ https://ocaml.org/docs/tour-of-ocaml
 ** editor
 https://ocaml.org/docs/set-up-editor#vim-and-emacs
 
+https://batsov.com/articles/2022/08/23/setting-up-emacs-for-ocaml-development/
+
 ** first program
 https://ocaml.org/docs/your-first-program
 
