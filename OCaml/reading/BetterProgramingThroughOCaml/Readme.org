@@ -63,4 +63,4 @@ https://ocaml.org/docs/debugging#The-OCaml-debugger
 assert invalid_arg failwith
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/data/intro.html
+https://cs3110.github.io/textbook/chapters/data/variants.html
