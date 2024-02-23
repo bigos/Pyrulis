@@ -70,7 +70,9 @@ Potential gotcha
   let x = D
 #+end_src
 
+So prefixes may be used in type constructors
+https://cs3110.github.io/textbook/chapters/data/variants.html#scope
 
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/data/variants.html
+https://cs3110.github.io/textbook/chapters/data/ounit.html
