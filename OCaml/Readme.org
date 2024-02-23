@@ -38,6 +38,7 @@ jacek@jacek-host:/tmp$ opam exec -- dune init proj hello
 
 #+begin_example
 jacek@jacek-host:/tmp$ cd hello
+jacek@jacek-host:/tmp$ touch ./.ocamlformat
 jacek@jacek-host:/tmp/hello$ opam exec -- dune exec hello
 Hello, World!
 #+end_example
