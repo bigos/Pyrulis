@@ -61,6 +61,16 @@ https://cs3110.github.io/textbook/chapters/basics/debugging.html#debugging-in-oc
 https://ocaml.org/docs/debugging#The-OCaml-debugger
 
 assert invalid_arg failwith
+*** type defined later wins
+Potential gotcha
+
+#+begin_src ocaml
+  type t1 = C | D
+  type t2 = D | E                 (* this is later type with D, so D belongs to t2 *)
+  let x = D
+#+end_src
+
+
 ** next reading
 
 https://cs3110.github.io/textbook/chapters/data/variants.html
