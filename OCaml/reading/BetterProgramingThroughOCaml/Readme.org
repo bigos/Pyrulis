@@ -72,7 +72,8 @@ Potential gotcha
 
 So prefixes may be used in type constructors
 https://cs3110.github.io/textbook/chapters/data/variants.html#scope
-
+*** revisit testing
+it makes no sense in project that was auto generated
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/data/ounit.html
+https://cs3110.github.io/textbook/chapters/data/records_tuples.html
