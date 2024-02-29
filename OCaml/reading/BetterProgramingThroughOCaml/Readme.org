@@ -73,7 +73,11 @@ Potential gotcha
 So prefixes may be used in type constructors
 https://cs3110.github.io/textbook/chapters/data/variants.html#scope
 *** revisit testing
-it makes no sense in project that was auto generated
+
+the tests in exercism files
+file:~/exercism/ocaml/difference-of-squares/dune::2
+have dune file that compiles the test, and the test file has ~open The_source_file~
+
 ** next reading
 
 https://cs3110.github.io/textbook/chapters/data/records_tuples.html
