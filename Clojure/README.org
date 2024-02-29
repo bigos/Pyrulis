@@ -1,5 +1,8 @@
 * Clojure README
 
+** recommended web framework
+https://kit-clj.github.io/
+
 ** creating new project and running tests
 
 project creation from templates:
