@@ -3,6 +3,9 @@
 ** recommended web framework
 https://kit-clj.github.io/
 
+** working with old legacy projects
+https://dawranliou.com/blog/interop-legacy-java-with-clojure/
+
 ** creating new project and running tests
 
 project creation from templates:
