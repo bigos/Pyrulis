@@ -50,6 +50,9 @@ https://ocaml.org/books
 
 https://dev.realworldocaml.org/toc.html
 
+MORE OCAML Algorithms, Methods & Diversions
+pdf:/home/jacek/Documents/Manuals/OCaml/mlbook2.pdf#1
+
 ** calling C
 https://ocaml.org/docs/calling-c-libraries
 
