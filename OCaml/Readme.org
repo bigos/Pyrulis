@@ -67,6 +67,8 @@ opam install ounit2
 On Emacs ocamlformat fails silently if there is no .ocamlformat file in the
 project. I need to find the locations that work, because the home folder did not.
 
+also M-x ocamlformat fixes the autocompletion on Tab
+
 ** OCaml basics
 
 Simple Data Types pdf:/home/jacek/Documents/Manuals/OCaml/mlbook2.pdf#9
