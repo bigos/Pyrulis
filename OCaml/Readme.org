@@ -61,3 +61,19 @@ https://ocaml.org/docs/calling-c-libraries
 #+begin_example
 opam install ounit2
 #+end_example
+
+** OCaml basics
+
+Simple Data Types pdf:/home/jacek/Documents/Manuals/OCaml/mlbook2.pdf#9
+Names and Functions
+Pattern Matching  pdf:/home/jacek/Documents/Manuals/OCaml/mlbook2.pdf#10
+Lists
+Exceptions
+Partial Application
+New Data Types
+Basic Input / Output pdf:/home/jacek/Documents/Manuals/OCaml/mlbook2.pdf#11
+Mutable State
+Floating-point Numbers
+The OCaml Standard Library
+Simple Modules
+Compiling Programs
