@@ -46,12 +46,14 @@ Hello, World!
 ** books
 https://cs3110.github.io/textbook/chapters/intro/intro.html
 
-https://ocaml.org/books
+https://ocaml.org/books?language=english&difficulty=All&pricing=All
 
 https://dev.realworldocaml.org/toc.html
 
 MORE OCAML Algorithms, Methods & Diversions
 pdf:/home/jacek/Documents/Manuals/OCaml/mlbook2.pdf#1
+
+https://greenteapress.com/thinkocaml/thinkocaml.pdf
 
 ** calling C
 https://ocaml.org/docs/calling-c-libraries
