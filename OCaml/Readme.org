@@ -23,6 +23,8 @@ https://ocaml.org/docs/installing-ocaml#check-installation
 ** tour
 https://ocaml.org/docs/tour-of-ocaml
 
+https://borretti.me/article/two-years-ocaml
+
 http://rigaux.org/language-study/syntax-across-languages-per-language/OCaml.html
 
 https://github.com/ocaml-multicore/ocaml-effects-tutorial
