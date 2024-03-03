@@ -46,6 +46,7 @@ Hello, World!
 ** books
 https://cs3110.github.io/textbook/chapters/intro/intro.html
 
+english books
 https://ocaml.org/books?language=english&difficulty=All&pricing=All
 
 https://dev.realworldocaml.org/toc.html
