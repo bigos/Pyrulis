@@ -63,3 +63,29 @@ https://ocaml.org/docs/calling-c-libraries
 #+begin_example
 opam install ounit2
 #+end_example
+
+** ocaml format problem
+
+On Emacs ocamlformat fails silently if there is no .ocamlformat file in the
+project. I need to find the locations that work, because the home folder did not.
+
+is there a setting for that?
+[[file:~/.emacs.d/elpa/ocamlformat-20230915.941/ocamlformat.el::(defcustom ocamlformat-enable 'enable]]
+
+also M-x ocamlformat fixes the autocompletion on Tab
+
+** OCaml basics
+
+Simple Data Types pdf:/home/jacek/Documents/Manuals/OCaml/mlbook2.pdf#9
+Names and Functions
+Pattern Matching  pdf:/home/jacek/Documents/Manuals/OCaml/mlbook2.pdf#10
+Lists
+Exceptions
+Partial Application
+New Data Types
+Basic Input / Output pdf:/home/jacek/Documents/Manuals/OCaml/mlbook2.pdf#11
+Mutable State
+Floating-point Numbers
+The OCaml Standard Library
+Simple Modules
+Compiling Programs
