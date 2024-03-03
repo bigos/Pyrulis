@@ -55,6 +55,8 @@ pdf:/home/jacek/Documents/Manuals/OCaml/mlbook2.pdf#1
 
 https://greenteapress.com/thinkocaml/thinkocaml.pdf
 
+https://caml.inria.fr/pub/docs/oreilly-book/
+
 ** calling C
 https://ocaml.org/docs/calling-c-libraries
 
