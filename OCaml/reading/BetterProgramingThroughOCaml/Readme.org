@@ -83,5 +83,4 @@ tuple elements are accessed by pattern matching
 
 ** next reading
 
-
-https://cs3110.github.io/textbook/chapters/data/pattern_matching_advanced.html
+https://cs3110.github.io/textbook/chapters/data/assoc_list.html
