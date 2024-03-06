@@ -169,4 +169,4 @@ but still raises error before assert_raises
 if you forget to wrap it in fun ~(fun () -> 2 / 0 )~
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/data/summary.html
+https://cs3110.github.io/textbook/chapters/hop/intro.html
