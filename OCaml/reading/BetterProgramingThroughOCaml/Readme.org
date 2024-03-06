@@ -142,6 +142,31 @@ defined as follows:
 type 'a option = None | Some of 'a
 #+end_src
 
+*** Exceptions
+
+**** order of exceptions
+left to right, but arguments first
+
+raise (C (raise (D "oops")))
+
+**** patter matching
+There is a pattern form for exceptions. Here’s an example of its usage:
+
+#+begin_src ocaml
+match List.hd [] with
+  | [] -> "empty"
+  | _ :: _ -> "non-empty"
+  | exception (Failure s) -> s
+
+#+end_src
+
+**** testing exceptions
+
+assert_raises
+
+warning: you can create test that type checks
+but still raises error before assert_raises
+if you forget to wrap it in fun ~(fun () -> 2 / 0 )~
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/data/exceptions.html
+https://cs3110.github.io/textbook/chapters/data/trees.html
