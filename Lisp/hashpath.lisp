@@ -96,16 +96,19 @@
          (current-hash root-hash))
     (assert (typep current-hash 'hash-table))
 
-    (hash-add current-hash :a "a")
-    (hash-set-path current-hash '(:b) "b")
-    (assert (equal (parent-hash-table-alist root-hash)
-                   '((:|..| . PARENT) (:|.| . :/) (:A . "a") (:B . "b"))))
+    ;; example of debugger stepping over the code fragment
+    (step
+     (progn
+       (hash-add current-hash :a "a")
+       (hash-set-path current-hash '(:b) "b")
+       (assert (equal (parent-hash-table-alist root-hash)
+                      '((:|..| . PARENT) (:|.| . :/) (:A . "a") (:B . "b"))))
 
-    (hash-set-path current-hash '(:c :c) "c")
-    (assert (hashpath-tablep current-hash :c))
-    (assert (equal (parent-hash-table-alist
-                    (hash-get-path root-hash '(:c)))
-                   '((:|..| . PARENT) (:|.| . :C) (:C . "c"))))
+       (hash-set-path current-hash '(:c :c) "c")
+       (assert (hashpath-tablep current-hash :c))
+       (assert (equal (parent-hash-table-alist
+                       (hash-get-path root-hash '(:c)))
+                      '((:|..| . PARENT) (:|.| . :C) (:C . "c"))))))
 
     (hash-set-path current-hash '(:c :d :d) "d")
     (assert (equal (parent-hash-table-alist
