@@ -167,6 +167,17 @@ assert_raises
 warning: you can create test that type checks
 but still raises error before assert_raises
 if you forget to wrap it in fun ~(fun () -> 2 / 0 )~
+
+**** Map
+
+Although, generally there is no order of evaluation, we can force evaluation by
+wrapping the fragment into a let expression
+
+it matters in printing, exceptions and mutability
+
+There's trade-off between time and space complexity in different variants of
+recursive functions
+
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/hop/map.html
+https://cs3110.github.io/textbook/chapters/hop/filter.html
