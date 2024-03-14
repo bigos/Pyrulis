@@ -180,4 +180,6 @@ recursive functions
 
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/hop/beyond_lists.html
+
+
+https://cs3110.github.io/textbook/chapters/hop/pipelining.html
