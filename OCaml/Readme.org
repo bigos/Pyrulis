@@ -98,3 +98,37 @@ Floating-point Numbers
 The OCaml Standard Library
 Simple Modules
 Compiling Programs
+
+** keywords
+
+Keywords
+
+The identifiers below are reserved as keywords, and cannot be employed otherwise:
+
+#+begin_example
+      and         as          assert      asr         begin       class
+      constraint  do          done        downto      else        end
+      exception   external    false       for         fun         function
+      functor     if          in          include     inherit     initializer
+      land        lazy        let         lor         lsl         lsr
+      lxor        match       method      mod         module      mutable
+      new         nonrec      object      of          open        or
+      private     rec         sig         struct      then        to
+      true        try         type        val         virtual     when
+      while       with
+#+end_example
+
+The following character sequences are also keywords:
+
+#+begin_example
+    !=    #     &     &&    '     (     )     *     +     ,     -
+    -.    ->    .     ..    .~    :     ::    :=    :>    ;     ;;
+    <     <-    =     >     >]    >}    ?     [     [<    [>    [|
+    ]     _     `     {     {<    |     |]    ||    }     ~
+#+end_example
+
+Note that the following identifiers are keywords of the now unmaintained Camlp4 system and should be avoided for backwards compatibility reasons.
+
+#+begin_example
+    parser    value    $     $$    $:    <:    <<    >>    ??
+#+end_example
