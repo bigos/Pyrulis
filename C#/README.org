@@ -16,6 +16,8 @@ https://learn.microsoft.com/en-us/dotnet/core/install/linux-scripted-manual
 
 ** First application
 
+https://learn.microsoft.com/en-us/dotnet/core/get-started
+
 #+begin_example
   dotnet new console -o sample1
   cd ./sample1/

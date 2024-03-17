@@ -1,0 +1,18 @@
+* Readme
+
+Having installed dotnet with [[file:~/Programming/Pyrulis/C#/README.org::*apt][apt]] I can try F#.
+
+https://learn.microsoft.com/en-us/dotnet/fsharp/get-started/get-started-command-line
+
+** example app
+
+#+begin_example
+  dotnet new sln -o FSharpSample
+  cd ./FSharpSample/
+  tree -a
+  dotnet new console -lang "F#" -o src/App
+  tree -a
+  emacsclient ./src/App/Program.fs &
+  cd src/App/
+  dotnet run ./Program.fs
+#+end_example
