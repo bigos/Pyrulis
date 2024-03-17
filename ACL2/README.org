@@ -15,6 +15,10 @@ M-x acl2-doc
 
 And you will have some resemblance of REPL
 
+* other reading
+https://softwarefoundations.cis.upenn.edu/
+https://www.youtube.com/watch?v=BGg-gxhsV4E&list=PLre5AT9JnKShFK9l9HYzkZugkJSsXioFs
+
 * using The Little Prover
 ** git repo
 https://github.com/the-little-prover/j-bob
