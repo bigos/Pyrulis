@@ -16,3 +16,7 @@ https://learn.microsoft.com/en-us/dotnet/fsharp/get-started/get-started-command-
   cd src/App/
   dotnet run ./Program.fs
 #+end_example
+
+** Emacs integration
+
+ https://github.com/fsharp/emacs-fsharp-mode

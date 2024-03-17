@@ -25,3 +25,15 @@ https://learn.microsoft.com/en-us/dotnet/core/get-started
   cat ./Program.cs
   dotnet run
 #+end_example
+
+** Emacs integration
+
+There's a warning about deprecation
+https://github.com/Omnisharp/omnisharp-emacs#depreciation-notice
+moving to
+
+*** server
+https://github.com/OmniSharp/omnisharp-roslyn
+
+*** eglot
+https://github.com/joaotavora/eglot
