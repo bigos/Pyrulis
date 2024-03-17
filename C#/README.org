@@ -32,6 +32,9 @@ There's a warning about deprecation
 https://github.com/Omnisharp/omnisharp-emacs#depreciation-notice
 moving to
 
+*** setup example
+https://github.com/Omnisharp/omnisharp-emacs#combined-setup-example
+
 *** server
 https://github.com/OmniSharp/omnisharp-roslyn
 
