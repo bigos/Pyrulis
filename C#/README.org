@@ -1,0 +1,25 @@
+* README
+
+** installing
+
+*** apt
+
+Install latest LTS version
+
+#+begin_example
+sudo apt install dotnet-sdk-8.0
+#+end_example
+
+*** Microsoft script
+
+https://learn.microsoft.com/en-us/dotnet/core/install/linux-scripted-manual
+
+** First application
+
+#+begin_example
+  dotnet new console -o sample1
+  cd ./sample1/
+  tree -a
+  cat ./Program.cs
+  dotnet run
+#+end_example
