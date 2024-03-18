@@ -28,5 +28,7 @@ https://learn.microsoft.com/en-us/dotnet/core/get-started
 
 ** Emacs integration
 
-There's a warning about deprecation
+Emacs is supposed to have a built in solution.
+
+There's a warning about deprecation for the old solution
 https://github.com/Omnisharp/omnisharp-emacs#depreciation-notice
