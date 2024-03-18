@@ -32,3 +32,6 @@ Emacs is supposed to have a built in solution.
 
 There's a warning about deprecation for the old solution
 https://github.com/Omnisharp/omnisharp-emacs#depreciation-notice
+
+and there is another solution
+https://github.com/razzmatazz/csharp-language-server
