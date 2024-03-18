@@ -32,3 +32,5 @@ Emacs is supposed to have a built in solution.
 
 and there is another solution
 https://github.com/razzmatazz/csharp-language-server
+
+but it may be easier to use VSCode and integrate it with Emacs
