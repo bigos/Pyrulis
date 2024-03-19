@@ -52,6 +52,14 @@ Hello, World!
 ** ocamlformat
 https://ocaml.org/p/ocamlformat/latest/doc/getting_started.html
 
+** search
+
+*** docs
+https://ocaml.org/docs/search?q=let
+
+*** packages
+https://ocaml.org/packages/search?q=base
+
 ** books
 https://cs3110.github.io/textbook/chapters/intro/intro.html
 
