@@ -180,4 +180,4 @@ recursive functions
 
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/hop/exercises.html
+https://cs3110.github.io/textbook/chapters/modules/modules.html
