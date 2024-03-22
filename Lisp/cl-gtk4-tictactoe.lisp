@@ -34,6 +34,17 @@
 ;; (load (compile-file "~/Programming/Pyrulis/Lisp/cl-gtk4-tictactoe.lisp"))
 (in-package #:cl-gtk4-tictactoe)
 
+;;; macro for conditional STEP debugging
+(defmacro cond-step (test body)
+  `(if ,test
+       (progn
+         (warn "going to debug the body")
+         (step ,body))
+       ,body))
+
+(defparameter *example-one* 1)
+(defparameter *example-two* 0)
+
 ;;; ============================================================================
 
 (cffi:defcstruct gdk-rgba
@@ -636,12 +647,14 @@
     ((equalp event-class "#O<GestureClick>")
      (cond
        ((equalp signal-name "pressed")
-        ;; possibly buttons will always be 1
-        (destructuring-bind ((button buttons x y)) args
-          (update *model* (make-instance 'mouse-pressed :button button :x x :y y))
-          (when widget
-            (widget-queue-draw widget))
-          ))
+        (cond-step t
+                   ;; count mouse clicks
+                   (incf *example-two*)
+                   ;; possibly buttons will always be 1
+                   (destructuring-bind ((button buttons x y)) args
+                     (update *model* (make-instance 'mouse-pressed :button button :x x :y y))
+                     (when widget
+                       (widget-queue-draw widget)))))
        ((equalp signal-name "released")
         (destructuring-bind ((button buttons x y)) args
           (update *model* (make-instance 'mouse-released :button button :x x :y y))))
