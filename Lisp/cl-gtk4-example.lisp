@@ -30,14 +30,27 @@
   (:import-from :serapeum
    :~>) )
 
-;; (load (compile-file (compile-file (compile-file (compile-file "~/Programming/Pyrulis/Lisp/cl-gtk4-example.lisp")))))
+;;(load "~/Programming/Pyrulis/Lisp/cl-gtk4-example.lisp")
 (in-package #:cl-gtk4-example)
+
+;;; macro for conditional STEP debugging
+(defmacro cond-step (test body)
+  `(if ,test
+       (progn
+         (warn "going to debug the body")
+         (step ,body))
+       ,body))
+
+;;; global variables ------------------------------------------------
+(defparameter *example-one* 1234)
+
+(defparameter *example-two* 1)
 
 ;;; drawing - macro for colours ------------------------------------------------
 
 ;; https://github.com/bohonghuang/cl-gtk4/blob/master/examples/gdk4-cairo.lisp
 (cffi:defcstruct gdk-rgba
-  (red :float)
+    (red :float)
   (green :float)
   (blue :float)
   (alpha :float))
