@@ -648,13 +648,14 @@
      (cond
        ((equalp signal-name "pressed")
         (cond-step t
-                   ;; count mouse clicks
-                   (incf *example-two*)
-                   ;; possibly buttons will always be 1
-                   (destructuring-bind ((button buttons x y)) args
-                     (update *model* (make-instance 'mouse-pressed :button button :x x :y y))
-                     (when widget
-                       (widget-queue-draw widget)))))
+                   (progn
+                     ;; count mouse clicks
+                     (incf *example-two*)
+                     ;; possibly buttons will always be 1
+                     (destructuring-bind ((button buttons x y)) args
+                       (update *model* (make-instance 'mouse-pressed :button button :x x :y y))
+                       (when widget
+                         (widget-queue-draw widget))))))
        ((equalp signal-name "released")
         (destructuring-bind ((button buttons x y)) args
           (update *model* (make-instance 'mouse-released :button button :x x :y y))))
