@@ -34,3 +34,8 @@ and there is another solution
 https://github.com/razzmatazz/csharp-language-server
 
 but it may be easier to use VSCode and integrate it with Emacs
+
+** Visual Studio code
+https://code.visualstudio.com/download
+
+deleted ~/.vscode/ to make sure a clean start
