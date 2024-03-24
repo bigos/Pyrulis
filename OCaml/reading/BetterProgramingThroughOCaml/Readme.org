@@ -178,6 +178,13 @@ it matters in printing, exceptions and mutability
 There's trade-off between time and space complexity in different variants of
 recursive functions
 
+*** Structural subtyping
+That is, it is based on the structure of modules rather than their names.
+
+“Structure” here simply means the definitions contained in the module. Those
+definitions are used to determine whether (M : T) is acceptable as a type
+annotation, where M is a module and T is a module type.
+
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/modules/modules.html
+https://cs3110.github.io/textbook/chapters/modules/toplevel.html
