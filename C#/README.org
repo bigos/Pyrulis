@@ -24,6 +24,8 @@ https://learn.microsoft.com/en-us/dotnet/core/get-started
   tree -a
   cat ./Program.cs
   dotnet run
+
+  dotnet test
 #+end_example
 
 ** Emacs integration
