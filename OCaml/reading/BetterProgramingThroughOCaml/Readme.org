@@ -185,6 +185,9 @@ That is, it is based on the structure of modules rather than their names.
 definitions are used to determine whether (M : T) is acceptable as a type
 annotation, where M is a module and T is a module type.
 
+*** Modules at the Toplevel
+File: .ocamlinit
+
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/modules/toplevel.html
+https://cs3110.github.io/textbook/chapters/modules/encapsulation.html
