@@ -188,6 +188,43 @@ annotation, where M is a module and T is a module type.
 *** Modules at the Toplevel
 File: .ocamlinit
 
-** next reading
+*** Modules and encapsulation
+One of the main concerns of a module system is to provide encapsulation: the
+hiding of information about implementation behind an interface. OCaml’s module
+system makes this possible with a feature we’ve already seen: the opacity that
+module TYPE ANNOTATIONS create. One special use of opacity is the declaration of
+abstract types. We’ll study both of those ideas in this section.
 
 https://cs3110.github.io/textbook/chapters/modules/encapsulation.html
+
+While Ocaml has type inference, it is possible to define type declarations in
+module signature
+
+#+begin_src ocaml
+  module type MATH = sig
+    (** [fact n] is [n!]. *)
+    val fact : int -> int
+  end
+#+end_src
+
+see the equivalent of class C in java
+
+
+Abstract Types
+
+Pretty printing
+directive #install_printer
+
+*** Compilation Units
+A compilation unit is a pair of OCaml source files in the same directory. They
+share the same base name, call it x, but their extensions differ: one file is x.
+ml, the other is x.mli. The file x.ml is called the implementation, and x.mli is
+called the interface.
+
+Unfortunately that does mean we’ve duplicated Stack.S in both the interface and
+implementation files. There’s no way to automatically “import” an already
+declared module type from a .mli file into the corresponding .ml file.
+
+** next reading
+
+https://cs3110.github.io/textbook/chapters/modules/functional_data_structures.html
