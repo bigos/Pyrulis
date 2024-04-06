@@ -227,4 +227,4 @@ declared module type from a .mli file into the corresponding .ml file.
 
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/modules/module_type_constraints.html
+https://cs3110.github.io/textbook/chapters/modules/functors.html
