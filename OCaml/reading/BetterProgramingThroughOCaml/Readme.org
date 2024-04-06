@@ -225,6 +225,11 @@ Unfortunately that does mean we’ve duplicated Stack.S in both the interface an
 implementation files. There’s no way to automatically “import” an already
 declared module type from a .mli file into the corresponding .ml file.
 
+*** Functors
+Functors can be though of as a parameterised structures
+
+Since functors  are functions we can apply them
+
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/modules/functors.html
+https://cs3110.github.io/textbook/chapters/modules/summary.html
