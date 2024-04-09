@@ -41,3 +41,6 @@ https://stevelosh.com/blog/2022/08/depending-in-common-lisp/
 https://www.reddit.com/r/Common_Lisp/comments/kljyg1/need_advice_on_how_to_handle_metaclass_option/
 
 https://stackoverflow.com/questions/53694551/common-lisp-multiple-metaclasses
+
+CLOS-MOP 5 & 6 table of content
+http://metamodular.com/CLOS-MOP/table-of-contents.html
