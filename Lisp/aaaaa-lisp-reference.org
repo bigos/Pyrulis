@@ -27,3 +27,15 @@ https://www-fourier.ujf-grenoble.fr/~sergerar/Papers/Packaging.pdf
 https://stackoverflow.com/questions/74809637/common-lisp-best-practices-for-splitting-code-between-files
 
 https://flownet.com/ron/packages.pdf
+
+MOP
+
+https://clos-mop.hexstreamsoft.com/
+
+https://lispcookbook.github.io/cl-cookbook/clos.html
+
+[[file:Closer/Readme.org::*Closer][Closer]] and [[file:clos.org::*CLOS][CLOS]]
+
+https://stevelosh.com/blog/2022/08/depending-in-common-lisp/
+
+https://www.reddit.com/r/Common_Lisp/comments/kljyg1/need_advice_on_how_to_handle_metaclass_option/
