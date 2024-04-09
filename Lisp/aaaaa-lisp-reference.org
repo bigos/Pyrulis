@@ -44,3 +44,18 @@ https://stackoverflow.com/questions/53694551/common-lisp-multiple-metaclasses
 
 CLOS-MOP 5 & 6 table of content
 http://metamodular.com/CLOS-MOP/table-of-contents.html
+
+lisp cookbook MOP
+https://lispcookbook.github.io/cl-cookbook/clos.html#mop
+
+unintern to change metaclass
+https://stackoverflow.com/questions/38811931/how-to-change-classs-metaclass#38812140
+
+validate-superclass here again
+https://lispcookbook.github.io/cl-cookbook/clos.html#metaclasses
+
+validations
+https://lispcookbook.github.io/cl-cookbook/clos.html#controlling-the-initialization-of-instances-initialize-instance
+
+community spec
+https://cl-community-spec.github.io/pages/Objects.html
