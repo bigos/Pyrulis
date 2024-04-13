@@ -232,4 +232,4 @@ Since functors  are functions we can apply them
 
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/modules/summary.html
+https://cs3110.github.io/textbook/chapters/modules/exercises.html
