@@ -1,6 +1,11 @@
 * Org roam
 
 ** org-roam-graph long URL fix
+
+*** defcustom
+file:~/.emacs.d/elpa/org-roam-20240114.1941/org-roam-graph.el::98
+
+*** hardcoding
 [[file:~/.emacs.d/elpa/org-roam-20240114.1941/org-roam-graph.el::defun org-roam-graph--format-node (node type]]
 
 Go to your elpa folder
