@@ -15,26 +15,14 @@ search for defun:
 (defun org-roam-graph--format-node (node type)
 #+end_example
 
-see the 5th line from the bottom where label value node was commented out and replaced wit truncated string
+see the 2nd line where label value node was commented out and replaced with substring
 #+begin_src emacs-lisp
-      (if (org-roam-node-p node)
-        (let* ((title (org-roam-quote-string (org-roam-node-title node)))
-               (shortened-title
-                (org-roam-quote-string
-                 (pcase org-roam-graph-shorten-titles
-                   (`truncate (truncate-string-to-width title org-roam-graph-max-title-length nil nil "..."))
-                   (`wrap (org-roam-word-wrap org-roam-graph-max-title-length title))
-                   (_ title )))))
-          (setq node-id (org-roam-node-id node)
-                node-properties `(("label"   . ,shortened-title)
-                                  ("URL"     . ,(funcall org-roam-graph-link-builder node))
-                                  ("tooltip" . ,(xml-escape-string title)))))
-      (setq node-id node
-            node-properties (append `(("label" . ,(concat type ":" (truncate-string-to-width node 5 nil nil "...")
-                                        ;node
-                                                          )))
-                                    (when (member type (list "http" "https"))
-                                      `(("URL" . ,(xml-escape-string (concat type ":" node))))))))
+  (setq node-id node
+        node-properties (append `(("label" . ,(concat type ":" (substring node (- (length node) 10))
+                                          ;node
+                                                      )))
+                                (when (member type (list "http" "https"))
+                                  `(("URL" . ,(xml-escape-string (concat type ":" node)))))))
 #+end_src
 
 ** Zettelkasten links
