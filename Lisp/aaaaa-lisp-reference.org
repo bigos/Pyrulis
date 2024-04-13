@@ -59,3 +59,5 @@ https://lispcookbook.github.io/cl-cookbook/clos.html#controlling-the-initializat
 
 community spec
 https://cl-community-spec.github.io/pages/Objects.html
+
+https://dept-info.labri.fr/~strandh/Teaching/MTP/Common/David-Lamkins/chapter07.html
