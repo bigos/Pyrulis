@@ -8,6 +8,9 @@ pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Kee
 page 1
 pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#22
 
+developing a simple clos program
+pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#38
+
 https://clos-mop.hexstreamsoft.com/
 
 ** different object systems
