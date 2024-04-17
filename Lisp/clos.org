@@ -1,5 +1,7 @@
 * CLOS
 
+pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#1
+
 https://clos-mop.hexstreamsoft.com/
 
 ** different object systems
