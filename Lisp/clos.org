@@ -2,6 +2,12 @@
 
 pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#1
 
+index
+pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#16
+
+page 1
+pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#22
+
 https://clos-mop.hexstreamsoft.com/
 
 ** different object systems
