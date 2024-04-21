@@ -10,6 +10,7 @@ file:~/.emacs.d-preludeEmacs29/modules/prelude-ivy.el::41
 http://oremacs.com/swiper/
 
 ** ido
+previous autocompletion
 
 https://www.emacswiki.org/emacs/InteractivelyDoThings
 
