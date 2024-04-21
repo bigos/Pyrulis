@@ -9,6 +9,10 @@ file:~/.emacs.d-preludeEmacs29/modules/prelude-ivy.el::41
 *** tutorial
 http://oremacs.com/swiper/
 
+** ido
+
+https://www.emacswiki.org/emacs/InteractivelyDoThings
+
 * Jumping
 
 ** avy - jumping to visible text
