@@ -8,3 +8,8 @@ file:~/.emacs.d-preludeEmacs29/modules/prelude-ivy.el::41
 
 *** tutorial
 http://oremacs.com/swiper/
+
+* Jumping
+
+** avy - jumping to visible text
+https://github.com/abo-abo/avy
