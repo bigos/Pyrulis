@@ -1,0 +1,10 @@
+* Autocompletion
+
+** ivy
+
+we use ivy
+file:~/.emacs.d/personal/prelude-modules.el::8
+file:~/.emacs.d-preludeEmacs29/modules/prelude-ivy.el::41
+
+*** tutorial
+http://oremacs.com/swiper/
