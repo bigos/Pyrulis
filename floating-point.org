@@ -3,6 +3,14 @@
 https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
 
 https://stackoverflow.com/questions/2896013/manipulating-and-comparing-floating-points-in-java
+** warning
+
+https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
+
+find:
+Epsilon comparisons
+
+and study it!!!
 
 #+begin_src java
   public static int compareFloats(float f1, float f2, float delta)
