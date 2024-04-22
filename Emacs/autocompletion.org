@@ -1,0 +1,31 @@
+* Autocompletion
+
+** ivy
+    Ivy - a generic completion mechanism for Emacs.
+    Counsel - a collection of Ivy-enhanced versions of common Emacs commands.
+    Swiper, an Ivy-enhanced alternative to Isearch.
+
+we use ivy
+file:~/.emacs.d/personal/prelude-modules.el::8
+file:~/.emacs.d-preludeEmacs29/modules/prelude-ivy.el::41
+
+*** tutorial
+http://oremacs.com/swiper/
+
+https://www.emacswiki.org/emacs/IvyCounselSwiper
+
+** counsel
+a collection of Ivy-enhanced versions of common Emacs commands.
+
+** swiper
+https://github.com/abo-abo/swiper
+
+** ido
+previous autocompletion
+
+https://www.emacswiki.org/emacs/InteractivelyDoThings
+
+* Jumping
+
+** avy - jumping to visible text
+https://github.com/abo-abo/avy
