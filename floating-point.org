@@ -1,0 +1,23 @@
+* Floating point
+
+https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
+
+https://stackoverflow.com/questions/2896013/manipulating-and-comparing-floating-points-in-java
+
+#+begin_src java
+  public static int compareFloats(float f1, float f2, float delta)
+  {
+      if (Math.abs(f1 - f2) < delta)
+      {
+           return 0;
+      } else
+      {
+          if (f1 < f2)
+          {
+              return -1;
+          } else {
+              return 1;
+          }
+      }
+  }
+#+end_src
