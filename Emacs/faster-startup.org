@@ -1,0 +1,2 @@
+* Faster startup
+https://www.reddit.com/r/emacs/comments/xb6qdm/super_fast_emacs_start_up/
