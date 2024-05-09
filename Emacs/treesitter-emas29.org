@@ -34,6 +34,8 @@ a grammar libraries.
 
 M-x tree-sitter-langs-install-grammars
 
+M-x treesit-install-language-grammar
+
 https://www.masteringemacs.org/article/how-to-get-started-tree-sitter
 
 Now when I open ruby file
