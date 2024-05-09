@@ -29,19 +29,11 @@ https://tree-sitter.github.io/tree-sitter/
 
 the Emacs News say:
 
-Emacs provides a user command, 'treesit-install-language-grammar',
-that automates the download and build process of a grammar library.
-It prompts for the language, the URL of the language grammar's VCS
-repository, and then uses the installed C/C++ compiler to build the
-library and install it.
+Emacs provides a user command, that automates the download and build process of
+a grammar libraries.
 
-M-x treesit-install-language-grammar
+M-x tree-sitter-langs-install-grammars
 
-will ask for language where we say ruby and then will ask for the URL of the
-parser library that can be found here:
-https://tree-sitter.github.io/tree-sitter/
-
-Library installed to ~/.emacs.d/tree-sitter/libtree-sitter-ruby.so
 
 Now when I open ruby file
 M-x ruby-ts-mode
