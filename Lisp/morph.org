@@ -1,2 +1,5 @@
 * morph
 https://wiki.squeak.org/squeak/30
+
+** alloy
+https://github.com/Shirakumo/alloy
