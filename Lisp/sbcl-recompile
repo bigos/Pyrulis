@@ -1,0 +1,16 @@
+#!/usr/bin/bash
+
+echo "remove existing sbcl"
+
+sudo rn -v /usr/local/bin/sbcl
+
+echo ""
+echo "compile and install new sbcl"
+
+cd ~/Programming/sbcl
+
+sh ./clean.sh
+
+sh make.sh
+
+sudo sh ./install.sh
