@@ -1,0 +1,7 @@
+* cl-gobject-introspection-fix
+
+** issue
+https://github.com/andy128k/cl-gobject-introspection/issues/100
+
+** local code
+file:~/quicklisp/dists/quicklisp/software/cl-gobject-introspection-20231021-git/src/init.lisp::146
