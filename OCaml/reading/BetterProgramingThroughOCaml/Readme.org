@@ -230,6 +230,34 @@ Functors can be though of as a parameterised structures
 
 Since functors  are functions we can apply them
 
+*** Correctness
+
+**** 3 possibilities
+
+***** documentation
+Documentation is the ground truth of what a programmer intended, as opposed to
+what they actually wrote.
+The cognitive task of explaining our ideas to other humans is certainly
+different than explaining our ideas to the computer. That can expose failures in
+our thinking.
+
+***** testing
+Testing is the ground truth of what a program actually does, as opposed to what
+the programmer intended.
+
+Good scientists demand evidence. That demand comes not out of arrogance but
+humility. We human beings are so amazingly good at deluding ourselves.
+
+***** proof
+Finally, beyond documentation and testing, there is mathematical proof of
+correctness. Techniques from logic and discrete math can be used to formally
+prove that a program is correct according to a specification. Such proofs aren’t
+necessarily easy—in fact they take even more human discipline and training than
+documentation and testing do.
+
+*** specifications
+
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/modules/exercises.html
+
+https://cs3110.github.io/textbook/chapters/correctness/specifications.html
