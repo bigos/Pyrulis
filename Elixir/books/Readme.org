@@ -1,5 +1,8 @@
 * Readme
 
+file:~/Documents/Manuals/Elixir/
+
 ** Books
 
-file:~/Documents/Manuals/Elixir/
+*** From Ruby to Elixir
+pdf:/home/jacek/Documents/Manuals/Elixir/fromrubytoelixir.pdf#7
