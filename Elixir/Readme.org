@@ -1,0 +1,7 @@
+* Readme
+
+Here I will have my Elixir notes
+
+** Reading
+
+pdf:/home/jacek/Documents/Manuals/Elixir/adoptingelixir.pdf#7
