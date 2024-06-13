@@ -14,7 +14,18 @@ https://github.com/asdf-vm/asdf
 
 https://github.com/taylor/kiex
 
+possibly use kerl
 https://github.com/yrashk/kerl
+
+**** rebar3 and elixir
+https://meraj-gearhead.ca/adding-elixir-to-erlang-via-rebar3-2ad83476b627
+
+kerl recommended
+https://github.com/erlang/rebar3?tab=readme-ov-file#getting-started
+
+https://www.reddit.com/r/elixir/comments/15jzypg/adding_elixir_to_erlang_via_rebar3/
+
+** Emacs
 
 ** Books
 more [[file:books/Readme.org::*Books][Books]]
