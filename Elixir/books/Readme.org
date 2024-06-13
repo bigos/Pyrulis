@@ -16,4 +16,8 @@ page 18
 Feel free to skip chapters that are not useful
 
 *** From Ruby to Elixir
+table of contents
 pdf:/home/jacek/Documents/Manuals/Elixir/fromrubytoelixir.pdf#7
+
+beginning
+pdf:/home/jacek/Documents/Manuals/Elixir/fromrubytoelixir.pdf#23
