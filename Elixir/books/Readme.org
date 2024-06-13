@@ -4,5 +4,13 @@ file:~/Documents/Manuals/Elixir/
 
 ** Books
 
+*** Adopting elixir
+table of content
+pdf:/home/jacek/Documents/Manuals/Elixir/adoptingelixir.pdf#7
+
+current reading
+pdf:/home/jacek/Documents/Manuals/Elixir/adoptingelixir.pdf#21
+page 1
+
 *** From Ruby to Elixir
 pdf:/home/jacek/Documents/Manuals/Elixir/fromrubytoelixir.pdf#7
