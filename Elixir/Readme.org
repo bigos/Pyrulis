@@ -29,6 +29,3 @@ https://www.reddit.com/r/elixir/comments/15jzypg/adding_elixir_to_erlang_via_reb
 
 ** Books
 more [[file:books/Readme.org::*Books][Books]]
-
-** Reading
-pdf:/home/jacek/Documents/Manuals/Elixir/adoptingelixir.pdf#7
