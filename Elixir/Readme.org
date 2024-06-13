@@ -2,10 +2,22 @@
 
 Here I will have my Elixir notes
 
+https://elixir-lang.org/
+
 ** Installation on Linux
 
+*** version managers
+https://elixir-lang.org/install.html#version-managers
+decide which one to use
+
+https://github.com/asdf-vm/asdf
+
+https://github.com/taylor/kiex
+
+https://github.com/yrashk/kerl
+
+** Books
+more [[file:books/Readme.org::*Books][Books]]
+
 ** Reading
-
-file:~/Documents/Manuals/Elixir/
-
 pdf:/home/jacek/Documents/Manuals/Elixir/adoptingelixir.pdf#7
