@@ -2,6 +2,10 @@
 
 Here I will have my Elixir notes
 
+** Installation on Linux
+
 ** Reading
+
+file:~/Documents/Manuals/Elixir/
 
 pdf:/home/jacek/Documents/Manuals/Elixir/adoptingelixir.pdf#7
