@@ -9,8 +9,11 @@ table of content
 pdf:/home/jacek/Documents/Manuals/Elixir/adoptingelixir.pdf#7
 
 current reading
-pdf:/home/jacek/Documents/Manuals/Elixir/adoptingelixir.pdf#21
-page 1
+pdf:/home/jacek/Documents/Manuals/Elixir/adoptingelixir.pdf#36
+page 18
+
+**** notes
+Feel free to skip chapters that are not useful
 
 *** From Ruby to Elixir
 pdf:/home/jacek/Documents/Manuals/Elixir/fromrubytoelixir.pdf#7
