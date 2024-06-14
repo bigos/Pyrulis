@@ -17,7 +17,41 @@ https://github.com/taylor/kiex
 possibly use kerl
 https://github.com/yrashk/kerl
 
+**** kerl
+
+***** installing
+
+https://github.com/kerl/kerl#installing-kerl
+
+#+begin_example
+  sudo apt-get install build-essential git wget libssl-dev libreadline-dev libncurses5-dev zlib1g-dev m4 curl wx-common libwxgtk3.0-gtk3-dev autoconf
+  sudo apt remove erlang elixir
+
+  cd ~/bin
+  curl -O https://raw.githubusercontent.com/kerl/kerl/master/kerl
+  chmod +x ./kerl
+
+  kerl upgrade
+  kerl list releases
+  kerl status
+#+end_example
+
+list of supported versions
+https://www.coletiv.com/blog/how-to-correctly-install-erlang-and-elixir/
+
+https://medium.com/@dkerrious/using-kerl-and-kiex-for-elixir-and-erlang-version-management-a56bcf2be89a
+
+#+begin_example
+kerl update releases
+kerl build 25.0 25.0
+#+end_example
+
+https://gist.github.com/solidnerd/400d7f1d3e7e90b07648a3ce77af85e4
+
+
 **** rebar3 and elixir
+https://meraj-gearhead.ca/adding-elixir-to-erlang-via-rebar3-2ad83476b627
+
 https://meraj-gearhead.ca/adding-elixir-to-erlang-via-rebar3-2ad83476b627
 
 kerl recommended
