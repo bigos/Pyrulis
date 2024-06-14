@@ -26,6 +26,15 @@ https://github.com/erlang/rebar3?tab=readme-ov-file#getting-started
 https://www.reddit.com/r/elixir/comments/15jzypg/adding_elixir_to_erlang_via_rebar3/
 
 ** Emacs
+https://github.com/elixir-editors/emacs-elixir
+
+https://github.com/tonini/alchemist.el
+
+https://elixirforum.com/t/emacs-elixir-setup-configuration-wiki/19196
+
+https://www.elixirwiki.com/wiki/Emacs_Configuration_Guide
+
+
 
 ** Books
 more [[file:books/Readme.org::*Books][Books]]
