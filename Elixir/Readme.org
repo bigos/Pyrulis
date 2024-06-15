@@ -44,7 +44,23 @@ https://medium.com/@dkerrious/using-kerl-and-kiex-for-elixir-and-erlang-version-
 #+begin_example
 kerl update releases
 kerl build 25.0 25.0
+kerl install 25.0 ~/erlang/25.0
 #+end_example
+
+***** install output
+#+begin_example
+You can activate this installation running the following command:
+. /home/jacek/erlang/25.0/activate
+Later on, you can leave the installation typing:
+kerl_deactivate
+#+end_example
+
+#+begin_example
+sh ~/erlang/25.0/activate
+~/erlang/25.0/bin/erl
+#+end_example
+
+How do I add the above to bashrc?
 
 https://gist.github.com/solidnerd/400d7f1d3e7e90b07648a3ce77af85e4
 
@@ -52,7 +68,7 @@ https://gist.github.com/solidnerd/400d7f1d3e7e90b07648a3ce77af85e4
 **** rebar3 and elixir
 https://meraj-gearhead.ca/adding-elixir-to-erlang-via-rebar3-2ad83476b627
 
-https://meraj-gearhead.ca/adding-elixir-to-erlang-via-rebar3-2ad83476b627
+https://github.com/marketplace/actions/setup-erlang-otp-with-optional-elixir-and-mix-and-or-rebar3
 
 kerl recommended
 https://github.com/erlang/rebar3?tab=readme-ov-file#getting-started
