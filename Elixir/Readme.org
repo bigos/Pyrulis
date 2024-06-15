@@ -66,9 +66,19 @@ First problem is the doc assumes erlang 26 and I just installed 25
 
 https://hexdocs.pm/elixir/introduction.html
 
+so i will try precompile package for otp25
+https://elixir-lang.org/install.html#precompiled-package
+https://github.com/elixir-lang/elixir/releases/download/v1.17.0/elixir-otp-25.zip
 
-zzzzzzzzzzzzzzzzzzz
+So I unloaded the zip and extracted it, then in another terminal in the bin
+folder of the extracted archive I could run elixir
 
+#+begin_example
+kerl status
+. /home/jacek/erlang/25.0/activate
+kerl status
+./iex
+#+end_example
 
 https://gist.github.com/solidnerd/400d7f1d3e7e90b07648a3ce77af85e4
 
