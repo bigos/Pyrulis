@@ -45,7 +45,7 @@ kerl build 25.0 25.0
 kerl install 25.0 ~/erlang/25.0
 #+end_example
 
-***** install output
+****** install output
 #+begin_example
 You can activate this installation running the following command:
 . /home/jacek/erlang/25.0/activate
@@ -76,6 +76,7 @@ kerl status
 ./iex
 #+end_example
 
+***** bashrc
 I need to think of bashrc that will activate erlang 25 and know the path to elixir binaries
 
 file:~/.bashrc::1
@@ -89,8 +90,6 @@ export PATH="/home/jacek/Downloads/elixir-otp-25/bin:$PATH"
 
 these are subject to change, especially the locations of elixir binary and erlang installations
 
-***** other
-https://gist.github.com/solidnerd/400d7f1d3e7e90b07648a3ce77af85e4
 
 
 **** rebar3 and elixir
