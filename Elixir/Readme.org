@@ -61,7 +61,14 @@ note the important space before /home in the activation command
 erl
 #+end_example
 
-How do I add the above to bashrc?
+***** now install elixir
+First problem is the doc assumes erlang 26 and I just installed 25
+
+https://hexdocs.pm/elixir/introduction.html
+
+
+zzzzzzzzzzzzzzzzzzz
+
 
 https://gist.github.com/solidnerd/400d7f1d3e7e90b07648a3ce77af85e4
 
