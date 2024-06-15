@@ -48,7 +48,7 @@ kerl install 25.0 ~/.erlang/25.0
 ****** install output
 #+begin_example
 You can activate this installation running the following command:
-. /home/jacek/erlang/25.0/activate
+. /home/jacek/.erlang/25.0/activate
 Later on, you can leave the installation typing:
 kerl_deactivate
 #+end_example
@@ -58,6 +58,7 @@ kerl_deactivate
 I will try precompiled package for otp25
 
 https://elixir-lang.org/install.html#precompiled-package
+
 https://github.com/elixir-lang/elixir/releases/download/v1.17.0/elixir-otp-25.zip
 
 So I downloaded the zip moved it to ~/.elixir
