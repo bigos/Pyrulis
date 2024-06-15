@@ -55,9 +55,10 @@ Later on, you can leave the installation typing:
 kerl_deactivate
 #+end_example
 
+note the important space before /home in the activation command
 #+begin_example
-sh ~/erlang/25.0/activate
-~/erlang/25.0/bin/erl
+. /home/jacek/erlang/25.0/activate
+erl
 #+end_example
 
 How do I add the above to bashrc?
