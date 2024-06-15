@@ -84,7 +84,7 @@ add at the bottom
 
 #+begin_example
 export PATH="/home/jacek/Downloads/elixir-otp-25/bin:$PATH"
-eval "$(. ~/erlang/25.0/activate)"
+. ~/erlang/25.0/activate
 #+end_example
 
 these are subject to change, especially the locations of elixir binary and erlang installations
