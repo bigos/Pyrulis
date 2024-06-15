@@ -295,7 +295,19 @@ are not guaranteed by the specification is known as violating the abstraction
 barrier. The abstraction barrier enforces local reasoning. Further, it promotes
 loose coupling between different code modules.
 
+***  Function Documentation
+
+balance between brevity and clarity
+
+clarify what inputs are valid, like x >= 0
+
+clarify what errors it may raise
+
+low level vs high level picture of the algorithm
+
+*** Module Documentation
+
 ** next reading
 
 
-https://cs3110.github.io/textbook/chapters/correctness/specifications.html
+https://cs3110.github.io/textbook/chapters/correctness/module_docs.html
