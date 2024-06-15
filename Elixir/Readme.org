@@ -42,7 +42,7 @@ the below example
 #+begin_example
 kerl update releases
 kerl build 25.0 25.0
-kerl install 25.0 ~/erlang/25.0
+kerl install 25.0 ~/.erlang/25.0
 #+end_example
 
 ****** install output
@@ -66,31 +66,19 @@ I will try precompiled package for otp25
 https://elixir-lang.org/install.html#precompiled-package
 https://github.com/elixir-lang/elixir/releases/download/v1.17.0/elixir-otp-25.zip
 
-So I downloaded the zip and extracted it, then in another terminal in the bin
-folder of the extracted archive I could run elixir
-
-#+begin_example
-kerl status
-. /home/jacek/erlang/25.0/activate
-kerl status
-./iex
-#+end_example
+So I downloaded the zip moved it to ~/.elixir
 
 ***** bashrc
-I need to think of bashrc that will activate erlang 25 and know the path to elixir binaries
-
 file:~/.bashrc::1
 
-add at the bottom
+add at the bottom of the file
 
 #+begin_example
-export PATH="/home/jacek/Downloads/elixir-otp-25/bin:$PATH"
-. ~/erlang/25.0/activate
+export PATH="/home/jacek/.elixir/elixir-otp-25/bin:$PATH"
+. ~/.erlang/25.0/activate
 #+end_example
 
-these are subject to change, especially the locations of elixir binary and erlang installations
-
-
+That allows me to run iex in the terminal.
 
 **** rebar3 and elixir
 https://meraj-gearhead.ca/adding-elixir-to-erlang-via-rebar3-2ad83476b627
