@@ -57,6 +57,8 @@ describing the purpose of the generic function. Because a generic function is
 purely abstract, it's important to be clear to both users and implementers what
 it's for.
 
+see Ocaml [[file:~/Programming/Pyrulis/OCaml/reading/BetterProgramingThroughOCaml/Readme.org::*specifications][specifications]] for interesting ideas
+
 ** methods
 
 Methods indicate what kinds of arguments they can handle by specializing the
