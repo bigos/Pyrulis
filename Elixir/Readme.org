@@ -53,12 +53,6 @@ Later on, you can leave the installation typing:
 kerl_deactivate
 #+end_example
 
-note the important space before /home in the activation command
-#+begin_example
-. /home/jacek/erlang/25.0/activate
-erl
-#+end_example
-
 ***** now install elixir
 
 I will try precompiled package for otp25
@@ -67,6 +61,7 @@ https://elixir-lang.org/install.html#precompiled-package
 https://github.com/elixir-lang/elixir/releases/download/v1.17.0/elixir-otp-25.zip
 
 So I downloaded the zip moved it to ~/.elixir
+and extracted the folder
 
 ***** bashrc
 file:~/.bashrc::1
