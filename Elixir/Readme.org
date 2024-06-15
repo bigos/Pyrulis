@@ -7,17 +7,12 @@ https://elixir-lang.org/
 ** Installation on Linux
 
 *** version managers
-https://elixir-lang.org/install.html#version-managers
-decide which one to use
-
-https://github.com/asdf-vm/asdf
-
-https://github.com/taylor/kiex
-
-possibly use kerl
-https://github.com/yrashk/kerl
 
 **** kerl
+
+Kerl allows to install various versions of erlang. After that you can use decide
+on a version of Elixir that will go with the installed erlang and if you fancy
+you can add rebar3.
 
 ***** installing
 
@@ -36,10 +31,13 @@ https://github.com/kerl/kerl#installing-kerl
   kerl status
 #+end_example
 
-list of supported versions
-https://www.coletiv.com/blog/how-to-correctly-install-erlang-and-elixir/
+tracing the build
+#+begin_example
+$ tail -f ~/.kerl/builds/25.0/otp_build_25.0.log
+#+end_example
 
-https://medium.com/@dkerrious/using-kerl-and-kiex-for-elixir-and-erlang-version-management-a56bcf2be89a
+you can use the above example to see the output of kerl building erlang as in
+the below example
 
 #+begin_example
 kerl update releases
@@ -62,11 +60,9 @@ erl
 #+end_example
 
 ***** now install elixir
-First problem is the doc assumes erlang 26 and I just installed 25
 
-https://hexdocs.pm/elixir/introduction.html
+I will try precompiled package for otp25
 
-so i will try precompiled package for otp25
 https://elixir-lang.org/install.html#precompiled-package
 https://github.com/elixir-lang/elixir/releases/download/v1.17.0/elixir-otp-25.zip
 
@@ -80,6 +76,11 @@ kerl status
 ./iex
 #+end_example
 
+I need to think of bashrc that will activate erlang 25 and know the path to elixir binaries
+
+file:~/.bashrc::1
+
+***** other
 https://gist.github.com/solidnerd/400d7f1d3e7e90b07648a3ce77af85e4
 
 
