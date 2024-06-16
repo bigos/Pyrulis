@@ -824,3 +824,11 @@ but we can create a hook using an empty method that a class that inherits from i
 
 check-for-mylock
 pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#56
+
+*** order of defining clos elements
+pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#152
+
+before you define a method that specialises on a class, that class must be defined
+before you make instance of a class, that class and its super classes must be defined
+
+So I guess, it is classes, methods, code that uses the classes and methods
