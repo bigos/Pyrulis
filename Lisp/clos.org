@@ -789,16 +789,38 @@ print-object - 244, 37, 38
 *** interface protocols
 pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#82
 
+**** internal/external
 interfaces have external and internal protocol
 
-**** external
+***** external
 external protocol consists of constructors and actions
 clients are supposed to create objects and perform actions that manipulate those objects
 
-**** other
+***** other
 describe and print-object are part of other protocol, which is also for external use
 
-**** internal
+***** internal
 used within the implementation for debugging and manipulation of the object
 
 details of the internal protocol can change without having to affect the external protocol
+
+***** distinguishing internal from external
+It is up to the programmer to design a program with this separation in mind
+the documentation of the program should only advertise the external protocol
+
+you can use packages to export only the external symbols like gui-window:redraw-canvas
+
+**** guidelines for designing protocols
+pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#83
+
+***** set in stone
+Users have to use :: methods or submit requests for change
+
+***** extensible
+
+****** hooks for future extensibility
+ordinary function can not be a hook because it can not be specialised
+but we can create a hook using an empty method that a class that inherits from it can easily modify
+
+check-for-mylock
+pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#56
