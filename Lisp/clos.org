@@ -753,6 +753,9 @@ On the other hand, if you don't care exactly what the order is but want it to
 be consistent across several generic functions, then using auxiliary methods
 may be just the thing.
 
+** MOP
+pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#240
+
 ** Good Object-Oriented Design
 
 That's about it for the main features of Common Lisp's object system. If you
