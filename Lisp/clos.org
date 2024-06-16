@@ -832,3 +832,6 @@ before you define a method that specialises on a class, that class must be defin
 before you make instance of a class, that class and its super classes must be defined
 
 So I guess, it is classes, methods, code that uses the classes and methods
+
+*** changing the class of an instance
+pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#172
