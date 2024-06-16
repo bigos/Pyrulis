@@ -781,6 +781,24 @@ https://stackoverflow.com/questions/19446174/sbcl-clos-why-do-i-have-to-add-a-va
 ** my notes
 methods are implementations of generic functions
 
+*** describe and print-object
 methods describe and print-object
 describe - pages 241 39, 40, 49, 56
 print-object - 244, 37, 38
+
+*** interface protocols
+pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#82
+
+interfaces have external and internal protocol
+
+**** external
+external protocol consists of constructors and actions
+clients are supposed to create objects and perform actions that manipulate those objects
+
+**** other
+describe and print-object are part of other protocol, which is also for external use
+
+**** internal
+used within the implementation for debugging and manipulation of the object
+
+details of the internal protocol can change without having to affect the external protocol
