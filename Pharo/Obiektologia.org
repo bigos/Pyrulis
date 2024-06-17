@@ -9,3 +9,25 @@ http://books.pharo.org/pharo-by-example9/pdf/2022-03-26-index.pdf
 https://lms.fun-mooc.fr/courses/course-v1:inria+41031+session01/jump_to_id/053e2de03bbf45ba8dd73b710c8d2f7b
 
 *** 0.2
+https://lms.fun-mooc.fr/courses/course-v1:inria+41031+session01/courseware/a2659b7d12eb4436af66a8174eb04ad0/44bb82c9b49641aaad0ba470db863664/
+
+**** syntax elements
+string 'string'
+comment "this is  a comment"
+character $c
+symbol #mac
+array #(1 2 3)
+integer 1 2r101
+real 1.5, 2.4e7
+boolean true, false
+undefined nil
+point 10@20
+return ^ expression
+variable declaration |var|
+assignment var := 1
+separator in sequence of messages message.message
+block [:x| x+2 ] value: 5   ==> 7
+
+***** classes
+
+***** methods
