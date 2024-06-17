@@ -13,6 +13,9 @@ https://lms.fun-mooc.fr/courses/course-v1:inria+41031+session01/courseware/a2659
 
 https://en.wikipedia.org/wiki/File:Pharo_syntax_postcard.svg
 
+bigger
+https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Pharo_syntax_postcard.svg/1024px-Pharo_syntax_postcard.svg.png
+
 **** syntax elements
 string 'string'
 comment "this is  a comment"
