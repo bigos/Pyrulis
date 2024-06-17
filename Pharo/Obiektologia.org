@@ -1,6 +1,8 @@
 * Advanced object oriented design and development with Pharo
 https://lms.fun-mooc.fr/courses/course-v1:inria+41031+session01/info
 
+https://lms.fun-mooc.fr/courses/course-v1:inria+41031+session01/47ab218f99c744b8bf9a5d557a45293e/
+
 ** Module 0
 
 http://books.pharo.org/pharo-by-example9/pdf/2022-03-26-index.pdf
@@ -36,3 +38,5 @@ block [:x| x+2 ] value: 5   ==> 7
 ***** classes
 
 ***** methods
+
+*** 0.3 TODO
