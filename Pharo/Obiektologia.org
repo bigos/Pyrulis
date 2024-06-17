@@ -11,6 +11,8 @@ https://lms.fun-mooc.fr/courses/course-v1:inria+41031+session01/jump_to_id/053e2
 *** 0.2
 https://lms.fun-mooc.fr/courses/course-v1:inria+41031+session01/courseware/a2659b7d12eb4436af66a8174eb04ad0/44bb82c9b49641aaad0ba470db863664/
 
+https://en.wikipedia.org/wiki/File:Pharo_syntax_postcard.svg
+
 **** syntax elements
 string 'string'
 comment "this is  a comment"
