@@ -39,4 +39,36 @@ block [:x| x+2 ] value: 5   ==> 7
 
 ***** methods
 
-*** 0.3 TODO
+*** 0.3 Class and Methods Definitions
+classes and methods are defined by the IDE tools
+no dedicated syntax
+
+so only the IDE knows to which class the method belongs
+
+factorial example at 2:13
+
+method returns self by default, so ^self is optional
+
+using IDE to define class methods
+class methods vs instance methods
+
+**** pharo 11 and 12 differences
+#+begin_example
+ Object subclass: #Point
+instanceVariableNames: 'x y'
+classVariableNames: ''
+package: 'Graphics'
+
+The name of the message is therefore:
+
+subclass:instanceVariableNames:classVariableNames:package:
+
+Pay attention that in Pharo 12 the way classes are created is different. It is
+
+Object << #Point
+slots: { #x . #y };
+tag: 'BasicObjects';
+package: 'Kernel'
+#+end_example
+
+*** 0.4 TODO
