@@ -50,6 +50,7 @@ factorial example at 2:13
 method returns self by default, so ^self is optional
 
 using IDE to define class methods
+
 class methods vs instance methods
 
 **** pharo 11 and 12 differences
