@@ -82,3 +82,11 @@ binary  9 + 1
 keyword 9 add:1
 
 10@20 setX:2
+
+*** TODO 0.5 Messages for Java Programmers
+
+*** TODO 0.6 Messages: Composition and Precedence
+
+*** TODO 0.7 Understanding Messages: Sequence and Cascade
+
+*** TODO 0.8 Introduction to Blocks
