@@ -72,4 +72,11 @@ tag: 'BasicObjects';
 package: 'Kernel'
 #+end_example
 
-*** 0.4 TODO
+*** 0.4 Understanding Messages
+
+precedence
+(msg in parentheses) > unary > binary > keywords
+
+unary   9 squared
+binary  9 + 1
+keyword 9 add:1
