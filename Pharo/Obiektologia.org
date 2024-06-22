@@ -80,3 +80,5 @@ precedence
 unary   9 squared
 binary  9 + 1
 keyword 9 add:1
+
+10@20 setX:2
