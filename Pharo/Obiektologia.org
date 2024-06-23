@@ -83,7 +83,7 @@ keyword 9 add:1
 
 10@20 setX:2
 
-*** TODO 0.5 Messages for Java Programmers
+*** 0.5 Messages for Java Programmers
 
 #+begin_src java
 ArrayList<String> strings = new ArrayList<String>();
@@ -123,10 +123,12 @@ strings := OrderedCollection new.
   ifFalse: [fullName]
 #+end_src
 
-#+begin_src java
-#+end_src
-
+**** ranges and each
 #+begin_src pharo
+  4 timesRepeat: [self dosomething]
+  0 to: 100 do: [:i| ... ]
+  0 to: 100 by: 3 do: [:i| ... ]
+  aCollection do: [:each| ...]
 #+end_src
 
 *** TODO 0.6 Messages: Composition and Precedence
