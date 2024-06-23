@@ -85,6 +85,50 @@ keyword 9 add:1
 
 *** TODO 0.5 Messages for Java Programmers
 
+#+begin_src java
+ArrayList<String> strings = new ArrayList<String>();
+#+end_src
+
+#+begin_src pharo
+strings := OrderedCollection new.
+#+end_src
+
+#+begin_src java
+  Thread regThread = new Thread(
+    new Runnable() {
+        @Override
+        public void run() {
+            this.doSomething;
+        }
+    });
+  regThread.start();
+#+end_src
+
+#+begin_src pharo
+  [self doSomehing] fork
+#+end_src
+
+#+begin_src java
+  if fullName.isEmpty {
+      "Firstname Lastname"
+    }
+  else {
+      fullName
+    }
+#+end_src
+
+#+begin_src pharo
+  fullName isEmpty
+  ifTrue:  ['Firstname Lastname']
+  ifFalse: [fullName]
+#+end_src
+
+#+begin_src java
+#+end_src
+
+#+begin_src pharo
+#+end_src
+
 *** TODO 0.6 Messages: Composition and Precedence
 
 *** TODO 0.7 Understanding Messages: Sequence and Cascade
