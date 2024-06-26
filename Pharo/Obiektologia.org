@@ -138,6 +138,36 @@ unary > binary > keywords
 2 raisedTo: 2 + 1 yourself
 #+end_example
 
-*** TODO 0.7 Understanding Messages: Sequence and Cascade
+*** 0.7 Understanding Messages: Sequence and Cascade
+
+. is a separator, not terminator
+; is cascade
+
+these 2 are equivalent
+#+begin_example
+Transcript clear. Transcript show: 7
+
+Transcript clear; show: 7
+#+end_example
+
+and these 2 are equivalent
+#+begin_example
+|c|
+c:= OrderedCollection new.
+c add: 1.
+c add: 2
+
+OrderedCollection new
+add: 1;
+add: 2
+#+end_example
+In the first example, no dot after 1
+will confuse Pharo into thinking that the next c is a message to be sent to 1
+
+trying it in Pharo Playground
+#+begin_example
+Transcript clear
+Transcript show: ( OrderedCollection new add: 1; add: 2; yourself )
+#+end_example
 
 *** TODO 0.8 Introduction to Blocks
