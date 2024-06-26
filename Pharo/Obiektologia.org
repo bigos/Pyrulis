@@ -131,7 +131,12 @@ strings := OrderedCollection new.
   aCollection do: [:each| ...]
 #+end_src
 
-*** TODO 0.6 Messages: Composition and Precedence
+*** 0.6 Messages: Composition and Precedence
+unary > binary > keywords
+
+#+begin_example
+2 raisedTo: 2 + 1 yourself
+#+end_example
 
 *** TODO 0.7 Understanding Messages: Sequence and Cascade
 
