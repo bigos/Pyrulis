@@ -170,4 +170,14 @@ Transcript clear
 Transcript show: ( OrderedCollection new add: 1; add: 2; yourself )
 #+end_example
 
-*** TODO 0.8 Introduction to Blocks
+*** 0.8 Introduction to Blocks
+
+You must remember the dots separating expression
+
+Playground example
+
+#+begin_example
+|add2|
+add2 := [:x| x+2 ].
+add2 value: 4.
+#+end_example
