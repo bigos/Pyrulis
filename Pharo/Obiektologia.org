@@ -181,3 +181,16 @@ Playground example
 add2 := [:x| x+2 ].
 add2 value: 4.
 #+end_example
+
+** Module 1: Understanding messages
+
+*** TODO Module overview
+*** TODO 1.1 Essence of Dispatch: Taking Pharo Booleans as Example
+*** TODO 1.2 Essence of Dispatch: Let the receiver decide
+*** TODO 1.3 Inheritance Basics
+*** TODO 1.4 Inheritance and Lookup
+*** TODO 1.5 About super
+*** TODO 1.6 Reification and delegation
+*** TODO Companion exercises
+
+** Module 2: Test-Driven Design
