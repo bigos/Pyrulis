@@ -183,6 +183,7 @@ add2 value: 4.
 #+end_example
 
 ** Module 1: Understanding messages
+[[https://lms.fun-mooc.fr/courses/course-v1:inria+41031+session01/courseware/e98696571dd44819baa673a0fb29f194/afb8479282aa433d8e4916452b7e2150/1?activate_block_id=block-v1%3Ainria%2B41031%2Bsession01%2Btype%40vertical%2Bblock%40adea1bb07d954755a612a8e419174297#module-1-understanding-messages-child][module link]]
 
 *** TODO Module overview
 *** TODO 1.1 Essence of Dispatch: Taking Pharo Booleans as Example
