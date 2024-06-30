@@ -203,8 +203,21 @@ false| 1.   -> 1
 
 *** 1.2 Essence of Dispatch: Let the receiver decide
 Nothing new here
-*** TODO 1.3 Inheritance Basics
-*** TODO 1.4 Inheritance and Lookup
+*** 1.3 Inheritance Basics
+http://rmod-pharo-mooc.lille.inria.fr/AdvancedDesignMooc/Slides/M1-3-Essence-03-Inheritance-Basic.pdf
+
+Object is the root of most classes
+Object defines most behaviour of Small Talk system
+
+ProtoObject is Object's superclass
+special purpose for raising errors and extending object system with
+techniques like proxy objects
+
+two aspects of inheritance during class creation and execution
+
+*** 1.4 Inheritance and Lookup
+http://rmod-pharo-mooc.lille.inria.fr/AdvancedDesignMooc/Slides/M1-4-Essence-04-Self.pdf
+
 *** TODO 1.5 About super
 *** TODO 1.6 Reification and delegation
 *** TODO Companion exercises
