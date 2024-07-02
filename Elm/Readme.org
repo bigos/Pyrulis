@@ -68,3 +68,12 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 #+begin_example
 npm install -g yarn
 #+end_example
+
+** weird type fix
+I had a problem where Http.get would not compile complaining on the wrong
+returned type despite everything being correct.
+
+This was the fix
+#+begin_example
+ npx elm-json upgrade --unsafe
+#+end_example
