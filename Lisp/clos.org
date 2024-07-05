@@ -885,3 +885,6 @@ classes of the advertised protocol
 
 hooks with primary method doing nothing and soecialized methods could provide
 actions needed by the users
+
+** Programming with methods
+pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#86
