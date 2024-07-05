@@ -16,6 +16,63 @@ pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Kee
 
 https://clos-mop.hexstreamsoft.com/
 
+** my notes
+methods are implementations of generic functions
+
+*** describe and print-object
+methods describe and print-object
+describe - pages 241 39, 40, 49, 56
+print-object - 244, 37, 38
+
+*** interface protocols
+pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#82
+
+**** internal/external
+interfaces have external and internal protocol
+
+***** external
+external protocol consists of constructors and actions
+clients are supposed to create objects and perform actions that manipulate those objects
+
+***** other
+describe and print-object are part of other protocol, which is also for external use
+
+***** internal
+used within the implementation for debugging and manipulation of the object
+
+details of the internal protocol can change without having to affect the external protocol
+
+***** distinguishing internal from external
+It is up to the programmer to design a program with this separation in mind
+the documentation of the program should only advertise the external protocol
+
+you can use packages to export only the external symbols like gui-window:redraw-canvas
+
+**** guidelines for designing protocols
+pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#83
+
+***** set in stone
+Users have to use :: methods or submit requests for change
+
+***** extensible
+
+****** hooks for future extensibility
+ordinary function can not be a hook because it can not be specialised
+but we can create a hook using an empty method that a class that inherits from it can easily modify
+
+check-for-mylock
+pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#56
+
+*** order of defining clos elements
+pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#152
+
+before you define a method that specialises on a class, that class must be defined
+before you make instance of a class, that class and its super classes must be defined
+
+So I guess, it is classes, methods, code that uses the classes and methods
+
+*** changing the class of an instance
+pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#172
 ** different object systems
 [[https://www.reddit.com/r/Common_Lisp/comments/wocapc/how_do_i_move_to_more_advanced_clos_how_do_i/][How do I add more advanced features to CLOS]]
 
@@ -781,60 +838,8 @@ http://www.clisp.org/impnotes/mop-classes.html#class-prototype
 
 https://stackoverflow.com/questions/19446174/sbcl-clos-why-do-i-have-to-add-a-validate-superclass-method-here
 
-** my notes
-methods are implementations of generic functions
+** protocols
+https://www.google.com/search?client=firefox-b-lm&q=protocols+in+object+oriented+languages
 
-*** describe and print-object
-methods describe and print-object
-describe - pages 241 39, 40, 49, 56
-print-object - 244, 37, 38
-
-*** interface protocols
-pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#82
-
-**** internal/external
-interfaces have external and internal protocol
-
-***** external
-external protocol consists of constructors and actions
-clients are supposed to create objects and perform actions that manipulate those objects
-
-***** other
-describe and print-object are part of other protocol, which is also for external use
-
-***** internal
-used within the implementation for debugging and manipulation of the object
-
-details of the internal protocol can change without having to affect the external protocol
-
-***** distinguishing internal from external
-It is up to the programmer to design a program with this separation in mind
-the documentation of the program should only advertise the external protocol
-
-you can use packages to export only the external symbols like gui-window:redraw-canvas
-
-**** guidelines for designing protocols
+*** 3.12 guidelines on designing protocols
 pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#83
-
-***** set in stone
-Users have to use :: methods or submit requests for change
-
-***** extensible
-
-****** hooks for future extensibility
-ordinary function can not be a hook because it can not be specialised
-but we can create a hook using an empty method that a class that inherits from it can easily modify
-
-check-for-mylock
-pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#56
-
-*** order of defining clos elements
-pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#152
-
-before you define a method that specialises on a class, that class must be defined
-before you make instance of a class, that class and its super classes must be defined
-
-So I guess, it is classes, methods, code that uses the classes and methods
-
-*** changing the class of an instance
-pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#172
