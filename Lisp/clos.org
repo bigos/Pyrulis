@@ -839,7 +839,49 @@ http://www.clisp.org/impnotes/mop-classes.html#class-prototype
 https://stackoverflow.com/questions/19446174/sbcl-clos-why-do-i-have-to-add-a-validate-superclass-method-here
 
 ** protocols
-https://www.google.com/search?client=firefox-b-lm&q=protocols+in+object+oriented+languages
 
 *** 3.12 guidelines on designing protocols
+
+It is the responsibility of a programmer to invent the protocol for the
+application
+
+CLOS offers the framework for defining a protocol
+
 pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#83
+
+**** restrict users access to internal data structures
+methods avoid showing internals of the objects
+
+describe method should favour good human description over the internal details
+
+**** provide constructors
+constructor encourages more abstract thinking
+
+make-instance gives away the details and makes it hard to switch to defstruct
+without changing the advertised protocol
+
+**** design protocol to anticipate the needs of the users
+When protocol offers flexibility there is little temptation to dive into the
+internal details
+
+when some begin to depend on package::internal-method it blurs the distinction
+between interface and implementation
+
+see accessors vs slot value
+pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#93
+
+**** allow the protocol to evolve
+If you decide the change is reasonable you can extend the protocol in a
+compatible and controlled way
+
+You can deliberately design a protocol for future extensions
+
+protocol can tell the user that certain classes and methods are reserved for
+extension but this requires a careful design
+
+**** design some protocols to be extensible
+That may involve allowing users to create new classes instead of modifying the
+classes of the advertised protocol
+
+hooks with primary method doing nothing and soecialized methods could provide
+actions needed by the users
