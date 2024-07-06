@@ -846,6 +846,12 @@ https://stackoverflow.com/questions/19446174/sbcl-clos-why-do-i-have-to-add-a-va
 
 ** protocols
 
+Protocol is a set of rules governing a series of actions
+
+Protocol is a system of rules about the correct way to act in a formal situation
+
+A rule is an instruction telling what you are allowed to do and what you are not allowed to do
+
 *** 3.12 guidelines on designing protocols
 
 It is the responsibility of a programmer to invent the protocol for the
