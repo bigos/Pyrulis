@@ -897,6 +897,16 @@ pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Kee
 to
 pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#231
 
+*** Quora
+https://www.quora.com/What-is-the-difference-between-protocol-oriented-programming-and-object-oriented-programming
+
+#+begin_quote
+Protocol oriented programming is merely OOP in an event-driven environment, done
+properly. Given that constraint, it is implemented quite nicely in Swift, by
+extending event types, dubbed “protocols.” It works by pushing messages to the
+objects that extend those protocols.
+#+end_quote
+
 ** Programming with methods
 pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#86
 
