@@ -888,3 +888,37 @@ actions needed by the users
 
 ** Programming with methods
 pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#86
+
+*** 4.3 programming with accessors
+pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#91
+
+**** automatically generated accessors
+methods defined with :accesor
+
+**** auxiliary methods for accessors
+recalculating after setf in :after
+
+**** defining primary methods for accessors
+:accessor :reader :writer are for convenience
+we could do the same defining methods with slot-value
+
+***** accessors vs slot-value
+slot-value is internal detail
+accesors are usually the advertised interface
+
+consider scenario where developer changes the internal representation of the
+information by changing the name of the slot or no longer storing the
+information in the slot
+
+accessors allow you to handle it more gracefully
+
+use of accessors can also be helpful in debugging
+
+****** with-accessors vs with-slots
+with-accessors is better
+
+***** slot-unbound
+you can override slot-unbound exception
+
+** multimethods
+pdf:/home/jacek/Documents/Manuals/Lisp/ObjectOrientedProgrammingInCommonLisp-Keene.pdf#96
