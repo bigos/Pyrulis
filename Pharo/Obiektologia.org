@@ -218,7 +218,7 @@ two aspects of inheritance during class creation and execution
 *** 1.4 Inheritance and Lookup
 http://rmod-pharo-mooc.lille.inria.fr/AdvancedDesignMooc/Slides/M1-4-Essence-04-Self.pdf
 
-*** TODO 1.5 About super
+*** 1.5 About super
 *** TODO 1.6 Reification and delegation
 *** TODO Companion exercises
 
