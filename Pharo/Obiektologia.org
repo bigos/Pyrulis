@@ -225,6 +225,10 @@ http://rmod-pharo-mooc.lille.inria.fr/AdvancedDesignMooc/Slides/M1-4-Essence-04-
 watch it again
 
 *** TODO Companion exercises
+they seem to work with Pharo 13
+
+https://books.pharo.org/
+
 http://rmod-pharo-mooc.lille.inria.fr/AdvancedDesignMooc/2024-04-01-CompanionExercise.pdf
 
 **** Guided Exercises
