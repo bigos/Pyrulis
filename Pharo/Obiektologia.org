@@ -219,7 +219,11 @@ two aspects of inheritance during class creation and execution
 http://rmod-pharo-mooc.lille.inria.fr/AdvancedDesignMooc/Slides/M1-4-Essence-04-Self.pdf
 
 *** 1.5 About super
-*** TODO 1.6 Reification and delegation
+*** 1.6 Reification and delegation
+[[https://lms.fun-mooc.fr/courses/course-v1:inria+41031+session01/courseware/e98696571dd44819baa673a0fb29f194/faaef2490deb466bb7da6d6acdfd1632/1?activate_block_id=block-v1%3Ainria%2B41031%2Bsession01%2Btype%40vertical%2Bblock%4047f9b29619b94955a0c047b73e8b270f][first concrete case]]
+
+watch it again
+
 *** TODO Companion exercises
 
 ** TODO Module 2: Test-Driven Design
