@@ -225,7 +225,12 @@ http://rmod-pharo-mooc.lille.inria.fr/AdvancedDesignMooc/Slides/M1-4-Essence-04-
 watch it again
 
 *** TODO Companion exercises
-they seem to work with Pharo 13
+they seem to work with Pharo 13 but i am stuck
+
+consider switching to squeak https://wiki.squeak.org/squeak/6546
+and download free pdf Squeak By Example 6.0
+
+
 
 https://books.pharo.org/
 
