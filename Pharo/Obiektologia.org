@@ -229,7 +229,7 @@ they seem to work with Pharo 13 but i am stuck
 
 consider switching to squeak https://wiki.squeak.org/squeak/6546
 and download free pdf Squeak By Example 6.0
-
+pdf:/home/jacek/Documents/Manuals/Smalltalk/SBE-6.0.pdf#7
 
 
 https://books.pharo.org/
