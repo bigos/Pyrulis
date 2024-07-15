@@ -242,4 +242,11 @@ http://rmod-pharo-mooc.lille.inria.fr/AdvancedDesignMooc/2024-04-01-CompanionExe
 page 19 (29 of 170) A basic LAN application
 http://rmod-pharo-mooc.lille.inria.fr/AdvancedDesignMooc/2024-04-01-CompanionExercise.pdf
 
+I had success in Pharo 12 and the tests pass
+
+next to do
+5.2 Sending/receiving packets
+
+
+
 ** TODO Module 2: Test-Driven Design
