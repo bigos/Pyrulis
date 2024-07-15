@@ -231,6 +231,8 @@ consider switching to squeak https://wiki.squeak.org/squeak/6546
 and download free pdf Squeak By Example 6.0
 pdf:/home/jacek/Documents/Manuals/Smalltalk/SBE-6.0.pdf#7
 
+https://wiki.squeak.org/squeak/689
+https://squeak.org/documentation/
 
 https://books.pharo.org/
 

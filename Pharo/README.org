@@ -153,3 +153,16 @@ https://youtu.be/WLoXXFxU8lw?t=396
 what's next
 https://youtu.be/WLoXXFxU8lw?t=433
 understand the image and the tools
+
+* Other Smalltalks
+
+** Cuis
+https://github.com/nmingotti/The-Cuis-CookBook/wiki
+
+** Squeak
+pdf:/home/jacek/Documents/Manuals/Smalltalk/SBE-6.0.pdf#7
+
+https://wiki.squeak.org/squeak/689
+https://squeak.org/documentation/
+
+https://books.pharo.org/
