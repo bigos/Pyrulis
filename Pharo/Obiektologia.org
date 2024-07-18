@@ -239,7 +239,9 @@ https://books.pharo.org/
 http://rmod-pharo-mooc.lille.inria.fr/AdvancedDesignMooc/2024-04-01-CompanionExercise.pdf
 
 **** Guided Exercises
-page 19 (29 of 170) A basic LAN application
+page 19 (29 of 170) Chapter 5  A basic LAN application
+page 79 (89 of 170) Chapter 10 Finding the North with Compass
+
 http://rmod-pharo-mooc.lille.inria.fr/AdvancedDesignMooc/2024-04-01-CompanionExercise.pdf
 
 I had success in Pharo 12 and the tests pass
