@@ -247,7 +247,7 @@ http://rmod-pharo-mooc.lille.inria.fr/AdvancedDesignMooc/2024-04-01-CompanionExe
 I had success in Pharo 12 and the tests pass
 
 next to do
-5.2 Sending/receiving packets
+5.4
 
 
 
