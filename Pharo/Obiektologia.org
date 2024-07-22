@@ -224,7 +224,7 @@ http://rmod-pharo-mooc.lille.inria.fr/AdvancedDesignMooc/Slides/M1-4-Essence-04-
 
 watch it again
 
-*** TODO Companion exercises
+*** Companion exercises
 they seem to work with Pharo 13 but i am stuck
 
 consider switching to squeak https://wiki.squeak.org/squeak/6546
@@ -247,8 +247,21 @@ http://rmod-pharo-mooc.lille.inria.fr/AdvancedDesignMooc/2024-04-01-CompanionExe
 I had success in Pharo 12 and the tests pass
 
 next to do
-5.4
+5.5
+giving up on 5.5 and proceeding with the next module
+
+** Module 2: Test-Driven Design
+[[https://lms.fun-mooc.fr/courses/course-v1:inria+41031+session01/jump_to_id/4de31867d97c487f98248fa877c79ac6][module overview]]
 
 
+*** 2.1 Test 101: The minimum you should know
 
-** TODO Module 2: Test-Driven Design
+*** 2.2 Tests: Why testing is Important?
+
+*** 2.3 Test-Driven Development
+
+*** 2.4 Xtreme Test Driven Development: Getting a productivity boost
+
+*** 2.5 Parametrized Tests: Getting more tests out of test cases
+
+*** Companion exercises
