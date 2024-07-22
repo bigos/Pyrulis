@@ -260,6 +260,8 @@ pay off is huge
 
 good tests tall a story, change rarely
 
+try to turn your tests into specification
+
 *** TODO 2.2 Tests: Why testing is Important?
 
 *** 2.3 Test-Driven Development
