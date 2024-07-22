@@ -255,8 +255,12 @@ giving up on 5.5 and proceeding with the next module
 
 
 *** 2.1 Test 101: The minimum you should know
+red error, yellow failure
+pay off is huge
 
-*** 2.2 Tests: Why testing is Important?
+good tests tall a story, change rarely
+
+*** TODO 2.2 Tests: Why testing is Important?
 
 *** 2.3 Test-Driven Development
 
