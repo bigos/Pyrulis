@@ -11,7 +11,7 @@ sudo apt search "\-dev" | grep -E "^i\s"
 This is my suggestion for Ubuntu based system.
 
 #+begin_example
-sudo apt install git build-essential libtree-sitter-dev
+sudo apt install git build-essential libtree-sitter-dev libasound2-dev libsqlite3-dev
 sudo apt install autoconf cmake texinfo libgif-dev libgnutls28-dev libgtk-3-dev libjansson-dev libjpeg-dev libncurses-dev libtiff-dev libtinfo-dev libxpm-dev libxml2-dev libvterm-dev
 git clone https://github.com/emacs-mirror/emacs.git
 cd ./emacs
