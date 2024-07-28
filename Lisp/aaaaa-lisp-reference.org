@@ -20,6 +20,9 @@ project generation
 
 https://github.com/fukamachi/cl-project
 
+project organisation
+https://softwareengineering.stackexchange.com/questions/314898/in-which-order-should-lisp-functions-be-defined/314918#314918
+
 packages
 
 https://www-fourier.ujf-grenoble.fr/~sergerar/Papers/Packaging.pdf
