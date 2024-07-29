@@ -262,9 +262,9 @@ good tests tall a story, change rarely
 
 try to turn your tests into specification
 
-*** TODO 2.2 Tests: Why testing is Important?
+*** 2.2 Tests: Why testing is Important?
 
-*** 2.3 Test-Driven Development
+*** TODO 2.3 Test-Driven Development
 
 *** 2.4 Xtreme Test Driven Development: Getting a productivity boost
 
