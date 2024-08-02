@@ -1,0 +1,6 @@
+* Readme
+** books
+https://book.purescript.org/
+
+** website
+https://www.purescript.org/
