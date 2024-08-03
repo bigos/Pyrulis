@@ -306,6 +306,8 @@ clarify what errors it may raise
 low level vs high level picture of the algorithm
 
 *** Module Documentation
++ Data abstraction is a specification of operations on a set of values
++ Data structure is an implementation of a data abstraction with  a specific representation
 
 ** next reading
 
