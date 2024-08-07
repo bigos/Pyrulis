@@ -1,0 +1,18 @@
+* Org Mind Maps
+:PROPERTIES:
+:OMM-COLOR: GREEN
+:OMM-LEGEND: Legend entry
+:END:
+
+https://github.com/the-ted/org-mind-map#links
+
+Then, run ~M-x org-mind-map-write~ within the org-mode file you would like to
+make a mind-map for.
+
+** Example
+
+*** Branch A
+
+*** Branch B
+
+*** Branch C
