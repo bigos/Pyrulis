@@ -6,3 +6,6 @@ https://book.purescript.org/
 https://www.purescript.org/
 
 https://github.com/purescript/documentation/blob/master/guides/Getting-Started.md
+
+** nvm, node and npm
+https://nodejs.org/en/download/package-manager
