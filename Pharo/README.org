@@ -158,6 +158,8 @@ understand the image and the tools
 
 ** Cuis
 https://github.com/nmingotti/The-Cuis-CookBook/wiki
+https://cuis-smalltalk.github.io/TheCuisBook/
+https://cuis.st/
 
 ** Squeak
 pdf:/home/jacek/Documents/Manuals/Smalltalk/SBE-6.0.pdf#7
