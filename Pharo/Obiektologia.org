@@ -264,10 +264,10 @@ try to turn your tests into specification
 
 *** 2.2 Tests: Why testing is Important?
 
-*** TODO 2.3 Test-Driven Development
+*** 2.3 Test-Driven Development
 
-*** 2.4 Xtreme Test Driven Development: Getting a productivity boost
+*** TODO 2.4 Xtreme Test Driven Development: Getting a productivity boost
 
-*** 2.5 Parametrized Tests: Getting more tests out of test cases
+*** TODO 2.5 Parametrized Tests: Getting more tests out of test cases
 
-*** Companion exercises
+*** TODO Companion exercises
