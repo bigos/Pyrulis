@@ -6,3 +6,23 @@ https://book.purescript.org/
 https://www.purescript.org/
 
 https://github.com/purescript/documentation/blob/master/guides/Getting-Started.md
+
+** nvm, node and npm
+https://nodejs.org/en/download/package-manager
+
+** Emacs
+https://github.com/purescript-emacs
+
+https://github.com/purescript-emacs/purescript-mode
+
+https://github.com/purescript-emacs/psc-ide-emacs
+
+https://github.com/purescript-emacs/emacs-psci
+
+*** Relevant packages on MELPA
+
+#+begin_example
+psc-ide                        20240113.1224  available    melpa    Minor mode for PureScript's IDE server.
+psci                           20231219.52    available    melpa    Major mode for purescript repl psci
+purescript-mode                20230309.1301  available    melpa    A PureScript editing mode
+#+end_example
