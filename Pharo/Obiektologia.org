@@ -274,7 +274,9 @@ Counter package
 CounterTest class
 first test
 self assert
+#+begin_example
    self assert: (Counter new count: 22) count equals: 22
+#+end_example
 Counter class
 running test
 creating methods on the fly
