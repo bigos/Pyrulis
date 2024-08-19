@@ -253,7 +253,6 @@ giving up on 5.5 and proceeding with the next module
 ** Module 2: Test-Driven Design
 [[https://lms.fun-mooc.fr/courses/course-v1:inria+41031+session01/jump_to_id/4de31867d97c487f98248fa877c79ac6][module overview]]
 
-
 *** 2.1 Test 101: The minimum you should know
 red error, yellow failure
 pay off is huge
@@ -266,7 +265,20 @@ try to turn your tests into specification
 
 *** 2.3 Test-Driven Development
 
-*** TODO 2.4 Xtreme Test Driven Development: Getting a productivity boost
+*** 2.4 Xtreme Test Driven Development: Getting a productivity boost
+TDD on steroids
+Do not break the flow
+
+**** Counter example
+Counter package
+CounterTest class
+first test
+self assert
+Counter class
+running test
+creating methods on the fly
+editing method in the debugger
+Supporting the flow
 
 *** TODO 2.5 Parametrized Tests: Getting more tests out of test cases
 
