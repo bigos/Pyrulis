@@ -20,3 +20,10 @@ cd ./emacs
 make
 sudo make install
 #+end_example
+
+** because I visit this when reinstalling the system
+It is worth to mention other needed packages
+
+#+begin_example
+sudo apt install libgtk-4-dev
+#+end_example
