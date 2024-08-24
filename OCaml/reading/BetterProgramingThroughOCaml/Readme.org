@@ -311,5 +311,4 @@ low level vs high level picture of the algorithm
 
 ** next reading
 
-
-https://cs3110.github.io/textbook/chapters/correctness/module_docs.html
+https://cs3110.github.io/textbook/chapters/correctness/test_debug.html
