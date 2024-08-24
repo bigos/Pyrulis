@@ -299,3 +299,7 @@ then he demonstrates how to add cases programatically one by one
 
 
 *** TODO Companion exercises
+http://rmod-pharo-mooc.lille.inria.fr/AdvancedDesignMooc/2024-04-01-CompanionExercise.pdf
+
+Guided Exercises
+Crafting a simple embedded DSL with Pharo
