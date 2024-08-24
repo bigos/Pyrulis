@@ -286,6 +286,16 @@ Supporting the flow
 starting with self assert and going through debugger the system will prompt to
 add the methods and class slots, helping to reach the green test
 
-*** TODO 2.5 Parametrized Tests: Getting more tests out of test cases
+*** 2.5 Parametrized Tests: Getting more tests out of test cases
+try to cover more cases by passing the parameters and reusing the tests
+
+ParametrizedTestCase<<#MyDullTest
+  slots: {#number1 . #mumber2 . #result}
+
+MyDullTest >> testSum
+  self assert: number1 + number2 equals: result
+
+then he demonstrates how to add cases programatically one by one
+
 
 *** TODO Companion exercises
