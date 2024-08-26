@@ -230,7 +230,7 @@ Functors can be though of as a parameterised structures
 
 Since functors  are functions we can apply them
 
-*** Correctness
+*** 6 Correctness
 
 **** 3 possibilities
 
@@ -308,6 +308,17 @@ low level vs high level picture of the algorithm
 *** Module Documentation
 + Data abstraction is a specification of operations on a set of values
 + Data structure is an implementation of a data abstraction with  a specific representation
+*** Test and Debugging
+
+Testing is one of the ways of achieving validation
+*** TODO Black-box and Glass-box Testing
+*** Randomized Testing with QCheck
+*** Proving Correctness
+*** Structural Induction
+*** Algebraic Specification
+*** Summary
+*** Exercises
+
 
 ** next reading
 
