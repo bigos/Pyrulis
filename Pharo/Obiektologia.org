@@ -303,3 +303,5 @@ http://rmod-pharo-mooc.lille.inria.fr/AdvancedDesignMooc/2024-04-01-CompanionExe
 
 Guided Exercises
 Crafting a simple embedded DSL with Pharo
+
+gave up not understanding the missing step
