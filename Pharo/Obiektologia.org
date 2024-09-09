@@ -305,3 +305,18 @@ Guided Exercises
 Crafting a simple embedded DSL with Pharo
 
 gave up not understanding the missing step
+
+** Module 3: Hooks: support for evolution
+[[https://lms.fun-mooc.fr/courses/course-v1:inria+41031+session01/courseware/8fd92405fdd44c0caa8f79d0ddbea2af/e39737d9786c4f43a8ac25dc7a47f89c/][module overview]]
+
+*** TODO 3.1 An introduction to design patterns
+
+*** TODO 3.2 Message sends are plans for reuse
+
+*** TODO 3.3 Hooks and Template
+
+*** TODO 3.4 Using well asString and printString
+
+*** TODO 3.5 Global To Parameter
+
+*** TODO Companion exercises
