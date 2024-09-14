@@ -17,8 +17,18 @@ and answer ~y~ to the question about bash profile, then restart terminal
 opam install dune ocaml-lsp-server odoc ocamlformat utop merlin base core core_bench
 #+end_example
 
-check installation
+
+** check installation
 https://ocaml.org/docs/installing-ocaml#check-installation
+
+** .ocamlinit file
+http://dev.realworldocaml.org/install.html
+
+#+begin_example
+#require "core.top";;
+#require "ppx_jane";;
+open Base;;
+#+end_example
 
 ** tour
 https://ocaml.org/docs/tour-of-ocaml
