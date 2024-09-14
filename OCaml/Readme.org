@@ -14,7 +14,7 @@ and answer ~y~ to the question about bash profile, then restart terminal
 
 ** Install platform tools
 #+begin_example
-opam install dune ocaml-lsp-server odoc ocamlformat utop merlin base core
+opam install dune ocaml-lsp-server odoc ocamlformat utop merlin base core core_bench
 #+end_example
 
 check installation
