@@ -1,4 +1,8 @@
 digraph {
+
+layout=neato;
+overlap=prism;
+
     design1_gv [label="design1.gv",style=filled,fillcolor=green]
     design1_gv -> design1_gv
 
