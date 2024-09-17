@@ -14,11 +14,21 @@ and answer ~y~ to the question about bash profile, then restart terminal
 
 ** Install platform tools
 #+begin_example
-opam install dune ocaml-lsp-server odoc ocamlformat utop merlin
+opam install dune ocaml-lsp-server odoc ocamlformat utop merlin base core core_bench
 #+end_example
 
-check installation
+
+** check installation
 https://ocaml.org/docs/installing-ocaml#check-installation
+
+** .ocamlinit file
+http://dev.realworldocaml.org/install.html
+
+#+begin_example
+#require "core.top";;
+#require "ppx_jane";;
+open Base;;
+#+end_example
 
 ** tour
 https://ocaml.org/docs/tour-of-ocaml
@@ -51,6 +61,27 @@ Hello, World!
 
 ** ocamlformat
 https://ocaml.org/p/ocamlformat/latest/doc/getting_started.html
+
+*** examples
+
+#+begin_example
+profile = default
+version = 0.26.2
+#+end_example
+
+conventional IS default
+
+version is optional, but useful to specify which version is used by everyone in
+the project
+
+#+begin_example
+profile = ocamlformat
+#+end_example
+
+#+begin_example
+profile = janestreet
+#+end_example
+
 
 ** search
 
@@ -109,7 +140,7 @@ Mutable State
 Floating-point Numbers
 The OCaml Standard Library
 Simple Modules
-Compiling Programs
+Compiling Programs pdf:/home/jacek/Documents/Manuals/OCaml/mlbook2.pdf#11
 
 ** keywords
 
@@ -139,7 +170,8 @@ The following character sequences are also keywords:
     ]     _     `     {     {<    |     |]    ||    }     ~
 #+end_example
 
-Note that the following identifiers are keywords of the now unmaintained Camlp4 system and should be avoided for backwards compatibility reasons.
+Note that the following identifiers are keywords of the now unmaintained Camlp4
+system and should be avoided for backwards compatibility reasons.
 
 #+begin_example
     parser    value    $     $$    $:    <:    <<    >>    ??

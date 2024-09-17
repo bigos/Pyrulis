@@ -311,8 +311,10 @@ low level vs high level picture of the algorithm
 *** Test and Debugging
 
 Testing is one of the ways of achieving validation
-*** TODO Black-box and Glass-box Testing
-*** Randomized Testing with QCheck
+*** Black-box and Glass-box Testing
+https://github.com/aantron/bisect_ppx
+
+*** TODO Randomized Testing with QCheck
 *** Proving Correctness
 *** Structural Induction
 *** Algebraic Specification

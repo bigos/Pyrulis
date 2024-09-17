@@ -14,6 +14,7 @@ https://www.w3schools.in/c-tutorial/
 https://en.wikibooks.org/wiki/C_Programming
 
 *** pointers
+https://youtu.be/DplxIq0mc_Y
 
 **** referencing and dereferencing
 Check if the two corresponding operators ~&~ and ~*~ are also used that way in C.
