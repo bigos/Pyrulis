@@ -71,6 +71,9 @@ version = 0.26.2
 
 conventional IS default
 
+version is optional, but useful to specify which version is used by everyone in
+the project
+
 #+begin_example
 profile = ocamlformat
 #+end_example
