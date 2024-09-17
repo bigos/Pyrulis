@@ -62,6 +62,24 @@ Hello, World!
 ** ocamlformat
 https://ocaml.org/p/ocamlformat/latest/doc/getting_started.html
 
+*** examples
+
+#+begin_example
+profile = default
+version = 0.26.2
+#+end_example
+
+conventional IS default
+
+#+begin_example
+profile = ocamlformat
+#+end_example
+
+#+begin_example
+profile = janestreet
+#+end_example
+
+
 ** search
 
 *** docs
