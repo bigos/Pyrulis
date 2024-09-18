@@ -82,6 +82,13 @@ profile = ocamlformat
 profile = janestreet
 #+end_example
 
+*** home folder version
+need this env variable
+
+#+begin_example
+export XDG_CONFIG_HOME=$HOME
+#+end_example
+
 
 ** search
 
