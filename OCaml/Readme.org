@@ -107,12 +107,18 @@ https://ocaml.org/books?language=english&difficulty=All&pricing=All
 https://dev.realworldocaml.org/toc.html
 
 MORE OCAML Algorithms, Methods & Diversions
-pdf:/home/jacek/Documents/Manuals/OCaml/mlbook2.pdf#1
+pdf:/home/jacek/Documents/Manuals/OCaml/mlbook2.pdf#5
 
 promising because of debugging
 https://greenteapress.com/thinkocaml/thinkocaml.pdf
 
+*** very good book
 https://caml.inria.fr/pub/docs/oreilly-book/
+https://caml.inria.fr/pub/docs/oreilly-book/html/index.html
+
+**** Part IV - Chapter 18
+https://caml.inria.fr/pub/docs/oreilly-book/html/book-ora166.html
+https://caml.inria.fr/pub/docs/oreilly-book/html/book-ora167.html
 
 ** calling C
 https://ocaml.org/docs/calling-c-libraries
