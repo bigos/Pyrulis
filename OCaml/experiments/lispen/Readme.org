@@ -9,5 +9,10 @@ See the [[file:~/Programming/Pyrulis/OCaml/Readme.org::*books][books]] in OCaml 
 ** gitignore
 https://github.com/github/gitignore/blob/main/OCaml.gitignore
 
+** script example
+file:~/bin/lispen.sh::1
+
 ** code
 file:~/Programming/Pyrulis/OCaml/experiments/lispen/bin/main.ml::1
+
+** running code

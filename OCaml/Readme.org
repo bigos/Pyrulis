@@ -105,12 +105,16 @@ english books
 https://ocaml.org/books?language=english&difficulty=All&pricing=All
 
 https://dev.realworldocaml.org/toc.html
+https://dev.realworldocaml.org/imperative-programming.html
 
 MORE OCAML Algorithms, Methods & Diversions
 pdf:/home/jacek/Documents/Manuals/OCaml/mlbook2.pdf#5
 
 promising because of debugging
 https://greenteapress.com/thinkocaml/thinkocaml.pdf
+
+interesting blog
+https://borretti.me/article/two-years-ocaml
 
 *** very good book
 https://caml.inria.fr/pub/docs/oreilly-book/
