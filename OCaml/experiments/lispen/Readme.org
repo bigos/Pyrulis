@@ -1,0 +1,13 @@
+* Readme
+
+** running
+dune exec lispen
+
+** books
+See the [[file:~/Programming/Pyrulis/OCaml/Readme.org::*books][books]] in OCaml Readme.
+
+** gitignore
+https://github.com/github/gitignore/blob/main/OCaml.gitignore
+
+** code
+file:~/Programming/Pyrulis/OCaml/experiments/lispen/bin/main.ml::1

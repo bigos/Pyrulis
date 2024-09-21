@@ -1,0 +1,4 @@
+(executable
+ (public_name lispen)
+ (name main)
+ (libraries lispen))
