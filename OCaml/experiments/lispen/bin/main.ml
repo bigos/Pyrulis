@@ -1,6 +1,8 @@
 (* why the command output is in the wrong order? *)
 
-let skip name = Printf.printf "%!skipping %s\n" name
+let skip name = Printf.printf "skipping %s\n" name
+
+let flush () = Printf.printf "%!"
 
 let printHeader name =
   Printf.printf "%!\n--- %s -------------------------------\n\n" name
@@ -16,9 +18,9 @@ let compileSBCL () =
   Printf.printf "%!done"
 
 let doEmacs () =
-  let _ = printHeader "Emacs" in
-  (* still command output showes before that *)
+  printHeader "Emacs" ;
   Sys.chdir "/home/jacek/Programming/emacs-31" ;
+  flush () ;
   let _ = Sys.command "git pull; echo 'pulled Emacs'" in
   Printf.printf "%!Should I compile Emacs? Please enter your choice Y/n > " ;
   let rl = Stdlib.read_line () |> String.trim in
@@ -27,6 +29,7 @@ let doEmacs () =
 let doSbcl () =
   printHeader "SBCL" ;
   Sys.chdir "/home/jacek/Programming/sbcl" ;
+  flush () ;
   let _ = Sys.command "git pull; echo 'pulled SBCL'" in
   Printf.printf "%!Should I compile SBCL? Please enter your choice Y/n > " ;
   let rl = Stdlib.read_line () |> String.trim in
