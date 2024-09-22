@@ -16,7 +16,8 @@ let compileSBCL () =
   Printf.printf "%!done"
 
 let doEmacs () =
-  printHeader "Emacs" ;
+  let _ = printHeader "Emacs" in
+  (* still command output showes before that *)
   Sys.chdir "/home/jacek/Programming/emacs-31" ;
   let _ = Sys.command "git pull; echo 'pulled Emacs'" in
   Printf.printf "%!Should I compile Emacs? Please enter your choice Y/n > " ;
