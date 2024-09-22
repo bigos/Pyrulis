@@ -3,8 +3,6 @@ let skip () = print_endline "skipping"
 let compile () = print_endline "compile"
 
 let main () =
-  (* flush the terminal *)
-  Printf.printf "%!" ;
   Printf.printf "\nEmacs -------------------------------\n\n" ;
   Sys.chdir "/home/jacek/Programming/emacs-31" ;
   let _ = Sys.command "git pull" in
