@@ -99,6 +99,8 @@ https://ocaml.org/docs/search?q=let
 https://ocaml.org/packages/search?q=base
 
 ** books
+https://johnwhitington.net/ocamlfromtheverybeginning/index.html
+
 https://cs3110.github.io/textbook/chapters/intro/intro.html
 
 english books
