@@ -9,11 +9,13 @@ let printHeader name =
 
 let compileEmacs () =
   Printf.printf "%!compile Emacs" ;
+  flush () ;
   let _ = Sys.command "make; sudo make install" in
   Printf.printf "%!done"
 
 let compileSBCL () =
   Printf.printf "%!compile SBCL" ;
+  flush () ;
   let _ = Sys.command "sh ./distclean.sh; sh ./make.sh; sudo sh ./install.sh" in
   Printf.printf "%!done"
 
