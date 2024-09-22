@@ -35,9 +35,6 @@ let doSbcl () =
   let rl = Stdlib.read_line () |> String.trim in
   if rl = "Y" || rl = "y" then compileSBCL () else skip "SBCL"
 
-let main () =
-  let _ = doEmacs () in
-  let _ = doSbcl () in
-  Printf.printf "\n"
+let main () = doEmacs () ; doSbcl () ; Printf.printf "\n"
 
 let () = main ()
