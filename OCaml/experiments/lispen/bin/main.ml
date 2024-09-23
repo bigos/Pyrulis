@@ -5,7 +5,7 @@ let skip name = Printf.printf "skipping %s\n" name
 let flush () = Printf.printf "%!"
 
 let printHeader name =
-  Printf.printf "\n--- %s -------------------------------\n\n" name
+  Printf.printf "\n\n--- %s -------------------------------\n\n" name
 
 let compileEmacs () =
   Printf.printf "compile Emacs" ;
