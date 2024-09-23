@@ -1,5 +1,3 @@
-(* why the command output is in the wrong order? *)
-
 let skip name = Printf.printf "skipping %s\n" name
 
 let flush () = Printf.printf "%!"
