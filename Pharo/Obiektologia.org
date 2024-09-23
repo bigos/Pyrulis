@@ -312,7 +312,12 @@ gave up not understanding the missing step
 *** 3.1 An introduction to design patterns
 overview of patterns and books
 
-*** TODO 3.2 Message sends are plans for reuse
+*** 3.2 Message sends are plans for reuse
+define small methods for each aspect of object
+send messages to self - potential hooks to extensibility
+override in subclasses
+
+subclasses fill the holes
 
 *** TODO 3.3 Hooks and Template
 
