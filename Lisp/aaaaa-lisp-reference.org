@@ -16,6 +16,20 @@ http://labs.ariel-networks.com/cl-style-guide.html
 
 https://www.google.com/search?q=Common+Lisp+Style+Guide
 
+discussion about prepending functions with %
+https://www.reddit.com/r/Common_Lisp/comments/jgj9lu/naming_conventions/
+
+And some programmers will name particularly low-level functions with names that start with % or even %%.
+https://gigamonkeys.com/book/syntax-and-semantics
+
+http://www.mohamedelafrit.com/education/ENSEIRB/lisp/standards.pdf
+
+https://ccrma.stanford.edu/CCRMA/Courses/AlgoComp/cm/doc/contrib/lispstyle.html
+
+https://lisp-lang.org/style-guide/
+
+https://www.cliki.net/naming+conventions
+
 project generation
 
 https://github.com/fukamachi/cl-project
