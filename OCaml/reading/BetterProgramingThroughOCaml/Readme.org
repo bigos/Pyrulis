@@ -314,38 +314,43 @@ Testing is one of the ways of achieving validation
 *** Black-box and Glass-box Testing
 https://github.com/aantron/bisect_ppx
 
-*** TODO Randomized Testing with QCheck
-*** Proving Correctness
+*** Randomized Testing with QCheck
+You can start utop in terminal and do:
+#+begin_src ocaml
+  #require "qcheck";;
+#+end_src
+
+*** TODO Proving Correctness
 *** Structural Induction
 *** Algebraic Specification
 *** Summary
 *** Exercises
 *** 7 Mutability
-*** Refs
-*** Mutable Fields
-*** Arrays and Loops
-*** Summary
-*** Exercises
+**** Refs
+**** Mutable Fields
+**** Arrays and Loops
+**** Summary
+**** Exercises
 *** 8 Data Structures
-*** Hash Tables
-*** Amortized Analysis
-*** Red-Black Trees
-*** Sequences
-*** Memoization
-*** Persistent Arrays
-*** Promises
-*** Monads
-*** Summary
-***  Exercises
+**** Hash Tables
+**** Amortized Analysis
+**** Red-Black Trees
+**** Sequences
+**** Memoization
+**** Persistent Arrays
+**** Promises
+**** Monads
+**** Summary
+****  Exercises
 *** 9 Interpreters
-*** Example: Calculator
-*** Parsing
-*** Substitution Model
-*** Environment Model
-*** Type Checking
-*** Type Inference
-*** Summary
-*** Exercises
+**** Example: Calculator
+**** Parsing
+**** Substitution Model
+**** Environment Model
+**** Type Checking
+**** Type Inference
+**** Summary
+**** Exercises
 *** Lagniappe
 
 ** next reading
