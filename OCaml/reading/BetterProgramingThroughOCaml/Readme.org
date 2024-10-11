@@ -320,7 +320,33 @@ https://github.com/aantron/bisect_ppx
 *** Algebraic Specification
 *** Summary
 *** Exercises
-
+*** 7 Mutability
+*** Refs
+*** Mutable Fields
+*** Arrays and Loops
+*** Summary
+*** Exercises
+*** 8 Data Structures
+*** Hash Tables
+*** Amortized Analysis
+*** Red-Black Trees
+*** Sequences
+*** Memoization
+*** Persistent Arrays
+*** Promises
+*** Monads
+*** Summary
+***  Exercises
+*** 9 Interpreters
+*** Example: Calculator
+*** Parsing
+*** Substitution Model
+*** Environment Model
+*** Type Checking
+*** Type Inference
+*** Summary
+*** Exercises
+*** Lagniappe
 
 ** next reading
 
