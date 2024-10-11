@@ -345,9 +345,23 @@ The reason the word “algebra” shows up here is (in part) that this type-and-
 equation based approach is something we learned in high-school algebra. For
 example, here is a specification for some operators:
 
-*** TODO Summary
+*** Summary
+important
+https://cs3110.github.io/textbook/chapters/correctness/summary.html
+
+Good documentation provides several pieces: a summary, preconditions,
+postconditions (including errors), and examples. Documentation is written for
+two different audiences, clients and maintainers. The latter needs to know about
+abstraction functions and representation invariants.
+
+See the extensive list of Terms and Concepts
+
+Read the Further Reading
+
+Thinking Functionally with Haskell, chapter 6. Richard Bird. Cambridge, 2015.
+
 *** Exercises
-*** 7 Mutability
+*** TODO 7 Mutability
 **** Refs
 **** Mutable Fields
 **** Arrays and Loops
@@ -377,4 +391,4 @@ example, here is a specification for some operators:
 
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/correctness/summary.html
+https://cs3110.github.io/textbook/chapters/mut/intro.html
