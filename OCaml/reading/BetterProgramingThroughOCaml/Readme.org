@@ -320,10 +320,32 @@ You can start utop in terminal and do:
   #require "qcheck";;
 #+end_src
 
-*** TODO Proving Correctness
+*** Proving Correctness
 *** Structural Induction
+Inductive proofs and recursive programs bear a striking similarity. In a sense,
+an inductive proof is a recursive program that shows how to construct evidence
+for a theorem involving an algebraic data type (ADT).
+
 *** Algebraic Specification
-*** Summary
+
+Correctness proofs always need specifications. In proving the correctness of
+iterative factorial, we used recursive factorial as a specification. By analogy,
+we could provide two implementations of a data structure—one simple, the other
+complex and efficient—and prove that the two are equivalent. That would require
+us to introduce ways to translate between the two implementations.
+
+Instead, we will pursue a different approach based on equational specifications,
+aka algebraic specifications. The idea with these is to
+
+    define the types of the data structure operations, and
+
+    to write a set of equations that define how the operations interact with one another.
+
+The reason the word “algebra” shows up here is (in part) that this type-and-
+equation based approach is something we learned in high-school algebra. For
+example, here is a specification for some operators:
+
+*** TODO Summary
 *** Exercises
 *** 7 Mutability
 **** Refs
@@ -355,4 +377,4 @@ You can start utop in terminal and do:
 
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/correctness/test_debug.html
+https://cs3110.github.io/textbook/chapters/correctness/summary.html
