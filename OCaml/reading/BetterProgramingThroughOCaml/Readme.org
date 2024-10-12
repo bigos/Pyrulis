@@ -394,6 +394,7 @@ Obj.magic gets memory address of a ref and allows to throw away all type safety
 trick of writing recursive functions without using rec
 ***** weak type variables
 something to do with polymorphism and mutability
+***** equality - physical vs structural
 
 **** Mutable Fields
 **** Arrays and Loops
