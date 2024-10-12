@@ -362,7 +362,7 @@ Thinking Functionally with Haskell, chapter 6. Richard Bird. Cambridge, 2015.
 
 *** Exercises
 *** TODO 7 Mutability
-**** TODO Refs
+**** Refs
 A ref is like a pointer to typed location in memory.
 
 ~ref 0~ create ref with initial value 0
@@ -396,7 +396,7 @@ trick of writing recursive functions without using rec
 something to do with polymorphism and mutability
 ***** equality - physical vs structural
 
-**** Mutable Fields
+**** TODO Mutable Fields
 **** Arrays and Loops
 **** Summary
 **** Exercises
@@ -424,4 +424,4 @@ something to do with polymorphism and mutability
 
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/mut/refs.html
+https://cs3110.github.io/textbook/chapters/mut/mutable_fields.html
