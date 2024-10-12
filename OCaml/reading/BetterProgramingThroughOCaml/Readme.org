@@ -362,7 +362,39 @@ Thinking Functionally with Haskell, chapter 6. Richard Bird. Cambridge, 2015.
 
 *** Exercises
 *** TODO 7 Mutability
-**** Refs
+**** TODO Refs
+A ref is like a pointer to typed location in memory.
+
+~ref 0~ create ref with initial value 0
+~!~ is defererence operator
+~:=~ assignment
+
+#+begin_src ocaml
+  let x = ref 0
+            (* !x is the initial 0 *)
+  x := 2
+  let y = 2 + !x
+               (* y should be 4 *)
+#+end_src
+***** aliasing
+when 2 refs point to the same location
+mutating one variable mutates also the aliased variable
+***** sequencing of effects
+~e1; e2; e3~
+evaluating for side effects, we do not care about the value
+***** pointers
+an option tell us that the type value can be null
+to denote a null value we use None
+we also have Some
+
+shows how to do pointer operations
+
+Obj.magic gets memory address of a ref and allows to throw away all type safety
+
+trick of writing recursive functions without using rec
+***** weak type variables
+something to do with polymorphism and mutability
+
 **** Mutable Fields
 **** Arrays and Loops
 **** Summary
@@ -391,4 +423,4 @@ Thinking Functionally with Haskell, chapter 6. Richard Bird. Cambridge, 2015.
 
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/mut/intro.html
+https://cs3110.github.io/textbook/chapters/mut/refs.html
