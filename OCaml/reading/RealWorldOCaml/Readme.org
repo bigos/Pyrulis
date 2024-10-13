@@ -3,13 +3,17 @@
 https://dev.realworldocaml.org/toc.html
 
 this is the next book I am going to read
+
 ** A Guided Tour
+
 *** Base and Core
 #+begin_example
 M-x tuareg-switch-to-repl
 #+end_example
 
-*** annotated and not annotated function
+*** Functions and Type Inference
+
+**** annotated and not annotated function
 #+begin_src ocaml
     (* no annotations *)
   let sum_if_true test first second =
@@ -22,6 +26,8 @@ M-x tuareg-switch-to-repl
   + (if test y then y else 0);;
 #+end_src
 
-next reading
+*** Tuples, Lists, Options, and Pattern Matching
+
+** next reading
 
 https://dev.realworldocaml.org/guided-tour.html#tuples-lists-options-and-pattern-matching
