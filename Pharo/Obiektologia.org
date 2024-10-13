@@ -319,7 +319,7 @@ override in subclasses
 
 subclasses fill the holes
 
-*** TODO 3.3 Hooks and Template
+*** 3.3 Hooks and Template
 
 *** TODO 3.4 Using well asString and printString
 
