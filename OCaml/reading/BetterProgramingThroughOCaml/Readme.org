@@ -396,7 +396,7 @@ trick of writing recursive functions without using rec
 something to do with polymorphism and mutability
 ***** equality - physical vs structural
 
-**** TODO Mutable Fields
+**** Mutable Fields
 #+begin_src ocaml
 type point = { x : int; y : int; mutable c : string; }
 #+end_src
@@ -408,7 +408,19 @@ p.c <- "white"
 #+end_src
 
 **** Arrays and Loops
-**** Summary
+#+begin_src ocaml
+  let v = [|0.; 1.|]
+  v.(0) <- 5.
+#+end_src
+
+Lisp inspired loops
+#+begin_src ocaml
+while e1 do e2 done
+for x=e1 to e2 do e3 done
+for x=e1 downto e2 do e3 done
+#+end_src
+
+**** TODO Summary
 **** Exercises
 *** 8 Data Structures
 **** Hash Tables
@@ -434,6 +446,4 @@ p.c <- "white"
 
 ** next reading
 
-
-
-https://cs3110.github.io/textbook/chapters/mut/mutable_fields.html#refs-are-mutable-fields
+https://cs3110.github.io/textbook/chapters/mut/summary.html
