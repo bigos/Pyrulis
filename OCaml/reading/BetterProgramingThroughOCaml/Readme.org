@@ -424,7 +424,17 @@ for x=e1 downto e2 do e3 done
 **** Exercises
 *** TODO 8 Data Structures
 **** Hash Tables
-**** Amortized Analysis
+Maps and sets are similar.
+
+different ways to implement Map
+***** Maps as hash tables
+***** Hash Functions
+
+Hashing is hard
+
+***** Standard Library Hashtbl
+
+**** TODO Amortized Analysis
 **** Red-Black Trees
 **** Sequences
 **** Memoization
@@ -446,4 +456,5 @@ for x=e1 downto e2 do e3 done
 
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/ds/intro.html
+
+https://cs3110.github.io/textbook/chapters/ds/amortized.html
