@@ -397,6 +397,16 @@ something to do with polymorphism and mutability
 ***** equality - physical vs structural
 
 **** TODO Mutable Fields
+#+begin_src ocaml
+type point = { x : int; y : int; mutable c : string; }
+#+end_src
+
+The operator to update a mutable field is <- which is meant to look like a left arrow.
+#+begin_src ocaml
+let p = {x = 0; y = 0; c = "red"}
+p.c <- "white"
+#+end_src
+
 **** Arrays and Loops
 **** Summary
 **** Exercises
@@ -424,4 +434,6 @@ something to do with polymorphism and mutability
 
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/mut/mutable_fields.html
+
+
+https://cs3110.github.io/textbook/chapters/mut/mutable_fields.html#refs-are-mutable-fields
