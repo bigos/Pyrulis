@@ -361,7 +361,7 @@ Read the Further Reading
 Thinking Functionally with Haskell, chapter 6. Richard Bird. Cambridge, 2015.
 
 *** Exercises
-*** TODO 7 Mutability
+*** 7 Mutability
 **** Refs
 A ref is like a pointer to typed location in memory.
 
@@ -420,9 +420,9 @@ for x=e1 to e2 do e3 done
 for x=e1 downto e2 do e3 done
 #+end_src
 
-**** TODO Summary
+**** Summary
 **** Exercises
-*** 8 Data Structures
+*** TODO 8 Data Structures
 **** Hash Tables
 **** Amortized Analysis
 **** Red-Black Trees
@@ -446,4 +446,4 @@ for x=e1 downto e2 do e3 done
 
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/mut/summary.html
+https://cs3110.github.io/textbook/chapters/ds/intro.html
