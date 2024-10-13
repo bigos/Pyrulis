@@ -28,6 +28,25 @@ M-x tuareg-switch-to-repl
 
 *** Tuples, Lists, Options, and Pattern Matching
 
+**** Tuples
+
+For the mathematically inclined, * is used in the type t * s because that type
+corresponds to the set of all pairs containing one value of type t and one of
+type s. In other words, it’s the Cartesian product of the two types, which is
+why we use *, the symbol for product.
+
+destructuring tuples
+
+***** Operators in Base and the StdLib
+inconsistency about the ~**~
+
+In Base it is used for integer expotentiation while in Stdlib it is used for
+float expotentiation.
+
+**** Lists
+
 ** next reading
 
-https://dev.realworldocaml.org/guided-tour.html#tuples-lists-options-and-pattern-matching
+
+
+https://dev.realworldocaml.org/guided-tour.html#lists
