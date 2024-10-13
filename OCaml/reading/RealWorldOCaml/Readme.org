@@ -20,8 +20,8 @@ M-x tuareg-switch-to-repl
   let sum_if_true (test : int -> bool) (x : int) (y : int) : int =
   (if test x then x else 0)
   + (if test y then y else 0);;
-
 #+end_src
 
 next reading
-https://dev.realworldocaml.org/guided-tour.html#inferring-generic-types
+
+https://dev.realworldocaml.org/guided-tour.html#tuples-lists-options-and-pattern-matching
