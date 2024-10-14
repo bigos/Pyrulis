@@ -225,3 +225,10 @@ compilation of freq.ml
 #+begin_example
 ocamlfind ocamlopt -linkpkg -package base -package stdio freq.ml -o freq
 #+end_example
+
+** opam install
+opam init add to ~/.bash_profile
+#+begin_example
+# opam configuration
+test -r /home/jacek/.opam/opam-init/init.sh && . /home/jacek/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+#+end_example
