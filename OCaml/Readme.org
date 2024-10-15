@@ -197,31 +197,5 @@ system and should be avoided for backwards compatibility reasons.
 #+end_example
 
 ** single file programs
-https://dev.realworldocaml.org/files-modules-and-programs.html#single-file-programs
-
-#+begin_src ocaml
-  open Base
-  open Stdio
-
-  let build_counts () =
-    In_channel.fold_lines In_channel.stdin ~init:[] ~f:(fun counts line ->
-        let count =
-          match List.Assoc.find ~equal:String.equal counts line with
-          | None -> 0
-          | Some x -> x
-        in
-        List.Assoc.add ~equal:String.equal counts line (count + 1))
-
-  let () =
-    build_counts ()
-    |> List.sort ~compare:(fun (_, x) (_, y) -> Int.descending x y)
-    |> (fun l -> List.take l 10)
-    |> List.iter ~f:(fun (line, count) -> printf "%3d: %s\n" count line)
-#+end_src
-
-note the above file uses Base and Stdio also seen in the compilation example
-
-compilation of freq.ml
-#+begin_example
-ocamlfind ocamlopt -linkpkg -package base -package stdio freq.ml -o freq
-#+end_example
+Single file programs are not worth the effort. Use dune and use the project,
+otherwise the libraries problems will give you lots of frustration.
