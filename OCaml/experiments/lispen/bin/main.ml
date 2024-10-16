@@ -5,35 +5,36 @@ let flush () = Printf.printf "%!"
 let printHeader name =
   Printf.printf "\n\n--- %s -------------------------------\n\n" name
 
-let compileEmacs () =
-  Printf.printf "compile Emacs" ;
+let compileProj (name : string) (code : string) : unit =
+  Printf.printf "compile %s" name ;
   flush () ;
-  let _ = Sys.command "make; sudo make install" in
+  let _ = Sys.command code in
   Printf.printf "done"
 
-let compileSBCL () =
-  Printf.printf "compile SBCL" ;
+let doProj pname ppath compileFn skipFn =
+  printHeader pname ;
+  Sys.chdir ppath ;
   flush () ;
-  let _ = Sys.command "sh ./distclean.sh; sh ./make.sh; sudo sh ./install.sh" in
-  Printf.printf "done"
+  let _ = Sys.command "git pull" in
+  Printf.printf "Should I compile %s? Please enter your choice Y/n > " pname ;
+  let rl = Stdlib.read_line () |> String.trim |> String.uppercase_ascii in
+  if rl = "Y" then compileFn () else skipFn ()
 
 let doEmacs () =
-  printHeader "Emacs" ;
-  Sys.chdir "/home/jacek/Programming/emacs-31" ;
-  flush () ;
-  let _ = Sys.command "git pull; echo 'pulled Emacs'" in
-  Printf.printf "Should I compile Emacs? Please enter your choice Y/n > " ;
-  let rl = Stdlib.read_line () |> String.trim in
-  if rl = "Y" || rl = "y" then compileEmacs () else skip "Emacs"
+  let pname = "Emacs" in
+  let ppath = "/home/jacek/Programming/emacs-31" in
+  doProj pname ppath
+    (fun () -> compileProj pname "make; sudo make install")
+    (fun () -> skip pname)
 
 let doSbcl () =
-  printHeader "SBCL" ;
-  Sys.chdir "/home/jacek/Programming/sbcl" ;
-  flush () ;
-  let _ = Sys.command "git pull; echo 'pulled SBCL'" in
-  Printf.printf "Should I compile SBCL? Please enter your choice Y/n > " ;
-  let rl = Stdlib.read_line () |> String.trim in
-  if rl = "Y" || rl = "y" then compileSBCL () else skip "SBCL"
+  let pname = "SBCL" in
+  let ppath = "/home/jacek/Programming/sbcl" in
+  doProj pname ppath
+    (fun () ->
+      compileProj pname "sh ./distclean.sh; sh ./make.sh; sudo sh ./install.sh"
+      )
+    (fun () -> skip pname)
 
 let main () = doEmacs () ; doSbcl () ; Printf.printf "\n"
 

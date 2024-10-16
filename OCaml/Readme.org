@@ -26,6 +26,9 @@ For now, in the *scratch* buffer I execute the following
           "/home/jacek/.opam/default/lib/stublibs:/home/jacek/.opam/default/lib/ocaml/stublibs:/home/jacek/.opam/default/lib/ocaml")
 #+end_src
 
+*** alternative way of launching Emacs
+If you are using OPAM it should be enough to execute Emacs under the OPAM environment (eg opam exec -- emacs or eval $(opam env)).
+
 ** other environment variables
 file:~/.opam/opam-init/variables.sh::1
 
@@ -41,6 +44,8 @@ file:~/.ocamlinit::1
 #+end_example
 
 *** trying to find better recomendations
+https://discuss.ocaml.org/t/how-to-get-an-ocamlinit-file-per-switch-project/3114
+
 https://github.com/mads-hartmann/ocaml-utop-emacs-example/blob/master/.ocamlinit
 
 *** this may not always be a good idea
