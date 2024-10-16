@@ -33,6 +33,17 @@ file:~/.opam/opam-init/variables.sh::1
 https://ocaml.org/docs/installing-ocaml#check-installation
 
 ** .ocamlinit file
+file:~/.ocamlinit::1
+
+#+begin_example
+#use "topfind";;
+#require "stdio";;
+#+end_example
+
+*** trying to find better recomendations
+https://github.com/mads-hartmann/ocaml-utop-emacs-example/blob/master/.ocamlinit
+
+*** this may not always be a good idea
 http://dev.realworldocaml.org/install.html
 
 #+begin_example
