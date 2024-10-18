@@ -1,2 +1,2 @@
-profile = ocamlformat
+profile = conventional
 version = 0.26.2
