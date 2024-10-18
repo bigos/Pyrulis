@@ -38,6 +38,13 @@ https://ocaml.org/docs/installing-ocaml#check-installation
 ** .ocamlinit file
 https://www.mancoosi.org/~abate/ocamlinit.html
 
+On start-up (before the first phrase is read), if the file .ocamlinit exists in
+the current directory, its contents are read as a sequence of Objective Caml
+phrases and executed as per the #use directive described in section 9.2. The
+evaluation outcode for each phrase are not displayed. If the current directory
+does not contain an .ocamlinit file, but the user’s home directory (environment
+variable HOME) does, the latter is read and executed as described below.
+
 file:~/.ocamlinit::1
 
 #+begin_example
