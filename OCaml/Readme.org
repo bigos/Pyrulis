@@ -36,6 +36,8 @@ file:~/.opam/opam-init/variables.sh::1
 https://ocaml.org/docs/installing-ocaml#check-installation
 
 ** .ocamlinit file
+https://www.mancoosi.org/~abate/ocamlinit.html
+
 file:~/.ocamlinit::1
 
 #+begin_example
