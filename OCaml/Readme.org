@@ -184,7 +184,7 @@ https://ocaml.org/docs/calling-c-libraries
 ** installing libraries
 
 #+begin_example
-opam install ounit2
+opam install ounit2 more-ocaml
 #+end_example
 
 ** ocaml format problem
