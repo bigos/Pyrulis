@@ -29,6 +29,19 @@ For now, in the *scratch* buffer I execute the following
 *** alternative way of launching Emacs
 If you are using OPAM it should be enough to execute Emacs under the OPAM environment (eg opam exec -- emacs or eval $(opam env)).
 
+
+**** keep testing that
+[[file:~/Programming/OCaml/ocaml_experiments/README.org::*correct way to run Emacs so it sees the libraries][correct way to run Emacs so it sees the libraries]]
+open Terminal and cd to dune project
+dune project folder should have file dune-project
+in bin folder, in file dune, add the required libraries to the libraries section
+
+in that folder run:
+dune build
+opam exec -- emacs
+
+Emacs should have the auto-completion with the required library
+
 ** other environment variables
 file:~/.opam/opam-init/variables.sh::1
 
@@ -171,7 +184,7 @@ https://ocaml.org/docs/calling-c-libraries
 ** installing libraries
 
 #+begin_example
-opam install ounit2
+opam install ounit2 more-ocaml
 #+end_example
 
 ** ocaml format problem
