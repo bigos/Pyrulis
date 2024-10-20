@@ -129,7 +129,6 @@ need this env variable
 export XDG_CONFIG_HOME=$HOME
 #+end_example
 
-
 ** search
 
 *** docs
