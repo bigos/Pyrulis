@@ -45,7 +45,8 @@ evaluation outcode for each phrase are not displayed. If the current directory
 does not contain an .ocamlinit file, but the user’s home directory (environment
 variable HOME) does, the latter is read and executed as described below.
 
-file:~/.ocamlinit::1
+For now I will not use ocamlinit file, but will use comments on top of main.ml
+file with use and require that will be selected and evaluated with C-c C-r
 
 #+begin_example
 #use "topfind";;
