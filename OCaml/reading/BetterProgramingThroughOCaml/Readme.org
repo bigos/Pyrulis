@@ -434,8 +434,17 @@ Hashing is hard
 
 ***** Standard Library Hashtbl
 
-**** TODO Amortized Analysis
-**** Red-Black Trees
+**** Amortized Analysis
+Amortisation is a term borrowed from finances for spreading the cost of
+operations, allowing close to constant performance ans avoiding costly worst
+case scenarios. Here it is discussed in the context of Hash algorithms. We can
+avoid the expansive rehashing preparing for it in small instalments.
+
+**** TODO Red-Black Trees
+We often use Binary Search Trees BST, and balancing such trees leads to beast
+case performance. Red Black Trees is one of the methods for achieving such
+balance.
+
 **** Sequences
 **** Memoization
 **** Persistent Arrays
@@ -456,5 +465,4 @@ Hashing is hard
 
 ** next reading
 
-
-https://cs3110.github.io/textbook/chapters/ds/amortized.html
+https://cs3110.github.io/textbook/chapters/ds/sequence.html
