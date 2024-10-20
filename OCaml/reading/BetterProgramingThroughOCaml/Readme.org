@@ -440,12 +440,14 @@ operations, allowing close to constant performance ans avoiding costly worst
 case scenarios. Here it is discussed in the context of Hash algorithms. We can
 avoid the expansive rehashing preparing for it in small instalments.
 
-**** TODO Red-Black Trees
+**** Red-Black Trees
 We often use Binary Search Trees BST, and balancing such trees leads to beast
 case performance. Red Black Trees is one of the methods for achieving such
 balance.
 
-**** Sequences
+Read and Black comes from the limitations of the printer they had.
+
+**** TODO Sequences
 **** Memoization
 **** Persistent Arrays
 **** Promises
