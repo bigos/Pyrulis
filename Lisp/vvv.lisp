@@ -1,4 +1,4 @@
-(declaim (optimize (speed 1) (safety 2) (debug 3)))
+(declaim (optimize (speed 1) (safety 3) (debug 3)))
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (ql:quickload '(:draw-cons-tree :alexandria :serapeum :cl-cffi-gtk :defclass-std)))

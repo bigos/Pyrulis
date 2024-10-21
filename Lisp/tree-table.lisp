@@ -1,6 +1,6 @@
 ;;; tree table
 
-(declaim (optimize (speed 0) (safety 2) (debug 3)))
+(declaim (optimize (speed 0) (safety 3) (debug 3)))
 
 (ql:quickload (list :alexandria :draw-cons-tree))
 

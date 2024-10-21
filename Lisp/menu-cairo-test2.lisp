@@ -1,4 +1,4 @@
-(declaim (optimize (speed 1) (safety 2) (debug 3)))
+(declaim (optimize (speed 1) (safety 3) (debug 3)))
 
 ;;;; examples/gdk4-cairo.lisp
 

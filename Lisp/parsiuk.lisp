@@ -1,6 +1,6 @@
 ;;; parsiuk
 
-(declaim (optimize (safety 2) (speed 1) (debug 3)))
+(declaim (optimize (safety 3) (speed 1) (debug 3)))
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (ql:quickload '(:draw-cons-tree)))

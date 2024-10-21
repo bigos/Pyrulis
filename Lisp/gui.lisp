@@ -1,4 +1,4 @@
-(declaim (optimize (speed 0) (safety 2) (debug 3)))
+(declaim (optimize (speed 0) (safety 3) (debug 3)))
 
 ;;; popoever examples
 ;; https://discourse.gnome.org/t/how-do-i-position-a-gtk-popovermenu-at-the-mouse-pointer-coordinates/10620/3
