@@ -479,8 +479,8 @@ Ocaml Lazy module
 
 ***** Lazy sequences
 
-**** TODO Memoization
-**** Persistent Arrays
+**** Memoization
+**** TODO Persistent Arrays
 **** Promises
 **** Monads
 **** Summary
@@ -498,4 +498,4 @@ Ocaml Lazy module
 
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/ds/memoization.html
+https://cs3110.github.io/textbook/chapters/ds/parrays.html
