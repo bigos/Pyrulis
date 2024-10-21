@@ -447,8 +447,39 @@ balance.
 
 Read and Black comes from the limitations of the printer they had.
 
-**** TODO Sequences
-**** Memoization
+**** Sequences
+A sequence is an infinite list. For example, the infinite list of all natural
+numbers would be a sequence. So would the list of all primes, or all Fibonacci
+numbers. How can we efficiently represent infinite lists? Obviously we can’t
+store the whole list in memory.
+
+We already know that OCaml allows us to create recursive functions—that is,
+functions defined in terms of themselves. It turns out we can define other
+values in terms of themselves, too.
+
+infinite sequence definition
+
+***** How Not to Define A Sequence
+example of declaring infinite sequence that blows the stack
+and example where the value is used before it is finished being defined
+
+no computation is done inside the body of the function until it is applied.
+
+A function that is used just to delay computation, and in particular one that
+takes unit as input, is called a thunk.
+
+We can use this property of evaluation—that functions delay evaluation—to our
+advantage in defining sequences: let’s wrap the tail of a sequence inside a
+function.
+
+***** Programming with Sequences
+
+***** Laziness
+Ocaml Lazy module
+
+***** Lazy sequences
+
+**** TODO Memoization
 **** Persistent Arrays
 **** Promises
 **** Monads
@@ -467,4 +498,4 @@ Read and Black comes from the limitations of the printer they had.
 
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/ds/sequence.html
+https://cs3110.github.io/textbook/chapters/ds/memoization.html
