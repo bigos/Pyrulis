@@ -12,6 +12,8 @@
 
 ;; (print "hello micro")
 
+;;; at SAFETY 3 we have type checking
+;; file:~/Programming/Lisp/lispy-experiments/typed-class-test.lisp::1
 
 ;; ====================================== type checking in a class ========================
 ;; https://stackoverflow.com/questions/51723992/how-to-force-slots-type-to-be-checked-during-make-instance/56920918

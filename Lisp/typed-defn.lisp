@@ -22,3 +22,6 @@
 (proclaim '(ftype (function (fixnum fixnum) poseven)  even-adder))
 (defun even-adder (x y)
   (+ x y))
+
+;;; at SAFETY 3 we have type checking
+;; file:~/Programming/Lisp/lispy-experiments/typed-class-test.lisp::1
