@@ -479,10 +479,62 @@ Ocaml Lazy module
 
 ***** Lazy sequences
 
-**** TODO Memoization
+**** Memoization
 **** Persistent Arrays
+
+Not released yet
+
 **** Promises
-**** Monads
+So far we have only considered sequential programs. Execution of a sequential
+program proceeds one step at a time, with no choice about which step to take
+next. Sequential programs are limited in that they are not very good at dealing
+with multiple sources of simultaneous input, and they can only execute on a
+single processor. Many modern applications are instead concurrent.
+
+Concurrent programs enable computations to overlap in duration, instead of being
+forced to happen sequentially.
+
+Even if there are multiple cores available for simultaneous use, there are still
+many other resources that must be shared: memory, the screen, the network
+interface, etc. Managing that sharing, especially without introducing bugs, is
+quite difficult.
+
+Abstractly, a thread is a single sequential computation. There can be many
+threads running at a time, either interleaved or in parallel depending on the
+hardware, and a scheduler handles choosing which threads are running at any
+given time. Scheduling can either be preemptive, meaning that the scheduler is
+permitted to stop a thread and restart it later without the thread getting a
+choice in the matter, or cooperative
+
+In the functional programming paradigm, one of the best known abstractions for
+concurrency is promises. Other names for this idea include futures, deferreds,
+and delayeds. All those names refer to the idea of a computation that is not yet
+finished: it has promised to eventually produce a value in the future, but the
+completion of the computation has been deferred or delayed. There may be many
+such values being computed concurrently, and when the value is finally available,
+there may be computations ready to execute that depend on the value.
+
+There are two widely-used libraries in OCaml that implement promises: Async and
+Lwt. Async is developed by Jane Street. Lwt is part of the Ocsigen project,
+which is a web framework for OCaml.
+
+discussing Lwt https://github.com/ocsigen/lwt
+
+For a program to benefit from the concurrency provided by asynchronous I/O and
+promises, there needs to be a way for the program to make use of resolved
+promises. For example, if a web server is asynchronously reading and serving
+multiple files to multiple clients, the server needs a way to (i) become aware
+that a read has completed, and (ii) then do a new asynchronous write with the
+result of the read. In other words, programs need a mechanism for managing the
+dependencies among promises.
+
+The mechanism provided in Lwt is named callbacks. A callback is a function that
+will be run sometime after a promise has been fulfilled, and it will receive as
+input the contents of the fulfilled promise. Think of it like asking your friend
+to do some work for you: they promise to do it, and to call you back on the
+phone with the result of the work sometime after they’ve finished.
+
+**** TODO Monads
 **** Summary
 ****  Exercises
 *** 9 Interpreters
@@ -498,4 +550,6 @@ Ocaml Lazy module
 
 ** next reading
 
-https://cs3110.github.io/textbook/chapters/ds/memoization.html
+
+
+https://cs3110.github.io/textbook/chapters/ds/monads.html
