@@ -185,6 +185,9 @@ https://learnxinyminutes.com/docs/ocaml/
 http://ocamlverse.net/content/quickstart.html
 http://ocamlverse.net/content/toplevel.html
 
+*** best practices
+http://ocamlverse.net/content/best_practices.html
+
 **** Part IV - Chapter 18
 https://caml.inria.fr/pub/docs/oreilly-book/html/book-ora166.html
 https://caml.inria.fr/pub/docs/oreilly-book/html/book-ora167.html
