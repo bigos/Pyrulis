@@ -180,6 +180,8 @@ https://ocamlverse.github.io/
 http://caml.inria.fr/pub/docs/oreilly-book/ocaml-ora-book.pdf
 
 https://github.com/alhassy/OCamlCheatSheet/blob/master/CheatSheet.pdf
+https://learnxinyminutes.com/docs/ocaml/
+
 
 **** Part IV - Chapter 18
 https://caml.inria.fr/pub/docs/oreilly-book/html/book-ora166.html
