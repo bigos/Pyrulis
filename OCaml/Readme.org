@@ -183,6 +183,7 @@ https://github.com/alhassy/OCamlCheatSheet/blob/master/CheatSheet.pdf
 https://learnxinyminutes.com/docs/ocaml/
 
 http://ocamlverse.net/content/quickstart.html
+http://ocamlverse.net/content/toplevel.html
 
 **** Part IV - Chapter 18
 https://caml.inria.fr/pub/docs/oreilly-book/html/book-ora166.html
