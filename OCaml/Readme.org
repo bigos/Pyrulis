@@ -175,8 +175,9 @@ https://caml.inria.fr/pub/docs/oreilly-book/
 https://caml.inria.fr/pub/docs/oreilly-book/html/index.html
 
 *** other resources
-https://batsov.com/articles/2022/08/19/learning-ocaml/
 https://ocamlverse.github.io/
+http://ocamlverse.net/content/future_ocaml.html
+https://batsov.com/articles/2022/08/19/learning-ocaml/
 http://caml.inria.fr/pub/docs/oreilly-book/ocaml-ora-book.pdf
 
 https://github.com/alhassy/OCamlCheatSheet/blob/master/CheatSheet.pdf
