@@ -1,3 +1,1 @@
 This is a repo for playing with programming languages.
-
-Also, check https://strlen.com/lobster/
