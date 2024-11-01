@@ -245,6 +245,9 @@ https://dune.readthedocs.io/en/stable/foreign-code.html
 is it loading library?
 https://www.reddit.com/r/ocaml/comments/fo43l5/undefined_symbol_when_using_ocaml_library_that/
 
+findlib
+https://dune.readthedocs.io/en/latest/advanced/findlib-dynamic.html
+
 ** Difference between .cma, .cmo, .cmx files
 https://stackoverflow.com/a/37759088/1395810
 
