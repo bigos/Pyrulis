@@ -232,6 +232,9 @@ described in section ‍22.1.3. The ocamlmklib tool (see section ‍22.14) a
 steps 2 and 3.
 #+end_quote
 
+** Difference between .cma, .cmo, .cmx files
+https://stackoverflow.com/a/37759088/1395810
+
 ** installing libraries
 
 #+begin_example
