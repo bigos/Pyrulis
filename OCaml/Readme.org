@@ -251,6 +251,9 @@ https://dune.readthedocs.io/en/latest/advanced/findlib-dynamic.html
 Rosetta code example
 https://rosettacode.org/wiki/Call_a_function_in_a_shared_library#OCaml
 
+possibly the end of the search
+https://github.com/yallop/ocaml-ctypes
+
 ** Difference between .cma, .cmo, .cmx files
 https://stackoverflow.com/a/37759088/1395810
 
