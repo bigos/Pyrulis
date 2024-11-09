@@ -11,7 +11,8 @@ importance of verbalising repeatedly
 Can using org-roam-ui* functions help at this step?
 
 ** as much as you can expand ideas using domain language
-until you can execute in your head and you have clear terms for the solution
+until you can execute the pseudo-code in your head and you have clear terms for
+the solution
 
 ** big jump to Lisp
 

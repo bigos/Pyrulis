@@ -14,7 +14,7 @@ and answer ~y~ to the question about bash profile, then restart terminal
 
 ** Install platform tools
 #+begin_example
-opam install dune ocaml-lsp-server odoc ocamlformat utop merlin base core core_bench
+opam install dune ocaml-lsp-server odoc ocamlformat utop merlin base core core_bench alcotest
 #+end_example
 
 ** Emacs environment problem
@@ -253,6 +253,11 @@ https://rosettacode.org/wiki/Call_a_function_in_a_shared_library#OCaml
 
 possibly the end of the search
 https://github.com/yallop/ocaml-ctypes
+
+*** gir
+https://github.com/btj/ocaml-gtk
+
+sudo apt install gobject-introspection
 
 ** Difference between .cma, .cmo, .cmx files
 https://stackoverflow.com/a/37759088/1395810
