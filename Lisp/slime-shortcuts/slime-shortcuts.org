@@ -1,0 +1,13 @@
+* Slime shortcuts
+** global
+
+C-z ;		slime-selector
+C-z K		close-slime-kill-all-buffers
+C-z P		slime-eval-print-last-expression
+C-z Q		close-slime-inspector-buffer
+C-z R		slime-restart-inferior-lisp
+C-z e		slime-copy-last-expression-to-repl
+C-z t		slime-copy-last-expression
+
+** no shortcut but useful
+M-x slime-cheatsheet
