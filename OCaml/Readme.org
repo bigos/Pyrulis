@@ -194,6 +194,8 @@ https://caml.inria.fr/pub/docs/oreilly-book/html/book-ora166.html
 https://caml.inria.fr/pub/docs/oreilly-book/html/book-ora167.html
 
 ** calling C
+https://ocaml.org/manual/5.2/intfc.html#c%3Aintf-c
+
 https://ocaml.org/docs/calling-c-libraries
 
 *** using C libraries
