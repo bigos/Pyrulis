@@ -259,6 +259,7 @@ https://github.com/yallop/ocaml-ctypes
 
 interesting confusion about dune and C
 https://github.com/ocaml/dune/issues/4409
+https://gitlab.com/gasche-snippets/dune-c-library-repro-case/-/tree/third-iteration
 
 *** gir
 https://github.com/btj/ocaml-gtk
