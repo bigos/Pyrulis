@@ -193,6 +193,9 @@ http://ocamlverse.net/content/best_practices.html
 https://caml.inria.fr/pub/docs/oreilly-book/html/book-ora166.html
 https://caml.inria.fr/pub/docs/oreilly-book/html/book-ora167.html
 
+** using REPL Toplevel
+https://dune.readthedocs.io/en/stable/howto/toplevel.html#
+
 ** calling C
 https://ocaml.org/manual/5.2/intfc.html#c%3Aintf-c
 https://ocaml.org/manual/5.2/intfc.html#s%3Ac-advexample
