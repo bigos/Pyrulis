@@ -275,6 +275,14 @@ https://github.com/bramford/2d-exploration-game
 ** tutorials
 https://mukulrathi.com/ocaml-tooling-dune/
 https://o1-labs.github.io/ocamlbyexample/build-dune.html
+may have interesting use of libraries
+https://sookocheff.com/post/ocaml/starting-a-new-ocaml-project-using-dune-and-visual-studio-code/
+https://github.com/ocaml-community/awesome-ocaml
+https://ocaml.org/resources
+interesting
+https://ocamlverse.net/content/ffi.html
+possibly brilliant
+https://github.com/fdopen/ppx_cstubs
 
 ** Difference between .cma, .cmo, .cmx files
 https://stackoverflow.com/a/37759088/1395810
