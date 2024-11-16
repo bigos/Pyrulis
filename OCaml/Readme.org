@@ -262,6 +262,20 @@ https://github.com/btj/ocaml-gtk
 
 sudo apt install gobject-introspection
 
+*** web examples
+
+**** withOUT dune
+https://github.com/jonathanpaulson/ocaml_minesweeper
+
+https://github.com/bramford/ocaml-learning/tree/master
+
+**** with dune
+https://github.com/bramford/2d-exploration-game
+
+** tutorials
+https://mukulrathi.com/ocaml-tooling-dune/
+https://o1-labs.github.io/ocamlbyexample/build-dune.html
+
 ** Difference between .cma, .cmo, .cmx files
 https://stackoverflow.com/a/37759088/1395810
 
