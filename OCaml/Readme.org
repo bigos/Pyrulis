@@ -284,6 +284,17 @@ https://ocamlverse.net/content/ffi.html
 possibly brilliant
 https://github.com/fdopen/ppx_cstubs
 
+projects using ctypes
+https://ocaml.org/p/ctypes/latest#used-by
+and this may be better
+https://ocaml.org/p/ctypes-foreign/latest#used-by
+
+https://github.com/xapi-project/ocaml-netlink/blob/master/lib/netlink.ml
+https://ocaml.org/p/ctypes-foreign/latest
+
+Stop using C code
+https://michael.bacarella.com/2022/02/19/dune-ctypes/
+
 ** Difference between .cma, .cmo, .cmx files
 https://stackoverflow.com/a/37759088/1395810
 
