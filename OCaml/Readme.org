@@ -193,6 +193,9 @@ http://ocamlverse.net/content/best_practices.html
 https://caml.inria.fr/pub/docs/oreilly-book/html/book-ora166.html
 https://caml.inria.fr/pub/docs/oreilly-book/html/book-ora167.html
 
+** using REPL Toplevel
+https://dune.readthedocs.io/en/stable/howto/toplevel.html#
+
 ** calling C
 https://ocaml.org/manual/5.2/intfc.html#c%3Aintf-c
 https://ocaml.org/manual/5.2/intfc.html#s%3Ac-advexample
@@ -256,6 +259,10 @@ https://rosettacode.org/wiki/Call_a_function_in_a_shared_library#OCaml
 
 possibly the end of the search
 https://github.com/yallop/ocaml-ctypes
+
+interesting confusion about dune and C
+https://github.com/ocaml/dune/issues/4409
+https://gitlab.com/gasche-snippets/dune-c-library-repro-case/-/tree/third-iteration
 
 *** gir
 https://github.com/btj/ocaml-gtk
