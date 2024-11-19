@@ -292,6 +292,8 @@ possibly brilliant
 https://github.com/fdopen/ppx_cstubs
 
 ** projects using ctypes
+https://github.com/yallop/ocaml-ctypes/wiki/ctypes-tutorial
+
 https://ocaml.org/p/ctypes/latest#used-by
 and this may be better
 https://ocaml.org/p/ctypes-foreign/latest#used-by
