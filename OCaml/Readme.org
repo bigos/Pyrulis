@@ -380,3 +380,11 @@ system and should be avoided for backwards compatibility reasons.
 ** single file programs
 Single file programs are not worth the effort. Use dune and use the project,
 otherwise the libraries problems will give you lots of frustration.
+** Emacs Tuareg REPL discovery
+I was able to start emacs with ~opam exec -- emacs~ in one folder
+and then cd to another folder and run the code
+#+begin_example
+#cd "..";;
+#cd "./gtk_minimal";;
+#use "./bin/main.ml";;
+#+end_example
