@@ -386,7 +386,12 @@ otherwise the libraries problems will give you lots of frustration.
 I was able to start emacs with ~opam exec -- emacs~ in one folder
 and then cd to another folder and run the code
 #+begin_example
-#cd "..";;
-#cd "./gtk_minimal";;
-#use "./bin/main.ml";;
+  #cd "..";;
+  #cd "./gtk_minimal";;
+  #use "./bin/main.ml";;
+
+  # -- or Tuareg repl --version 1
+  #cd "/home/jacek/Programming/OCaml/ocaml_experiments/gtk_minimal";;
+  #use ".ocamlinit";;
+  #use "./bin/main.ml";;
 #+end_example
