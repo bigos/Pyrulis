@@ -45,7 +45,9 @@ This replicates the garbled comment
 
 ** example of garbled multiline comment
 
-Note the 5 semicolons at the end of each line
+Note the 5 semicolons at the end of each line. When I press Enter above the
+multiline comment, a semicolon is added to the comment. Pressing Enter 5 times
+gives the following:
 
 #+begin_src lisp
   ;; aaa.lisp
