@@ -279,6 +279,8 @@ https://github.com/bramford/ocaml-learning/tree/master
 **** with dune
 https://github.com/bramford/2d-exploration-game
 
+** cookbook
+https://ocaml.org/cookbook
 ** tutorials
 https://mukulrathi.com/ocaml-tooling-dune/
 https://o1-labs.github.io/ocamlbyexample/build-dune.html
