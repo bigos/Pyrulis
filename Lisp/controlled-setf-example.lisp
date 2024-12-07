@@ -1,11 +1,14 @@
 (declaim (optimize (speed 0) (safety 3) (debug 2)))
-
+;; (load "~/Programming/Pyrulis/Lisp/controlled-setf-example.lisp")
 
 (defparameter *zzz* nil)
 
-;;; how do I replace setf with assign in my code when I need it?
-(defun assign (place value)
+;;; how do I replace setf with assign forms in my code when I need it?
+(defun assignf (place value)
   (setf place value))
+
+(defmacro assignm (place value)
+  `(setf ,place ,value))
 
 ;;; simple case
 (progn
