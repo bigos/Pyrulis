@@ -1,0 +1,70 @@
+* Problem with paredit garbling multi line comments
+https://emacs.stackexchange.com/questions/82668/how-do-i-disable-the-annoying-garbling-of-multiline-comments-in-common-lisp
+
+** investigation
+
+*** my configuration
+file:~/.emacs.d/personal/organised.el::828
+file:~/.emacs.d/personal/organised.el::834
+
+*** lisp example for testing
+file:~/AAA/aaa.lisp
+
+and ocaml
+file:~/Programming/OCaml/ocaml_experiments/my_cat/bin/main.ml
+
+*** paredit mode
+https://paredit.org/
+file:~/.emacs.d/elpa/paredit-20241103.2046/paredit.el::1
+
+file:~/.emacs.d/elpa/paredit-20241103.2046/paredit.el::705
+
+check if in comment
+file:~/.emacs.d/elpa/paredit-20241103.2046/paredit.el::2972
+
+file:~/.emacs.d/elpa/paredit-20241103.2046/paredit.el::996
+
+** replicating minimal config
+file:~/.emacs.d-paredit-minimal/init.el::1
+
+This replicates the garbled comment
+
+#+begin_src emacs-lisp
+(require 'package)
+
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
+
+(unless (package-installed-p 'paredit)
+  (package-install 'paredit))
+
+(add-hook 'lisp-mode-hook 'enable-paredit-mode)
+
+;; end of init.el -----------------------------
+#+end_src
+
+** example of garbled multiline comment
+
+Note the 5 semicolons at the end of each line. When I press Enter above the
+multiline comment, a semicolon is added to the comment. Pressing Enter 5 times
+gives the following:
+
+#+begin_src lisp
+  ;; aaa.lisp
+
+  (warn "beginning")
+
+
+
+
+
+
+  #|
+         				; ; ; ; ;
+  ala ma				; ; ; ; ;
+  kota				     	; ; ; ; ;
+                        		; ; ; ; ;
+  |#
+
+  (warn "end")
+#+end_src
