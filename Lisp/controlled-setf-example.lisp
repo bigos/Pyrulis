@@ -3,10 +3,6 @@
 
 (defparameter *zzz* nil)
 
-;;; how do I replace setf with assign forms in my code when I need it?
-(defun assignf (place value)
-  (setf place value))
-
 (defmacro assignm (place value)
   `(progn
      (format t "assigning ~S ~S of type ~S~%" ,place ,value ,`(type-of ,place))
