@@ -7,17 +7,26 @@
 (shadowing-import 'defclass-std::defclass/std)
 
 (defclass/std my-obj ()
-  ((slot-1 :std nil)))
+  ((slot-1 :std :initial)))
+
+(defmethod print-object ((obj standard-object) stream)
+  (print-unreadable-object (obj stream :type t :identity t)
+    (format stream "~a"
+            (loop for sl in (sb-mop:class-slots (class-of obj))
+                  for slot-name = (sb-mop:slot-definition-name sl)
+                  collect (cons slot-name
+                                (if (slot-boundp obj slot-name)
+                                    (format nil "~S" (slot-value obj slot-name))))))))
 
 (defparameter *zzz* nil)
 
 (defmacro assignm (place value)
   `(progn
-     (format t "assigning ~S ~S of type ~S~%" ,place ,value (type-of ,place))
+     (format t "assigning place ~S with value ~S ----  type of place ~S~%" ,place ,value (type-of ,place))
      (typecase ,place
        (my-obj
         (progn
-          (format t "doing keyword~%")
+          (format t "doing ~S~%" (type-of ,place))
           (if (null ,value)
               (progn
                 (error "error assigning with null")
@@ -39,12 +48,13 @@
   (assignm *zzz* nil))
 
 
-
+(format t "~%~% more examples ~%~%")
 
 (progn
   (assignm *zzz* "1")
   (assignm *zzz* (make-instance 'my-obj))
   (assignm (slot-1 *zzz*) :anything)
+  (assignm *zzz* (make-instance 'my-obj :slot-1 "again"))
   ;; I want error
   (assignm *zzz* nil)
   )
