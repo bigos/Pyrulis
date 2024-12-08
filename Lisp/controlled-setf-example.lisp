@@ -5,19 +5,19 @@
 
 (defmacro assignm (place value)
   `(progn
-     (format t "assigning ~S ~S of type ~S~%" ,place ,value ,`(type-of ,place))
+     (format t "assigning ~S ~S of type ~S~%" ,place ,value (type-of ,place))
      (typecase ,place
        (keyword
         (progn
           (format t "doing keyword~%")
-          (if ,`(null ,value)
+          (if (null ,value)
               (progn
-                (error "assigning with null")
+                (error "error assigning with null")
                 (setf,place ,value))
               (setf ,place ,value))))
        (t (progn
             (format t "doing any~%")
-            (if ,`(null ,value)
+            (if (null ,value)
                 (progn
                   (warn "assigning with null")
                   (setf,place ,value))
