@@ -8,22 +8,40 @@
   (setf place value))
 
 (defmacro assignm (place value)
-  `(setf ,place ,value))
+  `(progn
+     (format t "assigning ~S ~S of type ~S~%" ,place ,value ,`(type-of ,place))
+     (typecase ,place
+       (keyword
+        (progn
+          (format t "doing keyword~%")
+          (if ,`(null ,value)
+              (progn
+                (error "assigning with null")
+                (setf,place ,value))
+              (setf ,place ,value))))
+       (t (progn
+            (format t "doing any~%")
+            (if ,`(null ,value)
+                (progn
+                  (warn "assigning with null")
+                  (setf,place ,value))
+                (setf ,place ,value)))))))
 
 ;;; simple case
 (progn
-  (setf *zzz* 1)
-  (setf *zzz* 2)
-  ;; I want warning or error
-  (setf *zzz* nil))
+  (assignm *zzz* 1)
+  (assignm *zzz* 2)
+  ;; I want warning
+  (assignm *zzz* nil))
 
 
 
 ;;; typed case
 (progn
-  (setf *zzz* "1")
-  ;; that should be allowed
-  (setf *zzz* nil)
-  (setf *zzz* :one)
-  ;; I want warning or error
-  (setf *zzz* nil))
+  (assignm *zzz* "1")
+  ;; i want warning
+  (assignm *zzz* nil)
+  (assignm *zzz* :one)
+  ;; I want error
+  (assignm *zzz* nil)
+  )
