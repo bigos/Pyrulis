@@ -1,13 +1,21 @@
 (declaim (optimize (speed 0) (safety 3) (debug 2)))
 ;; (load "~/Programming/Pyrulis/Lisp/controlled-setf-example.lisp")
 
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (ql:quickload '(defclass-std)))
+
+(shadowing-import 'defclass-std::defclass/std)
+
+(defclass/std my-obj ()
+  ((slot-1 :std nil)))
+
 (defparameter *zzz* nil)
 
 (defmacro assignm (place value)
   `(progn
      (format t "assigning ~S ~S of type ~S~%" ,place ,value (type-of ,place))
      (typecase ,place
-       (keyword
+       (my-obj
         (progn
           (format t "doing keyword~%")
           (if (null ,value)
@@ -32,12 +40,11 @@
 
 
 
-;;; typed case
+
 (progn
   (assignm *zzz* "1")
-  ;; i want warning
-  (assignm *zzz* nil)
-  (assignm *zzz* :one)
+  (assignm *zzz* (make-instance 'my-obj))
+  (assignm (slot-1 *zzz*) :anything)
   ;; I want error
   (assignm *zzz* nil)
   )
