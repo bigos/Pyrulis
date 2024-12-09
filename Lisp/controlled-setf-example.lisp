@@ -20,6 +20,9 @@
 
 (defparameter *zzz* nil)
 
+;;; needs fixing
+;; https://lispcookbook.github.io/cl-cookbook/macros.html#getting-macros-right
+
 (defmacro assignm (place value)
   `(progn
      (format t "assigning place ~S with value ~S ----  type of place ~S~%" ,place ,value (type-of ,place))
