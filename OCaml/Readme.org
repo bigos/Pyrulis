@@ -1,5 +1,10 @@
 * Readme
 
+This is the record of my attempt to learn OCaml. There are other languages. Time to move on.
+
+
+** Installing
+
 https://ocaml.org/docs/installing-ocaml
 
 #+begin_example
