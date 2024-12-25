@@ -1,5 +1,10 @@
 * Readme
 
+This is the record of my attempt to learn OCaml. There are other languages. Time to move on.
+
+
+** Installing
+
 https://ocaml.org/docs/installing-ocaml
 
 #+begin_example
@@ -193,6 +198,9 @@ http://ocamlverse.net/content/best_practices.html
 https://caml.inria.fr/pub/docs/oreilly-book/html/book-ora166.html
 https://caml.inria.fr/pub/docs/oreilly-book/html/book-ora167.html
 
+** using REPL Toplevel
+https://dune.readthedocs.io/en/stable/howto/toplevel.html#
+
 ** calling C
 https://ocaml.org/manual/5.2/intfc.html#c%3Aintf-c
 https://ocaml.org/manual/5.2/intfc.html#s%3Ac-advexample
@@ -257,10 +265,54 @@ https://rosettacode.org/wiki/Call_a_function_in_a_shared_library#OCaml
 possibly the end of the search
 https://github.com/yallop/ocaml-ctypes
 
+interesting confusion about dune and C
+https://github.com/ocaml/dune/issues/4409
+https://gitlab.com/gasche-snippets/dune-c-library-repro-case/-/tree/third-iteration
+
 *** gir
 https://github.com/btj/ocaml-gtk
 
 sudo apt install gobject-introspection
+
+*** web examples
+
+**** withOUT dune
+https://github.com/jonathanpaulson/ocaml_minesweeper
+
+https://github.com/bramford/ocaml-learning/tree/master
+
+**** with dune
+https://github.com/bramford/2d-exploration-game
+
+** cookbook
+https://ocaml.org/cookbook
+** tutorials
+https://mukulrathi.com/ocaml-tooling-dune/
+https://o1-labs.github.io/ocamlbyexample/build-dune.html
+may have interesting use of libraries
+https://sookocheff.com/post/ocaml/starting-a-new-ocaml-project-using-dune-and-visual-studio-code/
+https://github.com/ocaml-community/awesome-ocaml
+https://ocaml.org/resources
+interesting
+https://ocamlverse.net/content/ffi.html
+possibly brilliant
+https://github.com/fdopen/ppx_cstubs
+
+** projects using ctypes
+https://github.com/yallop/ocaml-ctypes/wiki/ctypes-tutorial
+
+interesting gobject introspection
+https://github.com/cedlemo/OCaml-GObject-Introspection/wiki#progress
+
+https://ocaml.org/p/ctypes/latest#used-by
+and this may be better
+https://ocaml.org/p/ctypes-foreign/latest#used-by
+
+https://github.com/xapi-project/ocaml-netlink/blob/master/lib/netlink.ml
+https://ocaml.org/p/ctypes-foreign/latest
+
+Stop using C code
+https://michael.bacarella.com/2022/02/19/dune-ctypes/
 
 ** Difference between .cma, .cmo, .cmx files
 https://stackoverflow.com/a/37759088/1395810
@@ -335,3 +387,18 @@ system and should be avoided for backwards compatibility reasons.
 ** single file programs
 Single file programs are not worth the effort. Use dune and use the project,
 otherwise the libraries problems will give you lots of frustration.
+** Emacs Tuareg REPL discovery
+I was able to start emacs with ~opam exec -- emacs~ in one folder
+and then cd to another folder and run the code
+#+begin_example
+  #cd "..";;
+  #cd "./gtk_minimal";;
+  #use "./bin/main.ml";;
+
+  # -- or Tuareg repl --version 1
+  #cd "/home/jacek/Programming/OCaml/ocaml_experiments/gtk_minimal";;
+  #use ".ocamlinit";;
+  #use "./bin/main.ml";;
+#+end_example
+** opinionated starting OCaml development
+https://lambdafoo.com/posts/2021-10-29-getting-started-with-ocaml.html
