@@ -20,6 +20,20 @@ https://github.com/kerl/kerl#installing-kerl
 
 https://github.com/asdf-vm/asdf-erlang#ubuntu-2404-lts
 
+
+kerl fails to build on the latest Linux Mint Beta
+
+
+#+begin_example
+=== Entering application ssh
+gmake[3]: Entering directory '/home/jacek/.kerl/builds/27.0/otp_src_27.0/lib/ssh/src'
+SED x86_64-pc-linux-gnu /home/jacek/.kerl/builds/27.0/otp_src_27.0
+ GEN	/home/jacek/.kerl/builds/27.0/otp_src_27.0/lib/ssh/src/deps/ssh.d
+/home/jacek/.kerl/builds/27.0/otp_src_27.0/lib/ssh/src/deps/ssh.d:1: *** empty variable name. Stop.
+gmake[3]: Leaving directory '/home/jacek/.kerl/builds/27.0/otp_src_27.0/lib/ssh/src'
+gmake[2]: *** [/home/jacek/.kerl/builds/27.0/otp_src_27.0/make/otp_subdir.mk:29: opt] Error 2
+#+end_example
+
 #+begin_example
   sudo apt-get -y install build-essential autoconf m4 libncurses5-dev libwxgtk3.2-dev libwxgtk-webview3.2-dev libgl1-mesa-dev libglu1-mesa-dev libpng-dev libssh-dev unixodbc-dev xsltproc fop libxml2-utils libncurses-dev openjdk-11-jdk
 
