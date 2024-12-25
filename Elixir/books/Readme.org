@@ -12,13 +12,22 @@ pdf:/home/jacek/Documents/Manuals/Elixir/adoptingelixir.pdf#7
 Feel free to skip chapters that are not useful
 
 *** From Ruby to Elixir
-table of contents
+
+**** table of contents
 pdf:/home/jacek/Documents/Manuals/Elixir/fromrubytoelixir.pdf#7
 
-fundamentals
+**** fundamentals
 pdf:/home/jacek/Documents/Manuals/Elixir/fromrubytoelixir.pdf#15
 
-beginning
+**** different versions
+[[file:~/Programming/Pyrulis/Elixir/Readme.org::*now install elixir][now install elixir]] has different version installed
+
+|               | Elixir | OTP | Erlamg |
+|---------------+--------+-----+--------|
+| the book uses |   1.16 |  26 | 26.2.1 |
+| i have        |   1.17 |  25 |   25.0 |
+
+**** beginning first code
 pdf:/home/jacek/Documents/Manuals/Elixir/fromrubytoelixir.pdf#23
 
 reading
