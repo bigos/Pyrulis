@@ -21,6 +21,9 @@ pdf:/home/jacek/Documents/Manuals/Elixir/fromrubytoelixir.pdf#15
 beginning
 pdf:/home/jacek/Documents/Manuals/Elixir/fromrubytoelixir.pdf#23
 
+reading
+pdf:/home/jacek/Documents/Manuals/Elixir/fromrubytoelixir.pdf#22
+
 *** Programming Elixir >= 1.6
 table of contents
 pdf:/home/jacek/Documents/Manuals/Elixir/programmingelixir16.pdf#5
