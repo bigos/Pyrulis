@@ -18,8 +18,11 @@ you can add rebar3.
 
 https://github.com/kerl/kerl#installing-kerl
 
+https://github.com/asdf-vm/asdf-erlang#ubuntu-2404-lts
+
 #+begin_example
-  sudo apt-get install build-essential git wget libssl-dev libreadline-dev libncurses5-dev zlib1g-dev m4 curl wx-common libwxgtk3.2-dev autoconf
+  sudo apt-get -y install build-essential autoconf m4 libncurses5-dev libwxgtk3.2-dev libwxgtk-webview3.2-dev libgl1-mesa-dev libglu1-mesa-dev libpng-dev libssh-dev unixodbc-dev xsltproc fop libxml2-utils libncurses-dev openjdk-11-jdk
+
   sudo apt remove erlang elixir
 
   cd ~/bin
