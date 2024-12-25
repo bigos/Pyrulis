@@ -45,6 +45,7 @@ kerl build 25.0 25.0
 kerl install 25.0 ~/.erlang/25.0
 #+end_example
 
+
 ****** stale warning
 When you start the Terminal you may get the warning about stale environment
 installed with older version of kerl.
