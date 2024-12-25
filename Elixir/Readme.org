@@ -19,7 +19,7 @@ you can add rebar3.
 https://github.com/kerl/kerl#installing-kerl
 
 #+begin_example
-  sudo apt-get install build-essential git wget libssl-dev libreadline-dev libncurses5-dev zlib1g-dev m4 curl wx-common libwxgtk3.0-gtk3-dev autoconf
+  sudo apt-get install build-essential git wget libssl-dev libreadline-dev libncurses5-dev zlib1g-dev m4 curl wx-common libwxgtk3.2-dev autoconf
   sudo apt remove erlang elixir
 
   cd ~/bin
@@ -55,7 +55,7 @@ this Erlang/OTP installation appears to be stale. Please consider reinstalling
 
 #+begin_example
   kerl_deactivate
-  kerl delete installation ~/.erlang/25.0
+  rm -rvf ~/.kerl
   kerl build 25.0 25.0
   kerl install 25.0 ~/.erlang/25.0
   kerl list builds
