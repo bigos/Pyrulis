@@ -3,6 +3,7 @@
 ** cool C book
 code: 42
 https://www.cc4e.com/book/toc.md
+https://www.cc4e.com/book/chap01.md
 
 ** Introduction
 
