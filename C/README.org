@@ -54,6 +54,8 @@ https://www.reddit.com/r/emacs/comments/o2uzwn/emacs_configuration_for_cc/
 https://emacs-lsp.github.io/lsp-mode/tutorials/CPP-guide/
 https://fanpengkong.com/post/emacs-ccpp/emacs-ccpp/
 
+https://github.com/Sarcasm/irony-mode
+
 *** gdb
 
 
