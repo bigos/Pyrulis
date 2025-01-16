@@ -73,7 +73,10 @@ this Erlang/OTP installation appears to be stale. Please consider reinstalling
 #+begin_example
   kerl_deactivate
   rm -rvf ~/.kerl
+  # choose one of the releases
   kerl build 25.0 25.0
+  kerl build 27.0 27.0
+  # and install
   kerl install 25.0 ~/.erlang/25.0
   kerl list builds
 #+end_example
@@ -88,11 +91,19 @@ kerl_deactivate
 
 ***** now install elixir
 
+Elixir releases
+
+https://github.com/elixir-lang/elixir/tags
+
 I will try precompiled package for otp25
 
 https://elixir-lang.org/install.html#precompiled-package
 
 https://github.com/elixir-lang/elixir/releases/download/v1.17.0/elixir-otp-25.zip
+
+https://github.com/elixir-lang/elixir/releases/download/v1.18.0/elixir-otp-25.zip
+
+https://github.com/elixir-lang/elixir/releases/download/v1.17.3/elixir-otp-25.zip
 
 So I downloaded the zip moved it to ~/.elixir
 and extracted the folder
