@@ -1,4 +1,12 @@
 * Chapter 2
+
+** On Lisp In Org mode
+
+git@github.com:showgood/onlisp.git
+
+file:~/Programming/Lisp/onlisp/onlisp.org::4
+
+
 Functions
 
 ** 2.2 Defining Functions
