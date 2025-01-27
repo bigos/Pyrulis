@@ -396,29 +396,5 @@ https://en.wikibooks.org/wiki/C_Programming/Program_flow_control
 
 continued here [[file:~/Programming/C/c-experiments/wikibooks-C-Programming/Readme.org::*Program Flow Control][Program Flow Control]]
 
-**** continued here
+*** continued here
 [[file:~/Programming/C/c-experiments/wikibooks-C-Programming/Readme.org::*Readme][my wikibooks work outside of Pyrulis]]
-
-*** Intermediate C
-
-*** Advanced C
-
-*** C and Beyond
-
-*** Reference Tables
-https://en.wikibooks.org/wiki/C_Programming/Standard_Library_Reference
-
-https://en.wikibooks.org/wiki/C_Programming/Preprocessor_reference
-
-**** Language Reference
-
-https://en.wikibooks.org/wiki/C_Programming/Language_Reference
-
-+ https://en.wikibooks.org/wiki/C_Programming/Language_Reference#Table_of_Keywords
-+ https://en.wikibooks.org/wiki/C_Programming/Language_Reference#Table_of_Operators
-+ https://en.wikibooks.org/wiki/C_Programming/Language_Reference#Table_of_Data_Types
-
-**** Platform Reference
-https://en.wikibooks.org/wiki/C_Programming/POSIX_Reference
-https://en.wikibooks.org/wiki/C_Programming/GNU_C_Library_Reference
-https://en.wikibooks.org/wiki/C_Programming/MS_Windows_Reference
