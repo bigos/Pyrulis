@@ -5,12 +5,12 @@ This link can be opened in pdf viewer on my systems
 
 * Interesting Notes
 
-* Chapter 2
-** Associativity and Precedence
+** Chapter 2
+*** Associativity and Precedence
 pages 13, 14, 15
 infilxl, infixr
 
-** 2.6 Declaring values
+*** 2.6 Declaring values
 The order of declarations in a source code file doesn’t matter because GHCi
 loads the entire file at once, so it knows all the values that have been
 specified, no matter what order they appear in.
@@ -18,7 +18,7 @@ specified, no matter what order they appear in.
 On the other hand, when
 you enter them one-by-one into the REPL, the order does matter.
 
-** 2.7 Arithmetic functions in Haskell
+*** 2.7 Arithmetic functions in Haskell
 
 | operator | name      | purpose                               |
 |----------+-----------+---------------------------------------|
@@ -30,11 +30,11 @@ you enter them one-by-one into the REPL, the order does matter.
 | quot     | quotient  | integral division, round towards zero |
 | rem      | remainder | remainder after division              |
 
-** 2.7 Negative Numbers
+*** 2.7 Negative Numbers
 Prelude> 1000 + (-9)
 991
 
-** Parenthesizing infix functions
+*** Parenthesizing infix functions
 There are times when you want to refer to an infix function without applying
 any arguments, and there are also times when you want to use them as
 prefix operators instead of infix. In both cases you must wrap the operator
@@ -46,11 +46,11 @@ Prelude> 1 + 2
 Prelude> (+) 1 2
 Prelude> (+1) 2
 
-** 2.10 for quotients and remainders
+*** 2.10 for quotients and remainders
 (quot x y)*y + (rem x y) == x
 (div x y)*y + (mod x y) == x
 
-** 2.11 Evaluation
+*** 2.11 Evaluation
 When we talk about reducing an expression, we’re talking about evaluating
 the terms until it reaches its simplest form. Once a term has reached its
 simplest form, we say that it is irreducible or finished evaluating. Usually,
@@ -58,7 +58,7 @@ we call this a value. Haskell uses a non-strict evaluation (sometimes called
 “lazy evaluation”) strategy which defers evaluation of terms until they’re
 forced by other terms referring to them.
 
-** 2.12 Let and where
+*** 2.12 Let and where
 We can use let and where to introduce names for expressions.
 
 printInc n = print plusTwo
@@ -69,17 +69,17 @@ same
 printInc2 n = let plusTwo = n + 2
 in print plusTwo
 
-*** Intermission: Exercises
+**** Intermission: Exercises
 
-*** The lambdas beneath let expressions
+**** The lambdas beneath let expressions
 Prelude> (\x -> x) 1
 1
 
 -- ((lambda (x) x) 1)
 -- 1
 
-** 2.13 Chapter Exercises
-*** $ Operator
+*** 2.13 Chapter Exercises
+**** $ Operator
 The ($) operator
 is a convenience for when you want to express something with fewer pairs
 of parentheses.
@@ -108,32 +108,32 @@ Prelude> (2^) $ 2 + 2 $ (*30)
 We can see for ourselves why this code doesn’t make sense if we examine
 the reduction steps.
 
-** 2.14 Definitions
-** 2.15 Follow-up resources
+*** 2.14 Definitions
+*** 2.15 Follow-up resources
 
 
-* Chapter 3
-** 3.1 Printing strings
-** 3.2 A first look at types
+** Chapter 3
+*** 3.1 Printing strings
+*** 3.2 A first look at types
 
 
 checking value's type in ghci:
 Prelude> :t 'a'
 'a' :: Char
 
-** 3.3 Printing simple strings
+*** 3.3 Printing simple strings
 
 Prelude> print "hello world!"
 "hello world!"
 
-*** printing commands discussed
+**** printing commands discussed
 print
 putStrLn
 putStr
 
-*** paragraph The main function
-*** String concatenation
-*** Global versus local definitions
+**** paragraph The main function
+**** String concatenation
+**** Global versus local definitions
 Here’s an example for review:
 
 module GlobalLocal where
@@ -156,54 +156,54 @@ itly declared the type of woot in the where clause. This wasn’t necessary
 (Haskell’s type inference would’ve figured it out fine), but it was done here
 to show you how in case you need to.
 
-*** Intermission: Exercises
+**** Intermission: Exercises
 
-** 3.4 Type signatures of concatenation functions
+*** 3.4 Type signatures of concatenation functions
 Everything after the :: is about our types, not our values.
-*** Intermission: Exercises
-** 3.5 An example of concatenation and scoping
-** 3.6 More list functions
-** 3.7 Chapter Exercises
-** 3.8 Definitions
+**** Intermission: Exercises
+*** 3.5 An example of concatenation and scoping
+*** 3.6 More list functions
+*** 3.7 Chapter Exercises
+*** 3.8 Definitions
 
-* Chapter 4
-** 4.1 Basic Datatypes
-** 4.2 Anatomy of a data declaration
-** 4.3 Numeric types
+** Chapter 4
+*** 4.1 Basic Datatypes
+*** 4.2 Anatomy of a data declaration
+*** 4.3 Numeric types
 
-*** Integral
-**** Int
+**** Integral
+***** Int
 has minimum and maximum
-**** Integer
+***** Integer
 arbitrarily large
 
-**** minBound maxBound functions
-*** Fractional
-**** Float
-***** single precision
-***** violates assumptions
-***** generally, not for use in business applications
+***** minBound maxBound functions
+**** Fractional
+***** Float
+****** single precision
+****** violates assumptions
+****** generally, not for use in business applications
 
-**** Double
-***** twice as many bits as Float
+***** Double
+****** twice as many bits as Float
 
-**** Rational
-***** arbitrarily precise
-***** not as efficient as Scientific
+***** Rational
+****** arbitrarily precise
+****** not as efficient as Scientific
 
-**** Scientific
-***** space efficient
-***** almost arbitrary precision
-***** exponent as Int
-****** potential, though unlikely maximum limit
+***** Scientific
+****** space efficient
+****** almost arbitrary precision
+****** exponent as Int
+******* potential, though unlikely maximum limit
 
-*** all are instances of typeclass Num
-*** typeclasses add functionality to types
-**** Num tepeclass provides + - * and other operators
-**** any type that is instance of Num can be used with those operators
-*** typeclass constraint =>
-**** (/) :: Fractional a => a -> a -> a
-**** The notation Fractional a => denotes a typeclass constraint
+**** all are instances of typeclass Num
+**** typeclasses add functionality to types
+***** Num tepeclass provides + - * and other operators
+***** any type that is instance of Num can be used with those operators
+**** typeclass constraint =>
+***** (/) :: Fractional a => a -> a -> a
+***** The notation Fractional a => denotes a typeclass constraint
 This type information is telling us that whatever type of number a turns
 out to be, it must be a type that has an instance of the Fractional typeclass.
 
@@ -212,24 +212,24 @@ from the Num typeclass can be used with Fractional numbers, but functions
 from the Fractional typeclass cannot be used with all instances of Num
 
 
-** 4.4 Comparing values
+*** 4.4 Comparing values
 
-** 4.5 Tuples
+*** 4.5 Tuples
 
-** 4.6 Lists
+*** 4.6 Lists
 
-** 4.7 Exercises
-*** exercises 2 and 3 on page 143 do not make sense
+*** 4.7 Exercises
+**** exercises 2 and 3 on page 143 do not make sense
 made sense on page 149
-** 4.8 Definitions
-** 4.9 Answers
-* Chapter 5
-** 5.1 Types
-** 5.2 What are types
-** 5.3 Querying and Reading Types
-** 5.4 Typeclass-constrained variables
-** 5.5 Currying
-*** my Haskell clarification notes
+*** 4.8 Definitions
+*** 4.9 Answers
+** Chapter 5
+*** 5.1 Types
+*** 5.2 What are types
+*** 5.3 Querying and Reading Types
+*** 5.4 Typeclass-constrained variables
+*** 5.5 Currying
+**** my Haskell clarification notes
 
 -- p161
 
@@ -292,7 +292,7 @@ take an Integer argument and return a function that takes an Integer and
 returns an Integer”. You saw this in action when we partially applied the
 addStuff function above.
 
-*** Binding variables to types
+**** Binding variables to types
 
 -- p164
 Let’s next look at an example of the effect that binding arguments has on
@@ -330,7 +330,7 @@ funcIgnoresArgs u u u :: String
 Prelude> funcIgnoresArgs u u u
 "Blah"CHAPTER 5.
 
-*** Manual currying and Uncurry
+**** Manual currying and Uncurry
 Haskell is curried by default, but you can uncurry functions. “Uncurrying”
 means un-nesting the functions and replacing the two functions with a tuple
 of two values (these would be the two values you want to use as arguments).
@@ -344,14 +344,14 @@ are really higher-order functions: they yield more function values as each
 argument is applied until there are no more (->) type constructors and it
 terminates in a non-function value.
 
-*** Intermission: Exercises
+**** Intermission: Exercises
 
-** 5.6 Polymorphism
+*** 5.6 Polymorphism
 
-*** Polymorphic constants
+**** Polymorphic constants
 fromIntegral
 
-** 5.7 Type inference
+*** 5.7 Type inference
 Haskell will infer the most generally applicable (polymorphic) type that
 is still correct.
 
@@ -360,9 +360,9 @@ for when you’re still figuring out new code rather than for code that is “do
 Once your program is “done,” you will certainly know the types of all the
 functions, and it’s considered good practice to explicitly declare them.
 
-*** Intermission: Exercises
+**** Intermission: Exercises
 
-** 5.8 Asserting types for declarations
+*** 5.8 Asserting types for declarations
 
 
 -- normal code type declaration:
@@ -378,12 +378,12 @@ where clauses. Here’s an example of assigning a type within a where clause:
     where tripleItYo :: Integer -> Integer
       tripleItYo y = y * 3
 
-** 5.9 Chapter Exercises
-** 5.10 Definitions
-*Chapter 6 - Stuck
-** 6.1 Typeclasses
+*** 5.9 Chapter Exercises
+*** 5.10 Definitions
+** Chapter 6 - Stuck
+*** 6.1 Typeclasses
 Eq, Num, Ord, Enum, Show
-** 6.2 What are typeclasses?
+*** 6.2 What are typeclasses?
 Typeclasses and types in Haskell are, in a sense, opposites. Where a declara-
 tion of a type defines how that type in particular is created, a declaration of
 a typeclass defines how a set of types are *consumed* or used in computations.
@@ -396,10 +396,10 @@ that has a type that implements the typeclass known as Eq for equality. We
 do not need separate equality functions for each different type of data; as
 long as our datatype implements, or instantiates, the Eq typeclass, we can
 use the standard functions.
-** 6.3 Back to Bool
-** 6.4 Eq
-** 6.5 Num
-** 6.6 Type-defaulting typeclasses
+*** 6.3 Back to Bool
+*** 6.4 Eq
+*** 6.5 Num
+*** 6.6 Type-defaulting typeclasses
 Using the type assignment operator :: we can assign a more specific
 type and circumvent the default to Double:
 Prelude> 1 / 2 :: Float
@@ -415,9 +415,9 @@ The “Expected type” and the “Actual type” don’t match, and the actual
 type is more concrete than the expected type. Types can be made
 more specific, but not more general or polymorphic.
 
-** 6.7 Ord
-** 6.8 Enum
-** 6.9 Show
+*** 6.7 Ord
+*** 6.8 Enum
+*** 6.9 Show
 Show is a typeclass that provides for the creating of human-readable
 string representations of structured data. GHCi uses Show to create
 String values it can print in the terminal.
@@ -428,7 +428,7 @@ other computers over a network. An example of persistence would
 be saving data to a file on disk. Show is not suitable for any of these
 purposes; it’s expressly for human readability.
 
-*** Printing and side effects
+**** Printing and side effects
 
 empty tuple result of IO action
 
@@ -439,11 +439,11 @@ a value of type IO String it’s more of a means of producing a String,
 which may require performing side effects along the way before you
 get your String value.
 
-*** Working with Show
+**** Working with Show
 
 Prelude> data Mood = Blah deriving Show
 
-*** Typeclass deriving
+**** Typeclass deriving
 
 Typeclass instances we can magically derive are
 Eq , Ord , Enum , Bounded , Read , and Show , though there are some con-
@@ -452,7 +452,7 @@ manually write instances of these typeclasses for each new datatype
 you create. We’ll address this a bit more in the chapter on Algebraic
 Datatypes.
 
-** 6.10 Read
+*** 6.10 Read
 
 Read takes strings and turns them into things.
 Like Show, it’s not a serialization format. So, what’s the problem? We
@@ -461,7 +461,7 @@ this doesn’t seem like a big deal, right?
 The problem is in the String type. A String is a list, which could be
 empty in some cases, or stretch on to infinity in other cases.
 
-** 6.11 Instances are dispatched by type
+*** 6.11 Instances are dispatched by type
 
 We’ve said a few times, without explaining it, that typeclasses are
 dispatched by type, but it’s an important thing to understand. Type-
@@ -469,9 +469,9 @@ classes are defined by the set of operations and values all instances will
 provide. The typeclass instances are unique pairings of the typeclass
 an instance is being defined for and the type it’s for.
 
-** 6.12 Writing typeclass instances - Stuck
+*** 6.12 Writing typeclass instances - Stuck
 
-*** definition of trivial
+**** definition of trivial
 with numbered explanation
 
 Partial functions — not so strange danger
@@ -492,9 +492,9 @@ on that later), then GHC will let us know when we’re not handling all cases
 all warnings in REPL
 Prelude> :set -Wall
 
-*** Intermission: Exercises - Stuck
+**** Intermission: Exercises - Stuck
 
-** 6.13 Gimme more operations
+*** 6.13 Gimme more operations
 We’ll start by looking at some examples of times when we need to
 change our types because they’re more general than our terms allow:
 
@@ -516,7 +516,7 @@ add x y = x + y
 
 With the constraint added to the type, it works fine!
 
-*** multiple constraints
+**** multiple constraints
 
 Num doesn’t imply Ord. Given that, we have to add another
 constraint which is what GHC told us to do:
@@ -529,28 +529,28 @@ addWeird x y =
 
 Now this should typecheck
 
-*** Ord implies Eq
+**** Ord implies Eq
 
-*** Concrete types imply all the typeclasses they provide
+**** Concrete types imply all the typeclasses they provide
 
-** 6.14 Chapter Exercises
+*** 6.14 Chapter Exercises
 
-*** Does it typecheck?
+**** Does it typecheck?
 
-*** Type-Kwon-Do
+**** Type-Kwon-Do
 
-** 6.15 Chapter Definitions
+*** 6.15 Chapter Definitions
 
-** 6.16 Typeclass inheritance, partial
+*** 6.16 Typeclass inheritance, partial
 
-** 6.17 Follow-up resources
+*** 6.17 Follow-up resources
 
-* Chapter 7
-** 7.1 Make it func-y
+** Chapter 7
+*** 7.1 Make it func-y
 
-** 7.2 Arguments and parameters
+*** 7.2 Arguments and parameters
 
-** 7.3 Anonymous functions
+*** 7.3 Anonymous functions
 calling lambda with arguments in Prelude
 
 correct
@@ -561,59 +561,59 @@ wrong - no brackets
 Prelude> \x -> x * 3 1
 error message goes here
 
-** Intermission: Exercises
+*** Intermission: Exercises
 
-** 7.4 Pattern matching
+*** 7.4 Pattern matching
 
-*** Prelude entering several lines as one expression piece
+**** Prelude entering several lines as one expression piece
 Prelude> :
 *Main | let isItTwo :: Integer -> Bool
 *Main |   isItTwo 2 = True
 *Main |   isItTwo _ = False
 *Main | :}
 
-*** Handling all the cases
-**** overlapping cases
-***** form most to least specific
-***** problem with underscore case first
-***** non exhaustive pattern
-***** prelude set all warnings
+**** Handling all the cases
+***** overlapping cases
+****** form most to least specific
+****** problem with underscore case first
+****** non exhaustive pattern
+****** prelude set all warnings
 Prelude> :set -Wall
-*** Pattern matching against all constructors
-*** Intermission: Exercises
-** 7.5 Case expressions
-*** Intermission: Exercises
-** 7.6 Higher-order functions
-*** Intermission: Exercises
-** 7.7 Guards
-*** Writing guard blocks
-**** if-then-else version
+**** Pattern matching against all constructors
+**** Intermission: Exercises
+*** 7.5 Case expressions
+**** Intermission: Exercises
+*** 7.6 Higher-order functions
+**** Intermission: Exercises
+*** 7.7 Guards
+**** Writing guard blocks
+***** if-then-else version
 #+BEGIN_SRC haskell
 myAbs :: Integer -> Integer
 myAbs x = if x < 0 then (-x) else x
 #+END_SRC
-**** guards block version
+***** guards block version
 #+BEGIN_SRC haskell
 myAbs :: Integer -> Integer
 myAbs x
    | x < 0     = (-x)
    | otherwise = x
 #+END_SRC
-**** order of evaluation
+***** order of evaluation
 Guards always evaluate sequentially, so your guards should be
 ordered from the case that is most restrictive to the case that is least
 restrictive.
-**** otherwise
+***** otherwise
 It is important to note
 that GHCi cannot always tell you when you haven’t accounted for all
 possible cases, and it can be very difficult to reason about it, so it is
 wise to use otherwise in your final guard.
 
-*** Intermission: Exercises
+**** Intermission: Exercises
 
-** 7.8 Function composition
+*** 7.8 Function composition
 
-*** type signature
+**** type signature
 Then with the addition of one set of parentheses:
 #+BEGIN_SRC haskell
 (.) :: (b -> c) -> (a -> b) -> (a -> c)
@@ -624,7 +624,7 @@ In English:
 2. given a function a to b
 3. return a function a to c
 
-*** description
+**** description
 (f . g) x = f (g x)
 
 This composition operator, (.) , takes two functions here, named
@@ -635,7 +635,7 @@ that application then passes to the f function as its argument. The f
 function is in turn applied to that argument and evaluated to reach
 the final result.
 
-*** dollar $ operator
+**** dollar $ operator
 You may be wondering why we need the $ operator. You might re-
 member way back when we talked about the precedence of various
 operators that we said that operator has a lower precedence than
@@ -660,32 +660,32 @@ case, it looks like this:
 Prelude> (negate . sum) [1, 2, 3, 4, 5]
 -15
 
-** 7.9 Pointfree style
+*** 7.9 Pointfree style
 
-*** explanation
+**** explanation
 Pointfree refers to a style of composing functions without specifying
 their arguments.
-** 7.10 Demonstrating composition
-** 7.11 Chapter Exercises
-** 7.12 Chapter Definitions
-*** currying
+*** 7.10 Demonstrating composition
+*** 7.11 Chapter Exercises
+*** 7.12 Chapter Definitions
+**** currying
 f a b = a + b
 -- is equivalent to
 f = \a -> (\b -> a + b)
-*** Bottom
-*** Poitfree
-** 7.13 Follow-up resources
-* Chapter 8
-** 8.1 Recursion
-** 8.2 Factorial
-*** Another way to look at recursion
-*** Intermission: Exercise
-** 8.3 Bottom
+**** Bottom
+**** Poitfree
+*** 7.13 Follow-up resources
+** Chapter 8
+*** 8.1 Recursion
+*** 8.2 Factorial
+**** Another way to look at recursion
+**** Intermission: Exercise
+*** 8.3 Bottom
 The two main varieties of bottom are
 computations that failed with an error or
 those that failed to terminate.
 
-*** an example
+**** an example
 Prelude> let x = x in x
  Exception: <<loo
 Prelude>
@@ -694,32 +694,32 @@ Here GHCi detected that let x = x in x was never going to return
 and short-circuited the never-ending computation. This is an example
 of bottom because it was never going to return a result.
 
-*** partial vs total
+**** partial vs total
 A partial function is one which does not handle all of its inputs. A
 total function is one that does. How do we make our f into a total
 function?
 One way is with the use of the datatype Maybe .
 
-** 8.4 Fibonacci numbers
-** 8.5 Integral division from scratch
+*** 8.4 Fibonacci numbers
+*** 8.5 Integral division from scratch
 Here we used a common Haskell idiom called a go function. This
 allows us to define a function via a where clause that can accept more
 arguments than the top-level function dividedBy does. In this case,
 the top-level function takes two arguments, num and denom , but we
 need a third argument in order to keep track of how many times
 we do the subtraction.
-** 8.6 Chapter Exercises
-*** Review currying
-*** Recursion
-*** Fixing dividedBy
-*** McCarthy 91 function
-** 8.7 Definitions
-* Chapter 9
-** 9.1 Lists
-** 9.2 The list datatype
+*** 8.6 Chapter Exercises
+**** Review currying
+**** Recursion
+**** Fixing dividedBy
+**** McCarthy 91 function
+*** 8.7 Definitions
+** Chapter 9
+*** 9.1 Lists
+*** 9.2 The list datatype
 data [] a = [] | a : [a]
 the colon ':' is an infix equivalent of (cons a [a])
-** 9.3 Pattern matching on lists
+*** 9.3 Pattern matching on lists
 We know we can pattern match on data constructors, and the data
 constructors for lists are no exceptions. Here we match on the first
 argument to the infix (:) constructor, ignoring the rest of the list,
@@ -746,7 +746,7 @@ Prelude> myHead []
  Exception:
 Non-exhaustive patterns in function myHead
 
-*** Using Maybe
+**** Using Maybe
 
 safeTail        :: [a] -> Maybe [a]
 safeTail []     = Nothing
@@ -757,7 +757,7 @@ We’ve made the second base case safeTail (x:[]) = Nothing to reflect
 the fact that if your list has only one value inside it, it doesn’t have a
 tail – it only has a head.
 
-** 9.4 List's syntactic sugar
+*** 9.4 List's syntactic sugar
 
 Prelude> [ 1, 2, 3 ] ++ [ 4 ]
 [1, 2, 3, 4]
@@ -767,7 +767,7 @@ is equivalent to un-sugared
 Prelude> (1 : 2 : 3 : []) ++ 4 : []
 [1,2,3,4]
 
-** 9.5 Using ranges to construct lists
+*** 9.5 Using ranges to construct lists
 
 Prelude> [1..10]
 [1,2,3,4,5,6,7,8,9,10]
@@ -789,74 +789,74 @@ Prelude> enumFromThenTo 1 3 10
 All of these functions require that the type being “ranged” have an
 instance of the Enum typeclass
 
-*** Exercise
+**** Exercise
 
-** 9.6 Extracting portions of lists
-*** Intermission: Exercises
+*** 9.6 Extracting portions of lists
+**** Intermission: Exercises
 
-** 9.7 List comprehensions
+*** 9.7 List comprehensions
 
-*** description
+**** description
 generate a new list
 from a list or lists
 
-*** origin
+**** origin
 they come from set comprehensions in mathematics
 
-*** example
+**** example
 ?   1 2       3
 [ x^2 | x <- [1..10]]
-**** 1. the output function
+***** 1. the output function
 that will apply to the members of the list
-**** 2. pipe
+***** 2. pipe
 separation of output and input
-**** 3. generator list
+***** 3. generator list
 a generator list [1..10] and a variable x that represents the elements that
 will be drawn from the list.
-*** Adding predicates
+**** Adding predicates
 optional predicates can limit the elements drawn from the generator list
-**** example
+***** example
 same like above example but this time we ignore odd numbers
 [ x^2 | x <- [1..10], rem x 2 ==0 ]
 
-*** multiple generators
+**** multiple generators
 [ x^y | x <- [1..5], y <- [2, 3] ]
 
-*** multiple generators with predicate
+**** multiple generators with predicate
 [ x^y | x <- [1..5], y <- [2, 3], x^y < 200 ]
 
-*** like a loop within loop
+**** like a loop within loop
 [(x,y) | x <- [1,2,3], y <- ['a', 'b']]
 => [(1,'a'),(1,'b'),(2,'a'),(2,'b'),(3,'a'),(3,'b')]
 
-*** Intermission: Exercises
-*** List comprehensions with  Strings
-**** elements
-** 9.8 Spines and non-strict evaluation
-*** problem
+**** Intermission: Exercises
+**** List comprehensions with  Strings
+***** elements
+*** 9.8 Spines and non-strict evaluation
+**** problem
 The problem with the 1 : (2 : (3 : [])) representation we used
 earlier is that it makes it seem like the value 1 exists “before” the cons
 (:) cell that contains it, but actually, the cons cells contain the values.
-*** explanation
+**** explanation
 Because of this and the way non-strict evaluation works, you can
 evaluate cons cells independently of what they contain. It is possible
 to evaluate just the spine of the list without evaluating individual
 values. It is also possible to evaluate only part of the spine of a list and
 not the rest of it.
-*** sprint
+**** sprint
 quirks on page 309
-*** mySum
-** 9.9 Transforming lists of values
-*** map and fmap
-*** performance mantra
+**** mySum
+*** 9.9 Transforming lists of values
+**** map and fmap
+**** performance mantra
 lazy in the spine strict in the leaves
-*** Intermission: Exercises
-** 9.10 Filtering lists of values
+**** Intermission: Exercises
+*** 9.10 Filtering lists of values
 #+BEGIN_EXAMPLE
 Prelude> filter even [1..10]
 [2,4,6,8,10]
 #+END_EXAMPLE
-** 9.11 Zipping lists
+*** 9.11 Zipping lists
 #+BEGIN_EXAMPLE
 Prelude> zip [1, 2, 3] [4, 5, 6]
 [(1,4),(2,5),(3,6)]
@@ -866,13 +866,13 @@ Prelude> zip [1, 2, 3] [4, 5, 6]
 Prelude> zipWith (+) [1, 2, 3] [10, 11, 12]
 [11,13,15]
 #+END_EXAMPLE
-** 9.12 Chapter Exercises
+*** 9.12 Chapter Exercises
 
-* Chapter 10
-** 10.1 Folds
-** 10.2 Bringing you into the fold
-** 10.3 Recursive patterns
-*** structural similarity
+** Chapter 10
+*** 10.1 Folds
+*** 10.2 Bringing you into the fold
+*** 10.3 Recursive patterns
+**** structural similarity
 
 #+BEGIN_SRC haskell
 sum :: [Integer] -> Integer
@@ -885,12 +885,12 @@ length :: [a] -> Integer
 length [] = 0
 length (_:xs) = 1 + length xs
 #+END_SRC
-** 10.4 Fold right
+*** 10.4 Fold right
 We call foldr the “right fold” because the fold is right associative;
 The similarities between this and the recursive patterns we saw above
 should be clear.
-*** How foldr evaluates
-**** trick showing how it works
+**** How foldr evaluates
+***** trick showing how it works
 We can also use a trick popularized by some helpful users in the
 Haskell IRC community to see how the fold associates. 2
 #+BEGIN_EXAMPLE
@@ -901,127 +901,127 @@ Prelude> :{
 *Prelude| :}
 "(1+(2+(3+(4+(5+0)))))"
 #+END_EXAMPLE
-**** two stages
-***** traversal
+***** two stages
+****** traversal
 recurses over spine, all folds do it in the same direction
-***** folding
-****** lazy
-** 10.5 Fold left
-*** Associativity and folding
-*** Intermission exercises
-*** Unconditional spine recursion
+****** folding
+******* lazy
+*** 10.5 Fold left
+**** Associativity and folding
+**** Intermission exercises
+**** Unconditional spine recursion
 for performance reasons foldl usually not appropriate for infinite lists, or
 long lists, because it has to evaluate spine before evaluating the cells
 foldl' being strict is good replacement
 
-** 10.6 How to write fold functions
-*** start value
-*** arguments
-*** Intermission: Exercises
-** 10.7 Folding and evaluation
-** 10.8 Summary
-*** foldr
+*** 10.6 How to write fold functions
+**** start value
+**** arguments
+**** Intermission: Exercises
+*** 10.7 Folding and evaluation
+*** 10.8 Summary
+**** foldr
 + associates to the right
 + works with infinite lists
 + good choice for transformation of data structures
-*** foldl
+**** foldl
 + self calls through the list to the end and then goes back producing values
 + associates to the right
 + nearly useless - replace it with foldl'
-** 10.9 Scans
-** 10.10 Chapter Exercises
-** 10.11 Definitions
-** 10.12 Follow-up resources
-* Chapter 11
-** 11.1 Algebraic datatypes
+*** 10.9 Scans
+*** 10.10 Chapter Exercises
+*** 10.11 Definitions
+*** 10.12 Follow-up resources
+** Chapter 11
+*** 11.1 Algebraic datatypes
 This chapter’s purpose is ultimately to explain how to construct your
 own datatypes in Haskell. Writing your own datatypes can help
 you leverage some of Haskell’s most powerful features — pattern
 matching, type checking, and inference — in a way that makes your
 code more concise and safer.
-*** a type
+**** a type
 can be thought as an enumeration of constructors
-*** haskell types
-**** sum types
-**** product types
-**** product with record syntax types
-**** type aliases
-**** newtype
-*** we will explain i this chapter
-**** explain the algebra
-**** analyse the construction of data constructors
-**** tell when and how write your own datatypes
-**** clarify use of type synonyms and *newtype*
-**** introduce kinds
-** 11.2 Data declarations review
+**** haskell types
+***** sum types
+***** product types
+***** product with record syntax types
+***** type aliases
+***** newtype
+**** we will explain i this chapter
+***** explain the algebra
+***** analyse the construction of data constructors
+***** tell when and how write your own datatypes
+***** clarify use of type synonyms and *newtype*
+***** introduce kinds
+*** 11.2 Data declarations review
 
-*** to structure and describe the data
-**** we often create datatypes
-***** help analyse problem
-***** focus on modelling domain
-****** before implementation
-***** make code more readable
+**** to structure and describe the data
+***** we often create datatypes
+****** help analyse problem
+****** focus on modelling domain
+******* before implementation
+****** make code more readable
 
-*** review of datatypes
+**** review of datatypes
 
-**** without arguments
+***** without arguments
 #+BEGIN_EXAMPLE
 data Bool = False | True
 #+END_EXAMPLE
-***** data - keyword
-***** Bool - type constructor w/o arguments
-***** = - divider
-***** False - data constructor w/o arguments
-***** '|' = in sum type it divides possible values
-***** True - type constructor w/o arguments
+****** data - keyword
+****** Bool - type constructor w/o arguments
+****** = - divider
+****** False - data constructor w/o arguments
+****** '|' = in sum type it divides possible values
+****** True - type constructor w/o arguments
 
-**** with arguments
+***** with arguments
 #+BEGIN_EXAMPLE
 data [] a = [ ] | a : [a]
 #+END_EXAMPLE
-***** [] a - data constructor for an empty list
-***** [] - data constructor for empty list
-***** a : [a] - data constructor with 2 arguments: a & [a]
+****** [] a - data constructor for an empty list
+****** [] - data constructor for empty list
+****** a : [a] - data constructor with 2 arguments: a & [a]
 
-**** data declaration define entire type
-***** enumeration of constructors with 0+ arguments
-**** Haskell types
-***** sum type
+***** data declaration define entire type
+****** enumeration of constructors with 0+ arguments
+***** Haskell types
+****** sum type
 has 1+ data constructor
-***** product type
+****** product type
 constructors take 1+ parameter
 
-** 11.3 Data and type constructors
+*** 11.3 Data and type constructors
 
-*** Haskell constructors
+**** Haskell constructors
 Define means of creating a type or a value
-**** data
-***** used only on type level
-****** type signatures
-****** typeclass declarations
-****** typeclass instances
-***** construct values
-****** type level
-****** can access at runtime
+***** data
+****** used only on type level
+******* type signatures
+******* typeclass declarations
+******* typeclass instances
+****** construct values
+******* type level
+******* can access at runtime
 
-**** type
-***** static
-***** resolve at compile time
+***** type
+****** static
+****** resolve at compile time
 
-**** Kinds of constructors
-***** constants
-****** take no arguments
-****** store fixed
+***** Kinds of constructors
+****** constants
+******* take no arguments
+******* store fixed
 - type
 - amount of data
 Example of Bool type
-***** regular constructors
-****** can take parameters
-****** must be applied to become
-******* type or
-******* value
+****** regular constructors
+******* can take parameters
+******* must be applied to become
+******** type or
+******** value
 
-****** Evample
+******* Evample
 #+BEGIN_SRC haskell
   data Trivial = Trivial'
   --     [1]      [2]
@@ -1034,23 +1034,23 @@ Example of Bool type
 3. type constructor awaiting a type constant to be applied to
 4. data constructor awaiting a value to be applied to
 
-****** continued
+******* continued
 Each of these datatypes only enumerates one data constructor.
 
-** 11.04 Type constructors and kinds
+*** 11.04 Type constructors and kinds
 
-*** list datatype
+**** list datatype
 #+BEGIN_SRC haskell
 data [] a = [] | a : [a]
 #+END_SRC
 
-*** kinds
-**** are
+**** kinds
+***** are
 types of types
-**** represented with asterix ~*~
+***** represented with asterix ~*~
 - fully applied ~*~
 - awaiting application ~* -> *~
-**** kind signatures
+***** kind signatures
 #+BEGIN_EXAMPLE
 Prelude> :k Bool
 Bool :: *
@@ -1060,17 +1060,17 @@ Prelude> :k []   -- [] has to be applied to be fully realised
 [] :: * -> *     -- example of type constructor
 #+END_EXAMPLE
 
-** 11.5 Data constructors and values
+*** 11.5 Data constructors and values
 
-*** distinctions
-**** types
-***** type constants
-***** type constructors
-**** values
-***** constant values
-***** data constructors
+**** distinctions
+***** types
+****** type constants
+****** type constructors
+***** values
+****** constant values
+****** data constructors
 
-**** example
+***** example
 #+BEGIN_SRC haskell
   data PugType = PugData
   --   [1]       [2]
@@ -1094,7 +1094,7 @@ Prelude> :t DogueDeBordeaux
 #+END_EXAMPLE
 We can query type of the data constructor value
 
-**** function signatures
+***** function signatures
 #+BEGIN_SRC haskell
 myHusky :: HuskyType a
 myHusky = HuskyData
@@ -1102,16 +1102,16 @@ myHusky = HuskyData
 in function signature we use type constructors
 in function body we use data constructors
 
-** 11.6 What's type and what's data?
-*** Types
-**** static
-**** resolve at compile time
-***** inference
-***** declarations
-**** define possible values
-**** lost before runtime
-*** Data
-**** work on runtime
+*** 11.6 What's type and what's data?
+**** Types
+***** static
+***** resolve at compile time
+****** inference
+****** declarations
+***** define possible values
+***** lost before runtime
+**** Data
+***** work on runtime
 
 | type constructors | compile time     |
 |-------------------+------------------|
@@ -1119,120 +1119,120 @@ in function body we use data constructors
 |-------------------+------------------|
 | data constructors | runtime          |
 
-*** Type Constructors
-**** Begin with capital
-*** Data Constructors
-**** Begin with capital
-**** usually generated by declaration
-**** when have arguments
-***** they refer to other types
-**** hence not everything referred by datatype
-***** generated by the datatype itself
-**** those arguments
-***** types
-***** NOT values
+**** Type Constructors
+***** Begin with capital
+**** Data Constructors
+***** Begin with capital
+***** usually generated by declaration
+***** when have arguments
+****** they refer to other types
+***** hence not everything referred by datatype
+****** generated by the datatype itself
+***** those arguments
+****** types
+****** NOT values
 
-*** Exercises: Vehicles
+**** Exercises: Vehicles
 
-** 11.7 Data constructor arities
-** 11.8 What makes datatype algebraic?
+*** 11.7 Data constructor arities
+*** 11.8 What makes datatype algebraic?
 
-** 11.9 newtype
-** 11.10 Sum types
-** 11.11 Product types
-*** 2 or more arguments to data constructor
-*** tuple is an anonymous product
-*** record syntax
+*** 11.9 newtype
+*** 11.10 Sum types
+*** 11.11 Product types
+**** 2 or more arguments to data constructor
+**** tuple is an anonymous product
+**** record syntax
 
-** 11.12 Normal form
+*** 11.12 Normal form
 
-** 11.13 Constructing and deconstructing values
+*** 11.13 Constructing and deconstructing values
 
-*** Sum and Product
+**** Sum and Product
 
-*** Constructing values
+**** Constructing values
 
-*** Exercise: Programmers
+**** Exercise: Programmers
 
-** 11.14 Function type is exponential
-** 11.16 Lists are polymorphic
-** 11.17 Binary Tree
-** 11.18 Chapter Exercises
-* Chapter 12
-** 12.1 Signalling adversity
-** 12.2 How I learned to stop worrying and love Nothing
-** 12.3 Bleating either
-** 12.4 Kinds, a thousand stars in your types
-*** type constant
+*** 11.14 Function type is exponential
+*** 11.16 Lists are polymorphic
+*** 11.17 Binary Tree
+*** 11.18 Chapter Exercises
+** Chapter 12
+*** 12.1 Signalling adversity
+*** 12.2 How I learned to stop worrying and love Nothing
+*** 12.3 Bleating either
+*** 12.4 Kinds, a thousand stars in your types
+**** type constant
 no arguments, already a type
-*** type constructor
+**** type constructor
 needs an argument to become a type
-*** lifted and unlifted types
-*** asterisks and hashes
+**** lifted and unlifted types
+**** asterisks and hashes
 ~* lifted type~
 represented by a pointer
 ~# unlifted type~
 can not be inhabited at the bottom
 native machine types
 raw pointers
-*** data constructors are functions
-**** chance of macros?
-** 12.5 Chapter Exercises
-* Chapter 13
-** 13.1 Modules
-** 13.2 Making packages with Stack
+**** data constructors are functions
+***** chance of macros?
+*** 12.5 Chapter Exercises
+** Chapter 13
+*** 13.1 Modules
+*** 13.2 Making packages with Stack
 Package hs many modules.
-** 13.3 Working with a basic project
-*** git repo
+*** 13.3 Working with a basic project
+**** git repo
 https://github.com/haskellbook/hello.
-*** Building the project
-**** stack commands
+**** Building the project
+***** stack commands
 + stack build
 + stack ghci
 + stack exec
-*** Executable stanzas in Cabal files
-**** stanzas in a cabal file
-** 13.04 Making our project a library
-** 13.5 Module exports
-*** no exports specified
-**** all top-level bindings exported
-*** export list present but empty
-**** nothing exported
-*** Exposing modules
-** 13.6 More on importing modules
-*** first part
-**** import order irrelevant
-**** command to see functions in a module
+**** Executable stanzas in Cabal files
+***** stanzas in a cabal file
+*** 13.04 Making our project a library
+*** 13.5 Module exports
+**** no exports specified
+***** all top-level bindings exported
+**** export list present but empty
+***** nothing exported
+**** Exposing modules
+*** 13.6 More on importing modules
+**** first part
+***** import order irrelevant
+***** command to see functions in a module
 ~:browse~
-**** importing only selected functions
-*** Qualified imports
-**** avoid function name clashes
-**** syntax for qualified imports
-***** function call
-***** type signatures
-**** Prelude prompt
-*** Intermission: Check your understanding
-** 13.7 Making our program interactive
-*** do syntax
+***** importing only selected functions
+**** Qualified imports
+***** avoid function name clashes
+***** syntax for qualified imports
+****** function call
+****** type signatures
+***** Prelude prompt
+**** Intermission: Check your understanding
+*** 13.7 Making our program interactive
+**** do syntax
 We use do inside functions that return IO in order to sequence side effects in
 a convenient syntax.
-**** explanation of binding
+***** explanation of binding
 We have to use <- to bind over the IO to get the string that we want to pass to
 sayHello
 
-*** Adding a prompt
-**** use of hSetBuffering
+**** Adding a prompt
+***** use of hSetBuffering
 print immediately
 
-** 13.8 do syntax and IO
+*** 13.8 do syntax and IO
 main must always have the type IO
-*** return
+**** return
 Various remarks about using return to put value into IO
-** 13.9 Hangman game
-** 13.10 Step One: Importing modules
-** 13.11 Step two Generating a word list
-** 13.12 Step Three: Making a puzzle
-*** defining the datatype
+*** 13.9 Hangman game
+*** 13.10 Step One: Importing modules
+*** 13.11 Step two Generating a word list
+*** 13.12 Step Three: Making a puzzle
+**** defining the datatype
 We need to define a datatype for the puzzle.
 #+BEGIN_SRC haskell
   data Puzzle = Puzzle String [Maybe Char] [Char]
@@ -1243,7 +1243,7 @@ It will hold the following
 2. the characters discovered so far
 3. the guessed letters
 
-*** defining the instance of typeclass Show
+**** defining the instance of typeclass Show
 We need an instance of typeclass Show for our datatype. So we can print the data
 represented by datatype.
 
@@ -1255,67 +1255,67 @@ Note that the arguments to Show match with our datatype definition.
       ++ " Guessed so far " ++ guessed
 #+END_SRC
 
-*** implementation
+**** implementation
 
-**** fresh puzzle
+***** fresh puzzle
 
-**** char in word
+***** char in word
 
-**** already guessed
+***** already guessed
 
-**** rendered  puzzle char
+***** rendered  puzzle char
 
-**** filled in character
+***** filled in character
 
-**** game over
+***** game over
 
-**** game win
+***** game win
 
-**** run game
+***** run game
 
-**** main function
+***** main function
 
-** 13.13 Adding a newtype
+*** 13.13 Adding a newtype
 Modification of the puzzle from section 13.12 with use of newtype
 
-** 13.14 Chapter exercises
+*** 13.14 Chapter exercises
 
-* Chapter 14
+** Chapter 14
 
-** 14.1 Testing
-** 14.2 A quick tour of testing for the uninitiated
-*** QuickCheck property tests
-**** test edge cases
-**** random data
-**** relies on the type system
-**** checks if the code satisfies the laws
+*** 14.1 Testing
+*** 14.2 A quick tour of testing for the uninitiated
+**** QuickCheck property tests
+***** test edge cases
+***** random data
+***** relies on the type system
+***** checks if the code satisfies the laws
 
-** 14.3 Conventional testing
+*** 14.3 Conventional testing
 repo in ~/Programming/Haskell/addition
 
-** 14.4 Enter QuickCheck
-*** examples
-**** property
-**** sample
-***** random
-***** arbitrary
-****** element probability
-**** choose
-**** elements
-**** GenTuple
+*** 14.4 Enter QuickCheck
+**** examples
+***** property
+***** sample
+****** random
+****** arbitrary
+******* element probability
+***** choose
+***** elements
+***** GenTuple
 generating sample values
 
-*** Using QuickCheck without Hspec
+**** Using QuickCheck without Hspec
 failing example
-** 14.5 Morse code
-*** Turning words into code
-*** Make sure it's all working
-** 14.6 Kicking around QuickCheck
-*** Greater than the sum of its parts
-** 14.7 Chapter Exercises
-* Chapter 15
-** 15.1 Monoids and semigroups
-*** interesting comments about Haskell and Mathematics
+*** 14.5 Morse code
+**** Turning words into code
+**** Make sure it's all working
+*** 14.6 Kicking around QuickCheck
+**** Greater than the sum of its parts
+*** 14.7 Chapter Exercises
+** Chapter 15
+*** 15.1 Monoids and semigroups
+**** interesting comments about Haskell and Mathematics
 One of the finer points of the Haskell community has been its propen-
 sity for recognizing abstract patterns in code which have well-defined,
 lawful representations in mathematics. A word frequently used to
@@ -1323,14 +1323,14 @@ describe these abstractions is algebra, by which we mean one or more
 operations and the set they operate over. By set, we mean the type they
 operate over.
 
-** 15.2 What we talk about when we talk about algebras
+*** 15.2 What we talk about when we talk about algebras
 In Haskell, these algebras can be implemented with typeclasses;
 the typeclasses define the set of operations. When we talk about
 operations over a set, the set is the type the operations are for. The
 instance defines how each operation will perform for a given type
 or set. One of those algebras we use in Haskell is Monoid.
 
-** 15.3 Monoid
+*** 15.3 Monoid
 A monoid is a binary associative operation with an identity.
 
 A function that takes two arguments whose order does not matter and will always
@@ -1338,28 +1338,28 @@ return one of the arguments unchanged. (add 1 0) => 1
 
 Monoid is the typeclass that generalises these laws across types.
 
-** 15.4 How Monoid is defined in Haskell
+*** 15.4 How Monoid is defined in Haskell
 
-** 15.5 Examples of using Monoid
+*** 15.5 Examples of using Monoid
 
-** 15.6
+*** 15.6
 
-** 15.7 Why bother?
+*** 15.7 Why bother?
 In distributed processing computing in different order will not matter.
 
-** 15.8 Laws
+*** 15.8 Laws
 
-** 15.9 Different instance, same representation
-** 15.10 Reusing algebras by asking for algebras
-** 15.11 Madness
-** 15.12
-** 15.13 Semigroup
-* Chapter 16
-** 16.1 Functor
-*** 16.5 Functor Laws
-*** 16.8 Transforming the unapplied argument
-* Chapter 17
-** 17.1 Applicative
+*** 15.9 Different instance, same representation
+*** 15.10 Reusing algebras by asking for algebras
+*** 15.11 Madness
+*** 15.12
+*** 15.13 Semigroup
+** Chapter 16
+*** 16.1 Functor
+**** 16.5 Functor Laws
+**** 16.8 Transforming the unapplied argument
+** Chapter 17
+*** 17.1 Applicative
 In the previous chapters, we’ve seen two common algebras that are
 used as typeclasses in Haskell. Monoid gives us a means of mashing
 two values of the same type together. Functor, on the other hand,
@@ -1372,36 +1372,36 @@ within some structure while leaving that structure unaltered.
 
 Applicative is a monoidal functor.
 
-** 17.2 Defining Applicative
+*** 17.2 Defining Applicative
 
-** 17.3 Functor vs. Applicative
+*** 17.3 Functor vs. Applicative
 
-** 17.4 Applicative functors are monoidal functors
+*** 17.4 Applicative functors are monoidal functors
 
-** 17.5 Applicative in use
+*** 17.5 Applicative in use
 
-** 17.7 You knew this was coming
+*** 17.7 You knew this was coming
 
-* Chapter 18
+** Chapter 18
 
-** 18.1 Monad
+*** 18.1 Monad
 Monads are applicative functors, but they have something special
 about them that makes them different from and more powerful than
 either <*> or fmap alone.
 
-** 18.2 Sorry --- Monad is not a burrito
+*** 18.2 Sorry --- Monad is not a burrito
 A functor maps a function over some structure; an applicative maps
 a function that is contained in some structure over some other struc-
 ture and then combines the two layers of structure like mappend.
 So you can think of monads as just another way of applying func-
 tions over structure, with a couple of additional features.
 
-*** Applicative m
+**** Applicative m
 
 Whenever you’ve implemented an instance of Monad for a type
 you necessarily have an Applicative and a Functor as well.
 
-*** Core operations
+**** Core operations
 
 The Monad typeclass defines three core operations, although you only
 need to define >>= for a minimally complete Monad instance. Let’s
@@ -1428,7 +1428,7 @@ section on do syntax.
 
 Finally, the big bind! The >>= operator is called bind and is
 
-*** The novel part of Monad
+**** The novel part of Monad
 
 Conventionally when we use monads, we use the bind function, >>=.
 Sometimes we use it directly, sometimes indirectly via do syntax.
@@ -1459,7 +1459,7 @@ It’s also somewhat novel that we can inject more structure via our
 function application, where applicatives and fmaps have to leave
 the structure untouched.
 
-*** What Monad is not
+**** What Monad is not
 Since Monad is somewhat abstract and can be quite slippery, many
 people talk about it from one or two perspectives that they feel most
 comfortable with. Quite often, they address what Monad is from the
@@ -1499,22 +1499,22 @@ Using monads also doesn’t require knowing math. Or category
 theory. It does not require mystical trips to the tops of mountains or
 starving oneself in a desert somewhere.
 
-*** Monad also lifts!
-** 18.3 Do syntax and monads
+**** Monad also lifts!
+*** 18.3 Do syntax and monads
 Interesting examples of do on p 732
 
 Putting IO actions in a structure to be evaluated later.
 
 Example of do syntax and a monad with variable on p 736
 
-** 18.4 Examples of Monad use
+*** 18.4 Examples of Monad use
 
-** 18.5 Monad laws
+*** 18.5 Monad laws
 It can be easy at times to accidentally write an invalid Monad that typechecks,
 so it’s important to use QuickCheck to validate your Monoid, Functor,
 Applicative, and Monad instances.
 
-** 18.6 Application and composition
+*** 18.6 Application and composition
 We used return composed with read to turn it into something that
 provides monadic structure after being bound over the output of
 sayHi.
@@ -1523,43 +1523,43 @@ It can be easy at times to accidentally write an invalid Monad that typechecks,
 so it’s important to use QuickCheck to validate your Monoid, Functor,
 Applicative, and Monad instances.
 
-** TODO 18.7 Chapter Exercises
+*** TODO 18.7 Chapter Exercises
 not done
 
-** 18.8 Definition
+*** 18.8 Definition
 
-** 18.9 Follow-up resources
+*** 18.9 Follow-up resources
 
-* Chapter 19
+** Chapter 19
 
-** 19.1 Applied structure
+*** 19.1 Applied structure
 No more explaining everything. from now on I have to figure out things myself.
 
-** 19.2 Monoid
+*** 19.2 Monoid
 Start looking for monoid pattern.
 
-*** Templating content with Scotty
+**** Templating content with Scotty
 
-*** Concatenating connection parameters
+**** Concatenating connection parameters
 
-*** Concatenating key configurations
+**** Concatenating key configurations
 First explanation of strictness
 #+BEGIN_SRC haskell
 keys :: !(XConfig Layout -> Map (ButtonMask, KeySym) (X ()))
 #+END_SRC
 
-** 19.3 Functor
-** 19.4 Applicative
-*** hgrev
-*** More parsing
-*** And now for something different
-** 19.5 Monad
-*** Binding over failure in initialization
-** 19.6 An end-to-end example: URL shortener
-** 19.7 That's a wrap
-** 19.8 Follow-up resources
-* Chapter 20
-** 20.1 Foldable
+*** 19.3 Functor
+*** 19.4 Applicative
+**** hgrev
+**** More parsing
+**** And now for something different
+*** 19.5 Monad
+**** Binding over failure in initialization
+*** 19.6 An end-to-end example: URL shortener
+*** 19.7 That's a wrap
+*** 19.8 Follow-up resources
+** Chapter 20
+*** 20.1 Foldable
 Lists are not the only foldable data structures.
 
 A list fold is a way to reduce the values inside a list to one summary
@@ -1568,21 +1568,21 @@ value by recursively applying some function.
 The folding function is always dependent on some Monoid instance. The folds we
 wrote previously mostly relied on implicit monoidal operations.
 
-** 20.2 The Foldable class
+*** 20.2 The Foldable class
 
-** 20.3 Revenge of the monoids
+*** 20.3 Revenge of the monoids
 Folding necessarily implies a binary
 associative operation that has an identity value.
 
-** 20.4 Demonstrating Foldable instances
+*** 20.4 Demonstrating Foldable instances
 
-*** Maybe
+**** Maybe
 
-** 20.5 Some basic derived operations
+*** 20.5 Some basic derived operations
 
-*** Exercises: Library Functions
+**** Exercises: Library Functions
 
-* continue on page
+** continue on page
   page 808
 
 [[pdf:/home/jacek/Documents/Manuals/Haskell/haskell-programming-0.12.0-screen.pdf#840][resume reading]]
