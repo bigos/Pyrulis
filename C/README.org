@@ -1,9 +1,6 @@
 * C programming
 
-** cool C book
-code: 42
-https://www.cc4e.com/book/toc.md
-https://www.cc4e.com/book/chap01.md
+https://en.wikibooks.org/wiki/C_Programming
 
 ** Introduction
 
