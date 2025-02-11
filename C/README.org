@@ -81,5 +81,18 @@ http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf
 *** C17
 https://www.geeksforgeeks.org/c-17-standard/
 
+#+begin_example
+gcc -std=c17 main.c -o main
+#+end_example
+
 *** C18 in GCC
 https://en.wikipedia.org/wiki/C18_(C_standard_revision)
+
+*** C23
+https://en.wikipedia.org/wiki/C23_(C_standard_revision)
+
+** FAQ
+https://c-faq.com/
+
+** reference
+https://en.cppreference.com/w/c
