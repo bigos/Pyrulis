@@ -1,7 +1,6 @@
 * C programming
 
-** cool C book
-https://www.cc4e.com/book/toc.md
+https://en.wikibooks.org/wiki/C_Programming
 
 ** Introduction
 
@@ -46,6 +45,15 @@ https://www.w3resource.com/c-programming-exercises/
 
 ** Emacs environment
 
+*** setup
+https://tuhdo.github.io/c-ide.html
+https://www.reddit.com/r/emacs/comments/o2uzwn/emacs_configuration_for_cc/
+https://emacs-lsp.github.io/lsp-mode/tutorials/CPP-guide/
+https://fanpengkong.com/post/emacs-ccpp/emacs-ccpp/
+
+https://github.com/Sarcasm/irony-mode
+https://github.com/emacs-exordium/exordium
+
 *** gdb
 
 
@@ -67,5 +75,21 @@ https://www.w3schools.in/c-tutorial/c99/
 
 http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf
 
+*** C17
+https://www.geeksforgeeks.org/c-17-standard/
+
+#+begin_example
+gcc -std=c17 main.c -o main
+#+end_example
+
 *** C18 in GCC
 https://en.wikipedia.org/wiki/C18_(C_standard_revision)
+
+*** C23
+https://en.wikipedia.org/wiki/C23_(C_standard_revision)
+
+** FAQ
+https://c-faq.com/
+
+** reference
+https://en.cppreference.com/w/c

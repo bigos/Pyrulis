@@ -78,3 +78,15 @@ community spec
 https://cl-community-spec.github.io/pages/Objects.html
 
 https://dept-info.labri.fr/~strandh/Teaching/MTP/Common/David-Lamkins/chapter07.html
+
+using quicklisp
+#+begin_example
+# all systems available via quicklisp
+(ql:system-list )
+# find system that was not installed
+(ql:where-is-system "zyre")
+# find installed system
+(ql:where-is-system "cl-gobject-introspection")
+# removing
+(quicklisp-client:uninstall  "cl-gtk4")
+#+end_example

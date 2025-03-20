@@ -1,5 +1,10 @@
 * Readme
 
+This is the record of my attempt to learn OCaml. There are other languages. Time to move on.
+
+
+** Installing
+
 https://ocaml.org/docs/installing-ocaml
 
 #+begin_example
@@ -292,6 +297,9 @@ interesting
 https://ocamlverse.net/content/ffi.html
 possibly brilliant
 https://github.com/fdopen/ppx_cstubs
+** interesting challenges
+*** A Tree-Walk Interpreter
+https://craftinginterpreters.com/a-tree-walk-interpreter.html
 
 ** projects using ctypes
 https://github.com/yallop/ocaml-ctypes/wiki/ctypes-tutorial
