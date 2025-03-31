@@ -137,6 +137,11 @@ https://github.com/racket/racket/wiki/Creating-Languages
 *** Eric Normand thoughts
 https://ericnormand.me/podcast
 
+*** Languages in Problem Solving and Modelling
+
+https://jemi.edu.pl/vol-8-issue-4-2012/languages-in-problem-solving-and-modeling
+
+
 ** rewriting
 
 https://www.henrikkarlsson.xyz/p/writing-to-think
