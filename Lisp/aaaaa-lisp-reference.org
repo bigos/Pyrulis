@@ -90,3 +90,8 @@ using quicklisp
 # removing
 (quicklisp-client:uninstall  "cl-gtk4")
 #+end_example
+
+blogs
+https://turtleware.eu/tag/mop.html
+
+https://turtleware.eu/1.html
