@@ -1,0 +1,20 @@
+* Roam How To
+
+
+This folder is for folders with org-roam notes.
+
+There should be a symbolic link called current that points to one of those
+folders and is used by Emacs configuration.
+
+Make a new roam called ~diagram~ with updated link
+#+begin_example
+mkdir -p ./diagram/org-roam
+rm ./current
+ln -s ./diagram ./current
+#+end_example
+
+Start Emacs and run M-x org-roam-dired.
+
+In the folder that opens run M-x org-roam-db-sync.
+
+Press C-x n f and enter the name of your first node. Press C-c C-c to confirm.
