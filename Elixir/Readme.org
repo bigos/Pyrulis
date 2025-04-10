@@ -48,6 +48,17 @@ gmake[2]: *** [/home/jacek/.kerl/builds/27.0/otp_src_27.0/make/otp_subdir.mk:29:
   kerl status
 #+end_example
 
+fixing kerl
+https://github.com/kerl/kerl/issues/551
+
+make sure that until the frix is provided
+https://github.com/kerl/kerl/issues/551#issuecomment-2785557817
+I do not have the following directories
+#+begin_example
+/home/jacek/.config/erlang/.erlang
+/home/jacek/.erlang
+#+end_example
+
 tracing the build
 #+begin_example
 $ tail -f ~/.kerl/builds/25.0/otp_build_25.0.log
