@@ -10,7 +10,19 @@ elsif ARGV.size == 1
 
   puts "Switching the current Roam to #{folder}"
 
+  # removing current
   `rm -vf ./current`
+
+  # creating the folder
+  if folder.start_with?('./')
+    `mkdir -pv #{folder}/org-roam/daily`
+  elsif folder.start_with?('/')
+    `mkdir -pv #{folder}/org-roam/daily`
+  else
+    `mkdir -pv ./#{folder}/org-roam/daily`
+  end
+
+  # linking the folder
   output = `ln -sv #{folder} ./current`
 
   puts output
