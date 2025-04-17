@@ -18,3 +18,7 @@ Start Emacs and run M-x org-roam-dired.
 In the folder that opens run M-x org-roam-db-sync.
 
 Press C-x n f and enter the name of your first node. Press C-c C-c to confirm.
+
+I can switch between folders using the switch_project script. The script creates
+symbolic link from the folder to current. The current is defined in the Emacs
+config as the part of the path loading to org-roam folder with the org-roam data.
