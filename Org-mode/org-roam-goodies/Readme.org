@@ -6,3 +6,9 @@ roam folders inside them.
 I can switch between folders using the switch_project script. The script creates
 symbolic link from the folder to current. The current is defined in the Emacs
 config as the part of the path loading to org-roam folder with the org-roam data.
+
+In the Documents/Roams folder you can symlink the script using:
+
+#+begin_example
+  ln -s /home/jacek/Programming/Pyrulis/Org-mode/org-roam-goodies/switch_project ./switch_project
+#+end_example

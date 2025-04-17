@@ -1,0 +1,19 @@
+#!/home/jacek/.rbenv/shims/ruby
+
+# require 'debug'
+
+if ARGV.size == 0
+  puts 'Please provide the name of the folder which should become current'
+elsif ARGV.size == 1
+  folder = ARGV.first.strip
+  folder = folder.chop if folder[-1, 1] == '/'
+
+  puts "Switching the current Roam to #{folder}"
+
+  `rm -vf ./current`
+  output = `ln -sv #{folder} ./current`
+
+  puts output
+elsif ARGV.size > 1
+  puts 'Please provide only one argument, the name of the folder which should become current'
+end
