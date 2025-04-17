@@ -8,7 +8,7 @@ folders and is used by Emacs configuration.
 
 Make a new roam called ~diagram~ with updated link
 #+begin_example
-mkdir -p ./diagram/org-roam
+mkdir -p ./diagram/org-roam/daily
 rm ./current
 ln -s ./diagram ./current
 #+end_example
