@@ -2,7 +2,7 @@
 
 # require 'debug'
 
-if ARGV.size == 0
+if ARGV.empty?
   puts 'Please provide the name of the folder which should become current'
 elsif ARGV.size == 1
   folder = ARGV.first.strip
@@ -14,13 +14,14 @@ elsif ARGV.size == 1
   `rm -vf ./current`
 
   # creating the folder
-  if folder.start_with?('./')
-    foutput = `mkdir -pv #{folder}/org-roam/daily`
-  elsif folder.start_with?('/')
-    foutput = `mkdir -pv #{folder}/org-roam/daily`
-  else
-    foutput = `mkdir -pv ./#{folder}/org-roam/daily`
-  end
+  foutput =
+    if folder.start_with?('./')
+      `mkdir -pv #{folder}/org-roam/daily`
+    elsif folder.start_with?('/')
+      `mkdir -pv #{folder}/org-roam/daily`
+    else
+      `mkdir -pv ./#{folder}/org-roam/daily`
+    end
   puts foutput
 
   # linking the folder
