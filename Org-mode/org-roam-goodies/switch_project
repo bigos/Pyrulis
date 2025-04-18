@@ -15,12 +15,13 @@ elsif ARGV.size == 1
 
   # creating the folder
   if folder.start_with?('./')
-    `mkdir -pv #{folder}/org-roam/daily`
+    foutput = `mkdir -pv #{folder}/org-roam/daily`
   elsif folder.start_with?('/')
-    `mkdir -pv #{folder}/org-roam/daily`
+    foutput = `mkdir -pv #{folder}/org-roam/daily`
   else
-    `mkdir -pv ./#{folder}/org-roam/daily`
+    foutput = `mkdir -pv ./#{folder}/org-roam/daily`
   end
+  puts foutput
 
   # linking the folder
   output = `ln -sv #{folder} ./current`
