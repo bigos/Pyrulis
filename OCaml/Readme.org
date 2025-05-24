@@ -297,6 +297,11 @@ interesting
 https://ocamlverse.net/content/ffi.html
 possibly brilliant
 https://github.com/fdopen/ppx_cstubs
+writing Lisp in OCaml
+https://bernsteinbear.com/blog/lisp/
+writing a compiler
+https://norasandler.com/2017/11/29/Write-a-Compiler.html
+
 ** interesting challenges
 *** A Tree-Walk Interpreter
 https://craftinginterpreters.com/a-tree-walk-interpreter.html
