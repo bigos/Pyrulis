@@ -410,3 +410,7 @@ and then cd to another folder and run the code
 #+end_example
 ** opinionated starting OCaml development
 https://lambdafoo.com/posts/2021-10-29-getting-started-with-ocaml.html
+
+** tooling comparison table
+
+https://chshersh.com/blog/2023-12-16-8-months-of-ocaml-after-8-years-of-haskell.html
