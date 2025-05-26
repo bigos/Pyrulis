@@ -21,6 +21,12 @@ https://www.haskell.org/ghcup/install/#how-to-install
 
 following default options adds entry to ~/.bashrc and installs ghcup and cabal
 
+if ~which stack~ shows stack other than ~/.ghcup/bin/stack, remove it
+
+#+begin_example
+rm -vf ~/.local/bin/stack
+#+end_example
+
 ** The Laws
    https://wiki.haskell.org/Monad_laws
 
