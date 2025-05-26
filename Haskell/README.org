@@ -19,6 +19,8 @@ https://www.haskell.org/ghcup/install/
 
 https://www.haskell.org/ghcup/install/#how-to-install
 
+following default options adds entry to ~/.bashrc and installs ghcup and cabal
+
 ** The Laws
    https://wiki.haskell.org/Monad_laws
 
