@@ -7,13 +7,15 @@ Important find in understanding Haskell, especially from the Lisp perspective
 
 https://www.haskellforall.com/2012/10/hello-core.html
 
-#+begin_example
-stack install ghc-core
-# gave an error
-#+end_example
-
 ** Stack vs Cabal
 https://www.reddit.com/r/haskell/comments/tvbrmp/stack_compared_to_cabalinstall/
+
+*** Installing ghcup and cabal
+#+begin_example
+sudo apt install build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses5-dev  libtinfo-dev
+#+end_example
+
+https://www.haskell.org/ghcup/install/
 
 ** The Laws
    https://wiki.haskell.org/Monad_laws
