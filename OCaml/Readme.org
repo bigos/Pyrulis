@@ -414,3 +414,19 @@ https://lambdafoo.com/posts/2021-10-29-getting-started-with-ocaml.html
 ** tooling comparison table
 
 https://chshersh.com/blog/2023-12-16-8-months-of-ocaml-after-8-years-of-haskell.html
+
+Tooling comparison table
+| Tool                     | OCaml                | Haskell                                    |
+|--------------------------+----------------------+--------------------------------------------|
+| Compiler                 | ocaml                | ghc                                        |
+| REPL                     | utop                 | ghci                                       |
+| Build tool               | dune                 | cabal, stack                               |
+| Package manager          | opam                 | cabal                                      |
+| Package repository       | opam                 | Hackage                                    |
+| Toolchain installer      | -                    | ghcup                                      |
+| Linter                   | zanuda               | hlint                                      |
+| Formatter                | ocamlformat, topiary | fourmolu, stylish-haskell, hindent, ormolu |
+| Type Search              | Sherlodoc            | Hoogle                                     |
+| Code search              | Sherlocode           | Hackage Search                             |
+| Online playground        | TryOCaml             | Haskell Playground                         |
+| LSP                      | ocaml-lsp            | HLS                                        |
