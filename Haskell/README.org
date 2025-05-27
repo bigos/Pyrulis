@@ -21,6 +21,7 @@ rm -rvf ~/.stack
 *** Installing ghcup and cabal
 #+begin_example
 sudo apt install build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses5-dev  libtinfo-dev
+sudo apt install build-essential curl libffi-dev libffi8 libgmp-dev libgmp10 libncurses-dev libncurses6 libtinfo6 pkg-config
 #+end_example
 
 
