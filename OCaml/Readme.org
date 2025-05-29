@@ -160,6 +160,8 @@ https://johnwhitington.net/ocamlfromtheverybeginning/index.html
 
 https://cs3110.github.io/textbook/chapters/intro/intro.html
 
+https://courses.cs.cornell.edu/cs3110/2021sp/textbook/
+
 english books
 https://ocaml.org/books?language=english&difficulty=All&pricing=All
 
@@ -283,6 +285,9 @@ https://github.com/bramford/ocaml-learning/tree/master
 
 **** with dune
 https://github.com/bramford/2d-exploration-game
+
+** Lazy
+https://ocaml.org/manual/5.3/api/Lazy.html
 
 ** cookbook
 https://ocaml.org/cookbook
