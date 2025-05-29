@@ -440,6 +440,9 @@ Tooling comparison table
 ** Emacs environment problem
 Emacs REPL will not work on my system unless I set the environment variables
 
+Press ~C-c '~ on the following code block, then on the opened buffer press ~M-e~
+to go past the closing bracket and press ~C-x C-e~ to evaluate the code
+
 #+begin_src emacs-lisp
   (setenv  "CAML_LD_LIBRARY_PATH"
         "/home/jacek/.opam/default/lib/stublibs:/home/jacek/.opam/default/lib/ocaml/stublibs:/home/jacek/.opam/default/lib/ocaml")
