@@ -306,6 +306,8 @@ writing Lisp in OCaml
 https://bernsteinbear.com/blog/lisp/
 writing a compiler
 https://norasandler.com/2017/11/29/Write-a-Compiler.html
+** cool projects
+https://github.com/terrateamio/terrateam/tree/main
 
 ** interesting challenges
 *** A Tree-Walk Interpreter
@@ -435,7 +437,6 @@ Tooling comparison table
 | Code search              | Sherlocode           | Hackage Search                             |
 | Online playground        | TryOCaml             | Haskell Playground                         |
 | LSP                      | ocaml-lsp            | HLS                                        |
-
 
 ** Emacs environment problem
 Emacs REPL will not work on my system unless I set the environment variables
