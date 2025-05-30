@@ -25,10 +25,13 @@ opam install dune ocaml-lsp-server odoc ocamlformat utop merlin base core core_b
 ** Emacs environment problem
 Emacs REPL will not work on my system unless I set the environment variables
 
-For now, in the *scratch* buffer I execute the following
+Execute the following block
+C-c '
+then M-e and C-x C-e
+
 #+begin_src emacs-lisp
-    (setenv  "CAML_LD_LIBRARY_PATH"
-          "/home/jacek/.opam/default/lib/stublibs:/home/jacek/.opam/default/lib/ocaml/stublibs:/home/jacek/.opam/default/lib/ocaml")
+  (setenv  "CAML_LD_LIBRARY_PATH"
+        "/home/jacek/.opam/default/lib/stublibs:/home/jacek/.opam/default/lib/ocaml/stublibs:/home/jacek/.opam/default/lib/ocaml")
 #+end_src
 
 *** alternative way of launching Emacs
