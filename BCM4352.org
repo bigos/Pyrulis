@@ -1,0 +1,5 @@
+* BCM435
+
+** Debian
+this page had best instructions
+https://wiki.debian.org/wl
