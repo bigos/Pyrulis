@@ -4,7 +4,7 @@ Here I will have my Elixir notes
 
 https://elixir-lang.org/
 
-** Installation on Linux
+** Installation on Linux with kerl
 
 *** version managers
 
@@ -155,6 +155,41 @@ kerl recommended
 https://github.com/erlang/rebar3?tab=readme-ov-file#getting-started
 
 https://www.reddit.com/r/elixir/comments/15jzypg/adding_elixir_to_erlang_via_rebar3/
+
+** Installing on Linux with asdf
+pdf:/home/jacek/Documents/Manuals/Elixir/fromrubytoelixir.pdf#10
+
+https://asdf-vm.com/guide/getting-started.html#install-asdf
+https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-v0.18.0-linux-amd64.tar.gz
+
+copy the compressed file to ~/bin/ and extract asdf binary, then remove the compressed file
+
+list plugins
+#+begin_example
+asdf plugin list all | grep -P 'erlang|elixir'
+
+  asdf plugin add elixir
+  asdf plugin add erlang
+  asdf plugin list
+#+end_example
+
+now create the folder
+#+begin_example
+  mkdir ./second
+  touch ./second/.tool-versions
+  # edit the versions to resemble
+  # elixir 1.16.0-otp-26
+  # erlang 26.2.1
+  cd ./second/
+  asdf install
+#+end_example
+
+.bashrc fragment
+#+begin_example
+export PATH="/home/jacek/.asdf/installs/elixir/1.16.0-otp-26/bin/":$PATH
+. /home/jacek/.asdf/installs/erlang/26.2.1/activate
+#+end_example
+
 
 ** Emacs
 https://github.com/elixir-editors/emacs-elixir

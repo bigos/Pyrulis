@@ -31,6 +31,9 @@ Looking at main Readme I can check [[file:~/Programming/Pyrulis/Elixir/Readme.or
 various precompiled elixir packages and use .bashrc to select which erlang and
 elixir to activate
 
+also must see
+[[file:~/Programming/Pyrulis/Elixir/Readme.org::*Installing on Linux with asdf][Installing on Linux with asdf]]
+
 **** beginning first code
 pdf:/home/jacek/Documents/Manuals/Elixir/fromrubytoelixir.pdf#23
 
