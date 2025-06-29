@@ -114,9 +114,9 @@ kerl_deactivate
 
 ***** now install elixir
 
-Elixir releases
+https://elixir-lang.org/install.html#precompiled-package
 
-https://github.com/elixir-lang/elixir/tags
+Elixir releases
 
 I will try precompiled package for otp25
 
