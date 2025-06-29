@@ -74,7 +74,7 @@ $ tail -f ~/.kerl/builds/25.0/otp_build_25.0.log
 you can use the above example to see the output of kerl building erlang as in
 the below example
 
-****** installing itself
+****** installing kerl versions
 
 #+begin_example
 kerl update releases

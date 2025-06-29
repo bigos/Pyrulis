@@ -27,6 +27,10 @@ pdf:/home/jacek/Documents/Manuals/Elixir/fromrubytoelixir.pdf#15
 | the book uses |   1.16 |  26 | 26.2.1 |
 | i have        |   1.17 |  25 |   25.0 |
 
+Looking at main Readme I can check [[file:~/Programming/Pyrulis/Elixir/Readme.org::*installing kerl versions][installing kerl versions]] and
+various precompiled elixir packages and use .bashrc to select which erlang and
+elixir to activate
+
 **** beginning first code
 pdf:/home/jacek/Documents/Manuals/Elixir/fromrubytoelixir.pdf#23
 
