@@ -176,6 +176,8 @@ pdf:/home/jacek/Documents/Manuals/OCaml/mlbook2.pdf#5
 
 promising because of debugging
 https://greenteapress.com/thinkocaml/thinkocaml.pdf
+and copied to Manuals
+pdf:/home/jacek/Documents/Manuals/OCaml/thinkocaml.pdf#5
 
 interesting blog
 https://borretti.me/article/two-years-ocaml
