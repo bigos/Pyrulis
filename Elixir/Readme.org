@@ -191,6 +191,16 @@ export PATH="/home/jacek/.asdf/installs/elixir/1.16.0-otp-26/bin/":$PATH
 #+end_example
 
 
+also consider setting environment script for per project settings
+#+begin_example
+#!/usr/bin/bash
+
+echo "Setting environment"
+
+export PATH="/home/jacek/.asdf/installs/elixir/1.16.0-otp-26/bin/":$PATH
+. /home/jacek/.asdf/installs/erlang/26.2.1/activate
+#+end_example
+
 ** Emacs
 https://github.com/elixir-editors/emacs-elixir
 
