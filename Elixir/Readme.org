@@ -16,6 +16,7 @@ you can add rebar3.
 
 ***** installing
 
+****** troubleshooting
 https://github.com/kerl/kerl#installing-kerl
 
 https://github.com/asdf-vm/asdf-erlang#ubuntu-2404-lts
@@ -48,10 +49,10 @@ gmake[2]: *** [/home/jacek/.kerl/builds/27.0/otp_src_27.0/make/otp_subdir.mk:29:
   kerl status
 #+end_example
 
-fixing kerl
+****** fixing kerl
 https://github.com/kerl/kerl/issues/551
 
-make sure that until the frix is provided
+make sure that until the fix is provided
 https://github.com/kerl/kerl/issues/551#issuecomment-2785557817
 I do not have the following directories
 #+begin_example
@@ -67,10 +68,12 @@ $ tail -f ~/.kerl/builds/25.0/otp_build_25.0.log
 you can use the above example to see the output of kerl building erlang as in
 the below example
 
+****** installing itself
+
 #+begin_example
 kerl update releases
-kerl build 25.0 25.0
-kerl install 25.0 ~/.erlang/25.0
+kerl build 25.3.2.21 25
+kerl install 25 ~/.erl/25
 #+end_example
 
 
@@ -126,7 +129,7 @@ add at the bottom of the file
 
 #+begin_example
 export PATH="/home/jacek/.elixir/elixir-otp-25/bin:$PATH"
-. ~/.erlang/25.0/activate
+. /home/jacek/.erl/25/activate
 #+end_example
 
 That allows me to run iex in the terminal.
