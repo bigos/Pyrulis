@@ -137,8 +137,11 @@ file:~/.bashrc::1
 add at the bottom of the file
 
 #+begin_example
-export PATH="/home/jacek/.elixir/elixir-otp-25/bin:$PATH"
-. /home/jacek/.erl/25/activate
+# selecting elixir and otp version
+# export PATH="/home/jacek/.elixir/1.18.4/elixir-otp-25/bin:$PATH"
+# . /home/jacek/.erl/25/activate
+export PATH="/home/jacek/.elixir/1.18.4/elixir-otp-27/bin:$PATH"
+. /home/jacek/.erl/27/activate
 #+end_example
 
 That allows me to run iex in the terminal.
