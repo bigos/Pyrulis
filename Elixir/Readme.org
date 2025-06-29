@@ -15,7 +15,10 @@ on a version of Elixir that will go with the installed erlang and if you fancy
 you can add rebar3.
 
 ***** installing
-untested ubuntu version
+untested
+official
+https://elixir-lang.org/install.html#unix-and-unix-like
+ubuntu version
 https://askubuntu.com/questions/1418015/elixir-installation-on-ubuntu
 
 
