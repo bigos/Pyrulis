@@ -74,6 +74,9 @@ the below example
 kerl update releases
 kerl build 25.3.2.21 25
 kerl install 25 ~/.erl/25
+
+kerl build 27.3.4.1 27
+kerl install 27 ~/.erl/27
 #+end_example
 
 
