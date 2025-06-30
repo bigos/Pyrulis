@@ -21,40 +21,6 @@ https://elixir-lang.org/install.html#unix-and-unix-like
 ubuntu version
 https://askubuntu.com/questions/1418015/elixir-installation-on-ubuntu
 
-
-****** troubleshooting
-https://github.com/kerl/kerl#installing-kerl
-
-https://github.com/asdf-vm/asdf-erlang#ubuntu-2404-lts
-
-
-kerl fails to build on the latest Linux Mint Beta
-
-
-#+begin_example
-=== Entering application ssh
-gmake[3]: Entering directory '/home/jacek/.kerl/builds/27.0/otp_src_27.0/lib/ssh/src'
-SED x86_64-pc-linux-gnu /home/jacek/.kerl/builds/27.0/otp_src_27.0
- GEN	/home/jacek/.kerl/builds/27.0/otp_src_27.0/lib/ssh/src/deps/ssh.d
-/home/jacek/.kerl/builds/27.0/otp_src_27.0/lib/ssh/src/deps/ssh.d:1: *** empty variable name. Stop.
-gmake[3]: Leaving directory '/home/jacek/.kerl/builds/27.0/otp_src_27.0/lib/ssh/src'
-gmake[2]: *** [/home/jacek/.kerl/builds/27.0/otp_src_27.0/make/otp_subdir.mk:29: opt] Error 2
-#+end_example
-
-#+begin_example
-  sudo apt-get -y install build-essential autoconf m4 libncurses5-dev libwxgtk3.2-dev libwxgtk-webview3.2-dev libgl1-mesa-dev libglu1-mesa-dev libpng-dev libssh-dev unixodbc-dev xsltproc fop libxml2-utils libncurses-dev openjdk-11-jdk
-
-  sudo apt remove erlang elixir
-
-  cd ~/bin
-  curl -O https://raw.githubusercontent.com/kerl/kerl/master/kerl
-  chmod +x ./kerl
-
-  kerl upgrade
-  kerl list releases
-  kerl status
-#+end_example
-
 ****** fixing kerl
 https://github.com/kerl/kerl/issues/551
 
@@ -83,25 +49,6 @@ kerl install 25 ~/.erl/25
 
 kerl build 27.3.4.1 27
 kerl install 27 ~/.erl/27
-#+end_example
-
-
-****** stale warning
-When you start the Terminal you may get the warning about stale environment
-installed with older version of kerl.
-#+begin_quote
-this Erlang/OTP installation appears to be stale. Please consider reinstalling
-#+end_quote
-
-#+begin_example
-  kerl_deactivate
-  rm -rvf ~/.kerl
-  # choose one of the releases
-  kerl build 25.0 25.0
-  kerl build 27.0 27.0
-  # and install
-  kerl install 25.0 ~/.erlang/25.0
-  kerl list builds
 #+end_example
 
 ****** install output
@@ -151,7 +98,7 @@ https://meraj-gearhead.ca/adding-elixir-to-erlang-via-rebar3-2ad83476b627
 
 https://github.com/marketplace/actions/setup-erlang-otp-with-optional-elixir-and-mix-and-or-rebar3
 
-kerl recommended
+kerl recommended, but asdf seems to be better
 https://github.com/erlang/rebar3?tab=readme-ov-file#getting-started
 
 https://www.reddit.com/r/elixir/comments/15jzypg/adding_elixir_to_erlang_via_rebar3/
