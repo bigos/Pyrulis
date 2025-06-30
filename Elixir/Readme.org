@@ -4,6 +4,12 @@ Here I will have my Elixir notes
 
 https://elixir-lang.org/
 
+** dependencies
+
+#+begin_example
+sudo apt-get -y install build-essential git autoconf m4 libncurses5-dev libwxgtk3.2-dev libwxgtk-webview3.2-dev libgl1-mesa-dev libglu1-mesa-dev libpng-dev libssh-dev unixodbc-dev xsltproc fop libxml2-utils libncurses-dev openjdk-11-jdk
+#+end_example
+
 ** Installation on Linux with kerl
 
 *** version managers
