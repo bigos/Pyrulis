@@ -110,7 +110,8 @@ https://github.com/erlang/rebar3?tab=readme-ov-file#getting-started
 https://www.reddit.com/r/elixir/comments/15jzypg/adding_elixir_to_erlang_via_rebar3/
 
 ** Installing on Linux with asdf
-pdf:/home/jacek/Documents/Manuals/Elixir/fromrubytoelixir.pdf#10
+pdf:/home/jacek/Documents/Manuals/Elixir/fromrubytoelixir.pdf#1
+pdf:/home/jacek/Documents/Manuals/Elixir/fromrubytoelixir.pdf#22
 
 https://asdf-vm.com/guide/getting-started.html#install-asdf
 https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-v0.18.0-linux-amd64.tar.gz
