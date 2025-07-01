@@ -36,8 +36,8 @@ must see
 to use asdf I need
 #+begin_example
 /Programming/Elixir/first$ cat ./.tool-versions
-elixir 1.16.0-otp-26
 erlang 26.2.1
+elixir 1.16.0-otp-26
 #+end_example
 
 followed by asdf install
