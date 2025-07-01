@@ -165,7 +165,11 @@ https://cs3110.github.io/textbook/chapters/intro/intro.html
 
 https://courses.cs.cornell.edu/cs3110/2021sp/textbook/
 
-english books
+*** english books
+Learn Programming with OCaml
+https://usr.lmf.cnrs.fr/lpo/
+https://usr.lmf.cnrs.fr/lpo/lpo.pdf
+
 https://ocaml.org/books?language=english&difficulty=All&pricing=All
 
 https://dev.realworldocaml.org/toc.html
