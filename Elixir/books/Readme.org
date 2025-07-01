@@ -33,6 +33,28 @@ abandoning kerl for asdf
 must see
 [[file:~/Programming/Pyrulis/Elixir/Readme.org::*Installing on Linux with asdf][Installing on Linux with asdf]]
 
+to use asdf I need
+#+begin_example
+/Programming/Elixir/first$ cat ./.tool-versions
+elixir 1.16.0-otp-26
+erlang 26.2.1
+#+end_example
+
+followed by asdf install
+
+and
+#+begin_example
+~/Programming/Elixir/first$ cat ./.env
+# setting erlang and elixir paths
+
+export PATH="/home/jacek/.asdf/installs/erlang/26.2.1/bin:$PATH"
+
+export PATH="/home/jacek/.asdf/installs/elixir/1.16.0-otp-26/bin:$PATH"
+
+# and apply it in the terminal
+~/Programming/Elixir/first$ . ./.env
+#+end_example
+
 **** beginning first code
 pdf:/home/jacek/Documents/Manuals/Elixir/fromrubytoelixir.pdf#23
 
