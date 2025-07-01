@@ -169,6 +169,7 @@ https://courses.cs.cornell.edu/cs3110/2021sp/textbook/
 Learn Programming with OCaml
 https://usr.lmf.cnrs.fr/lpo/
 https://usr.lmf.cnrs.fr/lpo/lpo.pdf
+pdf:/home/jacek/Documents/Manuals/OCaml/lpo.pdf#5
 
 https://ocaml.org/books?language=english&difficulty=All&pricing=All
 
