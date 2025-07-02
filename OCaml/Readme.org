@@ -159,6 +159,8 @@ https://ocaml.org/docs/search?q=let
 https://ocaml.org/packages/search?q=base
 
 ** books
+https://ocaml.org/manual/5.3/index.html
+
 https://johnwhitington.net/ocamlfromtheverybeginning/index.html
 
 https://cs3110.github.io/textbook/chapters/intro/intro.html
@@ -192,6 +194,7 @@ https://caml.inria.fr/pub/docs/oreilly-book/
 https://caml.inria.fr/pub/docs/oreilly-book/html/index.html
 
 *** other resources
+https://ocaml.org/manual/5.3/index.html
 https://ocamlverse.github.io/
 http://ocamlverse.net/content/future_ocaml.html
 https://batsov.com/articles/2022/08/19/learning-ocaml/
