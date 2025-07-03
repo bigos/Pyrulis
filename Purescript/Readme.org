@@ -1,7 +1,7 @@
 * Readme
 ** books
 https://book.purescript.org/
-
+https://book.purescript.org/index.html
 https://book.purescript.org/chapter1.html#how-to-read-this-book
 
 ** website
