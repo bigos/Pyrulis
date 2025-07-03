@@ -7,6 +7,8 @@ https://book.purescript.org/chapter1.html#how-to-read-this-book
 ** website
 https://www.purescript.org/
 
+https://github.com/purescript/documentation#learning
+
 https://github.com/purescript/documentation/blob/master/guides/Getting-Started.md
 
 ** nvm, node and npm
