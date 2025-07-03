@@ -3,4 +3,4 @@
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#3
 
 ** next reading
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#3
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#22
