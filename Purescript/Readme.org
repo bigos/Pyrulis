@@ -32,3 +32,6 @@ psc-ide                        20240113.1224  available    melpa    Minor mode f
 psci                           20231219.52    available    melpa    Major mode for purescript repl psci
 purescript-mode                20230309.1301  available    melpa    A PureScript editing mode
 #+end_example
+
+** reading
+[[file:reading-fp-made-easier.org::*Reading fp-made-easier][Reading fp-made-easier]]
