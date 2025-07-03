@@ -4,3 +4,17 @@ pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#3
 
 ** next reading
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#36
+
+** parts
+
+*** Beginner
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#35
+
+*** Intermediate
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#234
+
+*** Advanced
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#543
+
+*** Beyond
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#1000
