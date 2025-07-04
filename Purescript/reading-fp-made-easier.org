@@ -3,7 +3,7 @@
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#3
 
 ** next reading
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#39
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#44
 
 
 ** parts
@@ -24,8 +24,9 @@ An expression is Referentially Transparent if it can be replaced with its value 
 changing the program’s behavior.
 #+end_quote
 1.2.2 No Loops
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#39
-
+1.3 Purity
+1.4 Optimization
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#44
 
 *** Intermediate
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#234
