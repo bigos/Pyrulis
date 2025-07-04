@@ -3,7 +3,7 @@
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#3
 
 ** next reading
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#37
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#39
 
 
 ** parts
@@ -18,6 +18,14 @@ Unfortunately, it does not. It only hides them.
 #+end_quote
 
 1.2 Mutable State
+1.2.1 No variables
+#+begin_quote
+An expression is Referentially Transparent if it can be replaced with its value without
+changing the program’s behavior.
+#+end_quote
+1.2.2 No Loops
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#39
+
 
 *** Intermediate
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#234
