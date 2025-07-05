@@ -3,8 +3,7 @@
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#3
 
 ** next reading
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#62
-
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#71
 
 ** parts
 
@@ -126,13 +125,29 @@ how signature changes on adding parameters
 #+end_src
 
 2.5.1. Partial Application
+#+begin_quote
+Partial Application is when a Function is called with fewer than all of its Parameters.
+#+end_quote
 
+When we think of Functions having multiple Parameters, then Partial Application makes sense. However,
+when we think of Curried Functions, there is no such thing as Partial Application since there’s only one
+Parameter.
 
+I like to think of Partial Application as configuring a more general Function.
+We’re sort of baking in the configuration Values.
 
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#68
+JP Adding subsequent parameters specialises the final function
 
+It’s worth spending some time planning the order of your Parameters for this very reason.
 
-2.5.1. Partial Application
+#+begin_quote
+The general rule for Parametric Order is to have the Parameters that change the least be
+the leftmost ones and the ones that change the most to be rightmost.
+#+end_quote
+
+**** 3 The Basics of PureScript
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#71
+
 
 
 *** Intermediate
