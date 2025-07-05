@@ -99,7 +99,7 @@ currying transforms lambdas
 
 similar in lisp
 #+begin_src lisp
-  (funcall  (funcall  (lambda (x) (lambda (y) (list :res x y))) 1) 2)
+  (funcall (funcall  (lambda (x) (lambda (y) (list :res x y))) 1) 2)
 #+end_src
 
 All Type Signatures have implied Parentheses that are Right-Associative, i.e. associates to the right:
@@ -137,6 +137,7 @@ I like to think of Partial Application as configuring a more general Function.
 We’re sort of baking in the configuration Values.
 
 JP Adding subsequent parameters specialises the final function
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#71
 
 It’s worth spending some time planning the order of your Parameters for this very reason.
 
@@ -146,7 +147,7 @@ the leftmost ones and the ones that change the most to be rightmost.
 #+end_quote
 
 **** 3 The Basics of PureScript
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#71
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#72
 
 
 
