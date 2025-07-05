@@ -3,7 +3,7 @@
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#3
 
 ** next reading
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#51
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#62
 
 
 ** parts
@@ -44,7 +44,33 @@ We can not memoize impure functions
 1.6
 
 **** 2 Power of functions
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#51
+Java could not pass a function as parameter
+2.1 Functions as Parameters
+2.2 Functions as Return Values
+2.3. Higher-order Functions
+2.4. Composition
+Domain and Codomain
+#+begin_example
+(f (g x)) ; Lisp
+f ∘ g (x)
+This is spoken as f COMPOSED WITH g APPLIED TO x.
+#+end_example
+
+composition and no parameters
+#+begin_src purescript
+                     -- without composition
+  intToStringArray :: Int -> Array String
+  intToStringArray n = toArray (toString n)
+                       -- with composition
+  intToStringArray :: Int -> Array String
+  intToStringArray = toArray <<< toString
+#+end_src
+
+PureScript also provides the >>> operator when we want to compose in the
+opposite direction. This is usually done because the code may read better.
+2.4.1. Point-free Notation
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#62
+
 
 
 *** Intermediate
