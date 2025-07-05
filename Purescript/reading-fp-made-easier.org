@@ -3,7 +3,7 @@
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#3
 
 ** next reading
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#47
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#51
 
 
 ** parts
@@ -11,6 +11,7 @@ pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#47
 *** Beginner
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#35
 
+**** 1 Discipline is Freedom
 1.1 Global State
 #+begin_quote
 Many would argue that Object-Oriented Programming solves these problems.
@@ -35,7 +36,15 @@ unexpected benefits.
 We can not memoize impure functions
 1.4.2 Compiler Optimization
 1.5 Types
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#47
+1.5.1
+1.5.2
+1.5.3
+1.5.4
+1.5.5
+1.6
+
+**** 2 Power of functions
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#51
 
 
 *** Intermediate
