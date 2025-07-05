@@ -49,7 +49,7 @@ Java could not pass a function as parameter
 2.2 Functions as Return Values
 2.3. Higher-order Functions
 2.4. Composition
-Domain and Codomain
+Domain and Codomain -- in programmer speak Input and Output
 #+begin_example
 (f (g x)) ; Lisp
 f ∘ g (x)
@@ -69,8 +69,70 @@ composition and no parameters
 PureScript also provides the >>> operator when we want to compose in the
 opposite direction. This is usually done because the code may read better.
 2.4.1. Point-free Notation
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#62
+#+begin_quote
+Point-free notation (or style) means that a Function is defined WITHOUT explicitly
+mentioning one or more of its Parameters.
+#+end_quote
 
+#+begin_src purescript
+  -- with arguments
+  zeroPad :: Int -> String -> String
+  zeroPad size s = (padLeft '0') size s
+  -- poinfree
+  zeroPad :: Int -> String -> String
+  zeroPad = padLeft '0'
+#+end_src
+
+2.5 Currying
+lambda calculus as purescript
+#+begin_src purescript
+  λx. x + 1
+  -- In PureScript, we’d write this as:
+  \x -> x + 1
+#+end_src
+
+currying transforms lambdas
+#+begin_src purescript
+  \x y -> x + y
+  -- and turns it into a Function like:
+  \x -> \y -> x + y
+#+end_src
+
+similar in lisp
+#+begin_src lisp
+  (funcall  (funcall  (lambda (x) (lambda (y) (list :res x y))) 1) 2)
+#+end_src
+
+All Type Signatures have implied Parentheses that are Right-Associative, i.e. associates to the right:
+Here we have examples with explicit parentheses
+#+begin_src purescript
+  add :: Int -> (Int -> Int)
+  add x y = x + y
+            -- or with 3 arguments
+  add3 :: Int -> (Int -> (Int -> Int))
+  add3 x y z = x + y + z
+#+end_src
+
+how signature changes on adding parameters
+#+begin_src purescript
+  add3 :: Int -> Int -> Int -> Int
+  add3 x y z = x + y + z
+  -- When we call add3 with one Parameter:
+  add3 1 :: Int -> Int -> Int
+  -- x is bound to 1. When we call that resulting Function with one Parameter:
+  (add3 1) 2 :: Int -> Int
+  -- y gets bound to 2. Calling that resulting Function with one Parameter:
+  ((add3 1) 2) 3 :: Int
+#+end_src
+
+2.5.1. Partial Application
+
+
+
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#68
+
+
+2.5.1. Partial Application
 
 
 *** Intermediate
