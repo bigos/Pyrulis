@@ -3,7 +3,7 @@
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#3
 
 ** next reading
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#44
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#47
 
 
 ** parts
@@ -26,7 +26,17 @@ changing the program’s behavior.
 1.2.2 No Loops
 1.3 Purity
 1.4 Optimization
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#44
+1.4.1 Memoization
+#+begin_quote
+Bad designs produce unexpected consequences whereas good designs produce
+unexpected benefits.
+#+end_quote
+
+We can not memoize impure functions
+1.4.2 Compiler Optimization
+1.5 Types
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#47
+
 
 *** Intermediate
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#234
