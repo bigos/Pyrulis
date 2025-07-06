@@ -3,7 +3,7 @@
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#3
 
 ** next reading
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#105
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#116
 
 ** parts
 
@@ -472,12 +472,96 @@ pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#103
 ***** 3.2. Pattern Matching
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#105
 
+***** 3.2.1. Case Expression
+#+begin_src purescript
+  -- case version
+  isNothing :: ∀ a. Maybe a -> Boolean ❷
+  isNothing m = case m of
+    Nothing -> true
+    _ -> False
+  -- more idiomatic
+  isNothing :: ∀ a. Maybe a -> Boolean
+  isNothing Nothing = true
+  isNothing _ = false
+#+end_src
+
+***** 3.2.2. String Patterns
+gotcha in pattern matching from strings to booleans, because string pattern
+matching is sensitive
+
+***** 3.2.3. Array Patterns
+
+***** 3.2.4. List Patterns
+use of Cons operator
+
+***** 3.2.5. Array vs List
+Pattern Matching an Array, requires you to know its exact size. You’re also
+forced to deal with all the parts of the Array all at once:
+
+With Lists, we can write Functions that deal with any length List and when we do,
+we can work with just the head and then recurse to continue with the tail of the
+list
+
+***** 3.2.6. Record Patterns
+The syntax for accessing Records in PureScript uses the same dot-notation that
+you see in many other languages.
+
+But unlike Javascript, you cannot create an accessor at runtime.
+
+see Record Pun
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#110
+
+and descending down the structure in isCalifornia
+
+first time Row Type mentioned
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#111
+
+***** 3.3. Logical Control
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#112
+
+***** 3.3.1. If-Then-Else Expression
+
+***** 3.3.2. Case Expression
+
+***** 3.3.3. Pattern Matching
+Pattern Matching is very similar to using case:
+
+***** 3.3.4. Guards
+Guards are a way to specify *if* logic in a concise and readable manner. The
+syntax is a bit strange when first encountered:
+
+#+begin_src purescript
+  keepPositive :: Int -> Int
+  keepPositive x
+    | x < 0 = 0
+    | otherwise = x
+#+end_src
+
+We can mix guards and case expressions
+#+begin_src purescript
+  keepModernIfYoung :: Int -> ContactMethod -> ContactMethod
+  keepModernIfYoung age preferredContactMethod =
+    case preferredContactMethod of
+      Phone -> Phone
+      Email -> Email
+      Fax | age < 40 -> Email
+          | otherwise -> Fax
+  --
+  noBiggerThan10 :: Maybe Int -> Int
+  noBiggerThan10 x = case x of
+                          Just x | x > 10 -> 10
+                                 | otherwise -> x
+                          Nothing -> 0
+#+end_src
+
+***** 3.4. Lambda Functions
 
 #+begin_src purescript
 #+end_src
 
 
 
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#116
 
 *** Intermediate
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#234
