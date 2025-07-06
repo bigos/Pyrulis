@@ -350,9 +350,76 @@ Any two types with an equal number Inhabitants are Isomorphic.
 ****** New Type
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#87
 
+progressing with fullName function
+starting the signature with String parameters
+#+begin_src purescript
+  fullName :: String -> String -> String -> String
+#+end_src
+we can see the problem with this approach where we will not get type warning
+when we confuse the order of parameters
+
+then trying type aliases
+#+begin_src purescript
+type FirstName = String
+type MiddleName = String
+type LastName = String
+fullName :: FirstName -> MiddleName -> LastName -> String
+#+end_src
+but the type aliases are only helpful when the programmer reads them
+
+so let's try unique types for each parameter
+*New Types*
+#+begin_src purescript
+data FirstName = FirstName String
+data MiddleName = MiddleName String
+data LastName = LastName String
+data FullName = FullName String
+fullName :: FirstName -> MiddleName -> LastName -> FullName
+#+end_src
+
+Now let’s call our Function with our new Types:
+#+begin_src purescript
+-- COMPILER ERROR!
+fullName (LastName "Smith") (MiddleName "Jay") (FirstName "John")
+#+end_src
+We called fullName with the Parameters in the wrong order again. But this time,
+we get a compiler error because even though FirstName and LastName both take
+Strings, they are not the same Type anymore.
+
+This technique just wraps a Type inside of another Type. In our case, we wrapped
+our String in another Type which made it unique. We essentially made a new Type
+for each String in our original Function.
+
+PureScript has a special keyword for this approach called newtype:
+#+begin_src purescript
+newtype FirstName = FirstName String
+newtype MiddleName = MiddleName String
+newtype LastName = LastName String
+newtype FullName = FullName String
+fullName :: FirstName -> MiddleName -> LastName -> FullName
+fullName (FirstName first) (MiddleName middle) (LastName last) =
+FullName (first <> " " <> middle <> " " <> last)
+#+end_src
+data has been replaced with newtype
+
+The newtype keyword tells the compiler that we’re just making a new Type for
+another Type, e.g. FirstName is a new Type for String. That means that the
+compiler can do some optimizations if it knows that it’s just a simple wrapper.
+
+But it can only do these optimizations if certain restrictions are imposed:
+• newtypes must only have 1 Data Constructor
+• The Data Constructor can only take 1 Parameter
+
+There will be more about the newtypes discussed in *typeclasses*
+
+***** 3.1.4. Common Library Types
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#89
 
 
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#79
+#+begin_src purescript
+#+end_src
+
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#89
 
 
 
