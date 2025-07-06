@@ -216,7 +216,7 @@ the following facilities for defining your own Types:
 In PureScript, Data Types and Data Constructors always start with an uppercase
 letter, whereas variables start with a lowercase letter or an underscore:
 
-***** Type Alias
+****** Type Alias
 like Elm type alias
 #+begin_src purescript
     type Id = String
@@ -229,7 +229,7 @@ like Elm type alias
     handler' :: Message -> Result
 #+end_src
 
-***** Data Type
+****** Data Type
 #+begin_src purescript
 data MyType = MyType
 #+end_src
@@ -238,13 +238,14 @@ Here we define a type and its constructor
 The namespace for Data Types and Data Constructors are separate so there is no
 name collision here.
 
-***** Algebraic Data Types
+****** Algebraic Data Types
 If the calculation involves a multiplication then it’s a Product Type. If it
 involves addition then it’s a CoProduct Type or Sum Type.
 
-In Math, the prefix *co* is added to mean the opposite (Domain, Codomain, Sine, Cosine, Tangent, Cotangent, etc.).
+In Math, the prefix *co* is added to mean the opposite (Domain, Codomain, Sine,
+Cosine, Tangent, Cotangent, etc.).
 
-****** Product Type
+******* Product Type
 Product types are data types, defined through more than just one constructor as
 in tuples or records
 
@@ -258,15 +259,15 @@ Here we multiply 2 booleans times 4 Season values, getting 8 combinations.
 
 also see [[*Product Types - with parameters][Product Types - with parameters]]
 
-****** Coproduct or Sum Type
+******* Coproduct or Sum Type
 #+begin_src purescript
 data Bool = True | False
 #+end_src
 
-****** type variables
+******* type variables
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#80
 
-******* Polumorphic vs Monomorphic
+******* Polymorphic vs Monomorphic
 monomorphic takes no type parameters, polymorphic is a declaration with type
 parameters
 
@@ -346,7 +347,7 @@ since it also has two inhabitants, true and false.
 Any two types with an equal number Inhabitants are Isomorphic.
 #+end_quote
 
-***** New Type
+****** New Type
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#87
 
 
