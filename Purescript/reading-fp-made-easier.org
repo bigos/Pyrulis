@@ -239,12 +239,116 @@ The namespace for Data Types and Data Constructors are separate so there is no
 name collision here.
 
 ***** Algebraic Data Types
+If the calculation involves a multiplication then it’s a Product Type. If it
+involves addition then it’s a CoProduct Type or Sum Type.
+
+In Math, the prefix *co* is added to mean the opposite (Domain, Codomain, Sine, Cosine, Tangent, Cotangent, etc.).
 
 ****** Product Type
+Product types are data types, defined through more than just one constructor as
+in tuples or records
+
+my guess
+#+begin_src purescript
+  data Season = Spring | Summer | Autumn | Winter
+  data Boolish = (Bool, Season)
+#+end_src
+
+Here we multiply 2 booleans times 4 Season values, getting 8 combinations.
+
+also see [[*Product Types - with parameters][Product Types - with parameters]]
 
 ****** Coproduct or Sum Type
+#+begin_src purescript
+data Bool = True | False
+#+end_src
+
+****** type variables
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#80
+
+******* Polumorphic vs Monomorphic
+monomorphic takes no type parameters, polymorphic is a declaration with type
+parameters
+
+******** Product Types - with parameters
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#81
+#+begin_src purescript
+data Triplet a b c = Triplet a b c
+#+end_src
+
+Here we have a 3 Polymorphic Type Parameters, a, b and c.
+The Data Constructor, Triplet has the implied Type:
+#+begin_src purescript
+Triplet :: a -> b -> c -> Triplet
+#+end_src
+
+Let’s create a Triplet:
+#+begin_src purescript
+type StringStats = Triplet String Int Int
+getStats :: String -> StringStats
+getStats s = Triplet s (length s) (vowelCount s)
+#+end_src
+
+StringStats simultaneously contains 1 String and 2 Integers. That’s what makes it a Product Type. It contains a String AND an Int AND another Int.
+
+In sets, this corresponds to Intersection. The intersection of Set A and Set B
+contains elements that are contained in A AND contained in B.
+
+******* Isomorphic
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#83
+
+Comparing our Triplet to StringStats:
+#+begin_src purescript
+data Triplet a b c = Triplet a b c
+data StringStats = StringStats
+{ string :: String
+, length :: Int
+, vowelCount :: Int
+}
+#+end_src
+
+StringStats and Triplet both contain the same information. The big difference is
+the fact that Triplet is more flexible since it can take any types a, b and c,
+whereas StringStats takes very specific types String, Int and Int: They’re
+almost the same, but let’s work to make them closer. First, let’s make a
+specialized version of Triplet:
+#+begin_src purescript
+data StringTriplet = StringTriplet String Int Int
+data StringStats = StringStats
+{ string :: String
+, length :: Int
+, vowelCount :: Int
+}
+#+end_src
+Now StringTriplet and StringStats have exactly the same types.
+
+#+begin_quote
+Two Types, T1 and T2, are Isomorphic (Iso means equal and morph means shape) if a
+Function can be written from T1 to T2 and from T2 to T1 without any loss of information.
+#+end_quote
+
+******** Inhabitants
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#84
+
+The NO information loss part of Isomorphisms is very important. At first glance,
+you might think String and Int are Isomorphic since any Int can be converted
+into a String. But not any String can be converted into an Int.
+
+Types are similar to Sets, except where Sets have Elements, Types have
+Inhabitants. And there are far more Inhabitants of String than Int even though
+they both have an Infinite number of Inhabitants.
+
+Let’s imagine a Type that only contains the numbers 42 and 79 and let’s call it
+TwoNum. Because this has two inhabitants, it makes it Isomorphic to Boolean
+since it also has two inhabitants, true and false.
+
+#+begin_quote
+Any two types with an equal number Inhabitants are Isomorphic.
+#+end_quote
 
 ***** New Type
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#87
+
 
 
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#79
