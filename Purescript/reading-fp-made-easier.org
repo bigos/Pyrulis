@@ -3,7 +3,7 @@
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#3
 
 ** next reading
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#71
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#105
 
 ** parts
 
@@ -415,11 +415,67 @@ There will be more about the newtypes discussed in *typeclasses*
 ***** 3.1.4. Common Library Types
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#89
 
+****** Void
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#89
+In Type Theory, there’s the concept of Void Type, which is a Type with Zero
+Inhabitants. In PureScript (and Haskell) this Type is called Void.
+
+#+begin_src purescript
+  data Void = Void Void
+#+end_src
+We create data type Void using type constructor Void with Void parameter
+
+****** Unit
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#91
+
+In Set Theory, there’s the concept of a Unit Set that has exactly 1 element.
+
+****** Maybe
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#91
+
+****** Either
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#96
+The Either Type is another failure Type, like Maybe, except it has the added
+benefit of having a reason for the failure
+
+#+begin_src purescript
+case result of
+Left errorCode -> "The error code is: " <> show errorCode
+Right count -> "The number of rows returned is: " <> show count
+#+end_src
+
+****** Maybe vs Either
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#98
+
+#+begin_src purescript
+data Maybe a = Just a | Nothing
+data Either a b = Left a | Right b
+#+end_src
+
+Remember that Maybe is a Sum Type, so we need to add the inhabitants of all of
+the Data Constructors. The inhabitants of Maybe is a for Just a and 1 for
+Nothing, therefore the number of inhabitants is a + 1. And for Either, which is
+also a Sum Type, we have a for Left and b for Right or a + b inhabitants.
+
+****** Tuple
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#101
+
+****** Either vs Tuple
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#102
+
+Special case where Tuple and Either are Isomorphic and have equal inhabitants,
+but is useless in practice
+
+****** List
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#103
+
+***** 3.2. Pattern Matching
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#105
+
 
 #+begin_src purescript
 #+end_src
 
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#89
 
 
 
