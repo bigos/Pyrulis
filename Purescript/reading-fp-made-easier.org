@@ -3,7 +3,7 @@
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#3
 
 ** next reading
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#133
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#144
 
 ** parts
 
@@ -729,9 +729,55 @@ you still read through this to make sure you’re getting all of the same featur
 and capabilities.
 
 ***** 4.1. Compiler and Tools
+still the same
+***** 4.1.1. Installing Node
+***** 4.1.2. Create Project
+https://github.com/purescript/documentation/blob/master/guides/Getting-Started.md
 
+specific version
+#+begin_example
+npm install --save-dev spago@0.20.0 purescript@0.14.1
+#+end_example
+***** 4.1.3. Initialize PureScript Project
+The final step is to initialize this project for building a PureScript program using spago:
+***** 4.1.4. A Second Project
+While this seems like a lot to do to get up and running, most of it was first-time configuration.
+To start a second project involves:
+#+begin_example
+# make project directory
+mkdir /dev/purescript/second-project
+# enter project
+cd /dev/purescript/second-project
+# initialize for using `npm` and `npx`
+npm init -y
+# add compiler and build tools to the project
+npm install --save-dev spago@0.20.0 purescript@0.14.1
+# initialize our `git` repo (Optional)
+git init
+# create a skeleton PureScript project
+npx spago init
+# build and run the skeleton project
+npx spago run
+#+end_example
+***** 4.2. Editor and Plugins
+***** 4.2.1. Install Extensions
+***** 4.2.2. Configure Extensions
+***** 4.2.3. Configure Editor
+**** Chapter 5. Basic Coding in PureScript
+Reading a book can lull us into the false sense that we understand what we’ve read. This happens to me,
+especially in programming. We understand it as it’s being explained, but we haven’t fully understood it
+until we’ve utilized it.
 
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#133
+So that’s what the exercises are for. And if you’re like me and tend to skip exercises in books, please do not.
+There’s more to these exercises than meets the eye.
+
+Many concepts will get introduced in the exercises. Many commonly used library Functions will also be
+introduced during this process. You will also learn how to program, and more important, think in a
+Functional way using PureScript.
+
+***** 5.1. Prelude
+
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#144
 
 
 
