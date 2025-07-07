@@ -3,7 +3,7 @@
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#3
 
 ** next reading
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#116
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#133
 
 ** parts
 
@@ -555,13 +555,195 @@ We can mix guards and case expressions
 #+end_src
 
 ***** 3.4. Lambda Functions
+We can name lambdas like in Scheme
+#+begin_src purescript
+f :: Int -> Int
+f = \x -> x + 1
+#+end_src
+which is the same as normal function definition
+
+We can freely move Parameters across the equals sign as long as we move the rightmost Parameter first
+and maintain the correct order:
+#+begin_src purescript
+f1 x y z = x + y + z
+f2 x y   = \z -> x + y + z
+f3 x     = \y z -> x + y + z
+f4       = \x y z -> x + y + z
+#+end_src
+
+***** 3.5. Wildcards
+So far, we’ve seen _ used as a "don’t-care" variable.
+There are other times when it’s used as a Wildcard.
+
+***** 3.5.1. Case Expression
+Two equivalent functions, using point-free to avoid naming a variable
+#+begin_src purescript
+keepModernIfYoung' age = case _ of
+keepModernIfYoung' age = \someNameIHaveToThinkOf ->
+case someNameIHaveToThinkOf of
+#+end_src
+
+***** 3.5.2. Operator Sections
+
+#+begin_src purescript
+filter (\x -> x < 10) [1,2,3,10,20,30] -- [1,2,3]
+filter (_ < 10) [1,2,3,10,20,30] -- [1,2,3]
+filter (10 <= _) [1,2,3,10,20,30] -- [10,20,30]
+#+end_src
+
+The following are also valid Operator Sections:
+#+begin_src purescript
+(_ <> "suffix") -- append the string "suffix"
+(_ / 10)        -- div by 10
+(10 / _)        -- div into 10
+(_ == _)        -- equal check
+#+end_src
+
+***** 3.5.3. Records
+Wildcards can be using in Records:
+#+begin_src purescript
+  \name age -> {name: name, age: age}
+  -- wildcard equivalent of previous line
+  { name: _, age: _ }
+#+end_src
+
+
+***** 3.6. Bindings
+We have 2 ways to bind Values to variables. (Don’t forget, Functions are also Values in Functional
+Programming.)
+
+***** 3.6.1. Where
+The keyword where allows us to define things after the fact in a Function definition:
+
+#+begin_src purescript
+  multSum :: Int -> Int -> Tuple Int Int
+  multSum x y = Tuple mult sum
+    where
+      mult = x * y
+      sum = x + y
+#+end_src
 
 #+begin_src purescript
 #+end_src
 
+***** 3.7. Binary Operators
+We’ve seen Binary Operators in action but we failed to define them.
+#+begin_quote
+A Binary Operator is an Operator represented by a Symbol that is a Function of 2
+Parameters. The Value on the lefthand side of the Operator is the first Parameter and the
+Value on the right is the second.
+#+end_quote
+Let’s look at an example:
+#+begin_src purescript
+  data List a = Nil | Cons a (List a)
+  append :: ∀ a. List a -> List a -> List a
+  append xs Nil = xs
+  append Nil ys = ys
+  append (Cons x xs) ys = Cons x (append xs ys)
+  infixr 5 append as <>
+  -- declare append as <> which is right associated operator of priorit 5
+#+end_src
+
+***** 3.7.1. Associativity
+There are 3 types of Associativity for Binary Operators:
+• infixr = Right-Associative
+• infixl = Left-Associative
+• infix = None
+
+***** 3.7.2. Precedence
+
+***** 3.7.3. Fixity
+infix means Infixed Operator, i.e. it comes between its two values:
+#+begin_src purescript
+l1 <> l2
+-- Compare that with the Prefixed equivalent:
+append l1 l2
+#+end_src
+
+We can use an Infixed Operator in Prefixed Position and we can use a Function in Infixed Position:
+#+begin_src purescript
+(<>) l1 l2
+l1 `append` l2
+#+end_src
+
+***** 3.8. Comments
+We’ve seen inline comments up to this point, e.g.:
+
+Block comments can be accomplished as follows:
+#+begin_src purescript
+{-
+This Function will add two numbers
+and return the answer, which is
+the addition of those two numbers.
+-}
+add :: Int -> Int -> Int
+add x y = x + y -- add 2 numbers
+#+end_src
+
+***** 3.9. Inferring Functionality from Type Signatures
+All Functions have Type Signatures whether defined explicitly by the developer or determined implicitly by
+the compiler based on how the developer uses the Parameters.
+Best practices deems that at least all top-level Functions in a module have explicit Type Signatures.
+Not only does this help by improving the readability of the codebase, but it helps the compiler to produce
+better error messages. But Type Signatures aren’t just helpful to the compiler. We can imply a lot from just a
+Type Signature.
+Take the following Type Signature:
+#+begin_src purescript
+f :: Int -> Int -> Int
+#+end_src
+Take a guess at what kind of Function f might be.
+
+But what about more abstract Type Signatures such as:
+#+begin_src purescript
+f :: ∀ a. a -> a
+#+end_src
+
+#+begin_quote
+A Partial Function is one where all of the cases are not handled. A Total Function is one
+where all possible calling scenarios have been accounted for. PureScript discourages
+Partial Functions.
+#+end_quote
+
+tips for making a partial function total
+
+***** 3.10. Summary
+We’ve learned a lot in this Chapter about some of the basic parts of PureScript from Types to common
+language constructs. There will be more to come. And while theory is important, getting some hands on
+experience can help cement that theoretical understanding.
+
+You will probably find yourself returning to this Chapter as you work out the coming exercises. Now it’s
+time to get our hands dirty.
+
+**** Chapter 4. Installing PureScript
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#133
+
+Of all the Chapters of this book, this one will become obsolete the fastest.
+That’s because in the software world things change constantly.
+
+The tools I’m going to suggest are the best ones that I know of at the time of
+this writing and I expect that they will be around for at least the next 5 years.
+
+If you’re reading this around 2025 or after, you may want to check to see if
+there are newer/better tools than I’m suggesting here. Even then, I’d suggest
+you still read through this to make sure you’re getting all of the same features
+and capabilities.
+
+***** 4.1. Compiler and Tools
 
 
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#116
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#133
+
+
+
+
+#+begin_src purescript
+
+#+end_src
+
+#+begin_src purescript
+
+#+end_src
+
 
 *** Intermediate
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#234
