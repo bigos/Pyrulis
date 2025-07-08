@@ -779,16 +779,33 @@ Many concepts will get introduced in the exercises. Many commonly used library F
 introduced during this process. You will also learn how to program, and more important, think in a
 Functional way using PureScript.
 
-***** 5.1. Prelude
-
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#144
 
+***** 5.1. Prelude
 
+selective import and hiding
+#+begin_src purescript
+import Prelude hiding (identity)
+import AnotherModule (identity, doSomething) -- selective import of two functions
+id = identity
+#+end_src
 
+#+begin_quote
+It is considered good practice to explicitly specify all Functions that are
+imported from modules. In small programs, you can get away with not doing this,
+but as your codebase grows, it becomes increasingly difficult to determine where
+Functions have been imported from. The only exception to this rule is Prelude.
+#+end_quote
 
 #+begin_src purescript
-
+import Prelude
+import AnotherModule (doSomething)
+import AnotherModule as AM
+id = AM.identity
 #+end_src
+
+***** 5.2. Exercise Program
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#146
 
 #+begin_src purescript
 
