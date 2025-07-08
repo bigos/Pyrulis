@@ -807,6 +807,23 @@ id = AM.identity
 ***** 5.2. Exercise Program
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#146
 
+Main and Ch5
+file:~/Programming/PureScript/exercise/src/
+
+#+begin_example
+npx spago run
+#+end_example
+
+***** 5.3. Pursuit
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#146
+
+Website for finding function definitions
+https://pursuit.purescript.org/
+
+***** 5.4. Writing flip
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#148
+
+
 #+begin_src purescript
 
 #+end_src
