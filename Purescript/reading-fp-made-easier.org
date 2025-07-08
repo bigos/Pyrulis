@@ -809,7 +809,7 @@ pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#146
 
 Main and Ch5
 https://github.com/bigos/purescript_exercises
-file:~/Programming/PureScript/purescript_exercises/src/
+file:~/Programming/Purescript/purescript_exercises/Readme.org::1
 
 #+begin_example
 npx spago run
