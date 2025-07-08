@@ -11,6 +11,7 @@ pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#144
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#35
 
 **** 1 Discipline is Freedom
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#36
 
 ***** 1.1 Global State
 #+begin_quote
@@ -51,6 +52,8 @@ We can not memoize impure functions
 1.6
 
 **** 2 Power of functions
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#51
+
 Java could not pass a function as parameter
 
 ***** 2.1 Functions as Parameters
@@ -159,6 +162,7 @@ the leftmost ones and the ones that change the most to be rightmost.
 #+end_quote
 
 **** 3 The Basics of PureScript
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#72
 
 ***** 3.1 Types
 Most of PureScript’s code is open source and can easily be perused via the
