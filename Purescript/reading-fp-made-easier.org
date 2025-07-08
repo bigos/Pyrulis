@@ -810,6 +810,7 @@ pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#146
 Main and Ch5
 https://github.com/bigos/purescript_exercises
 file:~/Programming/Purescript/purescript_exercises/Readme.org::1
+file:~/Programming/Purescript/purescript_exercises/
 
 #+begin_example
 npx spago run
