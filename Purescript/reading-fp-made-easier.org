@@ -825,11 +825,18 @@ https://pursuit.purescript.org/
 ***** 5.4. Writing flip
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#148
 
+file:~/Programming/PureScript/purescript_exercises/src/Ch5.purs::1
 
 #+begin_src purescript
 
 #+end_src
 
+***** 5.4.1. Hint for flip
+***** 5.4.2. Code for flip
+***** 5.4.3. Alternative Coding for flip
+***** 5.5. Writing const
+
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#151
 
 *** Intermediate
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#234
