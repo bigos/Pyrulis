@@ -4,3 +4,6 @@ https://github.com/purescript-halogen/purescript-halogen
 https://try.purescript.org/
 
 https://purescript-halogen.github.io/purescript-halogen/index.html
+
+halogen counter
+https://purescript-halogen.github.io/purescript-halogen/guide/02-Introducing-Components.html
