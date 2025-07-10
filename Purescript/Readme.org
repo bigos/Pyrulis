@@ -35,6 +35,3 @@ purescript-mode                20230309.1301  available    melpa    A PureScript
 
 ** reading
 [[file:reading-fp-made-easier.org::*Reading fp-made-easier][Reading fp-made-easier]]
-
-** reference site
-https://jordanmartinez.github.io/purescript-jordans-reference-site/
