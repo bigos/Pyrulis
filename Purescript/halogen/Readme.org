@@ -18,3 +18,8 @@ https://pursuit.purescript.org/packages/purescript-halogen/2.0.0/docs/Halogen
 https://try.purescript.org/
 
 https://www.reddit.com/r/haskell/comments/afx6xm/real_world_halogen_released_a_purescript/
+
+For Halogen production build we need
+#+begin_example
+npm install --save-exact --save-dev esbuild
+#+end_example
