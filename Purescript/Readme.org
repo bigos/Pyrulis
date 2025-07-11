@@ -35,3 +35,13 @@ purescript-mode                20230309.1301  available    melpa    A PureScript
 
 ** reading
 [[file:reading-fp-made-easier.org::*Reading fp-made-easier][Reading fp-made-easier]]
+
+** blogs
+
+*** how I write purescript apps
+https://dicioccio.fr/how-i-write-purescript-apps.html
+https://dicioccio.fr/how-i-write-purescript-apps-part-ii.html
+https://dicioccio.fr/how-i-write-purescript-apps-part-iii.html
+
+** resources
+https://purescript-resources.readthedocs.io/en/latest/index.html
