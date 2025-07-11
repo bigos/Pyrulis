@@ -2,19 +2,19 @@
 
 Folder for test Halogen projects
 
+Repo
 https://github.com/purescript-halogen
-
-https://pursuit.purescript.org/packages/purescript-halogen/2.0.0/docs/Halogen
-
-https://www.reddit.com/r/haskell/comments/afx6xm/real_world_halogen_released_a_purescript/
-
-https://purescript-halogen.github.io/purescript-halogen/guide/
+https://github.com/purescript-halogen/purescript-halogen
 
 template for starting projects
 https://github.com/purescript-halogen/purescript-halogen-template
 
-https://github.com/purescript-halogen/purescript-halogen
+Guides
+https://purescript-halogen.github.io/purescript-halogen/index.html
+
+Pursuit
+https://pursuit.purescript.org/packages/purescript-halogen/2.0.0/docs/Halogen
 
 https://try.purescript.org/
 
-https://purescript-halogen.github.io/purescript-halogen/index.html
+https://www.reddit.com/r/haskell/comments/afx6xm/real_world_halogen_released_a_purescript/
