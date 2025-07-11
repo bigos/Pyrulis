@@ -1,4 +1,4 @@
-module App.Button where
+module App.Counter where
 
 import Prelude
 import Halogen as H
