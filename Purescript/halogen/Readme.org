@@ -12,3 +12,9 @@ https://purescript-halogen.github.io/purescript-halogen/guide/
 
 template for starting projects
 https://github.com/purescript-halogen/purescript-halogen-template
+
+https://github.com/purescript-halogen/purescript-halogen
+
+https://try.purescript.org/
+
+https://purescript-halogen.github.io/purescript-halogen/index.html

@@ -1,9 +1,9 @@
 * Halogen
-https://github.com/purescript-halogen/purescript-halogen
+Folder for Pyrulis Halogen projects
+file:~/Programming/Pyrulis/Purescript/halogen/
 
-https://try.purescript.org/
-
-https://purescript-halogen.github.io/purescript-halogen/index.html
+Halogen Readme
+file:~/Programming/Pyrulis/Purescript/halogen/Readme.org::1
 
 halogen counter
 https://purescript-halogen.github.io/purescript-halogen/guide/02-Introducing-Components.html
