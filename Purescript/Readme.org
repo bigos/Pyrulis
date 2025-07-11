@@ -45,3 +45,10 @@ https://dicioccio.fr/how-i-write-purescript-apps-part-iii.html
 
 ** resources
 https://purescript-resources.readthedocs.io/en/latest/index.html
+
+https://jordanmartinez.github.io/purescript-jordans-reference-site/content/01-Getting-Started/01-Why-Learn-PureScript.html
+
+** formatters
+https://github.com/natefaubion/purescript-tidy
+
+https://jordanmartinez.github.io/purescript-jordans-reference-site/content/03-Build-Tools/05-Formatters.html
