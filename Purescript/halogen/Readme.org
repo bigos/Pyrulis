@@ -1,0 +1,14 @@
+* Readme
+
+Folder for test Halogen projects
+
+https://github.com/purescript-halogen
+
+https://pursuit.purescript.org/packages/purescript-halogen/2.0.0/docs/Halogen
+
+https://www.reddit.com/r/haskell/comments/afx6xm/real_world_halogen_released_a_purescript/
+
+https://purescript-halogen.github.io/purescript-halogen/guide/
+
+template for starting projects
+https://github.com/purescript-halogen/purescript-halogen-template
