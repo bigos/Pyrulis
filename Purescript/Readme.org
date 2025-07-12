@@ -28,9 +28,9 @@ https://github.com/purescript-emacs/emacs-psci
 *** Relevant packages on MELPA
 
 #+begin_example
-psc-ide                        20240113.1224  available    melpa    Minor mode for PureScript's IDE server.
-psci                           20231219.52    available    melpa    Major mode for purescript repl psci
-purescript-mode                20230309.1301  available    melpa    A PureScript editing mode
+psc-ide
+psci
+purescript-mode
 #+end_example
 
 ** reading
@@ -47,6 +47,8 @@ https://dicioccio.fr/how-i-write-purescript-apps-part-iii.html
 https://purescript-resources.readthedocs.io/en/latest/index.html
 
 https://jordanmartinez.github.io/purescript-jordans-reference-site/content/01-Getting-Started/01-Why-Learn-PureScript.html
+
+https://www.reddit.com/r/purescript/comments/1k90525/purescript_tutorials_focusing_on_ui/
 
 ** formatters
 https://github.com/natefaubion/purescript-tidy
