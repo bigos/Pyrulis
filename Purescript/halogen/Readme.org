@@ -17,6 +17,8 @@ https://purescript-simple-json.readthedocs.io/en/latest/#
 https://github.com/dariooddenino/purescript-simple-ajax
 
 https://github.com/thomashoneyman/purescript-halogen-realworld
+https://github.com/purescript-contrib/purescript-aff
+https://codingstruggles.com/purescript/post-request-with-purescript-affjax-and-argonaut.html
 
 Pursuit
 https://pursuit.purescript.org/packages/purescript-halogen/2.0.0/docs/Halogen
