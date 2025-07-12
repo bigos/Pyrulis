@@ -2,8 +2,8 @@ module App.Counter where
 
 import Prelude
 
-import Affjax.Web as AX
 import Affjax.ResponseFormat as AXRF
+import Affjax.Web as AX
 import Data.Either (hush)
 import Data.Maybe (Maybe(..))
 import Effect (Effect)
