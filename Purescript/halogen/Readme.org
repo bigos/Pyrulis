@@ -11,6 +11,8 @@ https://github.com/purescript-halogen/purescript-halogen-template
 
 Guides
 https://purescript-halogen.github.io/purescript-halogen/index.html
+HTTP requests
+https://purescript-halogen.github.io/purescript-halogen/guide/03-Performing-Effects.html#an-aff-example-http-requests
 
 Pursuit
 https://pursuit.purescript.org/packages/purescript-halogen/2.0.0/docs/Halogen
