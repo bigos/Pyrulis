@@ -21,7 +21,7 @@ outer_style =
   ( "display: inline-flex;"
       <> "margin: 1em;"
       <> "padding:1em;"
-      <> "background: yellow;"
+      <> "background: darkblue;"
   )
 
 component :: forall q i o m. H.Component q i o m

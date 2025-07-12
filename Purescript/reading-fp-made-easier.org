@@ -1,4 +1,24 @@
 * Reading fp-made-easier
+
+** HTTP search for GET and POST
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#16
+Ajax
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#16
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#1077
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#1084
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#1089
+
+GET
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#1097
+POST
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#1107
+
+HTTP client
+https://book.purescript.org/chapter9.html#a-http-client
+
+Affjax example
+https://pursuit.purescript.org/packages/purescript-affjax/12.0.0
+
 ** Index
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#3
 
