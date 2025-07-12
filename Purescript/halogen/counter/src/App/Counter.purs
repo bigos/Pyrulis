@@ -77,7 +77,7 @@ render state =
                   [ HH.h2_
                       [ HH.text "Response:"
                       ]
-                  , HH.pre_ [ HH.p_ [ HH.text res ] ]
+                  , HH.p_ [ HH.text res ]
                   ]
             )
         ]
