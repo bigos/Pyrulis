@@ -2,10 +2,20 @@ module App.Counter where
 
 import Prelude
 
+import Affjax.Web as AX
+import Affjax.ResponseFormat as AXRF
+import Data.Either (hush)
+import Data.Maybe (Maybe(..))
+import Effect (Effect)
+import Effect.Aff.Class (class MonadAff)
+-- original imports
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties as HP
+-- original imports
+import Web.Event.Event (Event)
+import Web.Event.Event as Event
 
 type State = { count :: Int }
 
