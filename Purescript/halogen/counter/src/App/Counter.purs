@@ -8,12 +8,10 @@ import Data.Either (hush)
 import Data.Maybe (Maybe(..))
 import Effect (Effect)
 import Effect.Aff.Class (class MonadAff)
--- original imports
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties as HP
--- original imports
 import Web.Event.Event (Event)
 import Web.Event.Event as Event
 
@@ -85,7 +83,8 @@ render state =
         ]
     ]
 
---handleAction :: forall cs o m. Action → H.HalogenM State Action cs o m Unit
+-- I have no idea what correct type signature would be
+-- handleAction :: forall cs o m. Action → H.HalogenM State Action cs o m Unit
 handleAction = case _ of
   Increment -> H.modify_ \st -> st { count = st.count + 1 }
   Decrement -> H.modify_ \st -> st { count = st.count - 1 }
