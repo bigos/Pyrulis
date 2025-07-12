@@ -20,6 +20,17 @@ https://github.com/thomashoneyman/purescript-halogen-realworld
 https://github.com/purescript-contrib/purescript-aff
 https://codingstruggles.com/purescript/post-request-with-purescript-affjax-and-argonaut.html
 
+HTTP client
+https://book.purescript.org/chapter9.html#a-http-client
+
+Affjax example
+https://pursuit.purescript.org/packages/purescript-affjax/12.0.0
+
+https://purescript-halogen.github.io/purescript-halogen/guide/03-Performing-Effects.html#an-aff-example-http-requests
+
+get example
+https://github.com/purescript-halogen/purescript-halogen/blob/master/docs/guide/03-Performing-Effects.md#an-aff-example-http-requests
+
 Pursuit
 https://pursuit.purescript.org/packages/purescript-halogen/2.0.0/docs/Halogen
 
