@@ -19,6 +19,11 @@ https://book.purescript.org/chapter9.html#a-http-client
 Affjax example
 https://pursuit.purescript.org/packages/purescript-affjax/12.0.0
 
+https://purescript-halogen.github.io/purescript-halogen/guide/03-Performing-Effects.html#an-aff-example-http-requests
+
+get example
+https://github.com/purescript-halogen/purescript-halogen/blob/master/docs/guide/03-Performing-Effects.md#an-aff-example-http-requests
+
 ** Index
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#3
 
