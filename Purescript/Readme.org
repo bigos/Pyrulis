@@ -44,7 +44,12 @@ https://dicioccio.fr/how-i-write-purescript-apps-part-ii.html
 https://dicioccio.fr/how-i-write-purescript-apps-part-iii.html
 
 ** resources
+cook book
+https://github.com/JordanMartinez/purescript-cookbook/blob/master/README.md#recipes
+
 https://purescript-resources.readthedocs.io/en/latest/index.html
+
+https://github.com/passy/awesome-purescript
 
 https://jordanmartinez.github.io/purescript-jordans-reference-site/content/01-Getting-Started/01-Why-Learn-PureScript.html
 
