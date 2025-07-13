@@ -826,6 +826,8 @@ https://github.com/bigos/purescript_exercises
 
 file:~/Programming/PureScript/purescript_exercises/
 
+file:~/Programming/PureScript/purescript_exercises/src/Ch5.purs::1
+
 #+begin_example
 npx spago run
 #+end_example
@@ -847,9 +849,37 @@ file:~/Programming/PureScript/purescript_exercises/src/Ch5.purs::1
 ***** 5.5. Writing const
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#151
 
+[[file:~/Programming/PureScript/purescript_exercises/src/Ch5.purs::const x _ = x]]
+
 ***** 5.6. The Apply Operator ($)
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#153
 
+***** 5.7.1. Hint for ($)
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#155
+
+***** 5.7.2. Code for ($)
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#155
+
+***** 5.8. Writing the Apply Flipped Operator (#)
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#156
+
+***** 5.8.1. Code for applyFlipped and (#)
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#157
+
+***** 5.9. Preparing to Write Data.List Functions
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#161
+
+The remainder of the Functions we’ll write in this chapter will be from Data.List.
+We’ll need to selectively import from Data.List so we don’t have to write everything.
+
+***** 5.10. Why Data.List and not Data.Array
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#164
+
+The List type is written totally in PureScript, whereas Array leverages the low-
+level Javascript Functions for Arrays.
+
+***** 5.11. Writing singleton
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#164
 
 
 *** Intermediate
