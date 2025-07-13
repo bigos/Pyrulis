@@ -17,7 +17,7 @@ pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#1107
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#3
 
 ** next reading
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#243
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#247
 ** parts
 
 *** Beginner
@@ -942,6 +942,83 @@ various examples
 
 ***** 6.3. Constraints
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#243
+
+single constraint
+HasAddress is a Typeclass constraint for a
+#+begin_src purescript
+  getDirections :: ∀ a. HasAddress a => a -> Directions
+  getDirections hasAddr = let address = getAddress hasAddr in
+    -- the rest
+#+end_src
+
+multiple constraints
+Type a must be and instance of *BOTH* Show and HasAddress
+#+begin_src purescript
+  -- zzzzzzzzzzzzzzzzzz --constrainsts----------- zzzzzzzzzzzzzz
+  getDirections :: ∀ a. Show a => HasAddress a => a -> Directions
+  getDirections hasAddr = let address = getAddress hasAddr in
+    -- the rest
+#+end_src
+
+alternative syntax for multiple constraints preferred for one line signatures
+#+begin_src purescript
+  -- zzzzzzzzzzzzzzzzzz --constrainsts----------- zzzzzzzzzzzzzz
+  getDirections :: ∀ a. (Show a, HasAddress a) => a -> Directions
+  getDirections hasAddr = let address = getAddress hasAddr in
+    -- the rest
+#+end_src
+
+typeclass, data, instance, implementation
+#+begin_src purescript
+  class HasAddress a where
+        getAddress :: a -> Address
+
+  data Person = Person
+   { name :: String
+   , age :: Int
+   , address :: Address
+   }
+
+  -- instance for Person type
+  instance hasAddressPerson :: HasAddress Person where
+    getAddress (Person p) = p.address
+
+  getDirections :: ∀ a. HasAddress a => a -> Directions
+  getDirections hasAddr = let address = getAddress hasAddr in
+  -- ...
+#+end_src
+
+With Typeclasses, we have an easy way to treat disperate Types in a similar way
+without having to create a Sum Type. There’s also no need for case expressions.
+The compiler makes the determination of which Type we’re referring to
+at COMPILE-TIME.
+
+***** 6.4. Typeclass Requirement
+Every Typeclass function is called a Method:
+
+#+begin_src purescript
+  instance hasAddressPerson :: HasAddress Person where
+    getAddress (Person p) = p.address
+#+end_src
+
+getAddress is the one and only Method of Typeclass HasAddress.
+
+There is a requirement for Typeclasses that may not be obvious at first blush.
+
+#+begin_quote
+Every Typeclass Method must have its Polymorphic Parameter in its Type Signature.
+#+end_quote
+
+The reason for this is because calling getAddress isn’t enough information to
+determine which getAddress to call since many Types can be instances of
+HasAddress. The compiler needs a Type to determine which getAddress to call.
+
+***** 6.5. Built-in Typeclasses
+In PureScript, there are many built-in Typeclasses. Most of the ones we’re going
+to look at have equivalent, if not identical, versions in Haskell.
+
+***** 6.5.1. Eq Typeclass
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#247
 
 *** Advanced
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#543
