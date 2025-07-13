@@ -89,7 +89,6 @@ handleAction = case _ of
   Increment -> H.modify_ \st -> st { count = st.count + 1 }
   Decrement -> H.modify_ \st -> st { count = st.count - 1 }
   MakeRequest -> do
-    H.modify_ _ { loading = true }
-    response <- H.liftAff $ AX.get AXRF.string
-      ("http://localhost:3000/api/get-files" <> "?" <> "pwd=/home/jacek/&show_hidden=true")
-    H.modify_ _ { loading = false, result = map _.body (hush response) }
+    H.modify_ \st -> st { loading = true }
+    response <- H.liftAff $ AX.get AXRF.string ("http://localhost:3000/api/get-files" <> "?" <> "pwd=/home/jacek/&show_hidden=true")
+    H.modify_ \st -> st { loading = false, result = map _.body (hush response) }
