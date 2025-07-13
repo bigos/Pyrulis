@@ -9,6 +9,8 @@ pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#3
 ** website
 https://www.purescript.org/
 
+https://jordanmartinez.github.io/purescript-jordans-reference-site/
+
 https://github.com/purescript/documentation#learning
 
 https://github.com/purescript/documentation/blob/master/guides/Getting-Started.md
@@ -54,6 +56,8 @@ https://github.com/JordanMartinez/purescript-cookbook/blob/master/README.md#reci
 https://purescript-resources.readthedocs.io/en/latest/index.html
 
 https://github.com/passy/awesome-purescript
+
+https://jordanmartinez.github.io/purescript-jordans-reference-site/
 
 https://jordanmartinez.github.io/purescript-jordans-reference-site/content/01-Getting-Started/01-Why-Learn-PureScript.html
 

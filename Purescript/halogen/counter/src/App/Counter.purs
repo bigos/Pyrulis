@@ -78,6 +78,10 @@ render state =
                       [ HH.text "Response:"
                       ]
                   , HH.p_ [ HH.text res ]
+                  , HH.p_
+                      [ HH.footer_
+                          [ HH.text "Footer" ]
+                      ]
                   ]
             )
         ]
