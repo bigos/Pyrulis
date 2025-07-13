@@ -885,9 +885,24 @@ pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#164
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#234
 
 **** Chapter 6. Typeclasses
+The concepts we’ve learned so far are sufficient for you to dive into Elm or
+functional Javascript. But there are abstractions that you’ll miss out on that
+will reduce boilerplate code, e.g. JSON decoding. With both Haskell and
+PureScript, the compiler can generate code for us greatly reducing our need to
+write boilerplate code. Also, with higher level abstractions, we don’t have to
+reinvent the wheel over and over again.
 
 ***** 6.1. The Problem
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#164
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#235
+
+Types in functional programming do not have inheritance!
+
+Description of explosion of functions needed to write
+
+***** 6.2. The Solution
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#241
+
+
 
 *** Advanced
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#543
