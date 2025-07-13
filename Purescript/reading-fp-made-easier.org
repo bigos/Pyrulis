@@ -17,7 +17,7 @@ pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#1107
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#3
 
 ** next reading
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#247
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#256
 ** parts
 
 *** Beginner
@@ -1019,6 +1019,85 @@ to look at have equivalent, if not identical, versions in Haskell.
 
 ***** 6.5.1. Eq Typeclass
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#247
+
+destructuring records to implement type class
+#+begin_src purescript
+  data Address = Address
+    { street1 :: String
+    , street2 :: String
+    , city :: String
+    , state :: String
+    , zip :: String
+    }
+
+  data Person = Person
+    { name :: String
+    , age :: Int
+    , address :: Address
+    }
+
+  instance eqPerson :: Eq Person where
+    eq (Person p1) (Person p2) =
+    p1.name == p2.name && p1.age == p2.age && p1.address == p2.address
+
+  instance eqAddress :: Eq Address where
+    eq (Address a1) (Address a2) = a1 == a2
+#+end_src
+
+***** 6.5.2. Ord Typeclass
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#249
+
+#+begin_src purescript
+class Eq a <= Ord a where
+compare :: a -> a -> Ordering
+data Ordering = LT | GT | EQ
+#+end_src
+The backward fat-arrow is a Superclass Constraint.
+
+This Sum Type defines the 3 possible Orderings between any 2 values of the same Type.
+~LT | GT | EQ~
+
+It is said that Eq is a Superclass of Ord. This is NOT like Inheritance. It
+simply means that any instance of Ord MUST also be an instance of Eq.
+
+tricky cases of Org on some interesting data
+
+***** 6.5.3. Show Typeclass
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#253
+Another common built-in Typeclass is Show. This Class is for turning a value of
+your Type into a String so that we display it
+
+***** 6.6. Derived Instances
+Let’s imagine we have another Sum Type:
+#+begin_src purescript
+data SomeType = This | That | TheOther | AndYetAnother
+#+end_src
+And we want to make it have Eq, Ord and Show instances. What would be your first inclination?
+
+Example of naive boilerplate
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#255
+
+derive these using the following syntax;
+#+begin_src purescript
+data SomeType = This | That | TheOther | AndYetAnother
+derive instance eqSomeType :: Eq SomeType
+derive instance ordSomeType :: Ord SomeType
+#+end_src
+here we derive Eq instance and Ord instance.
+
+Implementing show for our strange types
+Import class in Data.Generic.Rep
+#+begin_src purescript
+  import Data.Generic.Rep (class Generic)
+  import Data.Show.Generic (genericShow)
+
+  derive instance genericSomeType :: Generic SomeType _
+  instance showSomeType :: Show SomeType where
+    show = genericShow
+#+end_src
+
+***** 6.7. Newtype Typeclass
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#256
 
 *** Advanced
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#543
