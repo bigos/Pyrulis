@@ -17,7 +17,7 @@ pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#1107
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#3
 
 ** next reading
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#235
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#243
 ** parts
 
 *** Beginner
@@ -902,7 +902,46 @@ Description of explosion of functions needed to write
 ***** 6.2. The Solution
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#241
 
+When we want to treat different things similarly in languages such as C# or Java,
+we use Interfaces
 
+#+begin_src java
+  // Java
+  public interface HasAddress {
+      Address getAddress();
+  }
+#+end_src
+
+let's create Typeclass
+#+begin_src purescript
+  class HasAddress a where
+    getAddress :: a -> Address
+#+end_src
+We use class keyword to create Typeclass with one type parameter a
+getAddress is one of the all functions that must be implemented to create the instance of Typeclass
+
+So let's create an instance
+#+begin_src purescript
+  instance hasAddressPerson :: HasAddress Person where
+    getAddress (Person p) = p.address
+#+end_src
+here Person is the type parameter for HasAddress that corresponds to a in the Typeclass definition
+
+various examples
+#+begin_src purescript
+  --Here are those Instances:
+  instance hasAddressCompany :: HasAddress Company where
+    getAddress (Company c) = c.address
+  -- case of multiple pattern matched versions
+  instance hasAddressResidence :: HasAddress Residence where
+    getAddress (Home address) = address
+    getAddress (Facility address) = address
+  instance hasAddressEmptyLot :: HasAddress EmptyLot where
+    getAddress (EmptyLot l) = l.address
+#+end_src
+
+***** 6.3. Constraints
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#243
 
 *** Advanced
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#543
