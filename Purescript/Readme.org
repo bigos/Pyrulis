@@ -59,6 +59,9 @@ https://jordanmartinez.github.io/purescript-jordans-reference-site/content/01-Ge
 
 https://www.reddit.com/r/purescript/comments/1k90525/purescript_tutorials_focusing_on_ui/
 
+HTTP Client
+https://book.purescript.org/chapter9.html#a-http-client
+
 ** formatters
 https://github.com/natefaubion/purescript-tidy
 
