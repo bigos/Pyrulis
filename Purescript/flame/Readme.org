@@ -1,2 +1,4 @@
 * Readme
 https://github.com/easafe/purescript-flame
+
+https://flame.asafe.dev/index
