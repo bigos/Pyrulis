@@ -6,14 +6,11 @@ import Affjax.ResponseFormat as AXRF
 import Affjax.Web as AX
 import Data.Either (hush)
 import Data.Maybe (Maybe(..))
-import Effect (Effect)
 import Effect.Aff.Class (class MonadAff)
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties as HP
-import Web.Event.Event (Event)
-import Web.Event.Event as Event
 
 type State = { count :: Int, loading :: Boolean, result :: Maybe String }
 
@@ -87,8 +84,8 @@ render state =
         ]
     ]
 
--- I have no idea what correct type signature would be
---handleAction :: forall cs o m. Action → H.HalogenM State Action cs o m Unit
+-- the correct signature was found at: https://github.com/purescript-halogen/purescript-halogen/blob/master/docs/guide/03-Performing-Effects.md#the-halogenm-type
+handleAction :: forall output m. MonadAff m => Action -> H.HalogenM State Action () output m Unit
 handleAction = case _ of
   Increment -> H.modify_ \st -> st { count = st.count + 1 }
   Decrement -> H.modify_ \st -> st { count = st.count - 1 }

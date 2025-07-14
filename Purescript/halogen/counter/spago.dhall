@@ -9,7 +9,6 @@
   , "halogen"
   , "maybe"
   , "prelude"
-  , "web-events"
   ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]
