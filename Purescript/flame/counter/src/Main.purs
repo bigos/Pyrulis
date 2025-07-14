@@ -29,9 +29,15 @@ update model = case _ of
 view ∷ Model → Html Message
 view model = HE.main "main"
   [ HE.button [ HA.onClick Decrement ] "-"
-  , HE.text $ show model
+  , HE.span
+      [ HA.styleAttr
+          ("background-color: " <> (bgColor model) <> "margin: auto 1em;")
+      ]
+      [ HE.text (show model) ]
   , HE.button [ HA.onClick Increment ] "+"
   ]
+
+bgColor model = if model < 0 then "red;" else "lime;"
 
 -- | Mount the application on the given selector
 main ∷ Effect Unit
