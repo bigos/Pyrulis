@@ -53,7 +53,7 @@ https://github.com/purescript/documentation/tree/master#ecosystem
 
 https://github.com/purescript/package-sets
 
-cook book
+** cook book
 https://github.com/JordanMartinez/purescript-cookbook/blob/master/README.md#recipes
 
 https://purescript-resources.readthedocs.io/en/latest/index.html
@@ -66,8 +66,11 @@ https://jordanmartinez.github.io/purescript-jordans-reference-site/content/01-Ge
 
 https://www.reddit.com/r/purescript/comments/1k90525/purescript_tutorials_focusing_on_ui/
 
-HTTP Client
+** HTTP Client
 https://book.purescript.org/chapter9.html#a-http-client
+
+*** flags
+https://discourse.purescript.org/t/starting-from-elm-how-do-i-add-flags-to-purescript-app/4938/2
 
 ** formatters
 https://github.com/natefaubion/purescript-tidy
