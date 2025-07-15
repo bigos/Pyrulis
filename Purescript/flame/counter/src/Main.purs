@@ -76,7 +76,7 @@ view { url, result, counter } = HE.main "main"
   ]
 
 main ∷ Effect Unit
-main = FAE.mount_ (QuerySelector "#flame")
+main = FAE.mount_ (QuerySelector "#flame") -- Elm like widget in a div
   { init: init :> Nothing
   , subscribe: []
   , update
