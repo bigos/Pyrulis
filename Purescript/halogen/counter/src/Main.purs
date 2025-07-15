@@ -13,6 +13,7 @@ import Halogen.VDom.Driver (runUI)
 import Web.DOM.ParentNode (QuerySelector(..), querySelector)
 import Web.HTML.HTMLElement (HTMLElement)
 
+-- this uses Elm like widget in a div, allowing me to mix PureScript with Rails generated views
 awaitElement :: Aff HTMLElement
 awaitElement = do
   HA.awaitLoad
