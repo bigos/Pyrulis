@@ -2,6 +2,8 @@
 
 Folder for test Halogen projects
 
+The counter project is unusual because it has modified Main to use Elm like widget in a div
+
 Repo
 https://github.com/purescript-halogen
 https://github.com/purescript-halogen/purescript-halogen
