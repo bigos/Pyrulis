@@ -7,3 +7,6 @@ file:~/Programming/Pyrulis/Purescript/halogen/Readme.org::1
 
 halogen counter
 https://purescript-halogen.github.io/purescript-halogen/guide/02-Introducing-Components.html
+
+real world app
+https://github.com/thomashoneyman/purescript-halogen-realworld

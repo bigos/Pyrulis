@@ -76,7 +76,7 @@ view { url, result, counter } = HE.main "main"
   ]
 
 main ∷ Effect Unit
-main = FAE.mount_ (QuerySelector "body")
+main = FAE.mount_ (QuerySelector "#flame")
   { init: init :> Nothing
   , subscribe: []
   , update
