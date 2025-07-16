@@ -7,7 +7,7 @@ Folder for test Halogen projects
 
 The counter project is unusual because it has modified Main to use Elm like widget in a div
 
-investigate main
+investigate main, something useful could be exported for calling from JS
 file:~/Programming/Pyrulis/Purescript/halogen/counter/output/Main/index.js::1
 
 Repo
