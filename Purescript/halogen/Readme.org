@@ -1,5 +1,8 @@
 * Readme
 
+config
+https://dicioccio.fr/how-i-write-purescript-apps-part-iii.html
+
 Possibly the missing Elm flags could be replaced by subscriptions
 https://purescript-halogen.github.io/purescript-halogen/guide/04-Lifecycles-Subscriptions.html#using-event-listeners-as-subscriptions
 
