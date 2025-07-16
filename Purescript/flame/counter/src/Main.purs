@@ -24,24 +24,17 @@ type Model =
   , counter :: Int
   }
 
-type TagInsertionConfig =
-  { endpoint :: Maybe String
-  , apiKey :: Maybe String
-  }
-
 data Message = UpdateUrl String | Fetch | Increment | Decrement
 
 data Result = NotFetched | Fetching | Ok String | Error String
 
 derive instance eqResult ∷ Eq Result
 
-init ∷ TagInsertionConfig -> Model
-init config =
+init ∷ Model
+init =
   { url: "https://httpbin.org/get"
   , result: NotFetched
   , counter: 0
-  , endpoint: config.endpoind
-  , apiKey: config.apiKey
   }
 
 update ∷ AffUpdate Model Message
@@ -86,26 +79,10 @@ view { url, result, counter } = HE.main "main"
         HE.div_ $ "Error: " <> error
   ]
 
-readConfig :: Window -> Effect TagInsertionConfig
-readConfig win = do
-  script <- currentScript =<< Window.document win
-  traverse go script
-  where
-  go script =
-    do
-      ( TagInsertionConfig
-          <$> getAttribute "data-my-app--api-endpoint" elem
-          <*> getAttribute "data-my-app--api-key" elem
-      )
-    where
-    elem = HTMLScript.toElement script
-
 main ∷ Effect Unit
 main = do
-  w <- window
-  config <- readConfig w
   FAE.mount_ (QuerySelector "#flame")
-    { init: init :> Just config
+    { init
     , subscribe: []
     , update
     , view
