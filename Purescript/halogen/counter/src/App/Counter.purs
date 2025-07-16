@@ -25,7 +25,7 @@ import Web.HTML.Window (document)
 
 type State = { count :: Int, loading :: Boolean, result :: Maybe String, arg :: String }
 
-data Action = Increment | Decrement --| MakeRequest
+data Action = Increment | Decrement | MakeRequest
 
 counter_color :: Int -> String
 counter_color count =
@@ -80,8 +80,7 @@ render state =
         []
         [ HH.p []
             [ HH.button
-                [ -- HE.onClick \_ -> MakeRequest
-                ]
+                [ HE.onClick \_ -> MakeRequest ]
                 [ HH.text "Get the data" ]
             ]
         , HH.div_
@@ -103,22 +102,21 @@ render state =
 
     ]
 
--- the correct signature was found at: https://github.com/purescript-halogen/purescript-halogen/blob/master/docs/guide/03-Performing-Effects.md#the-halogenm-type
---handleAction :: forall output m. MonadAff m => Action -> H.HalogenM State Action () output m Unit
+handleAction :: forall output m. MonadAff m => Action -> H.HalogenM State Action () output m Unit
 handleAction = case _ of
   Increment -> H.modify_ \st -> st { count = st.count + 1 }
   Decrement -> H.modify_ \st -> st { count = st.count - 1 }
-  -- MakeRequest -> do
-  --   H.modify_ \st -> st { loading = true }
-  --   response <- H.liftAff $ AX.get AXRF.string
-  --     ( "http://localhost:3000/api/get-files"
-  --         <> "?"
-  --         <> getArgs
-  --     )
-  --   H.modify_ \st -> st
-  --     { loading = false
-  --     , result = map _.body (hush response)
-  --     }
+  MakeRequest -> do
+    H.modify_ \st -> st { loading = true }
+    response <- H.liftAff $ AX.get AXRF.string
+      ( "http://localhost:3000/api/get-files"
+          <> "?"
+          <> getArgs
+      )
+    H.modify_ \st -> st
+      { loading = false
+      , result = map _.body (hush response)
+      }
 
   where
   getArgs =
