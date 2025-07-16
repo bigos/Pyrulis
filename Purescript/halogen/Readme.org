@@ -1,5 +1,8 @@
 * Readme
 
+Possibly the missing Elm flags could be replaced by subscriptions
+https://purescript-halogen.github.io/purescript-halogen/guide/04-Lifecycles-Subscriptions.html#using-event-listeners-as-subscriptions
+
 Folder for test Halogen projects
 
 The counter project is unusual because it has modified Main to use Elm like widget in a div
