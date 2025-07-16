@@ -24,10 +24,10 @@ awaitElement = do
   elementName = "#halogen"
 
 main :: String -> Effect Unit
-main startupMessage =
-  HA.runHalogenAff
-    do
-      HA.awaitLoad
-      element <- awaitElement
-      log ("[CLIENT] Booting up with message: " <> startupMessage)
-      runUI Counter.component unit element
+main startupMessage = do
+  log ("[CLIENT] Booting up with message: " <> startupMessage)
+-- HA.runHalogenAff
+--   do
+--     HA.awaitLoad
+--     element <- awaitElement
+--     runUI Counter.component unit element
