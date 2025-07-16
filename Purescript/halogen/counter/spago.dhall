@@ -7,6 +7,7 @@
   , "effect"
   , "either"
   , "exceptions"
+  , "foldable-traversable"
   , "halogen"
   , "maybe"
   , "prelude"

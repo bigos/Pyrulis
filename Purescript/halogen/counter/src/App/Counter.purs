@@ -23,9 +23,9 @@ import Web.HTML.Window as Window
 import Web.DOM.Element
 import Web.HTML.Window (document)
 
-type State = { count :: Int, loading :: Boolean, result :: String }
+type State = { count :: Int, loading :: Boolean, result :: Maybe String, arg :: String }
 
-data Action = Increment | Decrement | MakeRequest
+data Action = Increment | Decrement --| MakeRequest
 
 counter_color :: Int -> String
 counter_color count =
@@ -40,15 +40,12 @@ outer_style =
       <> "background: lightcyan;"
   )
 
-initialState :: Maybe String -> State
+initialState :: String -> State
 initialState arg =
   { count: 0
   , loading: false
-  , result:
-      ( case arg of
-          Nothing -> ""
-          Just a -> a
-      )
+  , result: Nothing
+  , arg: arg
   }
 
 --component :: forall q i o m. MonadAff m => H.Component q i o m
@@ -83,7 +80,8 @@ render state =
         []
         [ HH.p []
             [ HH.button
-                [ HE.onClick \_ -> MakeRequest ]
+                [ -- HE.onClick \_ -> MakeRequest
+                ]
                 [ HH.text "Get the data" ]
             ]
         , HH.div_
@@ -101,7 +99,7 @@ render state =
                   ]
             )
         ]
-    , HH.p [] [ HH.text ]
+    , HH.p [] [ HH.text state.arg ]
 
     ]
 
@@ -110,17 +108,17 @@ render state =
 handleAction = case _ of
   Increment -> H.modify_ \st -> st { count = st.count + 1 }
   Decrement -> H.modify_ \st -> st { count = st.count - 1 }
-  MakeRequest -> do
-    H.modify_ \st -> st { loading = true }
-    response <- H.liftAff $ AX.get AXRF.string
-      ( "http://localhost:3000/api/get-files"
-          <> "?"
-          <> getArgs
-      )
-    H.modify_ \st -> st
-      { loading = false
-      , result = map _.body (hush response)
-      }
+  -- MakeRequest -> do
+  --   H.modify_ \st -> st { loading = true }
+  --   response <- H.liftAff $ AX.get AXRF.string
+  --     ( "http://localhost:3000/api/get-files"
+  --         <> "?"
+  --         <> getArgs
+  --     )
+  --   H.modify_ \st -> st
+  --     { loading = false
+  --     , result = map _.body (hush response)
+  --     }
 
   where
   getArgs =
