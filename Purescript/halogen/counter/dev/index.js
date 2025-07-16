@@ -1,1 +1,1 @@
-require("../output/Main/index.js").main("hello flags");
+require("../output/Main/index.js").main();

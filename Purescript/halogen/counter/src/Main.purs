@@ -6,7 +6,6 @@ import App.Counter as Counter
 import Control.Monad.Error.Class (throwError)
 import Data.Maybe (Maybe, maybe)
 import Effect (Effect)
-import Effect.Console (log)
 import Effect.Aff (Aff, effectCanceler, makeAff, nonCanceler, runAff_)
 import Effect.Exception (throwException, error)
 import Halogen.Aff as HA
@@ -23,11 +22,8 @@ awaitElement = do
   where
   elementName = "#halogen"
 
-main :: String -> Effect Unit
-main startupMessage = do
-  log ("[CLIENT] Booting up with message: " <> startupMessage)
--- HA.runHalogenAff
---   do
---     HA.awaitLoad
---     element <- awaitElement
---     runUI Counter.component unit element
+main :: Effect Unit
+main = HA.runHalogenAff do
+  HA.awaitLoad
+  element <- awaitElement
+  runUI Counter.component unit element
