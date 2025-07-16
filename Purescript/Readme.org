@@ -1,4 +1,8 @@
 * Readme
+
+important document saying Flame may be better
+https://github.com/laurentpayot/purescript-for-elm-developers#readme
+
 ** books
 https://book.purescript.org/
 https://book.purescript.org/index.html
