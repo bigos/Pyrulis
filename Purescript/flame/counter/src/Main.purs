@@ -22,6 +22,8 @@ type Model =
   { url ∷ String
   , result ∷ Result
   , counter :: Int
+  , endpoint :: String
+  , apiKey :: String
   }
 
 type TagInsertionConfig =
@@ -35,12 +37,12 @@ data Result = NotFetched | Fetching | Ok String | Error String
 
 derive instance eqResult ∷ Eq Result
 
-init ∷ TagInsertionConfig -> Model
+--init ∷ TagInsertionConfig -> Model
 init config =
   { url: "https://httpbin.org/get"
   , result: NotFetched
   , counter: 0
-  , endpoint: config.endpoind
+  , endpoint: config.endpoint
   , apiKey: config.apiKey
   }
 
@@ -86,26 +88,35 @@ view { url, result, counter } = HE.main "main"
         HE.div_ $ "Error: " <> error
   ]
 
-readConfig :: Window -> Effect TagInsertionConfig
-readConfig win = do
-  script <- currentScript =<< Window.document win
-  traverse go script
-  where
-  go script =
-    do
-      ( TagInsertionConfig
-          <$> getAttribute "data-my-app--api-endpoint" elem
-          <*> getAttribute "data-my-app--api-key" elem
-      )
-    where
-    elem = HTMLScript.toElement script
+-- readConfig :: Window -> Effect TagInsertionConfig
+-- readConfig win = do
+--   script <- currentScript =<< Window.document win
+--   traverse go script
+--   where
+--   go script =
+--     do
+--       { endpoint:
+--           getAttribute "data-my-app--api-endpoint" elem
+--       , apikey:
+--           getAttribute "data-my-app--api-key" elem
+--       }
+--     where
+--     elem = HTMLScript.toElement script
 
+--readConfig2 :: Effect TagInsertionConfig
+readConfig2 =
+  { endpoint:
+      "user"
+  , apikey:
+      "1234"
+  }
+
+-- no luck trying to pass arguments to init
 main ∷ Effect Unit
 main = do
-  w <- window
-  config <- readConfig w
+  -- w <- window
   FAE.mount_ (QuerySelector "#flame")
-    { init: init :> Just config
+    { init: (init readConfig2)
     , subscribe: []
     , update
     , view
