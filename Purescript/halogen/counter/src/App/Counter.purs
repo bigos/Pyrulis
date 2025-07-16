@@ -48,7 +48,7 @@ initialState arg =
   , arg: arg
   }
 
---component :: forall q i o m. MonadAff m => H.Component q i o m
+--component :: forall q i o m. ?whatisit q i o m
 component =
   H.mkComponent
     { initialState
