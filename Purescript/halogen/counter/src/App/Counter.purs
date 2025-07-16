@@ -1,20 +1,61 @@
 module App.Counter where
 
+import Data.Traversable
 import Prelude
+import Web.HTML.HTMLScriptElement
 
 import Affjax.ResponseFormat as AXRF
 import Affjax.Web as AX
 import Data.Either (hush)
 import Data.Maybe (Maybe(..))
+import Effect (Effect)
 import Effect.Aff.Class (class MonadAff)
+import Effect.Console (log, logShow)
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties as HP
+import Web.DOM.Element (getAttribute)
+import Web.HTML (HTMLScriptElement, window)
+import Web.HTML.HTMLDocument (currentScript)
+import Web.HTML.HTMLScriptElement as HTMLScript
+import Web.HTML.Window as Window
+import Web.DOM.Element
+import Web.HTML.Window (document)
 
 type State = { count :: Int, loading :: Boolean, result :: Maybe String }
 
 data Action = Increment | Decrement | MakeRequest
+
+elem :: HTMLScriptElement -> Element
+elem script = HTMLScript.toElement script
+
+execify :: HTMLScriptElement -> Effect String
+execify script =
+  do
+    a1 <- getAttribute "data-my-app--api-endpoint" (elem script)
+    a2 <- getAttribute "data-my-app--api-key" (elem script)
+    pure
+      ( "attrs "
+          <>
+            ( case a1 of
+                Nothing -> "nic"
+                Just a1v -> "a1v"
+            )
+          <> " and "
+          <>
+            ( case a2 of
+                Nothing -> "nic2"
+                Just a2v -> "a2v"
+            )
+      )
+
+readConfig :: Effect String
+readConfig = do
+  w <- window
+  d <- document w
+  script <- currentScript d
+  traverse execify script
 
 counter_color :: Int -> String
 counter_color count =
@@ -82,6 +123,8 @@ render state =
                   ]
             )
         ]
+    , HH.p [] [ HH.text ]
+
     ]
 
 -- the correct signature was found at: https://github.com/purescript-halogen/purescript-halogen/blob/master/docs/guide/03-Performing-Effects.md#the-halogenm-type
@@ -90,6 +133,8 @@ handleAction = case _ of
   Increment -> H.modify_ \st -> st { count = st.count + 1 }
   Decrement -> H.modify_ \st -> st { count = st.count - 1 }
   MakeRequest -> do
+    ccc <- readConfig
+    log (show ccc)
     H.modify_ \st -> st { loading = true }
     response <- H.liftAff $ AX.get AXRF.string
       ( "http://localhost:3000/api/get-files"
