@@ -20,6 +20,8 @@ https://github.com/purescript-halogen/purescript-halogen-template
 Guides
 https://purescript-halogen.github.io/purescript-halogen/index.html
 
+https://github.com/thomashoneyman/purescript-halogen-realworld
+
 good guide
 https://github.com/JordanMartinez/learn-halogen
 
