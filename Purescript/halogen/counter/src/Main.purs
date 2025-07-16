@@ -26,4 +26,4 @@ main :: Effect Unit
 main = HA.runHalogenAff do
   HA.awaitLoad
   element <- awaitElement
-  runUI Counter.component unit element
+  runUI Counter.component "name=user--apikey=123456" element

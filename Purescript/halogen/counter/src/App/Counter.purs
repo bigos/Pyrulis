@@ -23,39 +23,9 @@ import Web.HTML.Window as Window
 import Web.DOM.Element
 import Web.HTML.Window (document)
 
-type State = { count :: Int, loading :: Boolean, result :: Maybe String }
+type State = { count :: Int, loading :: Boolean, result :: String }
 
 data Action = Increment | Decrement | MakeRequest
-
-elem :: HTMLScriptElement -> Element
-elem script = HTMLScript.toElement script
-
-execify :: HTMLScriptElement -> Effect String
-execify script =
-  do
-    a1 <- getAttribute "data-my-app--api-endpoint" (elem script)
-    a2 <- getAttribute "data-my-app--api-key" (elem script)
-    pure
-      ( "attrs "
-          <>
-            ( case a1 of
-                Nothing -> "nic"
-                Just a1v -> "a1v"
-            )
-          <> " and "
-          <>
-            ( case a2 of
-                Nothing -> "nic2"
-                Just a2v -> "a2v"
-            )
-      )
-
-readConfig :: Effect String
-readConfig = do
-  w <- window
-  d <- document w
-  script <- currentScript d
-  traverse execify script
 
 counter_color :: Int -> String
 counter_color count =
@@ -70,10 +40,18 @@ outer_style =
       <> "background: lightcyan;"
   )
 
-initialState :: forall input. input -> State
-initialState _ = { count: 0, loading: false, result: Nothing }
+initialState :: Maybe String -> State
+initialState arg =
+  { count: 0
+  , loading: false
+  , result:
+      ( case arg of
+          Nothing -> ""
+          Just a -> a
+      )
+  }
 
-component :: forall q i o m. MonadAff m => H.Component q i o m
+--component :: forall q i o m. MonadAff m => H.Component q i o m
 component =
   H.mkComponent
     { initialState
@@ -128,13 +106,11 @@ render state =
     ]
 
 -- the correct signature was found at: https://github.com/purescript-halogen/purescript-halogen/blob/master/docs/guide/03-Performing-Effects.md#the-halogenm-type
-handleAction :: forall output m. MonadAff m => Action -> H.HalogenM State Action () output m Unit
+--handleAction :: forall output m. MonadAff m => Action -> H.HalogenM State Action () output m Unit
 handleAction = case _ of
   Increment -> H.modify_ \st -> st { count = st.count + 1 }
   Decrement -> H.modify_ \st -> st { count = st.count - 1 }
   MakeRequest -> do
-    ccc <- readConfig
-    log (show ccc)
     H.modify_ \st -> st { loading = true }
     response <- H.liftAff $ AX.get AXRF.string
       ( "http://localhost:3000/api/get-files"
