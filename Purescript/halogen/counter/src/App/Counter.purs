@@ -12,7 +12,7 @@ import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties as HP
 
-type State = { count :: Int, loading :: Boolean, result :: Maybe String, msg :: String }
+type State = { count :: Int, loading :: Boolean, result :: Maybe String }
 
 data Action = Increment | Decrement | MakeRequest
 
@@ -29,11 +29,11 @@ outer_style =
       <> "background: lightcyan;"
   )
 
---initialState2 :: String -> State
-initialState startupMessage = { count: 0, loading: false, result: Nothing, msg: startupMessage }
+initialState :: forall input. input -> State
+initialState _ = { count: 0, loading: false, result: Nothing }
 
---component :: forall q i o m. MonadAff m => H.Component q i o m
-component _ =
+component :: forall q i o m. MonadAff m => H.Component q i o m
+component =
   H.mkComponent
     { initialState
     , render
