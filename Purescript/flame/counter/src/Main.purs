@@ -3,8 +3,8 @@ module Main where
 
 import Prelude
 
-import Affjax.Web as A
 import Affjax.ResponseFormat as AR
+import Affjax.Web as A
 import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
 import Effect (Effect)
@@ -13,11 +13,20 @@ import Flame.Application.Effectful (AffUpdate)
 import Flame.Application.Effectful as FAE
 import Flame.Html.Attribute as HA
 import Flame.Html.Element as HE
+import Web.DOM.Element (getAttribute)
+import Web.HTML.HTMLScriptElement as HTMLScript
+import Web.HTML.Window (Window)
+import Web.HTML.Window as Window
 
 type Model =
   { url ∷ String
   , result ∷ Result
   , counter :: Int
+  }
+
+type TagInsertionConfig =
+  { endpoint :: Maybe String
+  , apiKey :: Maybe String
   }
 
 data Message = UpdateUrl String | Fetch | Increment | Decrement
@@ -26,11 +35,13 @@ data Result = NotFetched | Fetching | Ok String | Error String
 
 derive instance eqResult ∷ Eq Result
 
-init ∷ Model
-init =
+init ∷ TagInsertionConfig -> Model
+init config =
   { url: "https://httpbin.org/get"
   , result: NotFetched
   , counter: 0
+  , endpoint: Maybe String
+  , apiKey: Maybe String
   }
 
 update ∷ AffUpdate Model Message
@@ -75,9 +86,26 @@ view { url, result, counter } = HE.main "main"
         HE.div_ $ "Error: " <> error
   ]
 
+readConfig :: Window -> Effect TagInsertionConfig
+readConfig win = do
+  script <- currentScript =<< Window.document win
+    traverse
+    go
+    script
+  where
+  go script =
+    do
+      let elem = HTMLScript.toElement script
+      TagInsertionConfig
+      <$> getAttribute "data-my-app--api-endpoint" elem
+      <*> getAttribute "data-my-app--api-key" elem
+
 main ∷ Effect Unit
-main = FAE.mount_ (QuerySelector "#flame") -- Elm like widget in a div
-  { init: init :> Nothing
+main = do
+  w <- window
+  config <- readConfig w
+  FAE.mount_ (QuerySelector "#flame") -- Elm like widget in a div
+  { init: init :> Just config
   , subscribe: []
   , update
   , view
