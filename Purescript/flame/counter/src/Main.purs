@@ -82,7 +82,7 @@ view { url, result, counter } = HE.main "main"
 main ∷ Effect Unit
 main = do
   FAE.mount_ (QuerySelector "#flame")
-    { init
+    { init: init :> Nothing
     , subscribe: []
     , update
     , view
