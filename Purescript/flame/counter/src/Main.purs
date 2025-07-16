@@ -40,8 +40,8 @@ init config =
   { url: "https://httpbin.org/get"
   , result: NotFetched
   , counter: 0
-  , endpoint: Maybe String
-  , apiKey: Maybe String
+  , endpoint: config.endpoind
+  , apiKey: config.apiKey
   }
 
 update ∷ AffUpdate Model Message
@@ -89,24 +89,24 @@ view { url, result, counter } = HE.main "main"
 readConfig :: Window -> Effect TagInsertionConfig
 readConfig win = do
   script <- currentScript =<< Window.document win
-    traverse
-    go
-    script
+  traverse go script
   where
   go script =
     do
-      let elem = HTMLScript.toElement script
-      TagInsertionConfig
-      <$> getAttribute "data-my-app--api-endpoint" elem
-      <*> getAttribute "data-my-app--api-key" elem
+      ( TagInsertionConfig
+          <$> getAttribute "data-my-app--api-endpoint" elem
+          <*> getAttribute "data-my-app--api-key" elem
+      )
+    where
+    elem = HTMLScript.toElement script
 
 main ∷ Effect Unit
 main = do
   w <- window
   config <- readConfig w
-  FAE.mount_ (QuerySelector "#flame") -- Elm like widget in a div
-  { init: init :> Just config
-  , subscribe: []
-  , update
-  , view
-  }
+  FAE.mount_ (QuerySelector "#flame")
+    { init: init :> Just config
+    , subscribe: []
+    , update
+    , view
+    }
