@@ -1,22 +1,29 @@
 module Main where
 
 import Prelude
+
+import Control.Monad.Error.Class (throwError)
 import Data.Maybe (Maybe(..))
+import Data.Maybe (maybe)
 import Effect (Effect)
-import Effect (Effect)
+import Effect.Class (liftEffect)
 import Effect.Console (log)
-import Effect.Console (log)
-import Prelude
+import Effect.Exception (error)
+import Halogen.Aff as HA
+import Web.DOM.ParentNode (QuerySelector(..), querySelector)
 import Web.HTML (window)
-import Web.HTML.Window (document)
-import Web.DOM.ParentNode as PN
 import Web.HTML.HTMLDocument as HD
+import Web.HTML.Window (document)
+
+elementName :: String
+elementName = "#script_with_flags"
+
+findElement =
+  HA.selectElement (QuerySelector elementName)
 
 main :: Effect Unit
 main = do
-  win <- window
-  doc <- document win
-  mEl <- PN.querySelector "#script_with_flags" (HD.toDocument doc)
-  case mEl of
-    Just el -> log "Found the element!"
-    Nothing -> log "No element found."
+  HA.awaitLoad
+  element <- findElement
+  res <- element
+-- what do i do to read the flag data from the script tag?
