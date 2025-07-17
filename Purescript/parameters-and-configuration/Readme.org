@@ -1,6 +1,7 @@
 * Parameters and configuration
 
 https://dicioccio.fr/how-i-write-purescript-apps-part-iii.html
+[[https://github.com/bigos/purescript-minitools-architecture-demo/blob/e07a50de78f79e85ab50dc8b83d9b8a8fb4e7b86/src/Main.purs#L148][github-example]]
 
 my starter
 https://github.com/bigos/purescript-project-template
