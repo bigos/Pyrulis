@@ -24,6 +24,9 @@ findElement =
 main :: Effect Unit
 main = do
   HA.awaitLoad
-  element <- findElement
-  res <- element
--- what do i do to read the flag data from the script tag?
+  windoc <- document window
+  -- Effect HTMLDocument
+  -- but we need HTMLDocument without Effect
+  w2 <- windoc
+  script <- HD.currentScript w2
+  pure ""

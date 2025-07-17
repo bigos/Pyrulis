@@ -1,0 +1,12 @@
+* Lining up types
+
+in main
+[[file:second-attempt/src/Main.purs::main :: Effect Unit]]
+
+we need window
+https://pursuit.purescript.org/packages/purescript-web-html/4.1.0/docs/Web.HTML#v:window
+window :: Effect Window
+
+to be passed to document
+https://pursuit.purescript.org/packages/purescript-web-html/4.1.0/docs/Web.HTML.Window#v:document
+document :: Window -> Effect HTMLDocument
