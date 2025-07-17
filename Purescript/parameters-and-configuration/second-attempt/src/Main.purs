@@ -2,34 +2,36 @@ module Main where
 
 import Prelude
 
-import Control.Monad.Error.Class (throwError)
 import Data.Maybe (Maybe(..))
-import Data.Maybe (maybe)
 import Effect (Effect)
-import Effect.Class (liftEffect)
 import Effect.Console (log)
-import Effect.Exception (error)
-import Halogen.Aff as HA
-import Web.DOM.ParentNode (QuerySelector(..), querySelector)
+import Effect.Exception (throw)
+import Web.DOM.Element (getAttribute, id, toNode)
+import Web.DOM.NonElementParentNode (getElementById)
 import Web.HTML (window)
-import Web.HTML.HTMLDocument as HD
+import Web.HTML.HTMLDocument (toNonElementParentNode)
 import Web.HTML.Window (document)
-import Web.DOM.NonElementParentNode as PN
-
-elementName :: String
-elementName = "#script_with_flags"
-
-findElement =
-  HA.selectElement (QuerySelector elementName)
 
 main :: Effect Unit
 main = do
   -- https://book.purescript.org/chapter8.html
   w <- window
   doc <- document w
-  ctr <- PN.getElementById "script_with_flags" $ HD.toNonElementParentNode doc
+  ctr <- getElementById "script_with_flags" $ toNonElementParentNode doc
   case ctr of
     Nothing ->
-      log "nothing"
-    Just c ->
-      log "found c "
+      throw "Container element not found."
+    Just el ->
+      do
+        s <- getAttribute "id" el
+        case s of
+          Nothing ->
+            throw "no id attribute"
+          Just idAttr ->
+            log (show idAttr)
+        flags <- getAttribute "data-flags" el
+        case flags of
+          Nothing ->
+            throw "no data-flags"
+          Just flagsAttr ->
+            log (show flagsAttr)

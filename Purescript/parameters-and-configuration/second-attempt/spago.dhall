@@ -1,13 +1,10 @@
 { name = "second-attempt"
 , dependencies =
-  [ "aff"
-  , "console"
+  [ "console"
   , "effect"
   , "exceptions"
-  , "halogen"
   , "maybe"
   , "prelude"
-  , "transformers"
   , "web-dom"
   , "web-html"
   ]
