@@ -1,0 +1,36 @@
+* PureScript project template
+** template
+*** inspired by
+https://github.com/purescript-halogen/purescript-halogen-template
+
+*** quick start
+#+begin_example
+  git clone git@github.com:bigos/purescript-project-template.git my-new-project
+  cd my-new-project
+  # replace it with new git versioning
+  rm -rvf ./.git
+  git init
+  git add .
+  git status
+  git commit -am 'initial project from template'
+  # run PureScript
+  npm install
+  npm run build
+  npm run serve
+#+end_example
+
+*** places to change
+file:./spago.dhall::1
+
+[[file:dev/index.html::<title>]]
+
+[[file:spago.dhall::, dependencies =]]
+
+file:./src/
+
+** PureScript links
+https://github.com/passy/awesome-purescript
+
+https://github.com/passy/awesome-purescript#learning-resources
+
+https://pursuit.purescript.org/

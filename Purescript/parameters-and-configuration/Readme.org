@@ -1,0 +1,6 @@
+* Parameters and configuration
+
+https://dicioccio.fr/how-i-write-purescript-apps-part-iii.html
+
+my starter
+https://github.com/bigos/purescript-project-template
