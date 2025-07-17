@@ -14,6 +14,7 @@ import Web.DOM.ParentNode (QuerySelector(..), querySelector)
 import Web.HTML (window)
 import Web.HTML.HTMLDocument as HD
 import Web.HTML.Window (document)
+import Web.DOM.NonElementParentNode as PN
 
 elementName :: String
 elementName = "#script_with_flags"
@@ -23,10 +24,12 @@ findElement =
 
 main :: Effect Unit
 main = do
-  HA.awaitLoad
-  windoc <- document window
-  -- Effect HTMLDocument
-  -- but we need HTMLDocument without Effect
-  w2 <- windoc
-  script <- HD.currentScript w2
-  pure ""
+  -- https://book.purescript.org/chapter8.html
+  w <- window
+  doc <- document w
+  ctr <- PN.getElementById "script_with_flags" $ HD.toNonElementParentNode doc
+  case ctr of
+    Nothing ->
+      log "nothing"
+    Just c ->
+      log "found c "

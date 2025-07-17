@@ -1,5 +1,5 @@
 * Lining up types
-
+** types
 in main
 [[file:second-attempt/src/Main.purs::main :: Effect Unit]]
 
@@ -10,3 +10,28 @@ window :: Effect Window
 to be passed to document
 https://pursuit.purescript.org/packages/purescript-web-html/4.1.0/docs/Web.HTML.Window#v:document
 document :: Window -> Effect HTMLDocument
+
+** finding
+https://book.purescript.org/chapter8.html
+
+#+begin_src purescript
+main :: Effect Unit
+main = do
+  log "Rendering address book component"
+  -- Get window object
+  w <- window
+  -- Get window's HTML document
+  doc <- document w
+  -- Get "container" element in HTML
+  ctr <- getElementById "container" $ toNonElementParentNode doc
+  case ctr of
+    Nothing -> throw "Container element not found."
+    Just c -> do
+      -- Create AddressBook react component
+      addressBookApp <- mkAddressBookApp
+      let
+        -- Create JSX node from react component. Pass-in empty props
+        app = element addressBookApp {}
+      -- Render AddressBook JSX node in DOM "container" element
+      D.render app c
+#+end_src
