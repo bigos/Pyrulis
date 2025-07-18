@@ -24,7 +24,7 @@ type Model =
   , counter :: Int
   }
 
-data Message = UpdateUrl String | Fetch | Increment | Decrement
+data Message = UpdateUrl String | Fetch | Increment | Decrement | InitAction Int
 
 data Result = NotFetched | Fetching | Ok String | Error String
 
@@ -40,6 +40,7 @@ init =
 update ∷ AffUpdate Model Message
 update { display, model, message } =
   case message of
+    Initialize flag1 -> FAE.diff { url: model.url, result: model.result, counter: flag1 }
     UpdateUrl url → FAE.diff { url, result: NotFetched }
     Fetch → do
       display $ FAE.diff' { result: Fetching }
@@ -82,7 +83,7 @@ view { url, result, counter } = HE.main "main"
 main ∷ Effect Unit
 main = do
   FAE.mount_ (QuerySelector "#flame")
-    { init: init :> (Just Increment)
+    { init: init :> (Just (Initialize 12)) -- pass 12 to the initial model
     , subscribe: []
     , update
     , view
