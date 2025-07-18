@@ -108,6 +108,7 @@ view { url, result, counter } = HE.main "main"
 
 main ∷ Effect Unit
 main = do
+  let outputTag = "#flame"
   let configTagId = "flame_flags"
   w <- window
   doc <- document w
@@ -119,7 +120,7 @@ main = do
       do
         flags <- buildFlags
         FAE.mount_
-          (QuerySelector "#flame")
+          (QuerySelector outputTag)
           { init: init :> (Just (Initialize flags))
           , subscribe: []
           , update
