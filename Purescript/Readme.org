@@ -18,8 +18,7 @@ https://jordanmartinez.github.io/purescript-jordans-reference-site/
 Pursuit
 https://pursuit.purescript.org/
 
-https://github.com/purescript/documentation#learning
-
+Getting started
 https://github.com/purescript/documentation/blob/master/guides/Getting-Started.md
 
 ** nvm, node and npm
@@ -64,17 +63,10 @@ https://purescript-resources.readthedocs.io/en/latest/index.html
 
 https://github.com/passy/awesome-purescript
 
-https://jordanmartinez.github.io/purescript-jordans-reference-site/
-
-https://jordanmartinez.github.io/purescript-jordans-reference-site/content/01-Getting-Started/01-Why-Learn-PureScript.html
-
 https://www.reddit.com/r/purescript/comments/1k90525/purescript_tutorials_focusing_on_ui/
 
 ** HTTP Client
 https://book.purescript.org/chapter9.html#a-http-client
-
-*** flags
-https://discourse.purescript.org/t/starting-from-elm-how-do-i-add-flags-to-purescript-app/4938/2
 
 ** formatters
 https://github.com/natefaubion/purescript-tidy
