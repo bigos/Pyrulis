@@ -1,18 +1,5 @@
 * Readme
 
-config
-https://dicioccio.fr/how-i-write-purescript-apps-part-iii.html
-
-Possibly the missing Elm flags could be replaced by subscriptions
-https://purescript-halogen.github.io/purescript-halogen/guide/04-Lifecycles-Subscriptions.html#using-event-listeners-as-subscriptions
-
-Folder for test Halogen projects
-
-The counter project is unusual because it has modified Main to use Elm like widget in a div
-
-investigate main, something useful could be exported for calling from JS
-file:~/Programming/Pyrulis/Purescript/halogen/counter/output/Main/index.js::1
-
 Repo
 https://github.com/purescript-halogen
 https://github.com/purescript-halogen/purescript-halogen
@@ -25,20 +12,7 @@ https://purescript-halogen.github.io/purescript-halogen/index.html
 
 https://github.com/thomashoneyman/purescript-halogen-realworld
 
-good guide
 https://github.com/JordanMartinez/learn-halogen
-
-HTTP requests
-https://purescript-halogen.github.io/purescript-halogen/guide/03-Performing-Effects.html#an-aff-example-http-requests
-https://purescript-simple-json.readthedocs.io/en/latest/#
-https://github.com/dariooddenino/purescript-simple-ajax
-
-https://github.com/thomashoneyman/purescript-halogen-realworld
-https://github.com/purescript-contrib/purescript-aff
-https://codingstruggles.com/purescript/post-request-with-purescript-affjax-and-argonaut.html
-
-HTTP client
-https://book.purescript.org/chapter9.html#a-http-client
 
 Affjax example
 https://pursuit.purescript.org/packages/purescript-affjax/12.0.0
@@ -51,10 +25,6 @@ https://github.com/purescript-halogen/purescript-halogen/blob/master/docs/guide/
 Pursuit
 https://pursuit.purescript.org/packages/purescript-halogen/2.0.0/docs/Halogen
 
-https://try.purescript.org/
-
-https://www.reddit.com/r/haskell/comments/afx6xm/real_world_halogen_released_a_purescript/
-
 For Halogen production build we need
 #+begin_example
 npm install --save-exact --save-dev esbuild
@@ -63,7 +33,4 @@ npm install --save-exact --save-dev esbuild
 solution to the handleAction signature problem
 https://github.com/purescript-halogen/purescript-halogen/blob/master/docs/guide/03-Performing-Effects.md#the-halogenm-type
 
-https://github.com/purescript-halogen/purescript-halogen
 https://github.com/purescript-halogen/purescript-halogen/tree/master/docs/guide
-
-https://purescript-halogen.github.io/purescript-halogen/
