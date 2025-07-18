@@ -9,6 +9,7 @@
   , "exceptions"
   , "foldable-traversable"
   , "halogen"
+  , "integers"
   , "maybe"
   , "prelude"
   , "transformers"

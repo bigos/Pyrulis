@@ -1,31 +1,27 @@
 module App.Counter where
 
-import Data.Traversable
 import Prelude
-import Web.HTML.HTMLScriptElement
 
 import Affjax.ResponseFormat as AXRF
 import Affjax.Web as AX
 import Data.Either (hush)
+import Data.Int (fromString)
 import Data.Maybe (Maybe(..))
-import Effect (Effect)
 import Effect.Aff.Class (class MonadAff)
-import Effect.Console (log, logShow)
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties as HP
-import Web.DOM.Element (getAttribute)
-import Web.HTML (HTMLScriptElement, window)
-import Web.HTML.HTMLDocument (currentScript)
-import Web.HTML.HTMLScriptElement as HTMLScript
-import Web.HTML.Window as Window
-import Web.DOM.Element
-import Web.HTML.Window (document)
 
-type State = { count :: Int, loading :: Boolean, result :: Maybe String, arg :: String }
+type State = { count :: Int, loading :: Boolean, result :: Maybe String, arg :: TagDataConfig }
 
 data Action = Increment | Decrement | MakeRequest
+
+type TagDataConfig =
+  { api_endpoint :: Maybe String
+  , api_key :: Maybe String
+  , start :: Maybe String
+  }
 
 counter_color :: Int -> String
 counter_color count =
@@ -40,12 +36,21 @@ outer_style =
       <> "background: lightcyan;"
   )
 
-initialState :: String -> State
+initialState :: TagDataConfig -> State
 initialState arg =
-  { count: 0
+  { count:
+      ( case arg.start of
+          Nothing -> 0
+          Just a ->
+            ( case fromString a of
+                Nothing -> 0
+                Just av -> av
+            )
+      )
   , loading: false
   , result: Nothing
   , arg: arg
+
   }
 
 --component :: forall q i o m. ?whatisit q i o m
@@ -91,14 +96,12 @@ render state =
                       [ HH.text "Response:"
                       ]
                   , HH.p_ [ HH.text res ]
-                  , HH.p_
-                      [ HH.footer_
-                          [ HH.text "Footer" ]
-                      ]
+
                   ]
             )
         ]
-    , HH.p [] [ HH.text state.arg ]
+    , HH.h3_ [ HH.text "Configured values" ]
+    , HH.p [] [ HH.text (show state.arg) ]
 
     ]
 
