@@ -120,7 +120,7 @@ main = do
         config <- buildConfig el
         FAE.mount_
           (QuerySelector "#flame")
-          { init: init :> (Just (Initialize config)) -- pass config to the initial model
+          { init: init :> (Just (Initialize config))
           , subscribe: []
           , update
           , view
