@@ -6,17 +6,20 @@ import Prelude
 import Affjax.ResponseFormat as AR
 import Affjax.Web as A
 import Data.Either (Either(..))
+import Data.Int (fromString)
 import Data.Maybe (Maybe(..))
 import Effect (Effect)
+import Effect.Exception (throw)
 import Flame (QuerySelector(..), Html, (:>))
 import Flame.Application.Effectful (AffUpdate)
 import Flame.Application.Effectful as FAE
 import Flame.Html.Attribute as HA
 import Flame.Html.Element as HE
 import Web.DOM.Element (getAttribute)
-import Web.HTML.HTMLScriptElement as HTMLScript
-import Web.HTML.Window (Window)
-import Web.HTML.Window as Window
+import Web.DOM.NonElementParentNode (getElementById)
+import Web.HTML (window)
+import Web.HTML.HTMLDocument (toNonElementParentNode)
+import Web.HTML.Window (document)
 
 type Model =
   { url ∷ String
@@ -24,7 +27,11 @@ type Model =
   , counter :: Int
   }
 
-data Message = UpdateUrl String | Fetch | Increment | Decrement | InitAction Int
+type Flags =
+  { counter_start :: Maybe String
+  }
+
+data Message = UpdateUrl String | Fetch | Increment | Decrement | Initialize Flags
 
 data Result = NotFetched | Fetching | Ok String | Error String
 
@@ -40,17 +47,33 @@ init =
 update ∷ AffUpdate Model Message
 update { display, model, message } =
   case message of
-    Initialize flag1 -> FAE.diff { url: model.url, result: model.result, counter: flag1 }
-    UpdateUrl url → FAE.diff { url, result: NotFetched }
+    Initialize flags -> FAE.diff
+      { url: model.url
+      , result: model.result
+      , counter:
+          ( case flags.counter_start of
+              Nothing -> (-10)
+              Just flag2 ->
+                ( case (fromString flag2) of
+                    Nothing -> (-5)
+                    Just val -> val
+                )
+          )
+      }
+    UpdateUrl url → FAE.diff
+      { url, result: NotFetched }
     Fetch → do
       display $ FAE.diff' { result: Fetching }
       response ← A.get AR.string model.url
       FAE.diff <<< { result: _ } $ case response of
         Left error → Error $ A.printError error
         Right payload → Ok payload.body
-    Increment -> FAE.diff { url: model.url, result: model.result, counter: model.counter + 1 }
-    Decrement -> FAE.diff { url: model.url, result: model.result, counter: model.counter - 1 }
+    Increment -> FAE.diff
+      { url: model.url, result: model.result, counter: model.counter + 1 }
+    Decrement -> FAE.diff
+      { url: model.url, result: model.result, counter: model.counter - 1 }
 
+bgColor :: Int -> String
 bgColor counter = if counter < 0 then "red" else "lime"
 
 view ∷ Model → Html Message
@@ -82,9 +105,27 @@ view { url, result, counter } = HE.main "main"
 
 main ∷ Effect Unit
 main = do
-  FAE.mount_ (QuerySelector "#flame")
-    { init: init :> (Just (Initialize 12)) -- pass 12 to the initial model
-    , subscribe: []
-    , update
-    , view
-    }
+  let configTagId = "flame_flags"
+  w <- window
+  doc <- document w
+  container <- getElementById configTagId $ toNonElementParentNode doc
+  case container of
+    Nothing ->
+      throw "container element not found"
+    Just el ->
+      do
+        config <- buildConfig el
+        FAE.mount_
+          (QuerySelector "#flame")
+          { init: init :> (Just (Initialize config)) -- pass config to the initial model
+          , subscribe: []
+          , update
+          , view
+          }
+  where
+  -- function that reads the data from the config tag attributes
+  buildConfig element =
+    ( { counter_start: _ }
+        <$> getAttribute "data-counter-start" element
+
+    )
