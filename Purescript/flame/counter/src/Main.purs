@@ -115,20 +115,19 @@ main = do
   case container of
     Nothing ->
       throw "container element not found"
-    Just el ->
+    Just element ->
       do
-        config <- buildConfig el
+        flags <- buildFlags
         FAE.mount_
           (QuerySelector "#flame")
-          { init: init :> (Just (Initialize config))
+          { init: init :> (Just (Initialize flags))
           , subscribe: []
           , update
           , view
           }
-  where
-  -- function that reads the data from the config tag attributes
-  buildConfig element =
-    ( { counter_start: _ }
-        <$> getAttribute "data-counter-start" element
+      where
+      buildFlags =
+        ( { counter_start: _ }
+            <$> getAttribute "data-counter-start" element
 
-    )
+        )
