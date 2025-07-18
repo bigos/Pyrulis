@@ -16,13 +16,16 @@ import Web.HTML (window)
 import Web.HTML.HTMLDocument (toNonElementParentNode)
 import Web.HTML.Window (document)
 
--- ========== configuration =================================
--- elementName
--- name of the tag or the ID for the output, it can use "body" for pull page app
--- configTagid
--- ID of the tag with data attributes used for configuration
--- buildConfig
--- function that reads from the data
+{-
+========== configuration =================================
+* elementName
+name of the tag or the ID for the output, it can use "body" for pull page app
+here we use #halogen because we place output in a div with id halogen
+* configTagid
+ID of the tag with data attributes used for configuration
+* buildConfig
+function that reads from the data
+-}
 
 main :: Effect Unit
 main = do
