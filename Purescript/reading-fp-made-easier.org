@@ -1099,6 +1099,38 @@ Import class in Data.Generic.Rep
 ***** 6.7. Newtype Typeclass
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#256
 
+***** 6.8. Deriving Instances using newtype
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#256
+
+***** 6.9. Overlapping Instances
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#261
+
+***** 6.10. Orphaned Instances
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#263
+
+#+begin_quote
+Instances MUST be either:
+1. Defined in the SAME module as the Typeclass.
+2. Defined in the SAME module as the Type.
+#+end_quote
+
+***** 6.11. Instance Dependencies
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#267
+
+***** 6.12. Multi-Parametric Typeclasses
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#268
+
+***** 6.13. Functional Dependency
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#268
+
+**** Chapter 7. Coding Typeclasses
+It’s always good to take something we’ve just learned and play with it to get a
+good feeling for the concepts. Please don’t just read this section, but make
+sure you try to code as much as possible.
+
+***** 7.1. Coding Preparation
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#268
+
 *** Advanced
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#543
 
