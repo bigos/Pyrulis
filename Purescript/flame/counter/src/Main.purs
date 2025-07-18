@@ -44,21 +44,24 @@ init =
   , counter: 0
   }
 
+flagsCounter :: Flags -> Int
+flagsCounter flags =
+  ( case flags.counter_start of
+      Nothing -> (-10)
+      Just flag2 ->
+        ( case (fromString flag2) of
+            Nothing -> (-5)
+            Just val -> val
+        )
+  )
+
 update ∷ AffUpdate Model Message
 update { display, model, message } =
   case message of
     Initialize flags -> FAE.diff
       { url: model.url
       , result: model.result
-      , counter:
-          ( case flags.counter_start of
-              Nothing -> (-10)
-              Just flag2 ->
-                ( case (fromString flag2) of
-                    Nothing -> (-5)
-                    Just val -> val
-                )
-          )
+      , counter: flagsCounter flags
       }
     UpdateUrl url → FAE.diff
       { url, result: NotFetched }
