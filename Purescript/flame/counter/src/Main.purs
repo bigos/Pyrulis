@@ -127,6 +127,7 @@ main = do
           , view
           }
       where
+      buildFlags :: Effect Flags
       buildFlags =
         ( { counter_start: _ }
             <$> getAttribute "data-counter-start" element
