@@ -37,7 +37,7 @@ main :: Effect Unit
 main = do
   w <- window
   doc <- document w
-  container <- getElementById "script_with_flags" $ toNonElementParentNode doc
+  container <- getElementById scriptId $ toNonElementParentNode doc
   case container of
     Nothing ->
       throw "container element not found"
@@ -48,11 +48,12 @@ main = do
           _ <- HA.awaitBody
           element <- awaitElement
           runUI Counter.component config element
+  where -- configured data
+  scriptId = "script_with_flags"
 
-      where
-      buildConfig element =
-        ( { api_endpoint: _, api_key: _, start: _ }
-            <$> getAttribute "data-my-app--api-endpoint" element
-            <*> getAttribute "data-my-app--api-key" element
-            <*> getAttribute "data-my-app--count-start" element
-        )
+  buildConfig element =
+    ( { api_endpoint: _, api_key: _, start: _ }
+        <$> getAttribute "data-my-app--api-endpoint" element
+        <*> getAttribute "data-my-app--api-key" element
+        <*> getAttribute "data-my-app--count-start" element
+    )
