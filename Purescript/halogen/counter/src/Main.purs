@@ -25,6 +25,14 @@ type TagDataConfig =
   , start :: Maybe String
   }
 
+-- ========== configuration =================================
+-- elementName
+-- name of the tag on id for the output, ou can use "body"
+-- configTagid
+-- ID of the tag with data attributes used for configuration
+-- buildConfig
+-- function that reads from the data attributes
+
 -- this uses Elm like widget in a div, allowing me to mix PureScript with Rails generated views
 awaitElement :: Aff HTMLElement
 awaitElement = do
@@ -37,7 +45,7 @@ main :: Effect Unit
 main = do
   w <- window
   doc <- document w
-  container <- getElementById scriptId $ toNonElementParentNode doc
+  container <- getElementById configTagId $ toNonElementParentNode doc
   case container of
     Nothing ->
       throw "container element not found"
@@ -49,7 +57,7 @@ main = do
           element <- awaitElement
           runUI Counter.component config element
   where -- configured data
-  scriptId = "script_with_flags"
+  configTagId = "script_with_flags"
 
   buildConfig element =
     ( { api_endpoint: _, api_key: _, start: _ }
