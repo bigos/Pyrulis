@@ -2,3 +2,7 @@
 After a bit of disappointment with PS, I need to look into TypeScript. In case
 of challenges where Elm is not good enough, I may need a language where I need
 to get others be replaceable more easily.
+
+https://www.typescriptlang.org/
+
+https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-func.html
