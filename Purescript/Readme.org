@@ -28,6 +28,12 @@ https://discourse.purescript.org/
 Getting started
 https://github.com/purescript/documentation/blob/master/guides/Getting-Started.md
 
+Purescript Cookbook
+https://github.com/JordanMartinez/purescript-cookbook/blob/master/README.md#recipes
+
+Awesome Purescript
+https://github.com/passy/awesome-purescript
+
 ** nvm, node and npm
 https://nodejs.org/en/download/package-manager
 
@@ -60,7 +66,7 @@ https://github.com/JordanMartinez/purescript-cookbook/blob/master/README.md#reci
 
 https://purescript-resources.readthedocs.io/en/latest/index.html
 
-https://github.com/passy/awesome-purescript
+
 
 https://www.reddit.com/r/purescript/comments/1k90525/purescript_tutorials_focusing_on_ui/
 
