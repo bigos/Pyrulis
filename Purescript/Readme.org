@@ -75,3 +75,10 @@ https://book.purescript.org/chapter9.html#a-http-client
 https://github.com/natefaubion/purescript-tidy
 
 https://jordanmartinez.github.io/purescript-jordans-reference-site/content/03-Build-Tools/05-Formatters.html
+
+** interesting alternatives
+https://lean-lang.org/
+
+https://agda.readthedocs.io/en/latest/index.html
+
+https://proofassistants.stackexchange.com/
