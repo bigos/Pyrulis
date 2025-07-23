@@ -71,4 +71,4 @@ https://purescript-resources.readthedocs.io/en/latest/index.html
 https://www.reddit.com/r/purescript/comments/1k90525/purescript_tutorials_focusing_on_ui/
 
 ** HTTP Client
-https://book.purescript.org/chapter9.html#a-http-client
+https://github.com/bigos/trying-elm-ui/blob/72792ad7c06f0b13af4654081f283d51c407fad3/vendor/purescript/flame/counter/src/Main.purs#L133
