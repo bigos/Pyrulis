@@ -1,5 +1,13 @@
 * Readme
 
+This is a fragment of the record of my struggles with PureScript. While I was
+able to make some small changes like adding flags or POST in flame. The type
+system is very annoying and simple things take hours or days where in a normal
+language it would be 15 minutes job.
+
+I reckon time spending ensuring there are no bugs would be shorter than the time
+wasted trying to figure out why the code won't compile.
+
 Recommended tooling
 https://discourse.purescript.org/t/recommended-tooling-for-purescript-in-2022/3206
 
