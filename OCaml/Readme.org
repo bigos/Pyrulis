@@ -25,6 +25,9 @@ opam install dune ocaml-lsp-server odoc ocamlformat utop merlin base core core_b
 ** Emacs environment problem
 Emacs REPL will not work on my system unless I set the environment variables
 
+use the shortcut:
+C-z C-v
+
 Execute the following block
 C-c '
 then M-e and C-x C-e
@@ -35,7 +38,8 @@ then M-e and C-x C-e
 #+end_src
 
 *** alternative way of launching Emacs
-If you are using OPAM it should be enough to execute Emacs under the OPAM environment (eg opam exec -- emacs or eval $(opam env)).
+If you are using OPAM it should be enough to execute Emacs under the OPAM
+environment (eg opam exec -- emacs or eval $(opam env)).
 
 
 **** keep testing that
