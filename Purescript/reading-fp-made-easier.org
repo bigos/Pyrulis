@@ -1067,6 +1067,8 @@ pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#253
 Another common built-in Typeclass is Show. This Class is for turning a value of
 your Type into a String so that we display it
 
+that was proven nicely when I realised I do not need to define every case of show
+
 ***** 6.6. Derived Instances
 Let’s imagine we have another Sum Type:
 #+begin_src purescript
