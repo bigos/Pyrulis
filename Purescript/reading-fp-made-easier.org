@@ -1131,7 +1131,17 @@ good feeling for the concepts. Please don’t just read this section, but make
 sure you try to code as much as possible.
 
 ***** 7.1. Coding Preparation
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#268
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#278
+
+Working in the same project as we did for our earlier coding sessions, let’s
+simply add a file for this Chapter called Ch7a. (The a is important since we’ll
+create a b file later on in this Chapter.)
+
+file:~/Programming/PureScript/purescript_exercises/src/
+
+https://github.com/bigos/purescript_exercises
+
+file:~/Programming/PureScript/purescript_exercises/src/Ch7a.purs::1
 
 *** Advanced
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#543
