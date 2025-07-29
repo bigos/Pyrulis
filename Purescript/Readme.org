@@ -25,7 +25,7 @@ pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#3
 https://www.purescript.org/
 
 Discord
-https://purescript.org/chat
+https://discord.com/app
 
 Jordan Martinez Reference
 https://jordanmartinez.github.io/purescript-jordans-reference-site/
