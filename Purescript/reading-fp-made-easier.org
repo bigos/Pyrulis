@@ -16,6 +16,14 @@ pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#1107
 ** Index
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#3
 
+** change of plan
+Stop reading the book from front to cover, but decide at what point to stop
+reading section 7, but start reading few items in section 8, then few items in
+12, 16, 18, 19.
+
+Then move to 22 and 23 and start playing with practical examples going back to
+skipped sections as needed.
+
 ** next reading
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#282
 ** parts
