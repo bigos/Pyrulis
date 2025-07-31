@@ -25,7 +25,7 @@ Then move to 22 and 23 and start playing with practical examples in 28 and 29
 going back to skipped sections as needed.
 
 ** next reading
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#282
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#313
 ** parts
 
 *** Beginner
@@ -1169,7 +1169,22 @@ pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#306
 through
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#312
 
-***** 8
+**** Chapter 8. Abstract Algebra
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#313
+
+We’re going to take a cursory look at these concepts as a whole, since we only
+need to understand it as it relates to programming. A word of caution here. The
+concepts here are actually very simple.
+
+Another thing to keep in mind is that these concepts weren’t developed by one person over a short period of
+time. They were developed over hundreds of years and by people from all different countries, many of
+whom were working in different areas of Mathematics.
+
+This somewhat explains why the names of similar concepts are so different from one another. For example,
+Monoid and Semigroup are two concepts that differ by a single rule or requirement and yet their names
+would suggest that they are very different ideas.
+
+***** 8.1. Binary Operators
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#313
 
 
