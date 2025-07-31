@@ -1169,6 +1169,10 @@ pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#306
 through
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#312
 
+***** 8
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#313
+
+
 *** Advanced
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#543
 
