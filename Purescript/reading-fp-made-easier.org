@@ -1158,6 +1158,9 @@ file:~/Programming/PureScript/purescript_exercises/src/Ch7a.purs::1
 ***** 7.6. Writing Ord for Maybe
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#282
 
+done to:
+to 7.13
+
 *** Advanced
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#543
 
