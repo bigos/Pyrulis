@@ -1161,6 +1161,14 @@ pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#282
 done to:
 to 7.13
 
+skipping
+from 7.14
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#289
+to 7.29
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#306
+through
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#312
+
 *** Advanced
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#543
 
