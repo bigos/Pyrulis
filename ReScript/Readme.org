@@ -1,0 +1,12 @@
+* Readme
+After a bit of disappointment with PureScript I want to try ReScript.
+https://rescript-lang.org/
+
+** Installation
+https://rescript-lang.org/docs/manual/v11.0.0/installation
+
+#+begin_example
+npm create rescript-app@latest
+#+end_example
+
+file:~/Programming/Rails/trying-elm-ui/vendor/rescript/my-rectript-experiment/
