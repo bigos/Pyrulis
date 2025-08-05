@@ -6,6 +6,8 @@ https://rescript-lang.org/
 https://rescript-lang.org/docs/manual/v11.0.0/installation
 
 #+begin_example
+npm install @rescript/core
+
 npm create rescript-app@latest
 #+end_example
 
