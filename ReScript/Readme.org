@@ -14,3 +14,6 @@ npm create rescript-app@latest
 file:~/Programming/Rails/trying-elm-ui/vendor/rescript/my-rectript-experiment/
 or
 file:~/Programming/Ruby/trying-elm-ui/vendor/rescript/my-rectript-experiment/
+
+** running in dev mode
+https://github.com/rescript-lang/create-rescript-app/blob/master/templates/rescript-template-vite/README.md
