@@ -17,3 +17,7 @@ file:~/Programming/Ruby/trying-elm-ui/vendor/rescript/my-rectript-experiment/
 
 ** running in dev mode
 https://github.com/rescript-lang/create-rescript-app/blob/master/templates/rescript-template-vite/README.md
+
+https://github.com/rescript-lang/create-rescript-app/blob/master/templates/rescript-template-nextjs/README.md
+
+https://github.com/rescript-lang/create-rescript-app/tree/master/templates/rescript-template-basic

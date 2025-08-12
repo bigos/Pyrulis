@@ -6,6 +6,7 @@ https://joshbradley.me/understanding-the-power-of-lisp/
 https://www.reddit.com/r/lisp/comments/9xd4gy/what_does_it_take_to_understand_the_true_power_of/
 
 ** books
+[[pdf:/home/jacek/Documents/Manuals/Lisp/9781484211779.pdf#5][Common Lisp Recipes]]
 
 *** Beautiful Racket
 https://beautifulracket.com/

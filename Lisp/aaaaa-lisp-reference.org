@@ -8,6 +8,9 @@ https://gitlab.common-lisp.net/clpm/clpm
 https://gitlab.common-lisp.net/clpm/clpm/-/blob/main/tutorial/tutorial.org
 
 
+[[pdf:/home/jacek/Documents/Manuals/Lisp/9781484211779.pdf#5][Common Lisp Recipes]]
+
+
 style guides
 
 https://github.com/foxsae/The-One-True-Lisp-Style-Guide
