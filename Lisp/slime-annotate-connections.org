@@ -2,13 +2,13 @@
 
 ** my fork of slime
 https://github.com/bigos/slime
+file:~/Programming/EmacsPlugins/slime/slime.el::1
 
 ** issue
-https://github.com/slime/slime/issues/884
-
 ** slime code
-
 *** variables
+https://github.com/bigos/slime
+https://github.com/slime/slime/issues/884
 we have def connection vars
 [[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::(slime-def-connection-var slime-connection-number nil]]
 [[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::(slime-def-connection-var slime-lisp-implementation-type nil]]
