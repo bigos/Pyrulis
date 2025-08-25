@@ -1,0 +1,64 @@
+* Slime annotate connections
+
+** my fork of slime
+https://github.com/bigos/slime
+file:~/Programming/EmacsPlugins/slime/slime.el::1
+
+** issue
+** slime code
+*** variables
+https://github.com/bigos/slime
+https://github.com/slime/slime/issues/884
+we have def connection vars
+[[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::(slime-def-connection-var slime-connection-number nil]]
+[[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::(slime-def-connection-var slime-lisp-implementation-type nil]]
+
+possibly we could add another and around
+[[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::defun slime-draw-connection-list (]]
+
+we could use this as inspiration
+file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::6421
+
+and the values set at starting slime
+[[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::setf (slime-connection-number proc) (cl-incf slime-connection-counter)]]
+[[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::defun slime-set-connection-info (connection info]]
+[[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::(setf (slime-lisp-implementation-type) type]]
+
+
+*** useful code
+#+begin_example
+(read-from-minibuffer "enter something: ")
+#+end_example
+
+setting the variable
+[[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::(slime-def-connection-var slime-connection-notes nil]]
+[[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::(slime-def-connection-var slime-connection-comment nil]]
+
+[[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::defun slime-set-connection-info (connection info]]
+
+[[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::defun slime-draw-connection-list (]]
+
+*** slime connections list
+[[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::(slime-define-keys slime-connection-list-mode-map]]
+
+*** setting notes at point
+example
+[[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::defun slime-restart-connection-at-point (connection]]
+
+[[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::defun slime-connection-update-comment-at-point (]]
+
+*** packages
+[[https://www.reddit.com/r/lisp/comments/1mzs90y/how_am_i_supposed_to_work_on_my_own_fork_of_slime/][my reddit question]]
+
+use-package manuals
+https://batsov.com/articles/2025/04/17/using-use-package-the-right-way/
+https://www.gnu.org/software/emacs/manual/html_node/use-package/
+
+*** using the fork
+ensure these are up to date, use git pull or magit
+
+going to use use-package in Emacs config
+[[file:~/.emacs.d/personal/organised.el::;;; **** Slime]]
+
+forked code
+file:~/Programming/EmacsPlugins/slime/slime.el::1
