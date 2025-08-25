@@ -1,4 +1,8 @@
 * Slime annotate connections
+
+** my fork of slime
+https://github.com/bigos/slime
+
 ** issue
 https://github.com/slime/slime/issues/884
 
