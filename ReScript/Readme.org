@@ -6,7 +6,18 @@ https://rescript-lang.org/
 https://rescript-lang.org/docs/manual/v11.0.0/installation
 
 #+begin_example
+npm install @rescript/core
+
 npm create rescript-app@latest
 #+end_example
 
 file:~/Programming/Rails/trying-elm-ui/vendor/rescript/my-rectript-experiment/
+or
+file:~/Programming/Ruby/trying-elm-ui/vendor/rescript/my-rectript-experiment/
+
+** running in dev mode
+https://github.com/rescript-lang/create-rescript-app/blob/master/templates/rescript-template-vite/README.md
+
+https://github.com/rescript-lang/create-rescript-app/blob/master/templates/rescript-template-nextjs/README.md
+
+https://github.com/rescript-lang/create-rescript-app/tree/master/templates/rescript-template-basic
