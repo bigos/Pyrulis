@@ -7,9 +7,15 @@ https://github.com/slime/slime/issues/884
 *** variables
 we have def connection vars
 [[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::(slime-def-connection-var slime-connection-number nil]]
+[[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::(slime-def-connection-var slime-lisp-implementation-type nil]]
 
 possibly we could add another and around
 [[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::defun slime-draw-connection-list (]]
 
-we could use his as inspiration
+we could use this as inspiration
 file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::6421
+
+and the values set at starting slime
+[[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::setf (slime-connection-number proc) (cl-incf slime-connection-counter)]]
+[[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::defun slime-set-connection-info (connection info]]
+[[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::(setf (slime-lisp-implementation-type) type]]
