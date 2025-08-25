@@ -57,7 +57,7 @@ https://www.gnu.org/software/emacs/manual/html_node/use-package/
 *** using the fork
 ensure these are up to date, use git pull or magit
 
-going to use use-package
+going to use use-package in Emacs config
 [[file:~/.emacs.d/personal/organised.el::;;; **** Slime]]
 
 forked code
