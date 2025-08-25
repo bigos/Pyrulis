@@ -19,3 +19,43 @@ and the values set at starting slime
 [[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::setf (slime-connection-number proc) (cl-incf slime-connection-counter)]]
 [[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::defun slime-set-connection-info (connection info]]
 [[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::(setf (slime-lisp-implementation-type) type]]
+
+
+*** useful code
+#+begin_example
+(read-from-minibuffer "enter something: ")
+#+end_example
+
+setting the variable
+[[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::(slime-def-connection-var slime-connection-notes nil]]
+
+[[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::defun slime-set-connection-info (connection info]]
+
+[[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::slime-connection-notes p)))]]
+
+#+begin_src emacs-lisp
+  (defun slime-draw-connection-list ()
+  (let ((default-pos nil)
+        (default slime-default-connection)
+        (fstring "%s%2s  %-10s  %-17s  %-7s %-s %-s \n"))
+    (insert (format fstring " " "Nr" "Name" "Port" "Pid" "Type" "Notes")
+            (format fstring " " "--" "----" "----" "---" "----" "-----"))
+    (setf slime-net-processes
+          (cl-remove-if-not (lambda (conn)
+                              (eq (process-status conn) 'open))
+                            slime-net-processes))
+    (dolist (p (reverse slime-net-processes))
+      (when (eq default p) (setf default-pos (point)))
+      (slime-insert-propertized
+       (list 'slime-connection p)
+       (format fstring
+               (if (eq default p) "*" " ")
+               (slime-connection-number p)
+               (slime-connection-name p)
+               (or (process-id p) (process-contact p))
+               (slime-pid p)
+               (slime-lisp-implementation-type p)
+               (slime-connection-notes p))))
+    (when default-pos
+      (goto-char default-pos))))
+#+end_src
