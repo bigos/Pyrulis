@@ -1,0 +1,15 @@
+* Slime annotate connections
+** issue
+https://github.com/slime/slime/issues/884
+
+** slime code
+
+*** variables
+we have def connection vars
+[[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::(slime-def-connection-var slime-connection-number nil]]
+
+possibly we could add another and around
+[[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::defun slime-draw-connection-list (]]
+
+we could use his as inspiration
+file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::6421
