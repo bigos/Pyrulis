@@ -46,3 +46,6 @@ example
 [[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::defun slime-restart-connection-at-point (connection]]
 
 [[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::defun slime-connection-update-comment-at-point (]]
+
+*** packages and using the fork
+[[https://www.reddit.com/r/lisp/comments/1mzs90y/how_am_i_supposed_to_work_on_my_own_fork_of_slime/][my reddit question]]
