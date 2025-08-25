@@ -49,3 +49,12 @@ example
 
 *** packages and using the fork
 [[https://www.reddit.com/r/lisp/comments/1mzs90y/how_am_i_supposed_to_work_on_my_own_fork_of_slime/][my reddit question]]
+
+going to use use-package
+[[file:~/.emacs.d/personal/organised.el::;;; **** Slime]]
+
+https://batsov.com/articles/2025/04/17/using-use-package-the-right-way/
+https://www.gnu.org/software/emacs/manual/html_node/use-package/
+
+forked code
+file:~/Programming/EmacsPlugins/slime/slime.el::1
