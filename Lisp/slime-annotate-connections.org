@@ -47,14 +47,18 @@ example
 
 [[file:~/.emacs.d/elpa/slime-20250817.2347/slime.el::defun slime-connection-update-comment-at-point (]]
 
-*** packages and using the fork
+*** packages
 [[https://www.reddit.com/r/lisp/comments/1mzs90y/how_am_i_supposed_to_work_on_my_own_fork_of_slime/][my reddit question]]
+
+use-package manuals
+https://batsov.com/articles/2025/04/17/using-use-package-the-right-way/
+https://www.gnu.org/software/emacs/manual/html_node/use-package/
+
+*** using the fork
+ensure these are up to date, use git pull or magit
 
 going to use use-package
 [[file:~/.emacs.d/personal/organised.el::;;; **** Slime]]
-
-https://batsov.com/articles/2025/04/17/using-use-package-the-right-way/
-https://www.gnu.org/software/emacs/manual/html_node/use-package/
 
 forked code
 file:~/Programming/EmacsPlugins/slime/slime.el::1
