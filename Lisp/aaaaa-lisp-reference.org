@@ -2,6 +2,8 @@
 
 Interesting Lisp reference
 
+https://www.cs.umd.edu/%7Enau/cmsc421/norvig-lisp-style.pdf
+
 https://git.savannah.gnu.org/cgit/gcl.git/tree/gcl/info
 
 https://gitlab.common-lisp.net/clpm/clpm
