@@ -29,7 +29,8 @@ the solution
 ** discard and repeat
 
 ** code <=affects=> thinking
-
+** the code example
+https://github.com/melisgl/planet-wars
 
 * Other
 
