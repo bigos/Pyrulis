@@ -25,7 +25,8 @@ Then move to 22 and 23 and start playing with practical examples in 28 and 29
 going back to skipped sections as needed.
 
 ** next reading
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#319
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#321
+
 
 ** parts
 
