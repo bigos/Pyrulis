@@ -45,6 +45,9 @@ https://github.com/JordanMartinez/purescript-cookbook/blob/master/README.md#reci
 Awesome Purescript
 https://github.com/passy/awesome-purescript
 
+Linter
+https://github.com/JSuder-xx/purescript-linter
+
 ** nvm, node and npm
 https://nodejs.org/en/download/package-manager
 
