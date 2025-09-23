@@ -1186,6 +1186,8 @@ This somewhat explains why the names of similar concepts are so different from o
 Monoid and Semigroup are two concepts that differ by a single rule or requirement and yet their names
 would suggest that they are very different ideas.
 
+githubkasten [[file:~/Documents/Roams/githubkasten/org-roam/20250923200106-algebra.org::*Algebra][Algebra]]
+
 ***** 8.1. Binary Operators
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#313
 
