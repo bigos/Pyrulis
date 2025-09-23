@@ -25,8 +25,7 @@ Then move to 22 and 23 and start playing with practical examples in 28 and 29
 going back to skipped sections as needed.
 
 ** next reading
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#321
-
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#326
 
 ** parts
 
@@ -1247,6 +1246,13 @@ pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#325
 #+begin_quote
 A Group is a Monoid where every element of the Set has an Unique Inverse.
 #+end_quote
+
+Group works on associative operator
+so
+...,-3,-2,-1,0,1,2,3,... can be a group for +, but not for - because - is not associative
+
+***** 8.11. Group Typeclass
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#326
 
 *** Advanced
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#543
