@@ -1196,6 +1196,7 @@ pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#316
 
 When we apply a binary operation on any elements of the set and we get a member
 of the set then the operation is closed.
+
 #+begin_quote
 A Magma is a Set that’s Closed under a Binary Operator.
 #+end_quote
@@ -1203,14 +1204,49 @@ A Magma is a Set that’s Closed under a Binary Operator.
 ***** 8.4. Semigroup
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#317
 
+#+begin_quote
+A Semigroup is a Magma where the Binary Operator is Associative.
+#+end_quote
+
 ***** 8.5. Semigroup Typeclass
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#319
 
 ***** 8.6. Monoid
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#319
 
+#+begin_quote
+A Monoid is a Semigroup where the Set has a Neutral Element, e.
+#+end_quote
+
 ***** 8.7. Monoid Typeclass
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#321
+
+***** 8.8. Monoids in Programming vs Math
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#322
+
+When programming in Statically-Typed Languages like PureScript and Haskell, we
+concern ourselves with Types not Sets. So how do we bridge the gap between
+Mathematics and Programming?
+
+In Math, a Monoid is a Set with a Binary Operator. In PureScript, a Monoid is a
+Type with a Binary Operator <>.
+
+So Monoids in Math are Isomorphic to Monoids in Programming. The Set in Math is
+the Set of Inhabitants of a Type in Programming.
+
+***** 8.9. Monoids in Programming
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#322
+
+comparison of combining lists with:
+Monoid - with empty elements allowed
+Semigroup - where we have no empty lists
+
+***** 8.10. Groups
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#325
+
+#+begin_quote
+A Group is a Monoid where every element of the Set has an Unique Inverse.
+#+end_quote
 
 *** Advanced
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#543
