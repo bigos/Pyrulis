@@ -25,7 +25,7 @@ Then move to 22 and 23 and start playing with practical examples in 28 and 29
 going back to skipped sections as needed.
 
 ** next reading
-pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#326
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#342
 
 ** parts
 
@@ -1253,6 +1253,106 @@ so
 
 ***** 8.11. Group Typeclass
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#326
+
+***** 8.12. Modular Arithmetic and Groups
+***** 8.13. Abelian Group
+***** 8.14. Abelian Group Type Alias
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#330
+***** 8.15. Arithmetic Operators in PureScript
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#331
+
+#+begin_example
+npx spago repl
+> :t (+)
+-- forall a. Semiring a => a -> a -> a
+> :t (-)
+-- forall a. Ring a => a -> a -> a
+> :t (/)
+-- forall a. EuclideanRing a => a -> a -> a
+#+end_example
+
+***** 8.16. Semiring
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#333
+
+#+begin_quote
+A Semiring is an Algebraic Structure with Set R and 2 Binary Operators, + and ⋅, called
+Addition and Multiplication.
+#+end_quote
+
+A Semiring also has some laws. First, the laws for Commutative Monoid (a Monoid
+where the Binary Operator is Commutative) and Addition:
+
+In the concrete case of numbers, they’re the operations we grew up with. And 0
+and 1 are actual numbers. But in the abstract sense, 0 and 1 are just Additive
+and Multiplicative Identities. And Addition and Multiplication are arbitrary
+functions.
+
+***** 8.17. Semiring Typeclass
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#334
+
+In PureScript, Semiring is a Typeclass defined as:
+#+begin_src purescript
+  class Semiring a where
+    add :: a -> a -> a
+    zero :: a
+    mul :: a -> a -> a
+    one :: a
+
+  infixl 6 add as +
+  infixl 7 mul as *
+#+end_src
+
+***** 8.18. Semiring for Functions - IMPORTANT
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#335
+
+One of the benefits of using Abstractions for simple Arithmetic is that you can
+generalize Numbers to things that behave similarly. For example, Functions.
+
+You might not immediately think to replace Numbers with Functions, but it
+actually can be done. Here’s the Semiring instance for Functions:
+
+***** 8.19. Semiring Laws for Functions
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#337
+
+***** 8.20. Ring
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#338
+
+A Ring adds 1 more requirement to Semiring. [[*8.16. Semiring][8.16. Semiring]]
+
+In a Ring, the Set has an Additive Inverse:
+#+begin_src purescript
+a + (-a) = 0
+#+end_src
+
+***** 8.21. Ring Typeclass
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#339
+
+***** 8.22. Commutative Ring Typeclass
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#339
+
+Rings are Commutative for Addition. But Commutative Rings are Commutative for
+Addition AND Multiplication.
+
+***** 8.23. Euclidean Ring
+A Euclidean Ring is a Commutative Ring with 1 more requirement. Euclidean Rings support Division.
+It has some pretty involved Laws, but we won’t go into them here.
+
+***** 8.24. Summary
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#340
+
+We can now see why the Types for simple Arithmetic Operators are so strange to
+us programmers. Hopefully, this Chapter has made them less so. In your day to
+day Functional Programming, you will use Semigroup and Monoid Typeclasses most
+of all.
+
+**** Chapter 9. Coding Abstract Algebra
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#342
+
+To help solidify what we learned in the last section, we’re going to work with some of the Abstract Algebra
+concepts.
+
+***** 9.1. Writing Semigroup Typeclass
+
 
 *** Advanced
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#543
