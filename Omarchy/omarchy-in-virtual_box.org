@@ -1,0 +1,31 @@
+* Omarchy in Virtual Box
+
+https://github.com/basecamp/omarchy/discussions/176
+
+** Install virtualbox-guest-utils-nox
+and enable the service:
+
+#+begin_example
+sudo -S virtualbox-guest-utils-nox
+sudo systemctl enable vboxservice
+#+end_example
+
+** Restart
+#+begin_example
+sudo reboot
+#+end_example
+
+** Screen Resolution
+edit:
+~/.config/hypr/monitors.conf
+
+and add:
+#+begin_example
+env = GDK_SCALE, 1
+monitor = VGA-1, 1366x768@60, auto, 1
+#+end_example
+
+The available resolutions were found with:
+#+begin_example
+hyprctl monitors
+#+end_example
