@@ -9,7 +9,13 @@ file:~/.emacs.d/personal/organised.el::1
 [[file:.emacs.d/personal/organised.el::defun better-org-open-at-point (]]
 
 *** org link open
-[[file:.emacs.d/elpa/org-9.7.35/ol.el::defun org-link-open (link &optional arg]]
+[[file:~/.emacs.d/elpa/org-9.7.35/ol.el::defun org-link-open (link &optional arg]]
+[[file:~/.emacs.d/elpa/org-9.7.35/ol.el::defun org-link-open-as-file (path in-emacs]]
+
+*** discovery
+#+begin_src emacs-lisp
+  (progn (org-link-open-as-file "~/.emacs.d/init.el" t) (beginning-of-buffer) (swiper-isearch "Commen"))
+#+end_src
 
 ** Programming folder
 file:~/Programming/
