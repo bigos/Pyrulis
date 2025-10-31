@@ -30,6 +30,7 @@ pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#342
 ** parts
 
 *** Beginner
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#3
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#35
 
 **** 1 Discipline is Freedom
@@ -891,6 +892,7 @@ pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#164
 
 
 *** Intermediate
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#9
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#234
 
 **** Chapter 6. Typeclasses
@@ -1353,9 +1355,45 @@ concepts.
 
 ***** 9.1. Writing Semigroup Typeclass
 
+**** Chapter 10. Folds - skipped
+**** Chapter 11. Coding Folds - skipped
+**** Chapter 12. Functors
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#402
+
+**** Chapter 13. Coding Functors - skipped
+**** Chapter 14. More Functors - skipped
+**** Chapter 15. Coding More Functors - skipped
 
 *** Advanced
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#15
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#543
 
+not read yet
+**** Chapter 16. Applicative Functors, Traversables and Alternatives
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#544
+
+**** Chapter 17. Coding Applicatives - skipped
+
+**** Chapter 18. Monads
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#656
+
+**** Chapter 19. Coding Monads
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#762
+
+
 *** Beyond
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#17
 pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#1000
+
+note read yet
+**** Chapter 22. Synchronous and Asynchronous
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#1001
+
+**** Chapter 29. Building Front-ends using Halogen
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#1569
+
+**** Chapter 30. Writing a Front End using Halogen
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#1650
+
+**** Appendix A: Epilogue
+pdf:/home/jacek/Documents/Manuals/Purescript/fp-made-easier.pdf#1922
