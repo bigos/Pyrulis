@@ -6,7 +6,7 @@ file:~/.emacs.d
 *** organised
 file:~/.emacs.d/personal/organised.el::1
 
-[[file:.emacs.d/personal/organised.el::defun better-org-open-at-point (]]
+[[file:~/.emacs.d/personal/organised.el::better-org-open-and-search]]
 
 *** org link open
 [[file:~/.emacs.d/elpa/org-9.7.35/ol.el::defun org-link-open (link &optional arg]]
@@ -24,4 +24,9 @@ file:~/Programming/
 file:~/Programming/Ruby/trying-elm-ui/app/models/concerns/files.rb::1
 
 **** links
-[[file:Programming/Ruby/trying-elm-ui/app/models/concerns/files.rb::def]]
+
+[[file:~/Programming/Ruby/trying-elm-ui/app/models/concerns/files.rb::def]]
+
+[[file:~/Programming/Ruby/trying-elm-ui/vendor/purescript/flame/cocktail/src/Main.purs::type]]
+
+[[file:~/Programming/Ruby/trying-elm-ui/vendor/purescript/flame/cocktail/src/Main.purs::data]]
