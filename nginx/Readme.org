@@ -5,5 +5,49 @@ https://nginx.org/en/docs/
 
 https://www.freecodecamp.org/news/the-nginx-handbook/
 
+https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-16-04
+
+https://docs.nginx.com/nginx/deployment-guides/setting-up-nginx-demo-environment/
+
 ** config
 file:/etc/nginx/sites-enabled/
+
+file:/etc/nginx/sites-available/
+
+proxy_pass
+https://stackoverflow.com/a/41138553/1395810
+
+#+begin_example
+proxy_pass http://127.0.0.1:3000;
+#+end_example
+
+** version
+#+begin_example
+$ nginx -v
+nginx version: nginx/1.24.0 (Ubuntu)
+#+end_example
+
+** trying configuration
+#+begin_example
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    listen 443 default_server ssl;
+    listen [::]:443 default_server ssl;
+    ssl_reject_handshake on;
+    return 444;
+}
+#+end_example
+
+** testing configuration
+
+#+begin_example
+$ sudo nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successfu
+
+$ sudo nginx -s reopen
+$ sudo nginx -s reload
+#+end_example
+
+http://localhost:80
