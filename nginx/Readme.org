@@ -46,8 +46,47 @@ $ sudo nginx -t
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successfu
 
+$ sudo nginx
 $ sudo nginx -s reopen
 $ sudo nginx -s reload
 #+end_example
 
 http://localhost:80
+
+
+*** this configuration has ran the rails app on port 80
+
+#+begin_example
+upstream app1 {
+  server 127.0.0.1:3000;
+  keepalive 8;
+}
+
+upstream app2 {
+  server 127.0.0.1:3001;
+  keepalive 8;
+}
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    listen 443 default_server ssl;
+    listen [::]:443 default_server ssl;
+    ssl_reject_handshake on;
+    # return 444;
+
+  location / {
+        proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $http_host;
+      proxy_set_header X-NginX-Proxy true;
+      proxy_set_header X-Forwarded-Proto $scheme;
+
+      proxy_pass http://127.0.0.1:3000;
+      proxy_redirect off;
+
+      proxy_http_version 1.1;
+
+      # proxy_pass http://127.0.0.1:3000;
+  }
+}
+#+end_example
