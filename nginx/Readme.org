@@ -1,0 +1,9 @@
+* Readme
+
+** nginx documentation
+https://nginx.org/en/docs/
+
+https://www.freecodecamp.org/news/the-nginx-handbook/
+
+** config
+file:/etc/nginx/sites-enabled/
