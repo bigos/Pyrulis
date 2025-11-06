@@ -9,6 +9,9 @@ https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl
 
 https://docs.nginx.com/nginx/deployment-guides/setting-up-nginx-demo-environment/
 
+SSL
+https://nginx.org/en/docs/http/configuring_https_servers.html
+
 ** config
 file:/etc/nginx/sites-enabled/
 
@@ -116,3 +119,22 @@ http://localhost:81
     }
   }
 #+end_example
+
+
+*** SSL
+https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-16-04
+
+huh? we have self signed certificates for development
+file:/etc/nginx/snippets/snakeoil.conf::1
+
+#+begin_example
+# SSL
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
+
+# params for secrecy
+sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+#+end_example
+
+https://localhost:443
+https://localhost:444
+we have errors but the server is listening to the https requests
