@@ -138,3 +138,77 @@ sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 https://localhost:443
 https://localhost:444
 we have errors but the server is listening to the https requests
+
+
+this example worked
+
+#+begin_example
+upstream app1 {
+  server 127.0.0.1:3000;
+  keepalive 8;
+}
+
+upstream app2 {
+  server 127.0.0.1:3001;
+  keepalive 8;
+}
+
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    listen 443 default_server ssl;
+    listen [::]:443 default_server ssl;
+    server_name _;
+
+    include snippets/snakeoil.conf;
+    # ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
+    # ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+
+    # ssl_reject_handshake on;
+    # return 444;
+
+  location / {
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $http_host;
+      proxy_set_header X-NginX-Proxy true;
+      proxy_set_header X-Forwarded-Proto $scheme;
+
+      proxy_pass http://127.0.0.1:3000;
+      proxy_redirect off;
+
+      proxy_http_version 1.1;
+
+      # proxy_pass http://127.0.0.1:3000;
+  }
+}
+
+
+server {
+    listen 81 default_server;
+    listen [::]:81 default_server;
+    listen 444 default_server ssl;
+    listen [::]:444 default_server ssl;
+    server_name _;
+
+    ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
+    ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+
+    # ssl_reject_handshake on;
+    # return 444;
+
+  location / {
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $http_host;
+      proxy_set_header X-NginX-Proxy true;
+      proxy_set_header X-Forwarded-Proto $scheme;
+
+      proxy_pass http://127.0.0.1:3001;
+      proxy_redirect off;
+
+      proxy_http_version 1.1;
+
+  }
+}
+#+end_example
