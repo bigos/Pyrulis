@@ -212,3 +212,6 @@ server {
   }
 }
 #+end_example
+
+** url with suffix
+https://serverfault.com/questions/1020572/nginx-location-match-by-suffix
