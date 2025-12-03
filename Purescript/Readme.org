@@ -39,6 +39,7 @@ https://discourse.purescript.org/
 Getting started
 https://github.com/purescript/documentation/blob/master/guides/Getting-Started.md
 
+
 Purescript Cookbook
 https://github.com/JordanMartinez/purescript-cookbook/blob/master/README.md#recipes
 
