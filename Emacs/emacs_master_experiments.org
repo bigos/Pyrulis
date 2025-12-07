@@ -19,6 +19,7 @@ from scratch with a config targeted at master branch Emacs.
 ./configure
 make
 ./src/emacs -Q
+./src/emacs --init-directory=/home/jacek/.emacs-master-experiment-1
 #+end_example
 
 ** literal vs traditional code
@@ -26,3 +27,6 @@ I will not use [[file:~/.emacs.d-experimental/literal-config.org::*Literal confi
 packages selection and shortcuts.
 
 ** other Emacs configuration examples
+
+** my mater init directory
+file:~/.emacs-master-experiment-1/
