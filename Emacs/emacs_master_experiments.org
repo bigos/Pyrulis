@@ -41,3 +41,5 @@ https://www.gnu.org/software/emacs/manual/html_node/elisp/Comment-Tips.html
 https://www.reddit.com/r/emacs/comments/1oylsli/customizing_emacs_seeking_recommendations_for/
 https://taingram.org/init.html
 https://github.com/minad/vertico
+file:~/.emacs.d-experimental/literal-config.org::8
+https://github.com/enzuru/.emacs.d
