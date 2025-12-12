@@ -1,0 +1,45 @@
+* emacs master experiments
+This file is for notes about master emacs.
+
+#+begin_example
+git clone git@github.com:emacs-mirror/emacs.git
+#+end_example
+
+file:~/Programming/emacs/
+
+Because of the recent changes, I need to review my config. The Emacs Lisp
+dialect changes give me warnings in my config. So I though about starting again
+from scratch with a config targeted at master branch Emacs.
+
+** compilation without installation
+[[file:emacs/INSTALL::BASIC INSTALLATION]]
+
+#+begin_example
+./autogen.sh
+./configure
+make
+./src/emacs -Q
+./src/emacs --init-directory=/home/jacek/.emacs-master-experiment-1
+#+end_example
+
+** my mater init directory
+file:~/.emacs-master-experiment-1/
+
+** literal vs traditional code
+I will not use [[file:~/.emacs.d-experimental/literal-config.org::*Literal config][Literal config]], but will consider it as a starting point for
+packages selection and shortcuts.
+
+** tips
+
+*** emacs manuals
+https://www.gnu.org/software/emacs/manual/
+
+*** comments
+https://www.gnu.org/software/emacs/manual/html_node/elisp/Comment-Tips.html
+
+** other Emacs configuration examples
+https://www.reddit.com/r/emacs/comments/1oylsli/customizing_emacs_seeking_recommendations_for/
+https://taingram.org/init.html
+https://github.com/minad/vertico
+file:~/.emacs.d-experimental/literal-config.org::8
+https://github.com/enzuru/.emacs.d

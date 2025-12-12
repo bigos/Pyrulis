@@ -31,4 +31,4 @@ file:~/Programming/Ruby/trying-elm-ui/app/models/concerns/files.rb::1
 
 [[file:~/Programming/Ruby/trying-elm-ui/vendor/purescript/flame/cocktail/src/Main.purs::data]]
 
-[[file:~/Programming/Ruby/trying-elm-ui/vendor/purescript/flame/cocktail/src/Main.purs::NodeData]]
+[[file:~/Programming/Ruby/trying-elm-ui/vendor/purescript/flame/cocktail/src/Main.purs::module]]

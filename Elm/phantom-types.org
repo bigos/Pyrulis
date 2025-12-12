@@ -1,0 +1,12 @@
+* Phantom Types
+Elm
+https://sporto.github.io/elm-patterns/advanced/phantom-types.html
+
+Haskell
+https://wiki.haskell.org/index.php?title=Phantom_type
+
+Make impossible states impossible
+https://sporto.github.io/elm-patterns/basic/impossible-states.html
+
+Patrick Stapfer: Making Unreasonable States Impossible - ReasonML Munich Meetup
+https://www.youtube.com/watch?v=P7dTPoxCg4w
