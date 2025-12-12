@@ -93,9 +93,24 @@ view model = HE.main "main"
           ]
           [ HE.text (show model.counter) ]
       , HE.button [ HA.onClick Increment ] "+"
+      , HE.p [ HA.styleAttr "color: red" ] [ HE.text "1" ]
       , HE.p [ HA.styleAttr "color: black" ]
           [ HE.text (show (printBoard model.board))
           ]
+      , HE.table [ HA.styleAttr "color: green" ]
+          ( map
+              ( \r ->
+                  HE.tr [ HA.styleAttr "color: green" ]
+                    ( map
+                        ( \c ->
+                            HE.td [ HA.styleAttr "color: green; border: solid 1px; padding:2em;" ]
+                              [ HE.text (printField c) ]
+                        )
+                        r
+                    )
+              )
+              model.board
+          )
       ]
 
   ]
