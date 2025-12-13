@@ -4,7 +4,9 @@ This is the record of my attempt to learn OCaml. There are other languages. Time
 
 
 ** Installing
+https://opam.ocaml.org/doc/Install.html#Binary-distribution
 
+*** old apt installation
 https://ocaml.org/docs/installing-ocaml
 
 #+begin_example
