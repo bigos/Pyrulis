@@ -105,7 +105,6 @@ view model = HE.main "main"
           ]
           [ HE.text (show model.counter) ]
       , HE.button [ HA.onClick Increment ] "+"
-      , HE.p [ HA.styleAttr "color: red" ] [ HE.text "1" ]
       , view_table model
       , HE.p_ [ HE.text (show model) ]
       ]
