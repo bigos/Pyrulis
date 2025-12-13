@@ -61,6 +61,7 @@ https://github.com/purescript-emacs/psc-ide-emacs
 
 https://github.com/purescript-emacs/emacs-psci
 
+
 ** reading
 [[file:reading-fp-made-easier.org::*Reading fp-made-easier][Reading fp-made-easier]]
 

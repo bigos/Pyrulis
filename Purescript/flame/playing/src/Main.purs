@@ -7,7 +7,7 @@ import Affjax.ResponseFormat as AR
 import Affjax.Web as A
 import Data.Either (Either(..))
 import Data.Int (fromString)
-
+import Data.Array (mapWithIndex)
 import Data.Maybe (Maybe(..))
 import Effect (Effect)
 import Effect.Exception (throw)
@@ -98,13 +98,18 @@ view model = HE.main "main"
           [ HE.text (show (printBoard model.board))
           ]
       , HE.table_
-          ( map
-              ( \r ->
+          ( mapWithIndex
+              ( \ ri r ->
                   HE.tr_
-                    ( map
-                        ( \c ->
+                    ( mapWithIndex
+                        ( \ci c ->
                             HE.td [ HA.styleAttr "color: green; border: solid 1px; padding:2em;" ]
-                              [ HE.text (printField c) ]
+                            [ HE.text( (printField c)
+                                       <> " = "
+                                       <>(show ri)
+                                       <> " "
+                                       <>(show ci)
+                                     ) ]
                         )
                         r
                     )
