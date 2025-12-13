@@ -26,30 +26,31 @@ import Web.HTML.Window (document)
 type Model =
   { counter :: Int
   , board :: Array (Array Field)
+  , fieldCoordinates :: Maybe FieldCoordinates
   }
 
 type Flags = { counter_start :: Maybe String }
 
-data Message = Increment | Decrement | Initialize Flags
+data Message = Increment | Decrement | Initialize Flags | SetFieldCoordinates Int Int
 
 data Field = Field_o | Field_x | Field_empty
+
+type FieldCoordinates = { row :: Int, col :: Int }
+
 instance showField :: Show (Field) where
-  show ::Field -> String
-  show (Field_o) =" O "
-  show (Field_x) =" X "
-  show (Field_empty) =" + "
+  show :: Field -> String
+  show (Field_o) = " O "
+  show (Field_x) = " X "
+  show (Field_empty) = " + "
 
 init ∷ Model
-init = { counter: 0, board: initBoard }
+init = { counter: 0, board: initBoard, fieldCoordinates: Nothing }
 
+initBoard :: Array (Array Field)
 initBoard = [ initRow, initRow, initRow ]
+
+initRow :: (Array Field)
 initRow = [ Field_empty, Field_empty, Field_empty ]
-
--- printBoard :: Array (Array Field) -> String
--- printBoard b = joinWith "--" $ map (\r -> printRow r) b
-
-printRow :: Array (Field) -> String
-printRow r = joinWith "" $ map (\c -> printField c) r
 
 printField :: Field -> String
 printField f = case f of
@@ -80,6 +81,12 @@ update { display, model, message } =
     Decrement -> FAE.diff
       { counter: model.counter - 1
       }
+    SetFieldCoordinates row col -> FAE.diff
+      { fieldCoordinates: Just
+          { row: row
+          , col: col
+          }
+      }
 
 bgColor :: Int -> String
 bgColor counter = if counter < 0 then "red" else "lime"
@@ -101,24 +108,40 @@ view model = HE.main "main"
       , HE.p [ HA.styleAttr "color: red" ] [ HE.text "1" ]
       , HE.table_
           ( mapWithIndex
-              ( \ ri r ->
+              ( \ri r ->
                   HE.tr_
                     ( mapWithIndex
                         ( \ci c ->
-                            HE.td [ HA.styleAttr "color: green; border: solid 1px; padding:2em;" ]
-                            [ HE.text( (printField c)
-                                       <> " = "
-                                       <>(show ri)
-                                       <> " "
-                                       <>(show ci)
-                                     ) ]
+                            HE.td
+                              [ HA.onClick (SetFieldCoordinates ri ci)
+                              , HA.styleAttr
+                                  ( "color: green; border: solid 1px; padding:2em;" <>
+                                      ( if
+                                          ( case model.fieldCoordinates of
+                                              Nothing -> false
+                                              Just fc ->
+                                                ( (fc.row == ri)
+                                                    &&
+                                                      (fc.col == ci)
+                                                )
+                                          ) then
+                                          "background: yellow"
+                                        else ""
+                                      )
+                                  )
+                              ]
+                              [ HE.text
+                                  ( (printField c)
+
+                                  )
+                              ]
                         )
                         r
                     )
               )
               model.board
           )
-          , HE.p_ [HE.text (show model)]
+      , HE.p_ [ HE.text (show model) ]
       ]
 
   ]
