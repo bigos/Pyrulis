@@ -106,45 +106,41 @@ view model = HE.main "main"
           [ HE.text (show model.counter) ]
       , HE.button [ HA.onClick Increment ] "+"
       , HE.p [ HA.styleAttr "color: red" ] [ HE.text "1" ]
-      , HE.table_
-          ( mapWithIndex
-              ( \ri r ->
-                  HE.tr_
-                    ( mapWithIndex
-                        ( \ci c ->
-                            HE.td
-                              [ HA.onClick (SetFieldCoordinates ri ci)
-                              , HA.styleAttr
-                                  ( "color: green; border: solid 1px; padding:2em;" <>
-                                      ( if
-                                          ( case model.fieldCoordinates of
-                                              Nothing -> false
-                                              Just fc ->
-                                                ( (fc.row == ri)
-                                                    &&
-                                                      (fc.col == ci)
-                                                )
-                                          ) then
-                                          "background: yellow"
-                                        else ""
-                                      )
-                                  )
-                              ]
-                              [ HE.text
-                                  ( (printField c)
-
-                                  )
-                              ]
-                        )
-                        r
-                    )
-              )
-              model.board
-          )
+      , view_table model
       , HE.p_ [ HE.text (show model) ]
       ]
 
   ]
+
+view_table model =
+  HE.table_
+    ( mapWithIndex
+        ( \ri r ->
+            HE.tr_
+              ( mapWithIndex
+                  ( \ci c ->
+                      HE.td
+                        [ HA.onClick (SetFieldCoordinates ri ci)
+                        , HA.styleAttr
+                            ( "color: green; border: solid 1px; padding:2em;" <>
+                                ( if
+                                    ( case model.fieldCoordinates of
+                                        Nothing -> false
+                                        Just fc ->
+                                          ((fc.row == ri) && (fc.col == ci))
+                                    ) then
+                                    "background: yellow"
+                                  else ""
+                                )
+                            )
+                        ]
+                        [ HE.text ((printField c)) ]
+                  )
+                  r
+              )
+        )
+        model.board
+    )
 
 main ∷ Effect Unit
 main = do
