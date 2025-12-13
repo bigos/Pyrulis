@@ -33,6 +33,11 @@ type Flags = { counter_start :: Maybe String }
 data Message = Increment | Decrement | Initialize Flags
 
 data Field = Field_o | Field_x | Field_empty
+instance showField :: Show (Field) where
+  show ::Field -> String
+  show (Field_o) =" O "
+  show (Field_x) =" X "
+  show (Field_empty) =" + "
 
 init ∷ Model
 init = { counter: 0, board: initBoard }
@@ -40,8 +45,8 @@ init = { counter: 0, board: initBoard }
 initBoard = [ initRow, initRow, initRow ]
 initRow = [ Field_empty, Field_empty, Field_empty ]
 
-printBoard :: Array (Array Field) -> String
-printBoard b = joinWith "--" $ map (\r -> printRow r) b
+-- printBoard :: Array (Array Field) -> String
+-- printBoard b = joinWith "--" $ map (\r -> printRow r) b
 
 printRow :: Array (Field) -> String
 printRow r = joinWith "" $ map (\c -> printField c) r
@@ -94,9 +99,6 @@ view model = HE.main "main"
           [ HE.text (show model.counter) ]
       , HE.button [ HA.onClick Increment ] "+"
       , HE.p [ HA.styleAttr "color: red" ] [ HE.text "1" ]
-      , HE.p_
-          [ HE.text (show (printBoard model.board))
-          ]
       , HE.table_
           ( mapWithIndex
               ( \ ri r ->
@@ -116,6 +118,7 @@ view model = HE.main "main"
               )
               model.board
           )
+          , HE.p_ [HE.text (show model)]
       ]
 
   ]
