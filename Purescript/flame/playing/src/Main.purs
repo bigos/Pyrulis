@@ -108,7 +108,6 @@ view model = HE.main "main"
       , view_table model
       , HE.p_ [ HE.text (show model) ]
       ]
-
   ]
 
 view_table model =
