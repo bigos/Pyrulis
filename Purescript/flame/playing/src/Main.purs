@@ -115,7 +115,11 @@ view_table model =
     ( mapWithIndex
         ( \ri r ->
             HE.tr_
-              ( mapWithIndex (\ci c -> view_table_td model ri ci c)
+              ( mapWithIndex
+                  ( \ci c ->
+                      view_table_td model ri ci
+                        c
+                  )
                   r
               )
         )
