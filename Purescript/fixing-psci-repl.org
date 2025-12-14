@@ -35,6 +35,7 @@ directory."
 Go to the project folder where you have src with the code, and run
 
 #+begin_example
+npm run build
 spago install psci-support
 spago repl
 #+end_example
