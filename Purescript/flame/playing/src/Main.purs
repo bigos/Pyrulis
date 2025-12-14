@@ -115,30 +115,30 @@ view_table model =
     ( mapWithIndex
         ( \ri r ->
             HE.tr_
-              ( mapWithIndex
-                  ( \ci c ->
-                      HE.td
-                        [ HA.onClick (SetFieldCoordinates ri ci)
-                        , HA.styleAttr
-                            ( "color: green; border: solid 1px; padding:2em;" <>
-                                ( if
-                                    ( case model.fieldCoordinates of
-                                        Nothing -> false
-                                        Just fc ->
-                                          ((fc.row == ri) && (fc.col == ci))
-                                    ) then
-                                    "background: yellow"
-                                  else ""
-                                )
-                            )
-                        ]
-                        [ HE.text ((printField c)) ]
-                  )
+              ( mapWithIndex (\ci c -> view_table_td model ri ci c)
                   r
               )
         )
         model.board
     )
+
+view_table_td model ri ci c =
+  ( HE.td
+      [ HA.onClick (SetFieldCoordinates ri ci)
+      , HA.styleAttr
+          ( "color: green; border: solid 1px; padding:2em;" <>
+              ( if
+                  ( case model.fieldCoordinates of
+                      Nothing -> false
+                      Just fc -> ((fc.row == ri) && (fc.col == ci))
+                  ) then
+                  "background: yellow"
+                else ""
+              )
+          )
+      ]
+      [ HE.text ((printField c)) ]
+  )
 
 main ∷ Effect Unit
 main = do
