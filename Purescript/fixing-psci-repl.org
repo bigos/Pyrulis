@@ -28,6 +28,9 @@ directory."
     (message "JP loading psci with project-root-folder %s" project-root-folder)
 #+end_src
 
+** install psci-package
+https://github.com/purescript/psc-package?tab=readme-ov-file#installation
+
 ** spago install
 in the root of the project run:
 #+begin_example
