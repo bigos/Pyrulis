@@ -1,5 +1,8 @@
 * Fixing psci repl
 
+** install psci-package
+https://github.com/purescript/psc-package?tab=readme-ov-file#installation
+
 ** required modifications
 note commented out second element of the list
 #+begin_src emacs-lisp
@@ -28,11 +31,15 @@ directory."
     (message "JP loading psci with project-root-folder %s" project-root-folder)
 #+end_src
 
-** install psci-package
-https://github.com/purescript/psc-package?tab=readme-ov-file#installation
+** first run
+Go to the project folder where you have src with the code, and run
 
-** spago install
-in the root of the project run:
 #+begin_example
- spago install psci-support
+spago repl
+#+end_example
+
+That should install the dependencies, and after that you can run the REPL in Emacs.
+
+#+begin_example
+M-x psci
 #+end_example
