@@ -11,6 +11,7 @@
   , "integers"
   , "maybe"
   , "prelude"
+  , "psci-support"
   , "strings"
   , "web-dom"
   , "web-html"
