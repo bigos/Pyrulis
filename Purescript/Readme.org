@@ -2,7 +2,7 @@
 
 ** Time for Elixir
 I think I did enough getting the feel of Purescript. I may revisit it for the
-theoretical reasons, but now is the time to explore [[file:~/Programming/Pyrulis/Elixir/Readme.org::*Readme][Elixir]].
+theoretical reasons, but now is the time to explore [[file:../Elixir/Readme.org::*Readme][Elixir]].
 
 ** Struggling with Purescript
 
