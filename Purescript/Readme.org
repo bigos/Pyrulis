@@ -1,5 +1,11 @@
 * Readme
 
+** Time for Elixir
+I think I did enough getting the feel of Purescript. I may revisit it for the
+theoretical reasons, but now is the time to explore Elixir.
+
+** Struggling with Purescript
+
 This is a fragment of the record of my struggles with PureScript. While I was
 able to make some small changes like adding flags or POST in flame. The type
 system is very annoying and simple things take hours or days where in a normal
