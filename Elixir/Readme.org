@@ -166,7 +166,5 @@ https://elixirforum.com/t/emacs-elixir-setup-configuration-wiki/19196
 
 https://www.elixirwiki.com/wiki/Emacs_Configuration_Guide
 
-
-
 ** Books
 more [[file:books/Readme.org::*Books][Books]]

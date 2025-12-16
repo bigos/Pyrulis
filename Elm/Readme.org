@@ -3,6 +3,9 @@
 Here are some of my Elm projects and links to Elm resources
 
 ** Elm resources
+performance
+https://krausest.github.io/js-framework-benchmark/current.html
+
 https://korban.net/elm/
 
 https://www.manning.com/books/elm-in-action/
