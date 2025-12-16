@@ -1,0 +1,5 @@
+* IO Monad for OCaml
+
+https://discuss.ocaml.org/t/io-monad-for-ocaml/4618/11?u=zeta
+
+Interesting post about Monads
