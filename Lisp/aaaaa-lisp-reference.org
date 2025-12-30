@@ -4,6 +4,7 @@ SBCL books
 https://www.sbcl.org/manual/index.html#Common-Lisp-Books
 
 Interesting Lisp reference
+https://norvig.github.io/paip-lisp/#/?id=paradigms-of-artificial-intelligence-programming
 
 https://www.cs.umd.edu/%7Enau/cmsc421/norvig-lisp-style.pdf
 
