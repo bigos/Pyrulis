@@ -11,6 +11,8 @@ sudo apt-get -y install build-essential git autoconf m4 libncurses5-dev libwxgtk
 #+end_example
 
 ** Installation on Linux with kerl
+This is the initial attempt to experiment with Elixir. Later I found [[*Installing on Linux with asdf][asdf]] to be much better.
+
 
 *** version managers
 
@@ -127,7 +129,7 @@ asdf plugin list all | grep -P 'erlang|elixir'
   asdf plugin list
 #+end_example
 
-now create the folder
+now create the folder in file:~/Programming/Elixir/
 #+begin_example
   mkdir ./second
   touch ./second/.tool-versions
@@ -163,8 +165,6 @@ https://github.com/tonini/alchemist.el
 https://elixirforum.com/t/emacs-elixir-setup-configuration-wiki/19196
 
 https://www.elixirwiki.com/wiki/Emacs_Configuration_Guide
-
-
 
 ** Books
 more [[file:books/Readme.org::*Books][Books]]

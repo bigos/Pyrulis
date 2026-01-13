@@ -1,5 +1,11 @@
 * Readme
 
+** Time for Elixir
+I think I did enough getting the feel of Purescript. I may revisit it for the
+theoretical reasons, but now is the time to explore [[file:../Elixir/Readme.org::*Readme][Elixir]].
+
+** Struggling with Purescript
+
 This is a fragment of the record of my struggles with PureScript. While I was
 able to make some small changes like adding flags or POST in flame. The type
 system is very annoying and simple things take hours or days where in a normal
@@ -60,6 +66,7 @@ https://github.com/purescript-emacs/purescript-mode
 https://github.com/purescript-emacs/psc-ide-emacs
 
 https://github.com/purescript-emacs/emacs-psci
+
 
 ** reading
 [[file:reading-fp-made-easier.org::*Reading fp-made-easier][Reading fp-made-easier]]

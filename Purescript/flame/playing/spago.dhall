@@ -2,6 +2,7 @@
 , dependencies =
   [ "affjax"
   , "affjax-web"
+  , "arrays"
   , "console"
   , "effect"
   , "either"
@@ -10,6 +11,8 @@
   , "integers"
   , "maybe"
   , "prelude"
+  , "psci-support"
+  , "strings"
   , "web-dom"
   , "web-html"
   ]

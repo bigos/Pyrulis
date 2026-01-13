@@ -1,0 +1,8 @@
+* REPL use
+
+#+begin_example
+> import Main as MA
+> MA.init
+-- it works
+{ board: [[ + , + , + ],[ + , + , + ],[ + , + , + ]], counter: 0, fieldCoordinates: Nothing }
+#+end_example

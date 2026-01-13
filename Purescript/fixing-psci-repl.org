@@ -1,0 +1,47 @@
+* Fixing psci repl
+
+** install psci-package
+https://github.com/purescript/psc-package?tab=readme-ov-file#installation
+
+** required modifications
+note commented out second element of the list
+#+begin_src emacs-lisp
+  (defcustom psci/arguments '("src/**/*.purs"  ;; "bower_components/purescript-*/src/**/*.purs"
+                            )
+  "Command-line arguments to pass to `psci' function."
+  :group 'psci
+  :type '(repeat string))
+
+#+end_src
+
+#+begin_src emacs-lisp
+  (defun psci (project-root-folder)
+  "Run an inferior instance of \"psci\" inside Emacs, in PROJECT-ROOT-FOLDER.
+If not supplied, the root folder will be guessed using
+`projectile-project-root', or `project-root' from project.el (if
+available), otherwise it will default to the current buffer's
+directory."
+  (interactive (list (read-directory-name "Project root: "
+                                          (psci--project-root!))))
+  (let* ((default-directory project-root-folder)
+         (psci-program psci/purs-path)
+         (extra-sources (psci--get-psc-package-sources!))
+         (buffer (comint-check-proc psci/buffer-name)))
+
+    (message "JP loading psci with project-root-folder %s" project-root-folder)
+#+end_src
+
+** first run
+Go to the project folder where you have src with the code, and run
+
+#+begin_example
+npm run build
+spago install psci-support
+spago repl
+#+end_example
+
+That should install the dependencies, and after that you can run the REPL in Emacs.
+
+#+begin_example
+M-x psci
+#+end_example

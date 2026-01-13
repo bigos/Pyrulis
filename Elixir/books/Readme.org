@@ -63,4 +63,13 @@ pdf:/home/jacek/Documents/Manuals/Elixir/fromrubytoelixir.pdf#25
 
 *** Programming Elixir >= 1.6
 table of contents
+pdf:/home/jacek/Documents/Manuals/Elixir/programmingelixir16.pdf#5
+
+foreword
+pdf:/home/jacek/Documents/Manuals/Elixir/programmingelixir16.pdf#11
+
+beginning
+pdf:/home/jacek/Documents/Manuals/Elixir/programmingelixir16.pdf#15
+
+reading
 pdf:/home/jacek/Documents/Manuals/Elixir/programmingelixir16.pdf#19
