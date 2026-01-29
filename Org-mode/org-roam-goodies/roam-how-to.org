@@ -55,6 +55,7 @@ If we need to track the notes with git, we can use a .gitignore like that:
 
 # ignore database
 org-roam/org-roam.db
+org-roam.db
 
 # ignore accidentally exported html files
 org-roam/*.html
