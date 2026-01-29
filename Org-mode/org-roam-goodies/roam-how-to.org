@@ -6,11 +6,22 @@ This folder is for folders with org-roam notes.
 There should be a symbolic link called current that points to one of those
 folders and is used by Emacs configuration.
 
-Make a new roam called ~diagram~ with updated link
+#+begin_example
+~/Documents/Roams$ ls -alh | grep current
+lrwxrwxrwx  1 jacek jacek   14 Jan 17 18:35 current -> ./githubkasten
+#+end_example
+
+also there should be a switch_project script
+#+begin_example
+~/Documents/Roams$ ls -alh | grep switch
+lrwxrwxrwx  1 jacek jacek   72 Apr 18  2025 switch_project -> /home/jacek/Programming/Pyrulis/Org-mode/org-roam-goodies/switch_project
+#+end_example
+
+** create a new project and switch to it
+Make a new roam called ~diagram~ and switch project
 #+begin_example
 mkdir -p ./diagram/org-roam/daily
-rm ./current
-ln -s ./diagram ./current
+./switch_project ./diagram
 #+end_example
 
 Start Emacs and run M-x org-roam-dired.
@@ -23,9 +34,10 @@ I can switch between folders using the switch_project script. The script creates
 symbolic link from the folder to current. The current is defined in the Emacs
 config as the part of the path loading to org-roam folder with the org-roam data.
 
+** alternative to switch_project
 The Emacs variable org-roam-my-folder
 [[file:~/.emacs.d-preludeEmacs30/personal/organised.el::(defvar org-roam-my-folder]]
-allows my to redefine the location of the org-roam project without running
+allows me to redefine the location of the org-roam project without running
 *switch-project*
 
 Optionally create the folder, if it does not exist
