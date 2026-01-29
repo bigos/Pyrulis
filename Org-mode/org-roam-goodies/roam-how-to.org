@@ -22,3 +22,18 @@ Press C-x n f and enter the name of your first node. Press C-c C-c to confirm.
 I can switch between folders using the switch_project script. The script creates
 symbolic link from the folder to current. The current is defined in the Emacs
 config as the part of the path loading to org-roam folder with the org-roam data.
+
+The Emacs variable org-roam-my-folder
+[[file:~/.emacs.d-preludeEmacs30/personal/organised.el::(defvar org-roam-my-folder]]
+allows my to redefine the location of the org-roam project without running
+*switch-project*
+
+Optionally create the folder, if it does not exist
+#+begin_example
+mkdir -p /tmp/scratch/org-roam
+#+end_example
+
+Define the variable
+#+begin_src emacs-lisp
+  (setq org-roam-my-folder "/tmp/scratch/org-roam")
+#+end_src
