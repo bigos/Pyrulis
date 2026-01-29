@@ -29,3 +29,6 @@ The available resolutions were found with:
 #+begin_example
 hyprctl monitors
 #+end_example
+
+fixing the KVM problem
+https://superuser.com/a/1933612
