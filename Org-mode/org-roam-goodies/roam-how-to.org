@@ -43,6 +43,7 @@ allows me to redefine the location of the org-roam for the (separate) Emacs sess
 Optionally create the folder, if it does not exist
 Define the variable
 #+begin_src emacs-lisp
-  (make-directory "/tmp/scratch/org-roam" :parents)
-  (setq org-roam-my-folder "/tmp/scratch/org-roam")
+  (progn
+    (make-directory "/tmp/scratch/org-roam" :parents)
+    (setq org-roam-my-folder "/tmp/scratch/org-roam"))
 #+end_src
