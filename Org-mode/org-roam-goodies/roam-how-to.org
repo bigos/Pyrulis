@@ -35,6 +35,8 @@ symbolic link from the folder to current. The current is defined in the Emacs
 config as the part of the path loading to org-roam folder with the org-roam data.
 
 ** alternative to switch_project
+
+*** first attempt
 The Emacs variable org-roam-my-folder
 [[file:~/.emacs.d/personal/organised.el::(defvar org-roam-my-folder]]
 allows me to redefine the location of the org-roam for the (separate) Emacs session and project without running
@@ -46,6 +48,13 @@ Define the variable
   (let ((new-current "/tmp/scratch/org-roam/"))
     (make-directory new-current :parents)
     (setq org-roam-my-folder new-current))
+#+end_src
+
+*** second attempt
+[[file:~/.emacs.d/personal/organised.el::defun override-current-org-roam-my-folder (path]]
+
+#+begin_src emacs-lisp
+  (override-current-org-roam-my-folder "/tmp/scratch/org-roam/")
 #+end_src
 
 ** recommended .gitignore
