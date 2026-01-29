@@ -51,7 +51,7 @@ Define the variable
 ** recommended .gitignore
 If we need to track the notes with git, we can use a .gitignore like that:
 #+begin_example
-## gitignore for org roam notes
+# gitignore for org roam notes
 
 # ignore database
 org-roam/org-roam.db
