@@ -47,3 +47,15 @@ Define the variable
     (make-directory new-current :parents)
     (setq org-roam-my-folder new-current))
 #+end_src
+
+** recommended .gitignore
+If we need to track the notes with git, we can use a .gitignore like that:
+#+begin_example
+## gitignore for org roam notes
+
+# ignore database
+org-roam/org-roam.db
+
+# ignore accidentally exported html files
+org-roam/*.html
+#+end_example
