@@ -36,7 +36,7 @@ config as the part of the path loading to org-roam folder with the org-roam data
 
 ** alternative to switch_project
 The Emacs variable org-roam-my-folder
-[[file:~/.emacs.d-preludeEmacs30/personal/organised.el::(defvar org-roam-my-folder]]
+[[file:~/.emacs.d/personal/organised.el::(defvar org-roam-my-folder]]
 allows me to redefine the location of the org-roam for the (separate) Emacs session and project without running
 *switch-project*
 
