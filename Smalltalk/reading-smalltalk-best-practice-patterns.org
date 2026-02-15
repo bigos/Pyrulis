@@ -1,5 +1,9 @@
 * Reading Smalltalk Best Practice Patters
 
+** next reading
+[[*Coding][Coding]]
+[[*Good Software][Good Software]]
+
 ** book
 
 *** Index
@@ -10,11 +14,47 @@ pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Ken
 
 It is a style guide. Tries to penetrate beneath the surface to understand why the rules work.
 
+Covers naming, breaking logic into smaller components, and communicating clearly
+through the code.
+
+The advice is broken into 89 patterns.
+
+Naming trade offs: include lot of information in the name, keep the name short, avoid
+redundant information, reason for existence, type
+Name it after the role it plays
+What can be inferred from context?
+
 *** Introduction
 pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#8
 
 *** Coding
 pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#9
+
+#+begin_quote
+In this model, coding isn’t the poor handmaiden of design or analysis. Coding is where your fuzzy
+comfortable ideas awaken in the harsh dawn of reality. It is where you learn what your computer
+can do. If you stop coding, you stop learning.
+#+end_quote
+
+**** Talking Programs
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#9
+
+If program out of sudden gets difficult, it's talking to you. It is trying to
+tell you that something important is missing.
+
+Many patterns will guide you when the program talks to you. And you have to
+listen before you can react.
+
+**** TODO Good Software
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#11
+
+**** Style
+
+**** What's Missing
+
+**** Organisation
+
+**** Adoption
 
 *** Patterns
 pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#17
@@ -33,6 +73,3 @@ pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Ken
 
 *** Development Example
 pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#140
-
-** next reading
-pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#5
