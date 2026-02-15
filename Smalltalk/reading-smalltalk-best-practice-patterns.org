@@ -1,8 +1,8 @@
 * Reading Smalltalk Best Practice Patters
 
 ** next reading
-[[*Coding][Coding]]
-[[*Style][Style]]
+Patterns
+file:~/Programming/Pyrulis/Smalltalk/reading-smalltalk-best-practice-patterns.org::100
 
 ** interesting parts
 [[*Organisation][Organisation]]
@@ -96,6 +96,7 @@ An example of developing objects with explicit reference to the
 patterns as they apply.
 
 **** Adoption
+Read the book quickly in one go, and then use it as a reference when you program.
 
 *** Patterns
 pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#17
