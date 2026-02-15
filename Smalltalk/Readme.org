@@ -1,0 +1,7 @@
+* Readme
+
+** books
+https://rmod-files.lille.inria.fr/?dir=FreeBooks/BestSmalltalkPractices
+
+*** reading
+[[file:reading-smalltalk-best-practice-patterns.org::*Reading Smalltalk Best Practice Patters][Reading Smalltalk Best Practice Patters]]

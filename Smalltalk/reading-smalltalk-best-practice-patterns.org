@@ -1,0 +1,35 @@
+* Reading Smalltalk Best Practice Patters
+
+** book
+
+*** Index
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#2
+
+*** Preface
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#5
+
+*** Introduction
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#8
+
+*** Coding
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#9
+
+*** Patterns
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#17
+
+*** Behaviour
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#22
+
+*** Collections
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#84
+
+*** Classes
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#122
+
+*** Formatting
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#126
+
+*** Development Example
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#140
+
+** next reading
