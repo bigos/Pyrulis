@@ -8,6 +8,8 @@ pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Ken
 *** Preface
 pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#5
 
+It is a style guide. Tries to penetrate beneath the surface to understand why the rules work.
+
 *** Introduction
 pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#8
 
@@ -33,3 +35,4 @@ pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Ken
 pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#140
 
 ** next reading
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#5
