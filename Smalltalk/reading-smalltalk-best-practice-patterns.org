@@ -2,7 +2,10 @@
 
 ** next reading
 [[*Coding][Coding]]
-[[*Good Software][Good Software]]
+[[*Style][Style]]
+
+** interesting parts
+[[*Organisation][Organisation]]
 
 ** book
 
@@ -45,14 +48,52 @@ tell you that something important is missing.
 Many patterns will guide you when the program talks to you. And you have to
 listen before you can react.
 
-**** TODO Good Software
-pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#11
+**** Good Software
 
 **** Style
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#13
+
+You recognise it when you see it
+
+Once and only once
+Lots of little pieces
+Replaceable objects
+Moving objects to new contexts
+Rates of change should match
 
 **** What's Missing
 
 **** Organisation
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#15
+
+
+***** Patterns
+The philosophy behind patterns.
+
+***** Behavior
+Patterns for methods and messages. The problems you can solve by creating a new
+method. You will also find method patterns scattered throughout the remainder of the patterns,
+if a particular kind of method (like accessors) is tied to another pattern. The quick reference
+guide gathers all the method patterns together for easy reference.
+
+***** State
+Patterns for using instance and temporary variables. You will find a discussion of the
+pros and cons of using accessor methods and direct variable access.
+
+***** Collections
+The major collection classes and messages in the form of patterns. You will also
+find common tricks using collection
+
+***** Classes
+A brief introduction to how to use classes, since most of the topics regarding class
+creation are outside the scope of this book.
+
+***** Formatting
+My rules of code formatting, cast as patterns.
+
+***** Development Example
+An example of developing objects with explicit reference to the
+patterns as they apply.
 
 **** Adoption
 
