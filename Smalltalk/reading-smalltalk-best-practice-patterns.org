@@ -101,6 +101,30 @@ Read the book quickly in one go, and then use it as a reference when you program
 *** Patterns
 pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#17
 
+#+begin_quote
+Each pattern records a solution to a single recurring problem, including how to
+recognize the presence of the problem and how to generate the solution so that
+it fits the context. Patterns lead naturally one to the other, forming a kind of
+flexible fabric of decisions
+#+end_quote
+
+**** WHY PATTERNS WORK
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#18
+**** ROLE OF PATTERNS
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#20
+***** Reading
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#20
+***** Development
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#20
+***** Review
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#20
+***** Documentation
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#20
+***** Clean Up
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#20
+**** FORMAT
+pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#21
+
 *** Behaviour
 pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#22
 
