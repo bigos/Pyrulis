@@ -98,7 +98,7 @@ patterns as they apply.
 **** Adoption
 Read the book quickly in one go, and then use it as a reference when you program.
 
-*** Patterns
+*** TODO Patterns
 pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#17
 
 #+begin_quote
@@ -110,7 +110,29 @@ flexible fabric of decisions
 
 **** WHY PATTERNS WORK
 pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#18
-**** ROLE OF PATTERNS
+
+#+begin_quote
+we must find some way to make our words mean more.
+#+end_quote
+
+#+begin_quote
+Small organizations become dramatically more productive when they gather a
+critical mass of these "catch phrases".
+#+end_quote
+
+#+begin_quote
+Patterns are a literary form for capturing and transmitting common practice. Each pattern records a
+recurring problem, how to construct a solution for the problem, and why the solution is appropriate.
+By carrying along their justification, patterns avoid the problem of most "style guides" that simply
+prescribe solutions without discussing why or when the solution is appropriate.
+#+end_quote
+
+#+begin_quote
+There are patterns that tell you ... how to format source code so that it
+communicates as clearly as possible.
+#+end_quote
+
+**** TODO ROLE OF PATTERNS
 pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#20
 ***** Reading
 pdf:/home/jacek/Documents/Manuals/Smalltalk/Smalltalk-Best-Practice-Patterns-Kent-Beck.pdf#20
