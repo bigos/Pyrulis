@@ -29,7 +29,8 @@ https://www.haskell.org/ghcup/install/
 
 https://www.haskell.org/ghcup/install/#how-to-install
 
-following default options adds entry to ~/.bashrc and installs ghcup and cabal
+following default options adds entry to file:~/.bashrc and installs ghcup and
+cabal
 
 *** last instructions
 #+begin_example
