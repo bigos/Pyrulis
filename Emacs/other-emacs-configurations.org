@@ -3,6 +3,7 @@
 https://howardabrams.com/hamacs/
 
 https://protesilaos.com/codelog/2024-11-28-basic-emacs-configuration/
+[[https://protesilaos.com/codelog/2024-11-28-basic-emacs-configuration/#h:8d8c57cc-04c9-408f-aca1-6493bc5d8f0d][complete example]]
 
 https://codeberg.org/ashton314/emacs-bedrock
 
