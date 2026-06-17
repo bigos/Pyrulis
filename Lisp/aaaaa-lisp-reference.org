@@ -54,6 +54,9 @@ https://softwareengineering.stackexchange.com/questions/314898/in-which-order-sh
 
 data structures
 https://github.com/CodyReichert/awesome-cl#data-structures
+https://github.com/AccelerationNet/access/
+https://github.com/sirherrbatka/cl-data-structures
+https://github.com/vindarel/cl-str
 
 packages
 
