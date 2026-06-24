@@ -110,6 +110,8 @@ using quicklisp
 (ql:where-is-system "cl-gobject-introspection")
 # removing
 (quicklisp-client:uninstall  "cl-gtk4")
+# removing all
+(mapc #'ql:uninstall (mapcar #'ql-dist:short-description (ql-dist:installed-systems t)))
 #+end_example
 
 blogs
