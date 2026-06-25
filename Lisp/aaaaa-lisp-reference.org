@@ -111,7 +111,9 @@ using quicklisp
 # removing
 (quicklisp-client:uninstall  "cl-gtk4")
 # removing all
-(mapc #'ql:uninstall (mapcar #'ql-dist:short-description (ql-dist:installed-systems t)))
+(quicklisp-client:uninstall-dist  "ultralisp")
+(quicklisp-client:uninstall-dist  "quicklisp")
+
 #+end_example
 
 blogs
