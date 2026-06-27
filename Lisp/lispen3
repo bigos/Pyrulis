@@ -1,0 +1,67 @@
+#!/usr/bin/env ruby
+
+# written with the following version
+# https://ruby-doc.org/core-2.7.2/
+
+def pull_and_logs
+  # backtics method captures a string with command output
+  `git stash`
+  output = `git pull --prune`
+  puts output
+  puts 'logs ====================='
+
+  # system print output as it appears
+  # useful for long running commands
+  # where we do not capture the output
+  system 'git log -n 3'
+  puts ''
+end
+
+# to make it work ensure these libraries are installed to use json in emacs
+# $ sudo apt-get install -y libjansson4 libjansson-dev
+# https://github.com/org-roam/org-roam-ui/issues/63#issuecomment-899133494
+def do_emacs
+  puts ''
+  puts 'Emacs =========================='
+  Dir.chdir File.join(Dir.home, 'Programming', 'emacs-31')
+
+  pull_and_logs
+
+  print 'compile Emacs? y/n '
+
+  input = $stdin.gets.strip
+  if input.downcase == 'y'
+    # system('./configure --with-json') &&
+    system('make') &&
+      system('sudo make install')
+  else
+    puts 'skipping Emacs...'
+  end
+end
+
+def do_sbcl
+  puts ''
+  puts 'SBCL =========================='
+  Dir.chdir File.join(Dir.home, 'Programming', 'sbcl')
+
+  # system('ssh-add')
+  pull_and_logs
+
+  print 'compile SBCL? y/n '
+
+  input = $stdin.gets.strip
+  if input.downcase == 'y'
+    system('sh ./clean.sh') &&
+      system('sh make.sh --dynamic-space-size=4Gb') &&
+      system('sudo sh ./install.sh')
+  else
+    puts 'skipping SBCL...'
+  end
+end
+
+def main
+  do_emacs
+  do_sbcl
+end
+
+main
