@@ -1,5 +1,13 @@
 * BCM435
 
 ** Debian
+
+** old
 this page had best instructions
 https://wiki.debian.org/wl
+
+** trixie and lmde7
+#+begin_example
+sudo apt install broadcom-sta-dkms
+sudo reboot
+#+end_example
