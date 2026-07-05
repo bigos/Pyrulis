@@ -18,6 +18,8 @@ lrwxrwxrwx  1 jacek jacek   72 Apr 18  2025 switch_project -> /home/jacek/Progra
 #+end_example
 
 ** create a new project and switch to it
+file:~/Documents/Roams/
+
 Make a new roam called ~diagram~ and switch project
 #+begin_example
 mkdir -p ./diagram/org-roam/daily
