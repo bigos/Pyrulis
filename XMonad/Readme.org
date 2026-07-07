@@ -1,0 +1,39 @@
+* Readme
+** install
+https://xmonad.org/INSTALL.html
+** Preparation
+prepare ~/.config/xmonad
+
+prepare initial config file
+file:~/.config/xmonad/xmonad.hs
+
+Download XMonad sources
+
+** Build using stack
+Because I have ghcup, I have stack already installed.
+
+*** Create a New Project
+#+begin_example
+cd ~/.config/xmonad/
+stack init
+#+end_example
+
+That creates stack.yaml file
+
+compile
+#+begin_example
+stack install
+stack build
+#+end_example
+
+the xmonad is built in folder /home/jacek/.local/bin/
+add it to bashrc if needed
+
+** Make XMonad your window manager
+make file:~/.xsession read
+#+begin_example
+exec monad
+#+end_example
+
+
+Now login into blank X session gives me the compiled xmonad
