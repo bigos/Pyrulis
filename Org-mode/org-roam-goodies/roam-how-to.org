@@ -18,6 +18,8 @@ lrwxrwxrwx  1 jacek jacek   72 Apr 18  2025 switch_project -> /home/jacek/Progra
 #+end_example
 
 ** create a new project and switch to it
+file:~/Documents/Roams/
+
 Make a new roam called ~diagram~ and switch project
 #+begin_example
 mkdir -p ./diagram/org-roam/daily
@@ -40,6 +42,14 @@ config as the part of the path loading to org-roam folder with the org-roam data
 
 #+begin_src emacs-lisp
   (override-current-org-roam-my-folder "/tmp/scratch/org-roam/")
+#+end_src
+
+
+** creating new roam alternative
+#+begin_src emacs-lisp
+  (let ((new-current "/tmp/scratch/org-roam/"))
+    (make-directory new-current :parents)
+    (override-current-org-roam-my-folder new-current))
 #+end_src
 
 ** recommended .gitignore
