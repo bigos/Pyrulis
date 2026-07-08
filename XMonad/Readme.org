@@ -51,4 +51,4 @@ exec monad
 #+end_example
 
 
-Now login into blank X session gives me the compiled xmonad
+Now login into blank X session gives me the compiled xmonad as window manager
