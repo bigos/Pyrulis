@@ -1,13 +1,28 @@
 * Readme
 ** install
 https://xmonad.org/INSTALL.html
+
 ** Preparation
 prepare ~/.config/xmonad
 
 prepare initial config file
 file:~/.config/xmonad/xmonad.hs
 
+#+begin_src haskell
+  import XMonad
+
+  main :: IO ()
+  main = xmonad $ def
+    { modMask = mod4Mask -- rebind Mod to Super key
+    }
+#+end_src
+
 Download XMonad sources
+#+begin_example
+cd ~/.config/xmonad/
+git clone https://github.com/xmonad/xmonad
+git clone https://github.com/xmonad/xmonad-contrib
+#+end_example
 
 ** Build using stack
 Because I have ghcup, I have stack already installed.
