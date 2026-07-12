@@ -1,42 +1,22 @@
 * Roam How To
 
-
 This folder is for folders with org-roam notes.
 
-There should be a symbolic link called current that points to one of those
-folders and is used by Emacs configuration.
+** switch project script
+This switches the current symbolic link to point to the right roam.
 
 #+begin_example
-~/Documents/Roams$ ls -alh | grep current
-lrwxrwxrwx  1 jacek jacek   14 Jan 17 18:35 current -> ./githubkasten
+$ pwd
+/home/jacek/Documents/Roams
+
+$ ./switch_project ./githubkasten
+Switching the current Roam to ./githubkasten
+
+'./current' -> './githubkasten'
 #+end_example
-
-also there should be a switch_project script
-#+begin_example
-~/Documents/Roams$ ls -alh | grep switch
-lrwxrwxrwx  1 jacek jacek   72 Apr 18  2025 switch_project -> /home/jacek/Programming/Pyrulis/Org-mode/org-roam-goodies/switch_project
-#+end_example
-
-** create a new project and switch to it
-file:~/Documents/Roams/
-
-Make a new roam called ~diagram~ and switch project
-#+begin_example
-mkdir -p ./diagram/org-roam/daily
-./switch_project ./diagram
-#+end_example
-
-Start Emacs and run M-x org-roam-dired.
-
-In the folder that opens run M-x org-roam-db-sync.
-
-Press C-x n f and enter the name of your first node. Press C-c C-c to confirm.
-
-I can switch between folders using the switch_project script. The script creates
-symbolic link from the folder to current. The current is defined in the Emacs
-config as the part of the path loading to org-roam folder with the org-roam data.
 
 ** nice alternative to switch_project
+This does not require use of the symbolic link, but uses internal Emacs setting.
 
 [[file:~/.emacs.d/personal/organised.el::defun override-current-org-roam-my-folder (path]]
 
