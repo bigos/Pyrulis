@@ -179,6 +179,7 @@ https://usr.lmf.cnrs.fr/lpo/
 https://usr.lmf.cnrs.fr/lpo/lpo.pdf
 pdf:/home/jacek/Documents/Manuals/OCaml/lpo.pdf#5
 
+books
 https://ocaml.org/books?language=english&difficulty=All&pricing=All
 
 https://dev.realworldocaml.org/toc.html
