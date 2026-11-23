@@ -295,7 +295,7 @@ https://gitlab.com/gasche-snippets/dune-c-library-repro-case/-/tree/third-iterat
 *** gir
 https://github.com/btj/ocaml-gtk
 
-sudo apt install gobject-introspection
+sudo apt install gobject-introspection libgirepository-2.0-dev
 
 *** web examples
 
