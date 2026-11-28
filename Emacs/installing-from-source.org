@@ -24,5 +24,5 @@ sudo make install
 It is worth to mention other needed packages
 
 #+begin_example
-sudo apt install libgtk-4-dev libgirepository-2.0-dev libgtk-4-doc sbcl synaptic  playonlinux  mate-terminal redshift
+sudo apt install libgtk-4-dev libgirepository-2.0-dev gobject-introspection libgtk-4-doc sbcl synaptic  playonlinux  mate-terminal redshift
 #+end_example
