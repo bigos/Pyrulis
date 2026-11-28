@@ -95,7 +95,8 @@ open Base;;
 #+end_example
 
 ** toplevel
-https://ocaml.org/manual/5.2/toplevel.html
+https://ocaml.org/manual/ and find toplevel
+in III. The OCaml tools
 
 ** tour
 https://ocaml.org/docs/tour-of-ocaml
@@ -165,7 +166,7 @@ https://ocaml.org/docs/search?q=let
 https://ocaml.org/packages/search?q=base
 
 ** books
-https://ocaml.org/manual/5.3/index.html
+https://ocaml.org/manual/
 
 https://johnwhitington.net/ocamlfromtheverybeginning/index.html
 
@@ -294,7 +295,7 @@ https://gitlab.com/gasche-snippets/dune-c-library-repro-case/-/tree/third-iterat
 *** gir
 https://github.com/btj/ocaml-gtk
 
-sudo apt install gobject-introspection
+sudo apt install gobject-introspection libgirepository-2.0-dev
 
 *** web examples
 
